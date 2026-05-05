@@ -42,10 +42,18 @@
     --focus-ring-offset: 2px;
     --focus-ring-color:  var(--green);
 
-    /* ─── Farben ─── */
+    /* ─── Farben (Primitives) ─── */
     --green: #78b41b;
     --green-hover: #58990F;
     --green-light: #f0fae6;
+
+    /* ─── Semantische Farb-Aliases ─── */
+    /* Neuer Code soll diese Namen nutzen. --green bleibt für Bestand. */
+    --color-action:  var(--green);       /* Primäre CTAs, Buttons */
+    --color-action-hover: var(--green-hover);
+    --color-success: var(--green);       /* Erfolgs-Feedback, Häkchen, Checkouts */
+    --color-link:    var(--green);       /* Fließtext-Links */
+    --color-rating:  #E8A020;           /* Bewertungssterne */
 
     /* ─── Produkt-Kategoriefarben ─── */
     --cat-cbd: #C5B4E3;
@@ -862,7 +870,7 @@
 
   /* ─── Rating ─── */
   .rating { display: flex; align-items: center; gap: 0.25rem; font-size: var(--text-xs); color: var(--fg-muted); }
-  .rating .material-icons { font-size: 1rem; color: #E8A020; }
+  .rating .material-icons { font-size: 1rem; color: var(--color-rating); }
   .rating .material-icons.--empty { color: var(--border-light); }
 
   /* ─── Price Stack ─── */
