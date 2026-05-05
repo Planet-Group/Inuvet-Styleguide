@@ -108,6 +108,9 @@
     /* ─── Overlay-Farben ─── */
     --color-overlay-dark:  rgba(0, 0, 0, 0.4);
     --color-overlay-light: rgba(255, 255, 255, 0.6);
+
+    /* ─── Layout ─── */
+    --container-max: 1536px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -365,7 +368,7 @@
   }
 
   /* ─── Page ─── */
-  .page { max-width: 1536px; margin: 0 auto; padding: var(--margin); }
+  .page { max-width: var(--container-max); margin: 0 auto; padding: var(--margin); }
 
   /* ─── Header ─── */
   .header {
@@ -510,7 +513,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 1536px;
+    max-width: var(--container-max);
     padding: 0 var(--margin);
   }
   .section-type.--v3 .section-type__content {
@@ -1334,7 +1337,7 @@
   .site-footer a:hover { color: var(--fg-muted); }
 
   .footer-main {
-    max-width: 1536px;
+    max-width: var(--container-max);
     margin: 0 auto;
     padding: var(--module-2xl) var(--margin) var(--module);
     display: grid;
@@ -1358,7 +1361,7 @@
   .footer-col li a:hover { color: var(--fg); }
 
   .footer-bar {
-    max-width: 1536px;
+    max-width: var(--container-max);
     margin: 0 auto;
     padding: var(--module) var(--margin);
     border-top: 1px solid var(--border-light);
