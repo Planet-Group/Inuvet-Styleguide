@@ -5,7 +5,6 @@
    ═══════════════════════════════════════════ */
   :root {
     --base: 1rem;
-    --ratio: 1.5;
     --module: clamp(1.5rem, 1rem + 2.7vw, 3rem);
     --half-module: clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem);
 
@@ -74,7 +73,6 @@
     --cat-hormone-light: #f4e9ef;
 
     --module-2xl: calc(var(--module) * 2);
-    --module-3xl: calc(var(--module) * 3);
 
     --icon-box-sm: calc(var(--base) * 2.5);
     --icon-box-md: calc(var(--base) * 2.75);
@@ -96,7 +94,6 @@
     --anim-delay: 0ms;        /* Per-Element Verzögerung für gestaffelte Animationen */
 
     /* ─── Z-Index ─── */
-    --z-below:   -1;
     --z-default:  1;
     --z-nav:    100;
     --z-dropdown: 110;
