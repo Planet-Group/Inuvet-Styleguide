@@ -4009,8 +4009,8 @@
 function toggleMobile() {
   var menu = document.getElementById('mobileMenu');
   var btn = document.getElementById('hamburger');
-  var isOpen = menu.classList.toggle('open');
-  btn.classList.toggle('open');
+  var isOpen = menu.classList.toggle('--open');
+  btn.classList.toggle('--open');
   btn.setAttribute('aria-expanded', isOpen);
   btn.setAttribute('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
 }
@@ -4018,8 +4018,8 @@ function toggleMobile() {
 function closeMobile() {
   var menu = document.getElementById('mobileMenu');
   var btn = document.getElementById('hamburger');
-  menu.classList.remove('open');
-  btn.classList.remove('open');
+  menu.classList.remove('--open');
+  btn.classList.remove('--open');
   btn.setAttribute('aria-expanded', 'false');
   btn.setAttribute('aria-label', 'Navigation öffnen');
 }
