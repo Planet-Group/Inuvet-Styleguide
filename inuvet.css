@@ -14,6 +14,7 @@
     --section-gap: var(--module);
 
     --text-xs: 0.667rem;
+    --text-sm: 0.8rem;
     --text-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
     --text-m: clamp(1.25rem, 1rem + 0.7vw, 1.5rem);
     --text-l: clamp(1.5rem, 1rem + 1.7vw, 2.25rem);
