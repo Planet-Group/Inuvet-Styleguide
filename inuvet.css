@@ -327,7 +327,7 @@
   /* Mobile: einspaltig */
   @media (max-width: 767px) {
     .site-nav { padding: 0 var(--half-module); }
-    .mobile-menu.open { display: flex; flex-direction: column; padding: var(--module); gap: 0.5rem; }
+    .mobile-menu.--open { display: flex; flex-direction: column; padding: var(--module); gap: 0.5rem; }
     .mobile-menu .nav-col { display: contents; }
     .mobile-menu a {
       font-size: var(--text-base);
@@ -343,7 +343,7 @@
 
   /* Desktop: mehrspaltig */
   @media (min-width: 768px) {
-    .mobile-menu.open {
+    .mobile-menu.--open {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: var(--gutter);
