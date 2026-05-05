@@ -37,6 +37,11 @@
     --border-focus:  var(--fg);
     --border-active: var(--fg-hover); /* #333 — weicher als --fg, klar sichtbar */
 
+    /* ─── Focus-Ring ─── */
+    --focus-ring-width:  2px;
+    --focus-ring-offset: 2px;
+    --focus-ring-color:  var(--green);
+
     /* ─── Farben ─── */
     --green: #78b41b;
     --green-hover: #58990F;
@@ -938,8 +943,8 @@
 
   /* ─── Global focus ring ─── */
   :focus-visible {
-    outline: 2px solid var(--green);
-    outline-offset: 2px;
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
   }
 
   /* ─── Focus state ─── */
@@ -948,10 +953,13 @@
   .form-field select:focus {
     border-color: var(--border-focus);
   }
+  /* Setzt den globalen :focus-visible durch höhere Spezifität wieder ein,
+     da der Base-Selektor (.form-field input) outline:none mit (0,1,1) überschreibt. */
   .form-field input:focus-visible,
   .form-field textarea:focus-visible,
   .form-field select:focus-visible {
-    outline: none;
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
   }
 
   /* ─── Floating label ─── */
