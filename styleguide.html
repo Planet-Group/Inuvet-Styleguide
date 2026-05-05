@@ -731,9 +731,13 @@
     </div>
 
     <table class="spec-table">
-      <tr><th>Primary</th><td>Hintergrund schwarz · Schrift weiß · Border schwarz · Hover: <code>#333</code></td></tr>
-      <tr><th>Secondary</th><td>Hintergrund transparent · Rand + Schrift schwarz · Hover: invertiert (schwarz gefüllt, weiße Schrift)</td></tr>
-      <tr><th>Ghost</th><td>Kein Hintergrund, kein Rand · Nur Text + animierter Pfeil · Hover: Pfeil bewegt sich</td></tr>
+      <tr><th>Primary<br><code>.btn.--primary</code></th><td>Hintergrund <code>--fg</code> · Schrift <code>--bg</code> · Border <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --fg</code></td></tr>
+      <tr><th>Secondary<br><code>.btn.--secondary</code></th><td>Hintergrund transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert (schwarz gefüllt, weiße Schrift)</td></tr>
+      <tr><th>Ghost<br><code>.btn.--ghost</code></th><td>Kein Hintergrund, kein Rand, kein Padding-left/right · Text + animierter Pfeil <code>' →'</code> · Hover: Pfeil verschiebt sich</td></tr>
+      <tr><th>Volle Breite<br><code>.btn.--full</code></th><td>Zusatz-Modifier: <code>width: 100%</code> · Kombinierbar mit allen drei Stilvarianten</td></tr>
+      <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code></td></tr>
+      <tr><th>Icon-only<br><code>.btn.--icon</code></th><td>Kein Hintergrund, kein Border, kein Padding · Für Nav-Icons (Suche, Warenkorb, Schließen) · Kombinierbar mit <code>.icon-badged</code></td></tr>
+      <tr><th>Disabled<br><code>[disabled]</code> / <code>.--disabled</code></th><td><code>opacity: 0.35</code> · <code>pointer-events: none</code> · Für <code>&lt;button&gt;</code>: HTML-Attribut <code>disabled</code>. Für <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
     </table>
 
     <!-- Demo: Default -->
@@ -777,6 +781,24 @@
       <button class="btn --secondary --with-icon"><span class="material-icons">favorite_border</span> Merken</button>
     </div>
     <p class="demo-note">Modifier <code>.--with-icon</code>: wechselt auf <code>inline-flex</code> + vertikale Zentrierung via <code>align-items: center</code> und <code>gap: 0.5rem</code>.</p>
+
+    <!-- Demo: Volle Breite -->
+    <div class="demo-label">Volle Breite — <code>.btn.--full</code></div>
+    <div style="max-width:24rem">
+      <a class="btn --primary --full">Primary volle Breite</a>
+      <a class="btn --secondary --full" style="margin-top:0.5rem">Secondary volle Breite</a>
+    </div>
+    <p class="demo-note">Kombinierbar mit allen Stilvarianten. Typisch: Warenkorb-CTA, Formular-Submit.</p>
+
+    <!-- Demo: Icon-only -->
+    <div class="demo-label">Icon-only — <code>.btn.--icon</code></div>
+    <div class="sg-btn-row">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+      <button class="btn --icon" aria-label="Schließen"><span class="material-icons">close</span></button>
+      <button class="btn --icon" aria-label="Favorit"><span class="material-icons">favorite_border</span></button>
+    </div>
+    <p class="demo-note">Kein Hintergrund, kein Border. Immer mit <code>aria-label</code> auszeichnen.</p>
 
     <!-- Demo: Disabled State -->
     <div class="demo-label">Disabled State</div>
