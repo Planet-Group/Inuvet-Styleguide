@@ -144,7 +144,6 @@
   .spec-table tr:last-child td { border-bottom: none; }
 
   /* ─── Styleguide Demo Utilities ─── */
-  .text-muted { color: var(--fg-muted); }
   .sg-logo-demo { width: 4.5rem; height: auto; }
 
   .sg-h3 { margin-bottom: var(--half-module); }
