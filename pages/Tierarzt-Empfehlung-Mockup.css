@@ -11,7 +11,7 @@
 .options-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: var(--color-overlay-dark);
   z-index: 850;
   opacity: 0;
   visibility: hidden;
