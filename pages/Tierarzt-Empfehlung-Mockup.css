@@ -4,6 +4,68 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
+/* ─── Seiten-Elemente (Mockup-Inhalt, nicht inuvet.css, nicht mockup-ui.css) ─── */
+
+.shop-notice {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--green);
+  padding: var(--half-module);
+  margin-bottom: var(--module);
+}
+.shop-notice p {
+  font-size: var(--text-base);
+  color: var(--fg);
+  line-height: var(--lh-base);
+  margin-bottom: calc(var(--half-module) / 2);
+}
+.shop-notice p:last-child { margin-bottom: 0; }
+
+.shop-page-title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  margin-bottom: var(--half-module);
+}
+
+/* ─── Checkout-Modal ─── */
+.shop-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--anim-mid), visibility var(--anim-mid);
+}
+.shop-modal-overlay.--open { opacity: 1; visibility: visible; }
+.shop-modal {
+  background: var(--bg);
+  width: 100%;
+  max-width: 480px;
+  padding: var(--module);
+  transform: translateY(1rem);
+  transition: transform var(--anim-mid);
+}
+.shop-modal-overlay.--open .shop-modal { transform: translateY(0); }
+.shop-modal__icon  { margin-bottom: var(--half-module); }
+.shop-modal__title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  margin-bottom: var(--half-module);
+}
+.shop-modal__body {
+  font-size: var(--text-base);
+  color: var(--fg-muted);
+  line-height: var(--lh-base);
+  margin-bottom: var(--module);
+}
+.shop-modal__actions { display: flex; flex-direction: column; gap: calc(var(--half-module) / 2); }
+
 /* ─── Navigation ─── */
 /* nav-left a font-size --text-base ist jetzt globaler Standard in inuvet.css */
 

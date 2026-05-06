@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
   <link rel="stylesheet" href="bundle.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
 </head>
-<body>
+<body class="--mockup-bar-visible">
 
   <!-- Announcement Bar -->
   <div class="announcement-bar" id="announcementBar">
@@ -127,15 +128,11 @@
         <!-- Rechte Spalte: Zusammenfassung -->
         <div>
           <div class="summary-card" id="summaryCard">
-            <p class="summary-card__title">Dein Persönliches Bundle</p>
+            <p class="summary-card__title">Dein Persönliches Bundle · <span id="paidCount">0</span> Produkte</p>
             <p class="summary-card__products" id="summaryProducts">—</p>
 
             <div class="warning-banner" id="bundleWarning" style="display:none;">
               Achtung: Dein Bundle ist nicht vollständig!
-            </div>
-
-            <div class="summary-card__line">
-              <span>Ausgewählte Produkte (<span id="paidCount">0</span>)</span>
             </div>
 
             <div class="summary-card__line --free">
@@ -150,7 +147,7 @@
 
             <div id="upsellHint" class="upsell-hint" style="display:none;"></div>
 
-            <button type="button" class="btn --primary --full" onclick="addBundleToCart()">
+            <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
               In den Warenkorb
             </button>
           </div>
@@ -187,16 +184,18 @@
       </div>
     </div>
 
-    <!-- ─── Footer ─── -->
-    <div class="shop-footer">© 2026 Inuvet GmbH &nbsp;·&nbsp; <a href="#">Datenschutz</a> &nbsp;·&nbsp; <a href="#">Impressum</a></div>
 
   </main>
 
-  <!-- Settings FAB -->
-  <button type="button" class="settings-fab" onclick="openSettings()">
-    <span class="material-icons" style="font-size:1rem;">tune</span>
-    Parameter festlegen
-  </button>
+  <!-- Mockup-Steuerleiste -->
+  <div class="mockup-bar" id="mockupBar">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Konfiguration:</span>
+      <button class="mockup-btn" onclick="openSettings()">Parameter festlegen</button>
+    </div>
+    <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
+  </div>
+  <button class="mockup-revive" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
   <!-- Settings Modal -->
   <div class="modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
@@ -549,6 +548,16 @@
       } else {
         hint.style.display = 'none';
       }
+    };
+
+    // ── Mockup-Bar ──────────────────────────────────────────────────────────
+    window.toggleMockupBar = () => {
+      const bar    = document.getElementById('mockupBar');
+      const revive = document.getElementById('mockupRevive');
+      const hide   = !bar.classList.contains('--hidden');
+      bar.classList.toggle('--hidden', hide);
+      revive.classList.toggle('--visible', hide);
+      document.body.classList.toggle('--mockup-bar-visible', !hide);
     };
 
     // ── Settings Modal ──────────────────────────────────────────────────────
