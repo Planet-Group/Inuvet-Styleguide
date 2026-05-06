@@ -238,7 +238,7 @@
     gap: var(--half-module);
   }
   .nav-left a {
-    font-size: var(--text-xs);
+    font-size: var(--text-base);
     color: var(--fg-muted);
     text-decoration: none;
     transition: color var(--anim-fast);
@@ -340,6 +340,7 @@
   /* Mobile: einspaltig */
   @media (max-width: 767px) {
     .site-nav { padding: 0 var(--half-module); }
+    .nav-left a { display: none; }          /* Links weg, nur Hamburger */
     .mobile-menu.--open { display: flex; flex-direction: column; padding: var(--module); gap: 0.5rem; }
     .mobile-menu .nav-col { display: contents; }
     .mobile-menu a {
@@ -356,6 +357,7 @@
 
   /* Desktop: mehrspaltig */
   @media (min-width: 768px) {
+    .nav-hamburger { display: none; }       /* Hamburger weg, nur Links */
     .mobile-menu.--open {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -456,7 +458,7 @@
   }
 
   /* Variante 1: kein Hintergrund, H1, Button unten bündig mit Bild */
-  .section-type.--v1 { gap: var(--gutter); }
+  .section-type.--v1 { gap: var(--gutter); max-width: var(--container-max); margin-left: auto; margin-right: auto; }
   .section-type.--v1 .section-type__content {
     justify-content: space-between;
   }
@@ -476,7 +478,7 @@
   }
 
   /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding 3rem */
-  .section-type.--v2 { gap: 0; }
+  .section-type.--v2 { gap: 0; max-width: var(--container-max); margin-left: auto; margin-right: auto; }
   .section-type.--v2 .section-type__content {
     background: var(--green-light);
     padding: var(--module);

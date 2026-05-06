@@ -5,7 +5,7 @@
    ═══════════════════════════════════════════════════════ */
 
 /* ─── Navigation ─── */
-.nav-left a { font-size: var(--text-base); }
+/* nav-left a font-size --text-base ist jetzt globaler Standard in inuvet.css */
 
 /* ─── Options-Drawer (Varianten wählen) ─── */
 .options-overlay {
