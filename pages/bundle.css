@@ -14,7 +14,7 @@
 @media (min-width: 768px) {
   .bundle-intro {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: baseline;
+    align-items: start;
   }
 }
 
