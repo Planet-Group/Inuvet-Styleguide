@@ -347,6 +347,12 @@
     visibility: visible;
     transform: translateY(0);
   }
+  /* Anderes Item wird gehovered → fokussiertes Dropdown schließen */
+  .nav-left:has(.nav-item:hover) .nav-item:not(:hover) .nav-item__dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+  }
   .nav-item__dropdown a {
     display: block;
     padding: 0.375rem var(--half-module);
