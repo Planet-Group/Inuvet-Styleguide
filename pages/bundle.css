@@ -7,13 +7,14 @@
 .bundle-intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--gutter);
+  gap: calc(var(--base) * 0.5);
   margin-bottom: var(--module);
 }
 
 @media (min-width: 768px) {
   .bundle-intro {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--gutter);
     align-items: start;
   }
 }
