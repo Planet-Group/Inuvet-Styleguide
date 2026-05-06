@@ -310,8 +310,11 @@
                 <span class="material-icons">close</span>
               </button>
             </div>
-            <p class="cart-item__variant">${totalPaid} Produkte${freeLabel}: ${productNames}</p>
-            <p class="cart-item__price">${fmt2(subtotal)}</p>
+            <p class="cart-item__variant">${productNames}</p>
+            <div class="cart-item__bottom">
+              <span class="cart-item__qty-text">${totalPaid} Produkte${freeLabel}</span>
+              <span class="cart-item__price">${fmt2(subtotal)}</span>
+            </div>
           </div>
         </div>`;
 
