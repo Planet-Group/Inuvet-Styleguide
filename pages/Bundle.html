@@ -291,37 +291,36 @@
       });
       const subtotal = activeBundle.reduce((s, p) => s + p.price * p.quantity, 0);
 
-      const itemsHTML = activeBundle.map(p => {
-        const free = naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
-        const thumbHTML = p.image
-          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
-          : '';
-        return `
-          <div class="cart-item">
-            <div class="product-thumb-wrap">
-              <div class="product-thumb placeholder-bg">${thumbHTML}</div>
-              ${free > 0 ? `<div class="floating-meta"><span class="badge --free">+${free} gratis</span></div>` : ''}
+      const productNames = activeBundle.map(p => p.title).join(', ');
+      const firstImage   = activeBundle.find(p => p.image)?.image ?? '';
+      const thumbHTML    = firstImage
+        ? `<img src="${firstImage}" alt="Bundle" style="width:100%;height:100%;object-fit:contain;display:block;">`
+        : '';
+      const freeLabel    = totalFree > 0 ? ` · inkl. ${totalFree} Gratisprodukt${totalFree > 1 ? 'e' : ''}` : '';
+
+      const bundleItemHTML = `
+        <div class="cart-item">
+          <div class="product-thumb-wrap">
+            <div class="product-thumb placeholder-bg">${thumbHTML}</div>
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <p class="cart-item__name">Dein Persönliches Bundle</p>
             </div>
-            <div class="cart-item__info">
-              <div class="cart-item__top">
-                <div>
-                  <p class="cart-item__name">${p.title}</p>
-                </div>
-              </div>
-              <div class="cart-item__bottom">
-                <span class="cart-item__variant">${p.quantity} Stk. · ${fmt2(p.price)} / Stk.</span>
-                <span style="font-weight:700;">${fmt2(p.price * p.quantity)}</span>
-              </div>
+            <p class="cart-item__variant">${totalPaid} Produkte${freeLabel}</p>
+            <div class="cart-item__bottom">
+              <span class="cart-item__variant" style="color:var(--fg-muted);font-size:var(--text-xs);">${productNames}</span>
+              <span style="font-weight:700;">${fmt2(subtotal)}</span>
             </div>
-          </div>`;
-      }).join('');
+          </div>
+        </div>`;
 
       drawer.innerHTML = `
         <div class="cart-drawer__header">
-          <h2 class="cart-drawer__title">Dein Persönliches Bundle <span class="cart-drawer__count">(${totalPaid} Stk.)</span></h2>
+          <h2 class="cart-drawer__title">Warenkorb</h2>
           <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
         </div>
-        <div class="cart-drawer__items">${itemsHTML}</div>
+        <div class="cart-drawer__items">${bundleItemHTML}</div>
         <div class="cart-drawer__footer">
           ${totalFree > 0 ? `
           <div class="cart-drawer__free-row">
