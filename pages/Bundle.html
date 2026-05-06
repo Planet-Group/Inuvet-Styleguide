@@ -307,7 +307,6 @@
               <div class="cart-item__top">
                 <div>
                   <p class="cart-item__name">${p.title}</p>
-                  ${p.category ? `<div class="cart-item__variant cart-item__category">${p.category}</div>` : ''}
                 </div>
               </div>
               <div class="cart-item__bottom">
@@ -402,9 +401,6 @@
           ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
           : '';
 
-        const categoryHtml = p.category
-          ? `<span class="cart-item__category">${p.category}</span>` : '';
-
         const card = document.createElement('div');
         card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
         p.isNew = false;
@@ -418,7 +414,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${p.title}</p>
-                <div class="cart-item__variant">${categoryHtml}${categoryHtml ? '<span style="margin:0 0.25em;color:var(--border);">·</span>' : ''}${fmt(p.price)} / Stk.</div>
+                <div class="cart-item__variant">${fmt(p.price)} / Stk.</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">

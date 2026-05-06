@@ -61,14 +61,6 @@
   left: 0;
 }
 
-/* Kategorie-Label im Produkttitel */
-.cart-item__category {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
 
 .history-badge {
   display: inline-flex;
