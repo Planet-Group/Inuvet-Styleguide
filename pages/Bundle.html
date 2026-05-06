@@ -415,7 +415,10 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${p.title}</p>
-                <div class="cart-item__variant">${fmt(p.price)} / Stk.</div>
+                <div class="cart-item__variant bundle-item__meta">
+                  <span>${fmt(p.price)} / Stk.</span>
+                  ${historyBadgeHtml}
+                </div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">
@@ -437,7 +440,6 @@
                     <span class="material-icons">add</span>
                   </button>
                 </div>
-                ${historyBadgeHtml}
               </div>
             </div>
           </div>`;
