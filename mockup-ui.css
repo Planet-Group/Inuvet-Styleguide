@@ -4,6 +4,11 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
+/* ─── Body-Padding wenn Leiste sichtbar ─── */
+body.--mockup-bar-visible {
+  padding-bottom: 3.25rem;
+}
+
 /* ─── Floating Parameter-Button ─── */
 .mockup-fab {
   position: fixed;
