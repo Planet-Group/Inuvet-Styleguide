@@ -71,11 +71,10 @@
     </div>
 
     <div class="nav-center">
-      <!-- Logo SVG hier einfügen -->
-      <a href="/" aria-label="Startseite">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.4 113.4" style="width:2.5rem;height:auto" aria-hidden="true">
-          <!-- Logo-Pfade -->
-        </svg>
+      <!-- Logo: SVG direkt einbetten oder <img src="logo.svg"> -->
+      <a href="/" aria-label="Startseite" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;font-weight:700;font-size:var(--text-m);color:var(--fg)">
+        <span class="material-icons" style="color:var(--green)">pets</span>
+        inuvet
       </a>
     </div>
 
@@ -176,31 +175,61 @@
 
   <!-- ═══════════════════════════════════════════════════════
        MAIN CONTENT
-       Aufbau: .page als Wrapper, dann .section Blöcke.
-       Typische Landing Page: Hero → Trust → Features → CTA
-       Typische PDP: .pdp__layout als Basis (§14 Styleguide)
+       Typische Landing Page: Hero (--v1/v2/v3) → Features (tile-grid)
+                              → Testimonials → CTA-Sektion
+       Typische PDP: .pdp__layout (§14 Styleguide)
+       Alle section-type Varianten und Tile-Typen im Styleguide §5–6.
        ═══════════════════════════════════════════════════════ -->
   <main>
 
-    <!-- Hero-Sektion — Beispiel -->
-    <section class="section --full">
-      <div class="section__image">
-        <!-- <img src="..." alt=""> -->
+    <!-- ─── Hero — section-type --v1 (Bild links, Content rechts) ─── -->
+    <!-- Alternativen: --v2 (Content-Box mit grünem BG), --v3 (Vollbild mit Overlay) -->
+    <!-- Modifier: --viewport (100dvh), --reverse (Seiten tauschen) -->
+    <div class="section-type --v1">
+      <div class="section-type__image placeholder-bg">
+        <!-- <img src="..." alt="" style="width:100%;height:100%;object-fit:cover"> -->
       </div>
-      <div class="section__content">
-        <h1>Headline hier</h1>
-        <p>Subheadline oder kurzer Teaser-Text.</p>
-        <div style="display:flex;gap:var(--half-module);flex-wrap:wrap;margin-top:var(--module)">
-          <a class="btn --primary" href="#">Primäre Aktion</a>
-          <a class="btn --ghost" href="#">Mehr erfahren</a>
+      <div class="section-type__content">
+        <h1 class="section-type__headline">Headline hier</h1>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Subheadline oder kurzer Teaser-Text. Beschreibt das Angebot in einem Satz.</p>
+          <div style="display:flex;gap:var(--half-module);flex-wrap:wrap;margin-top:var(--module)">
+            <a class="btn --primary" href="#">Primäre Aktion</a>
+            <a class="btn --ghost" href="#">Mehr erfahren</a>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Weitere Sektionen hier einfügen -->
-    <!-- Verfügbare Typen: .section.--split, .section.--full, .section.--text -->
-    <!-- Tile-Grids: .tile-grid > .tile.--product / .tile.--icon / .tile.--image -->
-    <!-- Testimonials: .testimonial-grid / .testimonial-slider -->
+    <!-- ─── Feature-Tiles ─── -->
+    <!-- Varianten: .tile.--icon, .tile.--image, .tile.--product, .tile.--special -->
+    <div class="page" style="margin-top:var(--module)">
+      <div class="tile-grid">
+        <div class="tile --icon">
+          <div class="tile__content">
+            <div class="tile__icon icon-box --md placeholder-bg" style="margin-bottom:var(--half-module)"></div>
+            <h3>Feature A</h3>
+            <p class="text-muted">Kurze Beschreibung des Vorteils oder der Eigenschaft.</p>
+          </div>
+        </div>
+        <div class="tile --icon">
+          <div class="tile__content">
+            <div class="tile__icon icon-box --md placeholder-bg" style="margin-bottom:var(--half-module)"></div>
+            <h3>Feature B</h3>
+            <p class="text-muted">Kurze Beschreibung des Vorteils oder der Eigenschaft.</p>
+          </div>
+        </div>
+        <div class="tile --icon">
+          <div class="tile__content">
+            <div class="tile__icon icon-box --md placeholder-bg" style="margin-bottom:var(--half-module)"></div>
+            <h3>Feature C</h3>
+            <p class="text-muted">Kurze Beschreibung des Vorteils oder der Eigenschaft.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Weitere Sektionen hier einfügen ─── -->
 
   </main>
 
