@@ -189,3 +189,8 @@
   .icon-demo .material-icons { font-size: 1.5rem; }
   .icon-demo div { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 0.25rem; }
 
+
+/* ─── Navigation: Hamburger auf Desktop sichtbar (Styleguide hat nur Burger-Nav) ─── */
+@media (min-width: 768px) {
+  .nav-hamburger { display: flex; }
+}

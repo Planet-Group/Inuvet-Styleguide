@@ -141,6 +141,9 @@
     line-height: var(--lh-base);
   }
 
+  /* Mobile-Menu offen → Hintergrund-Scroll sperren */
+  body:has(.mobile-menu.--open) { overflow: hidden; }
+
   /* ─── Links & Listen (Fließtext) ─── */
   a:not([class]) {
     color: var(--green);
