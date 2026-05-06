@@ -108,5 +108,125 @@ body.--mockup-bar-visible {
 .mockup-revive:hover       { color: #fff; }
 .mockup-revive.--visible   { opacity: 1; pointer-events: auto; }
 
+/* ─── Mockup-Modal ─── */
+.mockup-modal-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
 
+.mockup-modal {
+  background: #1a1a1a;
+  color: #aaa;
+  font-family: monospace;
+  font-size: 0.75rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #333;
+}
 
+.mockup-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  gap: 0.5rem;
+}
+
+.mockup-modal__title {
+  color: #fff;
+  font-family: monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.mockup-modal__close {
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.12s;
+  font-size: 1rem;
+}
+.mockup-modal__close:hover { color: #fff; }
+.mockup-modal__close .material-icons { font-size: 1.1rem; }
+
+.mockup-modal__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mockup-modal__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: #111;
+  border-left: 2px solid #383838;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: #777;
+}
+
+.mockup-modal__desc {
+  font-size: 0.7rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mockup-modal__add-tier {
+  background: transparent;
+  border: 1px dashed #333;
+  color: #666;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.4em 0.75em;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.12s, color 0.12s;
+  width: 100%;
+}
+.mockup-modal__add-tier:hover { border-color: #555; color: #ccc; }
+
+.mockup-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 0.25rem;
+}
+
+/* Confirm-Variante des mockup-btn */
+.mockup-btn.--confirm {
+  border-color: var(--green);
+  color: var(--green);
+}
+.mockup-btn.--confirm:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* Tier-Rows im Mockup-Modal */
+.mockup-modal .tier-row {
+  border-bottom-color: #2a2a2a;
+}
+.mockup-modal .tier-row label { color: #555; }
+.mockup-modal .tier-input {
+  background: #111;
+  border-color: #333;
+  color: #ccc;
+  font-family: monospace;
+}
+.mockup-modal .tier-input:focus { border-color: #555; }
+.mockup-modal .tier-input:disabled { background: #0d0d0d; color: #444; }

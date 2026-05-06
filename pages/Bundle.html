@@ -198,29 +198,29 @@
   <button class="mockup-revive" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
   <!-- Settings Modal -->
-  <div class="modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
-    <div class="modal">
-      <div class="modal__header">
-        <h2 class="modal__title">Naturalrabatt konfigurieren</h2>
-        <button type="button" class="btn --icon" onclick="closeSettings()">
+  <div class="modal-overlay mockup-modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
+    <div class="mockup-modal">
+      <div class="mockup-modal__header">
+        <span class="mockup-modal__title">Naturalrabatt konfigurieren</span>
+        <button type="button" class="mockup-modal__close" onclick="closeSettings()">
           <span class="material-icons">close</span>
         </button>
       </div>
-      <div class="modal__body">
-        <div class="settings-backend-note">
-          <span class="material-icons" style="font-size:1rem; flex-shrink:0;">settings</span>
-          <span>Diese Werte sollen im <strong>Backend variabel einstellbar</strong> sein.</span>
+      <div class="mockup-modal__body">
+        <div class="mockup-modal__note">
+          <span class="material-icons" style="font-size:0.9rem; flex-shrink:0; color:#888;">settings</span>
+          <span>Diese Werte sollen im <strong style="color:#ccc;">Backend variabel einstellbar</strong> sein.</span>
         </div>
-        <p class="text-muted" style="margin-bottom:var(--half-module); font-size:var(--text-base);">
+        <p class="mockup-modal__desc">
           Lege fest, wie viele Produkte der Kunde kaufen muss, um Gratisprodukte zu erhalten.
         </p>
         <div id="tiersContainer"></div>
-        <button type="button" class="link" style="margin-top:var(--half-module); display:inline-block;" onclick="addEditingTier()">
+        <button type="button" class="mockup-modal__add-tier" onclick="addEditingTier()">
           + Stufe hinzufügen
         </button>
-        <div style="display:flex; justify-content:flex-end; gap:var(--half-module); margin-top:var(--module); padding-top:var(--half-module); border-top:1px solid var(--border-light);">
-          <button type="button" class="btn --ghost" onclick="closeSettings()">Abbrechen</button>
-          <button type="button" class="btn --primary" onclick="saveSettings()">Speichern</button>
+        <div class="mockup-modal__footer">
+          <button type="button" class="mockup-btn" onclick="closeSettings()">Abbrechen</button>
+          <button type="button" class="mockup-btn --confirm" onclick="saveSettings()">Speichern</button>
         </div>
       </div>
     </div>
