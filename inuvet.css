@@ -235,7 +235,7 @@
   .nav-left {
     display: flex;
     align-items: center;
-    gap: var(--half-module);
+    gap: 1rem;
   }
   .nav-left > a,
   .nav-item__trigger {
