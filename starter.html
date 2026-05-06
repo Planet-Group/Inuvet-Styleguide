@@ -72,12 +72,31 @@
               aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-links">
-        <!-- Desktop-Nav-Links hier -->
-        <a href="#">Produkte</a>
-        <a href="#">Über uns</a>
-        <a href="#">Ratgeber</a>
+      <!-- Desktop-Nav: .nav-item mit .nav-item__dropdown für Sub-Navigation -->
+      <!-- Einfacher Link ohne Sub-Nav: direkte <a> in .nav-left -->
+      <div class="nav-item">
+        <a href="#" class="nav-item__trigger">
+          Produkte <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown">
+          <a href="#">Gelenke &amp; Bewegung</a>
+          <a href="#">Beruhigung</a>
+          <a href="#">Magendarm</a>
+          <a href="#">Haut &amp; Fell</a>
+          <a href="#">Alle Produkte</a>
+        </div>
       </div>
+      <div class="nav-item">
+        <a href="#" class="nav-item__trigger">
+          Über uns <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown">
+          <a href="#">Philosophie</a>
+          <a href="#">Team</a>
+          <a href="#">Tierärztliche Beratung</a>
+        </div>
+      </div>
+      <a href="#">Ratgeber</a>
     </div>
 
     <div class="nav-center">

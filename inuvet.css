@@ -235,15 +235,20 @@
   .nav-left {
     display: flex;
     align-items: center;
-    gap: var(--half-module);
+    gap: var(--module);
   }
-  .nav-left a {
+  .nav-left > a,
+  .nav-item__trigger {
     font-size: var(--text-base);
     color: var(--fg-muted);
     text-decoration: none;
     transition: color var(--anim-fast);
+    white-space: nowrap;
   }
-  .nav-left a:hover { color: var(--fg); }
+  .nav-left > a:hover,
+  .nav-item__trigger:hover,
+  .nav-item:hover .nav-item__trigger,
+  .nav-item:focus-within .nav-item__trigger { color: var(--fg); }
 
   .nav-center {
     display: flex;
@@ -299,7 +304,61 @@
 
 
   /* ─── Nav dropdown (Sektionen) ─── */
+  .nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .nav-item__trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+    cursor: default;
+  }
+  .nav-item__trigger .material-icons {
+    font-size: 1rem;
+    transition: transform var(--anim-fast);
+    color: var(--fg-muted);
+  }
+  .nav-item:hover .nav-item__trigger .material-icons,
+  .nav-item:focus-within .nav-item__trigger .material-icons { transform: rotate(180deg); color: var(--fg); }
 
+  .nav-item__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: translateY(4px);
+    min-width: 14rem;
+    background: var(--bg);
+    border: 1px solid var(--border-light);
+    border-top: 2px solid var(--fg);
+    padding: var(--half-module) 0;
+    z-index: var(--z-dropdown);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--anim-fast), visibility var(--anim-fast), transform var(--anim-fast);
+  }
+  .nav-item:hover .nav-item__dropdown,
+  .nav-item:focus-within .nav-item__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .nav-item__dropdown a {
+    display: block;
+    padding: 0.375rem var(--half-module);
+    font-size: var(--text-base);
+    color: var(--fg-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--anim-fast), background var(--anim-fast);
+  }
+  .nav-item__dropdown a:hover { color: var(--fg); background: var(--accent-bg); }
+
+  /* Mobile: dropdown komplett ausblenden — mobile-menu übernimmt */
+  @media (max-width: 767px) {
+    .nav-item__dropdown { display: none; }
+  }
 
   /* ─── Hamburger ─── */
   .nav-hamburger {
