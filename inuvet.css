@@ -1763,7 +1763,7 @@
   .cart-item__name { font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); }
   .cart-item__remove { color: var(--fg-muted); flex-shrink: 0; }
   .cart-item__remove:hover { color: var(--fg); }
-  .cart-item__variant { font-size: var(--text-xs); color: var(--fg-muted); }
+  .cart-item__variant { font-size: var(--text-xs); color: var(--fg-muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .cart-item__bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
   .cart-item__price { font-size: var(--text-base); font-weight: 700; white-space: nowrap; text-align: right; }
   .qty-selector.--sm .qty-selector__btn { width: calc(var(--base) * 2); height: calc(var(--base) * 2); }
