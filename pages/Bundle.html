@@ -48,12 +48,12 @@
         </div>
       </div>
     </div>
-    <div class="nav-center"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 113.4 113.4"><defs><style>.st0{fill:none}.st1{fill:#78b41b}.st2{clip-path:url(#clippath-nav)}</style><clipPath id="clippath-nav"><rect class="st0" width="113.4" height="113.4"/></clipPath></defs><g><path d="M19.4,74.3c0,1.4-1.1,2.6-2.6,2.6s-2.6-1.2-2.6-2.6,1.1-2.5,2.6-2.5,2.5,1.2,2.5,2.5ZM14.7,78.9h4.3v15.4h-4.3s0-15.4,0-15.4Z"/><path d="M23.1,78.9h3.8l.2,2.1c1.5-1.8,3.1-2.5,5.1-2.5s3.5.7,4.2,2.1c.5.9.7,2,.7,4.1v9.7h-4.3v-8.9c0-1.3,0-1.8-.3-2.3-.3-.6-.8-.9-1.6-.9-1.2,0-2.6,1.1-3.5,2.8v9.3h-4.3v-15.4h0Z"/><path d="M50.5,92.6c-1.4,1.5-2.8,2.1-4.7,2.1s-3.4-.8-4.2-2.2c-.5-.9-.7-2.1-.7-4.2v-9.5h4.3v8.7c0,2.6.5,3.4,1.9,3.4s2.3-.6,3.1-1.9v-10.2h4.3v15.4h-3.8l-.3-1.7h0Z"/><path d="M56.8,78.9h4.8l3.6,10.3,3.6-10.3h4.3l-6.3,15.4h-3.9l-6.1-15.4h0Z"/><path d="M78.1,87.9c.2,2.6,1.5,3.7,4.4,3.7s2.7-.3,4.4-1.2l1,2.8c-1.8,1.1-3.8,1.6-6.4,1.6-5.2,0-7.8-2.5-7.8-7.7s2.8-8.6,7.5-8.6,6.8,2.6,6.8,7.6,0,.9,0,1.8h-9.9,0ZM84.2,85.1c-.2-2.4-1.1-3.5-2.9-3.5s-2.9,1.1-3.2,3.5h6.1Z"/><path d="M89.7,82.4l.3-3.4h2.5l.2-3.7,4-1.4v5.1h3.8l-.3,3.4h-3.5v5.6c0,2.8.2,3.3,1.6,3.3s1.3-.2,2.1-.5l.8,2.7c-1.5.9-3,1.3-4.5,1.3s-3-.6-3.7-1.8c-.4-.8-.6-2-.6-4.2v-6.5h-2.7,0Z"/></g><g class="st2"><g><path d="M81.4,32h-.3v1h.2c.5,0,.7-.3.7-.6s-.1-.5-.6-.5M82,35.1l-.8-1.5h0v1.5h-.8v-3.7h1.3c.9,0,1.2.4,1.2,1s-.3,1-.8,1c0,0,.2.3.3.5l.7,1.2h-1ZM78.9,33.3c0,1.4,1.1,2.6,2.6,2.6s2.6-1.2,2.6-2.6-1.1-2.6-2.6-2.6-2.6,1.2-2.6,2.6M85,33.3c0,1.9-1.6,3.5-3.5,3.5s-3.6-1.5-3.6-3.5,1.6-3.5,3.6-3.5,3.5,1.5,3.5,3.5"/><path class="st1" d="M28.7,54.5c1.3,5.2,5.6,9,11.1,10.7,4.1-4.1,6.1-9.5,4.8-14.7-1.3-5.2-5.6-9-11.1-10.7-4.1,4.1-6.1,9.5-4.8,14.7Z"/><path class="st1" d="M38.6,32.3c.7,5.3,4.4,9.7,9.7,12,4.6-3.6,7.2-8.6,6.6-14-.6-5.3-4.4-9.7-9.7-12-4.6,3.6-7.2,8.7-6.5,14Z"/><path class="st1" d="M84.6,54.5c-1.3,5.2-5.6,9-11.1,10.7-4.1-4.1-6.1-9.5-4.8-14.7,1.3-5.2,5.6-9,11.1-10.7,4.1,4.1,6.1,9.5,4.8,14.7h0Z"/><path class="st1" d="M74.8,32.3c-.7,5.3-4.4,9.7-9.7,12-4.6-3.6-7.2-8.6-6.6-14,.6-5.3,4.4-9.7,9.7-12,4.6,3.6,7.2,8.7,6.6,14h0Z"/></g></g></svg></div>
+    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
     <div class="nav-right">
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
       </button>
-      <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
         <span class="material-icons">shopping_cart</span>
       </button>
     </div>
@@ -90,71 +90,112 @@
     </div>
   </div>
 
-  <main class="page" style="padding-bottom: var(--module-2xl);">
+  <!-- ════════════════════════════════════════
+       WARENKORB-DRAWER
+       ════════════════════════════════════════ -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <!-- Inhalt wird per JS gerendert -->
+  </div>
 
-    <!-- Intro -->
-    <div class="bundle-intro">
-      <h1>Dein persönliches Vorrats-Bundle</h1>
-      <p>Basierend auf deinen Einkäufen der letzten 6 Monate haben wir dieses Set für dich zusammengestellt.</p>
-    </div>
+  <!-- ARCHITEKTUR-REGEL:
+       <main> OHNE .page — section-type Varianten sind selbst-containerisiert.
+       Bundle-Inhalt liegt in <div class="page">, section-types direkt in <main>. -->
+  <main id="bundleMain">
 
-    <div class="bundle-grid">
+    <!-- ─── Bundle Builder ─── -->
+    <div class="page" id="bundleSection" style="padding-top: var(--module); padding-bottom: var(--module-2xl);">
 
-      <!-- Linke Spalte: Produktliste + Empfehlungen -->
-      <div>
-        <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
-
-        <!-- Empfehlungen -->
-        <div class="rec-section" id="recommendationsWrapper">
-          <p class="label-caps" style="margin-bottom: var(--half-module);">Passend zu deinem Bedarf</p>
-          <div class="rec-grid" id="recommendationList"></div>
-        </div>
+      <div class="bundle-intro">
+        <h1>Dein persönliches Vorrats-Bundle</h1>
+        <p>Basierend auf deinen Einkäufen der letzten 6 Monate haben wir dieses Set für dich zusammengestellt.</p>
       </div>
 
-      <!-- Rechte Spalte: Zusammenfassung -->
-      <div>
-        <div class="summary-card">
-          <p class="summary-card__title">Deine Auswahl</p>
+      <div class="bundle-grid" id="bundleGrid">
 
-          <div class="warning-banner" id="bundleWarning" style="display:none;">
-            Achtung: Dein Bundle ist nicht vollständig!
+        <!-- Linke Spalte: Produktliste + Empfehlungen -->
+        <div>
+          <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
+
+          <!-- Empfehlungen -->
+          <div class="rec-section" id="recommendationsWrapper">
+            <p class="label-caps" style="margin-bottom: var(--half-module);">Passend zu deinem Bedarf</p>
+            <div class="rec-grid" id="recommendationList"></div>
           </div>
+        </div>
 
-          <div class="summary-card__line">
-            <span>Bezahlte Produkte (<span id="paidCount">0</span>)</span>
-            <span id="subtotalPrice">0,00 €</span>
+        <!-- Rechte Spalte: Zusammenfassung -->
+        <div>
+          <div class="summary-card" id="summaryCard">
+            <p class="summary-card__title">Dein Persönliches Bundle</p>
+            <p class="summary-card__products" id="summaryProducts">—</p>
+
+            <div class="warning-banner" id="bundleWarning" style="display:none;">
+              Achtung: Dein Bundle ist nicht vollständig!
+            </div>
+
+            <div class="summary-card__line">
+              <span>Ausgewählte Produkte (<span id="paidCount">0</span>)</span>
+            </div>
+
+            <div class="summary-card__line --free">
+              <span>Gratisprodukte (<span id="freeCount">0</span>)</span>
+              <span>Kostenlos</span>
+            </div>
+
+            <div class="summary-card__line --savings">
+              <span>Dein Vorteil</span>
+              <span id="savingsAmount">0,00 €</span>
+            </div>
+
+            <div id="upsellHint" class="upsell-hint" style="display:none;"></div>
+
+            <button type="button" class="btn --primary --full" onclick="addBundleToCart()">
+              In den Warenkorb
+            </button>
           </div>
+        </div>
 
-          <div class="summary-card__line --free">
-            <span>Gratisprodukte (<span id="freeCount">0</span>)</span>
-            <span>Kostenlos</span>
+      </div>
+    </div><!-- /bundle-section -->
+
+    <!-- ─── Bild + Text Section ─── -->
+    <div class="section-type --v3 --viewport --reverse">
+      <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_01.png');background-size:cover;background-position:center top;"></div>
+      <div class="section-type__inner">
+        <div class="section-type__content">
+          <h2 class="section-type__headline">Bis zu 5 Produkte kostenlos – automatisch.</h2>
+          <p class="section-type__body">Je regelmäßiger du nachbestellst, desto mehr profitierst du. Unser Naturalrabatt-System belohnt dich mit Gratisprodukten – ohne Gutscheine, ohne Aufwand.</p>
+          <div style="display:flex;gap:var(--half-module);flex-wrap:wrap;margin-top:var(--module)">
+            <button class="btn --primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">Bundle anpassen</button>
+            <a class="btn --ghost" href="#">Alle Produkte</a>
           </div>
-
-          <div class="summary-card__line --savings">
-            <span>Dein Vorteil</span>
-            <span id="savingsAmount">0,00 €</span>
-          </div>
-
-          <div id="upsellHint" class="upsell-hint" style="display:none;"></div>
-
-          <div class="summary-total" style="margin-top:0; padding-top:var(--half-module); border-color:var(--border-light);">
-            <span>Gesamtpreis</span>
-            <span id="totalPrice">0,00 €</span>
-          </div>
-
-          <button type="button" class="btn --primary --full" onclick="alert('Zum Warenkorb hinzugefügt!')">
-            In den Warenkorb
-          </button>
         </div>
       </div>
-
     </div>
+
+    <!-- ─── Testimonials ─── -->
+    <div class="page" style="padding-top:var(--module-2xl); padding-bottom:var(--module-2xl);">
+
+      <div class="testimonial-slider --cols-3" id="tSlider">
+        <div class="testimonial-slider__track" id="tTrack"></div>
+        <div class="slider-nav">
+          <button class="slider-btn icon-box" type="button" aria-label="Zurück"  data-dir="prev" disabled><span class="material-icons">arrow_back</span></button>
+          <span class="slider-counter" id="tCounter"></span>
+          <button class="slider-btn icon-box" type="button" aria-label="Weiter"  data-dir="next"><span class="material-icons">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Footer ─── -->
+    <div class="shop-footer">© 2026 Inuvet GmbH &nbsp;·&nbsp; <a href="#">Datenschutz</a> &nbsp;·&nbsp; <a href="#">Impressum</a></div>
+
   </main>
 
   <!-- Settings FAB -->
   <button type="button" class="settings-fab" onclick="openSettings()">
-    <span class="material-icons" style="font-size:1rem;">settings</span>
-    Logik anpassen
+    <span class="material-icons" style="font-size:1rem;">tune</span>
+    Parameter festlegen
   </button>
 
   <!-- Settings Modal -->
@@ -167,6 +208,10 @@
         </button>
       </div>
       <div class="modal__body">
+        <div class="settings-backend-note">
+          <span class="material-icons" style="font-size:1rem; flex-shrink:0;">settings</span>
+          <span>Diese Werte sollen im <strong>Backend variabel einstellbar</strong> sein.</span>
+        </div>
         <p class="text-muted" style="margin-bottom:var(--half-module); font-size:var(--text-base);">
           Lege fest, wie viele Produkte der Kunde kaufen muss, um Gratisprodukte zu erhalten.
         </p>
@@ -206,32 +251,120 @@
     window.handleSearchOverlayClick = (e) => {
       if (e.target === document.getElementById('searchOverlay')) closeSearch();
     };
-    window.openCart = () => {}; // Bundle-Seite: Zusammenfassung in Summary Card
+
+    // ── Warenkorb-Drawer ────────────────────────────────────────────────────
+    window.openCart = () => {
+      renderCartDrawer();
+      document.getElementById('cartOverlay').classList.add('--open');
+      document.getElementById('cartDrawer').classList.add('--open');
+    };
+    window.closeCart = () => {
+      document.getElementById('cartOverlay').classList.remove('--open');
+      document.getElementById('cartDrawer').classList.remove('--open');
+    };
+
+    window.addBundleToCart = () => {
+      openCart();
+    };
+
+    const renderCartDrawer = () => {
+      const drawer = document.getElementById('cartDrawer');
+      const fmt2 = v => v.toFixed(2).replace('.', ',') + ' €';
+
+      if (activeBundle.length === 0) {
+        drawer.innerHTML = `
+          <div class="cart-drawer__header">
+            <h2 class="cart-drawer__title">Dein Bundle</h2>
+            <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+          </div>
+          <div class="cart-drawer__empty">
+            <p class="text-muted">Dein Bundle ist noch leer.</p>
+          </div>`;
+        return;
+      }
+
+      // Berechnung
+      let totalPaid = 0, totalFree = 0, totalSavings = 0;
+      activeBundle.forEach(p => {
+        totalPaid += p.quantity;
+        totalSavings += (naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0) * p.price;
+        totalFree    += naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
+      });
+      const subtotal = activeBundle.reduce((s, p) => s + p.price * p.quantity, 0);
+
+      const itemsHTML = activeBundle.map(p => {
+        const free = naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
+        const thumbHTML = p.image
+          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
+          : '';
+        return `
+          <div class="cart-item">
+            <div class="product-thumb-wrap">
+              <div class="product-thumb placeholder-bg">${thumbHTML}</div>
+              ${free > 0 ? `<div class="floating-meta"><span class="badge --free">+${free} gratis</span></div>` : ''}
+            </div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">${p.title}</p>
+                  ${p.category ? `<div class="cart-item__variant cart-item__category">${p.category}</div>` : ''}
+                </div>
+              </div>
+              <div class="cart-item__bottom">
+                <span class="cart-item__variant">${p.quantity} Stk. · ${fmt2(p.price)} / Stk.</span>
+                <span style="font-weight:700;">${fmt2(p.price * p.quantity)}</span>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+
+      drawer.innerHTML = `
+        <div class="cart-drawer__header">
+          <h2 class="cart-drawer__title">Dein Persönliches Bundle <span class="cart-drawer__count">(${totalPaid} Stk.)</span></h2>
+          <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="cart-drawer__items">${itemsHTML}</div>
+        <div class="cart-drawer__footer">
+          ${totalFree > 0 ? `
+          <div class="cart-drawer__free-row">
+            <span>Gratisprodukte (${totalFree}×)</span>
+            <span style="color:var(--green);font-weight:700;">Kostenlos</span>
+          </div>
+          <div class="cart-drawer__savings-row">
+            <span>Dein Vorteil</span>
+            <span style="font-weight:700;">+ ${fmt2(totalSavings)}</span>
+          </div>` : ''}
+          <div class="summary-total">
+            <span>Zwischensumme</span>
+            <span>${fmt2(subtotal)}</span>
+          </div>
+          <div class="cart-drawer__shipping">Kostenloser Versand ab 49 €</div>
+          <div class="cart-drawer__tax">inkl. MwSt.</div>
+          <button class="btn --primary cart-drawer__checkout" onclick="alert('Weiter zur Kasse …')">Zur Kasse</button>
+          <div class="cart-drawer__continue-wrap">
+            <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Bundle weiter anpassen</button>
+          </div>
+        </div>`;
+    };
 
     // ── Daten ──────────────────────────────────────────────────────────────
     const allProducts = [
-      { id: 1,  title: 'FloraComplex',  price: 29.90, past6Months: 12 },
-      { id: 2,  title: 'Dermin',        price: 34.50, past6Months: 5  },
-      { id: 3,  title: 'EnteroGast',    price: 24.90, past6Months: 3  },
-      { id: 4,  title: 'NutriMobil',    price: 39.90, past6Months: 16 },
-      { id: 5,  title: 'LipoDerm',      price: 21.90, past6Months: 2  },
-      { id: 6,  title: 'ImmunAktiv',    price: 27.50, past6Months: 0  },
-      { id: 7,  title: 'GastroCare',    price: 32.00, past6Months: 0  },
-      { id: 8,  title: 'DermaFit',      price: 28.50, past6Months: 0  },
-      { id: 9,  title: 'VitoPlus',      price: 19.90, past6Months: 0  },
-      { id: 10, title: 'GelenkFit',     price: 25.50, past6Months: 0  },
-      { id: 11, title: 'SeniorCare',    price: 31.00, past6Months: 0  },
-      { id: 12, title: 'DentalPlus',    price: 18.90, past6Months: 0  },
-      { id: 13, title: 'RelaxTropfen',  price: 22.50, past6Months: 0  },
-      { id: 14, title: 'VitalBooster',  price: 29.00, past6Months: 0  }
+      { id: 1, title: 'Hypolene',   category: 'Gelenke', price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg'  },
+      { id: 2, title: 'EnteroGast', category: 'Darm',    price: 24.90, past6Months: 6   },
+      { id: 3, title: 'Respirax',   category: 'Atmung',  price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg' },
+      { id: 4, title: 'Vesica',     category: 'Blase',   price: 32.00, past6Months: 4   },
+      { id: 5, title: 'Laxin',      category: 'Darm',    price: 22.50, past6Months: 3   },
+      { id: 6, title: 'Ibedex',     category: '',        price: 29.90, past6Months: 0   },
+      { id: 7, title: 'Inzuym',     category: '',        price: 34.50, past6Months: 0   },
+      { id: 8, title: 'Struvex',    category: 'Blase',   price: 28.50, past6Months: 0   },
     ];
 
     allProducts.forEach(p => {
       p.quantity = p.past6Months > 0 ? Math.ceil(p.past6Months / 8) * 8 : 1;
     });
 
-    let activeBundle    = allProducts.slice(0, 5);
-    let recommendedPool = allProducts.slice(5);
+    let activeBundle    = allProducts.filter(p => p.past6Months > 0);
+    let recommendedPool = allProducts.filter(p => p.past6Months === 0);
 
     let naturalTiers = [
       { minQuantity: 24, freeItems: 5 },
@@ -240,7 +373,7 @@
       { minQuantity:  0, freeItems: 0 }
     ];
 
-    const fmt = v => v.toFixed(2).replace('.', ',') + '\u00a0€';
+    const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
@@ -259,15 +392,18 @@
         const tier      = naturalTiers.find(t => p.quantity >= t.minQuantity);
         const freeItems = tier ? tier.freeItems : 0;
 
-        // History-Badge (nur wenn in letzten 6 Monaten gekauft)
         const historyBadgeHtml = p.past6Months > 0
-          ? `<span class="history-badge">Letzte 6 Monate: ${p.past6Months}\u00d7 gekauft</span>` : '';
+          ? `<span class="history-badge">Letzte 6 Monate: ${p.past6Months}× gekauft</span>` : '';
 
-        // Free-Badge (nur wenn Gratis-Anspruch)
         const freeBadgeHtml = freeItems > 0
-          ? `<span class="badge --free">+${freeItems}\u00a0gratis</span>` : '';
+          ? `<span class="badge --free">+${freeItems} gratis</span>` : '';
 
-        // History inline neben Counter; Free-Badge als floating-meta über Produktbild
+        const thumbContentHtml = p.image
+          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
+          : '';
+
+        const categoryHtml = p.category
+          ? `<span class="cart-item__category">${p.category}</span>` : '';
 
         const card = document.createElement('div');
         card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
@@ -275,14 +411,14 @@
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
-            <div class="product-thumb placeholder-bg"></div>
+            <div class="product-thumb placeholder-bg">${thumbContentHtml}</div>
             ${freeBadgeHtml ? `<div class="floating-meta">${freeBadgeHtml}</div>` : ''}
           </div>
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${p.title}</p>
-                <div class="cart-item__variant">${fmt(p.price)}\u00a0/\u00a0Stk.</div>
+                <div class="cart-item__variant">${categoryHtml}${categoryHtml ? '<span style="margin:0 0.25em;color:var(--border);">·</span>' : ''}${fmt(p.price)} / Stk.</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">
@@ -325,10 +461,13 @@
       wrapper.style.display = items.length === 0 ? 'none' : '';
 
       items.forEach(p => {
+        const thumbHtml = p.image
+          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
+          : '';
         const card = document.createElement('div');
         card.className = 'rec-card';
         card.innerHTML = `
-          <div class="rec-card__image placeholder-bg"></div>
+          <div class="rec-card__image placeholder-bg">${thumbHtml}</div>
           <div class="rec-card__body">
             <p class="rec-card__title">${p.title}</p>
             <p class="rec-card__price">${fmt(p.price)}</p>
@@ -375,13 +514,11 @@
 
     // ── Summary ─────────────────────────────────────────────────────────────
     const updateSummary = () => {
-      let paidItems = 0, freeItems = 0, subtotal = 0, savings = 0;
+      let paidItems = 0, freeItems = 0, savings = 0;
       let bestUpsell = null, minMissing = Infinity;
 
       activeBundle.forEach(p => {
         paidItems += p.quantity;
-        subtotal  += p.price * p.quantity;
-
         const cur  = naturalTiers.find(t => p.quantity >= t.minQuantity);
         const next = naturalTiers.slice().reverse().find(t => p.quantity < t.minQuantity);
         const free = cur ? cur.freeItems : 0;
@@ -397,18 +534,18 @@
         }
       });
 
+      const names = activeBundle.map(p => p.title).join(', ');
+      document.getElementById('summaryProducts').textContent = names || '—';
       document.getElementById('paidCount').textContent     = paidItems;
       document.getElementById('freeCount').textContent     = freeItems;
-      document.getElementById('subtotalPrice').textContent = fmt(subtotal);
-      document.getElementById('savingsAmount').textContent = savings > 0 ? `+ ${fmt(savings)}` : '0,00\u00a0€';
-      document.getElementById('totalPrice').textContent    = fmt(subtotal);
+      document.getElementById('savingsAmount').textContent = savings > 0 ? `+ ${fmt(savings)}` : '0,00 €';
 
       const hint = document.getElementById('upsellHint');
       if (bestUpsell) {
         const curOfBest = naturalTiers.find(t => bestUpsell.product.quantity >= t.minQuantity);
         const curFree   = curOfBest ? curOfBest.freeItems : 0;
         const gained    = bestUpsell.nextFree - curFree;
-        hint.innerHTML  = `Noch <strong>${bestUpsell.missing}\u00d7 ${bestUpsell.product.title}</strong> f\u00fcr <strong>+${gained}\u00a0weiteres Gratisprodukt</strong>`;
+        hint.innerHTML  = `Noch <strong>${bestUpsell.missing}× ${bestUpsell.product.title}</strong> für <strong>+${gained} weiteres Gratisprodukt</strong>`;
         hint.style.display = '';
       } else if (activeBundle.length > 0) {
         hint.innerHTML     = '<strong>Maximaler Naturalrabatt erreicht!</strong>';
@@ -426,11 +563,7 @@
       document.getElementById('settingsModal').classList.add('--open');
       renderSettingsTiers();
     };
-
-    window.closeSettings = () => {
-      document.getElementById('settingsModal').classList.remove('--open');
-    };
-
+    window.closeSettings = () => document.getElementById('settingsModal').classList.remove('--open');
     window.handleOverlayClick = (e) => {
       if (e.target === document.getElementById('settingsModal')) closeSettings();
     };
@@ -472,6 +605,95 @@
       closeSettings();
       renderBundle();
     };
+
+    // ── Sticky Summary (Mobile) ─────────────────────────────────────────────
+    const summaryCard    = document.getElementById('summaryCard');
+    const bundleSection  = document.getElementById('bundleSection');
+
+    const stickyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => summaryCard.classList.toggle('--sticky-visible', e.isIntersecting));
+    }, { threshold: 0.05 });
+
+    stickyObserver.observe(bundleSection);
+
+    // ── Testimonial-Slider ──────────────────────────────────────────────────
+    const TESTIMONIALS = [
+      { text: 'Nach wenigen Wochen hat sich die Beweglichkeit meiner Hündin spürbar verbessert. Das Vorrats-Bundle spart mir Zeit und bringt echte Vorteile.',    name: 'Sandra M.',   role: 'Labrador-Besitzerin, München'    },
+      { text: 'Endlich eine einfache Möglichkeit, regelmäßig nachzubestellen. Hypolene ist aus dem Alltag mit meinem Retriever nicht mehr wegzudenken.',           name: 'Thomas K.',   role: 'Hundebesitzer, Hamburg'          },
+      { text: 'Das Naturalrabatt-System ist eine tolle Idee. Ich bekomme Gratis-Produkte dazu und muss nicht jedes Mal neu überlegen, was ich bestelle.',           name: 'Julia R.',    role: 'Tierliebhaberin, Berlin'         },
+      { text: 'Seit ich das Bundle nutze, habe ich Respirax immer vorrätig. Mein Tierarzt ist begeistert – und mein Hund auch.',                                    name: 'Markus T.',   role: 'Golden-Retriever-Besitzer'       },
+      { text: 'Der Vorteil beim Bundle ist unschlagbar. Ich zahle weniger und habe immer genug auf Lager. Absolute Empfehlung für alle, die regelmäßig bestellen.', name: 'Petra L.',    role: 'Hundebesitzerin, Köln'           },
+      { text: 'Ich habe das Bundle meiner Tierärztin gezeigt – sie war sofort überzeugt. Jetzt nutzen wir es schon seit Monaten und sind sehr zufrieden.',          name: 'Anna W.',     role: 'Beagle-Mama, Frankfurt'          },
+    ];
+
+    (function initSlider() {
+      const track   = document.getElementById('tTrack');
+      const counter = document.getElementById('tCounter');
+      const slider  = document.getElementById('tSlider');
+      const prevBtn = slider.querySelector('[data-dir="prev"]');
+      const nextBtn = slider.querySelector('[data-dir="next"]');
+      let current   = 0;
+
+      track.innerHTML = TESTIMONIALS.map(t => `
+        <div class="testimonial-slider__slide testimonial">
+          <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+          <p class="testimonial__text">${t.text}</p>
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+          </div>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar icon-box placeholder-bg"></div>
+            <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
+          </div>
+        </div>`).join('');
+
+      const slides = track.querySelectorAll('.testimonial-slider__slide');
+
+      function getVisible() {
+        const w = window.innerWidth;
+        if (w <= 767) return slides.length; // Mobile: alle sichtbar (vertikaler Stack via CSS)
+        return w <= 1535 ? 2 : 3;
+      }
+      function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
+      function update() {
+        const vis     = getVisible();
+        const maxPage = getMaxPage();
+        if (current > maxPage) current = maxPage;
+
+        // .--visible setzen — auf Mobile braucht inuvet.css diese Klasse
+        slides.forEach((s, idx) => {
+          s.classList.toggle('--visible', idx >= current && idx < current + vis);
+        });
+
+        if (slides.length > 0 && vis < slides.length) {
+          const slideWidth = slides[0].offsetWidth;
+          const gap = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft - slideWidth : 0;
+          track.style.transform = `translateX(-${current * (slideWidth + gap)}px)`;
+        } else {
+          track.style.transform = 'translateX(0)';
+        }
+        if (counter) counter.textContent = `${current + 1} – ${Math.min(current + vis, slides.length)} / ${slides.length}`;
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current >= maxPage;
+      }
+
+      prevBtn.addEventListener('click', () => { if (current > 0) { current--; update(); } });
+      nextBtn.addEventListener('click', () => { if (current < getMaxPage()) { current++; update(); } });
+
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && current < getMaxPage()) current++;
+          else if (diff < 0 && current > 0) current--;
+          update();
+        }
+      });
+
+      window.addEventListener('resize', update);
+      update();
+    })();
 
     // ── Init ────────────────────────────────────────────────────────────────
     renderBundle();

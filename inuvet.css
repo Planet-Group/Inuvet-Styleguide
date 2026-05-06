@@ -258,7 +258,7 @@
     align-items: center;
     justify-content: center;
   }
-  .nav-center svg { width: clamp(3.5rem, 2rem + 5vw, 6rem); height: auto; display: block; }
+  .nav-center img { width: clamp(3.5rem, 2rem + 5vw, 6rem); height: auto; display: block; }
 
   .nav-right {
     display: flex;
