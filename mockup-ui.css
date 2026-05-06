@@ -4,10 +4,24 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
-/* ─── Body-Padding wenn Leiste sichtbar ─── */
-body.--mockup-bar-visible {
-  padding-bottom: 3.25rem;
+/* ─── Floating Parameter-Button ─── */
+.mockup-fab {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: #aaa;
+  border: 1px solid #383838;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.35em 0.7em;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
 }
+.mockup-fab:hover { color: #fff; border-color: #666; }
 
 /* ─── Steuerleiste (fixiert, unten) ─── */
 .mockup-bar {

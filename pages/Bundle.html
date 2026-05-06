@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
 </head>
-<body class="--mockup-bar-visible">
+<body>
 
   <!-- Announcement Bar -->
   <div class="announcement-bar" id="announcementBar">
@@ -188,14 +188,7 @@
   </main>
 
   <!-- Mockup-Steuerleiste -->
-  <div class="mockup-bar" id="mockupBar">
-    <div class="mockup-bar__group">
-      <span class="mockup-bar__group-label">Konfiguration:</span>
-      <button class="mockup-btn" onclick="openSettings()">Parameter festlegen</button>
-    </div>
-    <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
-  </div>
-  <button class="mockup-revive" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
+  <button class="mockup-fab" onclick="openSettings()" title="Parameter festlegen">⚙ Parameter</button>
 
   <!-- Settings Modal -->
   <div class="modal-overlay mockup-modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
@@ -553,15 +546,6 @@
       }
     };
 
-    // ── Mockup-Bar ──────────────────────────────────────────────────────────
-    window.toggleMockupBar = () => {
-      const bar    = document.getElementById('mockupBar');
-      const revive = document.getElementById('mockupRevive');
-      const hide   = !bar.classList.contains('--hidden');
-      bar.classList.toggle('--hidden', hide);
-      revive.classList.toggle('--visible', hide);
-      document.body.classList.toggle('--mockup-bar-visible', !hide);
-    };
 
     // ── Settings Modal ──────────────────────────────────────────────────────
     let editingTiers = [];
