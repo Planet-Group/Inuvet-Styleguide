@@ -20,6 +20,16 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="inuvet.css">
   <!-- <link rel="stylesheet" href="pages/seite.css"> -->
+
+  <style>
+    /* ── Starter-Overrides: nur hier, für neue Seite in eigene CSS auslagern ── */
+
+    /* Content-Spalte bekommt auf Mobile Seitenrand */
+    @media (max-width: 767px) {
+      .section-type__content { padding: 0 var(--margin); }
+      .section-type__headline { font-size: var(--text-l); }
+    }
+  </style>
 </head>
 <body>
 
