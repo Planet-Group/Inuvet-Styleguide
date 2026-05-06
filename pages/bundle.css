@@ -346,48 +346,4 @@
 .tier-input:focus    { border-color: var(--border-focus); }
 .tier-input:disabled { background: var(--accent-bg); color: var(--fg-muted); }
 
-/* ─── Sonderkachel ─── */
-.tile.--promo {
-  background: var(--green);
-  display: flex;
-  align-items: stretch;
-}
-
-.tile__promo-inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: calc(var(--base) * 0.5);
-  padding: var(--half-module);
-  color: var(--bg);
-}
-
-.tile__promo-label {
-  color: rgba(255,255,255,0.6);
-}
-
-.tile__promo-headline {
-  font-size: var(--text-m);
-  font-weight: 700;
-  line-height: var(--lh-h3);
-  color: var(--bg);
-}
-
-.tile__promo-body {
-  font-size: var(--text-base);
-  line-height: var(--lh-base);
-  color: rgba(255,255,255,0.75);
-}
-
-.tile.--promo .btn.--primary {
-  background: var(--bg);
-  color: var(--green);
-  border: none;
-  align-self: flex-start;
-  margin-top: calc(var(--base) * 0.25);
-}
-.tile.--promo .btn.--primary:hover {
-  background: var(--fg);
-  color: var(--bg);
-}
 
