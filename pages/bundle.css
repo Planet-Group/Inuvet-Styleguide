@@ -61,24 +61,6 @@
   left: 0;
 }
 
-/* Preis + History-Badge in einer Zeile */
-.bundle-item__meta {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--base) * 0.375);
-  flex-wrap: wrap;
-}
-
-.history-badge {
-  display: inline-flex;
-  align-items: center;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  background: var(--accent-bg);
-  color: var(--fg-muted);
-  padding: 2px calc(var(--base) * 0.375);
-  white-space: nowrap;
-}
 
 .badge.--free {
   letter-spacing: 0.04em;

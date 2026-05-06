@@ -392,8 +392,8 @@
         const tier      = naturalTiers.find(t => p.quantity >= t.minQuantity);
         const freeItems = tier ? tier.freeItems : 0;
 
-        const historyBadgeHtml = p.past6Months > 0
-          ? `<span class="history-badge">Letzte 6 Monate: ${p.past6Months}× gekauft</span>` : '';
+        const historyText = p.past6Months > 0
+          ? ` · <strong>Letzte 6 Monate: ${p.past6Months}× gekauft</strong>` : '';
 
         const freeBadgeHtml = freeItems > 0
           ? `<span class="badge --free">+${freeItems} gratis</span>` : '';
@@ -415,10 +415,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${p.title}</p>
-                <div class="cart-item__variant bundle-item__meta">
-                  <span>${fmt(p.price)} / Stk.</span>
-                  ${historyBadgeHtml}
-                </div>
+                <div class="cart-item__variant">${fmt(p.price)} / Stk.${historyText}</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">
