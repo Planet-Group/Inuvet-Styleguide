@@ -420,11 +420,8 @@ function renderCartDrawer() {
     <div class="cart-drawer__items">${items}</div>
     <div class="cart-drawer__footer">
       ${hasApproved ? `
-      <div class="cart-drawer__shipping">
-        <div class="shipping-hint"><span class="material-icons">local_shipping</span> Kostenloser Versand</div>
-      </div>
       <div class="summary-total"><span>Gesamt (einzulösend)</span><span>${totalApproved.toFixed(2).replace('.',',')} €</span></div>
-      <div class="cart-drawer__tax">inkl. MwSt.</div>` : ''}
+      <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>` : ''}
       <button class="btn --primary cart-drawer__checkout" onclick="${checkoutFn}">Zur Kasse</button>
       <div class="cart-drawer__continue-wrap">
         <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
