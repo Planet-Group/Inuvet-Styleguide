@@ -194,3 +194,11 @@
 @media (min-width: 768px) {
   .nav-hamburger { display: flex; }
 }
+
+/* ─── Section-Type-Demos: eigenes Padding zurücksetzen (bereits in .page) ─── */
+.sg-section .section-type.--v1,
+.sg-section .section-type.--v2 {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+}
