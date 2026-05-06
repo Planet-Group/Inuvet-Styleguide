@@ -5,16 +5,28 @@
 
 /* ─── Intro ─── */
 .bundle-intro {
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gutter);
   margin-bottom: var(--module);
+}
+
+@media (min-width: 768px) {
+  .bundle-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.bundle-intro h3 {
+  margin: 0;
 }
 
 .bundle-intro p {
   color: var(--fg-muted);
   font-size: var(--text-base);
-  max-width: 34rem;
-  margin: calc(var(--base) * 0.375) auto 0;
   line-height: var(--lh-base);
+  margin: 0;
 }
 
 /* ─── Two-Column Grid ─── */
