@@ -117,9 +117,6 @@
         <!-- Linke Spalte: Produktliste + Empfehlungen -->
         <div>
           <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
-          <div id="showMoreWrap" style="display:none; margin-top: var(--half-module);">
-            <button type="button" class="btn --ghost --full" id="showMoreBtn" onclick="toggleShowAll()"></button>
-          </div>
 
           <!-- Empfehlungen -->
           <div class="rec-section" id="recommendationsWrapper">
@@ -366,8 +363,10 @@
       p.quantity = p.past6Months > 0 ? Math.ceil(p.past6Months / 8) * 8 : 1;
     });
 
-    let activeBundle    = allProducts.filter(p => p.past6Months > 0);
-    let recommendedPool = allProducts.filter(p => p.past6Months === 0);
+    const withHistory   = allProducts.filter(p => p.past6Months > 0)
+                                     .sort((a, b) => b.past6Months - a.past6Months);
+    let activeBundle    = withHistory.slice(0, 4);
+    let recommendedPool = [...withHistory.slice(4), ...allProducts.filter(p => p.past6Months === 0)];
 
     let naturalTiers = [
       { minQuantity: 24, freeItems: 5 },
@@ -377,15 +376,6 @@
     ];
 
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
-
-    // ── Sichtbarkeit ────────────────────────────────────────────────────────
-    const BUNDLE_PREVIEW = 4;
-    let showAll = false;
-
-    const toggleShowAll = () => {
-      showAll = !showAll;
-      renderBundle();
-    };
 
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
@@ -400,19 +390,7 @@
           </div>`;
       }
 
-      const visible = showAll ? activeBundle : activeBundle.slice(0, BUNDLE_PREVIEW);
-      const wrap = document.getElementById('showMoreWrap');
-      const btn  = document.getElementById('showMoreBtn');
-      if (activeBundle.length > BUNDLE_PREVIEW) {
-        wrap.style.display = '';
-        btn.textContent = showAll
-          ? 'Weniger anzeigen'
-          : `Alle ${activeBundle.length} Produkte anzeigen`;
-      } else {
-        wrap.style.display = 'none';
-      }
-
-      visible.forEach(p => {
+      activeBundle.forEach(p => {
         const tier      = naturalTiers.find(t => p.quantity >= t.minQuantity);
         const freeItems = tier ? tier.freeItems : 0;
 
