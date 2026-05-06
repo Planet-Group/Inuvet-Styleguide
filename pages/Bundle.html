@@ -305,12 +305,14 @@
           </div>
           <div class="cart-item__info">
             <div class="cart-item__top">
-              <p class="cart-item__name">Dein Persönliches Bundle</p>
+              <div>
+                <p class="cart-item__name">Dein Persönliches Bundle</p>
+                <p class="cart-item__variant">${productNames}</p>
+              </div>
               <button class="btn --icon cart-item__remove" onclick="closeCart()" aria-label="Entfernen">
                 <span class="material-icons">close</span>
               </button>
             </div>
-            <p class="cart-item__variant">${productNames}</p>
             <div class="cart-item__bottom">
               <span class="cart-item__qty-text">${totalPaid} Produkte</span>
               <span class="cart-item__price">${fmt2(subtotal)}</span>
