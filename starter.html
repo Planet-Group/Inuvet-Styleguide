@@ -212,6 +212,11 @@
        Typische PDP: .pdp__layout (§14 Styleguide)
        Alle section-type Varianten und Tile-Typen im Styleguide §5–6.
        ═══════════════════════════════════════════════════════ -->
+  <!-- ARCHITEKTUR-REGEL:
+       <main> OHNE .page – section-type Varianten sind selbst-containerisiert
+       (--v1/--v2 haben padding: var(--margin) eingebaut, --v3 ist full-bleed).
+       Freier Content (tile-grid, Text etc.) kommt in <div class="page"> darunter.
+       Content-Seiten ohne section-type (z.B. Bundle) nutzen <main class="page">. -->
   <main>
 
     <!-- ─── Hero — section-type --v1 (Bild links, Content rechts) ─── -->
