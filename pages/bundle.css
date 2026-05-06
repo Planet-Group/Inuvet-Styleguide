@@ -275,19 +275,19 @@
   justify-content: space-between;
   align-items: baseline;
   font-size: var(--text-base);
-  padding: calc(var(--base) * 0.375) 0;
+  padding: calc(var(--base) * 0.2) 0;
 }
 
 .cart-drawer__free-row {
   font-size: var(--text-lg);
   font-weight: 700;
   color: var(--green);
-  padding-top: var(--half-module);
+  padding-top: calc(var(--base) * 0.5);
 }
 
 .cart-drawer__savings-row {
   font-weight: 700;
-  padding-bottom: var(--half-module);
+  padding-bottom: calc(var(--base) * 0.5);
 }
 
 .cart-drawer__continue-wrap {
