@@ -296,7 +296,6 @@
       const thumbHTML    = firstImage
         ? `<img src="${firstImage}" alt="Bundle" style="width:100%;height:100%;object-fit:contain;display:block;">`
         : '';
-      const freeLabel    = totalFree > 0 ? ` · inkl. ${totalFree} Gratisprodukt${totalFree > 1 ? 'e' : ''}` : '';
 
       const bundleItemHTML = `
         <div class="cart-item">
@@ -350,14 +349,14 @@
 
     // ── Daten ──────────────────────────────────────────────────────────────
     const allProducts = [
-      { id: 1, title: 'Hypolene',   category: 'Gelenke', price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg'  },
-      { id: 2, title: 'EnteroGast', category: 'Darm',    price: 24.90, past6Months: 6   },
-      { id: 3, title: 'Respirax',   category: 'Atmung',  price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg' },
-      { id: 4, title: 'Vesica',     category: 'Blase',   price: 32.00, past6Months: 4   },
-      { id: 5, title: 'Laxin',      category: 'Darm',    price: 22.50, past6Months: 3   },
-      { id: 6, title: 'Ibedex',     category: '',        price: 29.90, past6Months: 0   },
-      { id: 7, title: 'Inzuym',     category: '',        price: 34.50, past6Months: 0   },
-      { id: 8, title: 'Struvex',    category: 'Blase',   price: 28.50, past6Months: 0   },
+      { id: 1, title: 'Hypolene',   price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg'  },
+      { id: 2, title: 'EnteroGast', price: 24.90, past6Months: 6   },
+      { id: 3, title: 'Respirax',   price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg' },
+      { id: 4, title: 'Vesica',     price: 32.00, past6Months: 4   },
+      { id: 5, title: 'Laxin',      price: 22.50, past6Months: 3   },
+      { id: 6, title: 'Ibedex',     price: 29.90, past6Months: 0   },
+      { id: 7, title: 'Inzuym',     price: 34.50, past6Months: 0   },
+      { id: 8, title: 'Struvex',    price: 28.50, past6Months: 0   },
     ];
 
     allProducts.forEach(p => {
