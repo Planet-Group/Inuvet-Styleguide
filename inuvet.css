@@ -526,7 +526,7 @@
   }
 
   /* Variante 1: kein Hintergrund, H1, Button unten bündig mit Bild */
-  .section-type.--v1 { gap: var(--gutter); max-width: var(--container-max); margin-left: auto; margin-right: auto; padding-left: var(--margin); padding-right: var(--margin); }
+  .section-type.--v1 { gap: var(--gutter); max-width: var(--container-max); margin-left: auto; margin-right: auto; }
   .section-type.--v1 .section-type__content {
     justify-content: space-between;
   }
@@ -546,7 +546,7 @@
   }
 
   /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding 3rem */
-  .section-type.--v2 { gap: 0; max-width: var(--container-max); margin-left: auto; margin-right: auto; padding-left: var(--margin); padding-right: var(--margin); }
+  .section-type.--v2 { gap: 0; max-width: var(--container-max); margin-left: auto; margin-right: auto; }
   .section-type.--v2 .section-type__content {
     background: var(--green-light);
     padding: var(--module);
