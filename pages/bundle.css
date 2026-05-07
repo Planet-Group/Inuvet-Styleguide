@@ -237,13 +237,10 @@
 
 /* Gratisprodukte im Wert von */
 .summary-card__line.--free {
-  color: rgba(255,255,255,0.6);
+  color: var(--bg);
   font-size: var(--text-base);
   font-weight: 700;
   align-items: baseline;
-}
-.summary-card__line.--free span:last-child {
-  color: var(--bg);
 }
 
 /* CTA auf grünem Hintergrund — weißer Button */
