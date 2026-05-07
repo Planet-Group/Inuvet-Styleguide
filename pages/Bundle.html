@@ -414,6 +414,15 @@
 
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
+    // ── Tier-Fortschritt (0–1) für ein Produkt ─────────────────────────────
+    const getTierProgress = (quantity) => {
+      const sorted = [...naturalTiers].sort((a, b) => a.minQuantity - b.minQuantity);
+      const cur    = [...sorted].reverse().find(t => quantity >= t.minQuantity) ?? sorted[0];
+      const next   = sorted.find(t => t.minQuantity > quantity);
+      if (!next) return 1; // Maximalstufe erreicht
+      return (quantity - cur.minQuantity) / (next.minQuantity - cur.minQuantity);
+    };
+
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
       const list = document.getElementById('productList');
@@ -444,6 +453,8 @@
         const card = document.createElement('div');
         card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
         p.isNew = false;
+
+        const pct = Math.round(getTierProgress(p.quantity) * 100);
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
@@ -477,6 +488,9 @@
                   </button>
                 </div>
               </div>
+            </div>
+            <div class="tier-progress" aria-hidden="true">
+              <div class="tier-progress__fill" style="width:${pct}%"></div>
             </div>
           </div>`;
         list.appendChild(card);
