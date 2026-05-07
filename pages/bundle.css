@@ -103,7 +103,7 @@
 
 /* ─── Recommendations ─── */
 .rec-section {
-  margin-top: var(--module);
+  margin-top: var(--half-module);
 }
 
 .rec-grid {

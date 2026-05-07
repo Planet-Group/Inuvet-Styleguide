@@ -114,18 +114,12 @@
 
       <div class="bundle-grid" id="bundleGrid">
 
-        <!-- Linke Spalte: Produktliste + Empfehlungen -->
+        <!-- Linke Spalte: Produktliste -->
         <div>
           <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
-
-          <!-- Empfehlungen -->
-          <div class="rec-section" id="recommendationsWrapper">
-            <p class="label-caps" style="margin-bottom: var(--half-module);">Zum Angebot hinzufügen und noch mehr sparen</p>
-            <div class="rec-grid" id="recommendationList"></div>
-          </div>
         </div>
 
-        <!-- Rechte Spalte: Zusammenfassung -->
+        <!-- Rechte Spalte: Zusammenfassung + Empfehlungen -->
         <div>
           <div class="summary-card" id="summaryCard">
             <p class="summary-card__title">Dein Persönliches Angebot · <span id="paidCount">0</span> Produkte</p>
@@ -143,6 +137,12 @@
             <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
               In den Warenkorb
             </button>
+          </div>
+
+          <!-- Empfehlungen -->
+          <div class="rec-section" id="recommendationsWrapper">
+            <p class="label-caps" style="margin-bottom: var(--half-module);">Zum Angebot hinzufügen und noch mehr sparen</p>
+            <div class="rec-grid" id="recommendationList"></div>
           </div>
         </div>
 
