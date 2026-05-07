@@ -125,10 +125,6 @@
             <p class="summary-card__title">Dein Persönliches Angebot · <span id="paidCount">0</span> Produkte</p>
             <p class="summary-card__products" id="summaryProducts">—</p>
 
-            <div class="warning-banner" id="bundleWarning" style="display:none;">
-              Achtung: Dein Bundle ist nicht vollständig!
-            </div>
-
             <div class="summary-card__line --free">
               <span>Gratisprodukte (<span id="freeCount">0</span>) im Wert von</span>
               <span id="savingsAmount">0,00 €</span>
@@ -564,23 +560,13 @@
     // ── Summary ─────────────────────────────────────────────────────────────
     const updateSummary = () => {
       let paidItems = 0, freeItems = 0, savings = 0;
-      let bestUpsell = null, minMissing = Infinity;
 
       activeBundle.forEach(p => {
         paidItems += p.quantity;
         const cur  = naturalTiers.find(t => p.quantity >= t.minQuantity);
-        const next = naturalTiers.slice().reverse().find(t => p.quantity < t.minQuantity);
         const free = cur ? cur.freeItems : 0;
         freeItems += free;
         savings   += free * p.price;
-
-        if (next) {
-          const missing = next.minQuantity - p.quantity;
-          if (missing < minMissing) {
-            minMissing = missing;
-            bestUpsell = { product: p, missing, nextFree: next.freeItems };
-          }
-        }
       });
 
       const names = activeBundle.map(p => p.title).join(', ');

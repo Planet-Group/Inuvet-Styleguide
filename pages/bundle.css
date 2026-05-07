@@ -257,17 +257,6 @@
   color: var(--bg);
 }
 
-/* Warning banner */
-.warning-banner {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  background: rgba(0,0,0,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: var(--bg);
-  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
-  text-align: center;
-}
-
 /* ─── Cart Drawer — Bundle-spezifische Zusatzzeilen ─── */
 .cart-drawer__free-row,
 .cart-drawer__savings-row {
@@ -300,20 +289,6 @@
   justify-content: center;
 }
 
-
-/* ─── Backend-Hinweis im Modal ─── */
-.settings-backend-note {
-  display: flex;
-  align-items: flex-start;
-  gap: calc(var(--base) * 0.5);
-  background: var(--green-light);
-  border-left: 3px solid var(--green);
-  padding: calc(var(--base) * 0.625) calc(var(--base) * 0.75);
-  font-size: var(--text-xs);
-  line-height: var(--lh-base);
-  color: var(--fg);
-  margin-bottom: var(--half-module);
-}
 
 /* ─── Tier Rows in Modal ─── */
 .tier-row {
