@@ -461,7 +461,6 @@
         card.innerHTML = `
           <div class="product-thumb-wrap">
             <div class="product-thumb placeholder-bg">${thumbContentHtml}</div>
-            ${freeBadgeHtml ? `<div class="floating-meta">${freeBadgeHtml}</div>` : ''}
           </div>
           <div class="cart-item__info">
             <div class="cart-item__top">
@@ -489,6 +488,7 @@
                     <span class="material-icons">add</span>
                   </button>
                 </div>
+                ${freeItems > 0 ? `<span class="bundle-item__free-label">inkl. ${freeItems} Gratis</span>` : ''}
               </div>
             </div>
           </div>

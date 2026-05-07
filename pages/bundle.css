@@ -62,6 +62,13 @@
 /* ─── Bundle Item ─── */
 .bundle-item { position: relative; }
 
+.bundle-item__free-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--green);
+  white-space: nowrap;
+}
+
 .bundle-item__tier-hint {
   position: absolute;
   bottom: 0;
