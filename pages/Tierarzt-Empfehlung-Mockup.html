@@ -276,10 +276,23 @@ function toggleAccordion(btn) {
   btn.setAttribute('aria-expanded', String(!isOpen));
 }
 
+// ── Tierarzt-Daten ──────────────────────────────────────────────────────────
+const VETS = [
+  { id:1, name:'Tierarztpraxis Grüntal',         doctor:'Dr. med. vet. Martina Müller', city:'München'   },
+  { id:2, name:'Kleintierpraxis am See',          doctor:'Dr. Thomas Berger',            city:'Hamburg'   },
+  { id:3, name:'Tierärztliches Zentrum Mitte',   doctor:'Dr. Sarah Koch',               city:'Berlin'    },
+  { id:4, name:'Praxis für Kleintiere',          doctor:'Dr. Andreas Weber',            city:'Frankfurt' },
+  { id:5, name:'Tierarztpraxis Sonnenhügel',     doctor:'Dr. Lisa Braun',               city:'Stuttgart' },
+  { id:6, name:'Tiermedizinisches Zentrum Nord', doctor:'Dr. Klaus Hoffmann',           city:'Dortmund'  },
+];
+let selectedVet    = VETS[0]; // Default: zuletzt verwendete Praxis
+let cartDrawerStep = 1;
+
 /* ════════════════════════════════════════════
    WARENKORB-DRAWER
    ════════════════════════════════════════════ */
 function openCart() {
+  cartDrawerStep = 1;
   renderCartDrawer();
   document.getElementById('cartOverlay').classList.add('--open');
   document.getElementById('cartDrawer').classList.add('--open');
@@ -375,10 +388,120 @@ function renderOptionsDrawer(p) {
     </div>`;
 }
 
+function setCartStep(step) {
+  cartDrawerStep = step;
+  renderCartDrawer();
+}
+
+function filterVets(query) {
+  const dropdown = document.getElementById('vetDropdown');
+  if (!query || query.length < 1) { dropdown.style.display = 'none'; return; }
+  const q = query.toLowerCase();
+  const matches = VETS.filter(v =>
+    v.name.toLowerCase().includes(q) ||
+    v.doctor.toLowerCase().includes(q) ||
+    v.city.toLowerCase().includes(q)
+  );
+  if (!matches.length) { dropdown.style.display = 'none'; return; }
+  dropdown.innerHTML = matches.map(v => `
+    <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
+      <strong>${v.name}</strong><br>
+      <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
+    </div>`).join('');
+  dropdown.style.display = '';
+}
+
+function showVetDropdown() {
+  filterVets(document.getElementById('vetSearchInput')?.value ?? '');
+  if (!document.getElementById('vetDropdown').children.length) {
+    // Show all vets on empty focus
+    const dropdown = document.getElementById('vetDropdown');
+    dropdown.innerHTML = VETS.map(v => `
+      <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
+        <strong>${v.name}</strong><br>
+        <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
+      </div>`).join('');
+    dropdown.style.display = '';
+  }
+}
+
+function selectVet(id) {
+  selectedVet = VETS.find(v => v.id === id);
+  const input = document.getElementById('vetSearchInput');
+  if (input) input.value = selectedVet.name + ' – ' + selectedVet.city;
+  document.getElementById('vetDropdown').style.display = 'none';
+}
+
+function submitVetRequest() {
+  setCartStep(3);
+}
+
+function renderRequestStep() {
+  const drawer = document.getElementById('cartDrawer');
+  drawer.innerHTML = `
+    <div class="cart-drawer__header">
+      <button class="btn --icon" onclick="setCartStep(1)" aria-label="Zurück"><span class="material-icons">arrow_back</span></button>
+      <h2 class="cart-drawer__title">Deine Anfragen</h2>
+      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="cart-drawer__items">
+      <p style="color:var(--fg-muted); font-size:var(--text-base); margin-bottom:var(--half-module);">An welche Praxis möchtest du deine Rezeptanfrage stellen?</p>
+      <!-- Vet search field -->
+      <div class="vet-search" style="position:relative; margin-bottom:var(--half-module);">
+        <div class="form-field">
+          <input type="text" id="vetSearchInput" autocomplete="off"
+            placeholder="Tierarztpraxis suchen …"
+            value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
+            oninput="filterVets(this.value)" onfocus="showVetDropdown()">
+          <label for="vetSearchInput">Tierarztpraxis</label>
+        </div>
+        <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
+      </div>
+      <!-- Notes -->
+      <div class="form-field">
+        <textarea id="vetNotes" rows="4" placeholder=""></textarea>
+        <label for="vetNotes">Notizen an die Tierarztpraxis (optional)</label>
+      </div>
+    </div>
+    <div class="cart-drawer__footer">
+      <button class="btn --primary cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
+    </div>`;
+}
+
+function renderSuccessStep() {
+  const hasApproved = cartApproved.length > 0;
+  const drawer = document.getElementById('cartDrawer');
+  drawer.innerHTML = `
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Anfrage versendet</h2>
+      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="cart-drawer__items">
+      <div style="text-align:center; padding: var(--module) 0;">
+        <span class="material-icons" style="font-size:3rem; color:var(--green);">check_circle</span>
+      </div>
+      <p style="font-size:var(--text-base); line-height:var(--lh-base); margin-bottom:var(--half-module);">
+        Anfrage an <strong>${selectedVet.name}</strong> erfolgreich versendet.
+      </p>
+      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted);">
+        Sie erhalten eine Nachricht per E-Mail (<strong>kunde@email.com</strong>), sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
+      </p>
+    </div>
+    <div class="cart-drawer__footer">
+      ${hasApproved ? `<button class="btn --primary cart-drawer__checkout" onclick="closeCart();setPage('checkout')">Weiter zum Checkout</button>` : ''}
+      <div class="cart-drawer__continue-wrap">
+        <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
+      </div>
+    </div>`;
+}
+
 function renderCartDrawer() {
   const hasApproved  = cartApproved.length  > 0;
   const hasRequested = cartRequested.length > 0;
   const drawer       = document.getElementById('cartDrawer');
+
+  if (cartDrawerStep === 2) { renderRequestStep(); return; }
+  if (cartDrawerStep === 3) { renderSuccessStep(); return; }
 
   if (!hasApproved && !hasRequested) {
     drawer.innerHTML = `
@@ -405,12 +528,18 @@ function renderCartDrawer() {
 
   const totalApproved = calcTotal(cartApproved);
 
-  /* Checkout-Aktion:
-     Nur empfohlene Produkte → direkt zur Checkout-Seite
-     Angefragte vorhanden    → Popup (Anfrage + ggf. Checkout) */
-  const checkoutFn = hasRequested
-    ? `closeCart();openCheckoutModal()`
-    : `closeCart();setPage('checkout')`;
+  /* CTA-Label und -Aktion je nach Warenkorb-Inhalt */
+  let ctaLabel, ctaFn;
+  if (hasRequested && hasApproved) {
+    ctaLabel = 'Kaufen & Anfragen';
+    ctaFn    = `setCartStep(2)`;
+  } else if (hasRequested) {
+    ctaLabel = 'Anfragen';
+    ctaFn    = `setCartStep(2)`;
+  } else {
+    ctaLabel = 'Zur Kasse';
+    ctaFn    = `closeCart();setPage('checkout')`;
+  }
 
   drawer.innerHTML = `
     <div class="cart-drawer__header">
@@ -422,7 +551,7 @@ function renderCartDrawer() {
       ${hasApproved ? `
       <div class="summary-total"><span>Gesamt (einzulösend)</span><span>${totalApproved.toFixed(2).replace('.',',')} €</span></div>
       <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>` : ''}
-      <button class="btn --primary cart-drawer__checkout" onclick="${checkoutFn}">Zur Kasse</button>
+      <button class="btn --primary cart-drawer__checkout" onclick="${ctaFn}">${ctaLabel}</button>
       <div class="cart-drawer__continue-wrap">
         <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
       </div>
@@ -1196,6 +1325,14 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('optionsDrawer').classList.contains('--open')) {
     closeOptions();
+  }
+});
+
+/* Vet-Dropdown schließen bei Klick außerhalb */
+document.addEventListener('click', e => {
+  if (!e.target.closest('.vet-search')) {
+    const d = document.getElementById('vetDropdown');
+    if (d) d.style.display = 'none';
   }
 });
 
