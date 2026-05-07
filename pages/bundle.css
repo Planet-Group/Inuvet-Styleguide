@@ -217,6 +217,7 @@
   font-size: var(--text-lg);
   font-weight: 700;
   line-height: var(--lh-h3);
+  color: rgba(255,255,255,0.6);
 }
 
 /* Kommaseparierte Produktliste */
@@ -240,6 +241,9 @@
   font-size: var(--text-base);
   font-weight: 700;
   align-items: baseline;
+}
+.summary-card__line.--free span:last-child {
+  color: var(--bg);
 }
 
 /* CTA auf grünem Hintergrund — weißer Button */
