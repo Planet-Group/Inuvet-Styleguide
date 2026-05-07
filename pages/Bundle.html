@@ -402,7 +402,7 @@
 
     const withHistory   = allProducts.filter(p => p.past6Months > 0)
                                      .sort((a, b) => b.past6Months - a.past6Months);
-    let activeBundle    = withHistory.slice(0, 4);
+    let activeBundle    = withHistory.slice(0, 5);
     let recommendedPool = [...withHistory.slice(4), ...allProducts.filter(p => p.past6Months === 0)];
 
     let naturalTiers = [
