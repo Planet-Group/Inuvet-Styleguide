@@ -201,8 +201,6 @@
 .summary-card__title {
   font-size: var(--text-base);
   font-weight: 700;
-  padding-bottom: calc(var(--base) * 0.375);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
 /* Kommaseparierte Produktliste */
@@ -210,8 +208,7 @@
   font-size: var(--text-xs);
   color: rgba(255,255,255,0.7);
   line-height: var(--lh-base);
-  padding-bottom: calc(var(--base) * 0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  margin-top: calc(var(--base) * -0.25);
 }
 
 .summary-card__line {
@@ -221,19 +218,12 @@
   font-size: var(--text-base);
 }
 
-/* Gratisprodukte — groß und fett */
+/* Gratisprodukte im Wert von — groß und fett */
 .summary-card__line.--free {
   color: var(--bg);
   font-size: var(--text-lg);
   font-weight: 700;
-  align-items: center;
-}
-
-/* Dein Vorteil — groß und fett */
-.summary-card__line.--savings {
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--bg);
+  align-items: baseline;
 }
 
 /* CTA auf grünem Hintergrund — weißer Button */
