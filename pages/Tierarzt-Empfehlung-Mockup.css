@@ -173,3 +173,8 @@
 .vet-dropdown__item:last-child { border-bottom: none; }
 .vet-dropdown__item:hover { background: var(--accent-bg); }
 
+.vet-dropdown__custom {
+  border-top: 1px solid var(--border-light);
+  color: var(--fg-muted);
+}
+

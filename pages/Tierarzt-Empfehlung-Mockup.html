@@ -422,8 +422,21 @@ function filterVets(query) {
   const matches = q
     ? VETS.filter(v => v.name.toLowerCase().includes(q) || v.doctor.toLowerCase().includes(q) || v.city.toLowerCase().includes(q))
     : VETS;
-  if (!matches.length) { dropdown.style.display = 'none'; return; }
-  dropdown.innerHTML = matches.map(vetItemHTML).join('');
+
+  let html = matches.map(vetItemHTML).join('');
+
+  // Freie Eingabe anbieten, wenn kein exakter Treffer
+  if (q && !matches.find(v => v.name.toLowerCase() === q)) {
+    const escaped = query.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    html += `<div class="vet-dropdown__item vet-dropdown__custom" onclick="selectCustomVet('${escaped}')">
+      <span class="material-icons" style="font-size:1rem;vertical-align:middle;margin-right:0.25rem;color:var(--fg-muted)">add_circle_outline</span>
+      <strong>„${query}" verwenden</strong><br>
+      <span style="font-size:var(--text-xs);color:var(--fg-muted)">Praxis nicht in der Liste</span>
+    </div>`;
+  }
+
+  if (!html) { dropdown.style.display = 'none'; return; }
+  dropdown.innerHTML = html;
   dropdown.style.display = '';
 }
 
@@ -437,7 +450,14 @@ function showVetDropdown() {
 function selectVet(id) {
   selectedVet = VETS.find(v => v.id === id);
   const input = document.getElementById('vetSearchInput');
-  if (input) input.value = selectedVet.name; // nur Name, damit Re-Fokus + Filter funktionieren
+  if (input) input.value = selectedVet.name;
+  document.getElementById('vetDropdown').style.display = 'none';
+}
+
+function selectCustomVet(name) {
+  selectedVet = { id: null, name, doctor: '', city: '', hasRecommended: false, custom: true };
+  const input = document.getElementById('vetSearchInput');
+  if (input) input.value = name;
   document.getElementById('vetDropdown').style.display = 'none';
 }
 
@@ -679,7 +699,7 @@ function drawerItemHTML(id, type) {
           <input class="qty-selector__input" type="number" value="1" min="1" max="99">
           <button class="qty-selector__btn" type="button" aria-label="Mehr"><span class="material-icons">add</span></button>
         </div>
-        <span class="cart-item__qty-text">${p.price}</span>
+        ${type === 'approved' ? `<span class="cart-item__qty-text">${p.price}</span>` : ''}
       </div>
     </div>
   </div>`;
