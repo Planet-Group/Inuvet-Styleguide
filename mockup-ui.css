@@ -463,6 +463,14 @@ body.--mockup-bar-visible {
 .mockup-email-panel__meta .mockup-email__recipient { color: #555; font-size: 0.7rem; }
 .mockup-email-panel__meta .mockup-email__subject   { color: #999; font-size: 0.7rem; white-space: normal; }
 
+.mockup-email-panel__counter {
+  font-size: 0.6rem;
+  color: #444;
+  font-family: monospace;
+  flex-shrink: 0;
+  align-self: center;
+}
+
 .mockup-email-panel__close {
   background: transparent;
   border: none;

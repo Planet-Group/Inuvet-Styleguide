@@ -132,6 +132,7 @@
       <span id="emailPanelRecipient" class="mockup-email__recipient"></span>
       <span id="emailPanelSubject" class="mockup-email__subject"></span>
     </div>
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
     <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
       <span class="material-icons">close</span>
     </button>
@@ -451,6 +452,8 @@ function submitVetRequest() {
 
 /* ── E-Mail-Overlay ──────────────────────────────────────────────── */
 let emailOverlayData = {};
+let emailQueue       = [];
+let emailQueueIndex  = 0;
 
 function openEmailOverlay(key) {
   const d = emailOverlayData[key];
@@ -461,13 +464,36 @@ function openEmailOverlay(key) {
   document.getElementById('emailPanelRecipient').textContent = 'an: ' + d.recipient;
   document.getElementById('emailPanelSubject').textContent   = 'Betreff: ' + d.subject;
   document.getElementById('emailPanelBody').innerHTML = d.body;
+
+  // Counter "1 / 2" anzeigen wenn mehrere Nachrichten
+  const counter = document.getElementById('emailPanelCounter');
+  const total   = emailQueue.length;
+  const current = emailQueueIndex + 1;
+  counter.textContent = total > 1 ? `${current} / ${total}` : '';
+
   document.getElementById('emailOverlay').classList.add('--open');
   document.getElementById('emailPanel').classList.add('--open');
+}
+
+function openNextEmail() {
+  if (emailQueueIndex >= emailQueue.length) {
+    // Alle Nachrichten gesehen — Footer freischalten
+    const footer = document.getElementById('drawerFooter');
+    if (footer) {
+      footer.style.opacity   = '0';
+      footer.style.display   = '';
+      requestAnimationFrame(() => { footer.style.transition = 'opacity 0.3s'; footer.style.opacity = '1'; });
+    }
+    return;
+  }
+  openEmailOverlay(emailQueue[emailQueueIndex]);
 }
 
 function closeEmailOverlay() {
   document.getElementById('emailOverlay').classList.remove('--open');
   document.getElementById('emailPanel').classList.remove('--open');
+  emailQueueIndex++;
+  setTimeout(openNextEmail, 220); // kurze Pause zwischen Nachrichten
 }
 
 function renderRequestStep() {
@@ -549,35 +575,6 @@ function renderSuccessStep() {
     };
   }
 
-  // Chips rendern
-  const chipOwner = `
-    <button class="mockup-notif-chip" onclick="openEmailOverlay('owner')">
-      <span class="mockup-email__tag">E-Mail</span>
-      <span class="mockup-notif-chip__info">
-        <span>kunde@email.com</span>
-        <span class="mockup-notif-chip__subject">Neue Anfrage</span>
-      </span>
-      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
-    </button>`;
-
-  const chipSecond = vetKnown ? `
-    <button class="mockup-notif-chip" onclick="openEmailOverlay('vet')">
-      <span class="mockup-email__tag">E-Mail</span>
-      <span class="mockup-notif-chip__info">
-        <span>${vetEmail}</span>
-        <span class="mockup-notif-chip__subject">Neue Anfrage von Max Mustermann</span>
-      </span>
-      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
-    </button>` : `
-    <button class="mockup-notif-chip --internal" onclick="openEmailOverlay('internal')">
-      <span class="mockup-email__tag --internal">Intern</span>
-      <span class="mockup-notif-chip__info">
-        <span>team@inuvet.com</span>
-        <span class="mockup-notif-chip__subject">Dringende Empfehlungsanfrage!</span>
-      </span>
-      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
-    </button>`;
-
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
@@ -591,23 +588,21 @@ function renderSuccessStep() {
       <p style="font-size:var(--text-base); line-height:var(--lh-base); margin-bottom:var(--half-module);">
         Anfrage an <strong>${vetName}</strong> erfolgreich versendet.
       </p>
-      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted); margin-bottom:var(--half-module);">
+      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted);">
         Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
       </p>
-      <div class="mockup-email-section">
-        <div class="mockup-email-section__label">Ausgelöste Nachrichten</div>
-        <div class="mockup-notif-chips">
-          ${chipOwner}
-          ${chipSecond}
-        </div>
-      </div>
     </div>
-    <div class="cart-drawer__footer">
+    <div class="cart-drawer__footer" id="drawerFooter" style="display:none">
       ${hasApproved ? `<button class="btn --primary cart-drawer__checkout" onclick="closeCart();setPage('checkout')">Weiter zum Checkout</button>` : ''}
       <div class="cart-drawer__continue-wrap">
         <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
       </div>
     </div>`;
+
+  // E-Mail-Queue aufbauen und automatisch starten
+  emailQueue      = vetKnown ? ['owner', 'vet'] : ['owner', 'internal'];
+  emailQueueIndex = 0;
+  setTimeout(openNextEmail, 500); // kurze Pause damit Check-Screen sichtbar wird
 }
 
 function renderCartDrawer() {
