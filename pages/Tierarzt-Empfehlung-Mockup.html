@@ -453,12 +453,6 @@ function openEmailsOverlay(keys) {
   const count = keys.length;
   document.getElementById('emailPanelCounter').textContent = `${count} Nachrichten ausgelöst`;
 
-  // Header: generisch
-  document.getElementById('emailPanelTag').textContent = '';
-  document.getElementById('emailPanelTag').className   = 'mockup-email__tag';
-  document.getElementById('emailPanelRecipient').textContent = '';
-  document.getElementById('emailPanelSubject').textContent   = '';
-
   // Body: alle E-Mails untereinander
   document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
     const d = emailOverlayData[key];
