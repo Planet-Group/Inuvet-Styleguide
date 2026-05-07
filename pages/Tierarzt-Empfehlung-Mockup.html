@@ -930,7 +930,6 @@ function tileHTML(p) {
   const approved = isApproved(p);
 
   let cartOverlay = '';
-  let mobileCta   = '';
   if (state !== 'guest') {
     if (approved) {
       cartOverlay = `
@@ -940,10 +939,6 @@ function tileHTML(p) {
         <div class="tile__cart">
           <button class="btn --primary" onclick="openOptions(${p.id});event.stopPropagation()">In den Warenkorb</button>
         </div>`;
-      mobileCta = `
-        <div class="tile__mobile-cta">
-          <button class="btn --primary --full" onclick="openOptions(${p.id});event.stopPropagation()">In den Warenkorb</button>
-        </div>`;
     } else {
       cartOverlay = `
         <button class="tile__cart-icon" type="button" aria-label="Anfrage in den Korb legen" onclick="openOptions(${p.id});event.stopPropagation()">
@@ -951,10 +946,6 @@ function tileHTML(p) {
         </button>
         <div class="tile__cart">
           <button class="btn --secondary" onclick="openOptions(${p.id});event.stopPropagation()">Anfragen</button>
-        </div>`;
-      mobileCta = `
-        <div class="tile__mobile-cta">
-          <button class="btn --secondary --full" onclick="openOptions(${p.id});event.stopPropagation()">Anfragen</button>
         </div>`;
     }
   }
@@ -979,7 +970,6 @@ function tileHTML(p) {
     <div class="tile__price">
       <div class="price-stack"><span>${p.price}</span></div>
     </div>
-    ${mobileCta}
   </div>`;
 }
 
