@@ -424,6 +424,7 @@
       <div class="step step--tierbesitzer">
         <div class="step__label">Praxis auswählen</div>
         <div class="step__desc">Suche nach Tierarztpraxis. <span style="color:var(--green);font-weight:700;">●</span> = Praxis hat bereits Empfehlungen erstellt.</div>
+        <div class="step__note">Praxis nicht in der Liste? → Freitext-Eingabe möglich: »[Name] verwenden«. Dann ist Pflichtfeld <strong>Ort der Praxis</strong> anzugeben.</div>
       </div>
       <div class="arrow">↓</div>
       <div class="step step--tierbesitzer">
@@ -483,8 +484,8 @@
       <div class="step step--internal">
         <div class="step__label">Interne Nachricht an Inuvet</div>
         <div class="step__desc">»Praxis XY noch nicht im Programm – bitte Praxis schulen und Anfrage einleiten«</div>
-        <div class="step__note">Nur wenn Praxis noch nie empfohlen hat. Keine E-Mail an Praxis!</div>
-        <div class="email-badge" style="background:#fee2e2;border-color:#fca5a5;color:#dc2626;"><span class="material-icons" style="font-size:0.75rem;">warning</span> Intern · kein Punkt</div>
+        <div class="step__note">Wenn Praxis noch nie empfohlen hat (○ kein Punkt) <strong>oder</strong> wenn Praxis per Freitext eingegeben wurde (nicht im System). Keine E-Mail an Praxis!</div>
+        <div class="email-badge" style="background:#fee2e2;border-color:#fca5a5;color:#dc2626;"><span class="material-icons" style="font-size:0.75rem;">warning</span> Intern · kein Punkt oder Freitext</div>
       </div>
       <div class="arrow">↓</div>
       <div class="step step--vet-known">
@@ -555,6 +556,7 @@
     <ul>
       <li><strong>Praxis-Status (●/○):</strong> Wird aus Salesforce-Kundendatenbank gezogen. Alle Praxen im System erscheinen im Dropdown — der Punkt zeigt ob Schulung nötig ist.</li>
       <li><strong>Keine E-Mail an unbekannte Praxis:</strong> Praxen ohne Empfehlungs-Historie dürfen nicht direkt angeschrieben werden (DSGVO / Opt-In). Inuvet-Mitarbeiter übernimmt den Erstkontakt.</li>
+      <li><strong>Freitext-Praxiseingabe:</strong> Ist die Wunschpraxis nicht im System, kann der Tierbesitzer den Praxisnamen frei eingeben. Das Feld <em>Ort der Praxis</em> ist dann Pflichtfeld (Validierung im Frontend). Die Anfrage löst immer den internen Alarm aus (wie ○ kein Punkt) — Inuvet-Mitarbeiter nimmt Kontakt auf.</li>
       <li><strong>@Birka (Marketing):</strong> Die E-Mail an den Tierarzt (Phase 2, Praxis bekannt) braucht einen motivierenden Text über Vorteile des Empfehlungsprogramms (Provision, Patientenbindung).</li>
       <li><strong>Freigabe-Seite:</strong> Der Link zur spezifischen Anfrage auf inuvet.com ist nur für den eingeloggten Tierarzt zugänglich.</li>
       <li><strong>State-Simulation im Mockup:</strong> Der Übergang zu State ③ (»mit Freigabe«) wird über den FAB-/Mockup-Bar-Button manuell gesteuert.</li>
