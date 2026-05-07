@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inuvet – Vorrats-Bundle</title>
+  <title>Inuvet – Dein persönliches Angebot</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
@@ -108,7 +108,7 @@
     <div class="page" id="bundleSection" style="padding-top: var(--module); padding-bottom: var(--module-2xl);">
 
       <div class="bundle-intro">
-        <h2>Dein persönliches Vorrats-Bundle</h2>
+        <h2>Dein persönliches Angebot</h2>
         <p>Basierend auf deinen Einkäufen der letzten 6 Monate haben wir dieses Set für dich zusammengestellt.</p>
       </div>
 
@@ -128,7 +128,7 @@
         <!-- Rechte Spalte: Zusammenfassung -->
         <div>
           <div class="summary-card" id="summaryCard">
-            <p class="summary-card__title">Dein Persönliches Bundle · <span id="paidCount">0</span> Produkte</p>
+            <p class="summary-card__title">Dein Persönliches Angebot · <span id="paidCount">0</span> Produkte</p>
             <p class="summary-card__products" id="summaryProducts">—</p>
 
             <div class="warning-banner" id="bundleWarning" style="display:none;">
@@ -139,8 +139,6 @@
               <span>Gratisprodukte (<span id="freeCount">0</span>) im Wert von</span>
               <span id="savingsAmount">0,00 €</span>
             </div>
-
-            <div id="upsellHint" class="upsell-hint" style="display:none;"></div>
 
             <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
               In den Warenkorb
@@ -344,7 +342,7 @@
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">Dein Persönliches Bundle</p>
+                <p class="cart-item__name">Dein Persönliches Angebot</p>
                 <p class="cart-item__variant">${productNames}</p>
               </div>
               <button class="btn --icon cart-item__remove" onclick="closeCart()" aria-label="Entfernen">
@@ -578,19 +576,6 @@
       document.getElementById('savingsAmount').textContent = `+ ${fmt(savings)}`;
       document.querySelector('.summary-card__line.--free').style.display = freeItems > 0 ? '' : 'none';
 
-      const hint = document.getElementById('upsellHint');
-      if (bestUpsell) {
-        const curOfBest = naturalTiers.find(t => bestUpsell.product.quantity >= t.minQuantity);
-        const curFree   = curOfBest ? curOfBest.freeItems : 0;
-        const gained    = bestUpsell.nextFree - curFree;
-        hint.innerHTML  = `Noch <strong>${bestUpsell.missing}× ${bestUpsell.product.title}</strong> für <strong>+${gained} weiteres Gratisprodukt</strong>`;
-        hint.style.display = '';
-      } else if (activeBundle.length > 0) {
-        hint.innerHTML     = '<strong>Maximaler Naturalrabatt erreicht!</strong>';
-        hint.style.display = '';
-      } else {
-        hint.style.display = 'none';
-      }
     };
 
 

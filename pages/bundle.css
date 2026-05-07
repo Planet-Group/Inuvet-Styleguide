@@ -199,8 +199,9 @@
 }
 
 .summary-card__title {
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: 700;
+  line-height: var(--lh-h3);
 }
 
 /* Kommaseparierte Produktliste */
@@ -218,10 +219,10 @@
   font-size: var(--text-base);
 }
 
-/* Gratisprodukte im Wert von — groß und fett */
+/* Gratisprodukte im Wert von */
 .summary-card__line.--free {
   color: var(--bg);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-weight: 700;
   align-items: baseline;
 }
@@ -237,15 +238,6 @@
 }
 .summary-card__cta:hover {
   background: var(--fg);
-  color: var(--bg);
-}
-
-/* Upsell-Hint */
-.upsell-hint {
-  font-size: var(--text-xs);
-  background: rgba(0,0,0,0.15);
-  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
-  line-height: var(--lh-base);
   color: var(--bg);
 }
 
