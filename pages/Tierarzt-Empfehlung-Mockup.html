@@ -339,7 +339,7 @@ function renderOptionsDrawer(p) {
   const ctaType  = approved ? 'approved' : 'requested';
   const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
   const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
-  const ctaLabel = approved ? 'In den Warenkorb' : 'Produkt anfragen';
+  const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
 
   document.getElementById('optionsDrawer').innerHTML = `
     <div class="cart-drawer__header">
@@ -848,11 +848,11 @@ function tileHTML(p) {
         </div>`;
     } else {
       cartOverlay = `
-        <button class="tile__cart-icon" type="button" aria-label="Produkt anfragen" onclick="openOptions(${p.id});event.stopPropagation()">
+        <button class="tile__cart-icon" type="button" aria-label="Anfrage in den Korb legen" onclick="openOptions(${p.id});event.stopPropagation()">
           <span class="material-icons">mail_outline</span>
         </button>
         <div class="tile__cart">
-          <button class="btn --secondary" onclick="openOptions(${p.id});event.stopPropagation()">Produkt anfragen</button>
+          <button class="btn --secondary" onclick="openOptions(${p.id});event.stopPropagation()">Anfragen</button>
         </div>`;
     }
   }
@@ -1020,7 +1020,7 @@ function renderProduct() {
     </div>`;
     actions = `<div class="pdp__actions">
       <button class="btn --secondary --with-icon" onclick="addToCart(${p.id},'requested');openCart()">
-        <span class="material-icons">mail_outline</span> Produkt anfragen
+        <span class="material-icons">mail_outline</span> Anfrage in den Korb legen
       </button>
     </div>`;
   }
