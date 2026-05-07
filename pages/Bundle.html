@@ -422,7 +422,7 @@
       const cur    = [...sorted].reverse().find(t => quantity >= t.minQuantity) ?? sorted[0];
       const missing = next.minQuantity - quantity;
       const gained  = next.freeItems - (cur?.freeItems ?? 0);
-      return `noch ${missing}× → +${gained} gratis`;
+      return `+${missing} Stück = +${gained} Gratisprodukte`;
     };
 
     // ── Render: Bundle ─────────────────────────────────────────────────────
