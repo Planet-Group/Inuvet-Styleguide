@@ -414,6 +414,17 @@
 
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
+    // ── Nächste Tier-Stufe für ein Produkt ────────────────────────────────
+    const getTierHint = (quantity) => {
+      const sorted = [...naturalTiers].sort((a, b) => a.minQuantity - b.minQuantity);
+      const next   = sorted.find(t => t.minQuantity > quantity);
+      if (!next) return null; // Maximalstufe erreicht
+      const cur    = [...sorted].reverse().find(t => quantity >= t.minQuantity) ?? sorted[0];
+      const missing = next.minQuantity - quantity;
+      const gained  = next.freeItems - (cur?.freeItems ?? 0);
+      return `noch ${missing}× → +${gained} gratis`;
+    };
+
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
       const list = document.getElementById('productList');
@@ -444,6 +455,8 @@
         const card = document.createElement('div');
         card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
         p.isNew = false;
+
+        const tierHint = getTierHint(p.quantity);
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
@@ -478,7 +491,8 @@
                 </div>
               </div>
             </div>
-          </div>`;
+          </div>
+          ${tierHint ? `<span class="bundle-item__tier-hint" aria-hidden="true">${tierHint}</span>` : ''}`;
         list.appendChild(card);
       });
 

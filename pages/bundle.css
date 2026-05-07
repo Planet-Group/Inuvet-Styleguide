@@ -60,6 +60,21 @@
 }
 
 /* ─── Bundle Item ─── */
+.bundle-item { position: relative; }
+
+.bundle-item__tier-hint {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: var(--bg);
+  padding: 0 calc(var(--base) * 0.5);
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  white-space: nowrap;
+  z-index: 1;
+}
+
 .bundle-item.is-entering {
   animation: bundleSlideIn var(--anim-mid) forwards;
 }
