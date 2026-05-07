@@ -236,7 +236,7 @@
 
 /* Gratisprodukte im Wert von */
 .summary-card__line.--free {
-  color: var(--bg);
+  color: rgba(255,255,255,0.6);
   font-size: var(--text-base);
   font-weight: 700;
   align-items: baseline;
