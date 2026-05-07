@@ -733,7 +733,7 @@
     <table class="spec-table">
       <tr><th>Primary<br><code>.btn.--primary</code></th><td>Hintergrund <code>--fg</code> · Schrift <code>--bg</code> · Border <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --fg</code></td></tr>
       <tr><th>Secondary<br><code>.btn.--secondary</code></th><td>Hintergrund transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert (schwarz gefüllt, weiße Schrift)</td></tr>
-      <tr><th>Ghost<br><code>.btn.--ghost</code></th><td>Kein Hintergrund, kein Rand, kein Padding-left/right · Text + animierter Pfeil <code>' →'</code> · Hover: Pfeil verschiebt sich</td></tr>
+      <tr><th>Ghost<br><code>.btn.--ghost</code></th><td>Kein Hintergrund, kein Rand, kein Padding-left/right · Text + animierter Pfeil <code>' →'</code> · Hover: Pfeil verschiebt sich · <strong>Mobile:</strong> Padding <code>0.75rem</code> links/rechts + <code>margin-left: −0.75rem</code> (visuell bündig, Touch-Target ≥ 44 px)</td></tr>
       <tr><th>Volle Breite<br><code>.btn.--full</code></th><td>Zusatz-Modifier: <code>width: 100%</code> · Kombinierbar mit allen drei Stilvarianten</td></tr>
       <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code></td></tr>
       <tr><th>Icon-only<br><code>.btn.--icon</code></th><td>Kein Hintergrund, kein Border, kein Padding · Für Nav-Icons (Suche, Warenkorb, Schließen) · Kombinierbar mit <code>.icon-badged</code></td></tr>

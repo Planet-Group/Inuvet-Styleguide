@@ -934,6 +934,19 @@
   .btn.--full { width: 100%; text-align: center; }
   .btn:disabled, .btn[disabled], .btn.--disabled { opacity: 0.35; pointer-events: none; cursor: not-allowed; }
 
+  /* Ghost-Button: Mobile Touch-Target
+     Auf Desktop ist padding 0 gewollt (Text bündig mit Layout).
+     Auf Mobile würde das die Tap-Fläche auf Textbreite reduzieren — zu schmal.
+     Lösung: Padding wiederherstellen + visuell durch negativen margin-left kompensieren,
+     sodass der Text optisch bündig bleibt, der Finger aber genug Fläche findet. */
+  @media (max-width: 767px) {
+    .btn.--ghost {
+      padding-left:  calc(var(--base) * 0.75);
+      padding-right: calc(var(--base) * 0.75);
+      margin-left:   calc(var(--base) * -0.75);
+    }
+  }
+
   /* ═══════════════════════════════════════════
      GLOBALE MOLEKÜLE
      ═══════════════════════════════════════════ */
