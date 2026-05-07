@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Empfehlungsanfrage freigeben</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <style>
+    /* ─── Seiten-Layout ─── */
+    body {
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    /* ─── inuvet.com Header ─── */
+    .vet-site-header {
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .vet-site-header__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--module);
+      display: flex;
+      align-items: center;
+      gap: var(--module);
+      height: 3.5rem;
+    }
+    .vet-site-header__logo {
+      font-weight: 700;
+      font-size: var(--text-m);
+      color: var(--green);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .vet-site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      flex-wrap: wrap;
+      margin-left: auto;
+    }
+    .vet-site-header__nav a {
+      font-size: var(--text-sm);
+      color: var(--fg-muted);
+      text-decoration: none;
+      padding: 0.3em 0.6em;
+      transition: color 0.12s;
+    }
+    .vet-site-header__nav a:hover { color: var(--fg); }
+    .vet-site-header__nav a.--active { color: var(--fg); font-weight: 600; }
+
+    /* ─── Hauptbereich ─── */
+    .approval-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: var(--module) var(--module) calc(var(--module) * 3);
+    }
+
+    /* ─── Breadcrumb ─── */
+    .approval-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: var(--text-xs);
+      color: var(--fg-muted);
+      margin-bottom: var(--half-module);
+    }
+    .approval-breadcrumb a {
+      color: var(--fg-muted);
+      text-decoration: none;
+    }
+    .approval-breadcrumb a:hover { color: var(--fg); }
+    .approval-breadcrumb__sep { color: var(--border); }
+
+    /* ─── Info-Box (Patienteninfo) ─── */
+    .approval-infobox {
+      background: var(--accent-bg);
+      border: 1px solid var(--border-light);
+      padding: var(--half-module);
+      font-size: var(--text-sm);
+      line-height: var(--lh-base);
+      margin-bottom: var(--module);
+    }
+    .approval-infobox__label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-muted);
+      margin-bottom: calc(var(--base) * 0.5);
+      font-weight: 600;
+    }
+    .approval-infobox__row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .approval-infobox__key {
+      color: var(--fg-muted);
+      min-width: 5rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── Produkt-Card ─── */
+    .approval-product-card {
+      border: 1px solid var(--border-light);
+      margin-bottom: var(--half-module);
+      background: var(--bg);
+    }
+    .approval-product-card__inner {
+      display: flex;
+      gap: var(--half-module);
+      padding: var(--half-module);
+      align-items: flex-start;
+    }
+    .approval-product-thumb {
+      width: 5rem;
+      height: 5rem;
+      flex-shrink: 0;
+      background: var(--accent-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .approval-product-thumb .material-icons {
+      color: var(--border);
+      font-size: 2rem;
+    }
+    .approval-product-info {
+      flex: 1;
+    }
+    .approval-product-name {
+      font-weight: 700;
+      font-size: var(--text-base);
+      margin-bottom: 0.15rem;
+    }
+    .approval-product-variant {
+      font-size: var(--text-sm);
+      color: var(--fg-muted);
+      margin-bottom: var(--half-module);
+    }
+
+    .approval-qty-label {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--fg-muted);
+      font-weight: 600;
+      margin-bottom: calc(var(--base) * 0.375);
+    }
+    .approval-qty-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: var(--half-module);
+    }
+
+    /* ─── Textarea-Bereich ─── */
+    .approval-product-card__note {
+      padding: 0 var(--half-module) var(--half-module);
+      border-top: 1px solid var(--border-light);
+      padding-top: var(--half-module);
+    }
+
+    /* ─── Footer-CTA ─── */
+    .approval-footer {
+      margin-top: var(--module);
+      padding-top: var(--half-module);
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* ─── Datum ─── */
+    .approval-date {
+      font-size: var(--text-xs);
+      color: var(--fg-muted);
+      margin-bottom: var(--half-module);
+    }
+
+    /* ─── Mockup FAB Panel ─── */
+    .mockup-fab-panel {
+      display: none;
+      position: fixed;
+      bottom: 4rem;
+      right: 1.25rem;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 0.75rem 1rem;
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #888;
+      z-index: 9998;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    .mockup-fab-panel.--open { display: block; }
+    .mockup-fab-panel__title {
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     inuvet.com Header
+     ════════════════════════════════════════ -->
+<header class="vet-site-header">
+  <div class="vet-site-header__inner">
+    <a href="#" class="vet-site-header__logo">inuvet.com</a>
+    <nav class="vet-site-header__nav">
+      <a href="#">Empfehlung ausstellen</a>
+      <a href="#">Meine Provisionen</a>
+      <a href="#">Eingelöste Empfehlungen</a>
+      <a href="#" class="--active">Offene Anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     Hauptinhalt
+     ════════════════════════════════════════ -->
+<main class="approval-page" id="approvalMain">
+
+  <!-- Breadcrumb -->
+  <div class="approval-breadcrumb">
+    <a href="#">Offene Anfragen</a>
+    <span class="approval-breadcrumb__sep">/</span>
+    <span>Anfrage #1042</span>
+  </div>
+
+  <!-- Titel -->
+  <h1 style="font-size:var(--text-l); line-height:var(--lh-h2); margin-bottom:var(--half-module);">
+    Empfehlungsanfrage von Max Mustermann
+  </h1>
+
+  <!-- Datum -->
+  <p class="approval-date">Eingegangen am 07.05.2026</p>
+
+  <!-- Patienteninfo -->
+  <div class="approval-infobox">
+    <div class="approval-infobox__label">Patienteninfo</div>
+    <div class="approval-infobox__row">
+      <span class="approval-infobox__key">Name</span>
+      <span>Max Mustermann</span>
+    </div>
+    <div class="approval-infobox__row">
+      <span class="approval-infobox__key">E-Mail</span>
+      <span>kunde@email.com</span>
+    </div>
+    <div class="approval-infobox__row">
+      <span class="approval-infobox__key">Praxis</span>
+      <span>Tierarztpraxis Grüntal</span>
+    </div>
+  </div>
+
+  <!-- Produkt-Cards -->
+  <h2 style="font-size:var(--text-base); font-weight:700; margin-bottom:var(--half-module); text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-muted);">
+    Angefragt (2 Produkte)
+  </h2>
+
+  <!-- Produkt 1: Calmin Balance -->
+  <div class="approval-product-card">
+    <div class="approval-product-card__inner">
+      <div class="approval-product-thumb">
+        <span class="material-icons">inventory_2</span>
+      </div>
+      <div class="approval-product-info">
+        <div class="approval-product-name">Calmin Balance</div>
+        <div class="approval-product-variant">Tabletten, 60 Stück</div>
+        <div class="approval-qty-label">Menge freigeben</div>
+        <div class="approval-qty-group">
+          <button class="choice-box --active" type="button" onclick="setQty(1,'reject',this)">Ablehnen</button>
+          <button class="choice-box" type="button" onclick="setQty(1,'max1',this)">max. 1×</button>
+          <button class="choice-box" type="button" onclick="setQty(1,'max2',this)">max. 2×</button>
+          <button class="choice-box" type="button" onclick="setQty(1,'max5',this)">max. 5×</button>
+          <button class="choice-box" type="button" onclick="setQty(1,'unlimited',this)">Unbegrenzt</button>
+        </div>
+      </div>
+    </div>
+    <div class="approval-product-card__note">
+      <div class="form-field">
+        <textarea id="note-1" rows="2" placeholder=""></textarea>
+        <label for="note-1">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Produkt 2: Hepax -->
+  <div class="approval-product-card">
+    <div class="approval-product-card__inner">
+      <div class="approval-product-thumb">
+        <span class="material-icons">inventory_2</span>
+      </div>
+      <div class="approval-product-info">
+        <div class="approval-product-name">Hepax</div>
+        <div class="approval-product-variant">Kapseln, 30 Stück</div>
+        <div class="approval-qty-label">Menge freigeben</div>
+        <div class="approval-qty-group">
+          <button class="choice-box --active" type="button" onclick="setQty(2,'reject',this)">Ablehnen</button>
+          <button class="choice-box" type="button" onclick="setQty(2,'max1',this)">max. 1×</button>
+          <button class="choice-box" type="button" onclick="setQty(2,'max2',this)">max. 2×</button>
+          <button class="choice-box" type="button" onclick="setQty(2,'max5',this)">max. 5×</button>
+          <button class="choice-box" type="button" onclick="setQty(2,'unlimited',this)">Unbegrenzt</button>
+        </div>
+      </div>
+    </div>
+    <div class="approval-product-card__note">
+      <div class="form-field">
+        <textarea id="note-2" rows="2" placeholder=""></textarea>
+        <label for="note-2">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abschicken -->
+  <div class="approval-footer">
+    <button class="btn --primary" onclick="submitApproval()" style="min-width:14rem;">
+      Freigabe absenden
+    </button>
+  </div>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     Mockup FAB + Panel
+     ════════════════════════════════════════ -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Mockup-Kontext
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Mockup-Kontext</div>
+  <p>Diese Seite simuliert die inuvet.com-Ansicht für Tierärzte.</p>
+  <p>Ein Tierarzt öffnet diese Seite, um eine Empfehlungsanfrage von Max Mustermann zu bearbeiten.</p>
+  <p>Er kann pro Produkt eine Menge freigeben oder ablehnen und optional eine Notiz hinterlassen.</p>
+  <p>Nach Absenden wird dem Tierbesitzer eine E-Mail geschickt.</p>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   Produkt-Daten für diese Anfrage
+   ════════════════════════════════════════════ */
+const REQUEST_PRODUCTS = [
+  { id:1, name:'Calmin Balance', variant:'Tabletten, 60 Stück', img: '' },
+  { id:2, name:'Hepax',          variant:'Kapseln, 30 Stück',   img: '' },
+];
+
+// State pro Produkt
+const approvalState = {
+  1: { qty: 'reject', note: '' },
+  2: { qty: 'reject', note: '' },
+};
+
+function setQty(productId, value, btn) {
+  approvalState[productId].qty = value;
+  btn.closest('.approval-qty-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+}
+
+function submitApproval() {
+  const results = REQUEST_PRODUCTS.map(p => {
+    const s = approvalState[p.id];
+    const note = document.getElementById('note-' + p.id)?.value ?? '';
+    return { ...p, qty: s.qty, note };
+  });
+
+  const approvedList = results.filter(r => r.qty !== 'reject');
+  const qtyLabel = { 'max1':'max. 1×', 'max2':'max. 2×', 'max5':'max. 5×', 'unlimited':'Unbegrenzt' };
+
+  const productLines = results.map(r => {
+    if (r.qty === 'reject') return `<li>${r.name}: <em>Abgelehnt</em>${r.note ? ` – ${r.note}` : ''}</li>`;
+    return `<li>${r.name}: ${qtyLabel[r.qty] || r.qty}${r.note ? ` – <em>${r.note}</em>` : ''}</li>`;
+  }).join('');
+
+  const emailBody = `
+    <div class="mockup-email__meta">An: kunde@email.com</div>
+    <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+    <ul style="margin:0.4rem 0; padding-left:1.2rem;">${productLines}</ul>
+    <p>Sie können freigegebene Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>
+  `;
+
+  document.getElementById('approvalMain').innerHTML = `
+    <div style="text-align:center; padding: var(--module) 0 var(--half-module);">
+      <span class="material-icons" style="font-size:3rem;color:var(--green);">check_circle</span>
+    </div>
+    <h2 style="text-align:center; margin-bottom:var(--half-module);">Freigabe übermittelt</h2>
+    <p style="color:var(--fg-muted); margin-bottom:var(--module); text-align:center;">
+      Max Mustermann wird per E-Mail über Ihre Entscheidung informiert.
+    </p>
+    <div class="mockup-email-section">
+      <div class="mockup-email-section__label">Ausgelöste Nachricht</div>
+      <div class="mockup-email">
+        <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
+          <span class="mockup-email__tag">E-Mail</span>
+          <span class="mockup-email__recipient">an: kunde@email.com</span>
+          <span class="mockup-email__subject">Betreff: Ihre Empfehlung ist da!</span>
+          <span class="mockup-email__toggle material-icons">expand_more</span>
+        </div>
+        <div class="mockup-email__body">
+          ${emailBody}
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:var(--module);">
+      <a href="#" onclick="location.reload();return false;" class="btn --ghost">Zurück zur Übersicht</a>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

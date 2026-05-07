@@ -278,12 +278,12 @@ function toggleAccordion(btn) {
 
 // ── Tierarzt-Daten ──────────────────────────────────────────────────────────
 const VETS = [
-  { id:1, name:'Tierarztpraxis Grüntal',         doctor:'Dr. med. vet. Martina Müller', city:'München'   },
-  { id:2, name:'Kleintierpraxis am See',          doctor:'Dr. Thomas Berger',            city:'Hamburg'   },
-  { id:3, name:'Tierärztliches Zentrum Mitte',   doctor:'Dr. Sarah Koch',               city:'Berlin'    },
-  { id:4, name:'Praxis für Kleintiere',          doctor:'Dr. Andreas Weber',            city:'Frankfurt' },
-  { id:5, name:'Tierarztpraxis Sonnenhügel',     doctor:'Dr. Lisa Braun',               city:'Stuttgart' },
-  { id:6, name:'Tiermedizinisches Zentrum Nord', doctor:'Dr. Klaus Hoffmann',           city:'Dortmund'  },
+  { id:1, name:'Kleintierpraxis am See',          doctor:'Dr. Thomas Berger',            city:'Hamburg',    hasRecommended:true  },
+  { id:2, name:'Praxis für Kleintiere',           doctor:'Dr. Andreas Weber',            city:'Frankfurt',  hasRecommended:false },
+  { id:3, name:'Tierärztliches Zentrum Mitte',    doctor:'Dr. Sarah Koch',               city:'Berlin',     hasRecommended:true  },
+  { id:4, name:'Tierarztpraxis Grüntal',          doctor:'Dr. med. vet. Martina Müller', city:'München',    hasRecommended:true  },
+  { id:5, name:'Tierarztpraxis Sonnenhügel',      doctor:'Dr. Lisa Braun',               city:'Stuttgart',  hasRecommended:false },
+  { id:6, name:'Tiermedizinisches Zentrum Nord',  doctor:'Dr. Klaus Hoffmann',           city:'Dortmund',   hasRecommended:false },
 ];
 let selectedVet    = VETS[0]; // Default: zuletzt verwendete Praxis
 let cartDrawerStep = 1;
@@ -405,7 +405,7 @@ function filterVets(query) {
   if (!matches.length) { dropdown.style.display = 'none'; return; }
   dropdown.innerHTML = matches.map(v => `
     <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
-      <strong>${v.name}</strong><br>
+      <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
       <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
     </div>`).join('');
   dropdown.style.display = '';
@@ -418,7 +418,7 @@ function showVetDropdown() {
     const dropdown = document.getElementById('vetDropdown');
     dropdown.innerHTML = VETS.map(v => `
       <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
-        <strong>${v.name}</strong><br>
+        <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
         <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
       </div>`).join('');
     dropdown.style.display = '';
@@ -456,6 +456,7 @@ function renderRequestStep() {
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
+        <p class="vet-legend"><span class="vet-recommended-dot">●</span> Praxis hat bereits eine Empfehlung erstellt – in der Regel schnellere Bearbeitung</p>
       </div>
       <!-- Notes -->
       <div class="form-field">
@@ -470,6 +471,69 @@ function renderRequestStep() {
 
 function renderSuccessStep() {
   const hasApproved = cartApproved.length > 0;
+  const vetName     = selectedVet ? selectedVet.name : 'der Tierarztpraxis';
+  const vetDoctor   = selectedVet ? selectedVet.doctor : '';
+  const vetKnown    = selectedVet && selectedVet.hasRecommended;
+
+  // Angefragte Produkte für E-Mail-Vorschau
+  const requestedNames = cartRequested.map(id => {
+    const p = PRODUCTS.find(x => x.id === id);
+    return p ? p.name : '';
+  }).filter(Boolean).join(', ');
+
+  // E-Mail an Tierbesitzer (immer)
+  const emailOwner = `
+    <div class="mockup-email">
+      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
+        <span class="mockup-email__tag">E-Mail</span>
+        <span class="mockup-email__recipient">an: kunde@email.com</span>
+        <span class="mockup-email__subject">Betreff: Neue Anfrage</span>
+        <span class="mockup-email__toggle material-icons">expand_more</span>
+      </div>
+      <div class="mockup-email__body">
+        <div class="mockup-email__meta">An: kunde@email.com</div>
+        <p>Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</p>
+        <p>Sie erhalten eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>
+      </div>
+    </div>`;
+
+  // E-Mail an Tierarzt (nur wenn hasRecommended)
+  const emailVet = vetKnown ? `
+    <div class="mockup-email">
+      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
+        <span class="mockup-email__tag">E-Mail</span>
+        <span class="mockup-email__recipient">an: praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de</span>
+        <span class="mockup-email__subject">Betreff: Neue Anfrage von Max Mustermann</span>
+        <span class="mockup-email__toggle material-icons">expand_more</span>
+      </div>
+      <div class="mockup-email__body">
+        <div class="mockup-email__meta">An: praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de</div>
+        <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Empfehlungsanfrage gestellt.</p>
+        <p>Angefragt: <strong>${requestedNames}</strong></p>
+        <p>Diese können Sie hier einsehen und freigeben:<br>
+        <a href="Inuvet-Freigabe-Mockup.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
+        <p style="color:var(--fg-muted);font-size:var(--text-xs);">Tipp von @Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung (z.B. Provision) einfügen.</p>
+      </div>
+    </div>` : '';
+
+  // Interne Nachricht an Inuvet-Mitarbeiter (nur wenn !hasRecommended)
+  const emailInternal = !vetKnown ? `
+    <div class="mockup-email --internal">
+      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
+        <span class="mockup-email__tag --internal">Intern</span>
+        <span class="mockup-email__recipient">an: team@inuvet.com</span>
+        <span class="mockup-email__subject">Betreff: Dringende Empfehlungsanfrage!</span>
+        <span class="mockup-email__toggle material-icons">expand_more</span>
+      </div>
+      <div class="mockup-email__body">
+        <div class="mockup-email__meta">An: team@inuvet.com (Inuvet-Mitarbeiter)</div>
+        <p>Tierbesitzer*in <strong>Max Mustermann</strong> möchte bei <strong>${vetName}</strong> (${vetDoctor}) eine Empfehlung erhalten.</p>
+        <p>Angefragt: <strong>${requestedNames}</strong></p>
+        <p><strong>Bitte kontaktiere umgehend die Praxis.</strong> Nimm sie in das Empfehlungsprogramm auf und sorge dafür, dass für den/die Tierbesitzer*in das abgefragte Rezept ausgestellt wird.</p>
+        <p style="color:var(--fg-muted);font-size:var(--text-xs);">⚠ An diese Praxis darf noch keine E-Mail gesendet werden (noch nicht im Empfehlungsprogramm).</p>
+      </div>
+    </div>` : '';
+
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
@@ -477,15 +541,21 @@ function renderSuccessStep() {
       <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">
-      <div style="text-align:center; padding: var(--module) 0;">
-        <span class="material-icons" style="font-size:3rem; color:var(--green);">check_circle</span>
+      <div style="text-align:center; padding: var(--base) 0 var(--half-module);">
+        <span class="material-icons" style="font-size:2.5rem; color:var(--green);">check_circle</span>
       </div>
       <p style="font-size:var(--text-base); line-height:var(--lh-base); margin-bottom:var(--half-module);">
-        Anfrage an <strong>${selectedVet.name}</strong> erfolgreich versendet.
+        Anfrage an <strong>${vetName}</strong> erfolgreich versendet.
       </p>
-      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted);">
-        Sie erhalten eine Nachricht per E-Mail (<strong>kunde@email.com</strong>), sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
+      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted); margin-bottom:var(--half-module);">
+        Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
       </p>
+      <div class="mockup-email-section">
+        <div class="mockup-email-section__label">Ausgelöste Nachrichten</div>
+        ${emailOwner}
+        ${emailVet}
+        ${emailInternal}
+      </div>
     </div>
     <div class="cart-drawer__footer">
       ${hasApproved ? `<button class="btn --primary cart-drawer__checkout" onclick="closeCart();setPage('checkout')">Weiter zum Checkout</button>` : ''}

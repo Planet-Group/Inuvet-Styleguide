@@ -249,3 +249,109 @@ body.--mockup-bar-visible {
 }
 .mockup-modal .tier-input:focus { border-color: #555; }
 .mockup-modal .tier-input:disabled { background: #0d0d0d; color: #444; }
+
+/* ─── Vet Dropdown: Empfehlung-Dot ─── */
+.vet-recommended-dot        { color: var(--green); font-size: 0.6rem; line-height: 1; }
+.vet-recommended-dot.--empty { color: var(--border); }
+.vet-legend {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  margin-top: calc(var(--base) * 0.375);
+  line-height: var(--lh-base);
+}
+
+/* ─── Simulierte E-Mail / interne Nachricht ─── */
+.mockup-email-section {
+  margin-top: var(--half-module);
+}
+.mockup-email-section__label {
+  font-size: 0.65rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: calc(var(--base) * 0.375);
+}
+
+.mockup-email {
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid var(--green);
+  background: #111;
+  margin-bottom: calc(var(--base) * 0.375);
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+.mockup-email.--internal {
+  border-left-color: #f59e0b;
+}
+
+.mockup-email__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+.mockup-email__header:hover { background: #161616; }
+
+.mockup-email__tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--green);
+  color: #fff;
+  padding: 0.1em 0.4em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mockup-email__tag.--internal {
+  background: #f59e0b;
+  color: #000;
+}
+
+.mockup-email__recipient {
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 12rem;
+}
+
+.mockup-email__subject {
+  color: #999;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mockup-email__toggle {
+  color: #444;
+  font-size: 1rem !important;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.mockup-email__body {
+  display: none;
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid #1e1e1e;
+  color: #888;
+  line-height: 1.6;
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+.mockup-email__body.--open { display: block; }
+.mockup-email__body p { margin: 0 0 0.5rem; }
+.mockup-email__body p:last-child { margin-bottom: 0; }
+.mockup-email__body strong { color: #ccc; }
+
+.mockup-email__meta {
+  color: #444;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #1e1e1e;
+}
