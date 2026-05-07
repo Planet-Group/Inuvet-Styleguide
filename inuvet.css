@@ -777,9 +777,12 @@
   .tile.--product .tile__cart-icon:hover .material-icons {
     color: var(--bg);
   }
+  /* Mobile CTA — voller Button unterhalb der Kachel (statt Icon-Button) */
+  .tile__mobile-cta { display: none; }
   @media (max-width: 767px) {
-    .tile.--product .tile__cart { display: none; }
-    .tile.--product .tile__cart-icon { display: flex; }
+    .tile.--product .tile__cart     { display: none; }
+    .tile.--product .tile__cart-icon { display: none; } /* Icon zu kryptisch — mobil durch tile__mobile-cta ersetzt */
+    .tile__mobile-cta { display: block; margin-top: calc(var(--base) * 0.5); }
   }
   .tile__description {
     font-size: var(--text-xs);
