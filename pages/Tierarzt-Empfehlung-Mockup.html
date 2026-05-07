@@ -452,6 +452,9 @@ function selectVet(id) {
   const input = document.getElementById('vetSearchInput');
   if (input) input.value = selectedVet.name;
   document.getElementById('vetDropdown').style.display = 'none';
+  // Zusatzfelder ausblenden (falls vorher freie Eingabe gewählt)
+  const extra = document.getElementById('customVetExtra');
+  if (extra) extra.style.display = 'none';
 }
 
 function selectCustomVet(name) {
@@ -459,9 +462,29 @@ function selectCustomVet(name) {
   const input = document.getElementById('vetSearchInput');
   if (input) input.value = name;
   document.getElementById('vetDropdown').style.display = 'none';
+
+  // Zusatzfelder für unbekannte Praxis einblenden
+  const extra = document.getElementById('customVetExtra');
+  if (extra) {
+    extra.style.display = '';
+    const cityInput = document.getElementById('customVetCity');
+    if (cityInput) setTimeout(() => cityInput.focus(), 80);
+  }
 }
 
 function submitVetRequest() {
+  // Freie Praxis: Ort pflichtfeld prüfen
+  if (selectedVet && selectedVet.custom) {
+    const cityField = document.getElementById('customVetCity');
+    const city = cityField ? cityField.value.trim() : '';
+    if (!city) {
+      cityField.closest('.form-field').classList.add('--error');
+      cityField.focus();
+      return;
+    }
+    cityField.closest('.form-field').classList.remove('--error');
+    selectedVet.city = city;
+  }
   setCartStep(3);
 }
 
@@ -525,6 +548,15 @@ function renderRequestStep() {
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
         <p class="vet-legend"><span class="vet-recommended-dot">●</span> Praxis hat bereits eine Empfehlung erstellt – in der Regel schnellere Bearbeitung</p>
+      </div>
+      <!-- Zusatzfelder: nur bei freier Praxis-Eingabe sichtbar -->
+      <div id="customVetExtra" style="display:none;">
+        <div class="form-field">
+          <input type="text" id="customVetCity" placeholder=" "
+            oninput="this.closest('.form-field').classList.remove('--error')">
+          <label for="customVetCity">Ort der Praxis *</label>
+          <div class="form-field__error">Bitte Ort angeben</div>
+        </div>
       </div>
       <!-- Notes -->
       <div class="form-field">
