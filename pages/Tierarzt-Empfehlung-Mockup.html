@@ -127,11 +127,6 @@
 <div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
 <div class="mockup-email-panel" id="emailPanel">
   <div class="mockup-email-panel__header">
-    <span id="emailPanelTag" class="mockup-email__tag"></span>
-    <div class="mockup-email-panel__meta">
-      <span id="emailPanelRecipient" class="mockup-email__recipient"></span>
-      <span id="emailPanelSubject" class="mockup-email__subject"></span>
-    </div>
     <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
     <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
       <span class="material-icons">close</span>
@@ -452,48 +447,47 @@ function submitVetRequest() {
 
 /* ── E-Mail-Overlay ──────────────────────────────────────────────── */
 let emailOverlayData = {};
-let emailQueue       = [];
-let emailQueueIndex  = 0;
 
-function openEmailOverlay(key) {
-  const d = emailOverlayData[key];
-  if (!d) return;
-  const tag = document.getElementById('emailPanelTag');
-  tag.textContent = d.tag;
-  tag.className   = 'mockup-email__tag' + (d.internal ? ' --internal' : '');
-  document.getElementById('emailPanelRecipient').textContent = 'an: ' + d.recipient;
-  document.getElementById('emailPanelSubject').textContent   = 'Betreff: ' + d.subject;
-  document.getElementById('emailPanelBody').innerHTML = d.body;
+function openEmailsOverlay(keys) {
+  // Alle Nachrichten auf einmal im Panel zeigen
+  const count = keys.length;
+  document.getElementById('emailPanelCounter').textContent = `${count} Nachrichten ausgelöst`;
 
-  // Counter "1 / 2" anzeigen wenn mehrere Nachrichten
-  const counter = document.getElementById('emailPanelCounter');
-  const total   = emailQueue.length;
-  const current = emailQueueIndex + 1;
-  counter.textContent = total > 1 ? `${current} / ${total}` : '';
+  // Header: generisch
+  document.getElementById('emailPanelTag').textContent = '';
+  document.getElementById('emailPanelTag').className   = 'mockup-email__tag';
+  document.getElementById('emailPanelRecipient').textContent = '';
+  document.getElementById('emailPanelSubject').textContent   = '';
+
+  // Body: alle E-Mails untereinander
+  document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
+    const d = emailOverlayData[key];
+    if (!d) return '';
+    return `
+      <div class="mockup-email-inline${d.internal ? ' --internal' : ''}">
+        <div class="mockup-email-inline__header">
+          <span class="mockup-email__tag${d.internal ? ' --internal' : ''}">${d.tag}</span>
+          <span class="mockup-email-inline__to">an: ${d.recipient}</span>
+          <span class="mockup-email-inline__subject">Betreff: ${d.subject}</span>
+        </div>
+        <div class="mockup-email-inline__body">${d.body}</div>
+      </div>`;
+  }).join('');
 
   document.getElementById('emailOverlay').classList.add('--open');
   document.getElementById('emailPanel').classList.add('--open');
 }
 
-function openNextEmail() {
-  if (emailQueueIndex >= emailQueue.length) {
-    // Alle Nachrichten gesehen — Footer freischalten
-    const footer = document.getElementById('drawerFooter');
-    if (footer) {
-      footer.style.opacity   = '0';
-      footer.style.display   = '';
-      requestAnimationFrame(() => { footer.style.transition = 'opacity 0.3s'; footer.style.opacity = '1'; });
-    }
-    return;
-  }
-  openEmailOverlay(emailQueue[emailQueueIndex]);
-}
-
 function closeEmailOverlay() {
   document.getElementById('emailOverlay').classList.remove('--open');
   document.getElementById('emailPanel').classList.remove('--open');
-  emailQueueIndex++;
-  setTimeout(openNextEmail, 220); // kurze Pause zwischen Nachrichten
+  // Footer freischalten
+  const footer = document.getElementById('drawerFooter');
+  if (footer) {
+    footer.style.opacity = '0';
+    footer.style.display = '';
+    requestAnimationFrame(() => { footer.style.transition = 'opacity 0.3s'; footer.style.opacity = '1'; });
+  }
 }
 
 function renderRequestStep() {
@@ -599,10 +593,8 @@ function renderSuccessStep() {
       </div>
     </div>`;
 
-  // E-Mail-Queue aufbauen und automatisch starten
-  emailQueue      = vetKnown ? ['owner', 'vet'] : ['owner', 'internal'];
-  emailQueueIndex = 0;
-  setTimeout(openNextEmail, 500); // kurze Pause damit Check-Screen sichtbar wird
+  // Alle Nachrichten auf einmal nach kurzer Pause öffnen
+  setTimeout(() => openEmailsOverlay(vetKnown ? ['owner', 'vet'] : ['owner', 'internal']), 500);
 }
 
 function renderCartDrawer() {

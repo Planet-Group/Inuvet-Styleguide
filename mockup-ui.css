@@ -464,12 +464,42 @@ body.--mockup-bar-visible {
 .mockup-email-panel__meta .mockup-email__subject   { color: #999; font-size: 0.7rem; white-space: normal; }
 
 .mockup-email-panel__counter {
-  font-size: 0.6rem;
-  color: #444;
+  font-size: 0.65rem;
+  color: #fff;
   font-family: monospace;
-  flex-shrink: 0;
-  align-self: center;
+  font-weight: 700;
+  flex: 1; /* nimmt den Platz zwischen Tag-Leerfeld und Close ein */
 }
+
+/* ─── Inline-E-Mails im Panel (alle untereinander) ─── */
+.mockup-email-inline {
+  border-left: 3px solid var(--green);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+.mockup-email-inline:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.mockup-email-inline.--internal { border-left-color: #f59e0b; }
+
+.mockup-email-inline__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+  padding-left: 0.6rem;
+}
+.mockup-email-inline__to      { color: #555; font-size: 0.68rem; }
+.mockup-email-inline__subject { color: #888; font-size: 0.68rem; flex: 1; }
+
+.mockup-email-inline__body {
+  padding-left: 0.6rem;
+  color: #888;
+  line-height: 1.7;
+}
+.mockup-email-inline__body p { margin: 0 0 0.5rem; }
+.mockup-email-inline__body p:last-child { margin-bottom: 0; }
+.mockup-email-inline__body strong { color: #ccc; }
 
 .mockup-email-panel__close {
   background: transparent;
