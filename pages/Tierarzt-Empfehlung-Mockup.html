@@ -837,7 +837,7 @@ function tileHTML(p) {
   const approved = isApproved(p);
 
   let cartOverlay = '';
-  if (state === 'with-release') {
+  if (state !== 'guest') {
     if (approved) {
       cartOverlay = `
         <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id});event.stopPropagation()">
@@ -997,6 +997,11 @@ function renderProduct() {
   } else if (state === 'no-release') {
     notice = `<div class="shop-notice">
       <p>Du hast noch keine Empfehlung für dieses Produkt? Gut, dass über 20.000 Tierärzte mit Inuvet-Produkten arbeiten. Ruf einfach in deiner Praxis an und frage nach diesem Produkt. Deine Praxis kann es jederzeit für dich bestellen.</p>
+    </div>`;
+    actions = `<div class="pdp__actions">
+      <button class="btn --secondary --with-icon" onclick="addToCart(${p.id},'requested');openCart()">
+        <span class="material-icons">mail_outline</span> Anfrage in den Korb legen
+      </button>
     </div>`;
   } else if (approved) {
     actions = `
