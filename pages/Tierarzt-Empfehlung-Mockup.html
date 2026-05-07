@@ -226,7 +226,6 @@ function addToCart(id, type) {
   if (document.getElementById('cartDrawer').classList.contains('--open')) {
     renderCartDrawer();
   }
-  toast(type === 'approved' ? 'In den Warenkorb gelegt' : 'Anfrage hinzugefügt');
 }
 
 function removeFromCart(id) {
@@ -242,24 +241,6 @@ function calcTotal(ids) {
   return ids.reduce((s, id) => s + parseFloat(getProduct(id).price.replace(',','.').replace(' €','')), 0);
 }
 
-function toast(msg) {
-  let t = document.getElementById('shopToast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'shopToast';
-    Object.assign(t.style, {
-      position:'fixed', bottom:'2rem', right:'2rem',
-      background:'var(--fg)', color:'#fff',
-      padding:'0.75rem 1.25rem', fontSize:'var(--text-base)',
-      zIndex:'9999', transition:'opacity 0.3s', opacity:'0'
-    });
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.style.opacity = '0', 2200);
-}
 
 /* ════════════════════════════════════════════
    UI-HELFER
@@ -964,7 +945,7 @@ function newsletterHTML() {
           <h3>Bleib auf dem Laufenden</h3>
           <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
         </div>
-        <form class="actionable-input" onsubmit="toast('Danke für deine Anmeldung!');return false;">
+        <form class="actionable-input" onsubmit="return false;">
           <div class="form-field">
             <input type="email" id="nl-email" placeholder="">
             <label for="nl-email">E-Mail-Adresse</label>
@@ -1297,7 +1278,7 @@ function renderCheckout() {
           <div class="summary-line"><span>Versand</span><span>kostenlos</span></div>
           <div class="summary-total"><span>Gesamt</span><span>${total.toFixed(2).replace('.',',')} €</span></div>
           <div class="checkout__cta">
-            <button class="btn --primary cart-drawer__checkout" onclick="toast('Bestellung erfolgreich! (Demo)')">Jetzt kaufen</button>
+            <button class="btn --primary cart-drawer__checkout">Jetzt kaufen</button>
           </div>
         </aside>
 
