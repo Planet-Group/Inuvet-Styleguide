@@ -36,6 +36,8 @@
   <div class="mockup-bar__group" id="productPicker" style="display:none">
     <span class="mockup-bar__group-label">Produkt:</span>
   </div>
+  <div class="mockup-bar__sep"></div>
+  <a class="mockup-btn" href="Prozess-Diagramm.html" target="_blank" title="Prozessübersicht für IT &amp; Marketing">⬡ Prozess</a>
   <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
 </div>
 <button class="mockup-revive" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
@@ -117,6 +119,24 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <!-- Inhalt wird per JS gerendert -->
+</div>
+
+<!-- ════════════════════════════════════════
+     E-MAIL-OVERLAY (Mockup — Backend-Vorschau)
+     ════════════════════════════════════════ -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelTag" class="mockup-email__tag"></span>
+    <div class="mockup-email-panel__meta">
+      <span id="emailPanelRecipient" class="mockup-email__recipient"></span>
+      <span id="emailPanelSubject" class="mockup-email__subject"></span>
+    </div>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -393,47 +413,61 @@ function setCartStep(step) {
   renderCartDrawer();
 }
 
+function vetItemHTML(v) {
+  return `<div class="vet-dropdown__item" onclick="selectVet(${v.id})">
+    <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
+    <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
+  </div>`;
+}
+
 function filterVets(query) {
   const dropdown = document.getElementById('vetDropdown');
-  if (!query || query.length < 1) { dropdown.style.display = 'none'; return; }
-  const q = query.toLowerCase();
-  const matches = VETS.filter(v =>
-    v.name.toLowerCase().includes(q) ||
-    v.doctor.toLowerCase().includes(q) ||
-    v.city.toLowerCase().includes(q)
-  );
+  const q = (query || '').toLowerCase().trim();
+  const matches = q
+    ? VETS.filter(v => v.name.toLowerCase().includes(q) || v.doctor.toLowerCase().includes(q) || v.city.toLowerCase().includes(q))
+    : VETS;
   if (!matches.length) { dropdown.style.display = 'none'; return; }
-  dropdown.innerHTML = matches.map(v => `
-    <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
-      <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
-      <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
-    </div>`).join('');
+  dropdown.innerHTML = matches.map(vetItemHTML).join('');
   dropdown.style.display = '';
 }
 
 function showVetDropdown() {
-  filterVets(document.getElementById('vetSearchInput')?.value ?? '');
-  if (!document.getElementById('vetDropdown').children.length) {
-    // Show all vets on empty focus
-    const dropdown = document.getElementById('vetDropdown');
-    dropdown.innerHTML = VETS.map(v => `
-      <div class="vet-dropdown__item" onclick="selectVet(${v.id})">
-        <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
-        <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
-      </div>`).join('');
-    dropdown.style.display = '';
-  }
+  // Bei Fokus immer alle Praxen zeigen — unabhängig vom aktuellen Input-Wert
+  const dropdown = document.getElementById('vetDropdown');
+  dropdown.innerHTML = VETS.map(vetItemHTML).join('');
+  dropdown.style.display = '';
 }
 
 function selectVet(id) {
   selectedVet = VETS.find(v => v.id === id);
   const input = document.getElementById('vetSearchInput');
-  if (input) input.value = selectedVet.name + ' – ' + selectedVet.city;
+  if (input) input.value = selectedVet.name; // nur Name, damit Re-Fokus + Filter funktionieren
   document.getElementById('vetDropdown').style.display = 'none';
 }
 
 function submitVetRequest() {
   setCartStep(3);
+}
+
+/* ── E-Mail-Overlay ──────────────────────────────────────────────── */
+let emailOverlayData = {};
+
+function openEmailOverlay(key) {
+  const d = emailOverlayData[key];
+  if (!d) return;
+  const tag = document.getElementById('emailPanelTag');
+  tag.textContent = d.tag;
+  tag.className   = 'mockup-email__tag' + (d.internal ? ' --internal' : '');
+  document.getElementById('emailPanelRecipient').textContent = 'an: ' + d.recipient;
+  document.getElementById('emailPanelSubject').textContent   = 'Betreff: ' + d.subject;
+  document.getElementById('emailPanelBody').innerHTML = d.body;
+  document.getElementById('emailOverlay').classList.add('--open');
+  document.getElementById('emailPanel').classList.add('--open');
+}
+
+function closeEmailOverlay() {
+  document.getElementById('emailOverlay').classList.remove('--open');
+  document.getElementById('emailPanel').classList.remove('--open');
 }
 
 function renderRequestStep() {
@@ -474,65 +508,75 @@ function renderSuccessStep() {
   const vetName     = selectedVet ? selectedVet.name : 'der Tierarztpraxis';
   const vetDoctor   = selectedVet ? selectedVet.doctor : '';
   const vetKnown    = selectedVet && selectedVet.hasRecommended;
+  const vetEmail    = `praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de`;
 
-  // Angefragte Produkte für E-Mail-Vorschau
   const requestedNames = cartRequested.map(id => {
     const p = PRODUCTS.find(x => x.id === id);
     return p ? p.name : '';
   }).filter(Boolean).join(', ');
 
-  // E-Mail an Tierbesitzer (immer)
-  const emailOwner = `
-    <div class="mockup-email">
-      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
-        <span class="mockup-email__tag">E-Mail</span>
-        <span class="mockup-email__recipient">an: kunde@email.com</span>
-        <span class="mockup-email__subject">Betreff: Neue Anfrage</span>
-        <span class="mockup-email__toggle material-icons">expand_more</span>
-      </div>
-      <div class="mockup-email__body">
-        <div class="mockup-email__meta">An: kunde@email.com</div>
+  // E-Mail-Daten für Overlay befüllen
+  emailOverlayData = {
+    owner: {
+      tag: 'E-Mail', recipient: 'kunde@email.com',
+      subject: 'Neue Anfrage', internal: false,
+      body: `
         <p>Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</p>
-        <p>Sie erhalten eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>
-      </div>
-    </div>`;
+        <p>Sie erhalten eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>`
+    }
+  };
 
-  // E-Mail an Tierarzt (nur wenn hasRecommended)
-  const emailVet = vetKnown ? `
-    <div class="mockup-email">
-      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
-        <span class="mockup-email__tag">E-Mail</span>
-        <span class="mockup-email__recipient">an: praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de</span>
-        <span class="mockup-email__subject">Betreff: Neue Anfrage von Max Mustermann</span>
-        <span class="mockup-email__toggle material-icons">expand_more</span>
-      </div>
-      <div class="mockup-email__body">
-        <div class="mockup-email__meta">An: praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de</div>
+  if (vetKnown) {
+    emailOverlayData.vet = {
+      tag: 'E-Mail', recipient: vetEmail,
+      subject: 'Neue Anfrage von Max Mustermann', internal: false,
+      body: `
         <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Empfehlungsanfrage gestellt.</p>
         <p>Angefragt: <strong>${requestedNames}</strong></p>
         <p>Diese können Sie hier einsehen und freigeben:<br>
         <a href="Inuvet-Freigabe-Mockup.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
-        <p style="color:var(--fg-muted);font-size:var(--text-xs);">Tipp von @Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung (z.B. Provision) einfügen.</p>
-      </div>
-    </div>` : '';
-
-  // Interne Nachricht an Inuvet-Mitarbeiter (nur wenn !hasRecommended)
-  const emailInternal = !vetKnown ? `
-    <div class="mockup-email --internal">
-      <div class="mockup-email__header" onclick="this.nextElementSibling.classList.toggle('--open')">
-        <span class="mockup-email__tag --internal">Intern</span>
-        <span class="mockup-email__recipient">an: team@inuvet.com</span>
-        <span class="mockup-email__subject">Betreff: Dringende Empfehlungsanfrage!</span>
-        <span class="mockup-email__toggle material-icons">expand_more</span>
-      </div>
-      <div class="mockup-email__body">
-        <div class="mockup-email__meta">An: team@inuvet.com (Inuvet-Mitarbeiter)</div>
+        <p class="mockup-email-panel__note">@Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung einfügen (z.B. Provision, Patientenbindung).</p>`
+    };
+  } else {
+    emailOverlayData.internal = {
+      tag: 'Intern', recipient: 'team@inuvet.com',
+      subject: 'Dringende Empfehlungsanfrage!', internal: true,
+      body: `
         <p>Tierbesitzer*in <strong>Max Mustermann</strong> möchte bei <strong>${vetName}</strong> (${vetDoctor}) eine Empfehlung erhalten.</p>
         <p>Angefragt: <strong>${requestedNames}</strong></p>
-        <p><strong>Bitte kontaktiere umgehend die Praxis.</strong> Nimm sie in das Empfehlungsprogramm auf und sorge dafür, dass für den/die Tierbesitzer*in das abgefragte Rezept ausgestellt wird.</p>
-        <p style="color:var(--fg-muted);font-size:var(--text-xs);">⚠ An diese Praxis darf noch keine E-Mail gesendet werden (noch nicht im Empfehlungsprogramm).</p>
-      </div>
-    </div>` : '';
+        <p><strong>Bitte kontaktiere umgehend die Praxis.</strong> Nimm sie in das Empfehlungsprogramm auf und sorge dafür, dass das Rezept für den/die Tierbesitzer*in ausgestellt wird.</p>
+        <p class="mockup-email-panel__note">⚠ An diese Praxis darf noch keine E-Mail gesendet werden – sie ist noch nicht im Empfehlungsprogramm.</p>`
+    };
+  }
+
+  // Chips rendern
+  const chipOwner = `
+    <button class="mockup-notif-chip" onclick="openEmailOverlay('owner')">
+      <span class="mockup-email__tag">E-Mail</span>
+      <span class="mockup-notif-chip__info">
+        <span>kunde@email.com</span>
+        <span class="mockup-notif-chip__subject">Neue Anfrage</span>
+      </span>
+      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
+    </button>`;
+
+  const chipSecond = vetKnown ? `
+    <button class="mockup-notif-chip" onclick="openEmailOverlay('vet')">
+      <span class="mockup-email__tag">E-Mail</span>
+      <span class="mockup-notif-chip__info">
+        <span>${vetEmail}</span>
+        <span class="mockup-notif-chip__subject">Neue Anfrage von Max Mustermann</span>
+      </span>
+      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
+    </button>` : `
+    <button class="mockup-notif-chip --internal" onclick="openEmailOverlay('internal')">
+      <span class="mockup-email__tag --internal">Intern</span>
+      <span class="mockup-notif-chip__info">
+        <span>team@inuvet.com</span>
+        <span class="mockup-notif-chip__subject">Dringende Empfehlungsanfrage!</span>
+      </span>
+      <span class="material-icons mockup-notif-chip__arrow">open_in_new</span>
+    </button>`;
 
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
@@ -552,9 +596,10 @@ function renderSuccessStep() {
       </p>
       <div class="mockup-email-section">
         <div class="mockup-email-section__label">Ausgelöste Nachrichten</div>
-        ${emailOwner}
-        ${emailVet}
-        ${emailInternal}
+        <div class="mockup-notif-chips">
+          ${chipOwner}
+          ${chipSecond}
+        </div>
       </div>
     </div>
     <div class="cart-drawer__footer">

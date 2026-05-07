@@ -355,3 +355,143 @@ body.--mockup-bar-visible {
   padding-bottom: 0.4rem;
   border-bottom: 1px solid #1e1e1e;
 }
+
+/* ─── Notification Chips (im Drawer) ─── */
+.mockup-notif-chips {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.25);
+}
+
+.mockup-notif-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid var(--green);
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.12s;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: inherit;
+}
+.mockup-notif-chip:hover { background: #161616; border-left-color: #4ade80; }
+.mockup-notif-chip.--internal { border-left-color: #f59e0b; }
+.mockup-notif-chip.--internal:hover { border-left-color: #fbbf24; }
+
+.mockup-notif-chip__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+  color: #555;
+}
+.mockup-notif-chip__info > span:first-child { color: #777; }
+.mockup-notif-chip__subject {
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mockup-notif-chip__arrow {
+  color: #333;
+  font-size: 0.85rem !important;
+  flex-shrink: 0;
+}
+
+/* ─── E-Mail Overlay ─── */
+.mockup-email-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.mockup-email-overlay.--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mockup-email-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  z-index: 10001;
+  width: min(520px, calc(100vw - 2rem));
+  max-height: 80vh;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.mockup-email-panel.--open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.mockup-email-panel__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  flex-shrink: 0;
+}
+
+.mockup-email-panel__meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+  min-width: 0;
+}
+.mockup-email-panel__meta .mockup-email__recipient { color: #555; font-size: 0.7rem; }
+.mockup-email-panel__meta .mockup-email__subject   { color: #999; font-size: 0.7rem; white-space: normal; }
+
+.mockup-email-panel__close {
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.12s;
+}
+.mockup-email-panel__close:hover { color: #fff; }
+.mockup-email-panel__close .material-icons { font-size: 1.1rem; }
+
+.mockup-email-panel__body {
+  padding: 1rem;
+  overflow-y: auto;
+  color: #888;
+  line-height: 1.7;
+}
+.mockup-email-panel__body p { margin: 0 0 0.6rem; }
+.mockup-email-panel__body p:last-child { margin-bottom: 0; }
+.mockup-email-panel__body strong { color: #ccc; }
+.mockup-email-panel__body a { color: var(--green); }
+
+.mockup-email-panel__note {
+  font-size: 0.65rem !important;
+  color: #555 !important;
+  background: #111;
+  padding: 0.4rem 0.6rem;
+  border-left: 2px solid #333;
+  margin-top: 0.4rem;
+}
