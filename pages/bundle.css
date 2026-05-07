@@ -65,8 +65,8 @@
 .bundle-item__tier-hint {
   position: absolute;
   bottom: 0;
-  left: calc(var(--base) * 5 + var(--half-module));
-  transform: translateY(50%);
+  left: 50%;
+  transform: translate(-50%, 50%);
   background: var(--bg);
   padding: 0 calc(var(--base) * 0.5);
   font-size: var(--text-xs);
