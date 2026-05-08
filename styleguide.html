@@ -2144,7 +2144,6 @@
       <tr><th>Box-Höhe</th><td>Aus Inhalt — nicht gestreckt</td></tr>
       <tr><th>Höhe</th><td>Default: <code>min-height: 24rem</code> · Mit <code>--viewport</code>: <code>calc(100dvh - 6rem)</code>, max <code>51rem</code></td></tr>
       <tr><th>Breite</th><td>Viewport-Breite (bricht aus Page max-width aus)</td></tr>
-      <tr><th>Parallax</th><td><code>inuvet-effects.js</code> einbinden — identisch zu Variante 4. Bild ragt 12 % oben/unten über den Container hinaus.</td></tr>
       <tr><th>Ghost-Button</th><td>Im Content-Box-Kontext: <code>border: none</code> automatisch gesetzt.</td></tr>
       <tr><th>Responsive</th><td>Mobile: 1-spaltig, Bild oben, Content-Box darunter (kein Overlay)</td></tr>
     </table>
@@ -2224,12 +2223,11 @@
       <tr><th>Höhe</th><td>Default: <code>min-height: 60vh</code> · Mit <code>--viewport</code>: <code>100dvh</code> · Mobile: <code>calc(100dvh - var(--header-height))</code> — Buttons bleiben im Viewport</td></tr>
       <tr><th>Breite</th><td>Viewport-Breite (edge-to-edge)</td></tr>
       <tr><th>Bildzentrierung</th><td><code>background-position: center center</code> — wird von <code>.section-type__image</code> vererbt, kein Inline-Style nötig</td></tr>
-      <tr><th>Parallax</th><td><code>inuvet-effects.js</code> einbinden — verschiebt das Bild beim Scrollen via <code>translateY</code> (Faktor 0.22). Bild ragt 12 % oben/unten über den Container hinaus (Clip durch <code>overflow: hidden</code>). Deaktiviert bei <code>prefers-reduced-motion</code>.</td></tr>
       <tr><th>Ghost-Button</th><td>Im <code>.section-type__content</code>-Kontext: <code>border: none</code> automatisch gesetzt — kein Inline-Style nötig.</td></tr>
       <tr><th>Responsive</th><td>Mobile: volle Viewport-Höhe · Text oben, Buttons unten (<code>margin-top: auto</code>) · Bildmitte bleibt frei</td></tr>
     </table>
 
-    <div class="demo-note --mb">Bild über Inline-Style setzen: <code>style="background-image: url('...')"</code> — <code>background-size</code>, <code>background-position</code> und Parallax kommen aus dem CSS/JS.</div>
+    <div class="demo-note --mb">Bild über Inline-Style setzen: <code>style="background-image: url('...')"</code> — <code>background-size</code> und <code>background-position</code> kommen aus dem CSS.</div>
 
     <!-- Demo: Default -->
     <div class="demo-label">Default (60 vh)</div>
