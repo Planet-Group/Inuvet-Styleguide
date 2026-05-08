@@ -1100,7 +1100,7 @@
   .success-state__icon { font-size: calc(var(--base) * 2.5); color: var(--green); }
   .success-state__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
   .success-state__body { color: var(--fg-muted); line-height: var(--lh-base); max-width: 28rem; margin: 0; }
-  .success-state__actions { display: flex; flex-direction: column; gap: calc(var(--half-module) / 2); width: 100%; margin-top: var(--half-module); }
+  .success-state__actions { display: flex; flex-direction: column; align-items: center; gap: calc(var(--half-module) / 2); margin-top: var(--half-module); }
 
   /* ─── Shipping Hint ─── */
   .shipping-hint { font-size: var(--text-xs); color: var(--fg-muted); display: flex; align-items: center; gap: calc(var(--base) * 0.25); }
