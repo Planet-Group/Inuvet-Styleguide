@@ -695,6 +695,16 @@
   }
   /* Buttons: kein text-shadow */
   .section-type.--v4 .section-type__content .btn { text-shadow: none; }
+  .section-type--v4__cta {
+    display: flex;
+    gap: var(--half-module);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--half-module);
+  }
+  @media (max-width: 767px) {
+    .section-type--v4__cta { flex-direction: column; align-items: center; }
+  }
   /* Staggered entrance */
   .section-type.--v4 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
