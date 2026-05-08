@@ -50,31 +50,18 @@
   <!-- Titel -->
   <h1 class="h2">Empfehlungsanfrage von Max Mustermann</h1>
 
-  <!-- Datum -->
-  <p class="approval-date">Eingegangen am 07.05.2026</p>
-
-  <!-- Patienteninfo -->
-  <div class="approval-infobox">
-    <h3 class="section-label --sub">Patienteninfo</h3>
-    <div class="approval-infobox__row">
-      <span class="approval-infobox__key">Name</span>
-      <span>Max Mustermann</span>
-    </div>
-    <div class="approval-infobox__row">
-      <span class="approval-infobox__key">E-Mail</span>
-      <span>kunde@email.com</span>
-    </div>
-    <div class="approval-infobox__row">
-      <span class="approval-infobox__key">Praxis</span>
-      <span>Tierarztpraxis Grüntal</span>
-    </div>
+  <!-- Patienten-Meta — schlanke Header-Zeile mit .label-caps Keys -->
+  <div class="approval-meta">
+    <span class="approval-meta__item"><span class="label-caps">Eingegangen</span><span class="approval-meta__val">07.05.2026</span></span>
+    <span class="approval-meta__item"><span class="label-caps">E-Mail</span><span class="approval-meta__val">kunde@email.com</span></span>
+    <span class="approval-meta__item"><span class="label-caps">Praxis</span><span class="approval-meta__val">Tierarztpraxis Grüntal</span></span>
   </div>
 
-  <!-- Produkt-Cards -->
+  <!-- Produkt-Liste -->
   <h2 class="section-label --sub">Angefragt (2 Produkte)</h2>
 
   <!-- Produkt 1: Calmin Balance -->
-  <div class="approval-product-card">
+  <div class="approval-product-card" id="card-1" data-status="open">
     <div class="approval-product-card__inner">
       <div class="product-thumb placeholder-bg">
         <span class="material-icons">inventory_2</span>
@@ -82,9 +69,9 @@
       <div class="approval-product-info">
         <div class="approval-product-name">Calmin Balance</div>
         <div class="approval-product-variant">Tabletten, 60 Stück</div>
-        <div class="approval-qty-label">Menge freigeben</div>
+        <div class="label-caps">Empfehlung</div>
         <div class="approval-qty-group">
-          <button class="choice-box --active" type="button" onclick="setQty(1,'reject',this)">Ablehnen</button>
+          <button class="choice-box" type="button" onclick="setQty(1,'reject',this)">Ablehnen</button>
           <button class="choice-box" type="button" onclick="setQty(1,'max1',this)">max. 1×</button>
           <button class="choice-box" type="button" onclick="setQty(1,'max2',this)">max. 2×</button>
           <button class="choice-box" type="button" onclick="setQty(1,'max5',this)">max. 5×</button>
@@ -94,14 +81,14 @@
     </div>
     <div class="approval-product-card__note">
       <div class="form-field">
-        <textarea id="note-1" rows="2" placeholder=""></textarea>
+        <textarea id="note-1" rows="2" placeholder=" "></textarea>
         <label for="note-1">Notiz an Tierbesitzer (optional)</label>
       </div>
     </div>
   </div>
 
   <!-- Produkt 2: Hepax -->
-  <div class="approval-product-card">
+  <div class="approval-product-card" id="card-2" data-status="open">
     <div class="approval-product-card__inner">
       <div class="product-thumb placeholder-bg">
         <span class="material-icons">inventory_2</span>
@@ -109,9 +96,9 @@
       <div class="approval-product-info">
         <div class="approval-product-name">Hepax</div>
         <div class="approval-product-variant">Kapseln, 30 Stück</div>
-        <div class="approval-qty-label">Menge freigeben</div>
+        <div class="label-caps">Empfehlung</div>
         <div class="approval-qty-group">
-          <button class="choice-box --active" type="button" onclick="setQty(2,'reject',this)">Ablehnen</button>
+          <button class="choice-box" type="button" onclick="setQty(2,'reject',this)">Ablehnen</button>
           <button class="choice-box" type="button" onclick="setQty(2,'max1',this)">max. 1×</button>
           <button class="choice-box" type="button" onclick="setQty(2,'max2',this)">max. 2×</button>
           <button class="choice-box" type="button" onclick="setQty(2,'max5',this)">max. 5×</button>
@@ -121,17 +108,17 @@
     </div>
     <div class="approval-product-card__note">
       <div class="form-field">
-        <textarea id="note-2" rows="2" placeholder=""></textarea>
+        <textarea id="note-2" rows="2" placeholder=" "></textarea>
         <label for="note-2">Notiz an Tierbesitzer (optional)</label>
       </div>
     </div>
   </div>
 
-  <!-- Abschicken -->
+  <!-- Status-Counter + Footer-CTA -->
+  <p class="approval-counter" id="approvalCounter">0 von 2 Produkten entschieden</p>
   <div class="approval-footer">
-    <button class="btn --primary --full" onclick="submitApproval()">
-      Freigabe absenden
-    </button>
+    <button class="btn --primary" onclick="submitApproval()">Freigabe absenden</button>
+    <a href="#" class="btn --ghost" onclick="event.preventDefault();">Später bearbeiten</a>
   </div>
 
 </main>
@@ -159,26 +146,48 @@ const REQUEST_PRODUCTS = [
   { id:2, name:'Hepax',          variant:'Kapseln, 30 Stück',   img: '' },
 ];
 
-// State pro Produkt
+// State pro Produkt — kein Default, Tierarzt muss aktiv entscheiden
 const approvalState = {
-  1: { qty: 'reject', note: '' },
-  2: { qty: 'reject', note: '' },
+  1: { qty: null, note: '' },
+  2: { qty: null, note: '' },
 };
 
 function setQty(productId, value, btn) {
   approvalState[productId].qty = value;
+  // Choice-Box visuell aktivieren
   btn.closest('.approval-qty-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
   btn.classList.add('--active');
+  // Card-Status setzen (steuert border-left Farbe via CSS)
+  const card = document.getElementById('card-' + productId);
+  card.dataset.status = (value === 'reject') ? 'rejected' : 'approved';
+  updateCounter();
+}
+
+function updateCounter() {
+  const total    = Object.keys(approvalState).length;
+  const decided  = Object.values(approvalState).filter(s => s.qty !== null).length;
+  const counter  = document.getElementById('approvalCounter');
+  counter.textContent = `${decided} von ${total} Produkten entschieden`;
+  counter.classList.toggle('--complete', decided === total);
 }
 
 function submitApproval() {
+  // Validierung: alle Produkte müssen entschieden sein
+  const undecided = Object.entries(approvalState).filter(([_, s]) => s.qty === null);
+  if (undecided.length > 0) {
+    const counter = document.getElementById('approvalCounter');
+    counter.style.color = 'var(--color-error)';
+    counter.textContent = `Bitte alle ${Object.keys(approvalState).length} Produkte entscheiden, bevor du absendest.`;
+    counter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
   const results = REQUEST_PRODUCTS.map(p => {
     const s = approvalState[p.id];
     const note = document.getElementById('note-' + p.id)?.value ?? '';
     return { ...p, qty: s.qty, note };
   });
 
-  const approvedList = results.filter(r => r.qty !== 'reject');
   const qtyLabel = { 'max1':'max. 1×', 'max2':'max. 2×', 'max5':'max. 5×', 'unlimited':'Unbegrenzt' };
 
   const productLines = results.map(r => {

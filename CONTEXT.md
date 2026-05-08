@@ -421,6 +421,11 @@ docs: …      (Doku-Updates)
 
 ## Audit-Historie
 
+### Stand 2026-05-08 (Inuvet-Freigabe Layout-Refactor + CLAUDE.md geschärft)
+- **Inuvet-Freigabe-Mockup** komplett neu gestaltet (Konzept A): schlanke Meta-Header-Zeile statt schwerer Patienten-Box, Status-Indikator als Border-Left pro Card (grün/rot/transparent), Notiz-Feld dauerhaft sichtbar, Submit-Validierung mit Live-Counter „X von Y Produkten entschieden", kein Default-Aktiv mehr (kein versehentliches Ablehnen), Footer mit Primary + Ghost-Button nebeneinander.
+- **Linien drastisch reduziert**: Card nutzt `background: var(--accent-bg)` statt umlaufendem Border. Meta-Bottom-Border und Note-Top-Border entfernt. 5 Linien → 2.
+- **CLAUDE.md Goldene Regel #1 geschärft** mit konkretem Anti-Pattern-Beispiel: `.approval-qty-label` als 1:1-Duplikat von globalem `.label-caps` wurde zur Live-Warnung dokumentiert (Pflicht-Workflow: greppen → wiederverwenden).
+
 ### Stand 2026-05-08 (große Aufräum-Session)
 - **Sektions-Struktur komplett neu gestaltet**: Ablösung des Patchwork-Schemas (00–38 mit 12a/17a/34a-Suffixen) durch Atomic-Design-Hierarchie A–E (Foundations, Atome, Moleküle, Organismen, Seiten-Vorlagen). Erweiterbar ohne Suffixe. Alle Anker-IDs und Cross-References migriert. Mobile-Nav und Footer-Nav komplett neu strukturiert.
 - **Globale Konventionen etabliert**: `--page-pt`, `.page.--narrow/--form/--no-pt`, `.section-label.--sub`, `.success-state`-Komponente

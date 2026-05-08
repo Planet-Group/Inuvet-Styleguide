@@ -28,13 +28,39 @@ Atomic Design konsequent durchgezogen — fünf Gruppen, dezimale Nummerierung:
 
 ## Goldene Regeln (nie verletzen)
 
-1. **Bestehende Klassen zuerst** — Erst `inuvet.css` durchsuchen, dann erst neu erfinden. Niemals neues CSS, wenn ein existierendes Atom reicht.
+1. **Bestehende Klassen zuerst — als Pflicht-Workflow**
+
+   **BEVOR du in einer page-css eine neue Klasse benennst:**
+   1. Funktional beschreiben („kleines Uppercase-Label", „Status-Border", „bordered Card mit Padding")
+   2. `grep "Begriff\|css-property" inuvet.css` — gibt es eine Klasse mit dieser Funktion?
+   3. Falls ja: **wiederverwenden**. Falls die existierende Klasse 90% passt, nutze sie + page-spezifischen Kontext-Selektor für den Rest.
+
+   **Anti-Pattern (Live-Beispiel aus 2026-05-08):**
+   In `freigabe.css` wurde `.approval-qty-label` definiert mit:
+   ```css
+   font-size: var(--text-xs); text-transform: uppercase;
+   letter-spacing: 0.05em; color: var(--fg-muted); font-weight: 700;
+   ```
+   Das ist **exakt** `.label-caps` aus `inuvet.css`. Reine Duplikation eines globalen Atoms — der schlimmste Verstoß gegen das System.
+
+   **So sollte es aussehen:**
+   ```html
+   <!-- Direkt globale Klasse benutzen -->
+   <div class="label-caps">Empfehlung</div>
+   ```
+   Wenn page-spezifischer Margin nötig: per Kontext-Selektor:
+   ```css
+   .approval-product-info .label-caps { margin-bottom: calc(var(--base) * 0.375); }
+   ```
+
+   **Verstöße zählen als technische Schuld.** Bei Wartungs-Audits werden lokale Klassen, die globale duplizieren, immer aufgespürt und entfernt — besser, sie kommen gar nicht erst rein.
+
 2. **Keine Magic Numbers** — Alle Werte über Tokens (`var(--…)`). Hardcoded `rem`/`px`/Farben sind Code-Smells.
 3. **`border-radius: 0`** — überall. Ausnahmen nur: `.badge.--pill` (`2em`) und Avatar (`50%`).
 4. **Kein `!important`**. Niemals.
 5. **Kein `text-align: center`** für Inhalte. Nur funktional (Button-Text, Qty-Input, Empty/Success-State).
 6. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.--active`, `.--open`.
-7. **Linien sparsam** — Whitespace ist die Standard-Trennung. `border-top` für Trennzwecke ist meist ein Code-Smell.
+7. **Linien sparsam** — Whitespace ist die Standard-Trennung. `border-top` für Trennzwecke ist meist ein Code-Smell. Mehrere parallele Linien (Meta-Border + Section-Label-Border + Card-Border) konkurrieren visuell — wenn zwei Trenner direkt aufeinanderfolgen, eine davon raus.
 8. **Sprache der Antworten**: deutsch.
 
 ## Wichtige Tokens (nicht raten, sondern nachschlagen)

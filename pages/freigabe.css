@@ -9,42 +9,37 @@
 
 /* Erfolgs-State: globale .success-state-Komponente (inuvet.css) */
 
-/* ─── Patienten-Infobox ─── */
-.approval-infobox {
-  background: var(--accent-bg);
-  border: 1px solid var(--border-light);
-  padding: var(--half-module);
+/* ─── Patienten-Meta — schlanke Header-Zeile statt schwerer Box.
+   Kein Border-Bottom: das nachfolgende .section-label.--sub trägt den
+   visuellen Trenner schon — eine Linie reicht. */
+.approval-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--base) * 0.4) var(--module);
   font-size: var(--text-sm);
-  line-height: var(--lh-base);
+  margin-top: var(--half-module);
   margin-bottom: var(--module);
 }
-.approval-infobox__row {
-  display: flex;
-  gap: var(--half-module);
-  margin-bottom: calc(var(--base) * 0.25);
-}
-.approval-infobox__row:last-child { margin-bottom: 0; }
-.approval-infobox__key {
-  color: var(--fg-muted);
-  min-width: calc(var(--base) * 5);
-  flex-shrink: 0;
-}
+.approval-meta__item { display: flex; gap: calc(var(--base) * 0.5); align-items: baseline; }
+.approval-meta__val  { color: var(--fg); }
+/* Key nutzt globale .label-caps aus inuvet.css */
 
-/* ─── Produkt-Card ─── */
+/* ─── Produkt-Card: Hintergrund-Tint statt Outer-Border, Status via Border-Left.
+   Whitespace + bg-Differenz tragen das Card-Visual; nur EINE Linie pro Card. */
 .approval-product-card {
-  border: 1px solid var(--border-light);
+  background: var(--accent-bg);
+  border-left: 3px solid transparent;            /* Status-Slot, default unsichtbar */
   margin-bottom: var(--half-module);
-  background: var(--bg);
+  transition: border-left-color var(--anim-fast);
 }
+.approval-product-card[data-status="approved"] { border-left-color: var(--green); }
+.approval-product-card[data-status="rejected"] { border-left-color: var(--color-error); }
+
 .approval-product-card__inner {
   display: flex;
   gap: var(--half-module);
   padding: var(--half-module);
   align-items: flex-start;
-}
-.approval-product-card__note {
-  padding: var(--half-module);
-  border-top: 1px solid var(--border-light);
 }
 
 /* ─── Produkt-Thumb mit Icon-Placeholder
@@ -61,7 +56,7 @@
 }
 
 /* ─── Produkt-Info ─── */
-.approval-product-info { flex: 1; }
+.approval-product-info { flex: 1; min-width: 0; }
 .approval-product-name {
   font-weight: 700;
   font-size: var(--text-base);
@@ -73,31 +68,38 @@
   margin-bottom: var(--half-module);
 }
 
-/* ─── Mengen-Auswahl ─── */
-.approval-qty-label {
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--fg-muted);
-  font-weight: 700;
-  margin-bottom: calc(var(--base) * 0.375);
-}
+/* ─── Mengen-Auswahl
+   Label nutzt globale .label-caps aus inuvet.css; Wrapper-margin-bottom hier. */
+.approval-product-info .label-caps { margin-bottom: calc(var(--base) * 0.375); }
 .approval-qty-group {
   display: flex;
   flex-wrap: wrap;
   gap: calc(var(--base) * 0.4);
-  margin-bottom: var(--half-module);
 }
 
-/* ─── Footer-CTA ─── */
-.approval-footer {
-  margin-top: var(--module);
+/* ─── Notiz-Bereich — dauerhaft sichtbar als Sub-Section der Card.
+   Kein border-top: das Form-Field hat eigene Borders, Whitespace reicht zur Trennung. */
+.approval-product-card__note {
+  padding: 0 var(--half-module) var(--half-module);
 }
-.approval-footer.--centered { text-align: center; }
 
-/* ─── Datum ─── */
-.approval-date {
-  font-size: var(--text-xs);
+/* ─── Status-Counter über dem CTA ─── */
+.approval-counter {
+  text-align: center;
+  font-size: var(--text-sm);
   color: var(--fg-muted);
   margin-bottom: var(--half-module);
 }
+.approval-counter.--complete { color: var(--green); font-weight: 700; }
+
+/* ─── Footer-CTA: Buttons nebeneinander, gemeinsam zentriert ─── */
+.approval-footer {
+  margin-top: var(--module);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--half-module);
+}
+.approval-footer .btn.--primary { min-width: calc(var(--base) * 14); }
