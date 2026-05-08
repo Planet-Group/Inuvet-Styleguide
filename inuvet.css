@@ -510,6 +510,10 @@
 
   /* ─── Section Image ─── */
   /* .section-type__image — nutzt .placeholder-bg */
+  .section-type__image {
+    background-position: center center;
+    background-size: cover;
+  }
 
   /* ─── Section Animation (Lottie) ─── */
   .section-type__animation { align-self: center; }
@@ -681,9 +685,9 @@
     text-shadow: 0 1px 14px rgba(0,0,0,0.4);
   }
   .section-type.--v4 .section-type__headline {
-    font-size: var(--text-l);
+    font-size: var(--text-xl);
     font-weight: 700;
-    line-height: var(--lh-h2);
+    line-height: var(--lh-h1);
     color: #fff;
     margin-bottom: var(--half-module);
   }
@@ -713,9 +717,21 @@
   .section-type.--v4 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v4 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v4 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
-  /* Mobile: volle Höhe */
+  /* Mobile: volle Höhe abzgl. Header, Text oben – Buttons unten */
   @media (max-width: 767px) {
-    .section-type.--v4 { min-height: 100dvh; }
+    .section-type.--v4 {
+      min-height: calc(100dvh - var(--header-height));
+      align-items: stretch;
+    }
+    .section-type.--v4 .section-type__content {
+      flex: 1;
+      justify-content: flex-start;
+      padding-top: calc(var(--module) * 2);
+    }
+    .section-type--v4__cta {
+      margin-top: auto;
+      padding-bottom: var(--module);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v4 .section-type__image,

@@ -198,7 +198,6 @@
     position: fixed;
     bottom: 0; left: 0; right: 0;
     z-index: 50;
-    border-top: 2px solid var(--fg);
     box-shadow: 0 -4px 2rem rgba(0,0,0,0.12);
     transform: translateY(110%);
     transition: transform var(--anim-mid);

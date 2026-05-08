@@ -87,6 +87,7 @@
     <a href="#section-19" class="--indent" onclick="closeMobile()">19 Footer</a>
     <a href="#section-20" onclick="closeMobile()">Seiten-Layouts</a>
     <a href="#section-20" class="--indent" onclick="closeMobile()">20 Section Types</a>
+    <a href="#v4" class="--indent --indent-2" onclick="closeMobile()">↳ Variante 4 (Bild + Text)</a>
     <a href="#section-21" class="--indent" onclick="closeMobile()">21 Kachel-Raster</a>
     <a href="#section-22" class="--indent" onclick="closeMobile()">22 Landing-Page-Elemente</a>
     <a href="#section-23" class="--indent" onclick="closeMobile()">23 Tabs &amp; Akkordeon</a>
@@ -2207,6 +2208,65 @@
   <section class="sg-section">
     <p class="demo-note">Content-Box links mit <code>--reverse</code>.</p>
 
+    <!-- ─── Variante 4 ─── -->
+    <h3 id="v4" class="sg-h3 --top">Variante 4 — Vollbild-Hintergrund + Text auf Bild</h3>
+    <p class="sg-p --mb">Bild füllt die gesamte Section (edge-to-edge). Text und CTA liegen direkt auf dem Bild — weiß, mit weichem Schatten. Schwarzes Overlay dämpft das Bild. Inhalt ist vertikal und horizontal zentriert. Mobil: volle Viewport-Höhe.</p>
+
+    <!-- Spec -->
+    <table class="spec-table">
+      <tr><th>Headline</th><td><code>H1</code> (<code>--text-xl</code>, <code>--lh-h1</code>) · weiß · <code>text-shadow</code> für Lesbarkeit</td></tr>
+      <tr><th>Overlay</th><td><code>rgba(0,0,0,0.22)</code> über dem Bild (z-index 1)</td></tr>
+      <tr><th>Bild</th><td>Vollflächig, <code>position: absolute; inset: 0</code> · <code>background-size: cover</code> · <code>background-position: center center</code></td></tr>
+      <tr><th>Content</th><td>Zentriert (horizontal + vertikal), <code>max-width: 44rem</code>, <code>z-index: 2</code></td></tr>
+      <tr><th>CTA-Bereich</th><td><code>.section-type--v4__cta</code> · Buttons nebeneinander (Desktop), untereinander (Mobile)</td></tr>
+      <tr><th>Höhe</th><td>Default: <code>min-height: 60vh</code> · Mit <code>--viewport</code>: <code>100dvh</code> · Mobile: <code>calc(100dvh - var(--header-height))</code> — Buttons bleiben im Viewport</td></tr>
+      <tr><th>Breite</th><td>Viewport-Breite (edge-to-edge)</td></tr>
+      <tr><th>Bildzentrierung</th><td><code>background-position: center center</code> — wird von <code>.section-type__image</code> vererbt, kein Inline-Style nötig</td></tr>
+      <tr><th>Responsive</th><td>Mobile: volle Viewport-Höhe · Text oben, Buttons unten (<code>margin-top: auto</code>) · Bildmitte bleibt frei</td></tr>
+    </table>
+
+    <div class="demo-note --mb">Bild über Inline-Style setzen: <code>style="background-image: url('...')"</code> — <code>background-size</code> und <code>background-position</code> kommen aus dem CSS.</div>
+
+    <!-- Demo: Default -->
+    <div class="demo-label">Default (60 vh)</div>
+  </section>
+</div>
+
+<!-- V4 demo breaks out of .page for full viewport width -->
+<div class="section-type --v4">
+  <div class="section-type__image placeholder-bg"></div>
+  <div class="section-type__content">
+    <h1 class="section-type__headline">Headline auf Bild</h1>
+    <p class="section-type__body" style="color:rgba(255,255,255,0.85);">Optionaler Subtext direkt auf dem Bild.</p>
+    <div class="section-type--v4__cta">
+      <div class="btn --primary">Primäre Aktion</div>
+      <div class="btn --ghost" style="color:#fff;border-color:rgba(255,255,255,0.5);">Sekundäre Aktion</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <section class="sg-section">
+    <p class="demo-note">Text und CTA liegen direkt auf dem Bild. Das Overlay (<code>rgba(0,0,0,0.22)</code>) sorgt für ausreichend Kontrast.</p>
+
+    <div class="demo-label">Mit <code>--viewport</code> (Volle Höhe)</div>
+  </section>
+</div>
+
+<div class="section-type --v4 --viewport">
+  <div class="section-type__image placeholder-bg"></div>
+  <div class="section-type__content">
+    <h1 class="section-type__headline">Headline auf Bild</h1>
+    <div class="section-type--v4__cta">
+      <div class="btn --primary">Primäre Aktion</div>
+      <div class="btn --ghost" style="color:#fff;border-color:rgba(255,255,255,0.5);">Sekundäre Aktion</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <section class="sg-section">
+    <p class="demo-note">Mit <code>--viewport</code>: Desktop <code>100dvh</code>, Mobile immer volle Viewport-Höhe.</p>
   </section>
 
   <section class="sg-section" id="section-21">
