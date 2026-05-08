@@ -185,11 +185,10 @@
   gap: calc(var(--base) * 0.5);
 }
 
-/* Desktop: sticky sidebar */
+/* Desktop: oben ausrichten */
 @media (min-width: 768px) {
   .summary-card {
-    position: sticky;
-    top: var(--module);
+    position: static;
   }
 }
 
