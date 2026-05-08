@@ -75,7 +75,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: calc(var(--base) * 0.4);
+  margin-bottom: var(--half-module);
 }
+
+/* ─── Provisions-Zeile pro Card — Key + Wert in einer Reihe.
+   Live-Update via JS bei Auswahl der Empfehlungs-Stufe. */
+.approval-commission {
+  display: flex;
+  align-items: baseline;
+  gap: var(--half-module);
+  font-size: var(--text-sm);
+}
+.approval-commission .label-caps { margin-bottom: 0; }   /* Override des Card-Defaults */
+.approval-commission__value { color: var(--green); font-weight: 700; }
+.approval-commission__value.--muted { color: var(--fg-muted); font-weight: 400; }
 
 /* ─── Notiz-Bereich — dauerhaft sichtbar als Sub-Section der Card.
    Kein border-top: das Form-Field hat eigene Borders, Whitespace reicht zur Trennung. */

@@ -77,6 +77,10 @@
           <button class="choice-box" type="button" onclick="setQty(1,'max5',this)">max. 5×</button>
           <button class="choice-box" type="button" onclick="setQty(1,'unlimited',this)">Unbegrenzt</button>
         </div>
+        <div class="approval-commission">
+          <span class="label-caps">Deine Provision</span>
+          <span class="approval-commission__value --muted">Wähle eine Empfehlung</span>
+        </div>
       </div>
     </div>
     <div class="approval-product-card__note">
@@ -103,6 +107,10 @@
           <button class="choice-box" type="button" onclick="setQty(2,'max2',this)">max. 2×</button>
           <button class="choice-box" type="button" onclick="setQty(2,'max5',this)">max. 5×</button>
           <button class="choice-box" type="button" onclick="setQty(2,'unlimited',this)">Unbegrenzt</button>
+        </div>
+        <div class="approval-commission">
+          <span class="label-caps">Deine Provision</span>
+          <span class="approval-commission__value --muted">Wähle eine Empfehlung</span>
         </div>
       </div>
     </div>
@@ -140,17 +148,36 @@
 <script>
 /* ════════════════════════════════════════════
    Produkt-Daten für diese Anfrage
+   commissionPerOrder = Provision pro tatsächlicher Bestellung
    ════════════════════════════════════════════ */
 const REQUEST_PRODUCTS = [
-  { id:1, name:'Calmin Balance', variant:'Tabletten, 60 Stück', img: '' },
-  { id:2, name:'Hepax',          variant:'Kapseln, 30 Stück',   img: '' },
+  { id:1, name:'Calmin Balance', variant:'Tabletten, 60 Stück', img: '', commissionPerOrder: 4.50 },
+  { id:2, name:'Hepax',          variant:'Kapseln, 30 Stück',   img: '', commissionPerOrder: 5.20 },
 ];
+
+// Mapping Empfehlungs-Stufe → maximale Anzahl Bestellungen
+const QTY_MAX = { reject: 0, max1: 1, max2: 2, max5: 5, unlimited: Infinity };
 
 // State pro Produkt — kein Default, Tierarzt muss aktiv entscheiden
 const approvalState = {
   1: { qty: null, note: '' },
   2: { qty: null, note: '' },
 };
+
+function formatEur(value) {
+  return value.toFixed(2).replace('.', ',') + ' €';
+}
+
+function commissionForProduct(productId) {
+  const state   = approvalState[productId];
+  const product = REQUEST_PRODUCTS.find(p => p.id === productId);
+  if (!state || state.qty === null) return { text: 'Wähle eine Empfehlung', muted: true };
+  if (state.qty === 'reject')        return { text: 'Keine Provision',     muted: true };
+  const perOrder = product.commissionPerOrder;
+  const max      = QTY_MAX[state.qty];
+  if (max === Infinity) return { text: formatEur(perOrder) + ' pro Bestellung', muted: false };
+  return { text: formatEur(perOrder) + ' × ' + max + ' Bestellungen = max. ' + formatEur(perOrder * max), muted: false };
+}
 
 function setQty(productId, value, btn) {
   approvalState[productId].qty = value;
@@ -160,14 +187,41 @@ function setQty(productId, value, btn) {
   // Card-Status setzen (steuert border-left Farbe via CSS)
   const card = document.getElementById('card-' + productId);
   card.dataset.status = (value === 'reject') ? 'rejected' : 'approved';
+  // Provisions-Zeile pro Card aktualisieren
+  updateCommission(productId);
   updateCounter();
+}
+
+function updateCommission(productId) {
+  const el = document.querySelector('#card-' + productId + ' .approval-commission__value');
+  if (!el) return;
+  const c = commissionForProduct(productId);
+  el.textContent = c.text;
+  el.classList.toggle('--muted', c.muted);
 }
 
 function updateCounter() {
   const total    = Object.keys(approvalState).length;
   const decided  = Object.values(approvalState).filter(s => s.qty !== null).length;
   const counter  = document.getElementById('approvalCounter');
-  counter.textContent = `${decided} von ${total} Produkten entschieden`;
+
+  // Provisions-Summe live berechnen — auch teilweise sichtbar machen
+  let totalCommission = 0;
+  let hasUnlimited = false;
+  REQUEST_PRODUCTS.forEach(p => {
+    const s = approvalState[p.id];
+    if (!s || s.qty === null || s.qty === 'reject') return;
+    const max = QTY_MAX[s.qty];
+    if (max === Infinity) hasUnlimited = true;
+    else totalCommission += p.commissionPerOrder * max;
+  });
+
+  let text = `${decided} von ${total} Produkten entschieden`;
+  if (totalCommission > 0 || hasUnlimited) {
+    const suffix = hasUnlimited ? ' + Unbegrenzt' : '';
+    text += ` · Deine Provision: bis zu ${formatEur(totalCommission)}${suffix}`;
+  }
+  counter.textContent = text;
   counter.classList.toggle('--complete', decided === total);
 }
 
