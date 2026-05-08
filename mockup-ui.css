@@ -194,6 +194,33 @@ body.--mockup-bar-visible {
   line-height: 1.5;
   color: #777;
 }
+.mockup-modal__note .material-icons { font-size: 0.9rem; flex-shrink: 0; color: #888; }
+.mockup-modal__note strong          { color: #ccc; }
+
+/* ─── Mockup FAB Panel — Kontext-Tooltip neben dem Mockup-FAB-Button ─── */
+.mockup-fab-panel {
+  display: none;
+  position: fixed;
+  bottom: 4rem;
+  right: 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 0.75rem 1rem;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #888;
+  z-index: 9998;
+  max-width: 280px;
+  line-height: 1.6;
+}
+.mockup-fab-panel.--open { display: block; }
+.mockup-fab-panel__title {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  margin-bottom: 0.5rem;
+}
 
 .mockup-modal__desc {
   font-size: 0.7rem;

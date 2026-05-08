@@ -141,7 +141,7 @@
 <div class="shop-modal-overlay" id="checkoutModal">
   <div class="shop-modal">
     <div class="shop-modal__icon">
-      <span class="material-icons checkout__success-icon">check_circle</span>
+      <span class="material-icons success-state__icon">check_circle</span>
     </div>
     <div class="shop-modal__title"   id="modalTitle"></div>
     <div class="shop-modal__body"    id="modalBody"></div>
@@ -603,15 +603,13 @@ function renderSuccessStep() {
       <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">
-      <div style="text-align:center; padding: var(--base) 0 var(--half-module);">
-        <span class="material-icons" style="font-size:2.5rem; color:var(--green);">check_circle</span>
+      <div class="success-state">
+        <span class="material-icons success-state__icon">check_circle</span>
+        <h3 class="success-state__title">Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</h3>
+        <p class="success-state__body">
+          Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
+        </p>
       </div>
-      <p style="font-size:var(--text-base); line-height:var(--lh-base); margin-bottom:var(--half-module);">
-        Anfrage an <strong>${vetName}</strong> erfolgreich versendet.
-      </p>
-      <p style="font-size:var(--text-base); line-height:var(--lh-base); color:var(--fg-muted);">
-        Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
-      </p>
     </div>
     <div class="cart-drawer__footer" id="drawerFooter" style="display:none">
       ${hasApproved ? `<button class="btn --primary cart-drawer__checkout" onclick="closeCart();setPage('checkout')">Weiter zum Checkout</button>` : ''}
@@ -826,19 +824,6 @@ function renderNav() {
   if (mobileRec) mobileRec.style.display = state === 'with-release' ? '' : 'none';
 
   navRight.innerHTML = '';
-}
-
-/* ════════════════════════════════════════════
-   BREADCRUMB
-   ════════════════════════════════════════════ */
-function breadcrumb(items) {
-  return `<nav class="breadcrumb" aria-label="Breadcrumb">
-    ${items.map((item, i) => {
-      if (i === 0) return `<div class="breadcrumb__item"><a href="#" onclick="${item.onclick};return false;">${item.label}</a></div>`;
-      if (item.current) return `<div class="breadcrumb__item"><span class="breadcrumb__sep">/</span><span class="--current">${item.label}</span></div>`;
-      return `<div class="breadcrumb__item"><span class="breadcrumb__sep">/</span><a href="#" onclick="${item.onclick};return false;">${item.label}</a></div>`;
-    }).join('')}
-  </nav>`;
 }
 
 /* ════════════════════════════════════════════
@@ -1062,10 +1047,6 @@ function renderHome() {
 function renderCollection() {
   return `
     <div class="page">
-      ${breadcrumb([
-        {label:'Home',          onclick:"setPage('home')",       current:false},
-        {label:'Alle Produkte', current:true}
-      ])}
       <h2 class="shop-page-title">Alle Produkte</h2>
       <div class="collection-toolbar">
         <div class="collection-toolbar__count">${PRODUCTS.length} Produkte</div>
@@ -1084,10 +1065,6 @@ function renderRecommended() {
   const approved = PRODUCTS.filter(p => p.approved);
   return `
     <div class="page">
-      ${breadcrumb([
-        {label:'Home',                  onclick:"setPage('home')",       current:false},
-        {label:'Empfohlene Produkte',   current:true}
-      ])}
       <h2 class="shop-page-title">Empfohlene Produkte</h2>
       <div class="collection-toolbar">
         <div class="collection-toolbar__count">${approved.length} Empfehlungen</div>
@@ -1158,11 +1135,6 @@ function renderProduct() {
 
   return `
     <div class="page">
-      ${breadcrumb([
-        {label:'Home',          onclick:"setPage('home')",       current:false},
-        {label:'Alle Produkte', onclick:"setPage('collection')", current:false},
-        {label:p.name,          current:true}
-      ])}
       <div class="pdp">
         <div class="pdp__gallery">
           <div class="pdp__main-image" id="pdpMainImage">

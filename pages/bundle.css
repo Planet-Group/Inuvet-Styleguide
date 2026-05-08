@@ -3,11 +3,15 @@
    Basiert auf inuvet.css Tokens & Komponenten
    ═══════════════════════════════════════════ */
 
-/* ─── Seiten-Abstände ─── */
+/* ─── Seiten-Abstände ───
+   .page hat Default padding-top: var(--page-pt) (= 6rem).
+   #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
+   dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
+   Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
 #bundleSection       { padding-top: var(--module); padding-bottom: var(--module-2xl); }
-#bundleTestimonials  { padding-top: var(--module-2xl); padding-bottom: var(--module-2xl); }
+#bundleTestimonials  { padding-bottom: var(--module-2xl); }
 #bundleTiles         { padding-bottom: var(--module-2xl); }
-#bundleInfoMain      { padding-top: var(--module-2xl); padding-bottom: var(--module-2xl); }
+#bundleInfoMain      { padding-bottom: var(--module-2xl); }
 
 /* ─── Intro ─── */
 .bundle-intro {
@@ -218,7 +222,7 @@
 }
 
 .summary-card__title {
-  font-size: var(--text-lg);
+  font-size: var(--text-m);
   font-weight: 700;
   line-height: var(--lh-h3);
   color: rgba(255,255,255,0.6);
@@ -257,7 +261,7 @@
   transition: background var(--anim-fast), color var(--anim-fast);
 }
 .summary-card__cta:hover {
-  background: #000;
+  background: var(--fg);
   color: var(--bg);
 }
 
@@ -272,7 +276,7 @@
 }
 
 .cart-drawer__free-row {
-  font-size: var(--text-lg);
+  font-size: var(--text-m);
   font-weight: 700;
   color: var(--green);
   padding-top: calc(var(--base) * 0.5);
@@ -359,8 +363,5 @@
 .tier-row .material-icons { font-size: 1rem; }
 .tier-row__spacer { width: calc(var(--base) * 2.75); display: inline-block; flex-shrink: 0; }
 
-/* ─── Mockup-Modal Hinweis ─── */
-.mockup-modal__note .material-icons { font-size: 0.9rem; flex-shrink: 0; color: #888; }
-.mockup-modal__note strong          { color: #ccc; }
 
 
