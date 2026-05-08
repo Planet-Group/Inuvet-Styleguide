@@ -497,8 +497,8 @@
     grid-template-columns: 1fr 1fr;
     min-height: var(--section-min-height);
   }
-  /* Alle Section-Types außer --v3 (Vollbild-Hintergrund): Satzspiegel + Abstand oben */
-  .section-type:not(.--v3) {
+  /* Alle Section-Types außer --v3 + --v4 (Vollbild-Hintergrund): Satzspiegel + Abstand oben */
+  .section-type:not(.--v3):not(.--v4) {
     margin-top: var(--module);
   }
   .section-type.--viewport {
@@ -643,6 +643,75 @@
       animation: none;
     }
   }
+
+  /* ─── Variante 4: Vollbild-Hintergrund, Text direkt auf Bild ─── */
+  .section-type.--v4 {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+  }
+  /* Dunkles Overlay für Lesbarkeit */
+  .section-type.--v4::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.22);
+    z-index: 1;
+  }
+  .section-type.--v4 .section-type__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v4 .section-type__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: var(--module) var(--margin);
+    max-width: 44rem;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.4);
+  }
+  .section-type.--v4 .section-type__headline {
+    font-size: var(--text-l);
+    font-weight: 700;
+    line-height: var(--lh-h2);
+    color: #fff;
+    margin-bottom: var(--half-module);
+  }
+  .section-type.--v4 .section-type__body {
+    font-size: var(--text-base);
+    line-height: var(--lh-base);
+    color: rgba(255,255,255,0.85);
+    margin-bottom: var(--half-module);
+  }
+  /* Buttons: kein text-shadow */
+  .section-type.--v4 .section-type__content .btn { text-shadow: none; }
+  /* Staggered entrance */
+  .section-type.--v4 .section-type__content > * {
+    animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v4 .section-type__content > *:nth-child(1) { animation-delay: 0.10s; }
+  .section-type.--v4 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
+  .section-type.--v4 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
+  .section-type.--v4 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
+  /* Mobile: volle Höhe */
+  @media (max-width: 767px) {
+    .section-type.--v4 { min-height: 100dvh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .section-type.--v4 .section-type__image,
+    .section-type.--v4 .section-type__content > * { animation: none; }
+  }
+
   /* ═══════════════════════════════════════════
      TILE GRIDS
      ═══════════════════════════════════════════ */
