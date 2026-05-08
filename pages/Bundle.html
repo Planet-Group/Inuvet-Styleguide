@@ -110,11 +110,11 @@
         <!-- Rechte Spalte: Zusammenfassung + Empfehlungen -->
         <div>
           <div class="summary-card" id="summaryCard">
-            <p class="summary-card__title">Dein Persönliches Angebot · <span id="paidCount">0</span> Produkte</p>
+            <p class="summary-card__title">Dein Angebot (<span id="paidCount">0</span> Produkte)</p>
             <p class="summary-card__products" id="summaryProducts">—</p>
 
             <div class="summary-card__line --free">
-              <span>Gratisprodukte (<span id="freeCount">0</span>) im Wert von</span>
+              <span>Du sparst</span>
               <span id="savingsAmount">0,00 €</span>
             </div>
 
@@ -559,7 +559,6 @@
       const names = activeBundle.map(p => p.title).join(', ');
       document.getElementById('summaryProducts').textContent = names || '—';
       document.getElementById('paidCount').textContent  = paidItems;
-      document.getElementById('freeCount').textContent  = freeItems;
       document.getElementById('savingsAmount').textContent = `+ ${fmt(savings)}`;
       document.querySelector('.summary-card__line.--free').style.display = freeItems > 0 ? '' : 'none';
 
