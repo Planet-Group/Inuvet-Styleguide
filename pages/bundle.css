@@ -243,17 +243,17 @@
   align-items: baseline;
 }
 
-/* CTA auf grünem Hintergrund — weißer Button */
+/* CTA auf grünem Hintergrund — schwarzer Button */
 .summary-card__cta {
-  background: var(--bg);
-  color: var(--green);
+  background: var(--fg);
+  color: var(--bg);
   border: none;
   font-weight: 700;
   justify-content: center;
   transition: background var(--anim-fast), color var(--anim-fast);
 }
 .summary-card__cta:hover {
-  background: var(--fg);
+  background: #000;
   color: var(--bg);
 }
 
