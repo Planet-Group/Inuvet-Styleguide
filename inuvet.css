@@ -178,6 +178,10 @@
   .rte pre { background: var(--accent-bg); border: 1px solid var(--border-light); border-left: 3px solid var(--green); padding: var(--half-module); margin-bottom: var(--half-module); overflow-x: auto; }
   .rte pre code { font-family: 'Courier New', monospace; font-size: var(--text-xs); line-height: 1.6; color: var(--fg); background: none; }
   .rte h3 { font-size: var(--text-base); font-weight: 700; }
+  .rte table { width: 100%; border-collapse: collapse; margin-bottom: var(--half-module); display: block; overflow-x: auto; }
+  .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75); border-bottom: 1px solid var(--border-light); font-size: var(--text-base); vertical-align: top; }
+  .rte table th { font-weight: 700; border-bottom-color: var(--border); }
+  .rte table tr:last-child td { border-bottom: none; }
 
   /* ═══════════════════════════════════════════
      ANNOUNCEMENT BAR + NAVIGATION
