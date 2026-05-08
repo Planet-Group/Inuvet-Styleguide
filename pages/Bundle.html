@@ -507,12 +507,8 @@
 
         const tierHint = getTierHint(p.quantity, pTiers);
         const variant  = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
-        const sizePills = p.isFamily
-          ? variant.sizes.map((s, i) =>
-              `<button type="button" class="size-pill${i === p.selectedSizeIdx ? ' --active' : ''}"
-                onclick="setProductSize(${p.id}, ${i})">${s.label}</button>`
-            ).join('')
-          : '';
+        const sizeLabel = variant ? variant.sizes[p.selectedSizeIdx].label + ' · ' : '';
+        const displayName = p.isFamily ? `${p.title} ${variant.type}` : p.title;
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
@@ -521,10 +517,8 @@
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">${p.title}</p>
-                ${p.isFamily ? `<p class="cart-item__variant-type">${variant.type} · ${variant.animals}</p>
-                <div class="size-pills">${sizePills}</div>` : ''}
-                <div class="cart-item__variant">${fmt(getActivePrice(p))} / Stk.${historyText}</div>
+                <p class="cart-item__name">${displayName}</p>
+                <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.${historyText}</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">
@@ -596,10 +590,6 @@
       if (p && val >= 1) { p.quantity = val; renderBundle(); }
     };
 
-    window.setProductSize = (id, sizeIdx) => {
-      const p = activeBundle.find(p => p.id === id);
-      if (p && p.isFamily) { p.selectedSizeIdx = sizeIdx; renderBundle(); }
-    };
 
     window.removeProduct = (id) => {
       const i = activeBundle.findIndex(p => p.id === id);
