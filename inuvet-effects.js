@@ -3,17 +3,20 @@
    ═══════════════════════════════════════════ */
 
 /* ─── Parallax: section-type --v3 / --v4 ───
-   heroPanIn läuft mit animation-fill-mode: both → hält transform: scale(1)
-   und überschreibt JS-style.transform. Lösung: Animation nach Ablauf
-   deaktivieren, dann Parallax per rAF-Scroll-Listener starten.
-   Deaktiviert bei prefers-reduced-motion. */
+   Strategie:
+   1. Auf animationend warten (exakter als setTimeout) — vermeidet
+      Timing-Jitter zwischen CSS-Animation und JS-Transform.
+   2. Beim Übergang kurz eine CSS-Transition setzen, damit der erste
+      Positions-Wechsel als sanftes Gleiten erscheint, nicht als Sprung.
+   3. Transition nach dem ersten Frame entfernen, damit Scroll-Updates
+      direkt und ohne Lag-Artefakte reagieren.
+   4. Deaktiviert bei prefers-reduced-motion. */
 (function initParallax() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const FACTOR        = 0.22;   // Parallax-Intensität (0 = kein, 1 = voll)
-  const ANIM_WAIT_MS  = 1350;   // heroPanIn-Dauer (1.2s) + kleiner Puffer
-  const selector      = '.section-type.--v3, .section-type.--v4';
-  const sections      = Array.from(document.querySelectorAll(selector));
+  const FACTOR   = 0.22;
+  const selector = '.section-type.--v3, .section-type.--v4';
+  const sections = Array.from(document.querySelectorAll(selector));
   if (!sections.length) return;
 
   let scheduled = false;
@@ -23,29 +26,48 @@
     const vh = window.innerHeight;
     sections.forEach(section => {
       const img = section.querySelector('.section-type__image');
-      if (!img) return;
+      if (!img || !img._parallaxReady) return;
       const rect     = section.getBoundingClientRect();
-      // progress: 0 beim Betreten, 1 beim Verlassen des Viewports
       const progress = (vh - rect.top) / (vh + rect.height);
       const offset   = (progress - 0.5) * rect.height * FACTOR;
       img.style.transform = `translateY(${offset.toFixed(2)}px)`;
     });
   };
 
-  // CSS-Animation abwarten, dann deaktivieren und Parallax starten
-  setTimeout(() => {
-    sections.forEach(section => {
-      const img = section.querySelector('.section-type__image');
-      if (img) img.style.animation = 'none'; // fill-mode-Konflikt auflösen
+  const startParallax = (img) => {
+    // Sanfter Übergang für den ersten Positions-Wechsel
+    img.style.transition = 'transform 0.35s ease';
+
+    requestAnimationFrame(() => {
+      tick();
+      // Transition nach dem ersten Frame entfernen — Scroll bleibt direkt
+      setTimeout(() => { img.style.transition = ''; }, 400);
     });
 
-    window.addEventListener('scroll', () => {
-      if (!scheduled) {
-        scheduled = true;
-        requestAnimationFrame(tick);
-      }
-    }, { passive: true });
+    img._parallaxReady = true;
+  };
 
-    tick(); // Initialwert für bereits sichtbare Sections
-  }, ANIM_WAIT_MS);
+  sections.forEach(section => {
+    const img = section.querySelector('.section-type__image');
+    if (!img) return;
+
+    // animationend: exakter Zeitpunkt, kein Blind-Timeout
+    img.addEventListener('animationend', () => {
+      img.style.animation = 'none'; // fill-mode-Konflikt auflösen
+      startParallax(img);
+    }, { once: true });
+
+    // Fallback: falls kein heroPanIn läuft (z.B. placeholder-bg im Styleguide)
+    const computed = getComputedStyle(img).animationName;
+    if (!computed || computed === 'none') {
+      startParallax(img);
+    }
+  });
+
+  window.addEventListener('scroll', () => {
+    if (!scheduled) {
+      scheduled = true;
+      requestAnimationFrame(tick);
+    }
+  }, { passive: true });
 })();
