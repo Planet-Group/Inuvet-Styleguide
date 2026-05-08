@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>So funktioniert dein persönliches Angebot – inuvet</title>
+  <title>Persönliches Angebot: Strategie & Spezifikation – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
@@ -31,7 +31,7 @@
         <a href="Bundle.html" class="nav-item__trigger">Mein Angebot</a>
       </div>
       <div class="nav-item">
-        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">So funktioniert's</a>
+        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">Konzept & Spezifikation</a>
       </div>
     </div>
     <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
@@ -47,7 +47,7 @@
       <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
     </div>
     <div class="nav-col">
-      <a href="Bundle-Info.html" onclick="closeMobile()">So funktioniert's</a>
+      <a href="Bundle-Info.html" onclick="closeMobile()">Konzept & Spezifikation</a>
     </div>
   </div>
 
@@ -64,15 +64,16 @@
           <div class="article__author">
             <div class="article__author-avatar placeholder-bg"></div>
             <div>
-              <p class="article__author-name">Das inuvet Team</p>
-              <p class="article__author-role">Tierärzte &amp; Ernährungsexperten</p>
+              <p class="article__author-name">inuvet Produkt-Team</p>
+              <p class="article__author-role">Produkt, Strategie &amp; Technologie</p>
             </div>
           </div>
           <div class="article__tags">
-            <span class="filter-tag">Naturalrabatt</span>
-            <span class="filter-tag">Vorrat</span>
-            <span class="filter-tag">Gratis</span>
-            <span class="filter-tag">Angebot</span>
+            <span class="filter-tag">Produkt-Design</span>
+            <span class="filter-tag">CRO</span>
+            <span class="filter-tag">Retention</span>
+            <span class="filter-tag">IT-Konzept</span>
+            <span class="filter-tag">AOV</span>
           </div>
         </aside>
 
@@ -80,56 +81,55 @@
         <article class="article">
 
           <header class="article__header">
-            <span class="label-caps">Angebot &amp; Vorteile · 8. Mai 2026</span>
-            <h1>So funktioniert dein persönliches Angebot</h1>
+            <span class="label-caps">Produkt-Konzept &amp; Spezifikation · 8. Mai 2026</span>
+            <h1>Persönliches Angebot: Strategie, UX-Konzept und technische Spezifikation</h1>
           </header>
 
           <div class="article__hero placeholder-bg"></div>
 
           <div class="article__body rte">
 
-            <p>Dein persönliches Angebot ist kein gewöhnlicher Warenkorb. Es ist ein auf dich zugeschnittenes Vorschlagsset – basierend auf dem, was du und dein Tier in den vergangenen Monaten gebraucht haben. Das Ziel: du sparst Zeit beim Nachbestellen und bekommst obendrauf Produkte gratis.</p>
+            <p>Das Persönliche Angebot ist ein zentrales Retention- und AOV-Instrument im inuvet Shop. Dieses Dokument beschreibt die strategische Rationale, die UX-Entscheidungen und die technischen Anforderungen für Entwicklung und Integration — als gemeinsame Grundlage für Produkt, Marketing und IT.</p>
 
-            <h2>Wie entsteht dein Angebot?</h2>
-            <p>Auf Basis deiner Einkäufe der letzten sechs Monate erkennt inuvet, welche Produkte du regelmäßig benötigst. Diese werden automatisch in deinem persönlichen Angebot vorgeschlagen – mit einer Menge, die deinem bisherigen Rhythmus entspricht. Du siehst direkt, wie oft du ein Produkt zuletzt bestellt hast.</p>
+            <h2>Strategische Zielsetzung</h2>
+            <p>Wiederkäufer sind für inuvet die wertvollste Kundensegment: ihre CAC-Amortisation ist abgeschlossen, ihre Kauffrequenz vorherseh­bar, ihr LTV deutlich höher als der eines Erstkäufers. Das Persönliche Angebot zielt auf zwei messbare Hebel:</p>
+            <ul>
+              <li><strong>Erhöhung des Average Order Value (AOV):</strong> Das Naturalrabatt-System schafft einen mengen­abhängigen Stufenreiz. Kunden, die ohnehin nachbestellen, erhöhen ihre Bestellmenge, um die nächste Gratis-Schwelle zu erreichen — ohne dass ein Gutscheincode kommuniziert werden muss.</li>
+              <li><strong>Verkürzung des Wiederkauf-Zyklus:</strong> Ein vorausgefülltes, personalisiertes Angebot senkt die kognitive Hürde der Nachbestellung drastisch. Der Kunde muss nicht mehr suchen, vergleichen oder seinen letzten Einkauf rekonstruieren.</li>
+            </ul>
 
-            <h2>Der Naturalrabatt: mehr kaufen, mehr sparen</h2>
-            <p>Das Herzstück deines Angebots ist unser Naturalrabatt-System. Es funktioniert einfach: Je mehr Einheiten eines Produkts du auf einmal bestellst, desto mehr Gratisprodukte erhältst du dazu – automatisch, ohne Gutscheincodes.</p>
+            <h2>Das Naturalrabatt-System als Marketing-Mechanik</h2>
+            <p>Klassische Mengenrabatte werden als Preisreduzierung wahrgenommen — was die Preiserwartung langfristig senkt und Margen untergräbt. Der Naturalrabatt funktioniert psychologisch anders: Der Kunde zahlt den vollen Preis für seine Einheiten und erhält zusätzlich Produkte gratis. Das Framing ist „mehr bekommen" statt „weniger zahlen" — ein entscheidender Unterschied für die Markenwahrnehmung.</p>
 
             <table>
               <thead>
-                <tr><th>Bestellmenge</th><th>Gratisprodukte</th></tr>
+                <tr><th>Bestellmenge</th><th>Gratisprodukte</th><th>Effektiver Rabatt (bei 30 €/Stk.)</th></tr>
               </thead>
               <tbody>
-                <tr><td>Ab 8 Stück</td><td>1 Gratis</td></tr>
-                <tr><td>Ab 16 Stück</td><td>3 Gratis</td></tr>
-                <tr><td>Ab 24 Stück</td><td>5 Gratis</td></tr>
+                <tr><td>Ab 8 Stück</td><td>1 Gratis</td><td>ca. 11 %</td></tr>
+                <tr><td>Ab 16 Stück</td><td>3 Gratis</td><td>ca. 16 %</td></tr>
+                <tr><td>Ab 24 Stück</td><td>5 Gratis</td><td>ca. 17 %</td></tr>
               </tbody>
             </table>
 
-            <p>Der Hinweis direkt an jedem Produkt zeigt dir, wie viele Einheiten noch fehlen, um die nächste Stufe zu erreichen – und was du dafür bekommst.</p>
+            <p>Die Stufen sind im Backend frei konfigurierbar — Produktmarketing kann Schwellenwerte und Gratisstückzahlen jederzeit anpassen, ohne Entwicklungs­aufwand. Im Mockup ist dies über den ⚙-Button simulierbar.</p>
 
-            <h2>Angebot anpassen</h2>
-            <p>Du hast jederzeit die volle Kontrolle über dein Angebot:</p>
+            <blockquote>„Naturalrabatt positioniert die Großpackung nicht als Sparangebot, sondern als Premium-Entscheidung. Der Kunde fühlt sich belohnt — nicht abgezockt." — inuvet Produkt-Team</blockquote>
+
+            <h2>UX-Konzept und Konversions-Architektur</h2>
+            <p>Die Seite ist als geführter Entscheidungsprozess konzipiert, nicht als generischer Warenkorb. Jede UX-Entscheidung folgt einer klaren Conversion-Logik:</p>
             <ul>
-              <li><strong>Menge ändern:</strong> Erhöhe oder verringere die Stückzahl eines Produkts direkt über den Mengen-Selektor. Der Naturalrabatt passt sich sofort an.</li>
-              <li><strong>Produkt entfernen:</strong> Klick auf das ✕ neben einem Produkt, um es aus dem Angebot zu nehmen.</li>
-              <li><strong>Produkt hinzufügen:</strong> Unter dem Angebot findest du weitere Empfehlungen. Ein Klick auf „+ Hinzufügen" nimmt sie ins Angebot auf.</li>
+              <li><strong>Vorausgefüllte Produktliste:</strong> Basierend auf den Bestelldaten der letzten sechs Monate werden Produkte und Mengen automatisch vorgeschlagen. Der Kaufaufwand reduziert sich auf eine einzige Bestätigung. Kauffrequenz und Bestellhistorie sind direkt am Produkt sichtbar — das erzeugt Vertrauen und macht die Empfehlung nachvollziehbar.</li>
+              <li><strong>Tier-Upsell-Hint:</strong> An jedem Produkt wird inline angezeigt, wie viele Einheiten bis zur nächsten Gratis-Schwelle fehlen. Das schafft einen konkreten, unmittelbaren Handlungsimpuls ohne generisches Upsell-Banner.</li>
+              <li><strong>Sticky Summary (Mobile):</strong> Auf Mobilgeräten bleibt die Zusammenfassungsbox am unteren Bildschirmrand fixiert, sobald der Bundle-Bereich im Viewport sichtbar ist. Die Gesamtersparnis ist jederzeit präsent — das senkt Abbruchraten bei längeren Angebotslisten.</li>
+              <li><strong>Empfehlungsleiste:</strong> Produkte, die der Kunde früher bestellt hat, aber im aktuellen Angebot nicht vorhanden sind, werden als horizontale Scroll-Leiste unterhalb der Liste angeboten. Das sind keine generischen Cross-Sells, sondern datenbasierte Reaktivierungsimpulse.</li>
             </ul>
 
-            <h2>Was zeigt die grüne Box?</h2>
-            <p>Die Zusammenfassung rechts (auf dem Desktop) bzw. am unteren Bildschirmrand (auf dem Smartphone) zeigt dir immer den aktuellen Stand deines Angebots: wie viele Produkte enthalten sind, wie viele Gratisprodukte du bekommst und wie hoch dein Gesamtvorteil ist. Ein Klick auf „In den Warenkorb" übernimmt alles auf einmal.</p>
-
-            <blockquote>„Regelmäßige Supplementierung ist der Schlüssel – nicht die einmalige Hochdosis. Unser Angebot hilft dabei, den nötigen Vorrat stressfrei aufrechtzuerhalten." — Das inuvet Team</blockquote>
-
-            <h2>Naturalrabatt konfigurieren (Backend)</h2>
-            <p>Die Rabattstufen sind im Backend frei konfigurierbar. Über den ⚙-Button am unteren Bildschirmrand kannst du im Mockup die Schwellenwerte und Gratisstückzahlen anpassen – um verschiedene Szenarien zu simulieren.</p>
-
-            <h2>Hinweise für die IT-Implementierung</h2>
-            <p>Die folgenden Formeln beschreiben, wie das Naturalrabatt-System serverseitig berechnet werden sollte. Alle Schwellenwerte (<code>minQuantity</code>, <code>freeItems</code>) kommen aus einer konfigurierbaren Tabelle im Backend – kein Hardcoding.</p>
+            <h2>Technische Architektur</h2>
+            <p>Die gesamte Kalkulationslogik sollte serverseitig implementiert sein. Das Frontend rendert ausschließlich und bezieht alle Werte aus einer API-Antwort — keine Geschäftslogik im Client. Folgende Formeln beschreiben die serverseitige Berechnung:</p>
 
             <h3>Datenstruktur: Rabattstufen</h3>
-            <p>Die Stufen werden als geordnete Liste absteigend nach <code>minQuantity</code> gespeichert. Eine Basisstufe mit <code>minQuantity: 0</code> und <code>freeItems: 0</code> muss immer vorhanden sein (Fallback).</p>
+            <p>Stufen werden absteigend nach <code>minQuantity</code> sortiert gehalten. Eine Basisstufe mit <code>minQuantity: 0</code> und <code>freeItems: 0</code> muss immer vorhanden sein (Fallback — verhindert Null-Referenzfehler).</p>
             <pre><code>tiers = [
   { minQuantity: 24, freeItems: 5 },
   { minQuantity: 16, freeItems: 3 },
@@ -137,30 +137,43 @@
   { minQuantity:  0, freeItems: 0 }  // Fallback
 ]</code></pre>
 
-            <h3>Gratisprodukte pro Produkt berechnen</h3>
-            <p>Für ein einzelnes Produkt mit Menge <code>qty</code> gilt: erste Stufe von oben nehmen, bei der <code>qty ≥ minQuantity</code>.</p>
+            <h3>Gratisprodukte pro Produkt</h3>
+            <p>Erste Stufe von oben, bei der <code>qty ≥ minQuantity</code>. Da die Liste absteigend sortiert ist, ist das immer die höchste erreichbare Stufe.</p>
             <pre><code>freeItems(qty) =
   tiers.find(t => qty >= t.minQuantity).freeItems</code></pre>
 
-            <h3>Gesamtvorteil (Ersparnis in €)</h3>
-            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis. Über alle Produkte summieren.</p>
+            <h3>Gesamtersparnis</h3>
+            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis. Über alle Produkte summieren. Dieser Wert wird in der Summary-Box als „Du sparst" angezeigt.</p>
             <pre><code>totalSavings =
   Σ freeItems(p.qty) × p.price
   for each product p in bundle</code></pre>
 
-            <h3>Nächste Stufe &amp; fehlende Menge</h3>
-            <p>Für den Hinweistext („X Stück hinzufügen für weitere N Gratisprodukte") wird die nächste Stufe oberhalb der aktuellen Menge gesucht:</p>
-            <pre><code>nextTier   = tiers.find(t => t.minQuantity > qty)
-missing    = nextTier.minQuantity - qty
-gained     = nextTier.freeItems - freeItems(qty)
+            <h3>Nächste Stufe &amp; Upsell-Hinweistext</h3>
+            <p>Für den Inline-Hinweis an jedem Produkt: nächste Stufe oberhalb der aktuellen Menge suchen, Differenz und Zugewinn berechnen. Kein Hinweis wenn die Maximalstufe bereits erreicht ist.</p>
+            <pre><code>nextTier = tiers.find(t => t.minQuantity > qty)
+missing  = nextTier.minQuantity - qty
+gained   = nextTier.freeItems - freeItems(qty)
 
-// Kein Hinweis wenn keine weitere Stufe existiert (Maximal-Stufe erreicht)</code></pre>
+// → „{missing} Stück hinzufügen für weitere {gained} Gratisprodukte"
+// Kein Hinweis wenn nextTier === undefined (Maximalstufe erreicht)</code></pre>
 
-            <h3>Bestellvalidierung</h3>
-            <p>Die Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Stattdessen wird die Gesamtmenge (<code>qty + freeItems</code>) mit dem berechneten Preis für <code>qty</code> Einheiten gebucht. Die Differenz verbleibt beim Händler als Naturalrabatt-Buchung.</p>
-            <pre><code>chargedQty = qty               // Nur bezahlte Menge berechnen
+            <h3>Bestellübergabe und Buchhaltung</h3>
+            <p>Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Die Gesamtmenge (<code>chargedQty + freeItems</code>) wird zu dem Preis gebucht, der nur für die bezahlten Einheiten gilt. Der Naturalrabatt-Betrag wird als eigene Buchungsposition für die Buchhaltung geführt.</p>
+            <pre><code>chargedQty = qty               // Berechnungsgrundlage: nur bezahlte Menge
 shippedQty = qty + freeItems   // Tatsächlich versendete Menge
-discount   = freeItems × price // Rabattbetrag für Buchhaltung</code></pre>
+discount   = freeItems × price // Naturalrabatt-Betrag für Buchhaltung</code></pre>
+
+            <h2>Datenbasis und Personalisierung</h2>
+            <p>Das Angebot basiert auf den Bestelldaten der letzten sechs Monate. Für die Implementierung sind folgende Datenpunkte pro Kunde erforderlich:</p>
+            <ul>
+              <li><code>order_history</code> — Produkt-IDs und Mengen der letzten 180 Tage</li>
+              <li><code>purchase_frequency</code> — berechnete Kauffrequenz pro Produkt (Bestellungen / 6 Monate)</li>
+              <li><code>suggested_quantity</code> — aufgerundete Menge auf nächste Tier-Schwelle, optional konfigurierbar</li>
+            </ul>
+            <p>Produkte ohne Bestellhistorie erscheinen nicht im Hauptangebot, sondern ausschließlich in der Empfehlungsleiste. Die Empfehlungen können zusätzlich durch manuelle Kuratierung oder Collaborative Filtering ergänzt werden — das System ist dafür offen, ohne dass die Grundfunktion davon abhängt.</p>
+
+            <h2>Konfiguration und Rollout</h2>
+            <p>Für den initialen Launch empfiehlt sich ein segmentierter Rollout: zunächst Kunden mit mindestens drei Bestellungen in den vergangenen sechs Monaten (hohe Datenqualität, geringeres Risiko leerer Angebote). Die Tier-Schwellenwerte sollten initial konservativ gesetzt werden — lieber eine breite erste Stufe mit attraktivem Einstieg als zu hohe Hürden, die den Upsell-Effekt verhindern. KPIs für die erste Phase: AOV-Entwicklung, Anteil der Kunden die eine Tier-Stufe erreichen, und Wiederkauf-Rate innerhalb von 90 Tagen.</p>
 
           </div>
 
