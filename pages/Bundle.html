@@ -311,10 +311,10 @@
       activeBundle.forEach(p => {
         totalPaid += p.quantity;
         const pTiers = getProductTiers(p);
-        totalSavings += (pTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0) * p.price;
+        totalSavings += (pTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0) * getActivePrice(p);
         totalFree    += pTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
       });
-      const subtotal = activeBundle.reduce((s, p) => s + p.price * p.quantity, 0);
+      const subtotal = activeBundle.reduce((s, p) => s + getActivePrice(p) * p.quantity, 0);
 
       const productNames = activeBundle.map(p => p.title).join(', ');
       const firstImage   = activeBundle.find(p => p.image)?.image ?? '';
@@ -374,28 +374,72 @@
 
     // ── Daten ──────────────────────────────────────────────────────────────
     const allProducts = [
-      // tiers: null  → greift auf defaultTiers zurück
-      // tiers: [...]  → produktspezifische Rabattstufen
-      { id: 1, title: 'Hypolene',   price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg',
+      // ── Produktfamilien ──────────────────────────────────────────────────
+      // isFamily: true  → variants[selectedVariantIdx].sizes[selectedSizeIdx].price = aktiver Preis
+      // isFamily: false → price = fixer Preis
+      { id: 1, isFamily: true, title: 'Hypolene', past6Months: 14,
+        image: '../assets/images/Hepax_Packshot_01.jpeg',
         tiers: [                                   // aggressivere Staffelung für Hochläufer
           { minQuantity: 20, freeItems: 4 },
           { minQuantity: 10, freeItems: 2 },
           { minQuantity:  5, freeItems: 1 },
           { minQuantity:  0, freeItems: 0 }
-        ] },
-      { id: 2, title: 'EnteroGast', price: 24.90, past6Months: 6,  tiers: null },
-      { id: 3, title: 'Respirax',   price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg', tiers: null },
-      { id: 4, title: 'Vesica',     price: 32.00, past6Months: 4,  tiers: null },
-      { id: 5, title: 'Laxin',      price: 22.50, past6Months: 3,
+        ],
+        variants: [
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '60 g',      price: 39.90 }, { label: '250 g',     price: 129.90 }] },
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '60 Stück',  price: 35.90 }, { label: '150 Stück', price:  79.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 60 g
+
+      { id: 2, isFamily: true, title: 'EnteroGast', past6Months: 6, tiers: null,
+        variants: [
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '6 Stück',    price:  24.90 }, { label: '21 Stück',   price:  69.90 }] },
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '50 g',        price:  22.90 }, { label: '150 g',      price:  59.90 }] },
+          { type: 'Pulver',    animals: 'Kleintiere',  sizes: [{ label: '50 g',        price:  19.90 }] },
+          { type: 'Sachets',   animals: 'Katze, Hund', sizes: [{ label: '20 Sachets',  price:  26.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 1 },  // meistgekauft: Tabletten, 21 Stück
+
+      { id: 3, isFamily: true, title: 'Respirax', past6Months: 10,
+        image: '../assets/images/Calmin_Packshot_01.jpeg',
+        tiers: null,
+        variants: [
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '45 g',      price:  27.50 }, { label: '180 g',     price:  89.90 }] },
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '30 Stück',  price:  29.90 }, { label: '90 Stück',  price:  74.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 45 g
+
+      { id: 4, isFamily: true, title: 'Vesica', past6Months: 4, tiers: null,
+        variants: [
+          { type: 'Tabletten', animals: 'Hund', sizes: [{ label: '30 Stück', price:  32.00 }, { label: '90 Stück',  price:  85.90 }] },
+          { type: 'Pulver',    animals: 'Hund', sizes: [{ label: '120 g',    price:  35.90 }, { label: '450 g',     price: 109.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Tabletten, 30 Stück
+
+      // ── Einzelprodukte ──────────────────────────────────────────────────
+      { id: 5, isFamily: false, title: 'Laxin', price: 22.50, past6Months: 3,
         tiers: [                                   // sanftere Staffelung für Niedrigläufer
           { minQuantity: 12, freeItems: 2 },
           { minQuantity:  6, freeItems: 1 },
           { minQuantity:  0, freeItems: 0 }
         ] },
-      { id: 6, title: 'Ibedex',     price: 29.90, past6Months: 0,  tiers: null },
-      { id: 7, title: 'Inzuym',     price: 34.50, past6Months: 0,  tiers: null },
-      { id: 8, title: 'Struvex',    price: 28.50, past6Months: 0,  tiers: null },
+
+      { id: 6, isFamily: false, title: 'Ibedex',  price: 29.90, past6Months: 0, tiers: null },
+      { id: 7, isFamily: false, title: 'Inzym',   price: 34.50, past6Months: 0, tiers: null },
+
+      { id: 8, isFamily: true, title: 'Struvex', past6Months: 0, tiers: null,
+        variants: [
+          { type: 'Pulver',    animals: 'Katze', sizes: [{ label: '60 g',      price:  28.50 }, { label: '250 g',     price:  94.90 }] },
+          { type: 'Tabletten', animals: 'Katze', sizes: [{ label: '40 Stück',  price:  26.90 }, { label: '120 Stück', price:  69.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },
     ];
+
+    // Aktiver Preis: bei Familien aus gewählter Variante + Größe, bei Einzelprodukten fix
+    const getActivePrice = (p) => {
+      if (!p.isFamily) return p.price;
+      return p.variants[p.selectedVariantIdx].sizes[p.selectedSizeIdx].price;
+    };
 
     allProducts.forEach(p => {
       p.quantity = p.past6Months > 0 ? Math.ceil(p.past6Months / 8) * 8 : 1;
@@ -462,6 +506,13 @@
         p.isNew = false;
 
         const tierHint = getTierHint(p.quantity, pTiers);
+        const variant  = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
+        const sizePills = p.isFamily
+          ? variant.sizes.map((s, i) =>
+              `<button type="button" class="size-pill${i === p.selectedSizeIdx ? ' --active' : ''}"
+                onclick="setProductSize(${p.id}, ${i})">${s.label}</button>`
+            ).join('')
+          : '';
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
@@ -471,7 +522,9 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${p.title}</p>
-                <div class="cart-item__variant">${fmt(p.price)} / Stk.${historyText}</div>
+                ${p.isFamily ? `<p class="cart-item__variant-type">${variant.type} · ${variant.animals}</p>
+                <div class="size-pills">${sizePills}</div>` : ''}
+                <div class="cart-item__variant">${fmt(getActivePrice(p))} / Stk.${historyText}</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove"
                 onclick="removeProduct(${p.id})" title="Entfernen">
@@ -524,7 +577,7 @@
           <div class="rec-card__image placeholder-bg">${thumbHtml}</div>
           <div class="rec-card__body">
             <p class="rec-card__title">${p.title}</p>
-            <p class="rec-card__price">${fmt(p.price)}</p>
+            <p class="rec-card__price">${fmt(getActivePrice(p))}</p>
             <button type="button" class="btn --secondary"
               onclick="addProduct(${p.id})">+ Hinzufügen</button>
           </div>`;
@@ -541,6 +594,11 @@
     window.setQuantity = (id, val) => {
       const p = activeBundle.find(p => p.id === id);
       if (p && val >= 1) { p.quantity = val; renderBundle(); }
+    };
+
+    window.setProductSize = (id, sizeIdx) => {
+      const p = activeBundle.find(p => p.id === id);
+      if (p && p.isFamily) { p.selectedSizeIdx = sizeIdx; renderBundle(); }
     };
 
     window.removeProduct = (id) => {
@@ -574,7 +632,7 @@
         const cur  = getProductTiers(p).find(t => p.quantity >= t.minQuantity);
         const free = cur ? cur.freeItems : 0;
         freeItems += free;
-        savings   += free * p.price;
+        savings   += free * getActivePrice(p);
       });
 
       const names = activeBundle.map(p => p.title).join(', ');
