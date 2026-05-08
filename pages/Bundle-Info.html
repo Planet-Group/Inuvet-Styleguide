@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>So funktioniert dein persönliches Angebot – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcementBar">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span>
+    <button class="btn --icon" onclick="closeAnnouncement()" aria-label="Schließen"><span class="material-icons">close</span></button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Bundle.html" class="nav-item__trigger">Mein Angebot</a>
+      </div>
+      <div class="nav-item">
+        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">So funktioniert's</a>
+      </div>
+    </div>
+    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
+    </div>
+    <div class="nav-col">
+      <a href="Bundle-Info.html" onclick="closeMobile()">So funktioniert's</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="page" style="padding-top: var(--module-2xl); padding-bottom: var(--module-2xl);">
+
+      <div class="article-layout">
+
+        <!-- Sidebar: Autor + Tags -->
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Das inuvet Team</p>
+              <p class="article__author-role">Tierärzte &amp; Ernährungsexperten</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Naturalrabatt</span>
+            <span class="filter-tag">Vorrat</span>
+            <span class="filter-tag">Gratis</span>
+            <span class="filter-tag">Angebot</span>
+          </div>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Angebot &amp; Vorteile · 8. Mai 2026</span>
+            <h1>So funktioniert dein persönliches Angebot</h1>
+          </header>
+
+          <div class="article__hero placeholder-bg"></div>
+
+          <div class="article__body rte">
+
+            <p>Dein persönliches Angebot ist kein gewöhnlicher Warenkorb. Es ist ein auf dich zugeschnittenes Vorschlagsset – basierend auf dem, was du und dein Tier in den vergangenen Monaten gebraucht haben. Das Ziel: du sparst Zeit beim Nachbestellen und bekommst obendrauf Produkte gratis.</p>
+
+            <h2>Wie entsteht dein Angebot?</h2>
+            <p>Auf Basis deiner Einkäufe der letzten sechs Monate erkennt inuvet, welche Produkte du regelmäßig benötigst. Diese werden automatisch in deinem persönlichen Angebot vorgeschlagen – mit einer Menge, die deinem bisherigen Rhythmus entspricht. Du siehst direkt, wie oft du ein Produkt zuletzt bestellt hast.</p>
+
+            <h2>Der Naturalrabatt: mehr kaufen, mehr sparen</h2>
+            <p>Das Herzstück deines Angebots ist unser Naturalrabatt-System. Es funktioniert einfach: Je mehr Einheiten eines Produkts du auf einmal bestellst, desto mehr Gratisprodukte erhältst du dazu – automatisch, ohne Gutscheincodes.</p>
+
+            <table>
+              <thead>
+                <tr><th>Bestellmenge</th><th>Gratisprodukte</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Ab 8 Stück</td><td>1 Gratis</td></tr>
+                <tr><td>Ab 16 Stück</td><td>3 Gratis</td></tr>
+                <tr><td>Ab 24 Stück</td><td>5 Gratis</td></tr>
+              </tbody>
+            </table>
+
+            <p>Der Hinweis direkt an jedem Produkt zeigt dir, wie viele Einheiten noch fehlen, um die nächste Stufe zu erreichen – und was du dafür bekommst.</p>
+
+            <h2>Angebot anpassen</h2>
+            <p>Du hast jederzeit die volle Kontrolle über dein Angebot:</p>
+            <ul>
+              <li><strong>Menge ändern:</strong> Erhöhe oder verringere die Stückzahl eines Produkts direkt über den Mengen-Selektor. Der Naturalrabatt passt sich sofort an.</li>
+              <li><strong>Produkt entfernen:</strong> Klick auf das ✕ neben einem Produkt, um es aus dem Angebot zu nehmen.</li>
+              <li><strong>Produkt hinzufügen:</strong> Unter dem Angebot findest du weitere Empfehlungen. Ein Klick auf „+ Hinzufügen" nimmt sie ins Angebot auf.</li>
+            </ul>
+
+            <h2>Was zeigt die grüne Box?</h2>
+            <p>Die Zusammenfassung rechts (auf dem Desktop) bzw. am unteren Bildschirmrand (auf dem Smartphone) zeigt dir immer den aktuellen Stand deines Angebots: wie viele Produkte enthalten sind, wie viele Gratisprodukte du bekommst und wie hoch dein Gesamtvorteil ist. Ein Klick auf „In den Warenkorb" übernimmt alles auf einmal.</p>
+
+            <blockquote>„Regelmäßige Supplementierung ist der Schlüssel – nicht die einmalige Hochdosis. Unser Angebot hilft dabei, den nötigen Vorrat stressfrei aufrechtzuerhalten." — Das inuvet Team</blockquote>
+
+            <h2>Naturalrabatt konfigurieren (Backend)</h2>
+            <p>Die Rabattstufen sind im Backend frei konfigurierbar. Über den ⚙-Button am unteren Bildschirmrand kannst du im Mockup die Schwellenwerte und Gratisstückzahlen anpassen – um verschiedene Szenarien zu simulieren.</p>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    window.closeAnnouncement = () => {
+      document.getElementById('announcementBar').classList.add('--closed');
+      document.documentElement.style.setProperty('--announcement-height', '0px');
+    };
+    window.toggleMobile = () => {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('--open');
+      btn.classList.toggle('--open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    window.closeMobile = () => {
+      document.getElementById('mobileMenu')?.classList.remove('--open');
+      const btn = document.getElementById('hamburger');
+      if (btn) { btn.classList.remove('--open'); btn.setAttribute('aria-expanded', 'false'); }
+    };
+  </script>
+
+</body>
+</html>
