@@ -2125,6 +2125,7 @@
 
   /* ─── Artikel-Detailseite: 2-Spalten-Layout Desktop ─── */
   .article-layout { display: grid; grid-template-columns: 1fr 3fr; gap: var(--gutter); align-items: start; max-width: 60rem; margin-inline: auto; }
+  .article-layout > * { min-width: 0; }
   .article-sidebar { position: sticky; top: var(--header-height); display: flex; flex-direction: column; gap: var(--half-module); }
   @media (max-width: 767px) {
     .article-layout { grid-template-columns: 1fr; }
