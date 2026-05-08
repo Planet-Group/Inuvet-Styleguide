@@ -708,9 +708,10 @@
     color: rgba(255,255,255,0.85);
     margin-bottom: var(--half-module);
   }
-  /* Buttons: kein text-shadow, Ghost-Button weiß */
+  /* Buttons auf Bild/farbigem Hintergrund */
+  .section-type.--v3 .section-type__content .btn.--ghost { border: none; }
   .section-type.--v4 .section-type__content .btn         { text-shadow: none; }
-  .section-type.--v4 .section-type__content .btn.--ghost { color: #fff; }
+  .section-type.--v4 .section-type__content .btn.--ghost { color: #fff; border: none; }
   .section-type--v4__cta {
     display: flex;
     gap: var(--half-module);
