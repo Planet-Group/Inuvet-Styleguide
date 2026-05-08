@@ -1118,7 +1118,7 @@
 }
 .notice p        { margin: 0; font-size: var(--text-base); line-height: var(--lh-base); }
 .notice__title   { font-weight: 700; font-size: var(--text-base); margin: 0; }
-.notice__actions { margin-top: calc(var(--base) * 0.15); display: flex; gap: calc(var(--base) * 0.5); flex-wrap: wrap; }
+.notice__actions { margin-top: var(--half-module); display: flex; gap: var(--half-module); flex-wrap: wrap; }
 
   /* ═══════════════════════════════════════════
      FORMS
