@@ -87,13 +87,13 @@
         <h1 class="section-type__headline">Jetzt sparen mit deinem<br>persönlichen Angebot</h1>
         <div class="section-type--v4__cta">
           <button class="btn --primary" onclick="document.getElementById('bundleSection').scrollIntoView({behavior:'smooth'})">Zum Angebot</button>
-          <a class="btn --ghost" href="Bundle-Info.html" style="color:#fff;">So funktioniert's</a>
+          <a class="btn --ghost" href="Bundle-Info.html">So funktioniert's</a>
         </div>
       </div>
     </div>
 
     <!-- ─── Bundle Builder ─── -->
-    <div class="page" id="bundleSection" style="padding-top: var(--module); padding-bottom: var(--module-2xl);">
+    <div class="page" id="bundleSection">
 
       <div class="bundle-intro">
         <h2>Dein persönliches Angebot</h2>
@@ -125,7 +125,7 @@
 
           <!-- Empfehlungen -->
           <div class="rec-section" id="recommendationsWrapper">
-            <p class="label-caps" style="margin-bottom: var(--half-module);">Zum Angebot hinzufügen und noch mehr sparen</p>
+            <p class="label-caps">Zum Angebot hinzufügen und noch mehr sparen</p>
             <div class="rec-grid" id="recommendationList"></div>
           </div>
         </div>
@@ -140,7 +140,7 @@
         <div class="section-type__content">
           <h2 class="section-type__headline">Bis zu 5 Produkte kostenlos – automatisch.</h2>
           <p class="section-type__body">Je regelmäßiger du nachbestellst, desto mehr profitierst du. Unser Naturalrabatt-System belohnt dich mit Gratisprodukten – ohne Gutscheine, ohne Aufwand. Erfahre, wie das Angebot aufgebaut ist und wie du das Meiste daraus machst.</p>
-          <div style="display:flex;gap:var(--half-module);flex-wrap:wrap;margin-top:var(--module)">
+          <div class="section-type__cta">
             <a class="btn --primary" href="Bundle-Info.html">Mehr erfahren</a>
             <button class="btn --ghost" onclick="window.scrollTo({top:0,behavior:'smooth'})">Angebot anpassen</button>
           </div>
@@ -149,7 +149,7 @@
     </div>
 
     <!-- ─── Testimonials ─── -->
-    <div class="page" style="padding-top:var(--module-2xl); padding-bottom:var(--module-2xl);">
+    <div class="page" id="bundleTestimonials">
 
       <div class="testimonial-slider --cols-3" id="tSlider">
         <div class="testimonial-slider__track" id="tTrack"></div>
@@ -162,7 +162,7 @@
     </div>
 
     <!-- ─── Produkt-Grid mit Sonderkachel ─── -->
-    <div class="page" style="padding-bottom: var(--module-2xl);">
+    <div class="page" id="bundleTiles">
       <div class="tile-grid --cols-3">
 
         <!-- Calmin -->
@@ -229,8 +229,8 @@
       </div>
       <div class="mockup-modal__body">
         <div class="mockup-modal__note">
-          <span class="material-icons" style="font-size:0.9rem; flex-shrink:0; color:#888;">settings</span>
-          <span>Diese Werte sollen im <strong style="color:#ccc;">Backend variabel einstellbar</strong> sein.</span>
+          <span class="material-icons">settings</span>
+          <span>Diese Werte sollen im <strong>Backend variabel einstellbar</strong> sein.</span>
         </div>
         <p class="mockup-modal__desc">
           Lege fest, wie viele Produkte der Kunde kaufen muss, um Gratisprodukte zu erhalten.
@@ -315,7 +315,7 @@
       const productNames = activeBundle.map(p => p.title).join(', ');
       const firstImage   = activeBundle.find(p => p.image)?.image ?? '';
       const thumbHTML    = firstImage
-        ? `<img src="${firstImage}" alt="Bundle" style="width:100%;height:100%;object-fit:contain;display:block;">`
+        ? `<img src="${firstImage}" alt="Bundle" >`
         : '';
 
       const bundleItemHTML = `
@@ -350,11 +350,11 @@
           ${totalFree > 0 ? `
           <div class="cart-drawer__free-row">
             <span>Gratisprodukte (${totalFree}×)</span>
-            <span style="color:var(--green);font-weight:700;">Kostenlos</span>
+            <span class="cart-drawer__free-value">Kostenlos</span>
           </div>
           <div class="cart-drawer__savings-row">
             <span>Dein Vorteil</span>
-            <span style="font-weight:700;">+ ${fmt2(totalSavings)}</span>
+            <span class="cart-drawer__savings-value">+ ${fmt2(totalSavings)}</span>
           </div>` : ''}
           <div class="summary-total">
             <span>Zwischensumme</span>
@@ -417,7 +417,7 @@
       if (activeBundle.length === 0) {
         list.innerHTML = `
           <div class="empty-state">
-            <span class="material-icons" style="font-size:2rem; color:var(--border-light);">inventory_2</span>
+            <span class="material-icons">inventory_2</span>
             <p>Dein Bundle ist leer. Füge unten Produkte hinzu.</p>
           </div>`;
       }
@@ -433,7 +433,7 @@
           ? `<span class="badge --free">+${freeItems} gratis</span>` : '';
 
         const thumbContentHtml = p.image
-          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
+          ? `<img src="${p.image}" alt="${p.title}" >`
           : '';
 
         const card = document.createElement('div');
@@ -495,7 +495,7 @@
 
       items.forEach(p => {
         const thumbHtml = p.image
-          ? `<img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:contain;display:block;">`
+          ? `<img src="${p.image}" alt="${p.title}" >`
           : '';
         const card = document.createElement('div');
         card.className = 'rec-card';
@@ -505,7 +505,6 @@
             <p class="rec-card__title">${p.title}</p>
             <p class="rec-card__price">${fmt(p.price)}</p>
             <button type="button" class="btn --secondary"
-              style="font-size:var(--text-xs); padding:calc(var(--base)*0.3) calc(var(--base)*0.4); width:100%; text-align:center;"
               onclick="addProduct(${p.id})">+ Hinzufügen</button>
           </div>`;
         grid.appendChild(card);
@@ -592,17 +591,17 @@
           <input type="number" class="tier-input" value="${tier.minQuantity}"
             onchange="updateEditingTier(${i}, 'minQuantity', this.value)"
             ${isBase ? 'disabled' : ''}>
-          <span class="material-icons text-muted" style="font-size:1rem;">arrow_forward</span>
+          <span class="material-icons text-muted">arrow_forward</span>
           <input type="number" class="tier-input" value="${tier.freeItems}"
             onchange="updateEditingTier(${i}, 'freeItems', this.value)"
             ${isBase ? 'disabled' : ''}>
           <label>Gratis</label>
           ${!isBase
-            ? `<button type="button" class="btn --icon" style="color:var(--color-error);"
+            ? `<button type="button" class="btn --icon --danger"
                  onclick="removeEditingTier(${i})">
                  <span class="material-icons">delete_outline</span>
                </button>`
-            : `<span style="width:calc(var(--base)*2.75)"></span>`}`;
+            : `<span class="tier-row__spacer"></span>`}`;
         container.appendChild(row);
       });
     };

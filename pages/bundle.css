@@ -3,6 +3,12 @@
    Basiert auf inuvet.css Tokens & Komponenten
    ═══════════════════════════════════════════ */
 
+/* ─── Seiten-Abstände ─── */
+#bundleSection       { padding-top: var(--module); padding-bottom: var(--module-2xl); }
+#bundleTestimonials  { padding-top: var(--module-2xl); padding-bottom: var(--module-2xl); }
+#bundleTiles         { padding-bottom: var(--module-2xl); }
+#bundleInfoMain      { padding-top: var(--module-2xl); padding-bottom: var(--module-2xl); }
+
 /* ─── Intro ─── */
 .bundle-intro {
   display: grid;
@@ -317,4 +323,29 @@
 .tier-input:focus    { border-color: var(--border-focus); }
 .tier-input:disabled { background: var(--accent-bg); color: var(--fg-muted); }
 
+/* ─── Empfehlungen Label ─── */
+.rec-section .label-caps { margin-bottom: var(--half-module); }
+
+/* ─── Rec-Card Add-Button ─── */
+.rec-card .btn {
+  font-size: var(--text-xs);
+  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.4);
+  width: 100%;
+  text-align: center;
+}
+
+/* ─── Cart-Drawer Bundle-Werte ─── */
+.cart-drawer__free-value    { color: var(--green); font-weight: 700; }
+.cart-drawer__savings-value { font-weight: 700; }
+
+/* ─── Empty State ─── */
+.empty-state .material-icons { font-size: 2rem; color: var(--border-light); }
+
+/* ─── Tier-Modal ─── */
+.tier-row .material-icons { font-size: 1rem; }
+.tier-row__spacer { width: calc(var(--base) * 2.75); display: inline-block; flex-shrink: 0; }
+
+/* ─── Mockup-Modal Hinweis ─── */
+.mockup-modal__note .material-icons { font-size: 0.9rem; flex-shrink: 0; color: #888; }
+.mockup-modal__note strong          { color: #ccc; }
 

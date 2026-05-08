@@ -515,6 +515,14 @@
     background-size: cover;
   }
 
+  /* ─── Section CTA (generische Buttongruppe in Section-Content) ─── */
+  .section-type__cta {
+    display: flex;
+    gap: var(--half-module);
+    flex-wrap: wrap;
+    margin-top: var(--module);
+  }
+
   /* ─── Section Animation (Lottie) ─── */
   .section-type__animation { align-self: center; }
   .section-type__animation lottie-player { width: 100%; display: block; }
@@ -697,8 +705,9 @@
     color: rgba(255,255,255,0.85);
     margin-bottom: var(--half-module);
   }
-  /* Buttons: kein text-shadow */
-  .section-type.--v4 .section-type__content .btn { text-shadow: none; }
+  /* Buttons: kein text-shadow, Ghost-Button weiß */
+  .section-type.--v4 .section-type__content .btn         { text-shadow: none; }
+  .section-type.--v4 .section-type__content .btn.--ghost { color: #fff; }
   .section-type--v4__cta {
     display: flex;
     gap: var(--half-module);
@@ -1036,6 +1045,7 @@
   }
   .btn.--full { width: 100%; text-align: center; }
   .btn:disabled, .btn[disabled], .btn.--disabled { opacity: 0.35; pointer-events: none; cursor: not-allowed; }
+  .btn.--danger { color: var(--color-error); }
 
   /* Ghost-Button: Mobile Touch-Target
      Auf Desktop ist padding 0 gewollt (Text bündig mit Layout).
@@ -1871,7 +1881,7 @@
   .cart-item { display: grid; grid-template-columns: calc(var(--base) * 5) 1fr; gap: var(--half-module); padding: var(--half-module) 0; border-bottom: 1px solid var(--border-light); }
   /* ─── Product Thumb — geteiltes Atom für Produkt-Vorschaubilder (Cart, Search) ─── */
   .product-thumb { position: relative; width: calc(var(--base) * 5); height: calc(var(--base) * 5); border: 1px solid var(--border-light); flex-shrink: 0; overflow: hidden; }
-  .product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
   /* .cart-item__image — nutzt .placeholder-bg + .product-thumb */
   .cart-item__info { display: flex; flex-direction: column; gap: calc(var(--base) * 0.25); min-width: 0; }
