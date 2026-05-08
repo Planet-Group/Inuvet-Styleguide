@@ -230,11 +230,14 @@
       <div class="mockup-modal__body">
         <div class="mockup-modal__note">
           <span class="material-icons">settings</span>
-          <span>Diese Werte sollen im <strong>Backend variabel einstellbar</strong> sein.</span>
+          <span>Diese Werte sollen im <strong>Backend pro Produkt einstellbar</strong> sein.</span>
         </div>
         <p class="mockup-modal__desc">
-          Lege fest, wie viele Produkte der Kunde kaufen muss, um Gratisprodukte zu erhalten.
+          Stufen gelten produktspezifisch. Ohne eigene Konfiguration greift der Standard.
         </p>
+        <select id="tierProductSelect" class="tier-product-select" onchange="loadTiersForSelection()">
+          <option value="__default__">Standard (Fallback für alle Produkte)</option>
+        </select>
         <div id="tiersContainer"></div>
         <button type="button" class="mockup-modal__add-tier" onclick="addEditingTier()">
           + Stufe hinzufügen
@@ -307,8 +310,9 @@
       let totalPaid = 0, totalFree = 0, totalSavings = 0;
       activeBundle.forEach(p => {
         totalPaid += p.quantity;
-        totalSavings += (naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0) * p.price;
-        totalFree    += naturalTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
+        const pTiers = getProductTiers(p);
+        totalSavings += (pTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0) * p.price;
+        totalFree    += pTiers.find(t => p.quantity >= t.minQuantity)?.freeItems ?? 0;
       });
       const subtotal = activeBundle.reduce((s, p) => s + p.price * p.quantity, 0);
 
@@ -370,14 +374,27 @@
 
     // ── Daten ──────────────────────────────────────────────────────────────
     const allProducts = [
-      { id: 1, title: 'Hypolene',   price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg'  },
-      { id: 2, title: 'EnteroGast', price: 24.90, past6Months: 6   },
-      { id: 3, title: 'Respirax',   price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg' },
-      { id: 4, title: 'Vesica',     price: 32.00, past6Months: 4   },
-      { id: 5, title: 'Laxin',      price: 22.50, past6Months: 3   },
-      { id: 6, title: 'Ibedex',     price: 29.90, past6Months: 0   },
-      { id: 7, title: 'Inzuym',     price: 34.50, past6Months: 0   },
-      { id: 8, title: 'Struvex',    price: 28.50, past6Months: 0   },
+      // tiers: null  → greift auf defaultTiers zurück
+      // tiers: [...]  → produktspezifische Rabattstufen
+      { id: 1, title: 'Hypolene',   price: 39.90, past6Months: 14, image: '../assets/images/Hepax_Packshot_01.jpeg',
+        tiers: [                                   // aggressivere Staffelung für Hochläufer
+          { minQuantity: 20, freeItems: 4 },
+          { minQuantity: 10, freeItems: 2 },
+          { minQuantity:  5, freeItems: 1 },
+          { minQuantity:  0, freeItems: 0 }
+        ] },
+      { id: 2, title: 'EnteroGast', price: 24.90, past6Months: 6,  tiers: null },
+      { id: 3, title: 'Respirax',   price: 27.50, past6Months: 10, image: '../assets/images/Calmin_Packshot_01.jpeg', tiers: null },
+      { id: 4, title: 'Vesica',     price: 32.00, past6Months: 4,  tiers: null },
+      { id: 5, title: 'Laxin',      price: 22.50, past6Months: 3,
+        tiers: [                                   // sanftere Staffelung für Niedrigläufer
+          { minQuantity: 12, freeItems: 2 },
+          { minQuantity:  6, freeItems: 1 },
+          { minQuantity:  0, freeItems: 0 }
+        ] },
+      { id: 6, title: 'Ibedex',     price: 29.90, past6Months: 0,  tiers: null },
+      { id: 7, title: 'Inzuym',     price: 34.50, past6Months: 0,  tiers: null },
+      { id: 8, title: 'Struvex',    price: 28.50, past6Months: 0,  tiers: null },
     ];
 
     allProducts.forEach(p => {
@@ -389,21 +406,24 @@
     let activeBundle    = withHistory.slice(0, 5);
     let recommendedPool = [...withHistory.slice(4), ...allProducts.filter(p => p.past6Months === 0)];
 
-    let naturalTiers = [
+    let defaultTiers = [
       { minQuantity: 24, freeItems: 5 },
       { minQuantity: 16, freeItems: 3 },
       { minQuantity:  8, freeItems: 1 },
       { minQuantity:  0, freeItems: 0 }
     ];
 
+    // Gibt die für ein Produkt geltenden Stufen zurück (produktspezifisch oder Standard)
+    const getProductTiers = (p) => p.tiers ?? defaultTiers;
+
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
     // ── Nächste Tier-Stufe für ein Produkt ────────────────────────────────
-    const getTierHint = (quantity) => {
-      const sorted = [...naturalTiers].sort((a, b) => a.minQuantity - b.minQuantity);
-      const next   = sorted.find(t => t.minQuantity > quantity);
+    const getTierHint = (quantity, tiers) => {
+      const sorted  = [...tiers].sort((a, b) => a.minQuantity - b.minQuantity);
+      const next    = sorted.find(t => t.minQuantity > quantity);
       if (!next) return null; // Maximalstufe erreicht
-      const cur    = [...sorted].reverse().find(t => quantity >= t.minQuantity) ?? sorted[0];
+      const cur     = [...sorted].reverse().find(t => quantity >= t.minQuantity) ?? sorted[0];
       const missing = next.minQuantity - quantity;
       const gained  = next.freeItems - (cur?.freeItems ?? 0);
       return `${missing} Stück hinzufügen für weitere ${gained} Gratisprodukte`;
@@ -423,7 +443,8 @@
       }
 
       activeBundle.forEach(p => {
-        const tier      = naturalTiers.find(t => p.quantity >= t.minQuantity);
+        const pTiers    = getProductTiers(p);
+        const tier      = pTiers.find(t => p.quantity >= t.minQuantity);
         const freeItems = tier ? tier.freeItems : 0;
 
         const historyText = p.past6Months > 0
@@ -440,7 +461,7 @@
         card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
         p.isNew = false;
 
-        const tierHint = getTierHint(p.quantity);
+        const tierHint = getTierHint(p.quantity, pTiers);
 
         card.innerHTML = `
           <div class="product-thumb-wrap">
@@ -550,7 +571,7 @@
 
       activeBundle.forEach(p => {
         paidItems += p.quantity;
-        const cur  = naturalTiers.find(t => p.quantity >= t.minQuantity);
+        const cur  = getProductTiers(p).find(t => p.quantity >= t.minQuantity);
         const free = cur ? cur.freeItems : 0;
         freeItems += free;
         savings   += free * p.price;
@@ -569,13 +590,34 @@
     let editingTiers = [];
 
     window.openSettings = () => {
-      editingTiers = JSON.parse(JSON.stringify(naturalTiers));
+      // Produkt-Selector befüllen
+      const sel = document.getElementById('tierProductSelect');
+      sel.innerHTML = '<option value="__default__">Standard (Fallback für alle Produkte)</option>';
+      allProducts.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = `${p.title}${p.tiers ? ' (eigene Stufen)' : ''}`;
+        sel.appendChild(opt);
+      });
+      sel.value = '__default__';
       document.getElementById('settingsModal').classList.add('--open');
-      renderSettingsTiers();
+      loadTiersForSelection();
     };
     window.closeSettings = () => document.getElementById('settingsModal').classList.remove('--open');
     window.handleOverlayClick = (e) => {
       if (e.target === document.getElementById('settingsModal')) closeSettings();
+    };
+
+    // Lädt Stufen für den aktuell gewählten Produkt-Selector in editingTiers
+    window.loadTiersForSelection = () => {
+      const val = document.getElementById('tierProductSelect')?.value ?? '__default__';
+      if (val === '__default__') {
+        editingTiers = JSON.parse(JSON.stringify(defaultTiers));
+      } else {
+        const p = allProducts.find(p => p.id === parseInt(val));
+        editingTiers = JSON.parse(JSON.stringify(p.tiers ?? defaultTiers));
+      }
+      renderSettingsTiers();
     };
 
     window.renderSettingsTiers = () => {
@@ -611,7 +653,17 @@
 
     window.saveSettings = () => {
       if (!editingTiers.find(t => t.minQuantity === 0)) editingTiers.push({ minQuantity: 0, freeItems: 0 });
-      naturalTiers = editingTiers.sort((a, b) => b.minQuantity - a.minQuantity);
+      const sorted = editingTiers.sort((a, b) => b.minQuantity - a.minQuantity);
+      const val    = document.getElementById('tierProductSelect')?.value ?? '__default__';
+      if (val === '__default__') {
+        defaultTiers = sorted;
+      } else {
+        const p = allProducts.find(p => p.id === parseInt(val));
+        p.tiers  = sorted;
+        // Selector-Label aktualisieren
+        const opt = document.querySelector(`#tierProductSelect option[value="${val}"]`);
+        if (opt && !opt.textContent.includes('(eigene Stufen)')) opt.textContent += ' (eigene Stufen)';
+      }
       closeSettings();
       renderBundle();
     };

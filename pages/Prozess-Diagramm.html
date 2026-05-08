@@ -373,6 +373,21 @@
       color: #9333ea;
     }
     .diagram-notes li strong { color: var(--fg); }
+
+    /* ─── Naturalrabatt-Diagram Swimlane Aliases ─── */
+    .swimlane--marketing .swimlane__header { color: var(--amber); border-color: var(--amber); }
+    .swimlane--backend   .swimlane__header { color: var(--green); border-color: var(--green); }
+    .swimlane--frontend  .swimlane__header { color: var(--blue);  border-color: var(--blue);  }
+    .step--marketing { color: var(--amber); border-left-color: var(--amber); }
+    .step--backend   { color: var(--green); border-left-color: var(--green); }
+    .step--frontend  { color: var(--blue);  border-left-color: var(--blue);  }
+
+    /* ─── Diagram Separator ─── */
+    .diagram-sep {
+      border: none;
+      border-top: 2px solid var(--border);
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -560,6 +575,161 @@
       <li><strong>@Birka (Marketing):</strong> Die E-Mail an den Tierarzt (Phase 2, Praxis bekannt) braucht einen motivierenden Text über Vorteile des Empfehlungsprogramms (Provision, Patientenbindung).</li>
       <li><strong>Freigabe-Seite:</strong> Der Link zur spezifischen Anfrage auf inuvet.com ist nur für den eingeloggten Tierarzt zugänglich.</li>
       <li><strong>State-Simulation im Mockup:</strong> Der Übergang zu State ③ (»mit Freigabe«) wird über den FAB-/Mockup-Bar-Button manuell gesteuert.</li>
+    </ul>
+  </div>
+
+</div><!-- /diagram-canvas -->
+
+<hr class="diagram-sep">
+
+<div class="diagram-canvas">
+  <div class="diagram-title">
+    <h1>Naturalrabatt-Konfiguration</h1>
+    <p>Produktspezifische Rabattstufen — Konfiguration, Stufenauflösung und Darstellung im Persönlichen Angebot</p>
+  </div>
+
+  <div class="swimlanes">
+
+    <!-- ── Swimlane-Header ── -->
+    <div class="swimlane swimlane--marketing">
+      <div class="swimlane__header">Produktmanagement <span class="swimlane__domain">Mockup-Settings (⚙)</span></div>
+    </div>
+    <div class="swimlane swimlane--backend">
+      <div class="swimlane__header">System <span class="swimlane__domain">Backend-Logik</span></div>
+    </div>
+    <div class="swimlane swimlane--frontend">
+      <div class="swimlane__header">Bundle-Frontend <span class="swimlane__domain">Persönliches Angebot</span></div>
+    </div>
+
+    <!-- ══ Phase 1: Konfiguration ══ -->
+    <div class="phase-label" style="grid-column:1/-1;">Phase 1 – Tier-Konfiguration</div>
+
+    <div class="swimlane swimlane--marketing">
+      <div class="step step--marketing">
+        <div class="step__label">Einstellungen öffnen</div>
+        <div class="step__desc">Admin öffnet ⚙-Modal und wählt: »Standard (Fallback für alle Produkte)« oder ein konkretes Produkt aus der Liste</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--marketing">
+        <div class="step__label">Stufen bearbeiten</div>
+        <div class="step__desc">Pro Stufe: Mindeststückzahl und Gratis-Anzahl frei einstellbar. Stufen hinzufügen oder entfernen per UI.</div>
+        <div class="step__note">Fallback-Stufe mit minQuantity = 0 ist immer erforderlich</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--marketing">
+        <div class="step__label">Speichern</div>
+        <div class="step__desc">Konfiguration wird übernommen — Angebot aktualisiert sich sofort ohne Reload</div>
+      </div>
+    </div>
+
+    <div class="swimlane swimlane--backend">
+      <div class="step step--backend">
+        <div class="step__label">Produktspezifisch speichern</div>
+        <div class="step__desc">Wenn ein konkretes Produkt gewählt wurde, werden die Stufen produktspezifisch hinterlegt:</div>
+        <div class="step__note">product.tiers = [{ minQuantity, freeItems }, …]</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--backend">
+        <div class="step__label">Standard-Fallback setzen</div>
+        <div class="step__desc">Wenn »Standard« gewählt wurde, gilt die Konfiguration systemweit für alle Produkte ohne eigene Stufen:</div>
+        <div class="step__note">defaultTiers = [{ minQuantity, freeItems }, …]</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--backend">
+        <div class="step__label">Produkt ohne Override</div>
+        <div class="step__desc">Produkte ohne eigene Konfiguration erhalten keinen Eintrag und erben automatisch den systemweiten Standard:</div>
+        <div class="step__note">product.tiers = null  →  erbt defaultTiers</div>
+      </div>
+    </div>
+
+    <div class="swimlane swimlane--frontend"></div>
+
+    <!-- ══ Phase 2: Stufenauflösung ══ -->
+    <div class="phase-label" style="grid-column:1/-1;">Phase 2 – Stufenauflösung &amp; Berechnung (Laufzeit)</div>
+
+    <div class="swimlane swimlane--marketing"></div>
+
+    <div class="swimlane swimlane--backend">
+      <div class="step step--backend">
+        <div class="step__label">Fallback-Logik</div>
+        <div class="step__desc">Für jedes Produkt werden die aktiven Stufen per Null-Coalescing aufgelöst:</div>
+        <div class="step__note">getProductTiers(p) = p.tiers ?? defaultTiers</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--backend">
+        <div class="step__label">Gratisprodukte berechnen</div>
+        <div class="step__desc">Erste Stufe von oben, bei der qty ≥ minQuantity gilt:</div>
+        <div class="step__note">freeItems(p, qty) =
+  getProductTiers(p)
+    .find(t ⇒ qty ≥ t.minQuantity)
+    .freeItems</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--backend">
+        <div class="step__label">Upsell-Hinweis berechnen</div>
+        <div class="step__desc">Nächste erreichbare Stufe und fehlende Einheiten — immer mit den produktspezifisch aufgelösten Stufen:</div>
+        <div class="step__note">nextTier = tiers.find(t ⇒ t.minQuantity &gt; qty)
+missing  = nextTier.minQuantity − qty
+gained   = nextTier.freeItems − freeItems(p, qty)</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--backend">
+        <div class="step__label">Gesamtersparnis</div>
+        <div class="step__desc">Summiert über alle Produkte im Bundle — jedes Produkt mit eigenen Stufen:</div>
+        <div class="step__note">totalSavings = Σ freeItems(p, qty) × p.price</div>
+      </div>
+    </div>
+
+    <div class="swimlane swimlane--frontend">
+      <div class="step step--frontend">
+        <div class="step__label">Tier-Hint pro Produkt</div>
+        <div class="step__desc">Inline-Hinweis direkt am Produkt: »{missing} Stück hinzufügen für weitere {gained} Gratisprodukte«</div>
+        <div class="step__note">Kein Hinweis wenn nextTier = undefined (Maximalstufe erreicht)</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--frontend">
+        <div class="step__label">Gratis-Badge</div>
+        <div class="step__desc">Badge »{freeItems}× GRATIS« erscheint am Produkt, sobald freeItems > 0 — animiert beim Erscheinen</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="step step--frontend">
+        <div class="step__label">Summary-Card</div>
+        <div class="step__desc">»Du sparst {totalSavings €}« — Gesamtersparnis aus allen Produkten mit ihren jeweiligen individuellen Stufen</div>
+      </div>
+    </div>
+
+    <!-- ══ Phase 3: Bestellübergabe ══ -->
+    <div class="phase-label" style="grid-column:1/-1;">Phase 3 – Bestellübergabe &amp; Buchhaltung</div>
+
+    <div class="swimlane swimlane--marketing"></div>
+
+    <div class="swimlane swimlane--backend">
+      <div class="step step--backend">
+        <div class="step__label">Bestellpositionen aufteilen</div>
+        <div class="step__desc">Gratisprodukte werden nicht als separate Warenkorbposition übergeben. Gesamtmenge wird zum Listenpreis der bezahlten Einheiten gebucht:</div>
+        <div class="step__note">chargedQty = qty
+shippedQty = qty + freeItems
+discount   = freeItems × price  ← Buchhaltungsposition</div>
+      </div>
+    </div>
+
+    <div class="swimlane swimlane--frontend">
+      <div class="step step--frontend">
+        <div class="step__label">Warenkorb-Ausweis</div>
+        <div class="step__desc">Gratisprodukte im Wert von {X €} und Gesamtersparnis werden als eigene Zeilen im Warenkorb-Drawer ausgewiesen</div>
+      </div>
+    </div>
+
+  </div><!-- /swimlanes -->
+
+  <div class="diagram-notes">
+    <div class="diagram-notes__title">Hinweise zur Implementierung</div>
+    <ul>
+      <li><strong>Fallback-Stufe immer erforderlich:</strong> Jede Stufenliste muss eine Stufe mit minQuantity = 0 enthalten — sonst liefert find() für niedrige Mengen keinen Treffer.</li>
+      <li><strong>null vs. leeres Array:</strong> product.tiers = null bedeutet »kein Override, erbt defaultTiers«. Ein leeres Array [] bedeutet »dieses Produkt hat keine Stufen« — beide Fälle unterschiedlich behandeln.</li>
+      <li><strong>Keine Geschäftslogik im Frontend:</strong> Die gesamte Stufenauflösung ist serverseitig. Das Frontend rendert ausschließlich aus der API-Antwort. Im Mockup ist die Logik in JS simuliert.</li>
+      <li><strong>Naturalrabatt ≠ Preisrabatt:</strong> chargedQty wird zum vollen Listenpreis fakturiert — kein Streichpreis, keine Preisreduzierung in der Bestellzeile. Der Naturalrabatt-Betrag läuft als eigene Buchungsposition.</li>
+      <li><strong>Konfiguration im Mockup:</strong> Über den ⚙-Button in der Bundle-Ansicht sind Stufen für Standard und alle Einzelprodukte in Echtzeit editierbar — ohne Re-Deploy.</li>
     </ul>
   </div>
 

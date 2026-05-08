@@ -294,6 +294,20 @@
 }
 
 
+/* ─── Tier Produkt-Selector ─── */
+.tier-product-select {
+  width: 100%;
+  padding: calc(var(--base) * 0.375) calc(var(--base) * 0.5);
+  border: 1px solid var(--border);
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  background: var(--accent-bg);
+  color: var(--fg);
+  margin-bottom: calc(var(--base) * 0.75);
+  outline: none;
+}
+.tier-product-select:focus { border-color: var(--border-focus); }
+
 /* ─── Tier Rows in Modal ─── */
 .tier-row {
   display: flex;

@@ -129,30 +129,47 @@
             <p>Die gesamte Kalkulationslogik sollte serverseitig implementiert sein. Das Frontend rendert ausschließlich und bezieht alle Werte aus einer API-Antwort — keine Geschäftslogik im Client. Folgende Formeln beschreiben die serverseitige Berechnung:</p>
 
             <h3>Datenstruktur: Rabattstufen</h3>
-            <p>Stufen werden absteigend nach <code>minQuantity</code> sortiert gehalten. Eine Basisstufe mit <code>minQuantity: 0</code> und <code>freeItems: 0</code> muss immer vorhanden sein (Fallback — verhindert Null-Referenzfehler).</p>
-            <pre><code>tiers = [
+            <p>Rabattstufen sind <strong>produktspezifisch</strong> konfigurierbar. Produkte ohne eigene Konfiguration erben den systemweiten Standard (<code>defaultTiers</code>). Die Auflösung erfolgt per Fallback-Logik serverseitig — kein Hardcoding im Client.</p>
+            <pre><code>// Systemweiter Standard
+defaultTiers = [
   { minQuantity: 24, freeItems: 5 },
   { minQuantity: 16, freeItems: 3 },
   { minQuantity:  8, freeItems: 1 },
-  { minQuantity:  0, freeItems: 0 }  // Fallback
-]</code></pre>
+  { minQuantity:  0, freeItems: 0 }  // Fallback-Stufe (immer erforderlich)
+]
+
+// Produkt mit eigener Staffelung (überschreibt Standard)
+product.tiers = [
+  { minQuantity: 10, freeItems: 2 },
+  { minQuantity:  5, freeItems: 1 },
+  { minQuantity:  0, freeItems: 0 }
+]
+
+// Produkt ohne eigene Staffelung → erbt Standard
+product.tiers = null</code></pre>
+
+            <h3>Fallback-Logik</h3>
+            <p>Die Auflösung ist einzeilig: produktspezifische Stufen haben Vorrang, fehlen sie, gilt der Standard. Diese Logik muss serverseitig bei jeder Angebotsberechnung angewendet werden.</p>
+            <pre><code>getProductTiers(product) =
+  product.tiers ?? defaultTiers</code></pre>
 
             <h3>Gratisprodukte pro Produkt</h3>
-            <p>Erste Stufe von oben, bei der <code>qty ≥ minQuantity</code>. Da die Liste absteigend sortiert ist, ist das immer die höchste erreichbare Stufe.</p>
-            <pre><code>freeItems(qty) =
-  tiers.find(t => qty >= t.minQuantity).freeItems</code></pre>
+            <p>Immer mit den aufgelösten Stufen des jeweiligen Produkts rechnen. Erste Stufe von oben, bei der <code>qty ≥ minQuantity</code>.</p>
+            <pre><code>freeItems(product, qty) =
+  getProductTiers(product).find(t => qty >= t.minQuantity).freeItems</code></pre>
 
             <h3>Gesamtersparnis</h3>
-            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis. Über alle Produkte summieren. Dieser Wert wird in der Summary-Box als „Du sparst" angezeigt.</p>
+            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis, berechnet mit den jeweiligen produktspezifischen Stufen. Über alle Produkte summieren.</p>
             <pre><code>totalSavings =
-  Σ freeItems(p.qty) × p.price
+  Σ freeItems(p, p.qty) × p.price
   for each product p in bundle</code></pre>
 
             <h3>Nächste Stufe &amp; Upsell-Hinweistext</h3>
-            <p>Für den Inline-Hinweis an jedem Produkt: nächste Stufe oberhalb der aktuellen Menge suchen, Differenz und Zugewinn berechnen. Kein Hinweis wenn die Maximalstufe bereits erreicht ist.</p>
-            <pre><code>nextTier = tiers.find(t => t.minQuantity > qty)
+            <p>Auch hier immer die produktspezifisch aufgelösten Stufen verwenden — zwei Produkte können unterschiedliche Schwellenwerte und damit unterschiedliche Hinweistexte haben.</p>
+            <pre><code>tiers    = getProductTiers(product)
+nextTier = tiers.find(t => t.minQuantity > qty)
 missing  = nextTier.minQuantity - qty
-gained   = nextTier.freeItems - freeItems(qty)
+gained   = nextTier.freeItems - freeItems(product, qty)
 
 // → „{missing} Stück hinzufügen für weitere {gained} Gratisprodukte"
 // Kein Hinweis wenn nextTier === undefined (Maximalstufe erreicht)</code></pre>
