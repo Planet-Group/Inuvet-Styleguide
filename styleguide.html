@@ -96,7 +96,9 @@
   </div>
   <div class="nav-col">
     <a href="#section-26" onclick="closeMobile()">Shop-Seiten</a>
-    <a href="#section-26" class="--indent" onclick="closeMobile()">26 Produktdetailseite (PDP)</a>
+    <a href="#pdp" class="--indent" onclick="closeMobile()">26 Produktdetailseite (PDP)</a>
+    <a href="#pdp-single" class="--indent --indent-2" onclick="closeMobile()">↳ Einzelprodukt</a>
+    <a href="#pdp-family" class="--indent --indent-2" onclick="closeMobile()">↳ Produktfamilie</a>
     <a href="#section-27" class="--indent" onclick="closeMobile()">27 Produktübersicht</a>
     <a href="#section-28" class="--indent" onclick="closeMobile()">28 Warenkorb-Drawer</a>
     <a href="#section-29" class="--indent" onclick="closeMobile()">29 Checkout</a>
@@ -3237,6 +3239,195 @@
 
   </section>
 
+  <!-- ── PRODUKTDETAILSEITE – neue Demos ──────────────────── -->
+
+  <section class="sg-section" id="pdp">
+    <h2 class="section-label">Produktdetailseite — Demos</h2>
+
+    <div class="rules">
+      <div class="rule">
+        <h4>Einzelprodukt</h4>
+        <p>Einfaches Produkt, bei dem die Darreichungsform Teil des Produktnamens ist (z.B. „Renax Pulver"). Eine feste Produktgröße, Dosierungsrechner, Menge + ATC-Button.</p>
+      </div>
+      <div class="rule">
+        <h4>Produktfamilie</h4>
+        <p>Produkt mit mehreren Darreichungsformen (Tabletten / Pulver / Sachets / Öl), wählbar via Radio-Buttons. Mehrere Produktgrößen als Pill-Buttons. Preis und Größen ändern sich je nach gewähltem Typ.</p>
+      </div>
+    </div>
+
+    <table class="spec-table">
+      <tr><th><code>.pdp-new</code></th><td>2-Spalten-Grid (Bild + Info). Mobile: 1-spaltig, Bild oben.</td></tr>
+      <tr><th><code>.pdp-new__image</code></th><td>Quadratische Bildfläche (<code>aspect-ratio: 1/1</code>), <code>--accent-bg</code>. Bild 70 % der Fläche zentriert.</td></tr>
+      <tr><th><code>.pdp-new__title</code></th><td><code>--text-xl</code>, bold, LH 1.11, Letter-Spacing −0.02em.</td></tr>
+      <tr><th><code>.pdp-new__vet-badge</code></th><td>Avatare (überlagert, −0.5rem Offset) + Vertrauenstext in <code>--text-xs</code>.</td></tr>
+      <tr><th><code>.pdp-new__price-value</code></th><td><code>--text-xl</code>, bold.</td></tr>
+      <tr><th><code>.pdp-new__type-row</code></th><td>Radio-Zeile für Darreichungsform. Aktiv via <code>checked</code>-Attribut.</td></tr>
+      <tr><th><code>.pdp-new__notice</code></th><td>Gelber Hinweis-Kasten (<code>#fefce8</code> / <code>#fde047</code>).</td></tr>
+      <tr><th><code>.pdp-new__size-btn</code></th><td>Pill-Button für Produktgröße. Aktiv: <code>.--active</code> → schwarz gefüllt.</td></tr>
+      <tr><th><code>.pdp-new__dosage</code></th><td>Icon + Dosierungstext. Icon-Bereich <code>2.5rem × 2rem</code>.</td></tr>
+      <tr><th><code>.pdp-new__atc</code></th><td>Flex-Zeile: <code>.qty-selector</code> + voller Warenkorb-Button.</td></tr>
+    </table>
+
+    <!-- ─── Demo 1: Einzelprodukt ─── -->
+    <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt — Renax Pulver</h3>
+    <div class="demo-label">Renax Pulver · Einzelprodukt</div>
+
+    <div class="pdp-new">
+      <!-- Bild -->
+      <div class="pdp-new__image placeholder-bg">
+        <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Renax Pulver Packshot">
+      </div>
+
+      <!-- Info -->
+      <div class="pdp-new__info">
+        <h1 class="pdp-new__title">Renax Pulver</h1>
+        <p class="pdp-new__subtitle">Ergänzungsfuttermittel für Katzen</p>
+
+        <!-- Vet Trust Badge -->
+        <div class="pdp-new__vet-badge">
+          <div class="pdp-new__vet-avatars">
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+          </div>
+          <p class="pdp-new__vet-text">
+            <strong>Tierärztlich entwickelt <span class="pdp-new__vet-check">✓</span></strong><br>
+            Von Tierärztinnen &amp; Tierärzten empfohlen
+          </p>
+        </div>
+
+        <!-- Preis -->
+        <div class="pdp-new__price">
+          <span class="pdp-new__price-value">€20,60</span>
+          <span class="pdp-new__price-tax">EUR Exkl. USt.</span>
+        </div>
+
+        <!-- Produktgröße -->
+        <div>
+          <div class="pdp-new__size-header">Produktgröße</div>
+          <div class="pdp-new__sizes">
+            <button class="pdp-new__size-btn --active" type="button">60 g Pulver</button>
+          </div>
+        </div>
+
+        <!-- Dosierungsrechner -->
+        <div class="pdp-new__dosage">
+          <div class="pdp-new__dosage-icon">🍲</div>
+          <div class="pdp-new__dosage-text">
+            <strong>ab €0,41 EUR</strong>
+            <span>für eine 5 kg Katze</span>
+          </div>
+        </div>
+
+        <!-- Menge + ATC -->
+        <div class="pdp-new__atc">
+          <div class="qty-selector">
+            <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="1" min="1">
+            <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+          </div>
+          <a class="btn --primary" onclick="openCart('cartFull')">In den Warenkorb</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Demo 2: Produktfamilie ─── -->
+    <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — EnteroGast akut</h3>
+    <div class="demo-label">EnteroGast akut · Produktfamilie</div>
+
+    <div class="pdp-new">
+      <!-- Bild -->
+      <div class="pdp-new__image placeholder-bg">
+        <img src="assets/images/Calmin_Packshot_01.jpeg" alt="EnteroGast akut Packshot">
+      </div>
+
+      <!-- Info -->
+      <div class="pdp-new__info">
+        <h1 class="pdp-new__title">EnteroGast akut</h1>
+        <p class="pdp-new__subtitle">Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel</p>
+
+        <!-- Vet Trust Badge -->
+        <div class="pdp-new__vet-badge">
+          <div class="pdp-new__vet-avatars">
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+            <div class="pdp-new__vet-avatar placeholder-bg"></div>
+          </div>
+          <p class="pdp-new__vet-text">
+            <strong>Tierärztlich entwickelt <span class="pdp-new__vet-check">✓</span></strong><br>
+            Von Tierärztinnen &amp; Tierärzten empfohlen
+          </p>
+        </div>
+
+        <!-- Preis -->
+        <div class="pdp-new__price">
+          <span class="pdp-new__price-value">€7,60</span>
+          <span class="pdp-new__price-tax">EUR Exkl. USt.</span>
+        </div>
+
+        <!-- Produkttyp-Selektor -->
+        <div>
+          <div class="pdp-new__type-header">
+            <span>Produkttyp</span>
+            <span class="pdp-new__type-header-right">Darreichungsform wählen</span>
+          </div>
+          <label class="pdp-new__type-row">
+            <input type="radio" name="pdp-family-type" checked>
+            <span class="pdp-new__type-label">Tabletten</span>
+            <span class="pdp-new__type-animals">Katze, Hund</span>
+          </label>
+          <label class="pdp-new__type-row">
+            <input type="radio" name="pdp-family-type">
+            <span class="pdp-new__type-label">Pulver</span>
+            <span class="pdp-new__type-animals">Katze, Hund</span>
+          </label>
+          <label class="pdp-new__type-row">
+            <input type="radio" name="pdp-family-type">
+            <span class="pdp-new__type-label">Pulver</span>
+            <span class="pdp-new__type-animals">Kleintiere</span>
+          </label>
+          <label class="pdp-new__type-row">
+            <input type="radio" name="pdp-family-type">
+            <span class="pdp-new__type-label">Sachets</span>
+            <span class="pdp-new__type-animals">Katze, Hund</span>
+          </label>
+        </div>
+
+        <!-- Hinweis -->
+        <div class="pdp-new__notice">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe</div>
+
+        <!-- Produktgröße -->
+        <div>
+          <div class="pdp-new__size-header">Produktgröße</div>
+          <div class="pdp-new__sizes">
+            <button class="pdp-new__size-btn" type="button">6 Stück</button>
+            <button class="pdp-new__size-btn --active" type="button">21 Stück</button>
+          </div>
+        </div>
+
+        <!-- Dosierungsrechner -->
+        <div class="pdp-new__dosage">
+          <div class="pdp-new__dosage-icon">🍲</div>
+          <div class="pdp-new__dosage-text">
+            <strong>ab €1,27 EUR</strong>
+            <span>für einen 10 kg Hund</span>
+          </div>
+        </div>
+
+        <!-- Menge + ATC -->
+        <div class="pdp-new__atc">
+          <div class="qty-selector">
+            <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="1" min="1">
+            <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+          </div>
+          <a class="btn --primary" onclick="openCart('cartFull')">In den Warenkorb</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
   <section class="sg-section" id="section-27">
     <h2 class="section-label">27 — Produktübersicht / Collection</h2>
 
@@ -4116,7 +4307,7 @@
         <li><a href="#buttons">11 Buttons</a></li>
         <li><a href="#section-13">13 Formulare</a></li>
         <li><a href="#section-21">21 Section Types</a></li>
-        <li><a href="#section-26">26 Produktdetailseite</a></li>
+        <li><a href="#pdp">26 Produktdetailseite</a></li>
         <li><a href="#section-28">28 Warenkorb-Drawer</a></li>
         <li><a href="#section-16">16 Cart Item</a></li>
         <li><a href="#section-27">27 Produktübersicht</a></li>

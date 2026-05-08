@@ -123,11 +123,6 @@
             </button>
           </div>
 
-          <!-- Empfehlungen -->
-          <div class="rec-section" id="recommendationsWrapper">
-            <p class="label-caps">Zum Angebot hinzufügen und noch mehr sparen</p>
-            <div class="rec-grid" id="recommendationList"></div>
-          </div>
         </div>
 
       </div>
@@ -417,15 +412,15 @@
         selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Tabletten, 30 Stück
 
       // ── Einzelprodukte ──────────────────────────────────────────────────
-      { id: 5, isFamily: false, title: 'Laxin', price: 22.50, past6Months: 3,
+      { id: 5, isFamily: false, title: 'Laxin Pulver', price: 22.50, past6Months: 3,
         tiers: [                                   // sanftere Staffelung für Niedrigläufer
           { minQuantity: 12, freeItems: 2 },
           { minQuantity:  6, freeItems: 1 },
           { minQuantity:  0, freeItems: 0 }
         ] },
 
-      { id: 6, isFamily: false, title: 'Ibedex',  price: 29.90, past6Months: 0, tiers: null },
-      { id: 7, isFamily: false, title: 'Inzym',   price: 34.50, past6Months: 0, tiers: null },
+      { id: 6, isFamily: false, title: 'Ibedex Pulver', price: 29.90, past6Months: 0, tiers: null },
+      { id: 7, isFamily: false, title: 'Inzym Pulver',  price: 34.50, past6Months: 0, tiers: null },
 
       { id: 8, isFamily: true, title: 'Struvex', past6Months: 0, tiers: null,
         variants: [
@@ -549,35 +544,8 @@
       });
 
       updateSummary();
-      renderRecommendations();
     };
 
-    // ── Render: Empfehlungen ────────────────────────────────────────────────
-    const renderRecommendations = () => {
-      const wrapper = document.getElementById('recommendationsWrapper');
-      const grid    = document.getElementById('recommendationList');
-      grid.innerHTML = '';
-
-      const items = recommendedPool.slice(0, 5);
-      wrapper.style.display = items.length === 0 ? 'none' : '';
-
-      items.forEach(p => {
-        const thumbHtml = p.image
-          ? `<img src="${p.image}" alt="${p.title}" >`
-          : '';
-        const card = document.createElement('div');
-        card.className = 'rec-card';
-        card.innerHTML = `
-          <div class="rec-card__image placeholder-bg">${thumbHtml}</div>
-          <div class="rec-card__body">
-            <p class="rec-card__title">${p.title}</p>
-            <p class="rec-card__price">${fmt(getActivePrice(p))}</p>
-            <button type="button" class="btn --secondary"
-              onclick="addProduct(${p.id})">+ Hinzufügen</button>
-          </div>`;
-        grid.appendChild(card);
-      });
-    };
 
     // ── Aktionen ────────────────────────────────────────────────────────────
     window.updateQuantity = (id, delta) => {
