@@ -111,6 +111,7 @@
     <a href="#section-33" onclick="closeMobile()">Feedback &amp; Zust&#228;nde</a>
     <a href="#section-33" class="--indent" onclick="closeMobile()">33 Modal / Pop-up</a>
     <a href="#section-34" class="--indent" onclick="closeMobile()">34 Toast / Notification</a>
+    <a href="#section-34a" class="--indent" onclick="closeMobile()">34a Infobox / Hinweis</a>
     <a href="#section-35" class="--indent" onclick="closeMobile()">35 Empty States</a>
     <a href="#section-36" class="--indent" onclick="closeMobile()">36 Out-of-Stock</a>
     <a href="#section-37" class="--indent" onclick="closeMobile()">37 Pagination</a>
@@ -3216,13 +3217,13 @@
 
     <!-- ─── Produktfamilie Demo ─── -->
     <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-    <p class="sg-p">Gleiche Struktur wie das Einzelprodukt. Einzige Ergänzung: <code>.pdp__type-selector</code> mit Radio-Zeilen vor der Größenauswahl, plus <code>.pdp__notice</code> als Hinweis auf abweichende Inhaltsstoffe.</p>
+    <p class="sg-p">Gleiche Struktur wie das Einzelprodukt. Einzige Ergänzung: <code>.pdp__type-selector</code> mit Radio-Zeilen vor der Größenauswahl, plus <code>.notice</code> als Hinweis auf abweichende Inhaltsstoffe (globale Komponente, Sektion 34a).</p>
 
     <table class="spec-table">
       <tr><th><code>.pdp__type-selector</code></th><td>Container für die Radio-Tabelle. Border-top als Trennung zum Preisbereich.</td></tr>
       <tr><th><code>.pdp__type-selector-header</code></th><td>Kopfzeile mit Spaltenbezeichnungen (<code>label-caps</code>-Stil). Zweispaltig via Flex.</td></tr>
       <tr><th><code>.pdp__type-row</code></th><td>Eine Darreichungsform-Zeile: Radio + Label + Tierart. Border-bottom als Trennlinie.</td></tr>
-      <tr><th><code>.pdp__notice</code></th><td>Gelber Hinweiskasten bei Inhaltsstoffen, die je nach Typ variieren.</td></tr>
+      <tr><th><code>.notice</code></th><td>Gelber Hinweiskasten bei Inhaltsstoffen, die je nach Typ variieren. Globale Komponente, siehe Sektion 34a.</td></tr>
     </table>
 
     <div class="demo-label">Produktfamilie</div>
@@ -3255,7 +3256,6 @@
           <span class="text-muted text-xs">4.6 (312 Bewertungen)</span>
         </div>
         <p class="pdp__description">3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend. Lange Reichweite dank hoher Dosierung.</p>
-        <div class="pdp__price"><div class="price-stack text-m"><span>7,60 €</span></div></div>
 
         <!-- Produkttyp-Selektor -->
         <div class="pdp__variants">
@@ -3278,10 +3278,11 @@
               <input type="radio" name="pdpType"> <span class="pdp__type-label">Sachets</span> <span class="pdp__type-animals">Katze, Hund</span>
             </label>
           </div>
-          <p class="pdp__notice">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+          <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
         </div>
 
-        <!-- Größenauswahl -->
+        <!-- Preis + Größenauswahl -->
+        <div class="pdp__price"><div class="price-stack text-m"><span>7,60 €</span></div></div>
         <div class="pdp__variants">
           <div class="pdp__variant-label label-caps">Produktgröße</div>
           <div class="pdp__variant-options">
@@ -4073,6 +4074,50 @@
       <tr><th><code>.toast.--info</code></th><td>Hintergrund <code>var(--fg-muted)</code></td></tr>
       <tr><th><code>showToast(msg, type)</code></th><td>Erzeugt Toast dynamisch, auto-dismiss nach 3,5 s, Fade-out 0,3 s</td></tr>
     </table>
+  </section>
+
+  <section class="sg-section" id="section-34a">
+    <h2 class="section-label">34a — Infobox / Hinweis</h2>
+
+    <div class="rules">
+      <div class="rule">
+        <h4>Zweck</h4>
+        <p>Kontextuell eingebetteter Hinweis — kein transientes Overlay. Erscheint inline im Seiteninhalt, z.B. auf Produktseiten, in Formularen oder im Checkout.</p>
+      </div>
+      <div class="rule">
+        <h4>Varianten</h4>
+        <p>Einzeilig (kurzer Hinweistext), mehrzeilig (Titel + Fließtext), mit CTA (Titel + Text + Button/Link).</p>
+      </div>
+    </div>
+
+    <table class="spec-table">
+      <tr><th><code>.notice</code></th><td>Container. Hintergrund <code>#FEFFDA</code>, kein Border. Padding <code>var(--half-module)</code>. Flex-Column mit <code>gap</code>.</td></tr>
+      <tr><th><code>.notice__title</code></th><td>Optionaler Titel: fett, <code>var(--text-base)</code>.</td></tr>
+      <tr><th><code>.notice p</code></th><td>Fließtext innerhalb der Box: <code>var(--text-base)</code>, Zeilenabstand <code>var(--lh-base)</code>.</td></tr>
+      <tr><th><code>.notice__actions</code></th><td>Optionaler CTA-Bereich: Flex-Row, <code>gap</code>, oben leichter Zusatzabstand.</td></tr>
+    </table>
+
+    <div class="demo-label">Einzeilig</div>
+    <div class="notice">
+      <p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+    </div>
+
+    <div class="demo-label">Mehrzeilig</div>
+    <div class="notice">
+      <p class="notice__title">Wichtiger Hinweis zur Dosierung</p>
+      <p>Die empfohlene Tagesdosis richtet sich nach dem Körpergewicht deines Tieres. Bei Unsicherheiten empfehlen wir die Rücksprache mit deinem Tierarzt.</p>
+    </div>
+
+    <div class="demo-label">Mit CTA</div>
+    <div class="notice">
+      <p class="notice__title">Tierärztliche Empfehlung verfügbar</p>
+      <p>Dein Tierarzt hat bereits Produkte für dein Tier freigegeben. Diese sind in deinem persönlichen Angebot hinterlegt.</p>
+      <div class="notice__actions">
+        <a class="btn --primary" href="#">Zum Angebot</a>
+        <button class="btn --ghost" type="button">Später</button>
+      </div>
+    </div>
+
   </section>
 
   <section class="sg-section" id="section-35">
