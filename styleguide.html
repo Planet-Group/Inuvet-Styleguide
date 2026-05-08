@@ -95,7 +95,7 @@
     <a href="#section-25" class="--indent" onclick="closeMobile()">25 Banner / Marquee</a>
   </div>
   <div class="nav-col">
-    <a href="#section-26" onclick="closeMobile()">Shop-Seiten</a>
+    <a href="#pdp" onclick="closeMobile()">Shop-Seiten</a>
     <a href="#pdp" class="--indent" onclick="closeMobile()">26 Produktdetailseite (PDP)</a>
     <a href="#pdp-single" class="--indent --indent-2" onclick="closeMobile()">↳ Einzelprodukt</a>
     <a href="#pdp-family" class="--indent --indent-2" onclick="closeMobile()">↳ Produktfamilie</a>
@@ -3104,7 +3104,7 @@
 
   <!-- ── SHOP-SEITEN ─────────────────────────────────── -->
 
-  <section class="sg-section" id="section-26">
+  <section class="sg-section" id="pdp">
     <h2 class="section-label">26 — Produktdetailseite (PDP)</h2>
 
     <div class="rules">
@@ -3132,7 +3132,8 @@
       <tr><th>Empfehlungen</th><td>4-Spalter Produktkarten unter der PDP. Border-top als Trennung.</td></tr>
     </table>
 
-    <div class="demo-label">Produktdetailseite</div>
+    <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
+    <div class="demo-label">Produktdetailseite · Einzelprodukt</div>
 
     <div class="pdp">
       <div class="pdp__gallery">
@@ -3213,6 +3214,112 @@
       </div>
     </div>
 
+    <!-- ─── Produktfamilie Demo ─── -->
+    <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
+    <p class="sg-p">Gleiche Struktur wie das Einzelprodukt. Einzige Ergänzung: <code>.pdp__type-selector</code> mit Radio-Zeilen vor der Größenauswahl, plus <code>.pdp__notice</code> als Hinweis auf abweichende Inhaltsstoffe.</p>
+
+    <table class="spec-table">
+      <tr><th><code>.pdp__type-selector</code></th><td>Container für die Radio-Tabelle. Border-top als Trennung zum Preisbereich.</td></tr>
+      <tr><th><code>.pdp__type-selector-header</code></th><td>Kopfzeile mit Spaltenbezeichnungen (<code>label-caps</code>-Stil). Zweispaltig via Flex.</td></tr>
+      <tr><th><code>.pdp__type-row</code></th><td>Eine Darreichungsform-Zeile: Radio + Label + Tierart. Border-bottom als Trennlinie.</td></tr>
+      <tr><th><code>.pdp__notice</code></th><td>Gelber Hinweiskasten bei Inhaltsstoffen, die je nach Typ variieren.</td></tr>
+    </table>
+
+    <div class="demo-label">Produktfamilie</div>
+
+    <div class="pdp" id="pdp-family-demo">
+      <div class="pdp__gallery">
+        <div class="pdp__main-image">
+          <img src="assets/images/Hepax_Packshot_01.jpeg" alt="EnteroGast akut">
+          <div class="pdp__caption --hidden" aria-live="polite"></div>
+          <div class="floating-meta"><div class="badge" data-cat="verdauung">Verdauung</div></div>
+        </div>
+        <div class="pdp__thumbs">
+          <div class="pdp__thumb --active"
+               onclick="pdpSwitch(this,'assets/images/Hepax_Packshot_01.jpeg','','')">
+            <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Packshot">
+          </div>
+          <div class="pdp__thumb"
+               onclick="pdpSwitch(this,'assets/images/Calmin_Packshot_02.png','','')">
+            <img src="assets/images/Calmin_Packshot_02.png" alt="Detail">
+          </div>
+          <div class="pdp__thumb placeholder-bg"></div>
+          <div class="pdp__thumb placeholder-bg"></div>
+          <div class="pdp__thumb placeholder-bg"></div>
+        </div>
+      </div>
+      <div class="pdp__info">
+        <h3 class="pdp__title">EnteroGast akut</h3>
+        <div class="rating">
+          <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+          <span class="text-muted text-xs">4.6 (312 Bewertungen)</span>
+        </div>
+        <p class="pdp__description">3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend. Lange Reichweite dank hoher Dosierung.</p>
+        <div class="pdp__price"><div class="price-stack text-m"><span>7,60 €</span></div></div>
+
+        <!-- Produkttyp-Selektor -->
+        <div class="pdp__variants">
+          <div class="pdp__variant-label label-caps">Produkttyp</div>
+          <div class="pdp__type-selector">
+            <div class="pdp__type-selector-header">
+              <span>Darreichungsform</span>
+              <span>Geeignet für</span>
+            </div>
+            <label class="pdp__type-row">
+              <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">Katze, Hund</span>
+            </label>
+            <label class="pdp__type-row">
+              <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">Katze, Hund</span>
+            </label>
+            <label class="pdp__type-row">
+              <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">Kleintiere</span>
+            </label>
+            <label class="pdp__type-row">
+              <input type="radio" name="pdpType"> <span class="pdp__type-label">Sachets</span> <span class="pdp__type-animals">Katze, Hund</span>
+            </label>
+          </div>
+          <p class="pdp__notice">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+        </div>
+
+        <!-- Größenauswahl -->
+        <div class="pdp__variants">
+          <div class="pdp__variant-label label-caps">Produktgröße</div>
+          <div class="pdp__variant-options">
+            <button class="choice-box" onclick="selectVariant(this)">6 Stück</button>
+            <button class="choice-box --active" onclick="selectVariant(this)">21 Stück</button>
+          </div>
+        </div>
+
+        <div class="pdp__actions">
+          <div>
+            <div class="pdp__variant-label label-caps">Menge</div>
+            <div class="qty-selector">
+              <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+              <input class="qty-selector__input" type="number" value="1" min="1">
+              <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+            </div>
+          </div>
+          <a class="btn --primary" onclick="openCart('cartFull')">In den Warenkorb</a>
+          <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item --open">
+            <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>EnteroGast akut enthält eine Kombination aus adstringierenden, absorbierenden und aufbauenden Wirkstoffen. Geeignet zur kurzfristigen und langfristigen Anwendung.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Variiert je nach gewähltem Produkttyp. Bitte die jeweilige Packungsbeilage beachten.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Wishlist-Zustände -->
     <h3 class="sg-h3 --top">Wishlist-Button (.pdp__wishlist)</h3>
     <p class="sg-p">Quadratischer Icon-Button neben dem Kauf-CTA. Nutzt <code>.icon-box.--md</code>. Zwei Zustände:</p>
@@ -3239,194 +3346,6 @@
 
   </section>
 
-  <!-- ── PRODUKTDETAILSEITE – neue Demos ──────────────────── -->
-
-  <section class="sg-section" id="pdp">
-    <h2 class="section-label">Produktdetailseite — Demos</h2>
-
-    <div class="rules">
-      <div class="rule">
-        <h4>Einzelprodukt</h4>
-        <p>Einfaches Produkt, bei dem die Darreichungsform Teil des Produktnamens ist (z.B. „Renax Pulver"). Eine feste Produktgröße, Dosierungsrechner, Menge + ATC-Button.</p>
-      </div>
-      <div class="rule">
-        <h4>Produktfamilie</h4>
-        <p>Produkt mit mehreren Darreichungsformen (Tabletten / Pulver / Sachets / Öl), wählbar via Radio-Buttons. Mehrere Produktgrößen als Pill-Buttons. Preis und Größen ändern sich je nach gewähltem Typ.</p>
-      </div>
-    </div>
-
-    <table class="spec-table">
-      <tr><th><code>.pdp-new</code></th><td>2-Spalten-Grid (Bild + Info). Mobile: 1-spaltig, Bild oben.</td></tr>
-      <tr><th><code>.pdp-new__image</code></th><td>Quadratische Bildfläche (<code>aspect-ratio: 1/1</code>), <code>--accent-bg</code>. Bild 70 % der Fläche zentriert.</td></tr>
-      <tr><th><code>.pdp-new__title</code></th><td><code>--text-xl</code>, bold, LH 1.11, Letter-Spacing −0.02em.</td></tr>
-      <tr><th><code>.pdp-new__vet-badge</code></th><td>Avatare (überlagert, −0.5rem Offset) + Vertrauenstext in <code>--text-xs</code>.</td></tr>
-      <tr><th><code>.pdp-new__price-value</code></th><td><code>--text-xl</code>, bold.</td></tr>
-      <tr><th><code>.pdp-new__type-row</code></th><td>Radio-Zeile für Darreichungsform. Aktiv via <code>checked</code>-Attribut.</td></tr>
-      <tr><th><code>.pdp-new__notice</code></th><td>Gelber Hinweis-Kasten (<code>#fefce8</code> / <code>#fde047</code>).</td></tr>
-      <tr><th><code>.pdp-new__size-btn</code></th><td>Pill-Button für Produktgröße. Aktiv: <code>.--active</code> → schwarz gefüllt.</td></tr>
-      <tr><th><code>.pdp-new__dosage</code></th><td>Icon + Dosierungstext. Icon-Bereich <code>2.5rem × 2rem</code>.</td></tr>
-      <tr><th><code>.pdp-new__atc</code></th><td>Flex-Zeile: <code>.qty-selector</code> + voller Warenkorb-Button.</td></tr>
-    </table>
-
-    <!-- ─── Demo 1: Einzelprodukt ─── -->
-    <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt — Renax Pulver</h3>
-    <div class="demo-label">Renax Pulver · Einzelprodukt</div>
-
-    <div class="pdp-new">
-      <!-- Bild -->
-      <div class="pdp-new__image placeholder-bg">
-        <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Renax Pulver Packshot">
-      </div>
-
-      <!-- Info -->
-      <div class="pdp-new__info">
-        <h1 class="pdp-new__title">Renax Pulver</h1>
-        <p class="pdp-new__subtitle">Ergänzungsfuttermittel für Katzen</p>
-
-        <!-- Vet Trust Badge -->
-        <div class="pdp-new__vet-badge">
-          <div class="pdp-new__vet-avatars">
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-          </div>
-          <p class="pdp-new__vet-text">
-            <strong>Tierärztlich entwickelt <span class="pdp-new__vet-check">✓</span></strong><br>
-            Von Tierärztinnen &amp; Tierärzten empfohlen
-          </p>
-        </div>
-
-        <!-- Preis -->
-        <div class="pdp-new__price">
-          <span class="pdp-new__price-value">€20,60</span>
-          <span class="pdp-new__price-tax">EUR Exkl. USt.</span>
-        </div>
-
-        <!-- Produktgröße -->
-        <div>
-          <div class="pdp-new__size-header">Produktgröße</div>
-          <div class="pdp-new__sizes">
-            <button class="pdp-new__size-btn --active" type="button">60 g Pulver</button>
-          </div>
-        </div>
-
-        <!-- Dosierungsrechner -->
-        <div class="pdp-new__dosage">
-          <div class="pdp-new__dosage-icon">🍲</div>
-          <div class="pdp-new__dosage-text">
-            <strong>ab €0,41 EUR</strong>
-            <span>für eine 5 kg Katze</span>
-          </div>
-        </div>
-
-        <!-- Menge + ATC -->
-        <div class="pdp-new__atc">
-          <div class="qty-selector">
-            <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
-            <input class="qty-selector__input" type="number" value="1" min="1">
-            <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
-          </div>
-          <a class="btn --primary" onclick="openCart('cartFull')">In den Warenkorb</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── Demo 2: Produktfamilie ─── -->
-    <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — EnteroGast akut</h3>
-    <div class="demo-label">EnteroGast akut · Produktfamilie</div>
-
-    <div class="pdp-new">
-      <!-- Bild -->
-      <div class="pdp-new__image placeholder-bg">
-        <img src="assets/images/Calmin_Packshot_01.jpeg" alt="EnteroGast akut Packshot">
-      </div>
-
-      <!-- Info -->
-      <div class="pdp-new__info">
-        <h1 class="pdp-new__title">EnteroGast akut</h1>
-        <p class="pdp-new__subtitle">Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel</p>
-
-        <!-- Vet Trust Badge -->
-        <div class="pdp-new__vet-badge">
-          <div class="pdp-new__vet-avatars">
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-            <div class="pdp-new__vet-avatar placeholder-bg"></div>
-          </div>
-          <p class="pdp-new__vet-text">
-            <strong>Tierärztlich entwickelt <span class="pdp-new__vet-check">✓</span></strong><br>
-            Von Tierärztinnen &amp; Tierärzten empfohlen
-          </p>
-        </div>
-
-        <!-- Preis -->
-        <div class="pdp-new__price">
-          <span class="pdp-new__price-value">€7,60</span>
-          <span class="pdp-new__price-tax">EUR Exkl. USt.</span>
-        </div>
-
-        <!-- Produkttyp-Selektor -->
-        <div>
-          <div class="pdp-new__type-header">
-            <span>Produkttyp</span>
-            <span class="pdp-new__type-header-right">Darreichungsform wählen</span>
-          </div>
-          <label class="pdp-new__type-row">
-            <input type="radio" name="pdp-family-type" checked>
-            <span class="pdp-new__type-label">Tabletten</span>
-            <span class="pdp-new__type-animals">Katze, Hund</span>
-          </label>
-          <label class="pdp-new__type-row">
-            <input type="radio" name="pdp-family-type">
-            <span class="pdp-new__type-label">Pulver</span>
-            <span class="pdp-new__type-animals">Katze, Hund</span>
-          </label>
-          <label class="pdp-new__type-row">
-            <input type="radio" name="pdp-family-type">
-            <span class="pdp-new__type-label">Pulver</span>
-            <span class="pdp-new__type-animals">Kleintiere</span>
-          </label>
-          <label class="pdp-new__type-row">
-            <input type="radio" name="pdp-family-type">
-            <span class="pdp-new__type-label">Sachets</span>
-            <span class="pdp-new__type-animals">Katze, Hund</span>
-          </label>
-        </div>
-
-        <!-- Hinweis -->
-        <div class="pdp-new__notice">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe</div>
-
-        <!-- Produktgröße -->
-        <div>
-          <div class="pdp-new__size-header">Produktgröße</div>
-          <div class="pdp-new__sizes">
-            <button class="pdp-new__size-btn" type="button">6 Stück</button>
-            <button class="pdp-new__size-btn --active" type="button">21 Stück</button>
-          </div>
-        </div>
-
-        <!-- Dosierungsrechner -->
-        <div class="pdp-new__dosage">
-          <div class="pdp-new__dosage-icon">🍲</div>
-          <div class="pdp-new__dosage-text">
-            <strong>ab €1,27 EUR</strong>
-            <span>für einen 10 kg Hund</span>
-          </div>
-        </div>
-
-        <!-- Menge + ATC -->
-        <div class="pdp-new__atc">
-          <div class="qty-selector">
-            <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
-            <input class="qty-selector__input" type="number" value="1" min="1">
-            <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
-          </div>
-          <a class="btn --primary" onclick="openCart('cartFull')">In den Warenkorb</a>
-        </div>
-      </div>
-    </div>
-
-  </section>
 
   <section class="sg-section" id="section-27">
     <h2 class="section-label">27 — Produktübersicht / Collection</h2>
