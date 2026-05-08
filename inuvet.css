@@ -175,6 +175,9 @@
   .rte figure { margin: var(--module) 0; }
   .rte figure img { width: 100%; height: auto; display: block; border: 1px solid var(--border-light); }
   .rte figcaption { font-size: var(--text-xs); color: var(--fg-muted); margin-top: calc(var(--base) * 0.5); }
+  .rte pre { background: var(--accent-bg); border: 1px solid var(--border-light); border-left: 3px solid var(--green); padding: var(--half-module); margin-bottom: var(--half-module); overflow-x: auto; }
+  .rte pre code { font-family: 'Courier New', monospace; font-size: var(--text-xs); line-height: 1.6; color: var(--fg); background: none; }
+  .rte h3 { font-size: var(--text-base); font-weight: 700; }
 
   /* ═══════════════════════════════════════════
      ANNOUNCEMENT BAR + NAVIGATION

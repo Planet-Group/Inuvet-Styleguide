@@ -124,6 +124,43 @@
             <h2>Naturalrabatt konfigurieren (Backend)</h2>
             <p>Die Rabattstufen sind im Backend frei konfigurierbar. Über den ⚙-Button am unteren Bildschirmrand kannst du im Mockup die Schwellenwerte und Gratisstückzahlen anpassen – um verschiedene Szenarien zu simulieren.</p>
 
+            <h2>Hinweise für die IT-Implementierung</h2>
+            <p>Die folgenden Formeln beschreiben, wie das Naturalrabatt-System serverseitig berechnet werden sollte. Alle Schwellenwerte (<code>minQuantity</code>, <code>freeItems</code>) kommen aus einer konfigurierbaren Tabelle im Backend – kein Hardcoding.</p>
+
+            <h3>Datenstruktur: Rabattstufen</h3>
+            <p>Die Stufen werden als geordnete Liste absteigend nach <code>minQuantity</code> gespeichert. Eine Basisstufe mit <code>minQuantity: 0</code> und <code>freeItems: 0</code> muss immer vorhanden sein (Fallback).</p>
+            <pre><code>tiers = [
+  { minQuantity: 24, freeItems: 5 },
+  { minQuantity: 16, freeItems: 3 },
+  { minQuantity:  8, freeItems: 1 },
+  { minQuantity:  0, freeItems: 0 }  // Fallback
+]</code></pre>
+
+            <h3>Gratisprodukte pro Produkt berechnen</h3>
+            <p>Für ein einzelnes Produkt mit Menge <code>qty</code> gilt: erste Stufe von oben nehmen, bei der <code>qty ≥ minQuantity</code>.</p>
+            <pre><code>freeItems(qty) =
+  tiers.find(t => qty >= t.minQuantity).freeItems</code></pre>
+
+            <h3>Gesamtvorteil (Ersparnis in €)</h3>
+            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis. Über alle Produkte summieren.</p>
+            <pre><code>totalSavings =
+  Σ freeItems(p.qty) × p.price
+  for each product p in bundle</code></pre>
+
+            <h3>Nächste Stufe &amp; fehlende Menge</h3>
+            <p>Für den Hinweistext („X Stück hinzufügen für weitere N Gratisprodukte") wird die nächste Stufe oberhalb der aktuellen Menge gesucht:</p>
+            <pre><code>nextTier   = tiers.find(t => t.minQuantity > qty)
+missing    = nextTier.minQuantity - qty
+gained     = nextTier.freeItems - freeItems(qty)
+
+// Kein Hinweis wenn keine weitere Stufe existiert (Maximal-Stufe erreicht)</code></pre>
+
+            <h3>Bestellvalidierung</h3>
+            <p>Die Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Stattdessen wird die Gesamtmenge (<code>qty + freeItems</code>) mit dem berechneten Preis für <code>qty</code> Einheiten gebucht. Die Differenz verbleibt beim Händler als Naturalrabatt-Buchung.</p>
+            <pre><code>chargedQty = qty               // Nur bezahlte Menge berechnen
+shippedQty = qty + freeItems   // Tatsächlich versendete Menge
+discount   = freeItems × price // Rabattbetrag für Buchhaltung</code></pre>
+
           </div>
 
         </article>
