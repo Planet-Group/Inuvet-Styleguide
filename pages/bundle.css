@@ -298,49 +298,6 @@
 }
 
 
-/* ─── Tier Produkt-Selector ─── */
-.tier-product-select {
-  width: 100%;
-  padding: calc(var(--base) * 0.375) calc(var(--base) * 0.5);
-  border: 1px solid var(--border);
-  font-family: var(--font);
-  font-size: var(--text-sm);
-  background: var(--accent-bg);
-  color: var(--fg);
-  margin-bottom: calc(var(--base) * 0.75);
-  outline: none;
-}
-.tier-product-select:focus { border-color: var(--border-focus); }
-
-/* ─── Tier Rows in Modal ─── */
-.tier-row {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--base) * 0.5);
-  font-size: var(--text-base);
-  padding: calc(var(--base) * 0.5) 0;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.tier-row:last-child { border-bottom: none; }
-
-.tier-row label { color: var(--fg-muted); font-size: var(--text-xs); white-space: nowrap; }
-
-.tier-input {
-  width: 5rem;
-  padding: calc(var(--base) * 0.375) calc(var(--base) * 0.5);
-  border: 1px solid var(--border);
-  font-family: var(--font);
-  font-size: var(--text-base);
-  text-align: right;
-  background: var(--bg);
-  color: var(--fg);
-  outline: none;
-}
-
-.tier-input:focus    { border-color: var(--border-focus); }
-.tier-input:disabled { background: var(--accent-bg); color: var(--fg-muted); }
-
 /* ─── Empfehlungen Label ─── */
 .rec-section .label-caps { margin-bottom: var(--half-module); }
 
@@ -358,10 +315,6 @@
 
 /* ─── Empty State ─── */
 .empty-state .material-icons { font-size: 2rem; color: var(--border-light); }
-
-/* ─── Tier-Modal ─── */
-.tier-row .material-icons { font-size: 1rem; }
-.tier-row__spacer { width: calc(var(--base) * 2.75); display: inline-block; flex-shrink: 0; }
 
 
 

@@ -229,26 +229,11 @@ body.--mockup-bar-visible {
   margin: 0;
 }
 
-.mockup-modal__add-tier {
-  background: transparent;
-  border: 1px dashed #333;
-  color: #666;
-  font-family: monospace;
-  font-size: 0.7rem;
-  padding: 0.4em 0.75em;
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 0.12s, color 0.12s;
-  width: 100%;
-}
-.mockup-modal__add-tier:hover { border-color: #555; color: #ccc; }
-
 .mockup-modal__footer {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #2a2a2a;
   margin-top: 0.25rem;
 }
 
@@ -263,19 +248,40 @@ body.--mockup-bar-visible {
   color: #fff;
 }
 
-/* Tier-Rows im Mockup-Modal */
-.mockup-modal .tier-row {
-  border-bottom-color: #2a2a2a;
+/* ─── Toggle-Buttons im Mockup-Modal (Kondition A/B, Kundentyp) ─── */
+.mockup-customer-toggle,
+.mockup-model-row__toggle {
+  display: flex;
+  gap: 0.25rem;
 }
-.mockup-modal .tier-row label { color: #555; }
-.mockup-modal .tier-input {
-  background: #111;
-  border-color: #333;
-  color: #ccc;
+.mockup-toggle-btn {
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: #888;
   font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.35em 0.75em;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
-.mockup-modal .tier-input:focus { border-color: #555; }
-.mockup-modal .tier-input:disabled { background: #0d0d0d; color: #444; }
+.mockup-toggle-btn:hover { color: #ccc; border-color: #555; }
+.mockup-toggle-btn.--active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ─── Modell-Auswahl-Zeile pro Produkt ─── */
+.mockup-model-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.7rem;
+  color: #ccc;
+}
+.mockup-model-row__name { font-family: monospace; flex: 1; }
 
 /* ─── Vet Dropdown: Empfehlung-Dot ─── */
 .vet-recommended-dot        { color: var(--green); font-size: 0.6rem; line-height: 1; }
