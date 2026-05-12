@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Persönliches Angebot: Strategie & Spezifikation – inuvet</title>
+  <title>Persönliches Angebot — Dokumentation – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
@@ -31,7 +31,7 @@
         <a href="Bundle.html" class="nav-item__trigger">Mein Angebot</a>
       </div>
       <div class="nav-item">
-        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">Konzept & Spezifikation</a>
+        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
       </div>
     </div>
     <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
@@ -47,7 +47,7 @@
       <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
     </div>
     <div class="nav-col">
-      <a href="Bundle-Info.html" onclick="closeMobile()">Konzept & Spezifikation</a>
+      <a href="Bundle-Info.html" onclick="closeMobile()">Dokumentation</a>
     </div>
   </div>
 
@@ -65,15 +65,15 @@
             <div class="article__author-avatar placeholder-bg"></div>
             <div>
               <p class="article__author-name">inuvet Produkt-Team</p>
-              <p class="article__author-role">Produkt, Strategie &amp; Technologie</p>
+              <p class="article__author-role">Technische Dokumentation</p>
             </div>
           </div>
           <div class="article__tags">
-            <span class="filter-tag">Produkt-Design</span>
-            <span class="filter-tag">CRO</span>
-            <span class="filter-tag">Retention</span>
-            <span class="filter-tag">IT-Konzept</span>
-            <span class="filter-tag">AOV</span>
+            <span class="filter-tag">Shopify</span>
+            <span class="filter-tag">IT-Spezifikation</span>
+            <span class="filter-tag">Naturalrabatt</span>
+            <span class="filter-tag">Backend</span>
+            <span class="filter-tag">Frontend</span>
           </div>
         </aside>
 
@@ -81,116 +81,213 @@
         <article class="article">
 
           <header class="article__header">
-            <span class="label-caps">Produkt-Konzept &amp; Spezifikation · 8. Mai 2026</span>
-            <h1>Persönliches Angebot: Strategie, UX-Konzept und technische Spezifikation</h1>
+            <span class="label-caps">Dokumentation · Stand 8. Mai 2026</span>
+            <h1>Persönliches Angebot — Dokumentation</h1>
           </header>
-
-          <div class="article__hero placeholder-bg"></div>
 
           <div class="article__body rte">
 
-            <p>Das Persönliche Angebot ist ein zentrales Retention- und AOV-Instrument im inuvet Shop. Dieses Dokument beschreibt die strategische Rationale, die UX-Entscheidungen und die technischen Anforderungen für Entwicklung und Integration — als gemeinsame Grundlage für Produkt, Marketing und IT.</p>
+            <p>Dieses Dokument beschreibt die <strong>Funktionsweise</strong> des Persönlichen Angebots im inuvet Shopify-Shop. Zielgruppe ist die IT, die das System implementiert. Es geht ausschließlich um Logik, Datenflüsse und Berechnungs-Formeln — keine Marketing-Aspekte.</p>
 
-            <h2>Strategische Zielsetzung</h2>
-            <p>Wiederkäufer sind für inuvet die wertvollste Kundensegment: ihre CAC-Amortisation ist abgeschlossen, ihre Kauffrequenz vorherseh­bar, ihr LTV deutlich höher als der eines Erstkäufers. Das Persönliche Angebot zielt auf zwei messbare Hebel:</p>
+            <h2>Überblick</h2>
+            <p>Das Persönliche Angebot zeigt eingeloggten Kunden eine vorausgefüllte Produktliste, basierend auf ihren letzten 180 Tagen Bestellhistorie. Pro Produktzeile wird ein <em>Naturalrabatt</em> berechnet: zusätzliche Stück des jeweiligen Produkts werden bei Erreichen bestimmter Schwellen kostenlos zur Bestellung dazugegeben.</p>
+
+            <p>Für die Berechnung des Naturalrabatts gibt es <strong>zwei Modelle</strong>, von denen <strong>pro Produkt im Backend</strong> eines konfiguriert wird:</p>
             <ul>
-              <li><strong>Erhöhung des Average Order Value (AOV):</strong> Das Naturalrabatt-System schafft einen mengen­abhängigen Stufenreiz. Kunden, die ohnehin nachbestellen, erhöhen ihre Bestellmenge, um die nächste Gratis-Schwelle zu erreichen — ohne dass ein Gutscheincode kommuniziert werden muss.</li>
-              <li><strong>Verkürzung des Wiederkauf-Zyklus:</strong> Ein vorausgefülltes, personalisiertes Angebot senkt die kognitive Hürde der Nachbestellung drastisch. Der Kunde muss nicht mehr suchen, vergleichen oder seinen letzten Einkauf rekonstruieren.</li>
+              <li><strong>Kondition A</strong> (Default) — Naturalrabatt-Guthaben in € basierend auf dem Bestellwert der Produktzeile</li>
+              <li><strong>Kondition B</strong> — Feste Anzahl Gratis-Stück basierend auf der bestellten Menge</li>
             </ul>
 
-            <h2>Das Naturalrabatt-System als Marketing-Mechanik</h2>
-            <p>Klassische Mengenrabatte werden als Preisreduzierung wahrgenommen — was die Preiserwartung langfristig senkt und Margen untergräbt. Der Naturalrabatt funktioniert psychologisch anders: Der Kunde zahlt den vollen Preis für seine Einheiten und erhält zusätzlich Produkte gratis. Das Framing ist „mehr bekommen" statt „weniger zahlen" — ein entscheidender Unterschied für die Markenwahrnehmung.</p>
+            <p>Beide Tabellen sind <strong>global fix</strong>. Es gibt kein produktspezifisches Override der Werte — die Konfiguration pro Produkt beschränkt sich auf die Wahl A oder B.</p>
+
+            <h2>Berechnungsregeln (gelten für beide Modelle)</h2>
+            <ol>
+              <li>Die Berechnung erfolgt <strong>pro Produktzeile</strong> — jede Position im Warenkorb/Angebot wird unabhängig betrachtet.</li>
+              <li>Als Gratis-Produkt wird <strong>immer das jeweilige Produkt selbst</strong> zusätzlich versendet (kein Cross-Selling, kein anderes Produkt).</li>
+              <li>Anzahl Gratis-Stück ist <strong>ganzzahlig abgerundet</strong> (<code>Math.floor</code>). Bei Kondition A entstehende Restguthaben verfallen.</li>
+              <li>Die gesamte Berechnungslogik gehört <strong>serverseitig</strong> in das Shopify-Backend (App / Function). Das Frontend rendert nur das Ergebnis.</li>
+            </ol>
+
+            <h2>Kondition A — Bestellwert in Guthaben</h2>
+
+            <p>Kondition A ordnet einem Bestellwert (in €) ein Naturalrabatt-Guthaben (in €) zu. Die <strong>Anzahl Gratis-Stück</strong> berechnet sich als <code>floor(Guthaben ÷ Einzelpreis)</code>.</p>
+
+            <p>Die Tabelle ist eine <strong>Stufenlookup</strong>: Es gilt das Guthaben der höchsten erreichten Schwelle. Zwei Stufen können denselben Wert haben (Plateau-Bereiche).</p>
 
             <table>
               <thead>
-                <tr><th>Bestellmenge</th><th>Gratisprodukte</th><th>Effektiver Rabatt (bei 30 €/Stk.)</th></tr>
+                <tr><th>Bestellwert ab</th><th>Naturalrabatt-Guthaben</th></tr>
               </thead>
               <tbody>
-                <tr><td>Ab 8 Stück</td><td>1 Gratis</td><td>ca. 11 %</td></tr>
-                <tr><td>Ab 16 Stück</td><td>3 Gratis</td><td>ca. 16 %</td></tr>
-                <tr><td>Ab 24 Stück</td><td>5 Gratis</td><td>ca. 17 %</td></tr>
+                <tr><td>400 €</td><td>40 €</td></tr>
+                <tr><td>500 €</td><td>60 €</td></tr>
+                <tr><td>750 €</td><td>120 €</td></tr>
+                <tr><td>1.000 €</td><td>170 €</td></tr>
+                <tr><td>1.500 €</td><td>170 € <em>(Plateau)</em></td></tr>
+                <tr><td>2.000 €</td><td>350 €</td></tr>
+                <tr><td>2.500 €</td><td>350 € <em>(Plateau)</em></td></tr>
+                <tr><td>3.000 €</td><td>540 €</td></tr>
+                <tr><td>5.000 €</td><td>1.000 €</td></tr>
+                <tr><td>7.500 €</td><td>1.500 €</td></tr>
+                <tr><td>10.000 €</td><td>2.000 €</td></tr>
+                <tr><td>15.000 €</td><td>3.000 €</td></tr>
+                <tr><td>20.000 €</td><td>4.100 €</td></tr>
               </tbody>
             </table>
 
-            <p>Die Stufen sind im Backend frei konfigurierbar — Produktmarketing kann Schwellenwerte und Gratisstückzahlen jederzeit anpassen, ohne Entwicklungs­aufwand. Im Mockup ist dies über den ⚙-Button simulierbar.</p>
+            <p>Unter 400 € Bestellwert je Zeile: kein Naturalrabatt.</p>
 
-            <blockquote>„Naturalrabatt positioniert die Großpackung nicht als Sparangebot, sondern als Premium-Entscheidung. Der Kunde fühlt sich belohnt — nicht abgezockt." — inuvet Produkt-Team</blockquote>
+            <h3>Berechnung Kondition A</h3>
+            <pre><code>function lookupCreditA(orderValue) {
+  let credit = 0;
+  for (const tier of TABLE_A) {
+    if (orderValue &gt;= tier.threshold) credit = tier.credit;
+    else break;
+  }
+  return credit;
+}
 
-            <h2>UX-Konzept und Konversions-Architektur</h2>
-            <p>Die Seite ist als geführter Entscheidungsprozess konzipiert, nicht als generischer Warenkorb. Jede UX-Entscheidung folgt einer klaren Conversion-Logik:</p>
+function freeItemsA(quantity, unitPrice) {
+  const credit = lookupCreditA(quantity * unitPrice);
+  return Math.floor(credit / unitPrice);
+}</code></pre>
+
+            <h3>Beispiel Kondition A</h3>
+            <p>16× Hypolene Pulver à 39,90 € → Bestellwert 638,40 € → erreichte Schwelle 500 € → Guthaben 60 € → <code>floor(60 / 39,90) = 1</code> → <strong>1 Stück Hypolene Pulver gratis</strong>.</p>
+
+            <h2>Kondition B — Stückzahl zu Gratis-Anzahl</h2>
+
+            <p>Kondition B ordnet einer Bestellmenge (Stück) eine feste Anzahl Gratis-Stück desselben Produkts zu. Es gibt <strong>zwei Spalten</strong>, abhängig vom Kunden-Status:</p>
             <ul>
-              <li><strong>Vorausgefüllte Produktliste:</strong> Basierend auf den Bestelldaten der letzten sechs Monate werden Produkte und Mengen automatisch vorgeschlagen. Der Kaufaufwand reduziert sich auf eine einzige Bestätigung. Kauffrequenz und Bestellhistorie sind direkt am Produkt sichtbar — das erzeugt Vertrauen und macht die Empfehlung nachvollziehbar.</li>
-              <li><strong>Tier-Upsell-Hint:</strong> An jedem Produkt wird inline angezeigt, wie viele Einheiten bis zur nächsten Gratis-Schwelle fehlen. Das schafft einen konkreten, unmittelbaren Handlungsimpuls ohne generisches Upsell-Banner.</li>
-              <li><strong>Sticky Summary (Mobile):</strong> Auf Mobilgeräten bleibt die Zusammenfassungsbox am unteren Bildschirmrand fixiert, sobald der Bundle-Bereich im Viewport sichtbar ist. Die Gesamtersparnis ist jederzeit präsent — das senkt Abbruchraten bei längeren Angebotslisten.</li>
-              <li><strong>Empfehlungsleiste:</strong> Produkte, die der Kunde früher bestellt hat, aber im aktuellen Angebot nicht vorhanden sind, werden als horizontale Scroll-Leiste unterhalb der Liste angeboten. Das sind keine generischen Cross-Sells, sondern datenbasierte Reaktivierungsimpulse.</li>
+              <li><strong>Standard</strong>: gilt für alle Kunden ohne speziellen Status</li>
+              <li><strong>Gruppen</strong>: gilt für Kunden mit definiertem Gruppen-Status (siehe unten)</li>
             </ul>
 
-            <h2>Technische Architektur</h2>
-            <p>Die gesamte Kalkulationslogik sollte serverseitig implementiert sein. Das Frontend rendert ausschließlich und bezieht alle Werte aus einer API-Antwort — keine Geschäftslogik im Client. Folgende Formeln beschreiben die serverseitige Berechnung:</p>
+            <table>
+              <thead>
+                <tr><th>Stückzahl ab</th><th>Standard</th><th>Gruppen</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>6</td>   <td>1</td>   <td>0</td></tr>
+                <tr><td>12</td>  <td>2</td>   <td>0</td></tr>
+                <tr><td>18</td>  <td>3</td>   <td>1</td></tr>
+                <tr><td>25</td>  <td>5</td>   <td>2</td></tr>
+                <tr><td>30</td>  <td>6</td>   <td>3</td></tr>
+                <tr><td>60</td>  <td>13</td>  <td>6</td></tr>
+                <tr><td>90</td>  <td>20</td>  <td>10</td></tr>
+                <tr><td>120</td> <td>28</td>  <td>14</td></tr>
+                <tr><td>240</td> <td>56</td>  <td>28</td></tr>
+                <tr><td>360</td> <td>84</td>  <td>42</td></tr>
+                <tr><td>480</td> <td>112</td> <td>56</td></tr>
+              </tbody>
+            </table>
 
-            <h3>Datenstruktur: Rabattstufen</h3>
-            <p>Rabattstufen sind <strong>produktspezifisch</strong> konfigurierbar. Produkte ohne eigene Konfiguration erben den systemweiten Standard (<code>defaultTiers</code>). Die Auflösung erfolgt per Fallback-Logik serverseitig — kein Hardcoding im Client.</p>
-            <pre><code>// Systemweiter Standard
-defaultTiers = [
-  { minQuantity: 24, freeItems: 5 },
-  { minQuantity: 16, freeItems: 3 },
-  { minQuantity:  8, freeItems: 1 },
-  { minQuantity:  0, freeItems: 0 }  // Fallback-Stufe (immer erforderlich)
-]
+            <p>Es gilt jeweils die höchste erreichte Schwelle. Unter 6 Stück: kein Naturalrabatt. Für Gruppen-Kunden gilt unter 18 Stück: kein Naturalrabatt.</p>
 
-// Produkt mit eigener Staffelung (überschreibt Standard)
-product.tiers = [
-  { minQuantity: 10, freeItems: 2 },
-  { minQuantity:  5, freeItems: 1 },
-  { minQuantity:  0, freeItems: 0 }
-]
+            <h3>Berechnung Kondition B</h3>
+            <pre><code>function freeItemsB(quantity, customerType) {
+  // TABLE_B ist aufsteigend nach minQty sortiert
+  const tier = [...TABLE_B].reverse().find(t =&gt; quantity &gt;= t.minQty);
+  if (!tier) return 0;
+  return customerType === 'group' ? tier.group : tier.standard;
+}</code></pre>
 
-// Produkt ohne eigene Staffelung → erbt Standard
-product.tiers = null</code></pre>
+            <h3>Beispiele Kondition B</h3>
+            <ul>
+              <li>30× Calmin (Standard-Kunde) → Schwelle 30 → <strong>6 Stück gratis</strong></li>
+              <li>30× Calmin (Gruppen-Kunde) → Schwelle 30 → <strong>3 Stück gratis</strong></li>
+              <li>27× Calmin (Standard-Kunde) → Schwelle 25 → <strong>5 Stück gratis</strong></li>
+              <li>10× Calmin (Gruppen-Kunde) → unter Schwelle 18 für Gruppen → <strong>0 Stück gratis</strong></li>
+            </ul>
 
-            <h3>Fallback-Logik</h3>
-            <p>Die Auflösung ist einzeilig: produktspezifische Stufen haben Vorrang, fehlen sie, gilt der Standard. Diese Logik muss serverseitig bei jeder Angebotsberechnung angewendet werden.</p>
-            <pre><code>getProductTiers(product) =
-  product.tiers ?? defaultTiers</code></pre>
+            <h2>Identifikation des Kunden-Status (für Kondition B)</h2>
+            <p>Der „Gruppen"-Status wird in Shopify per <strong>Customer Tag</strong> markiert. Vorschlag für die Konvention:</p>
+            <ul>
+              <li><code>group-customer</code> — Kunde gehört zur Gruppe → es gilt Spalte „Gruppen"</li>
+              <li>ohne Tag → es gilt Spalte „Standard"</li>
+            </ul>
+            <p>Der Tag wird beim Berechnungszeitpunkt abgefragt. Tag-Änderungen wirken bei der nächsten Berechnung — kein Caching pro Kunde.</p>
 
-            <h3>Gratisprodukte pro Produkt</h3>
-            <p>Immer mit den aufgelösten Stufen des jeweiligen Produkts rechnen. Erste Stufe von oben, bei der <code>qty ≥ minQuantity</code>.</p>
-            <pre><code>freeItems(product, qty) =
-  getProductTiers(product).find(t => qty >= t.minQuantity).freeItems</code></pre>
+            <h2>Auswahl des Modells pro Produkt</h2>
+            <p>Pro Produkt wird im Shopify-Backend genau eines der beiden Modelle aktiviert. Vorschlag für die Konfiguration: <strong>Product Metafield</strong>:</p>
+            <ul>
+              <li>Namespace: <code>inuvet</code></li>
+              <li>Key: <code>pricing_model</code></li>
+              <li>Typ: <code>single_line_text</code> mit Validation (akzeptierte Werte: <code>A</code>, <code>B</code>)</li>
+              <li>Default (wenn Metafield nicht gesetzt): <code>A</code></li>
+            </ul>
+            <pre><code>// Auflösung
+const model = product.metafields.inuvet.pricing_model || 'A';</code></pre>
 
-            <h3>Gesamtersparnis</h3>
-            <p>Für jedes Produkt im Angebot: Gratisanzahl × Einzelpreis, berechnet mit den jeweiligen produktspezifischen Stufen. Über alle Produkte summieren.</p>
-            <pre><code>totalSavings =
-  Σ freeItems(p, p.qty) × p.price
-  for each product p in bundle</code></pre>
+            <h2>Live-Vorschau im Frontend („Upsell-Hint")</h2>
+            <p>An jeder Produktzeile wird ein Hinweis angezeigt, wie viele Stück bis zur nächsten Schwelle fehlen, die <strong>tatsächlich mehr Gratis-Stück bringt</strong>. Plateau-Schwellen (gleicher Wert in Folgestufe) werden übersprungen — sonst wäre die Hint sinnlos („3 Stück hinzufügen für 0 weitere Gratisprodukte").</p>
 
-            <h3>Nächste Stufe &amp; Upsell-Hinweistext</h3>
-            <p>Auch hier immer die produktspezifisch aufgelösten Stufen verwenden — zwei Produkte können unterschiedliche Schwellenwerte und damit unterschiedliche Hinweistexte haben.</p>
-            <pre><code>tiers    = getProductTiers(product)
-nextTier = tiers.find(t => t.minQuantity > qty)
-missing  = nextTier.minQuantity - qty
-gained   = nextTier.freeItems - freeItems(product, qty)
+            <pre><code>function getHint(product, quantity, customerType) {
+  const model = product.pricing_model || 'A';
+  const price = product.price;
+  const currentFree = (model === 'A')
+    ? freeItemsA(quantity, price)
+    : freeItemsB(quantity, customerType);
 
-// → „{missing} Stück hinzufügen für weitere {gained} Gratisprodukte"
-// Kein Hinweis wenn nextTier === undefined (Maximalstufe erreicht)</code></pre>
+  if (model === 'A') {
+    for (const tier of TABLE_A) {
+      if (tier.threshold &lt;= quantity * price) continue;
+      const neededQty = Math.ceil(tier.threshold / price);
+      const newFree   = Math.floor(tier.credit / price);
+      if (newFree &gt; currentFree) {
+        return { moreQty: neededQty - quantity, moreFree: newFree - currentFree };
+      }
+    }
+    return null;
+  }
 
-            <h3>Bestellübergabe und Buchhaltung</h3>
-            <p>Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Die Gesamtmenge (<code>chargedQty + freeItems</code>) wird zu dem Preis gebucht, der nur für die bezahlten Einheiten gilt. Der Naturalrabatt-Betrag wird als eigene Buchungsposition für die Buchhaltung geführt.</p>
-            <pre><code>chargedQty = qty               // Berechnungsgrundlage: nur bezahlte Menge
-shippedQty = qty + freeItems   // Tatsächlich versendete Menge
-discount   = freeItems × price // Naturalrabatt-Betrag für Buchhaltung</code></pre>
+  // Modell B
+  for (const tier of TABLE_B) {
+    if (tier.minQty &lt;= quantity) continue;
+    const newFree = customerType === 'group' ? tier.group : tier.standard;
+    if (newFree &gt; currentFree) {
+      return { moreQty: tier.minQty - quantity, moreFree: newFree - currentFree };
+    }
+  }
+  return null;
+}
 
-            <h2>Datenbasis und Personalisierung</h2>
-            <p>Das Angebot basiert auf den Bestelldaten der letzten sechs Monate. Für die Implementierung sind folgende Datenpunkte pro Kunde erforderlich:</p>
+// → „{moreQty} Stück hinzufügen für {moreFree} weiteres Gratisprodukt"
+// Plural-Form: „… für {moreFree} weitere Gratisprodukte" wenn moreFree &gt; 1
+// Kein Hinweis wenn Funktion null zurückgibt (Maximalstufe erreicht)</code></pre>
+
+            <h2>Vorausgefüllte Produktliste</h2>
+            <p>Das initiale Angebot enthält die Produkte des Kunden aus den letzten 180 Tagen, sortiert nach Kauffrequenz (häufigster Kauf oben). Die Vorschlagsmenge pro Produkt ergibt sich aus der Kauffrequenz, sinnvoll aufgerundet (z.B. auf 8er-Schritte). Produkte ohne Bestellhistorie erscheinen nicht im Hauptangebot.</p>
+
+            <p>Erforderliche Datenpunkte pro Kunde:</p>
             <ul>
               <li><code>order_history</code> — Produkt-IDs und Mengen der letzten 180 Tage</li>
-              <li><code>purchase_frequency</code> — berechnete Kauffrequenz pro Produkt (Bestellungen / 6 Monate)</li>
-              <li><code>suggested_quantity</code> — aufgerundete Menge auf nächste Tier-Schwelle, optional konfigurierbar</li>
+              <li><code>purchase_frequency</code> — Bestellungen pro Produkt in diesem Zeitraum</li>
+              <li><code>suggested_quantity</code> — Vorschlagsmenge (kann initial = Durchschnitt × Aufrundungsfaktor sein)</li>
             </ul>
-            <p>Produkte ohne Bestellhistorie erscheinen nicht im Hauptangebot, sondern ausschließlich in der Empfehlungsleiste. Die Empfehlungen können zusätzlich durch manuelle Kuratierung oder Collaborative Filtering ergänzt werden — das System ist dafür offen, ohne dass die Grundfunktion davon abhängt.</p>
 
-            <h2>Konfiguration und Rollout</h2>
-            <p>Für den initialen Launch empfiehlt sich ein segmentierter Rollout: zunächst Kunden mit mindestens drei Bestellungen in den vergangenen sechs Monaten (hohe Datenqualität, geringeres Risiko leerer Angebote). Die Tier-Schwellenwerte sollten initial konservativ gesetzt werden — lieber eine breite erste Stufe mit attraktivem Einstieg als zu hohe Hürden, die den Upsell-Effekt verhindern. KPIs für die erste Phase: AOV-Entwicklung, Anteil der Kunden die eine Tier-Stufe erreichen, und Wiederkauf-Rate innerhalb von 90 Tagen.</p>
+            <h2>Bestellübergabe und Buchhaltung</h2>
+            <p>Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Der Kunde zahlt die volle Menge der bezahlten Stück, das Lager versendet die Gesamtmenge (bezahlt + gratis).</p>
+            <pre><code>chargedQty = quantity                // Berechnungsgrundlage: nur bezahlte Menge
+shippedQty = quantity + freeItems    // Tatsächlich versendete Menge
+discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)</code></pre>
+
+            <p>Empfohlene Repräsentation in Shopify-Order:</p>
+            <ul>
+              <li><strong>Order line item</strong>: <code>quantity</code> (bezahlt), Standard-Preis pro Einheit, ergänzendes Property <code>free_items: N</code></li>
+              <li><strong>Fulfillment</strong>: Pickliste wird aus <code>quantity + free_items</code> generiert</li>
+              <li><strong>Buchhaltung</strong>: separater Buchungsposten <code>natural_rabatt</code> pro Order-Item für korrekte Margen-Ausweisung</li>
+            </ul>
+
+            <h2>Zusammenfassung der Implementierungs-Schritte</h2>
+            <ol>
+              <li><strong>Konstanten:</strong> Beide Tabellen (A + B) als feste Konfiguration ins Backend einbringen — nicht als Theme-Variable, sondern als App-/Function-Konstante.</li>
+              <li><strong>Product Metafield</strong> <code>inuvet.pricing_model</code> anlegen, Default <code>A</code>.</li>
+              <li><strong>Customer Tag</strong> <code>group-customer</code> in der CRM-Pflege etablieren.</li>
+              <li><strong>Berechnungsfunktion</strong> server­seitig implementieren — `freeItemsA`, `freeItemsB`, `getHint` analog zu den oben gezeigten JS-Skizzen.</li>
+              <li><strong>Order-Erstellung</strong>: <code>free_items</code> als Line-Item-Property setzen, Fulfillment-Hook für die Pickliste anpassen.</li>
+              <li><strong>Frontend</strong>: bezieht alle berechneten Werte über eine API-Antwort — keine Geschäftslogik im Theme. Hint-Text und Gratis-Badge werden serverseitig befüllt geliefert.</li>
+            </ol>
 
           </div>
 
