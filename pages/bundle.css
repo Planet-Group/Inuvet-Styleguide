@@ -8,7 +8,7 @@
    #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
    dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
    Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
-#bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
+#bundleSection       { padding-top: var(--module); padding-bottom: 0; }
 #bundleTestimonials  { padding-bottom: var(--module-2xl); }
 #bundleTiles         { padding-bottom: var(--module-2xl); }
 #bundleInfoMain      { padding-bottom: var(--module-2xl); }
@@ -319,11 +319,10 @@
 /* ─── Empfehlungen: weitere Produkte hinzufügen ───
    Edge-to-edge Section mit --green-light Hintergrund.
    Horizontal scrollbarer Container: 4/3/2/1 Items je nach Viewport-Breite.
-   Tight Übergang vom Bundle: nur --module Top-Padding, keine zusätzliche
-   Distanz durch .page (Override unten). */
+   Sehr tight am Bundle-Bereich — Bg-Wechsel ist Trenner genug. */
 .bundle-recommendations {
   background: var(--green-light);
-  padding: var(--module) 0 var(--module-2xl);
+  padding: var(--half-module) 0 var(--module-2xl);
 }
 .bundle-recommendations .page {
   padding-top: 0;
@@ -351,14 +350,15 @@
 .bundle-recommendations__scroller::-webkit-scrollbar-track  { background: transparent; }
 .bundle-recommendations__scroller::-webkit-scrollbar-thumb  { background: var(--green); }
 
-/* Pro Item: cart-item-Pattern (C.2) auf weißem Hintergrund, feste Breite je nach Viewport.
-   4 sichtbar auf XL, 3 auf L, 2 auf M, 1 auf S. */
+/* Pro Item: cart-item-Pattern (C.2) ohne weißen Box-Hintergrund — Cards liegen
+   direkt auf dem --green-light, keine zusätzliche Einkasten-Optik.
+   Feste Breite je nach Viewport: 4 sichtbar auf XL, 3 auf L, 2 auf M, 1 auf S. */
 .bundle-recommendations__scroller .cart-item {
   scroll-snap-align: start;
   flex: 0 0 calc((100% - var(--gutter) * 3) / 4);
-  background: var(--bg);
-  padding: var(--half-module);
-  border-bottom: none;                  /* Override des C.2-Defaults */
+  background: transparent;
+  padding: 0;
+  border-bottom: none;
 }
 
 @media (max-width: 1199px) {
@@ -377,14 +377,15 @@
   }
 }
 
-/* Add-Button im Empfehlungs-Item — exakt Höhe von qty-selector.--sm,
-   damit das Layout zwischen Empfehlungs-Card und Bundle-Card konsistent ist. */
+/* Add-Button: exakt Höhe von qty-selector.--sm. .btn ist global inline-block,
+   für korrekte vertikale Zentrierung des Material-Icons + Text auf inline-flex. */
 .bundle-recommendations__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: calc(var(--base) * 2);
   padding: 0 var(--half-module);
-  justify-content: center;
-  align-items: center;
   font-size: var(--text-sm);
   line-height: 1;
   gap: calc(var(--base) * 0.25);

@@ -249,8 +249,8 @@
           <button type="button" class="mockup-toggle-btn" data-count="0" onclick="setRecommendationsCount(0)">0</button>
           <button type="button" class="mockup-toggle-btn" data-count="1" onclick="setRecommendationsCount(1)">1</button>
           <button type="button" class="mockup-toggle-btn" data-count="2" onclick="setRecommendationsCount(2)">2</button>
-          <button type="button" class="mockup-toggle-btn --active" data-count="3" onclick="setRecommendationsCount(3)">3</button>
-          <button type="button" class="mockup-toggle-btn" data-count="4" onclick="setRecommendationsCount(4)">4</button>
+          <button type="button" class="mockup-toggle-btn" data-count="3" onclick="setRecommendationsCount(3)">3</button>
+          <button type="button" class="mockup-toggle-btn --active" data-count="4" onclick="setRecommendationsCount(4)">4</button>
           <button type="button" class="mockup-toggle-btn" data-count="5" onclick="setRecommendationsCount(5)">5</button>
           <button type="button" class="mockup-toggle-btn" data-count="6" onclick="setRecommendationsCount(6)">6</button>
         </div>
@@ -429,8 +429,9 @@
     let customerType = 'standard';   // 'standard' | 'group'
 
     // Anzahl angezeigter Produkte in der Empfehlungs-Schiene.
+    // Default = 4 (passt zum 4-spaltigen Raster).
     // Im echten Shop ein Theme-/App-Setting; im Mockup im Settings-Modal einstellbar.
-    let recommendationsCount = 3;
+    let recommendationsCount = 4;
 
     // ── Daten ──────────────────────────────────────────────────────────────
     // pricingModel: 'A' (Default, Kondition A) oder 'B' (Kondition B, Tabelle fix).
