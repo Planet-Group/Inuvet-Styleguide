@@ -369,7 +369,7 @@ function renderOptionsDrawer() {
 
   const thumbHTML  = p.img
     ? `<img src="${p.img}" alt="${p.name}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
-    : `<span class="material-icons">inventory_2</span>`;
+    : '';
   const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
 
   let formSection = '';
@@ -467,10 +467,7 @@ const pdpState = { formIndex: 0, variantIndex: 0 };
 function selectPdpForm(index) {
   pdpState.formIndex    = index;
   pdpState.variantIndex = 0;
-  const p    = activeProduct;
-  const form = p.darreichungsformen[index];
-  document.querySelectorAll('#pdpFormOptions .choice-box').forEach((b, i) =>
-    b.classList.toggle('--active', i === index));
+  const form = activeProduct.darreichungsformen[index];
   const sizeEl = document.getElementById('pdpSizeOptions');
   if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) =>
     `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
@@ -817,7 +814,7 @@ function drawerItemHTML(item, type) {
   const info      = type === 'approved' ? 'Einzulösen mit Empfehlung' : 'Anfrage an Praxis';
   const thumbHTML = p.img
     ? `<img src="${p.img}" alt="${item.cartName}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
-    : `<span class="material-icons">inventory_2</span>`;
+    : '';
   const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
   const eName = item.cartName.replace(/'/g, "\\'");
   const eVar  = item.variantLabel.replace(/'/g, "\\'");
@@ -852,7 +849,7 @@ function checkoutItemHTML(item) {
   const p         = getProduct(item.id);
   const thumbHTML = p.img
     ? `<img src="${p.img}" alt="${item.cartName}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
-    : `<span class="material-icons">inventory_2</span>`;
+    : '';
   const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
   return `<div class="cart-item">
     <div class="${thumbClass}">${thumbHTML}</div>
@@ -1102,7 +1099,7 @@ function tileHTML(p) {
 
   const imgContent = p.img
     ? `<img src="${p.img}" alt="${p.name}" loading="lazy">${p.imgHover ? `<img src="${p.imgHover}" alt="" loading="lazy" aria-hidden="true">` : ''}`
-    : `<span class="material-icons">inventory_2</span>`;
+    : '';
   const imgClass = p.img ? 'tile__image' : 'tile__image placeholder-bg';
 
   return `<div class="tile --product" onclick="activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
@@ -1110,7 +1107,7 @@ function tileHTML(p) {
       <div class="floating-meta">
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
         ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
-        ${p.familie ? '<div class="badge --dark">Produktfamilie</div>' : ''}
+        ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
       </div>
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
@@ -1225,7 +1222,7 @@ function renderProduct() {
   const imgBadges = `<div class="floating-meta">
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
     ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
-    ${p.familie ? '<div class="badge --dark">Produktfamilie</div>' : ''}
+    ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
   </div>`;
 
   let priceDisplay = '';
@@ -1246,17 +1243,21 @@ function renderProduct() {
 
     priceDisplay = `<div class="pdp__price"><div class="price-stack text-m"><span id="pdpPrice">${startPrice}</span></div></div>`;
 
-    // Darreichungsform-Auswahl (nur Familien)
+    // Darreichungsform-Auswahl (nur Familien) — Styleguide-Komponente pdp__type-selector
     let formSection = '';
     if (p.familie) {
-      const formBtns = p.darreichungsformen.map((f, i) =>
-        `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
-          onclick="selectPdpForm(${i})">${f.label}</button>`
+      const formRows = p.darreichungsformen.map((f, i) =>
+        `<label class="pdp__type-row">
+          <input type="radio" name="pdpType"${i === 0 ? ' checked' : ''} onchange="selectPdpForm(${i})">
+          <span class="pdp__type-label">${f.label}</span>
+        </label>`
       ).join('');
       formSection = `
         <div class="pdp__variants">
-          <div class="pdp__variant-label label-caps">Darreichungsform</div>
-          <div class="pdp__variant-options" id="pdpFormOptions">${formBtns}</div>
+          <div class="pdp__type-selector">
+            <div class="pdp__type-selector-header"><span>Darreichungsform</span></div>
+            ${formRows}
+          </div>
         </div>`;
     }
 
@@ -1309,9 +1310,7 @@ function renderProduct() {
       </div>
     </div>` : `
     <div class="pdp__gallery">
-      <div class="pdp__main-image placeholder-bg" id="pdpMainImage"
-        style="display:flex;align-items:center;justify-content:center;min-height:320px;">
-        <span class="material-icons" style="font-size:5rem;color:var(--fg-muted)">inventory_2</span>
+      <div class="pdp__main-image placeholder-bg" id="pdpMainImage">
         ${imgBadges}
       </div>
     </div>`;
@@ -1560,7 +1559,7 @@ function renderSearchResults(query) {
     matchedProducts.forEach((p, i) => {
       const srThumb = p.img
         ? `<img src="${p.img}" alt="${p.name}">${p.imgHover ? `<img src="${p.imgHover}" alt="">` : ''}`
-        : `<span class="material-icons">inventory_2</span>`;
+        : '';
       const srThumbClass = p.img ? 'search-result__image product-thumb' : 'search-result__image product-thumb placeholder-bg';
       html += `<div class="search-result" role="option" data-index="${matchedQueries.length + i}"
         onclick="closeSearch();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
