@@ -459,6 +459,61 @@ function confirmOptions() {
   openCart();
 }
 
+/* ════════════════════════════════════════════
+   PDP-VARIANTEN-AUSWAHL (direkt auf der Produktseite)
+   ════════════════════════════════════════════ */
+const pdpState = { formIndex: 0, variantIndex: 0 };
+
+function selectPdpForm(index) {
+  pdpState.formIndex    = index;
+  pdpState.variantIndex = 0;
+  const p    = activeProduct;
+  const form = p.darreichungsformen[index];
+  document.querySelectorAll('#pdpFormOptions .choice-box').forEach((b, i) =>
+    b.classList.toggle('--active', i === index));
+  const sizeEl = document.getElementById('pdpSizeOptions');
+  if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) =>
+    `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
+      onclick="selectPdpVariant(${i})">${v.label}</button>`
+  ).join('');
+  const priceEl = document.getElementById('pdpPrice');
+  if (priceEl) priceEl.textContent = form.variants[0].price;
+}
+
+function selectPdpVariant(index) {
+  pdpState.variantIndex = index;
+  const p = activeProduct;
+  const price = p.familie
+    ? p.darreichungsformen[pdpState.formIndex].variants[index].price
+    : p.variants[index].price;
+  document.querySelectorAll('#pdpSizeOptions .choice-box').forEach((b, i) =>
+    b.classList.toggle('--active', i === index));
+  const priceEl = document.getElementById('pdpPrice');
+  if (priceEl) priceEl.textContent = price;
+}
+
+function pdpAddToCart() {
+  const p        = activeProduct;
+  const approved = isApproved(p);
+  let cartName, variantLabel, priceStr;
+  if (p.familie) {
+    const form    = p.darreichungsformen[pdpState.formIndex];
+    const variant = form.variants[pdpState.variantIndex];
+    cartName     = form.cartName;
+    variantLabel = variant.label;
+    priceStr     = variant.price;
+  } else {
+    const variant = p.variants[pdpState.variantIndex];
+    cartName      = p.name;
+    variantLabel  = variant.label;
+    priceStr      = variant.price;
+  }
+  const price = parseFloat(priceStr.replace(',', '.').replace(' €', ''));
+  const qty   = parseInt(document.getElementById('pdpQty')?.value || '1', 10);
+  addToCart({ id: p.id, cartName, variantLabel, price, qty }, approved ? 'approved' : 'requested');
+  openCart();
+}
+
 function setCartStep(step) {
   cartDrawerStep = step;
   renderCartDrawer();
@@ -1055,7 +1110,7 @@ function tileHTML(p) {
       <div class="floating-meta">
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
         ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
-        ${p.familie ? '<div class="badge --pill">Produktfamilie</div>' : ''}
+        ${p.familie ? '<div class="badge --dark">Produktfamilie</div>' : ''}
       </div>
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
@@ -1163,31 +1218,80 @@ function renderProduct() {
   const p        = activeProduct;
   const approved = isApproved(p);
 
+  // Auswahl-State bei jedem Seitenwechsel zurücksetzen
+  pdpState.formIndex    = 0;
+  pdpState.variantIndex = 0;
+
   const imgBadges = `<div class="floating-meta">
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
     ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
-    ${p.familie ? '<div class="badge --pill">Produktfamilie</div>' : ''}
+    ${p.familie ? '<div class="badge --dark">Produktfamilie</div>' : ''}
   </div>`;
 
-  let notice  = '';
-  let actions = '';
+  let priceDisplay = '';
+  let variantUI    = '';
+  let actions      = '';
 
   if (state === 'guest') {
-    notice = `<div class="shop-notice">
+    priceDisplay = `<div class="pdp__price"><div class="price-stack text-m"><span>ab ${productStartPrice(p)}</span></div></div>`;
+    actions = `<div class="shop-notice">
       <p>Wenn Sie eine Empfehlung haben, können Sie dieses nach der Registrierung oder dem Login einlösen.</p>
       <button class="btn --primary" onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Jetzt registrieren</button>
     </div>`;
   } else {
-    if (!approved) {
-      notice = `<div class="shop-notice">
-        <p>Du hast noch keine Empfehlung für dieses Produkt? Gut, dass über 20.000 Tierärzte mit Inuvet-Produkten arbeiten. Ruf einfach in deiner Praxis an und frage nach diesem Produkt. Deine Praxis kann es jederzeit für dich bestellen.</p>
-      </div>`;
+    // Startwerte für Preis und Varianten
+    const startForm     = p.familie ? p.darreichungsformen[0] : null;
+    const startVariants = startForm ? startForm.variants : p.variants;
+    const startPrice    = startVariants[0].price;
+
+    priceDisplay = `<div class="pdp__price"><div class="price-stack text-m"><span id="pdpPrice">${startPrice}</span></div></div>`;
+
+    // Darreichungsform-Auswahl (nur Familien)
+    let formSection = '';
+    if (p.familie) {
+      const formBtns = p.darreichungsformen.map((f, i) =>
+        `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
+          onclick="selectPdpForm(${i})">${f.label}</button>`
+      ).join('');
+      formSection = `
+        <div class="pdp__variants">
+          <div class="pdp__variant-label label-caps">Darreichungsform</div>
+          <div class="pdp__variant-options" id="pdpFormOptions">${formBtns}</div>
+        </div>`;
     }
+
+    // Größen-Auswahl
+    const sizeBtns = startVariants.map((v, i) =>
+      `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
+        onclick="selectPdpVariant(${i})">${v.label}</button>`
+    ).join('');
+    const sizeSection = `
+      <div class="pdp__variants">
+        <div class="pdp__variant-label label-caps">Größe</div>
+        <div class="pdp__variant-options" id="pdpSizeOptions">${sizeBtns}</div>
+      </div>`;
+
+    variantUI = formSection + sizeSection;
+
     const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
     const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
     const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
     actions = `<div class="pdp__actions">
-      <button class="${ctaClass}" onclick="openOptions(${p.id})">${ctaIcon}${ctaLabel}</button>
+      <div>
+        <div class="pdp__variant-label label-caps">Menge</div>
+        <div class="qty-selector">
+          <button class="qty-selector__btn" type="button" aria-label="Weniger"
+            onclick="this.nextElementSibling.value=Math.max(1,+this.nextElementSibling.value-1)">
+            <span class="material-icons">remove</span>
+          </button>
+          <input class="qty-selector__input" type="number" value="1" min="1" max="99" id="pdpQty">
+          <button class="qty-selector__btn" type="button" aria-label="Mehr"
+            onclick="this.previousElementSibling.value=Math.min(99,+this.previousElementSibling.value+1)">
+            <span class="material-icons">add</span>
+          </button>
+        </div>
+      </div>
+      <button class="${ctaClass}" onclick="pdpAddToCart()">${ctaIcon}${ctaLabel}</button>
       ${approved ? `<button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>` : ''}
     </div>`;
   }
@@ -1218,10 +1322,8 @@ function renderProduct() {
         ${gallerySection}
         <div class="pdp__info">
           <h1 class="pdp__title">${p.name}</h1>
-          <div class="pdp__price">
-            <div class="price-stack text-m"><span>ab ${productStartPrice(p)}</span></div>
-          </div>
-          ${notice}
+          ${priceDisplay}
+          ${variantUI}
           ${actions}
           <div class="accordion">
             <div class="accordion-item --open">
