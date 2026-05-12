@@ -243,8 +243,12 @@
           <button type="button" class="mockup-toggle-btn"          data-type="group"    onclick="setCustomerType('group')">Gruppen-Kunde</button>
         </div>
 
+        <!-- Produkt-Modell-Auswahl -->
+        <p class="mockup-modal__desc">Modell pro Produkt</p>
+        <div id="modelSelector"></div>
+
         <!-- Anzahl Empfehlungen unter dem Bundle -->
-        <p class="mockup-modal__desc">Anzahl angezeigter Empfehlungen</p>
+        <p class="mockup-modal__desc">Anzahl angezeigter weiterer Empfehlungen</p>
         <div class="mockup-customer-toggle" id="recommendationsCountToggle">
           <button type="button" class="mockup-toggle-btn" data-count="0" onclick="setRecommendationsCount(0)">0</button>
           <button type="button" class="mockup-toggle-btn" data-count="1" onclick="setRecommendationsCount(1)">1</button>
@@ -254,10 +258,6 @@
           <button type="button" class="mockup-toggle-btn" data-count="5" onclick="setRecommendationsCount(5)">5</button>
           <button type="button" class="mockup-toggle-btn" data-count="6" onclick="setRecommendationsCount(6)">6</button>
         </div>
-
-        <!-- Produkt-Modell-Auswahl -->
-        <p class="mockup-modal__desc">Modell pro Produkt</p>
-        <div id="modelSelector"></div>
 
         <div class="mockup-modal__footer">
           <button type="button" class="mockup-btn --confirm" onclick="closeSettings()">Schließen</button>
@@ -573,8 +573,26 @@
       return `${hint.moreQty} Stück hinzufügen für ${part}`;
     };
 
+    // ── Sichtbarkeits-Logik ────────────────────────────────────────────────
+    // Bundle-Section + Empfehlungs-Schiene werden nur gezeigt, wenn
+    // mindestens ein Produkt im aktiven Bundle Gratis-Stück erzeugt.
+    // Sonst macht das Angebot keinen Sinn — Server-seitig würde der
+    // Shop diesen Kunden gar nicht erst auf die Bundle-Page leiten.
+    const hasAnyFreeItems = () => activeBundle.some(p => calcFree(p) > 0);
+
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
+      const bundleSection = document.getElementById('bundleSection');
+      const recsSection   = document.getElementById('bundleRecommendations');
+
+      // Sichtbarkeits-Logik: kein Gratis-Produkt → Bundle + Empfehlungen aus.
+      if (!hasAnyFreeItems()) {
+        bundleSection.style.display = 'none';
+        if (recsSection) recsSection.style.display = 'none';
+        return;
+      }
+      bundleSection.style.display = '';
+
       const list = document.getElementById('productList');
       list.innerHTML = '';
 

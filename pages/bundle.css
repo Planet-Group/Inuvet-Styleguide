@@ -8,11 +8,10 @@
    #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
    dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
    Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
-/* padding-bottom: --half-module reicht als Sicherheits-Atemraum für den
-   .bundle-item__tier-hint, der mit transform: translateY(50%) halb über
-   die Card-Bottom-Kante hinausragt. Komplett auf 0 → Hint kollidiert mit
-   der nachfolgenden Section (sichtbar wenn Empfehlungs-Schiene leer ist). */
-#bundleSection       { padding-top: var(--module); padding-bottom: var(--half-module); }
+/* padding-bottom: --module gibt dem .bundle-item__tier-hint ausreichend Platz
+   (der mit translateY(50%) halb über die Card-Bottom-Kante hinausragt) und
+   trennt das Bundle visuell sauber von der nachfolgenden Section. */
+#bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
 #bundleTestimonials  { padding-bottom: var(--module-2xl); }
 #bundleTiles         { padding-bottom: var(--module-2xl); }
 #bundleInfoMain      { padding-bottom: var(--module-2xl); }
@@ -326,7 +325,7 @@
    Sehr tight am Bundle-Bereich — Bg-Wechsel ist Trenner genug. */
 .bundle-recommendations {
   background: var(--green-light);
-  padding: var(--half-module) 0 var(--module-2xl);
+  padding: var(--half-module) 0 var(--module);
 }
 .bundle-recommendations .page {
   padding-top: 0;

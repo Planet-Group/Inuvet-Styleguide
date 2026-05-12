@@ -256,6 +256,42 @@ const model = product.metafields.inuvet.pricing_model || 'A';</code></pre>
 // Plural-Form: „… für {moreFree} weitere Gratisprodukte" wenn moreFree &gt; 1
 // Kein Hinweis wenn Funktion null zurückgibt (Maximalstufe erreicht)</code></pre>
 
+            <h2>Anzeige-Bedingung: kein Angebot ohne Naturalrabatt</h2>
+            <p>Die <strong>Bundle-Section</strong> wird nur angezeigt, wenn nach den oben beschriebenen Regeln <strong>mindestens ein Produkt im vorgeschlagenen Angebot tatsächlich Gratis-Stück erzeugt</strong>. Andernfalls ergibt das Angebot inhaltlich keinen Mehrwert — der Kunde würde nur seine normale Bestellliste sehen, ohne Vorteil.</p>
+            <p>Konsequenz für die Implementierung:</p>
+            <ul>
+              <li>Die Server-seitige Berechnung muss vor dem Rendering der Page prüfen, ob <code>Σ freeItems(p) &gt; 0</code> über alle vorgeschlagenen Produkte gilt.</li>
+              <li>Wenn nein: keine Bundle-Section ausgeben (oder Redirect auf eine alternative Seite — z.B. das normale Konto-Dashboard oder eine generische Produkt-Empfehlung).</li>
+              <li>Die <strong>Empfehlungs-Schiene</strong> unter dem Bundle entfällt zusammen mit der Bundle-Section — sie ist semantisch Teil des Angebots, nicht ein eigenständiger Block.</li>
+            </ul>
+            <pre><code>function shouldShowBundle(bundle) {
+  return bundle.some(p =&gt; calcFree(p) &gt; 0);
+}
+
+// Vor dem Rendering:
+if (!shouldShowBundle(suggestedBundle)) {
+  // Bundle-Section + Empfehlungs-Schiene komplett ausblenden
+  // → ggf. Redirect auf Standard-Account-Page
+}</code></pre>
+
+            <h2>Empfehlungs-Schiene unter dem Bundle</h2>
+            <p>Unter dem Bundle erscheint eine horizontal scrollbare Reihe mit weiteren Produkten, die der Kunde per Klick zum Angebot hinzufügen kann. Das löst zwei Probleme: Kunden mit kleinerer Historie sehen weitere relevante Produkte, und Kunden, die mehr bestellen wollen, können ohne Umweg ins Sortiment.</p>
+            <p>Eigenschaften:</p>
+            <ul>
+              <li><strong>Layout</strong>: 4 sichtbare Items auf Desktop (≥1200px), 3 auf Tablet, 2 auf Small Tablet, 1 mit Peek-Indicator auf Mobile. Horizontal scrollbar mit Scroll-Snap.</li>
+              <li><strong>Pool</strong>: alle Produkte aus der Kunden-Historie, die <em>nicht</em> bereits im aktiven Bundle sind, plus optionale CMS-kuratierte Empfehlungen.</li>
+              <li><strong>Anzeige-Anzahl</strong>: per Backend-Setting konfigurierbar (Default 4). Der Wert ist eine harte Grenze auf die Anzeige — der Pool kann größer sein, gezeigt wird nur die konfigurierte Anzahl.</li>
+              <li><strong>Hinzufügen-Logik</strong>: Klick auf „+ Hinzufügen" verschiebt das Produkt aus dem Pool in das aktive Bundle. Der Pool wird neu sortiert (nächstes Item rutscht nach), das Bundle re-rendert, Naturalrabatt wird neu berechnet.</li>
+              <li><strong>Sichtbarkeit</strong>: an die Bundle-Section gekoppelt — wenn das Bundle nicht angezeigt wird (siehe Abschnitt oben) oder der Pool leer ist (alle Produkte bereits im Bundle), wird die Schiene komplett ausgeblendet.</li>
+            </ul>
+            <pre><code>// Theme-/App-Setting (empfohlen)
+recommendations_count = 4  // Default
+
+// Pool-Berechnung serverseitig
+recommendationsPool = (customerHistory + curatedSuggestions)
+  .filter(p =&gt; !activeBundle.includes(p))
+  .slice(0, recommendations_count);</code></pre>
+
             <h2>Vorausgefüllte Produktliste</h2>
             <p>Das initiale Angebot enthält die Produkte des Kunden aus den letzten 180 Tagen, sortiert nach Kauffrequenz (häufigster Kauf oben). Die Vorschlagsmenge pro Produkt ergibt sich aus der Kauffrequenz, sinnvoll aufgerundet (z.B. auf 8er-Schritte). Produkte ohne Bestellhistorie erscheinen nicht im Hauptangebot.</p>
 
@@ -287,6 +323,8 @@ discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)
               <li><strong>Berechnungsfunktion</strong> server­seitig implementieren — `freeItemsA`, `freeItemsB`, `getHint` analog zu den oben gezeigten JS-Skizzen.</li>
               <li><strong>Order-Erstellung</strong>: <code>free_items</code> als Line-Item-Property setzen, Fulfillment-Hook für die Pickliste anpassen.</li>
               <li><strong>Frontend</strong>: bezieht alle berechneten Werte über eine API-Antwort — keine Geschäftslogik im Theme. Hint-Text und Gratis-Badge werden serverseitig befüllt geliefert.</li>
+              <li><strong>Anzeige-Bedingung</strong> serverseitig prüfen: <code>shouldShowBundle()</code> vor dem Rendering — sonst keine Bundle-Section ausgeben.</li>
+              <li><strong>Empfehlungs-Schiene</strong>: Pool-Berechnung serverseitig, Anzahl als App-/Theme-Setting (<code>recommendations_count</code>, Default 4). Click-Handler im Theme verschiebt Produkt aus Pool ins Bundle und triggert API-Refresh.</li>
             </ol>
 
           </div>
