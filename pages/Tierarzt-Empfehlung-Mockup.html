@@ -151,53 +151,59 @@
 
 <script>
 /* ════════════════════════════════════════════
-   PRODUKTDATEN
-   Packshot_01 = Calmin Balance · Packshot_02 = Hepax
-   approved: nur Calmin Balance + Hepax (State ③)
+   BILD-KONSTANTEN
    ════════════════════════════════════════════ */
-/* Calmin Balance */
 const CALMIN_1 = '../assets/images/Calmin_Packshot_01.jpeg';
 const CALMIN_2 = '../assets/images/Calmin_Packshot_02.png';
 const CALMIN_3 = '../assets/images/Calmin_Packshot_03.png';
-/* Hepax */
 const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
 const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
 
+/* ════════════════════════════════════════════
+   PRODUKTDATEN — 3 kanonische Produkte
+   familie:true  → Produktfamilie mit darreichungsformen[]
+   familie:false → Einzelprodukt mit variants[]
+   ════════════════════════════════════════════ */
 const PRODUCTS = [
-  { id:1, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'39,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:true,
-    shortDesc:'Für Entspannung und innere Balance.',
-    desc:'Hochwertige Tropfen für eine entspannte und ausgeglichene Stimmung bei Hunden und Katzen. Schonend gewonnen, tierärztlich geprüft.',
-    ingredients:'CBD-Hanfextrakt, MCT-Öl (Kokosöl), natürliches Aroma. Ohne künstliche Zusatzstoffe, ohne Lösungsmittel.',
-    variants:[{label:'30 ml',price:'39,90 €'},{label:'60 ml',price:'69,90 €'},{label:'100 ml',price:'109,90 €'}] },
-  { id:2, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'44,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:true,
-    shortDesc:'Unterstützt Knorpel und Gelenke.',
-    desc:'Spezialformel zur Unterstützung von Knorpel und Gelenken bei aktiven Tieren. Mit natürlichen Extrakten, tierärztlich entwickelt.',
-    ingredients:'Grünlippmuschel-Extrakt, Teufelskralle, Boswellia, Vitamin C, Glucosamin, Chondroitin. Frei von Getreide und Soja.',
-    variants:[{label:'30 Tabletten',price:'44,90 €'},{label:'60 Tabletten',price:'84,90 €'}] },
-  { id:3, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'34,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
-    shortDesc:'Für eine gesunde Verdauung.',
-    desc:'Beruhigt den Verdauungstrakt und fördert eine gesunde Darmflora. Ideal bei empfindlichem Magen und nach Antibiotika-Behandlungen.',
-    ingredients:'Flohsamenschalen, Probiotika (Enterococcus faecium), Präbiotika (FOS), Bentonit, Pektin, Kamillenextrakt. Ohne künstliche Zusatzstoffe.',
-    variants:[{label:'30 ml',price:'34,90 €'},{label:'60 ml',price:'64,90 €'},{label:'100 ml',price:'99,90 €'}] },
-  { id:4, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'49,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:false,
-    shortDesc:'Zur Unterstützung der Herzfunktion.',
-    desc:'Spezialformel zur Unterstützung der Herzfunktion bei älteren Tieren. Enthält natürliche Wirkstoffe, tierärztlich entwickelt.',
-    ingredients:'Weißdornextrakt, Coenzym Q10, Taurin, L-Carnitin, Magnesium, Vitamin E. Ohne Konservierungsstoffe.',
-    variants:[{label:'30 Tabletten',price:'49,90 €'},{label:'60 Tabletten',price:'89,90 €'}] },
-  { id:5, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'42,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
-    shortDesc:'Zur Unterstützung der Nierenfunktion.',
-    desc:'Unterstützt die Nierenfunktion und trägt zur natürlichen Entgiftung bei. Schonende Naturextrakte für Hunde und Katzen.',
-    ingredients:'Cranberry-Extrakt, Brennnesselwurzel, Schachtelhalmextrakt, Vitamin B6, Kalium. Frei von künstlichen Farbstoffen.',
-    variants:[{label:'30 ml',price:'42,90 €'},{label:'60 ml',price:'79,90 €'},{label:'100 ml',price:'119,90 €'}] },
-  { id:6, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'36,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:false,
-    shortDesc:'Für gesunde Haut und glänzendes Fell.',
-    desc:'Für glänzendes Fell und gesunde Haut. Reich an Omega-3-Fettsäuren und Biotin, tierärztlich geprüft.',
-    ingredients:'Lachsöl, Borretschsamenöl, Biotin, Zink, Vitamin A, E. Kaltgepresst, ohne Konservierungsstoffe.',
-    variants:[{label:'30 Tabletten',price:'36,90 €'},{label:'60 Tabletten',price:'69,90 €'}] },
+  {
+    id: 1, name: 'Calmin Balance', familie: true, cat: 'beruhigung', catLabel: 'Beruhigung',
+    img: CALMIN_1, imgHover: CALMIN_2, imgDetail: CALMIN_3, rating: '4,8', approved: true,
+    shortDesc: 'Für Entspannung und innere Balance.',
+    desc: 'Unterstützt die natürliche Ausgeglichenheit von Hunden und Katzen. Schonend gewonnen, tierärztlich entwickelt und geprüft.',
+    ingredients: 'Passionsblumenextrakt, Baldrian, L-Tryptophan, Vitamin B1. Ohne künstliche Zusatzstoffe.',
+    darreichungsformen: [
+      { label: 'Tabletten', cartName: 'Calmin Balance Tabletten',
+        variants: [{ label: '60 Stück', price: '39,90 €' }, { label: '90 Stück', price: '54,90 €' }] },
+      { label: 'Pulver',    cartName: 'Calmin Balance Pulver',
+        variants: [{ label: '30 g',    price: '29,90 €' }, { label: '60 g',    price: '49,90 €' }] },
+    ],
+  },
+  {
+    id: 2, name: 'Hepax forte', familie: true, cat: 'leber', catLabel: 'Leber',
+    img: HEPAX_1, imgHover: HEPAX_2, rating: '4,6', approved: true,
+    shortDesc: 'Unterstützt die Leberfunktion.',
+    desc: 'Spezialformel zur Unterstützung der Leberfunktion bei Hunden und Katzen. Mit natürlichen Pflanzenextrakten, tierärztlich entwickelt.',
+    ingredients: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
+    darreichungsformen: [
+      { label: 'Tabletten', cartName: 'Hepax forte Tabletten',
+        variants: [{ label: '30 Stück', price: '34,90 €' }, { label: '60 Stück', price: '64,90 €' }] },
+      { label: 'Pulver',    cartName: 'Hepax forte Pulver',
+        variants: [{ label: '75 g',    price: '39,90 €' }, { label: '175 g',   price: '84,90 €' }] },
+    ],
+  },
+  {
+    id: 3, name: 'Inzym Pulver', familie: false, cat: 'bauchspeichel', catLabel: 'Bauchspeicheldrüse',
+    img: null, imgHover: null, rating: '4,4', approved: false,
+    shortDesc: 'Unterstützt die Bauchspeicheldrüse.',
+    desc: 'Hochwertige Enzymformel zur Unterstützung der Verdauung bei Erkrankungen der Bauchspeicheldrüse. Für Hunde und Katzen.',
+    ingredients: 'Pankreasenzym-Konzentrat (Lipase, Amylase, Protease), Bromelain. Ohne künstliche Konservierungsstoffe.',
+    variants: [{ label: '50 g', price: '24,90 €' }, { label: '100 g', price: '44,90 €' }],
+  },
 ];
 
 /* ════════════════════════════════════════════
    STATE
+   cartApproved/cartRequested: Array von {id, cartName, variantLabel, price, qty}
    ════════════════════════════════════════════ */
 let state         = 'guest';
 let page          = 'home';
@@ -208,9 +214,13 @@ let cartRequested = [];
 /* ════════════════════════════════════════════
    HILFSFUNKTIONEN
    ════════════════════════════════════════════ */
-const getProduct = id  => PRODUCTS.find(p => p.id === id);
-const cartTotal  = ()  => cartApproved.length + cartRequested.length;
-const isApproved = p   => state === 'with-release' && p.approved;
+const getProduct = id => PRODUCTS.find(p => p.id === id);
+const cartTotal  = () => cartApproved.length + cartRequested.length;
+const isApproved = p  => state === 'with-release' && p.approved;
+
+function productStartPrice(p) {
+  return p.familie ? p.darreichungsformen[0].variants[0].price : p.variants[0].price;
+}
 
 function updateCartBadge() {
   const badge = document.getElementById('cartCount');
@@ -219,26 +229,27 @@ function updateCartBadge() {
   badge.textContent   = n;
 }
 
-function addToCart(id, type) {
-  const arr = type === 'approved' ? cartApproved : cartRequested;
-  if (!arr.includes(id)) arr.push(id);
-  updateCartBadge();
-  if (document.getElementById('cartDrawer').classList.contains('--open')) {
-    renderCartDrawer();
+function addToCart(item, type) {
+  const arr      = type === 'approved' ? cartApproved : cartRequested;
+  const existing = arr.find(x => x.cartName === item.cartName && x.variantLabel === item.variantLabel);
+  if (existing) {
+    existing.qty += item.qty;
+  } else {
+    arr.push({ ...item });
   }
+  updateCartBadge();
+  if (document.getElementById('cartDrawer').classList.contains('--open')) renderCartDrawer();
 }
 
-function removeFromCart(id) {
-  cartApproved  = cartApproved.filter(x => x !== id);
-  cartRequested = cartRequested.filter(x => x !== id);
+function removeFromCart(cartName, variantLabel) {
+  cartApproved  = cartApproved.filter(x => !(x.cartName === cartName && x.variantLabel === variantLabel));
+  cartRequested = cartRequested.filter(x => !(x.cartName === cartName && x.variantLabel === variantLabel));
   updateCartBadge();
-  if (document.getElementById('cartDrawer').classList.contains('--open')) {
-    renderCartDrawer();
-  }
+  if (document.getElementById('cartDrawer').classList.contains('--open')) renderCartDrawer();
 }
 
-function calcTotal(ids) {
-  return ids.reduce((s, id) => s + parseFloat(getProduct(id).price.replace(',','.').replace(' €','')), 0);
+function calcTotal(items) {
+  return items.reduce((s, item) => s + item.price * item.qty, 0);
 }
 
 
@@ -302,10 +313,15 @@ function closeCart() {
 
 /* ════════════════════════════════════════════
    OPTIONS-DRAWER (Varianten wählen)
+   optionsState hält den aktuellen Auswahl-Stand
    ════════════════════════════════════════════ */
+const optionsState = { productId: null, formIndex: 0, variantIndex: 0 };
+
 function openOptions(id) {
-  const p = getProduct(id);
-  renderOptionsDrawer(p);
+  optionsState.productId    = id;
+  optionsState.formIndex    = 0;
+  optionsState.variantIndex = 0;
+  renderOptionsDrawer();
   document.getElementById('optionsOverlay').classList.add('--open');
   document.getElementById('optionsDrawer').classList.add('--open');
 }
@@ -315,28 +331,64 @@ function closeOptions() {
   document.getElementById('optionsDrawer').classList.remove('--open');
 }
 
-function selectVariant(btn, price) {
-  btn.closest('.options-variants').querySelectorAll('.options-variant-btn')
-    .forEach(b => b.classList.remove('--active'));
-  btn.classList.add('--active');
-  const priceEl = document.getElementById('optionsPrice');
-  if (priceEl) priceEl.textContent = price;
+function selectOptionsForm(index) {
+  optionsState.formIndex    = index;
+  optionsState.variantIndex = 0;
+  renderOptionsDrawer();
 }
 
-function renderOptionsDrawer(p) {
+function selectOptionsVariant(index) {
+  optionsState.variantIndex = index;
+  const p = getProduct(optionsState.productId);
+  const price = p.familie
+    ? p.darreichungsformen[optionsState.formIndex].variants[index].price
+    : p.variants[index].price;
+  const priceEl = document.getElementById('optionsPrice');
+  if (priceEl) priceEl.textContent = price;
+  document.querySelectorAll('.options-variant-btn').forEach((btn, i) =>
+    btn.classList.toggle('--active', i === index));
+}
+
+function renderOptionsDrawer() {
+  const p       = getProduct(optionsState.productId);
   const approved = isApproved(p);
-  const variants = p.variants || [];
-  const firstPrice = variants.length > 0 ? variants[0].price : p.price;
 
-  const variantBtns = variants.map((v, i) =>
-    `<button class="options-variant-btn${i === 0 ? ' --active' : ''}" type="button"
-      onclick="selectVariant(this,'${v.price}')">${v.label}</button>`
-  ).join('');
+  let currentVariants, currentPrice;
+  if (p.familie) {
+    const form   = p.darreichungsformen[optionsState.formIndex];
+    currentVariants = form.variants;
+    currentPrice    = form.variants[optionsState.variantIndex].price;
+  } else {
+    currentVariants = p.variants;
+    currentPrice    = p.variants[optionsState.variantIndex].price;
+  }
 
-  const ctaType  = approved ? 'approved' : 'requested';
   const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
   const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
   const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
+
+  const thumbHTML  = p.img
+    ? `<img src="${p.img}" alt="${p.name}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
+    : `<span class="material-icons">inventory_2</span>`;
+  const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
+
+  let formSection = '';
+  if (p.familie) {
+    const formBtns = p.darreichungsformen.map((f, i) =>
+      `<button class="choice-box${i === optionsState.formIndex ? ' --active' : ''}" type="button"
+        onclick="selectOptionsForm(${i})">${f.label}</button>`
+    ).join('');
+    formSection = `
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Darreichungsform</div>
+      <div class="options-variants">${formBtns}</div>
+    </div>`;
+  }
+
+  const variantBtns = currentVariants.map((v, i) =>
+    `<button class="options-variant-btn${i === optionsState.variantIndex ? ' --active' : ''}" type="button"
+      onclick="selectOptionsVariant(${i})">${v.label}</button>`
+  ).join('');
 
   document.getElementById('optionsDrawer').innerHTML = `
     <div class="cart-drawer__header">
@@ -346,23 +398,21 @@ function renderOptionsDrawer(p) {
       </button>
     </div>
     <div class="cart-item options-drawer__product">
-      <div class="product-thumb">
-        <img src="${p.img}" alt="${p.name}">
-      </div>
+      <div class="${thumbClass}">${thumbHTML}</div>
       <div class="cart-item__info">
         <div class="cart-item__top">
           <div>
-            <p class="cart-item__name">${p.cartName || p.name}</p>
-            <div class="cart-item__variant" id="optionsPrice">${firstPrice}</div>
+            <p class="cart-item__name">${p.name}</p>
+            <div class="cart-item__variant" id="optionsPrice">${currentPrice}</div>
           </div>
         </div>
       </div>
     </div>
-    ${variants.length > 0 ? `
+    ${formSection}
     <div class="options-drawer__section">
       <div class="label-caps options-drawer__section-label">Größe</div>
       <div class="options-variants">${variantBtns}</div>
-    </div>` : ''}
+    </div>
     <div class="options-drawer__section">
       <div class="label-caps options-drawer__section-label">Menge</div>
       <div class="qty-selector --sm">
@@ -370,7 +420,7 @@ function renderOptionsDrawer(p) {
           onclick="this.nextElementSibling.value=Math.max(1,+this.nextElementSibling.value-1)">
           <span class="material-icons">remove</span>
         </button>
-        <input class="qty-selector__input" type="number" value="1" min="1" max="99">
+        <input class="qty-selector__input" type="number" value="1" min="1" max="99" id="optionsQty">
         <button class="qty-selector__btn" type="button" aria-label="Mehr"
           onclick="this.previousElementSibling.value=Math.min(99,+this.previousElementSibling.value+1)">
           <span class="material-icons">add</span>
@@ -378,11 +428,35 @@ function renderOptionsDrawer(p) {
       </div>
     </div>
     <div class="options-drawer__footer">
-      <button class="${ctaClass}"
-        onclick="addToCart(${p.id},'${ctaType}');closeOptions();openCart()">
+      <button class="${ctaClass}" onclick="confirmOptions()">
         ${ctaIcon}${ctaLabel}
       </button>
     </div>`;
+}
+
+function confirmOptions() {
+  const p        = getProduct(optionsState.productId);
+  const approved = isApproved(p);
+  let cartName, variantLabel, priceStr;
+
+  if (p.familie) {
+    const form    = p.darreichungsformen[optionsState.formIndex];
+    const variant = form.variants[optionsState.variantIndex];
+    cartName     = form.cartName;
+    variantLabel = variant.label;
+    priceStr     = variant.price;
+  } else {
+    const variant = p.variants[optionsState.variantIndex];
+    cartName      = p.name;
+    variantLabel  = variant.label;
+    priceStr      = variant.price;
+  }
+
+  const price = parseFloat(priceStr.replace(',', '.').replace(' €', ''));
+  const qty   = parseInt(document.getElementById('optionsQty')?.value || '1', 10);
+  addToCart({ id: p.id, cartName, variantLabel, price, qty }, approved ? 'approved' : 'requested');
+  closeOptions();
+  openCart();
 }
 
 function setCartStep(step) {
@@ -557,10 +631,7 @@ function renderSuccessStep() {
   const vetKnown    = selectedVet && selectedVet.hasRecommended;
   const vetEmail    = `praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de`;
 
-  const requestedNames = cartRequested.map(id => {
-    const p = PRODUCTS.find(x => x.id === id);
-    return p ? p.name : '';
-  }).filter(Boolean).join(', ');
+  const requestedNames = cartRequested.map(item => item.cartName).join(', ');
 
   // E-Mail-Daten für Overlay befüllen
   emailOverlayData = {
@@ -646,11 +717,11 @@ function renderCartDrawer() {
 
   if (hasApproved) {
     items += `<h3 class="section-label">Einzulösende Produkte</h3>`;
-    items += cartApproved.map(id => drawerItemHTML(id, 'approved')).join('');
+    items += cartApproved.map(item => drawerItemHTML(item, 'approved')).join('');
   }
   if (hasRequested) {
     items += `<h3 class="section-label">Anzufragende Produkte</h3>`;
-    items += cartRequested.map(id => drawerItemHTML(id, 'requested')).join('');
+    items += cartRequested.map(item => drawerItemHTML(item, 'requested')).join('');
   }
 
   const totalApproved = calcTotal(cartApproved);
@@ -685,55 +756,61 @@ function renderCartDrawer() {
     </div>`;
 }
 
-/* Cart-Item im Drawer (mit Mengenauswahl + Entfernen) — Struktur gem. Styleguide §15 */
-function drawerItemHTML(id, type) {
-  const p    = getProduct(id);
-  const info = type === 'approved' ? 'Einzulösen mit Empfehlung' : 'Anfrage an Praxis';
+/* Cart-Item im Drawer (mit Mengenauswahl + Entfernen) */
+function drawerItemHTML(item, type) {
+  const p         = getProduct(item.id);
+  const info      = type === 'approved' ? 'Einzulösen mit Empfehlung' : 'Anfrage an Praxis';
+  const thumbHTML = p.img
+    ? `<img src="${p.img}" alt="${item.cartName}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
+    : `<span class="material-icons">inventory_2</span>`;
+  const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
+  const eName = item.cartName.replace(/'/g, "\\'");
+  const eVar  = item.variantLabel.replace(/'/g, "\\'");
   return `<div class="cart-item">
-    <div class="product-thumb">
-      <img src="${p.img}" alt="${p.name}">
-      ${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}
-    </div>
+    <div class="${thumbClass}">${thumbHTML}</div>
     <div class="cart-item__info">
       <div class="cart-item__top">
         <div>
-          <p class="cart-item__name">${p.cartName || p.name}</p>
+          <p class="cart-item__name">${item.cartName}</p>
+          <div class="cart-item__variant">${item.variantLabel}</div>
           <div class="cart-item__variant">${info}</div>
         </div>
-        <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen" onclick="removeFromCart(${id})">
+        <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"
+          onclick="removeFromCart('${eName}','${eVar}')">
           <span class="material-icons">close</span>
         </button>
       </div>
       <div class="cart-item__bottom">
         <div class="qty-selector --sm">
           <button class="qty-selector__btn" type="button" aria-label="Weniger"><span class="material-icons">remove</span></button>
-          <input class="qty-selector__input" type="number" value="1" min="1" max="99">
+          <input class="qty-selector__input" type="number" value="${item.qty}" min="1" max="99">
           <button class="qty-selector__btn" type="button" aria-label="Mehr"><span class="material-icons">add</span></button>
         </div>
-        ${type === 'approved' ? `<span class="cart-item__qty-text">${p.price}</span>` : ''}
+        ${type === 'approved' ? `<span class="cart-item__qty-text">${item.price.toFixed(2).replace('.',',')} €</span>` : ''}
       </div>
     </div>
   </div>`;
 }
 
-/* Cart-Item in der Checkout-Übersicht (vereinfacht, kein Remove) — gem. Styleguide §15 */
-function checkoutItemHTML(id) {
-  const p = getProduct(id);
+/* Cart-Item in der Checkout-Übersicht (vereinfacht, kein Remove) */
+function checkoutItemHTML(item) {
+  const p         = getProduct(item.id);
+  const thumbHTML = p.img
+    ? `<img src="${p.img}" alt="${item.cartName}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
+    : `<span class="material-icons">inventory_2</span>`;
+  const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
   return `<div class="cart-item">
-    <div class="product-thumb">
-      <img src="${p.img}" alt="${p.name}">
-      ${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}
-    </div>
+    <div class="${thumbClass}">${thumbHTML}</div>
     <div class="cart-item__info">
       <div class="cart-item__top">
         <div>
-          <p class="cart-item__name">${p.cartName || p.name}</p>
-          <div class="cart-item__variant">${p.catLabel}</div>
+          <p class="cart-item__name">${item.cartName}</p>
+          <div class="cart-item__variant">${item.variantLabel}</div>
         </div>
       </div>
       <div class="cart-item__bottom">
-        <span class="cart-item__qty-text">1 Stück</span>
-        <span class="cart-item__qty-text">${p.price}</span>
+        <span class="cart-item__qty-text">${item.qty} Stück</span>
+        <span class="cart-item__qty-text">${item.price.toFixed(2).replace('.',',')} €</span>
       </div>
     </div>
   </div>`;
@@ -968,16 +1045,19 @@ function tileHTML(p) {
     }
   }
 
-  return `<div class="tile --product" onclick="activeProduct=PRODUCTS[${p.id-1}];setPage('product')">
+  const imgContent = p.img
+    ? `<img src="${p.img}" alt="${p.name}" loading="lazy">${p.imgHover ? `<img src="${p.imgHover}" alt="" loading="lazy" aria-hidden="true">` : ''}`
+    : `<span class="material-icons">inventory_2</span>`;
+  const imgClass = p.img ? 'tile__image' : 'tile__image placeholder-bg';
+
+  return `<div class="tile --product" onclick="activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
     <div class="tile__image-wrap">
       <div class="floating-meta">
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
         ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
+        ${p.familie ? '<div class="badge --pill">Produktfamilie</div>' : ''}
       </div>
-      <div class="tile__image">
-        <img src="${p.img}" alt="${p.name}" loading="lazy">
-        ${p.imgHover ? `<img src="${p.imgHover}" alt="" loading="lazy" aria-hidden="true">` : ''}
-      </div>
+      <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
     </div>
     <div class="tile__headline-row">
@@ -986,7 +1066,7 @@ function tileHTML(p) {
     </div>
     <div class="tile__description">${p.shortDesc}</div>
     <div class="tile__price">
-      <div class="price-stack"><span>${p.price}</span></div>
+      <div class="price-stack"><span>ab ${productStartPrice(p)}</span></div>
     </div>
   </div>`;
 }
@@ -1034,8 +1114,8 @@ function renderHome() {
     </div>
     <div class="page">
       <h3 class="section-label">Unsere Produkte</h3>
-      <div class="tile-grid --cols-4">
-        ${PRODUCTS.slice(0,4).map(tileHTML).join('')}
+      <div class="tile-grid --cols-3">
+        ${PRODUCTS.map(tileHTML).join('')}
       </div>
     </div>
     ${testimonialSectionHTML()}
@@ -1083,10 +1163,10 @@ function renderProduct() {
   const p        = activeProduct;
   const approved = isApproved(p);
 
-  /* Badges im Bild: floating-meta innerhalb .pdp__main-image */
   const imgBadges = `<div class="floating-meta">
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
     ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
+    ${p.familie ? '<div class="badge --pill">Produktfamilie</div>' : ''}
   </div>`;
 
   let notice  = '';
@@ -1097,61 +1177,49 @@ function renderProduct() {
       <p>Wenn Sie eine Empfehlung haben, können Sie dieses nach der Registrierung oder dem Login einlösen.</p>
       <button class="btn --primary" onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Jetzt registrieren</button>
     </div>`;
-  } else if (state === 'no-release') {
-    notice = `<div class="shop-notice">
-      <p>Du hast noch keine Empfehlung für dieses Produkt? Gut, dass über 20.000 Tierärzte mit Inuvet-Produkten arbeiten. Ruf einfach in deiner Praxis an und frage nach diesem Produkt. Deine Praxis kann es jederzeit für dich bestellen.</p>
-    </div>`;
-    actions = `<div class="pdp__actions">
-      <button class="btn --secondary --with-icon" onclick="addToCart(${p.id},'requested');openCart()">
-        <span class="material-icons">mail_outline</span> Anfrage in den Korb legen
-      </button>
-    </div>`;
-  } else if (approved) {
-    actions = `
-      <div class="pdp__actions">
-        <div>
-          <div class="pdp__variant-label label-caps">Menge</div>
-          <div class="qty-selector">
-            <button class="qty-selector__btn" type="button" aria-label="Weniger" onclick="this.nextElementSibling.value=Math.max(1,+this.nextElementSibling.value-1)"><span class="material-icons">remove</span></button>
-            <input class="qty-selector__input" type="number" value="1" min="1" max="99">
-            <button class="qty-selector__btn" type="button" aria-label="Mehr" onclick="this.previousElementSibling.value=Math.min(99,+this.previousElementSibling.value+1)"><span class="material-icons">add</span></button>
-          </div>
-        </div>
-        <button class="btn --primary" onclick="addToCart(${p.id},'approved');openCart()">In den Warenkorb</button>
-        <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste">
-          <span class="material-icons">favorite_border</span>
-        </button>
-      </div>`;
   } else {
-    notice = `<div class="shop-notice">
-      <p>Du hast noch keine Empfehlung für dieses Produkt? Gut, dass über 20.000 Tierärzte mit Inuvet-Produkten arbeiten. Ruf einfach in deiner Praxis an und frage nach diesem Produkt. Deine Praxis kann es jederzeit für dich bestellen.</p>
-    </div>`;
+    if (!approved) {
+      notice = `<div class="shop-notice">
+        <p>Du hast noch keine Empfehlung für dieses Produkt? Gut, dass über 20.000 Tierärzte mit Inuvet-Produkten arbeiten. Ruf einfach in deiner Praxis an und frage nach diesem Produkt. Deine Praxis kann es jederzeit für dich bestellen.</p>
+      </div>`;
+    }
+    const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
+    const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
+    const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
     actions = `<div class="pdp__actions">
-      <button class="btn --secondary --with-icon" onclick="addToCart(${p.id},'requested');openCart()">
-        <span class="material-icons">mail_outline</span> Anfrage in den Korb legen
-      </button>
+      <button class="${ctaClass}" onclick="openOptions(${p.id})">${ctaIcon}${ctaLabel}</button>
+      ${approved ? `<button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>` : ''}
     </div>`;
   }
+
+  const gallerySection = p.img ? `
+    <div class="pdp__gallery">
+      <div class="pdp__main-image" id="pdpMainImage">
+        <img src="${p.img}" alt="${p.name}" id="pdpMainImg">
+        ${imgBadges}
+      </div>
+      <div class="pdp__thumbs">
+        <button class="pdp__thumb --active" onclick="pdpSetImg(this,'${p.img}')"><img src="${p.img}" alt="${p.name}"></button>
+        ${p.imgHover  ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgHover}')"><img src="${p.imgHover}" alt="${p.name} Ansicht 2"></button>` : ''}
+        ${p.imgDetail ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgDetail}')"><img src="${p.imgDetail}" alt="${p.name} Ansicht 3"></button>` : ''}
+      </div>
+    </div>` : `
+    <div class="pdp__gallery">
+      <div class="pdp__main-image placeholder-bg" id="pdpMainImage"
+        style="display:flex;align-items:center;justify-content:center;min-height:320px;">
+        <span class="material-icons" style="font-size:5rem;color:var(--fg-muted)">inventory_2</span>
+        ${imgBadges}
+      </div>
+    </div>`;
 
   return `
     <div class="page">
       <div class="pdp">
-        <div class="pdp__gallery">
-          <div class="pdp__main-image" id="pdpMainImage">
-            <img src="${p.img}" alt="${p.name}" id="pdpMainImg">
-            <div class="pdp__caption --hidden" aria-live="polite"></div>
-            ${imgBadges}
-          </div>
-          <div class="pdp__thumbs">
-            <button class="pdp__thumb --active" onclick="pdpSetImg(this,'${p.img}')"><img src="${p.img}" alt="${p.name}"></button>
-            ${p.imgHover  ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgHover}')"><img src="${p.imgHover}" alt="${p.name} Ansicht 2"></button>` : ''}
-            ${p.imgDetail ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgDetail}')"><img src="${p.imgDetail}" alt="${p.name} Ansicht 3"></button>` : ''}
-          </div>
-        </div>
+        ${gallerySection}
         <div class="pdp__info">
           <h1 class="pdp__title">${p.name}</h1>
           <div class="pdp__price">
-            <div class="price-stack text-m"><span>${p.price}</span></div>
+            <div class="price-stack text-m"><span>ab ${productStartPrice(p)}</span></div>
           </div>
           ${notice}
           ${actions}
@@ -1269,7 +1337,7 @@ function openCheckoutModal() {
   const hasRequested = cartRequested.length > 0;
   const modal        = document.getElementById('checkoutModal');
 
-  const names = cartRequested.map(id => getProduct(id).name).join(', ');
+  const names = cartRequested.map(item => item.cartName).join(', ');
   document.getElementById('modalTitle').textContent = 'Produkte erfolgreich angefragt!';
   document.getElementById('modalBody').innerHTML =
     `<strong>Produkte erfolgreich bei Tierarzt Dr. med. vet. Martina Müller (Tierarztpraxis Grüntal) angefragt.</strong><br><br>
@@ -1323,10 +1391,14 @@ const SEARCH_DATA = {
   queries: [
     { text: 'Beruhigung & Entspannung' },
     { text: 'Leber & Stoffwechsel' },
+    { text: 'Bauchspeicheldrüse & Verdauung' },
     { text: 'Tierärztlich empfohlene Produkte' },
   ],
-  products: PRODUCTS.filter((p, i, arr) => arr.findIndex(x => x.name === p.name) === i)
-    .map(p => ({ name: p.name, meta: p.catLabel, price: p.price, img: p.img, imgHover: p.imgHover, id: p.id }))
+  products: PRODUCTS.map(p => ({
+    name: p.name, meta: p.catLabel,
+    price: productStartPrice(p),
+    img: p.img, imgHover: p.imgHover, id: p.id,
+  })),
 };
 
 let searchActiveIndex = -1;
@@ -1384,17 +1456,18 @@ function renderSearchResults(query) {
   if (matchedProducts.length) {
     html += `<div class="search-results__section"><div class="section-label">Produkte</div>`;
     matchedProducts.forEach((p, i) => {
+      const srThumb = p.img
+        ? `<img src="${p.img}" alt="${p.name}">${p.imgHover ? `<img src="${p.imgHover}" alt="">` : ''}`
+        : `<span class="material-icons">inventory_2</span>`;
+      const srThumbClass = p.img ? 'search-result__image product-thumb' : 'search-result__image product-thumb placeholder-bg';
       html += `<div class="search-result" role="option" data-index="${matchedQueries.length + i}"
-        onclick="closeSearch();activeProduct=PRODUCTS[${p.id - 1}];setPage('product')">
-        <div class="search-result__image product-thumb">
-          <img src="${p.img}" alt="${p.name}">
-          ${p.imgHover ? `<img src="${p.imgHover}" alt="">` : ''}
-        </div>
+        onclick="closeSearch();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
+        <div class="${srThumbClass}">${srThumb}</div>
         <div class="search-result__info">
           <p class="search-result__name">${p.name}</p>
           <div class="search-result__meta">${p.meta}</div>
         </div>
-        <div class="search-result__price">${p.price}</div>
+        <div class="search-result__price">ab ${p.price}</div>
       </div>`;
     });
     html += `</div>`;
