@@ -14,8 +14,8 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 **Ziel:** „Perfekter, sauberer Code, der von Entwicklern gerne angenommen wird."
 
 **Live-Preview:**
-- GitHub: `https://github.com/micha-lang/Inuvet-Styleguide`
-- GitHub Pages: `https://micha-lang.github.io/Inuvet-Styleguide/`
+- GitHub: `https://github.com/planet-group/Inuvet-Styleguide`
+- GitHub Pages: `https://planet-group.github.io/Inuvet-Styleguide/styleguide.html`
 - Lokal: Port **3456** (`python3 -m http.server 3456` aus `~/Inuvet-Styleguide/`)
 
 ---
@@ -49,6 +49,33 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 ```
 
 > **Hinweis:** `starter.html` als statische Datei wurde gelöscht — sie veraltete schneller, als sie genutzt wurde. Stattdessen lebt das **Page-Skeleton in Sektion E.1 des Styleguides** als Code-Snippet mit Verweisen zu allen Detail-Sektionen. Es bleibt damit immer synchron mit dem System. Wer einen anderen Pattern-Typ braucht (Hero-led, Stand-Alone-Form), kopiert die strukturell passende existierende Page.
+
+---
+
+## Produkt-Modell (Domain-Wissen)
+
+### Aufbau
+
+| Begriff | Definition | Beispiel |
+|---|---|---|
+| **Indikation** | Das Krankheitsbild, gegen das ein Produkt hilft. Gibt dem Produkt seinen Namen. | Durchfall → „EnteroGast" |
+| **Produkt** | Eine konkrete Darreichungsform einer Indikation. Vollständiger Name = Indikation + Darreichungsform. | „EnteroGast Tabletten", „EnteroGast Pulver" |
+| **Variante** | Unterschiedliche Füllmengen desselben Produkts. | EnteroGast Tabletten in 21 Stk. / 90 Stk. |
+| **Produktfamilie** | Alle Produkte (= Darreichungsformen) mit derselben Indikation werden unter dem Indikationsnamen zusammengefasst. | Familie „EnteroGast" = Tabletten + Pulver |
+
+### Regeln
+- Verschiedene Darreichungsformen = verschiedene Produkte (nicht Varianten desselben Produkts)
+- Darreichungsformen richten sich oft an unterschiedliche Tierarten (z.B. Tabletten für Hunde, Pulver für Katzen + Hunde)
+- Füllmengen = Varianten eines Produkts (kein eigener Name)
+- **Anzeige-Regel** (kontextabhängig): In den Warenkorb kommen immer **Einzelprodukte**, nie Familien. Daraus folgt: Sobald ein konkreter Preis oder eine Darreichungsform im Kontext steht, handelt es sich um ein Einzelprodukt — der Name muss die Darreichungsform enthalten. In reinen Übersichten (noch keine Produktwahl) reicht der Familienname ohne Darreichungsform.
+  - **Übersichten** (Tiles, Collection, Suche): `Calmin Balance`, `Hepax forte`
+  - **Cart, Checkout, Bestellübersicht, Freigabe**: `Calmin Balance Tabletten`, `Hepax forte Tabletten`; Variante zeigt nur noch Füllmenge (`60 Stück`)
+  - **Einzelprodukte** behalten die Darreichungsform immer: `Inzym Pulver`
+
+### Auswirkung auf den Styleguide
+- **E.2 PDP Einzelprodukt** — ein Produkt ohne Geschwister-Darreichungsform (z.B. „Laxin Pulver")
+- **E.2 PDP Produktfamilie** — mehrere Darreichungsformen unter einem Familien-Namen; mit `.pdp__type-selector` zur Auswahl der Darreichungsform
+- Aktuelle Mockup-Produkte: **Calmin Balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt, kein Bild → `placeholder-bg`)
 
 ---
 
@@ -372,7 +399,7 @@ Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehne
 - Globaler `.success-state` für Erfolgs-Bestätigung
 
 ### `Formular-Reklamation.html` — Stand-Alone-Formular
-Beispiel für Sektion 12a. Nutzt `.form-page` Shell.
+Beispiel für Sektion C.4. Nutzt `.form-page` Shell.
 
 ### `Prozess-Diagramm.html` — Swimlane-Diagramme
 Zwei Diagramme: Empfehlungsanfrage-Flow + Naturalrabatt-Konfiguration. Marketing → Backend → Frontend Spalten.

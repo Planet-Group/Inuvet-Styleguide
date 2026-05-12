@@ -153,7 +153,7 @@
 /* ════════════════════════════════════════════
    PRODUKTDATEN
    Packshot_01 = Calmin Balance · Packshot_02 = Hepax
-   approved: nur Produkt A + B (State ③)
+   approved: nur Calmin Balance + Hepax (State ③)
    ════════════════════════════════════════════ */
 /* Calmin Balance */
 const CALMIN_1 = '../assets/images/Calmin_Packshot_01.jpeg';
@@ -164,36 +164,36 @@ const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
 const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
 
 const PRODUCTS = [
-  { id:1, name:'Calmin Balance', cat:'beruhigung', catLabel:'Beruhigung', price:'39,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:true,
+  { id:1, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'39,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:true,
     shortDesc:'Für Entspannung und innere Balance.',
     desc:'Hochwertige Tropfen für eine entspannte und ausgeglichene Stimmung bei Hunden und Katzen. Schonend gewonnen, tierärztlich geprüft.',
     ingredients:'CBD-Hanfextrakt, MCT-Öl (Kokosöl), natürliches Aroma. Ohne künstliche Zusatzstoffe, ohne Lösungsmittel.',
     variants:[{label:'30 ml',price:'39,90 €'},{label:'60 ml',price:'69,90 €'},{label:'100 ml',price:'109,90 €'}] },
-  { id:2, name:'Hepax',          cat:'leber',    catLabel:'Leber',      price:'44,90 €', img:HEPAX_1,  imgHover:HEPAX_2,                      rating:'4,6', approved:true,
+  { id:2, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'44,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:true,
     shortDesc:'Unterstützt Knorpel und Gelenke.',
     desc:'Spezialformel zur Unterstützung von Knorpel und Gelenken bei aktiven Tieren. Mit natürlichen Extrakten, tierärztlich entwickelt.',
     ingredients:'Grünlippmuschel-Extrakt, Teufelskralle, Boswellia, Vitamin C, Glucosamin, Chondroitin. Frei von Getreide und Soja.',
-    variants:[{label:'60 Kapseln',price:'44,90 €'},{label:'120 Kapseln',price:'84,90 €'}] },
-  { id:3, name:'Calmin Balance', cat:'beruhigung', catLabel:'Beruhigung', price:'34,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
+    variants:[{label:'30 Tabletten',price:'44,90 €'},{label:'60 Tabletten',price:'84,90 €'}] },
+  { id:3, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'34,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
     shortDesc:'Für eine gesunde Verdauung.',
     desc:'Beruhigt den Verdauungstrakt und fördert eine gesunde Darmflora. Ideal bei empfindlichem Magen und nach Antibiotika-Behandlungen.',
     ingredients:'Flohsamenschalen, Probiotika (Enterococcus faecium), Präbiotika (FOS), Bentonit, Pektin, Kamillenextrakt. Ohne künstliche Zusatzstoffe.',
     variants:[{label:'30 ml',price:'34,90 €'},{label:'60 ml',price:'64,90 €'},{label:'100 ml',price:'99,90 €'}] },
-  { id:4, name:'Hepax',          cat:'leber',    catLabel:'Leber',      price:'49,90 €', img:HEPAX_1,  imgHover:HEPAX_2,                      rating:'4,6', approved:false,
+  { id:4, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'49,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:false,
     shortDesc:'Zur Unterstützung der Herzfunktion.',
     desc:'Spezialformel zur Unterstützung der Herzfunktion bei älteren Tieren. Enthält natürliche Wirkstoffe, tierärztlich entwickelt.',
     ingredients:'Weißdornextrakt, Coenzym Q10, Taurin, L-Carnitin, Magnesium, Vitamin E. Ohne Konservierungsstoffe.',
-    variants:[{label:'60 Kapseln',price:'49,90 €'},{label:'120 Kapseln',price:'89,90 €'}] },
-  { id:5, name:'Calmin Balance', cat:'beruhigung', catLabel:'Beruhigung', price:'42,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
+    variants:[{label:'30 Tabletten',price:'49,90 €'},{label:'60 Tabletten',price:'89,90 €'}] },
+  { id:5, name:'Calmin Balance', cartName:'Calmin Balance Pulver', cat:'beruhigung', catLabel:'Beruhigung', price:'42,90 €', img:CALMIN_1, imgHover:CALMIN_2, imgDetail:CALMIN_3, rating:'4,8', approved:false,
     shortDesc:'Zur Unterstützung der Nierenfunktion.',
     desc:'Unterstützt die Nierenfunktion und trägt zur natürlichen Entgiftung bei. Schonende Naturextrakte für Hunde und Katzen.',
     ingredients:'Cranberry-Extrakt, Brennnesselwurzel, Schachtelhalmextrakt, Vitamin B6, Kalium. Frei von künstlichen Farbstoffen.',
     variants:[{label:'30 ml',price:'42,90 €'},{label:'60 ml',price:'79,90 €'},{label:'100 ml',price:'119,90 €'}] },
-  { id:6, name:'Hepax',          cat:'leber',    catLabel:'Leber',      price:'36,90 €', img:HEPAX_1,  imgHover:HEPAX_2,                      rating:'4,6', approved:false,
+  { id:6, name:'Hepax forte', cartName:'Hepax forte Tabletten', cat:'leber', catLabel:'Leber', price:'36,90 €', img:HEPAX_1,  imgHover:HEPAX_2, rating:'4,6', approved:false,
     shortDesc:'Für gesunde Haut und glänzendes Fell.',
     desc:'Für glänzendes Fell und gesunde Haut. Reich an Omega-3-Fettsäuren und Biotin, tierärztlich geprüft.',
     ingredients:'Lachsöl, Borretschsamenöl, Biotin, Zink, Vitamin A, E. Kaltgepresst, ohne Konservierungsstoffe.',
-    variants:[{label:'60 Kapseln',price:'36,90 €'},{label:'120 Kapseln',price:'69,90 €'}] },
+    variants:[{label:'30 Tabletten',price:'36,90 €'},{label:'60 Tabletten',price:'69,90 €'}] },
 ];
 
 /* ════════════════════════════════════════════
@@ -352,7 +352,7 @@ function renderOptionsDrawer(p) {
       <div class="cart-item__info">
         <div class="cart-item__top">
           <div>
-            <p class="cart-item__name">${p.name}</p>
+            <p class="cart-item__name">${p.cartName || p.name}</p>
             <div class="cart-item__variant" id="optionsPrice">${firstPrice}</div>
           </div>
         </div>
@@ -697,7 +697,7 @@ function drawerItemHTML(id, type) {
     <div class="cart-item__info">
       <div class="cart-item__top">
         <div>
-          <p class="cart-item__name">${p.name}</p>
+          <p class="cart-item__name">${p.cartName || p.name}</p>
           <div class="cart-item__variant">${info}</div>
         </div>
         <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen" onclick="removeFromCart(${id})">
@@ -727,7 +727,7 @@ function checkoutItemHTML(id) {
     <div class="cart-item__info">
       <div class="cart-item__top">
         <div>
-          <p class="cart-item__name">${p.name}</p>
+          <p class="cart-item__name">${p.cartName || p.name}</p>
           <div class="cart-item__variant">${p.catLabel}</div>
         </div>
       </div>
@@ -834,7 +834,7 @@ function renderNav() {
    ════════════════════════════════════════════ */
 const TESTIMONIALS = [
   { text: 'Mein Hund hat sich nach wenigen Wochen spürbar beruhigt. Ich bin so froh, dass mir meine Tierärztin Calmin Balance empfohlen hat.',        name: 'Sandra M.',     role: 'Hundemama, München' },
-  { text: 'Endlich ein Produkt, das wirklich hält, was es verspricht. Hepax hat meiner Katze nach der Operation schnell wieder auf die Beine geholfen.', name: 'Thomas K.',     role: 'Katzenbesitzer, Hamburg' },
+  { text: 'Endlich ein Produkt, das wirklich hält, was es verspricht. Hepax forte hat meiner Katze nach der Operation schnell wieder auf die Beine geholfen.', name: 'Thomas K.',     role: 'Katzenbesitzer, Hamburg' },
   { text: 'Die Bestellung war unkompliziert und das Produkt kam schnell an. Mein Tierarzt hat es direkt für meinen Labrador verschrieben.',             name: 'Julia R.',      role: 'Tierliebhaberin, Berlin' },
   { text: 'Ich vertraue Inuvet seit über zwei Jahren. Die Qualität ist konstant hoch und mein Hund nimmt es problemlos.',                              name: 'Markus T.',     role: 'Golden-Retriever-Besitzer' },
   { text: 'Super Service und top Beratung. Meine Tierärztin arbeitet seit Jahren mit Inuvet und ich merke den Unterschied jeden Tag.',                 name: 'Petra L.',      role: 'Hundebesitzerin, Köln' },
