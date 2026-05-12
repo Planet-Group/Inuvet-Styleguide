@@ -128,6 +128,17 @@
       </div>
     </div><!-- /bundle-section -->
 
+    <!-- ─── Empfehlungen: Weitere Produkte zum Angebot hinzufügen ─── -->
+    <section class="bundle-recommendations" id="bundleRecommendations">
+      <div class="page">
+        <div class="bundle-recommendations__intro">
+          <h2 class="bundle-recommendations__title">Weitere Produkte für dein Angebot</h2>
+          <p class="bundle-recommendations__lead">Diese Produkte könnten dich auch interessieren — jederzeit per Klick zum Angebot hinzufügen.</p>
+        </div>
+        <div class="bundle-recommendations__scroller" id="recommendationsScroller"></div>
+      </div>
+    </section>
+
     <!-- ─── Bild + Text Section → Hinweis auf Blogbeitrag ─── -->
     <div class="section-type --v3 --viewport --reverse">
       <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_01.jpg');"></div>
@@ -471,7 +482,9 @@
     const withHistory   = allProducts.filter(p => p.past6Months > 0)
                                      .sort((a, b) => b.past6Months - a.past6Months);
     let activeBundle    = withHistory.slice(0, 5);
-    let recommendedPool = [...withHistory.slice(4), ...allProducts.filter(p => p.past6Months === 0)];
+    // Pool für Empfehlungs-Schiene: alle Produkte, die NICHT im aktiven Bundle stehen.
+    // (Bugfix: slice(5) statt slice(4) — sonst tauchte Index 4 in beiden auf.)
+    let recommendedPool = [...withHistory.slice(5), ...allProducts.filter(p => p.past6Months === 0)];
 
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
@@ -620,6 +633,52 @@
       });
 
       updateSummary();
+      renderRecommendations();
+    };
+
+    // ── Render: Empfehlungs-Schiene ─────────────────────────────────────────
+    // Cart-Item-Pattern (C.2 aus Styleguide) auf weißem Hintergrund, horizontal scrollbar.
+    // Jedes Item: Thumb + Name/Variante + Preis + "+ Hinzufügen"-Button.
+    const renderRecommendations = () => {
+      const scroller = document.getElementById('recommendationsScroller');
+      const section  = document.getElementById('bundleRecommendations');
+      if (!scroller || !section) return;
+
+      // Wenn nichts zum Empfehlen da ist: Section verbergen
+      if (recommendedPool.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      scroller.innerHTML = '';
+
+      recommendedPool.forEach(p => {
+        const variant     = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
+        const displayName = p.isFamily ? `${p.title} ${variant.type}` : p.title;
+        const sizeLabel   = variant ? variant.sizes[p.selectedSizeIdx].label + ' · ' : '';
+        const thumbHtml   = p.image ? `<img src="${p.image}" alt="${p.title}">` : '';
+
+        const card = document.createElement('div');
+        card.className = 'cart-item';
+        card.innerHTML = `
+          <div class="product-thumb-wrap">
+            <div class="product-thumb placeholder-bg">${thumbHtml}</div>
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <div>
+                <p class="cart-item__name">${displayName}</p>
+                <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.</div>
+              </div>
+            </div>
+            <div class="cart-item__bottom">
+              <button type="button" class="btn --secondary bundle-recommendations__add" onclick="addProduct(${p.id})">
+                <span class="material-icons">add</span> Hinzufügen
+              </button>
+            </div>
+          </div>`;
+        scroller.appendChild(card);
+      });
     };
 
 

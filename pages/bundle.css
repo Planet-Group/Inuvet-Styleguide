@@ -316,5 +316,72 @@
 /* ─── Empty State ─── */
 .empty-state .material-icons { font-size: 2rem; color: var(--border-light); }
 
+/* ─── Empfehlungen: weitere Produkte hinzufügen ───
+   Edge-to-edge Section mit --green-light Hintergrund.
+   Horizontal scrollbarer Container: 4/3/2/1 Items je nach Viewport-Breite. */
+.bundle-recommendations {
+  background: var(--green-light);
+  padding: var(--module-2xl) 0;
+}
+.bundle-recommendations__intro {
+  margin-bottom: var(--module);
+}
+.bundle-recommendations__title {
+  margin: 0 0 calc(var(--base) * 0.5);
+}
+.bundle-recommendations__lead {
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+/* Scroller: horizontale Reihe, scroll-snap, native Scrollbar dezent */
+.bundle-recommendations__scroller {
+  display: flex;
+  gap: var(--gutter);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--half-module);   /* Platz für Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) transparent;
+}
+.bundle-recommendations__scroller::-webkit-scrollbar        { height: 4px; }
+.bundle-recommendations__scroller::-webkit-scrollbar-track  { background: transparent; }
+.bundle-recommendations__scroller::-webkit-scrollbar-thumb  { background: var(--green); }
+
+/* Pro Item: cart-item-Pattern (C.2) auf weißem Hintergrund, feste Breite je nach Viewport.
+   4 sichtbar auf XL, 3 auf L, 2 auf M, 1 auf S. */
+.bundle-recommendations__scroller .cart-item {
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - var(--gutter) * 3) / 4);
+  background: var(--bg);
+  padding: var(--half-module);
+  border-bottom: none;                  /* Override des C.2-Defaults */
+}
+
+@media (max-width: 1199px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: calc((100% - var(--gutter) * 2) / 3);
+  }
+}
+@media (max-width: 991px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: calc((100% - var(--gutter)) / 2);
+  }
+}
+@media (max-width: 767px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: 85%;                    /* Ein Item plus Peek auf das nächste */
+  }
+}
+
+/* Add-Button im Empfehlungs-Item */
+.bundle-recommendations__add {
+  width: 100%;
+  justify-content: center;
+}
+.bundle-recommendations__add .material-icons { font-size: var(--text-base); }
+
 
 
