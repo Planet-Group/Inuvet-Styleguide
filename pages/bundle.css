@@ -8,7 +8,7 @@
    #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
    dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
    Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
-#bundleSection       { padding-top: var(--module); padding-bottom: var(--module-2xl); }
+#bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
 #bundleTestimonials  { padding-bottom: var(--module-2xl); }
 #bundleTiles         { padding-bottom: var(--module-2xl); }
 #bundleInfoMain      { padding-bottom: var(--module-2xl); }
@@ -318,20 +318,21 @@
 
 /* ─── Empfehlungen: weitere Produkte hinzufügen ───
    Edge-to-edge Section mit --green-light Hintergrund.
-   Horizontal scrollbarer Container: 4/3/2/1 Items je nach Viewport-Breite. */
+   Horizontal scrollbarer Container: 4/3/2/1 Items je nach Viewport-Breite.
+   Tight Übergang vom Bundle: nur --module Top-Padding, keine zusätzliche
+   Distanz durch .page (Override unten). */
 .bundle-recommendations {
   background: var(--green-light);
-  padding: var(--module-2xl) 0;
+  padding: var(--module) 0 var(--module-2xl);
 }
-.bundle-recommendations__intro {
-  margin-bottom: var(--module);
-}
-.bundle-recommendations__title {
-  margin: 0 0 calc(var(--base) * 0.5);
+.bundle-recommendations .page {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .bundle-recommendations__lead {
   color: var(--fg-muted);
-  margin: 0;
+  margin: 0 0 var(--half-module);
+  font-size: var(--text-base);
 }
 
 /* Scroller: horizontale Reihe, scroll-snap, native Scrollbar dezent */
@@ -376,10 +377,17 @@
   }
 }
 
-/* Add-Button im Empfehlungs-Item */
+/* Add-Button im Empfehlungs-Item — exakt Höhe von qty-selector.--sm,
+   damit das Layout zwischen Empfehlungs-Card und Bundle-Card konsistent ist. */
 .bundle-recommendations__add {
   width: 100%;
+  height: calc(var(--base) * 2);
+  padding: 0 var(--half-module);
   justify-content: center;
+  align-items: center;
+  font-size: var(--text-sm);
+  line-height: 1;
+  gap: calc(var(--base) * 0.25);
 }
 .bundle-recommendations__add .material-icons { font-size: var(--text-base); }
 

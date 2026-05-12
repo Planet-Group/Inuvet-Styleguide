@@ -131,10 +131,7 @@
     <!-- ─── Empfehlungen: Weitere Produkte zum Angebot hinzufügen ─── -->
     <section class="bundle-recommendations" id="bundleRecommendations">
       <div class="page">
-        <div class="bundle-recommendations__intro">
-          <h2 class="bundle-recommendations__title">Weitere Produkte für dein Angebot</h2>
-          <p class="bundle-recommendations__lead">Diese Produkte könnten dich auch interessieren — jederzeit per Klick zum Angebot hinzufügen.</p>
-        </div>
+        <p class="bundle-recommendations__lead">Folgende Produkte könnten dich auch interessieren — per Klick hinzufügen.</p>
         <div class="bundle-recommendations__scroller" id="recommendationsScroller"></div>
       </div>
     </section>
@@ -244,6 +241,18 @@
         <div class="mockup-customer-toggle" id="customerToggle">
           <button type="button" class="mockup-toggle-btn --active" data-type="standard" onclick="setCustomerType('standard')">Standard-Kunde</button>
           <button type="button" class="mockup-toggle-btn"          data-type="group"    onclick="setCustomerType('group')">Gruppen-Kunde</button>
+        </div>
+
+        <!-- Anzahl Empfehlungen unter dem Bundle -->
+        <p class="mockup-modal__desc">Anzahl angezeigter Empfehlungen</p>
+        <div class="mockup-customer-toggle" id="recommendationsCountToggle">
+          <button type="button" class="mockup-toggle-btn" data-count="0" onclick="setRecommendationsCount(0)">0</button>
+          <button type="button" class="mockup-toggle-btn" data-count="1" onclick="setRecommendationsCount(1)">1</button>
+          <button type="button" class="mockup-toggle-btn" data-count="2" onclick="setRecommendationsCount(2)">2</button>
+          <button type="button" class="mockup-toggle-btn --active" data-count="3" onclick="setRecommendationsCount(3)">3</button>
+          <button type="button" class="mockup-toggle-btn" data-count="4" onclick="setRecommendationsCount(4)">4</button>
+          <button type="button" class="mockup-toggle-btn" data-count="5" onclick="setRecommendationsCount(5)">5</button>
+          <button type="button" class="mockup-toggle-btn" data-count="6" onclick="setRecommendationsCount(6)">6</button>
         </div>
 
         <!-- Produkt-Modell-Auswahl -->
@@ -418,6 +427,10 @@
 
     // Globaler Kundentyp (im echten Shop via Customer-Tag, im Mockup via Toggle)
     let customerType = 'standard';   // 'standard' | 'group'
+
+    // Anzahl angezeigter Produkte in der Empfehlungs-Schiene.
+    // Im echten Shop ein Theme-/App-Setting; im Mockup im Settings-Modal einstellbar.
+    let recommendationsCount = 3;
 
     // ── Daten ──────────────────────────────────────────────────────────────
     // pricingModel: 'A' (Default, Kondition A) oder 'B' (Kondition B, Tabelle fix).
@@ -639,20 +652,23 @@
     // ── Render: Empfehlungs-Schiene ─────────────────────────────────────────
     // Cart-Item-Pattern (C.2 aus Styleguide) auf weißem Hintergrund, horizontal scrollbar.
     // Jedes Item: Thumb + Name/Variante + Preis + "+ Hinzufügen"-Button.
+    // Anzahl gezeigter Items: recommendationsCount (Default 3, im Modal einstellbar).
     const renderRecommendations = () => {
       const scroller = document.getElementById('recommendationsScroller');
       const section  = document.getElementById('bundleRecommendations');
       if (!scroller || !section) return;
 
-      // Wenn nichts zum Empfehlen da ist: Section verbergen
-      if (recommendedPool.length === 0) {
+      const visiblePool = recommendedPool.slice(0, recommendationsCount);
+
+      // Section verbergen, wenn nichts zu zeigen ist (Pool leer ODER count = 0)
+      if (visiblePool.length === 0) {
         section.style.display = 'none';
         return;
       }
       section.style.display = '';
       scroller.innerHTML = '';
 
-      recommendedPool.forEach(p => {
+      visiblePool.forEach(p => {
         const variant     = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
         const displayName = p.isFamily ? `${p.title} ${variant.type}` : p.title;
         const sizeLabel   = variant ? variant.sizes[p.selectedSizeIdx].label + ' · ' : '';
@@ -758,6 +774,15 @@
       customerType = type;
       renderCustomerToggle();
       renderBundle();   // alle Berechnungen neu (Bundle + Summary)
+    };
+
+    // Anzahl Empfehlungen aktualisieren + Toggle-Button-State synchronisieren
+    window.setRecommendationsCount = (count) => {
+      recommendationsCount = +count;
+      document.querySelectorAll('#recommendationsCountToggle .mockup-toggle-btn').forEach(btn => {
+        btn.classList.toggle('--active', +btn.dataset.count === recommendationsCount);
+      });
+      renderRecommendations();
     };
 
     // Pro Produkt eine Zeile: Name + A/B-Toggle
