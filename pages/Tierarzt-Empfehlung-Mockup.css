@@ -166,6 +166,36 @@
   border-top: 1px solid var(--border);
 }
 
+/* ─── Finder-Teaser: Lottie-Animation ─── */
+.finder-teaser__inner {
+  align-items: center;
+}
+.finder-teaser__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.4);
+  flex: 1 1 auto;
+}
+.finder-teaser__text .finder-teaser__headline { margin: 0; }
+.finder-teaser__text .finder-teaser__body     { margin: 0; }
+.finder-teaser__text .btn { align-self: flex-start; margin-top: calc(var(--base) * 0.3); }
+
+.finder-teaser__anim {
+  flex: 0 0 auto;
+  width: clamp(7rem, 16vw, 11rem);
+  pointer-events: none;
+  user-select: none;
+}
+.finder-teaser__anim lottie-player {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .finder-teaser__anim { display: none; }
+}
+
 /* ─── Logo-Override (nur diese Seite) ─── */
 .nav-center img { transform: scale(1.5); }
 
