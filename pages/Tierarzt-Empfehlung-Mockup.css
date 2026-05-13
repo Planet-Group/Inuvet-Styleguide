@@ -6,85 +6,47 @@
 
 /* ─── So funktioniert's ─── */
 .hiw {
-  background: var(--accent-bg);
-  padding: calc(var(--base) * 0.35) 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--base) * 0.5) 0;
 }
 .hiw .page { padding-top: 0; padding-bottom: 0; }
 
 .hiw__track {
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 52rem;
 }
 
 .hiw__step {
   display: flex;
-  align-items: flex-start;
-  gap: calc(var(--base) * 0.35);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: calc(var(--base) * 0.3) 0;
-  flex: 1 1 0;
-  min-width: 0;
-  text-align: left;
+  align-items: baseline;
+  gap: calc(var(--base) * 0.5);
+  padding: calc(var(--base) * 0.35) var(--gutter);
 }
-.hiw__step:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.hiw__step:first-child { padding-left: 0; }
+.hiw__step:last-child  { padding-right: 0; }
+.hiw__step + .hiw__step { border-left: 1px solid var(--border); }
 
 .hiw__num {
   font-size: var(--text-sm);
   font-weight: 700;
-  line-height: 1.4;
+  color: var(--green);
   flex-shrink: 0;
-  color: var(--border);
-  transition: color var(--anim-fast);
+  line-height: var(--lh-base);
 }
 
-.hiw__body {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.hiw__title {
+.hiw__text {
   font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--fg-muted);
-  line-height: 1.4;
-  transition: color var(--anim-fast);
-}
-
-.hiw__detail {
-  font-size: var(--text-xs);
   color: var(--fg-muted);
   line-height: var(--lh-base);
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  margin-top: 0;
-  transition: max-height var(--anim-mid), opacity var(--anim-mid), margin-top var(--anim-fast);
+  margin: 0;
 }
 
-.hiw__step.--active .hiw__num    { color: var(--green); }
-.hiw__step.--active .hiw__title  { color: var(--fg); }
-.hiw__step.--active .hiw__detail {
-  max-height: 5rem;
-  opacity: 1;
-  margin-top: calc(var(--base) * 0.15);
-}
-
-.hiw__line {
-  flex: 0 0 calc(var(--base) * 0.6);
-  height: 1px;
-  background: var(--border);
-  margin: 0 calc(var(--base) * 0.3);
-  margin-top: calc(var(--base) * 0.6);
-  align-self: flex-start;
-}
-
-@media (max-width: 540px) {
-  .hiw__title  { font-size: var(--text-xs); }
-  .hiw__line   { flex-basis: calc(var(--base) * 0.25); margin-inline: calc(var(--base) * 0.1); }
+@media (max-width: 600px) {
+  .hiw__track { grid-template-columns: 1fr; max-width: none; }
+  .hiw__step  { padding-inline: 0; }
+  .hiw__step + .hiw__step { border-left: none; border-top: 1px solid var(--border); }
 }
 
 /* ─── Seiten-Elemente (Mockup-Inhalt, nicht inuvet.css, nicht mockup-ui.css) ─── */
@@ -109,155 +71,3 @@
   line-height: var(--lh-h3);
   margin-bottom: var(--half-module);
 }
-
-/* ─── Checkout-Modal ─── */
-.shop-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: var(--z-modal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--module);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--anim-mid), visibility var(--anim-mid);
-}
-.shop-modal-overlay.--open { opacity: 1; visibility: visible; }
-.shop-modal {
-  background: var(--bg);
-  width: 100%;
-  max-width: 480px;
-  padding: var(--module);
-  transform: translateY(1rem);
-  transition: transform var(--anim-mid);
-}
-.shop-modal-overlay.--open .shop-modal { transform: translateY(0); }
-.shop-modal__icon  { margin-bottom: var(--half-module); }
-.shop-modal__title {
-  font-size: var(--text-m);
-  font-weight: 700;
-  line-height: var(--lh-h3);
-  margin-bottom: var(--half-module);
-}
-.shop-modal__body {
-  font-size: var(--text-base);
-  color: var(--fg-muted);
-  line-height: var(--lh-base);
-  margin-bottom: var(--module);
-}
-.shop-modal__actions { display: flex; flex-direction: column; gap: calc(var(--half-module) / 2); }
-
-/* ─── Navigation ─── */
-/* nav-left a font-size --text-base ist jetzt globaler Standard in inuvet.css */
-
-/* ─── Options-Drawer (Varianten wählen) ─── */
-.options-overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--color-overlay-dark);
-  z-index: 850;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--anim-mid), visibility var(--anim-mid);
-}
-.options-overlay.--open { opacity: 1; visibility: visible; }
-
-.options-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(440px, 100vw);
-  background: var(--bg);
-  z-index: 900;
-  transform: translateX(100%);
-  transition: transform var(--anim-mid);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-.options-drawer.--open { transform: translateX(0); }
-
-/* Produktvorschau — nutzt .cart-item Basis aus §15 */
-.options-drawer__product {
-  padding: var(--half-module) var(--module);
-  border-bottom: 1px solid var(--border-light);
-}
-
-/* Sektionen (Größe, Menge) */
-.options-drawer__section {
-  padding: var(--half-module) var(--module);
-  border-bottom: 1px solid var(--border-light);
-}
-.options-drawer__section-label {
-  margin-bottom: calc(var(--half-module) / 2);
-  color: var(--fg-muted);
-}
-
-/* Varianten-Pills */
-.options-variants {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-.options-variant-btn {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--fg);
-  padding: 0.4em 1em;
-  font-size: var(--text-sm);
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color var(--anim-fast), background var(--anim-fast), color var(--anim-fast);
-  line-height: 1.4;
-}
-.options-variant-btn:hover { border-color: var(--fg); }
-.options-variant-btn.--active {
-  border-color: var(--fg);
-  background: var(--fg);
-  color: var(--bg);
-}
-
-/* Footer: nur CTA, volle Breite, Abstand nach unten */
-.options-drawer__footer {
-  margin-top: auto;
-  padding: var(--module) var(--module) calc(var(--module) * 1.5);
-  border-top: 1px solid var(--border-light);
-}
-.options-drawer__footer .btn {
-  width: 100%;
-  justify-content: center;
-}
-
-/* ─── Vet Search Dropdown ─── */
-.vet-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-top: none;
-  z-index: 100;
-  max-height: 14rem;
-  overflow-y: auto;
-}
-
-.vet-dropdown__item {
-  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
-  cursor: pointer;
-  border-bottom: 1px solid var(--border-light);
-  font-size: var(--text-base);
-  line-height: var(--lh-base);
-  transition: background var(--anim-fast);
-}
-.vet-dropdown__item:last-child { border-bottom: none; }
-.vet-dropdown__item:hover { background: var(--accent-bg); }
-
-.vet-dropdown__custom {
-  border-top: 1px solid var(--border-light);
-  color: var(--fg-muted);
-}
-
