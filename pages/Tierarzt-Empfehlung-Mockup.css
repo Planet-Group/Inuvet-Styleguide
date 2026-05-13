@@ -73,22 +73,21 @@
 
 /* ─── Finder-Teaser (Collection-Seite) ─── */
 .finder-teaser {
-  background: var(--accent-bg);
-  border-bottom: 1px solid var(--border);
-  padding: var(--module) 0;
+  background: var(--bg);
+  border-bottom: none;
+  padding: 0 0 var(--half-module);
+  overflow: visible;
 }
 .finder-teaser .page { padding-top: 0; padding-bottom: 0; }
 .finder-teaser__inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--module);
-  flex-wrap: wrap;
+  overflow: visible;
 }
 .finder-teaser__headline {
-  font-size: var(--text-m);
+  font-size: var(--text-l);
   font-weight: 700;
-  line-height: var(--lh-h3);
+  line-height: var(--lh-h2);
   margin: calc(var(--base) * 0.2) 0 calc(var(--base) * 0.3);
 }
 .finder-teaser__body {
@@ -137,17 +136,18 @@
   border-top: 1px solid var(--border);
 }
 
-/* ─── Finder-Teaser: Lottie-Animation (50/50) ─── */
+/* ─── Finder-Teaser: Lottie-Animation (50/50, Überlapp nach oben) ─── */
 .finder-teaser__inner {
-  align-items: stretch;
-  gap: var(--module);
+  align-items: flex-end;  /* Text sitzt am unteren Rand, Animation ragt oben raus */
+  overflow: visible;
 }
 .finder-teaser__text {
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 0.4);
-  justify-content: center;
+  justify-content: flex-end;
+  padding-top: var(--half-module);
 }
 .finder-teaser__text .finder-teaser__headline { margin: 0; }
 .finder-teaser__text .finder-teaser__body     { margin: 0; }
@@ -155,17 +155,21 @@
 
 .finder-teaser__anim {
   flex: 1 1 0;
-  overflow: hidden;
+  overflow: visible;          /* nach oben bluten erlaubt */
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   pointer-events: none;
   user-select: none;
-  min-height: 12rem;  /* Mindesthöhe damit die Section nicht kollabiert */
+  position: relative;
+  z-index: calc(var(--z-nav) + 2);   /* über announcement-bar + nav */
+  /* Animation um ~60 % der Header-Höhe nach oben schieben */
+  transform: translateY(calc(var(--header-height) * -0.6));
 }
 .finder-teaser__anim lottie-player {
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 14rem;
 }
 
 @media (max-width: 600px) {
