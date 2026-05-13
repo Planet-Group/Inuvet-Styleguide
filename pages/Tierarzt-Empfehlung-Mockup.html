@@ -361,7 +361,7 @@ function selectOptionsVariant(index) {
     : p.variants[index].price;
   const priceEl = document.getElementById('optionsPrice');
   if (priceEl) priceEl.textContent = price;
-  document.querySelectorAll('#optionsDrawer .options-variants .choice-box').forEach((btn, i) =>
+  document.querySelectorAll('#optionsSizeVariants .choice-box').forEach((btn, i) =>
     btn.classList.toggle('--active', i === index));
 }
 
@@ -427,7 +427,7 @@ function renderOptionsDrawer() {
       ${formSection}
       <div class="options-drawer__section">
         <div class="label-caps options-drawer__section-label">Größe</div>
-        <div class="options-variants">${variantBtns}</div>
+        <div class="options-variants" id="optionsSizeVariants">${variantBtns}</div>
       </div>
       <div class="options-drawer__section">
         <div class="label-caps options-drawer__section-label">Menge</div>
