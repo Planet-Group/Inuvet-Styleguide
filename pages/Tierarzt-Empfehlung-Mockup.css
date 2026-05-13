@@ -4,6 +4,80 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
+/* ─── So funktioniert's ─── */
+.hiw {
+  background: var(--accent-bg);
+  padding: var(--module) 0 calc(var(--module) * 1.1);
+}
+.hiw__eyebrow { margin-bottom: var(--half-module); }
+
+.hiw__track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: var(--half-module);
+}
+
+.hiw__step {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.35);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex: 0 0 auto;
+  text-align: left;
+}
+.hiw__step:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+
+.hiw__num {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--border);
+  transition: color var(--anim-mid);
+}
+.hiw__title {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  transition: color var(--anim-mid);
+  white-space: nowrap;
+}
+
+.hiw__step.--active .hiw__num  { color: var(--green); }
+.hiw__step.--active .hiw__title { color: var(--fg); font-weight: 600; }
+
+.hiw__line {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--border);
+  min-width: calc(var(--base) * 0.75);
+  margin: 0 calc(var(--base) * 0.5);
+}
+
+/* Detail-Panels */
+.hiw__panels { position: relative; min-height: calc(var(--base) * 2.5); }
+
+.hiw__panel {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  color: var(--fg-muted);
+  opacity: 0;
+  transition: opacity var(--anim-mid);
+  pointer-events: none;
+}
+.hiw__panel.--active { opacity: 1; pointer-events: auto; }
+
+/* Mobile: Titel ausblenden, nur Nummern sichtbar */
+@media (max-width: 540px) {
+  .hiw__title { display: none; }
+  .hiw__line  { min-width: calc(var(--base) * 0.4); }
+}
+
 /* ─── Seiten-Elemente (Mockup-Inhalt, nicht inuvet.css, nicht mockup-ui.css) ─── */
 
 .shop-notice {
