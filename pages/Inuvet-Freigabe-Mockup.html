@@ -57,9 +57,6 @@
     <span class="approval-meta__item"><span class="label-caps">E-Mail</span><span class="approval-meta__val">kunde@email.com</span></span>
   </div>
 
-  <!-- Produkt-Liste -->
-  <h2 class="section-label --sub">Angefragt (2 Produkte)</h2>
-
   <div class="approval-product-grid">
 
   <!-- Produkt 1: Calmin Balance Tabletten -->
@@ -79,22 +76,21 @@
           <button class="choice-box --sm --active" type="button" onclick="setVariant(1,'60 Stück',this)">60 Stück</button>
           <button class="choice-box --sm" type="button" onclick="setVariant(1,'90 Stück',this)">90 Stück</button>
         </div>
-        <div class="approval-controls">
-          <div class="form-field --sm">
-            <select id="approval-select-1" onchange="setQty(1, this.value)">
-              <option value="" disabled selected>Bitte entscheiden …</option>
-              <option value="reject">Ablehnen</option>
-              <option value="max1">max. 1×</option>
-              <option value="max2">max. 2×</option>
-              <option value="max5">max. 5×</option>
-              <option value="unlimited">Unbegrenzt</option>
-            </select>
-          </div>
-          <div class="approval-commission">
-            <span class="label-caps">Provision</span>
-            <span class="approval-commission__value --muted" id="commission-1">—</span>
-          </div>
-        </div>
+      </div>
+    </div>
+    <div class="approval-controls">
+      <div class="form-field --sm">
+        <select id="approval-select-1" onchange="setQty(1, this.value)">
+          <option value="unlimited" selected>Unbegrenzt</option>
+          <option value="max5">max. 5×</option>
+          <option value="max2">max. 2×</option>
+          <option value="max1">max. 1×</option>
+          <option value="reject">Ablehnen</option>
+        </select>
+      </div>
+      <div class="approval-commission">
+        <span class="label-caps">Provision</span>
+        <span class="approval-commission__value --muted" id="commission-1">—</span>
       </div>
     </div>
     <div class="approval-product-card__note">
@@ -122,22 +118,21 @@
           <button class="choice-box --sm --active" type="button" onclick="setVariant(2,'30 Stück',this)">30 Stück</button>
           <button class="choice-box --sm" type="button" onclick="setVariant(2,'60 Stück',this)">60 Stück</button>
         </div>
-        <div class="approval-controls">
-          <div class="form-field --sm">
-            <select id="approval-select-2" onchange="setQty(2, this.value)">
-              <option value="" disabled selected>Bitte entscheiden …</option>
-              <option value="reject">Ablehnen</option>
-              <option value="max1">max. 1×</option>
-              <option value="max2">max. 2×</option>
-              <option value="max5">max. 5×</option>
-              <option value="unlimited">Unbegrenzt</option>
-            </select>
-          </div>
-          <div class="approval-commission">
-            <span class="label-caps">Provision</span>
-            <span class="approval-commission__value --muted" id="commission-2">—</span>
-          </div>
-        </div>
+      </div>
+    </div>
+    <div class="approval-controls">
+      <div class="form-field --sm">
+        <select id="approval-select-2" onchange="setQty(2, this.value)">
+          <option value="unlimited" selected>Unbegrenzt</option>
+          <option value="max5">max. 5×</option>
+          <option value="max2">max. 2×</option>
+          <option value="max1">max. 1×</option>
+          <option value="reject">Ablehnen</option>
+        </select>
+      </div>
+      <div class="approval-commission">
+        <span class="label-caps">Provision</span>
+        <span class="approval-commission__value --muted" id="commission-2">—</span>
       </div>
     </div>
     <div class="approval-product-card__note">
@@ -202,10 +197,9 @@ const REQUEST_PRODUCTS = [
 // Mapping Empfehlungs-Stufe → maximale Anzahl Bestellungen
 const QTY_MAX = { reject: 0, max1: 1, max2: 2, max5: 5, unlimited: Infinity };
 
-// State pro Produkt — angefragte Größe als Default, Empfehlung offen
 const approvalState = {
-  1: { qty: null, variantLabel: '60 Stück' },
-  2: { qty: null, variantLabel: '30 Stück' },
+  1: { qty: 'unlimited', variantLabel: '60 Stück' },
+  2: { qty: 'unlimited', variantLabel: '30 Stück' },
 };
 
 function formatEur(value) {
@@ -250,24 +244,35 @@ function updateCounter() {
   const decided = Object.values(approvalState).filter(s => s.qty !== null).length;
   const counter = document.getElementById('approvalCounter');
 
-  let totalCommission = 0;
-  let hasUnlimited = false;
+  let totalFixed = 0;
+  let unlimitedPerOrder = 0;
   REQUEST_PRODUCTS.forEach(p => {
     const s = approvalState[p.id];
     if (!s || s.qty === null || s.qty === 'reject') return;
     const max = QTY_MAX[s.qty];
-    if (max === Infinity) hasUnlimited = true;
-    else totalCommission += p.commissionPerOrder * max;
+    if (max === Infinity) unlimitedPerOrder += p.commissionPerOrder;
+    else totalFixed += p.commissionPerOrder * max;
   });
 
   let text = `${decided} von ${total} Produkten entschieden`;
-  if (totalCommission > 0 || hasUnlimited) {
-    const suffix = hasUnlimited ? ' + Unbegrenzt' : '';
-    text += ` · Provision: bis zu ${formatEur(totalCommission)}${suffix}`;
+  if (totalFixed > 0 || unlimitedPerOrder > 0) {
+    let provText;
+    if (totalFixed > 0 && unlimitedPerOrder > 0) {
+      provText = `bis zu ${formatEur(totalFixed)} + ${formatEur(unlimitedPerOrder)} pro Bestellung`;
+    } else if (totalFixed > 0) {
+      provText = `bis zu ${formatEur(totalFixed)}`;
+    } else {
+      provText = `${formatEur(unlimitedPerOrder)} pro Bestellung`;
+    }
+    text += ` · Provision: ${provText}`;
   }
   counter.textContent = text;
   counter.classList.toggle('--complete', decided === total);
 }
+
+// Initialzustand rendern (Default: Unbegrenzt für alle Produkte)
+REQUEST_PRODUCTS.forEach(p => updateCommission(p.id));
+updateCounter();
 
 function submitApproval() {
   const undecided = Object.entries(approvalState).filter(([_, s]) => s.qty === null);

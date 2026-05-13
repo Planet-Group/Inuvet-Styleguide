@@ -32,17 +32,9 @@
   .approval-product-grid { grid-template-columns: 1fr; }
 }
 
-/* ─── Produkt-Card: Status via Border-Left ─── */
-.approval-product-card {
-  border-left: 3px solid transparent;
-  transition: border-left-color var(--anim-fast);
-}
-.approval-product-card[data-status="approved"] { border-left-color: var(--green); }
-.approval-product-card[data-status="rejected"] { border-left-color: var(--color-error); }
-
 /* ─── Cart-Item innerhalb der Card — nutzt globales .cart-item als Basis ─── */
 .approval-product-card .cart-item {
-  padding: var(--half-module);
+  padding: 0;
   border-bottom: none;
 }
 
@@ -57,9 +49,9 @@
 /* ─── Empfehlung-Zeile: Dropdown + Provision nebeneinander ─── */
 .approval-controls {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: var(--half-module);
-  margin-top: calc(var(--base) * 0.5);
+  margin-top: var(--half-module);
   flex-wrap: wrap;
 }
 .approval-controls .form-field.--sm { flex: 0 0 12rem; }
@@ -77,7 +69,7 @@
 
 /* ─── Notiz-Bereich ─── */
 .approval-product-card__note {
-  padding: 0 var(--half-module) var(--half-module);
+  margin-top: var(--half-module);
 }
 
 /* ─── Status-Counter ─── */
