@@ -6,14 +6,31 @@
 /* ─── Seiten-Container ─── */
 .approval-page { padding-bottom: var(--module-3xl); }
 
-/* ─── Patienten-Meta — schlanke Header-Zeile ─── */
+/* ─── Intro: 2-spaltig auf Desktop (Headline links, Meta rechts) ─── */
+.approval-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--module);
+}
+@media (min-width: 768px) {
+  .approval-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--gutter);
+    align-items: start;
+  }
+}
+.approval-intro h1 { margin: 0; }
+
+/* ─── Patienten-Meta ─── */
 .approval-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--base) * 0.4) var(--module);
+  flex-direction: column;
+  gap: calc(var(--base) * 0.4);
   font-size: var(--text-sm);
-  margin-top: var(--half-module);
-  margin-bottom: var(--module);
+}
+@media (min-width: 768px) {
+  .approval-meta { padding-top: calc(var(--base) * 0.4); }
 }
 .approval-meta__item { display: flex; gap: calc(var(--base) * 0.5); align-items: baseline; }
 .approval-meta__val  { color: var(--fg); }
