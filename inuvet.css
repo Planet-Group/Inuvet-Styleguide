@@ -541,12 +541,11 @@
   .section-type__animation { align-self: center; }
   .section-type__animation lottie-player { width: 100%; display: block; }
 
-  /* Wenn Animation statt Bild: Content kompakt, zentriert, Zeilenlänge begrenzt */
+  /* Wenn Animation statt Bild: Content vertikal zentriert, volle Spaltenbreite */
   .section-type:has(.section-type__animation) .section-type__content {
     justify-content: center;
     gap: var(--half-module);
-    max-width: calc(var(--module) * 8); /* 8× = 24rem */
-    margin: auto;
+    margin-block: auto;  /* vertikal zentriert, kein horizontales Einrücken */
   }
   .section-type:has(.section-type__animation) .section-type__bottom {
     margin-top: 0;
