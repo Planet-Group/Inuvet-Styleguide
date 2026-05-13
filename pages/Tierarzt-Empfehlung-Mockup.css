@@ -4,36 +4,49 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
-/* ─── So funktioniert's ─── */
+/* ─── So funktioniert's — Prozess-Pfad ─── */
 .hiw {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-  padding: calc(var(--base) * 0.5) 0;
+  padding: calc(var(--base) * 0.6) 0;
 }
 .hiw .page { padding-top: 0; padding-bottom: 0; }
 
 .hiw__track {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 52rem;
+  display: flex;
+  align-items: flex-start;
 }
 
+/* Node — offener Kreis als Prozess-Punkt */
 .hiw__step {
   display: flex;
-  align-items: baseline;
-  gap: calc(var(--base) * 0.5);
-  padding: calc(var(--base) * 0.35) var(--gutter);
+  align-items: flex-start;
+  gap: calc(var(--base) * 0.4);
+  flex: 0 0 auto;
+  max-width: 13rem;
 }
-.hiw__step:first-child { padding-left: 0; }
-.hiw__step:last-child  { padding-right: 0; }
-.hiw__step + .hiw__step { border-left: 1px solid var(--border); }
+
+.hiw__node {
+  width:  calc(var(--base) * 0.6);
+  height: calc(var(--base) * 0.6);
+  border: 1.5px solid var(--fg-muted);
+  border-radius: 50%;
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: calc(var(--base) * 0.2);
+}
+
+.hiw__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.05);
+}
 
 .hiw__num {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: 700;
   color: var(--green);
-  flex-shrink: 0;
-  line-height: var(--lh-base);
+  line-height: 1.2;
 }
 
 .hiw__text {
@@ -43,10 +56,19 @@
   margin: 0;
 }
 
+/* Verbindungslinie zwischen den Schritten */
+.hiw__connector {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--border);
+  margin-top: calc(var(--base) * 0.5);
+  min-width: var(--half-module);
+}
+
 @media (max-width: 600px) {
-  .hiw__track { grid-template-columns: 1fr; max-width: none; }
-  .hiw__step  { padding-inline: 0; }
-  .hiw__step + .hiw__step { border-left: none; border-top: 1px solid var(--border); }
+  .hiw__track    { flex-direction: column; gap: calc(var(--base) * 0.5); }
+  .hiw__step     { max-width: none; }
+  .hiw__connector { display: none; }
 }
 
 /* ─── Logo-Override (nur diese Seite) ─── */

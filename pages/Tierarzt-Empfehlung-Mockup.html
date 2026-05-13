@@ -1146,16 +1146,24 @@ const HIW_STEPS = [
 ];
 
 function hiwHTML() {
-  const steps = HIW_STEPS.map((text, i) => `
-    <div class="hiw__step">
-      <span class="hiw__num">0${i + 1}</span>
-      <p class="hiw__text">${text}</p>
-    </div>
-  `).join('');
+  const items = HIW_STEPS.map((text, i) => {
+    const step = `
+      <div class="hiw__step">
+        <span class="hiw__node" aria-hidden="true"></span>
+        <div class="hiw__body">
+          <span class="hiw__num">0${i + 1}</span>
+          <p class="hiw__text">${text}</p>
+        </div>
+      </div>`;
+    const connector = i < HIW_STEPS.length - 1
+      ? '<span class="hiw__connector" aria-hidden="true"></span>'
+      : '';
+    return step + connector;
+  }).join('');
   return `
     <div class="hiw">
       <div class="page">
-        <div class="hiw__track">${steps}</div>
+        <div class="hiw__track">${items}</div>
       </div>
     </div>`;
 }
