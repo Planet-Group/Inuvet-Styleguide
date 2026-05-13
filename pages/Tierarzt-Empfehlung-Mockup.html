@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../temp.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <link rel="stylesheet" href="Tierarzt-Empfehlung-Mockup.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="--mockup-bar-visible">
 
@@ -1388,6 +1389,15 @@ function renderFinderStep() {
       <div class="finder__header">
         <span class="label-caps">Schritt ${finderStep + 1} von 2</span>
         <button class="btn --icon" onclick="closeFinder()"><span class="material-icons">close</span></button>
+      </div>
+      <div class="finder__lottie">
+        <lottie-player
+          src="../assets/graphics/inuvet_website_animation_pagenotfound_json.json"
+          background="transparent"
+          speed="1"
+          loop
+          autoplay>
+        </lottie-player>
       </div>
       <div class="finder__body">
         <h3 class="finder__question">${isAnimal ? 'Welches Tier hast du?' : 'Was beschäftigt dich?'}</h3>

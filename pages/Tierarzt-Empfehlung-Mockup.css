@@ -191,3 +191,14 @@
   line-height: var(--lh-h3);
   margin-bottom: var(--half-module);
 }
+
+/* ─── Produktfinder — Lottie-Animation ─── */
+.finder__lottie {
+  display: flex;
+  justify-content: center;
+  padding: var(--half-module) var(--half-module) 0;
+}
+.finder__lottie lottie-player {
+  width: 160px;
+  height: 160px;
+}
