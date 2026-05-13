@@ -168,13 +168,14 @@
 
 /* ─── Finder-Teaser: Lottie-Animation ─── */
 .finder-teaser__inner {
-  align-items: center;
+  align-items: stretch;   /* Section-Höhe = Maß für die Animation */
 }
 .finder-teaser__text {
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 0.4);
   flex: 1 1 auto;
+  justify-content: center;
 }
 .finder-teaser__text .finder-teaser__headline { margin: 0; }
 .finder-teaser__text .finder-teaser__body     { margin: 0; }
@@ -182,14 +183,17 @@
 
 .finder-teaser__anim {
   flex: 0 0 auto;
-  width: clamp(7rem, 16vw, 11rem);
+  width: clamp(8rem, 18vw, 14rem);
+  overflow: hidden;         /* nicht über Section-Höhe hinauswachsen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
   user-select: none;
 }
 .finder-teaser__anim lottie-player {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
 }
 
 @media (max-width: 600px) {
