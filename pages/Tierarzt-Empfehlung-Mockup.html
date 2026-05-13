@@ -1139,10 +1139,10 @@ function tileHTML(p) {
 
 /* ── So funktioniert's ── */
 const HIW_STEPS = [
-  { label: 'Entdecken',  detail: 'Stöbere im Shop und finde das richtige Produkt für dein Tier — gefiltert nach Tierart oder Indikation.' },
-  { label: 'Anfragen',   detail: 'Wähle deine Tierarztpraxis. Sie erhält automatisch eine Anfrage und kann sie mit wenigen Klicks freigeben.' },
-  { label: 'Freigabe',   detail: 'Die Praxis prüft die Empfehlung und gibt sie frei — du wirst sofort per E-Mail benachrichtigt.' },
-  { label: 'Einlösen',   detail: 'Löse deine Empfehlung direkt im Shop ein und schließe die Bestellung ab.' },
+  { label: 'Dein Tier braucht Hilfe',       detail: 'Entdecke Produkte, die speziell für die Gesundheit und das Wohlbefinden deines Begleiters entwickelt wurden.' },
+  { label: 'Dein Tierarzt weiß, was hilft', detail: 'Frag in deiner Praxis nach — dein Arzt kennt dein Tier und empfiehlt nur, was wirklich passt.' },
+  { label: 'Persönlich freigegeben',         detail: 'Keine generischen Listen. Nur das, was dein Tierarzt gezielt für dein Tier genehmigt hat.' },
+  { label: 'Gesund nach Hause',              detail: 'Löse die Empfehlung ein und bestell direkt — dein Tier bekommt genau das, was es braucht.' },
 ];
 let hiwCurrent = 0;
 let hiwTimer   = null;
@@ -1151,7 +1151,6 @@ function hiwActivate(i, manual) {
   if (manual) { clearInterval(hiwTimer); hiwTimer = null; }
   hiwCurrent = i;
   document.querySelectorAll('.hiw__step').forEach((el, idx) => el.classList.toggle('--active', idx === i));
-  document.querySelectorAll('.hiw__panel').forEach((el, idx) => el.classList.toggle('--active', idx === i));
 }
 
 function hiwInit() {
@@ -1164,19 +1163,17 @@ function hiwHTML() {
   const steps = HIW_STEPS.map((s, i) => `
     <button class="hiw__step${i === 0 ? ' --active' : ''}" onclick="hiwActivate(${i}, true)" aria-label="Schritt ${i+1}: ${s.label}">
       <span class="hiw__num">0${i + 1}</span>
-      <span class="hiw__title">${s.label}</span>
+      <span class="hiw__body">
+        <span class="hiw__title">${s.label}</span>
+        <span class="hiw__detail">${s.detail}</span>
+      </span>
     </button>
     ${i < HIW_STEPS.length - 1 ? '<span class="hiw__line" aria-hidden="true"></span>' : ''}
-  `).join('');
-  const panels = HIW_STEPS.map((s, i) => `
-    <p class="hiw__panel${i === 0 ? ' --active' : ''}">${s.detail}</p>
   `).join('');
   return `
     <div class="hiw">
       <div class="page">
-        <p class="label-caps hiw__eyebrow">So funktioniert's</p>
         <div class="hiw__track">${steps}</div>
-        <div class="hiw__panels">${panels}</div>
       </div>
     </div>`;
 }
