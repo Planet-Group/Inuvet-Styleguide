@@ -1411,18 +1411,22 @@ function renderFinderResult(matches) {
   const overlay = document.getElementById('finderOverlay');
   const items = matches.length
     ? matches.map(p => {
-        const firstVariant = p.darreichungsformen?.[0]?.variants?.[0];
-        const meta = [p.darreichungsformen?.[0]?.label, firstVariant?.label].filter(Boolean).join(' · ');
+        const dform        = p.darreichungsformen?.[0];
+        const firstVariant = dform?.variants?.[0];
+        const cartName     = dform?.cartName || p.name;
+        // "60 Stück" → "60", dann + Darreichungsform + Preis → "60 Tabletten · 39,90 €"
+        const qty  = firstVariant?.label?.replace(/\s*(Stück|g|ml)\s*$/i, '').trim() ?? '';
+        const meta = [qty + (dform?.label ? ' ' + dform.label : ''), firstVariant?.price].filter(Boolean).join(' · ');
         return `
         <div class="cart-item" style="cursor:pointer" onclick="closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
           <div class="product-thumb">
-            ${p.img ? `<img src="${p.img}" alt="${p.name}">` : ''}
+            ${p.img ? `<img src="${p.img}" alt="${cartName}">` : ''}
             ${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}
           </div>
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">${p.name}</p>
+                <p class="cart-item__name">${cartName}</p>
                 ${meta ? `<p class="cart-item__meta">${meta}</p>` : ''}
               </div>
             </div>
