@@ -1412,10 +1412,9 @@ function renderFinderResult(matches) {
     ? matches.map(p => {
         const dform        = p.darreichungsformen?.[0];
         const firstVariant = dform?.variants?.[0];
-        const cartName     = dform?.cartName || p.name;
-        // "60 Stück" → "60", dann + Darreichungsform + Preis → "60 Tabletten · 39,90 €"
-        const qty  = firstVariant?.label?.replace(/\s*(Stück|g|ml)\s*$/i, '').trim() ?? '';
-        const meta = [qty + (dform?.label ? ' ' + dform.label : ''), firstVariant?.price].filter(Boolean).join(' · ');
+        const cartName  = dform?.cartName || p.name;
+        // Unterzeile: "60 Stück · 39,90 €"
+        const variant   = [firstVariant?.label, firstVariant?.price].filter(Boolean).join(' · ');
         return `
         <div class="cart-item" style="cursor:pointer" onclick="closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
           <div class="product-thumb">
@@ -1426,7 +1425,7 @@ function renderFinderResult(matches) {
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${cartName}</p>
-                ${meta ? `<p class="cart-item__meta">${meta}</p>` : ''}
+                ${variant ? `<div class="cart-item__variant">${variant}</div>` : ''}
               </div>
             </div>
             <button class="btn --primary --sm" onclick="event.stopPropagation();closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">Zum Produkt</button>
