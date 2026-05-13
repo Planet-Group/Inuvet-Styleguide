@@ -33,3 +33,47 @@
   overflow-y: auto;
 }
 .options-drawer.--open { transform: translateX(0); }
+
+/* Inhaltsstruktur des Options-Drawers */
+.options-drawer__product {
+  padding: var(--half-module);
+  border-bottom: 1px solid var(--border);
+}
+
+.options-drawer__section {
+  padding: var(--half-module);
+  border-bottom: 1px solid var(--border);
+}
+
+.options-drawer__section-label {
+  margin-bottom: calc(var(--base) * 0.4);
+}
+
+.options-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--base) * 0.4);
+}
+
+/* Größen-Buttons — wie .choice-box */
+.options-variant-btn {
+  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.6);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--anim-fast), background var(--anim-fast);
+}
+.options-variant-btn:hover  { border-color: var(--fg); }
+.options-variant-btn.--active {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.options-drawer__footer {
+  padding: var(--half-module);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
