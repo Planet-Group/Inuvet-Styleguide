@@ -1168,6 +1168,113 @@ function hiwHTML() {
     </div>`;
 }
 
+/* ── Produktfinder ── */
+const FINDER_ANIMALS = [
+  { value: 'hund',  label: 'Hund'  },
+  { value: 'katze', label: 'Katze' },
+];
+const FINDER_INDICATIONS = [
+  { value: 'beruhigung',    label: 'Nervosität & Stress',   desc: 'Mein Tier ist ängstlich, unruhig oder gestresst.' },
+  { value: 'leber',         label: 'Leber & Stoffwechsel',  desc: 'Unterstützung bei Leberproblemen oder Verdauungsschwäche.' },
+  { value: 'bauchspeichel', label: 'Verdauung',             desc: 'Verdauungsprobleme, Unterstützung der Bauchspeicheldrüse.' },
+];
+
+let finderAnimal = null;
+let finderStep   = 0;
+
+function openFinder() {
+  finderAnimal = null; finderStep = 0;
+  let overlay = document.getElementById('finderOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.id = 'finderOverlay';
+    overlay.onclick = e => { if (e.target === overlay) closeFinder(); };
+    document.body.appendChild(overlay);
+  }
+  renderFinderStep();
+}
+
+function closeFinder() {
+  document.getElementById('finderOverlay')?.classList.remove('--open');
+}
+
+function finderPickAnimal(v) {
+  finderAnimal = v; finderStep = 1; renderFinderStep();
+}
+
+function finderPickIndication(indication) {
+  const matches = PRODUCTS.filter(p => {
+    if (p.cat !== indication) return false;
+    const animals = (p.darreichungsformen || [])
+      .flatMap(d => (d.animals || '').toLowerCase().split(',').map(a => a.trim()))
+      .filter(Boolean);
+    return animals.length === 0 || animals.some(a => a.includes(finderAnimal));
+  });
+  renderFinderResult(matches);
+}
+
+function renderFinderStep() {
+  const overlay = document.getElementById('finderOverlay');
+  const isAnimal = finderStep === 0;
+  const options = isAnimal
+    ? FINDER_ANIMALS.map(a =>
+        `<button class="choice-box finder__option" onclick="finderPickAnimal('${a.value}')">${a.label}</button>`
+      ).join('')
+    : FINDER_INDICATIONS.map(ind =>
+        `<button class="finder__option" onclick="finderPickIndication('${ind.value}')">
+          <strong>${ind.label}</strong><span>${ind.desc}</span>
+        </button>`
+      ).join('');
+  const back = finderStep > 0
+    ? `<button class="btn --ghost --sm" onclick="finderStep=0;finderAnimal=null;renderFinderStep()">← Zurück</button>` : '';
+
+  overlay.innerHTML = `
+    <div class="modal finder__modal">
+      <div class="finder__header">
+        <span class="label-caps">Schritt ${finderStep + 1} von 2</span>
+        <button class="btn --icon" onclick="closeFinder()"><span class="material-icons">close</span></button>
+      </div>
+      <div class="finder__body">
+        <h3 class="finder__question">${isAnimal ? 'Welches Tier hast du?' : 'Was beschäftigt dich?'}</h3>
+        <div class="finder__options${isAnimal ? ' --row' : ''}">${options}</div>
+      </div>
+      ${back ? `<div class="finder__footer">${back}</div>` : ''}
+    </div>`;
+  overlay.classList.add('--open');
+}
+
+function renderFinderResult(matches) {
+  const overlay = document.getElementById('finderOverlay');
+  const items = matches.length
+    ? matches.map(p => `
+        <div class="finder__result" onclick="closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" class="finder__result-img">` : ''}
+          <div class="finder__result-body">
+            <p class="finder__result-name">${p.name}</p>
+            <p class="finder__result-desc">${p.shortDesc}</p>
+            <span class="btn --primary --sm">Zum Produkt →</span>
+          </div>
+        </div>`).join('')
+    : `<p style="color:var(--fg-muted)">Kein passendes Produkt gefunden — frag deinen Tierarzt.</p>`;
+
+  overlay.innerHTML = `
+    <div class="modal finder__modal">
+      <div class="finder__header">
+        <span class="label-caps">Unser Tipp für dich</span>
+        <button class="btn --icon" onclick="closeFinder()"><span class="material-icons">close</span></button>
+      </div>
+      <div class="finder__body">
+        <h3 class="finder__question">Das könnte passen:</h3>
+        <div class="finder__results">${items}</div>
+      </div>
+      <div class="finder__footer">
+        <button class="btn --ghost --sm" onclick="openFinder()">← Neu starten</button>
+        <button class="btn --ghost --sm" onclick="closeFinder();setPage('collection')">Alle Produkte</button>
+      </div>
+    </div>`;
+}
+
 /* ── Startseite ── */
 function renderHome() {
   let headline = '';
@@ -1178,15 +1285,15 @@ function renderHome() {
     headline = 'Weil dein Tier das Beste verdient.';
     body     = 'Inuvet verbindet die Expertise deines Tierarztes mit deiner Fürsorge — tierärztlich entwickelt, persönlich empfohlen, direkt zu dir nach Hause.';
     cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
-      <button class="btn --primary" onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Jetzt registrieren</button>
-      <button class="btn --ghost"   onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Bereits registriert? Anmelden</button>
+      <button class="btn --primary" onclick="setState('with-release',document.querySelectorAll('[data-state]')[2])">Empfehlung einlösen</button>
+      <button class="btn --ghost"   onclick="setPage('collection')">Produkt empfehlen lassen</button>
     </div>`;
   } else if (state === 'no-release') {
     headline = 'Dein Tierarzt kennt dein Tier am besten.';
-    body     = 'Frag einfach in deiner Praxis nach einer persönlichen Empfehlung — über 20.000 Tierärzte vertrauen auf Inuvet und geben sie in wenigen Klicks frei.';
+    body     = 'Frag in deiner Praxis nach einer persönlichen Empfehlung. Über 20.000 Tierärzte vertrauen auf Inuvet und geben sie in wenigen Klicks frei.';
     cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
       <button class="btn --primary" onclick="openVetRequestModal ? openVetRequestModal() : setPage('collection')">Empfehlung anfragen</button>
-      <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
+      <button class="btn --ghost"   onclick="setPage('collection')">Produkt empfehlen lassen</button>
     </div>`;
   } else {
     headline = 'Deine Praxis hat entschieden — für dein Tier.';
@@ -1223,6 +1330,16 @@ function renderHome() {
 /* ── Alle Produkte ── */
 function renderCollection() {
   return `
+    <div class="finder-teaser">
+      <div class="page finder-teaser__inner">
+        <div>
+          <p class="label-caps">Nicht sicher?</p>
+          <h2 class="finder-teaser__headline">Wir helfen dir, das richtige Produkt zu finden.</h2>
+          <p class="finder-teaser__body">In 2 Schritten zum passenden Produkt — persönlich abgestimmt auf dein Tier.</p>
+        </div>
+        <button class="btn --primary" onclick="openFinder()">Produktfinder starten</button>
+      </div>
+    </div>
     <div class="page">
       <h2 class="shop-page-title">Alle Produkte</h2>
       <div class="collection-toolbar">
