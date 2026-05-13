@@ -90,12 +90,26 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 | `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
 | `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal, Email-Overlays) | Page-Content, Theme-Komponenten |
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
+| `temp.css` | Neue globale Styles im Test (Staging) | Produktions-Code — nie deployen |
 
 ### Seiten-Architektur
 
 - **Hero-led Pages** (Bundle, Tierarzt-Mockup): `<main>` direkt, ohne `.page` — section-types sind selbst-containerisiert
 - **Content-Pages** (Bundle-Info, Inuvet-Freigabe): `<main class="page">` oder `<main><div class="page">`
 - **Form-Pages** (Formular-Reklamation): nutzen `.form-page` Shell statt `.page`
+
+---
+
+### CSS-Workflow: Neue Styles
+
+**Reihenfolge — immer in dieser Priorität:**
+
+1. **Bestehende Klasse wiederverwenden** — `grep -n "…" inuvet.css` vor jedem neuen Style. Existiert die Funktion? → Verwenden, fertig.
+2. **Komposition** — Lassen sich zwei bestehende Atome kombinieren (z.B. `.label-caps` + `.fg-muted`)? → Kein neuer Style nötig.
+3. **temp.css** — Erst wenn wirklich etwas Neues gebraucht wird: in `temp.css` schreiben und im Browser testen. `temp.css` ist in allen Mockup-Seiten eingebunden.
+4. **inuvet.css** — Nur wenn der Style bestätigt und stabil ist: aus `temp.css` nach `inuvet.css` verschieben (inkl. Styleguide-Dokumentation). Danach den Eintrag in `temp.css` löschen.
+
+`temp.css` ist ein flüchtiger Staging-Bereich — kein Langzeitlager. Einträge dort sind immer temporär.
 
 ---
 

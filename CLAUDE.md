@@ -14,12 +14,13 @@
 ## Goldene Regeln (nie brechen)
 
 1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden. Details + Anti-Pattern-Beispiel in CONTEXT.md.
-2. **Keine Magic Numbers** — alles via `var(--…)`.
-3. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
-4. **Kein `!important`**. Niemals.
-5. **Kein `text-align: center`** für Inhalte — nur funktional (Button-Text, Qty-Input, Empty/Success-State).
-6. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.--active`, `.--open`.
-7. **Linien sparsam** — Whitespace trennt. `border-top` für Trennzwecke ist Code-Smell.
+2. **Neue Styles: temp.css → inuvet.css** — Muss doch etwas Neues entstehen: erst in `temp.css` testen. Erst wenn bestätigt → nach `inuvet.css` verschieben. Nie direkt in `inuvet.css` schreiben ohne vorherigen Test. Details zum Workflow in CONTEXT.md.
+3. **Keine Magic Numbers** — alles via `var(--…)`.
+4. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
+5. **Kein `!important`**. Niemals.
+6. **Kein `text-align: center`** für Inhalte — nur funktional (Button-Text, Qty-Input, Empty/Success-State).
+7. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.--active`, `.--open`.
+8. **Linien sparsam** — Whitespace trennt. `border-top` für Trennzwecke ist Code-Smell.
 
 ---
 
