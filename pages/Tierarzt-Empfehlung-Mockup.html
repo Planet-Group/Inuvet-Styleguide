@@ -72,7 +72,7 @@
     <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
       <span class="material-icons">search</span>
     </button>
-    <button class="btn --icon icon-badged" aria-label="Warenkorb öffnen" onclick="openCart()">
+    <button class="btn --icon icon-badged" id="cartBtn" aria-label="Warenkorb öffnen" onclick="openCart()">
       <span class="material-icons">shopping_cart</span>
       <span class="badge --count" id="cartCount" style="display:none">0</span>
     </button>
@@ -973,6 +973,18 @@ function renderNav() {
   if (mobileRec) mobileRec.style.display = state === 'with-release' ? '' : 'none';
 
   navRight.innerHTML = '';
+
+  // Warenkorb ↔ Login je nach State
+  const cartBtn = document.getElementById('cartBtn');
+  if (state === 'guest') {
+    cartBtn.setAttribute('aria-label', 'Registrieren / Einloggen');
+    cartBtn.setAttribute('onclick', "setState('no-release', document.querySelector('[data-state=\"no-release\"]'))");
+    cartBtn.querySelector('.material-icons').textContent = 'person_outline';
+  } else {
+    cartBtn.setAttribute('aria-label', 'Warenkorb öffnen');
+    cartBtn.setAttribute('onclick', 'openCart()');
+    cartBtn.querySelector('.material-icons').textContent = 'shopping_cart';
+  }
 }
 
 /* ════════════════════════════════════════════
