@@ -111,54 +111,25 @@
 }
 .finder__body {
   padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-module);
 }
 .finder__question {
   font-size: var(--text-base);
   font-weight: 700;
-  margin: 0 0 var(--half-module);
+  margin: 0;
 }
 .finder__options {
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 0.4);
 }
-.finder__options.--row {
-  flex-direction: row;
-  gap: var(--half-module);
-}
-.finder__option {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--base) * 0.15);
-  background: var(--accent-bg);
-  border: 1px solid var(--border);
-  padding: calc(var(--base) * 0.5) var(--half-module);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color var(--anim-fast), background var(--anim-fast);
-}
-.finder__option:hover { border-color: var(--green); background: var(--bg); }
-.finder__option strong { font-size: var(--text-sm); font-weight: 600; color: var(--fg); }
-.finder__option span   { font-size: var(--text-xs); color: var(--fg-muted); line-height: var(--lh-base); }
-.finder__options.--row .finder__option { flex: 1 1 0; align-items: center; font-size: var(--text-base); font-weight: 600; }
 .finder__results {
   display: flex;
   flex-direction: column;
-  gap: var(--half-module);
+  gap: calc(var(--base) * 0.5);
 }
-.finder__result {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--half-module);
-  cursor: pointer;
-  padding: calc(var(--base) * 0.4);
-  border: 1px solid var(--border);
-  transition: border-color var(--anim-fast);
-}
-.finder__result:hover { border-color: var(--green); }
-.finder__result-img  { width: calc(var(--base) * 4); height: calc(var(--base) * 4); object-fit: contain; flex-shrink: 0; }
-.finder__result-name { font-weight: 700; font-size: var(--text-base); margin: 0 0 calc(var(--base) * 0.15); }
-.finder__result-desc { font-size: var(--text-sm); color: var(--fg-muted); margin: 0 0 calc(var(--base) * 0.4); }
 .finder__footer {
   display: flex;
   gap: var(--half-module);
@@ -166,15 +137,16 @@
   border-top: 1px solid var(--border);
 }
 
-/* ─── Finder-Teaser: Lottie-Animation ─── */
+/* ─── Finder-Teaser: Lottie-Animation (50/50) ─── */
 .finder-teaser__inner {
-  align-items: stretch;   /* Section-Höhe = Maß für die Animation */
+  align-items: stretch;
+  gap: var(--module);
 }
 .finder-teaser__text {
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: calc(var(--base) * 0.4);
-  flex: 1 1 auto;
   justify-content: center;
 }
 .finder-teaser__text .finder-teaser__headline { margin: 0; }
@@ -182,14 +154,14 @@
 .finder-teaser__text .btn { align-self: flex-start; margin-top: calc(var(--base) * 0.3); }
 
 .finder-teaser__anim {
-  flex: 0 0 auto;
-  width: clamp(8rem, 18vw, 14rem);
-  overflow: hidden;         /* nicht über Section-Höhe hinauswachsen */
+  flex: 1 1 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
   user-select: none;
+  min-height: 12rem;  /* Mindesthöhe damit die Section nicht kollabiert */
 }
 .finder-teaser__anim lottie-player {
   width: 100%;
