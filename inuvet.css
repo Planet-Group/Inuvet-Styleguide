@@ -180,7 +180,7 @@
   .rte pre code { font-family: 'Courier New', monospace; font-size: var(--text-xs); line-height: 1.6; color: var(--fg); background: none; }
   .rte h3 { font-size: var(--text-base); font-weight: 700; }
   .rte table { width: 100%; border-collapse: collapse; margin-bottom: var(--half-module); display: block; overflow-x: auto; }
-  .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75); border-bottom: 1px solid var(--border-light); font-size: var(--text-base); vertical-align: top; }
+  .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0; border-bottom: 1px solid var(--border-light); font-size: var(--text-base); vertical-align: top; }
   .rte table th { font-weight: 700; border-bottom-color: var(--border); }
   .rte table tr:last-child td { border-bottom: none; }
 
@@ -2278,7 +2278,7 @@
   }
   /* ─── Artikel-Detailseite ─── */
   .article__header { margin-bottom: var(--half-module); }
-  .article__header h1 { margin-top: calc(var(--base) * 0.5); }
+  .article__header h1 { margin-top: calc(var(--base) * 0.5); margin-bottom: var(--half-module); }
   .article__hero { aspect-ratio: 16 / 9; margin-bottom: var(--module); }
   /* .article__body — nutzt .rte */
   .article__author { display: flex; align-items: center; gap: var(--half-module); }

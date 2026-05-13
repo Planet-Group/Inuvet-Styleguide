@@ -143,7 +143,6 @@
     </div>
   </div>
 
-  <div class="page">
   <section class="sg-section" id="A1">
     <h2 class="section-label">A.1 — Logo</h2>
 
@@ -355,8 +354,41 @@
         </figure>
         <h3>Transparenz in der Herstellung</h3>
         <p>Jede Charge wird auf Reinheit und Wirkstoffgehalt geprüft. Die Ergebnisse sind auf Anfrage einsehbar. Wir glauben, dass du das Recht hast zu wissen, was dein Tier bekommt.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Inhaltsstoff</th>
+              <th>Menge je Tablette</th>
+              <th>Funktion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Baldrian-Extrakt</td>
+              <td>50 mg</td>
+              <td>Beruhigung</td>
+            </tr>
+            <tr>
+              <td>L-Tryptophan</td>
+              <td>30 mg</td>
+              <td>Stressreduktion</td>
+            </tr>
+            <tr>
+              <td>Magnesium</td>
+              <td>20 mg</td>
+              <td>Muskelentspannung</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+
+    <table class="spec-table">
+      <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Abstand nach unten: <code>--half-module</code>.</td></tr>
+      <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px solid var(--border-light)</code>. <code>vertical-align: top</code>.</td></tr>
+      <tr><th><code>th</code></th><td><code>font-weight: 700</code>. Stärkere Trennlinie: <code>var(--border)</code>.</td></tr>
+      <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
+    </table>
 
   </section>
 </div>
@@ -1536,6 +1568,8 @@
     </div>
 
     <!-- Produktkarten -->
+    <p class="sg-p">Produktfamilien (mehrere Darreichungsformen unter einem Namen) erhalten ein „Produktfamilie"-Badge und öffnen einen zweistufigen Options-Drawer. → <a href="pages/Produkt-Modell.html">Produkt- und Familienstruktur</a></p>
+
     <h3 id="tile-product" class="sg-h3 --top">Produktkarten (Variante D)</h3>
     <p class="sg-p --mb">Shopify-ready. Bild, Produktname, Bewertung, Preis, optionaler Badge und Warenkorb-Button. Passt ins bestehende Grid.</p>
 
@@ -3519,6 +3553,8 @@
       <tr><th>Akkordeon</th><td>Standard-Akkordeon. Beschreibung, Inhaltsstoffe, Versand.</td></tr>
       <tr><th>Empfehlungen</th><td>4-Spalter Produktkarten unter der PDP. Border-top als Trennung.</td></tr>
     </table>
+
+    <p class="sg-p">Für Produktfamilien erscheint oberhalb des Preises ein Darreichungsform-Selektor. Einzelprodukte zeigen nur die Varianten-Buttons. → <a href="pages/Produkt-Modell.html">Produkt- und Familienstruktur</a></p>
 
     <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
     <div class="demo-label">Produktdetailseite · Einzelprodukt</div>
