@@ -1538,11 +1538,8 @@ function renderProduct() {
 /* ── Checkout-Seite ── */
 function renderCheckout() {
   if (cartApproved.length === 0) {
-    return `
-      <div class="page">
-        <h2 class="shop-page-title">Checkout</h2>
-        <p class="text-muted">Keine einzulösenden Produkte. <a href="#" onclick="setPage('collection');return false;">Zurück zum Shop</a></p>
-      </div>`;
+    setPage('collection');
+    return '';
   }
 
   const total   = calcTotal(cartApproved);

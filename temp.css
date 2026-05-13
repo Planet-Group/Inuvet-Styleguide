@@ -5,6 +5,32 @@
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
 
+/* ─── Shop-Modal (Checkout-Bestätigung) ─── */
+.shop-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: var(--z-modal);
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+}
+.shop-modal-overlay.--open { display: flex; }
+.shop-modal {
+  background: var(--bg);
+  width: min(24rem, 100%);
+  padding: var(--module);
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-module);
+}
+.shop-modal__icon { text-align: center; }
+.shop-modal__icon .material-icons { font-size: 3rem; color: var(--green); }
+.shop-modal__title { font-size: var(--text-m); font-weight: 700; text-align: center; }
+.shop-modal__body  { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); }
+.shop-modal__actions { display: flex; flex-direction: column; gap: calc(var(--base) * 0.4); padding-top: calc(var(--base) * 0.4); }
+
 /* ─── Options-Drawer (Varianten wählen) — spiegelt .cart-drawer ─── */
 .options-overlay {
   position: fixed;
