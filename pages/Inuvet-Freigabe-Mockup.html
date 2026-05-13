@@ -178,19 +178,17 @@ const REQUEST_PRODUCTS = [
     id: 1,
     cartName: 'Calmin Balance Tabletten',
     variants: [
-      { label: '60 Stück', price: '39,90 €' },
-      { label: '90 Stück', price: '54,90 €' },
+      { label: '60 Stück', price: '39,90 €', commission: 4.50 },
+      { label: '90 Stück', price: '54,90 €', commission: 6.20 },
     ],
-    commissionPerOrder: 4.50,
   },
   {
     id: 2,
     cartName: 'Hepax forte Tabletten',
     variants: [
-      { label: '30 Stück', price: '34,90 €' },
-      { label: '60 Stück', price: '64,90 €' },
+      { label: '30 Stück', price: '34,90 €', commission: 5.20 },
+      { label: '60 Stück', price: '64,90 €', commission: 9.70 },
     ],
-    commissionPerOrder: 5.20,
   },
 ];
 
@@ -206,12 +204,18 @@ function formatEur(value) {
   return value.toFixed(2).replace('.', ',') + ' €';
 }
 
-function commissionForProduct(productId) {
+function getVariantCommission(productId) {
   const s       = approvalState[productId];
   const product = REQUEST_PRODUCTS.find(p => p.id === productId);
-  if (!s || s.qty === null)   return { text: '—', muted: true };
-  if (s.qty === 'reject')     return { text: 'Keine Provision', muted: true };
-  const perOrder = product.commissionPerOrder;
+  const variant = product.variants.find(v => v.label === s.variantLabel) ?? product.variants[0];
+  return variant.commission;
+}
+
+function commissionForProduct(productId) {
+  const s        = approvalState[productId];
+  if (!s || s.qty === null)  return { text: '—', muted: true };
+  if (s.qty === 'reject')    return { text: 'Keine Provision', muted: true };
+  const perOrder = getVariantCommission(productId);
   const max      = QTY_MAX[s.qty];
   if (max === Infinity) return { text: formatEur(perOrder) + ' pro Bestellung', muted: false };
   return { text: formatEur(perOrder) + ' × ' + max + ' = max. ' + formatEur(perOrder * max), muted: false };
@@ -221,6 +225,8 @@ function setVariant(productId, label, btn) {
   approvalState[productId].variantLabel = label;
   btn.closest('.approval-size-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
   btn.classList.add('--active');
+  updateCommission(productId);
+  updateCounter();
 }
 
 function setQty(productId, value) {
@@ -249,9 +255,10 @@ function updateCounter() {
   REQUEST_PRODUCTS.forEach(p => {
     const s = approvalState[p.id];
     if (!s || s.qty === null || s.qty === 'reject') return;
+    const perOrder = getVariantCommission(p.id);
     const max = QTY_MAX[s.qty];
-    if (max === Infinity) unlimitedPerOrder += p.commissionPerOrder;
-    else totalFixed += p.commissionPerOrder * max;
+    if (max === Infinity) unlimitedPerOrder += perOrder;
+    else totalFixed += perOrder * max;
   });
 
   let text = `${decided} von ${total} Produkten entschieden`;
