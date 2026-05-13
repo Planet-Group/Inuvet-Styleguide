@@ -361,7 +361,7 @@ function selectOptionsVariant(index) {
     : p.variants[index].price;
   const priceEl = document.getElementById('optionsPrice');
   if (priceEl) priceEl.textContent = price;
-  document.querySelectorAll('.options-variant-btn').forEach((btn, i) =>
+  document.querySelectorAll('#optionsDrawer .options-variants .choice-box').forEach((btn, i) =>
     btn.classList.toggle('--active', i === index));
 }
 
@@ -379,8 +379,7 @@ function renderOptionsDrawer() {
     currentPrice    = p.variants[optionsState.variantIndex].price;
   }
 
-  const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
-  const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
+  const ctaClass = approved ? 'btn --primary' : 'btn --secondary';
   const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
 
   const thumbHTML  = p.img
@@ -402,7 +401,7 @@ function renderOptionsDrawer() {
   }
 
   const variantBtns = currentVariants.map((v, i) =>
-    `<button class="options-variant-btn${i === optionsState.variantIndex ? ' --active' : ''}" type="button"
+    `<button class="choice-box --sm${i === optionsState.variantIndex ? ' --active' : ''}" type="button"
       onclick="selectOptionsVariant(${i})">${v.label}</button>`
   ).join('');
 
@@ -413,39 +412,41 @@ function renderOptionsDrawer() {
         <span class="material-icons">close</span>
       </button>
     </div>
-    <div class="cart-item options-drawer__product">
-      <div class="${thumbClass}">${thumbHTML}</div>
-      <div class="cart-item__info">
-        <div class="cart-item__top">
-          <div>
-            <p class="cart-item__name">${p.name}</p>
-            <div class="cart-item__variant" id="optionsPrice">${currentPrice}</div>
+    <div class="options-drawer__items">
+      <div class="cart-item options-drawer__product">
+        <div class="${thumbClass}">${thumbHTML}</div>
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${p.name}</p>
+              <div class="cart-item__variant" id="optionsPrice">${currentPrice}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    ${formSection}
-    <div class="options-drawer__section">
-      <div class="label-caps options-drawer__section-label">Größe</div>
-      <div class="options-variants">${variantBtns}</div>
-    </div>
-    <div class="options-drawer__section">
-      <div class="label-caps options-drawer__section-label">Menge</div>
-      <div class="qty-selector --sm">
-        <button class="qty-selector__btn" type="button" aria-label="Weniger"
-          onclick="this.nextElementSibling.value=Math.max(1,+this.nextElementSibling.value-1)">
-          <span class="material-icons">remove</span>
-        </button>
-        <input class="qty-selector__input" type="number" value="1" min="1" max="99" id="optionsQty">
-        <button class="qty-selector__btn" type="button" aria-label="Mehr"
-          onclick="this.previousElementSibling.value=Math.min(99,+this.previousElementSibling.value+1)">
-          <span class="material-icons">add</span>
-        </button>
+      ${formSection}
+      <div class="options-drawer__section">
+        <div class="label-caps options-drawer__section-label">Größe</div>
+        <div class="options-variants">${variantBtns}</div>
+      </div>
+      <div class="options-drawer__section">
+        <div class="label-caps options-drawer__section-label">Menge</div>
+        <div class="qty-selector --sm">
+          <button class="qty-selector__btn" type="button" aria-label="Weniger"
+            onclick="this.nextElementSibling.value=Math.max(1,+this.nextElementSibling.value-1)">
+            <span class="material-icons">remove</span>
+          </button>
+          <input class="qty-selector__input" type="number" value="1" min="1" max="99" id="optionsQty">
+          <button class="qty-selector__btn" type="button" aria-label="Mehr"
+            onclick="this.previousElementSibling.value=Math.min(99,+this.previousElementSibling.value+1)">
+            <span class="material-icons">add</span>
+          </button>
+        </div>
       </div>
     </div>
     <div class="cart-drawer__footer">
       <button class="${ctaClass} cart-drawer__checkout" onclick="confirmOptions()">
-        ${ctaIcon}${ctaLabel}
+        ${ctaLabel}
       </button>
       <div class="cart-drawer__continue-wrap">
         <button class="btn --ghost cart-drawer__continue" onclick="closeOptions()">Zurück</button>

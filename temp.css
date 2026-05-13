@@ -30,43 +30,33 @@
   transform: translateX(100%);
   transition: transform var(--anim-base);
   border-left: 1px solid var(--border);
-  overflow-y: auto;
 }
 .options-drawer.--open { transform: translateX(0); }
 
-/* Inhaltsstruktur des Options-Drawers */
+/* Scroll-Container — wie .cart-drawer__items */
+.options-drawer__items {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--module) var(--module) 0;
+}
+
 .options-drawer__product {
-  padding: var(--half-module);
+  margin-bottom: var(--half-module);
+  padding-bottom: var(--half-module);
   border-bottom: 1px solid var(--border);
+  /* cart-item bringt eigenes Layout, kein extra padding nötig */
 }
 
 .options-drawer__section {
-  padding: var(--half-module);
+  margin-bottom: var(--half-module);
 }
 
 .options-drawer__section-label {
-  margin-bottom: calc(var(--base) * 0.4);
+  margin-bottom: calc(var(--base) * 0.3);
 }
 
 .options-variants {
   display: flex;
   flex-wrap: wrap;
   gap: calc(var(--base) * 0.4);
-}
-
-/* Größen-Buttons — wie .choice-box */
-.options-variant-btn {
-  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.6);
-  border: 1px solid var(--border);
-  background: var(--bg);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  cursor: pointer;
-  transition: border-color var(--anim-fast), background var(--anim-fast);
-}
-.options-variant-btn:hover   { border-color: var(--fg); }
-.options-variant-btn.--active {
-  border-color: var(--fg);
-  background: var(--fg);
-  color: var(--bg);
 }
