@@ -239,6 +239,8 @@ Drei standardisierte Lese-Breiten statt ad-hoc `max-width`-Werten:
 ```
 - `.tile.--featured` = Sonderkachel (grüner Hintergrund)
 - `.tile-grid.--cols-2/3/4` für Grid-Layouts
+- **Preis in `.tile__price` immer mit „ab"** — in der Übersicht ist noch keine Darreichungsform/Füllmenge gewählt. `<span>ab 39,90 €</span>`. Bei Sale: `<span>ab 24,90 €</span><span class="--old">49,90 €</span>`.
+- **Cart Item `.cart-item__variant`**: Füllmenge + Preis ohne „/ Stk.": `60 Stück · 39,90 €`
 
 ### Card-Patterns (4 verschiedene, bewusst getrennt)
 | Klasse | Verwendung |

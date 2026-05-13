@@ -1580,7 +1580,7 @@
       <tr><th>Headline-Zeile</th><td><code>.tile__headline-row</code> (Flex, <code>justify-content: space-between</code>). Enthält <code>.tile__headline</code> links und <code>.rating</code> rechts (optional).</td></tr>
       <tr><th>Bewertung</th><td><code>.rating</code> in <code>.tile__headline-row</code>. Ein Stern (<code>material-icons star</code>, orange) + Textzahl. <code>aria-hidden="true"</code> auf dem Icon.</td></tr>
       <tr><th>Beschreibung</th><td><code>.tile__description</code>. Optional, <code>var(--fg-muted)</code>.</td></tr>
-      <tr><th>Preis</th><td><code>.tile__price</code> → <code>.price-stack</code>. Bei Sale: alter Preis als <code>&lt;span class="--old"&gt;</code> daneben.</td></tr>
+      <tr><th>Preis</th><td><code>.tile__price</code> → <code>.price-stack</code>. Immer <code>ab X,XX €</code> — in der Übersicht ist noch keine Darreichungsform/Füllmenge gewählt. Bei Sale: <code>&lt;span&gt;ab X,XX €&lt;/span&gt;</code> + alter Preis als <code>&lt;span class="--old"&gt;</code>.</td></tr>
     </table>
 
     <div class="demo-label">4-Spalter — Produktkarten</div>
@@ -1598,7 +1598,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1612,7 +1612,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>49,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 49,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1625,7 +1625,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>24,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1639,7 +1639,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>34,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
       </div>
     </div>
     <p class="demo-note">Hover über ein Produktbild: Button gleitet von unten ein. Badges, Beschreibung und Preis darunter.</p>
@@ -1659,7 +1659,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div>
         <div class="tile__description">Eine etwas ausführlichere Beschreibung des Produkts mit mehr Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>59,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 59,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1674,7 +1674,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.1</div></div>
         <div class="tile__description">Kurze Produktbeschreibung.</div>
-        <div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">49,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span><span class="--old">49,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1687,7 +1687,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-        <div class="tile__price"><div class="price-stack"><span>24,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span></div></div>
       </div>
     </div>
     <p class="demo-note">3-Spalter. Produktname und Beschreibung dürfen mehrzeilig sein.</p>
@@ -1705,7 +1705,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
         <div class="tile__description">Kurze Beschreibung.</div>
-        <div class="tile__price"><div class="price-stack"><span>24,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span></div></div>
       </div>
       <div class="tile --product">
           <div class="tile__image-wrap">
@@ -1719,7 +1719,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
         <div class="tile__description">Kurze Beschreibung.</div>
-        <div class="tile__price"><div class="price-stack"><span>49,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 49,90 €</span></div></div>
       </div>
       <div class="tile --featured">
         <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
@@ -1741,7 +1741,7 @@
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
         <div class="tile__description">Kurze Beschreibung.</div>
-        <div class="tile__price"><div class="price-stack"><span>14,90 €</span><span class="--old">29,90 €</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab 14,90 €</span><span class="--old">29,90 €</span></div></div>
       </div>
     </div>
     <p class="demo-note">Produktkarten gemischt mit Sonderkachel — flexibel einsetzbar.</p>
@@ -1780,7 +1780,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">Calmin Balance Tabletten</p>
-                <div class="cart-item__variant">39,90 € / Stk.</div>
+                <div class="cart-item__variant">60 Stück · 39,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
                 <span class="material-icons">close</span>
@@ -1800,7 +1800,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">Hepax forte Tabletten</p>
-                <div class="cart-item__variant">44,90 € / Stk.</div>
+                <div class="cart-item__variant">60 Stück · 44,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
                 <span class="material-icons">close</span>
@@ -1833,7 +1833,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">Calmin Balance Tabletten</p>
-                <div class="cart-item__variant">39,90 € / Stk.</div>
+                <div class="cart-item__variant">60 Stück · 39,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
                 <span class="material-icons">close</span>
@@ -1858,7 +1858,7 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">Hepax forte Tabletten</p>
-                <div class="cart-item__variant">44,90 € / Stk.</div>
+                <div class="cart-item__variant">60 Stück · 44,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
                 <span class="material-icons">close</span>
