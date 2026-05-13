@@ -4,3 +4,32 @@
    Wenn festgehalten → nach inuvet.css verschieben und hier löschen.
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
+
+/* ─── Options-Drawer (Varianten wählen) — spiegelt .cart-drawer ─── */
+.options-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay-dark);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--anim-base), visibility var(--anim-base);
+}
+.options-overlay.--open { opacity: 1; visibility: visible; }
+
+.options-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(28rem, 100vw);
+  background: var(--bg);
+  z-index: var(--z-drawer);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--anim-base);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+}
+.options-drawer.--open { transform: translateX(0); }

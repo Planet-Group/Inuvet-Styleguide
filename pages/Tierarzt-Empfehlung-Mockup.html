@@ -328,6 +328,11 @@ function closeCart() {
    ════════════════════════════════════════════ */
 const optionsState = { productId: null, formIndex: 0, variantIndex: 0 };
 
+function tileGuestLogin(e) {
+  e.stopPropagation();
+  setState('no-release', document.querySelector('[data-state="no-release"]'));
+}
+
 function openOptions(id) {
   optionsState.productId    = id;
   optionsState.formIndex    = 0;
@@ -1088,24 +1093,30 @@ function tileHTML(p) {
   const approved = isApproved(p);
 
   let cartOverlay = '';
-  if (state !== 'guest') {
-    if (approved) {
-      cartOverlay = `
-        <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id});event.stopPropagation()">
-          <span class="material-icons">shopping_cart</span>
-        </button>
-        <div class="tile__cart">
-          <button class="btn --primary" onclick="openOptions(${p.id});event.stopPropagation()">In den Warenkorb</button>
-        </div>`;
-    } else {
-      cartOverlay = `
-        <button class="tile__cart-icon" type="button" aria-label="Anfrage in den Korb legen" onclick="openOptions(${p.id});event.stopPropagation()">
-          <span class="material-icons">mail_outline</span>
-        </button>
-        <div class="tile__cart">
-          <button class="btn --secondary" onclick="openOptions(${p.id});event.stopPropagation()">Anfragen</button>
-        </div>`;
-    }
+  if (state === 'guest') {
+    cartOverlay = `
+      <button class="tile__cart-icon" type="button" aria-label="Registrieren / Einloggen" onclick="tileGuestLogin(event)">
+        <span class="material-icons">person_outline</span>
+      </button>
+      <div class="tile__cart">
+        <button class="btn --primary" onclick="tileGuestLogin(event)">Registrieren / Einloggen</button>
+      </div>`;
+  } else if (approved) {
+    cartOverlay = `
+      <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})">
+        <span class="material-icons">shopping_cart</span>
+      </button>
+      <div class="tile__cart">
+        <button class="btn --primary" onclick="openOptions(${p.id})">In den Warenkorb</button>
+      </div>`;
+  } else {
+    cartOverlay = `
+      <button class="tile__cart-icon" type="button" aria-label="Anfrage in den Korb legen" onclick="openOptions(${p.id})">
+        <span class="material-icons">mail_outline</span>
+      </button>
+      <div class="tile__cart">
+        <button class="btn --secondary" onclick="openOptions(${p.id})">Anfragen</button>
+      </div>`;
   }
 
   const imgContent = p.img
@@ -1113,7 +1124,7 @@ function tileHTML(p) {
     : '';
   const imgClass = p.img ? 'tile__image' : 'tile__image placeholder-bg';
 
-  return `<div class="tile --product" onclick="activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
+  return `<div class="tile --product" onclick="if(!event.target.closest('.tile__cart,.tile__cart-icon')){activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')}">
     <div class="tile__image-wrap">
       <div class="floating-meta">
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
