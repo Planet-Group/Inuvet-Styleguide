@@ -259,6 +259,13 @@
           <button type="button" class="mockup-toggle-btn" data-count="6" onclick="setRecommendationsCount(6)">6</button>
         </div>
 
+        <!-- Bestellhistorie simulieren — Mockup-Schalter; im echten Shop serverseitig -->
+        <p class="mockup-modal__desc">Bestellhistorie simulieren <span style="font-weight:400;color:var(--fg-muted)">(im echten Shop serverseitig entschieden)</span></p>
+        <div class="mockup-customer-toggle" id="historyPeriodToggle">
+          <button type="button" class="mockup-toggle-btn --active" data-period="normal"   onclick="setHistoryPeriod('normal')">Normal (180 Tage)</button>
+          <button type="button" class="mockup-toggle-btn"          data-period="fallback" onclick="setHistoryPeriod('fallback')">Nur 18 Monate</button>
+        </div>
+
         <div class="mockup-modal__footer">
           <button type="button" class="mockup-btn --confirm" onclick="closeSettings()">Schließen</button>
         </div>
@@ -440,14 +447,16 @@
       // ── Produktfamilien ──────────────────────────────────────────────────
       // isFamily: true  → variants[selectedVariantIdx].sizes[selectedSizeIdx].price = aktiver Preis
       // isFamily: false → price = fixer Preis
-      { id: 1, isFamily: true, title: 'Hypolene', past6Months: 14, pricingModel: 'A',
+      // past6Months:  Käufe in den letzten 180 Tagen  (Basis-Pool)
+      // past18Months: Käufe in den letzten 549 Tagen  (Fallback-Pool; schließt past6Months ein)
+      { id: 1, isFamily: true, title: 'Hypolene', past6Months: 14, past18Months: 38, pricingModel: 'A',
         variants: [
           { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '60 g',      price: 39.90 }, { label: '250 g',     price: 129.90 }] },
           { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '60 Stück',  price: 35.90 }, { label: '150 Stück', price:  79.90 }] },
         ],
         selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 60 g
 
-      { id: 2, isFamily: true, title: 'EnteroGast', past6Months: 6, pricingModel: 'A',
+      { id: 2, isFamily: true, title: 'EnteroGast', past6Months: 6, past18Months: 16, pricingModel: 'A',
         variants: [
           { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '6 Stück',    price:  24.90 }, { label: '21 Stück',   price:  69.90 }] },
           { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '50 g',        price:  22.90 }, { label: '150 g',      price:  59.90 }] },
@@ -456,14 +465,14 @@
         ],
         selectedVariantIdx: 0, selectedSizeIdx: 1 },  // meistgekauft: Tabletten, 21 Stück
 
-      { id: 3, isFamily: true, title: 'Respirax', past6Months: 10, pricingModel: 'A',
+      { id: 3, isFamily: true, title: 'Respirax', past6Months: 10, past18Months: 27, pricingModel: 'A',
         variants: [
           { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '45 g',      price:  27.50 }, { label: '180 g',     price:  89.90 }] },
           { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '30 Stück',  price:  29.90 }, { label: '90 Stück',  price:  74.90 }] },
         ],
         selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 45 g
 
-      { id: 4, isFamily: true, title: 'Vesica', past6Months: 4, pricingModel: 'A',
+      { id: 4, isFamily: true, title: 'Vesica', past6Months: 4, past18Months: 11, pricingModel: 'A',
         variants: [
           { type: 'Tabletten', animals: 'Hund', sizes: [{ label: '30 Stück', price:  32.00 }, { label: '90 Stück',  price:  85.90 }] },
           { type: 'Pulver',    animals: 'Hund', sizes: [{ label: '120 g',    price:  35.90 }, { label: '450 g',     price: 109.90 }] },
@@ -471,16 +480,18 @@
         selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Tabletten, 30 Stück
 
       // ── Einzelprodukte ──────────────────────────────────────────────────
-      { id:  5, isFamily: false, title: 'Laxin Pulver',           price: 22.50, past6Months: 3, pricingModel: 'A' },
-      { id:  6, isFamily: false, title: 'Ibedex Pulver',          price: 29.90, past6Months: 0, pricingModel: 'A' },
-      { id:  7, isFamily: false, title: 'Inzym Pulver',           price: 34.50, past6Months: 0, pricingModel: 'A' },
-      { id:  9, isFamily: false, title: 'Otysan Fluid',           price: 24.90, past6Months: 0, pricingModel: 'A' },
-      { id: 10, isFamily: false, title: 'FloraComplex Tabletten', price: 32.90, past6Months: 0, pricingModel: 'A' },
-      { id: 11, isFamily: false, title: 'FloraComplex Pulver',    price: 27.50, past6Months: 0, pricingModel: 'A' },
-      { id: 12, isFamily: false, title: 'Calmin Balance',         price: 39.90, past6Months: 0, pricingModel: 'A', image: '../assets/images/Calmin_Packshot_01.jpeg' },
-      { id: 13, isFamily: false, title: 'Hepax forte',            price: 44.90, past6Months: 0, pricingModel: 'A', image: '../assets/images/Hepax_Packshot_01.jpeg' },
+      { id:  5, isFamily: false, title: 'Laxin Pulver',           price: 22.50, past6Months: 3, past18Months:  8, pricingModel: 'A' },
+      // Ibedex + Inzym + FloraComplex Pulver: kein 180-Tage-Kauf, aber in 18 Monaten
+      // genug History für ≥ 1 Gratisprodukt (Mindest-Bestellwert 400 € via Kondition A).
+      { id:  6, isFamily: false, title: 'Ibedex Pulver',          price: 29.90, past6Months: 0, past18Months: 14, pricingModel: 'A' },
+      { id:  7, isFamily: false, title: 'Inzym Pulver',           price: 34.50, past6Months: 0, past18Months: 14, pricingModel: 'A' },
+      { id:  9, isFamily: false, title: 'Otysan Fluid',           price: 24.90, past6Months: 0, past18Months:  6, pricingModel: 'A' },
+      { id: 10, isFamily: false, title: 'FloraComplex Tabletten', price: 32.90, past6Months: 0, past18Months:  0, pricingModel: 'A' },
+      { id: 11, isFamily: false, title: 'FloraComplex Pulver',    price: 27.50, past6Months: 0, past18Months: 16, pricingModel: 'A' },
+      { id: 12, isFamily: false, title: 'Calmin Balance',         price: 39.90, past6Months: 0, past18Months:  0, pricingModel: 'A', image: '../assets/images/Calmin_Packshot_01.jpeg' },
+      { id: 13, isFamily: false, title: 'Hepax forte',            price: 44.90, past6Months: 0, past18Months:  0, pricingModel: 'A', image: '../assets/images/Hepax_Packshot_01.jpeg' },
 
-      { id: 8, isFamily: true, title: 'Struvex', past6Months: 0, pricingModel: 'A',
+      { id: 8, isFamily: true, title: 'Struvex', past6Months: 0, past18Months: 0, pricingModel: 'A',
         variants: [
           { type: 'Pulver',    animals: 'Katze', sizes: [{ label: '60 g',      price:  28.50 }, { label: '250 g',     price:  94.90 }] },
           { type: 'Tabletten', animals: 'Katze', sizes: [{ label: '40 Stück',  price:  26.90 }, { label: '120 Stück', price:  69.90 }] },
@@ -494,16 +505,80 @@
       return p.variants[p.selectedVariantIdx].sizes[p.selectedSizeIdx].price;
     };
 
-    allProducts.forEach(p => {
-      p.quantity = p.past6Months > 0 ? Math.ceil(p.past6Months / 8) * 8 : 1;
-    });
+    // ── Sichtbarkeits-Logik (einmalige Entscheidung beim Load) ──────────────
+    // Schritt 1: 180-Tage-Pool (past6Months) prüfen.
+    //   Mindestens ein Produkt mit Gratisartikel? → Section zeigen.
+    // Schritt 2: Nein → 549-Tage-Fallback (past18Months) prüfen.
+    // Schritt 3: Immer noch nichts → Section bleibt ausgeblendet.
+    //
+    // Nach dem initialen Entscheid wird bundleVisible NIE mehr geändert —
+    // auch dann nicht, wenn der User alle Produkte mit Rabatt entfernt.
+    // Im echten Shop würde der Server den Kunden gar nicht auf diese Page leiten
+    // wenn keiner der Pools Gratisartikel erzeugt.
+    let bundleVisible   = false;
+    let activePeriod    = null;    // '180' | '549' | null
+    let activeBundle    = [];
+    let recommendedPool = [];
 
-    const withHistory   = allProducts.filter(p => p.past6Months > 0)
-                                     .sort((a, b) => b.past6Months - a.past6Months);
-    let activeBundle    = withHistory.slice(0, 5);
-    // Pool für Empfehlungs-Schiene: alle Produkte, die NICHT im aktiven Bundle stehen.
-    // (Bugfix: slice(5) statt slice(4) — sonst tauchte Index 4 in beiden auf.)
-    let recommendedPool = [...withHistory.slice(5), ...allProducts.filter(p => p.past6Months === 0)];
+    const initBundle = (forceEmpty180 = false) => {
+      bundleVisible = false;
+      activePeriod  = null;
+      activeBundle  = [];
+      recommendedPool = [];
+
+      // Hilfsfunktion: Pool für einen Zeitraum aufbauen und prüfen.
+      // Setzt p.quantity direkt auf den Produktobjekten (in-place).
+      const tryPeriod = (periodKey) => {
+        const pool = allProducts
+          .filter(p => (p[periodKey] ?? 0) > 0)
+          .sort((a, b) => (b[periodKey] ?? 0) - (a[periodKey] ?? 0));
+        pool.forEach(p => { p.quantity = Math.ceil(p[periodKey] / 8) * 8; });
+        const bundle      = pool.slice(0, 5);
+        const hasDiscount = bundle.some(p => calcFree(p) > 0);
+        return { pool, bundle, hasDiscount };
+      };
+
+      // Schritt 1: 180 Tage
+      if (!forceEmpty180) {
+        const r = tryPeriod('past6Months');
+        if (r.hasDiscount) {
+          bundleVisible = true;
+          activePeriod  = '180';
+          activeBundle  = r.bundle;
+          const ids = new Set(r.bundle.map(p => p.id));
+          recommendedPool = [
+            ...r.pool.filter(p => !ids.has(p.id)),
+            ...allProducts.filter(p => !(p.past6Months > 0)),
+          ];
+          allProducts.filter(p => !(p.past6Months > 0)).forEach(p => { p.quantity = 1; });
+          return;
+        }
+      }
+
+      // Schritt 2: 549 Tage (Fallback)
+      const r = tryPeriod('past18Months');
+      if (r.hasDiscount) {
+        bundleVisible = true;
+        activePeriod  = '549';
+        activeBundle  = r.bundle;
+        const ids = new Set(r.bundle.map(p => p.id));
+        recommendedPool = [
+          ...r.pool.filter(p => !ids.has(p.id)),
+          ...allProducts.filter(p => !(p.past18Months > 0)),
+        ];
+        allProducts.filter(p => !(p.past18Months > 0)).forEach(p => { p.quantity = 1; });
+        return;
+      }
+
+      // Schritt 3: Kein Pool liefert Gratis-Produkte → Section wird nicht gezeigt.
+    };
+
+    // Wendet bundleVisible auf das DOM an (Section + Empfehlungs-Schiene).
+    const applyVisibility = () => {
+      document.getElementById('bundleSection').style.display = bundleVisible ? '' : 'none';
+      const recsEl = document.getElementById('bundleRecommendations');
+      if (recsEl) recsEl.style.display = bundleVisible ? '' : 'none';
+    };
 
     const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
 
@@ -578,25 +653,14 @@
       return `${hint.moreQty} Stück hinzufügen für ${part}`;
     };
 
-    // ── Sichtbarkeits-Logik ────────────────────────────────────────────────
-    // Bundle-Section + Empfehlungs-Schiene werden nur gezeigt, wenn
-    // mindestens ein Produkt im aktiven Bundle Gratis-Stück erzeugt.
-    // Sonst macht das Angebot keinen Sinn — Server-seitig würde der
-    // Shop diesen Kunden gar nicht erst auf die Bundle-Page leiten.
-    const hasAnyFreeItems = () => activeBundle.some(p => calcFree(p) > 0);
-
     // ── Render: Bundle ─────────────────────────────────────────────────────
     const renderBundle = () => {
-      const bundleSection = document.getElementById('bundleSection');
-      const recsSection   = document.getElementById('bundleRecommendations');
-
-      // Sichtbarkeits-Logik: kein Gratis-Produkt → Bundle + Empfehlungen aus.
-      if (!hasAnyFreeItems()) {
-        bundleSection.style.display = 'none';
-        if (recsSection) recsSection.style.display = 'none';
-        return;
+      // Intro-Text: Zeitraum je nach aktivem Pool dynamisch setzen.
+      const introP = document.querySelector('#bundleSection .bundle-intro p');
+      if (introP) {
+        const label = activePeriod === '549' ? '18 Monaten' : '6 Monaten';
+        introP.textContent = `Basierend auf deinen Einkäufen der letzten ${label} haben wir dieses Set für dich zusammengestellt.`;
       }
-      bundleSection.style.display = '';
 
       const list = document.getElementById('productList');
       list.innerHTML = '';
@@ -829,6 +893,17 @@
       });
     };
 
+    // Mockup-Schalter: Zeitraum neu simulieren und Bundle neu initialisieren.
+    // Im echten Shop wäre dies eine serverseitige Entscheidung beim Page-Load.
+    window.setHistoryPeriod = (period) => {
+      document.querySelectorAll('#historyPeriodToggle .mockup-toggle-btn').forEach(btn => {
+        btn.classList.toggle('--active', btn.dataset.period === period);
+      });
+      initBundle(period === 'fallback');
+      applyVisibility();
+      if (bundleVisible) renderBundle();
+    };
+
     window.setProductModel = (productId, model) => {
       const p = allProducts.find(p => p.id === productId);
       if (!p) return;
@@ -927,7 +1002,10 @@
     })();
 
     // ── Init ────────────────────────────────────────────────────────────────
-    renderBundle();
+    // Sichtbarkeit einmalig beim Load bestimmen — danach nicht mehr ändern.
+    initBundle();
+    applyVisibility();
+    if (bundleVisible) renderBundle();
   </script>
 </body>
 </html>
