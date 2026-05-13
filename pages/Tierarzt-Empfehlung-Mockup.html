@@ -1145,7 +1145,7 @@ function renderHome() {
 
   if (state === 'guest') {
     headline = 'Ihr Zugang zum Inuvet-Shop';
-    body     = 'Dieser Shop ist ausschließlich für Tierhalter mit ärztlicher Empfehlung. Melden Sie sich an, um Ihre Empfehlung einzulösen.';
+    body     = 'Dieser Shop ist für Tierhalter mit ärztlicher Empfehlung. Melden Sie sich an, um Ihre Empfehlung einzulösen — oder fragen Sie direkt eine Empfehlung bei Ihrer Praxis an.';
     cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
       <button class="btn --primary" onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Jetzt registrieren</button>
       <button class="btn --ghost"   onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Anmelden</button>
