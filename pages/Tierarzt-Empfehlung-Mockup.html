@@ -1188,21 +1188,24 @@ function renderHome() {
   let cta      = '';
 
   if (state === 'guest') {
-    headline = 'Ihr Zugang zum Inuvet-Shop';
-    body     = 'Dieser Shop ist für Tierhalter mit ärztlicher Empfehlung. Melden Sie sich an, um Ihre Empfehlung einzulösen — oder fragen Sie direkt eine Empfehlung bei Ihrer Praxis an.';
+    headline = 'Weil dein Tier das Beste verdient.';
+    body     = 'Inuvet verbindet die Expertise deines Tierarztes mit deiner Fürsorge — tierärztlich entwickelt, persönlich empfohlen, direkt zu dir nach Hause.';
     cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
       <button class="btn --primary" onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Jetzt registrieren</button>
-      <button class="btn --ghost"   onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Anmelden</button>
+      <button class="btn --ghost"   onclick="setState('no-release',document.querySelectorAll('[data-state]')[1])">Bereits registriert? Anmelden</button>
     </div>`;
   } else if (state === 'no-release') {
-    headline = 'Noch keine Empfehlung?';
-    body     = 'Über 20.000 Tierärzte arbeiten mit Inuvet. Frag einfach in deiner Praxis nach — sie können jederzeit für dich bestellen.';
-    cta      = `<button class="btn --primary" onclick="setPage('collection')">Alle Produkte ansehen</button>`;
-  } else {
-    headline = 'Deine Empfehlungen warten';
-    body     = '2 Produkte wurden von deiner Tierarztpraxis für dich empfohlen. Lege sie in den Warenkorb und schließe die Bestellung ab.';
+    headline = 'Dein Tierarzt kennt dein Tier am besten.';
+    body     = 'Frag einfach in deiner Praxis nach einer persönlichen Empfehlung — über 20.000 Tierärzte vertrauen auf Inuvet und geben sie in wenigen Klicks frei.';
     cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
-      <button class="btn --primary" onclick="setPage('recommended')">Empfehlungen ansehen</button>
+      <button class="btn --primary" onclick="openVetRequestModal ? openVetRequestModal() : setPage('collection')">Empfehlung anfragen</button>
+      <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
+    </div>`;
+  } else {
+    headline = 'Deine Praxis hat entschieden — für dein Tier.';
+    body     = '2 Produkte wurden speziell für dein Tier empfohlen. Jetzt einlösen und direkt bestellen — mit dem Vertrauen deines Tierarztes.';
+    cta      = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
+      <button class="btn --primary" onclick="setPage('recommended')">Empfehlungen einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
     </div>`;
   }
