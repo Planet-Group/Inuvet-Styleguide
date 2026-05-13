@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../temp.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <link rel="stylesheet" href="Tierarzt-Empfehlung-Mockup.css">
 </head>
@@ -1139,10 +1140,10 @@ function tileHTML(p) {
 
 /* ── So funktioniert's ── */
 const HIW_STEPS = [
-  { icon: 'pets',             label: 'Dein Tier braucht Hilfe',       detail: 'Entdecke Produkte, die speziell für die Gesundheit und das Wohlbefinden deines Begleiters entwickelt wurden.' },
-  { icon: 'medical_services', label: 'Dein Tierarzt weiß, was hilft', detail: 'Frag in deiner Praxis nach — dein Arzt kennt dein Tier und empfiehlt nur, was wirklich passt.' },
-  { icon: 'verified',         label: 'Persönlich freigegeben',         detail: 'Keine generischen Listen. Nur das, was dein Tierarzt gezielt für dein Tier genehmigt hat.' },
-  { icon: 'favorite',         label: 'Gesund nach Hause',              detail: 'Löse die Empfehlung ein und bestell direkt — dein Tier bekommt genau das, was es braucht.' },
+  { label: 'Dein Tier braucht Hilfe',       detail: 'Entdecke Produkte, die speziell für die Gesundheit und das Wohlbefinden deines Begleiters entwickelt wurden.' },
+  { label: 'Dein Tierarzt weiß, was hilft', detail: 'Frag in deiner Praxis nach. Dein Arzt kennt dein Tier und empfiehlt nur, was wirklich passt.' },
+  { label: 'Persönlich freigegeben',         detail: 'Keine generischen Listen. Nur das, was dein Tierarzt gezielt für dein Tier genehmigt hat.' },
+  { label: 'Gesund nach Hause',              detail: 'Löse die Empfehlung ein und bestell direkt. Dein Tier bekommt genau das, was es braucht.' },
 ];
 let hiwCurrent = 0;
 let hiwTimer   = null;
@@ -1165,7 +1166,7 @@ function hiwHTML() {
             onmouseenter="hiwActivate(${i}, true)"
             onclick="hiwActivate(${i}, true)"
             aria-label="Schritt ${i+1}: ${s.label}">
-      <span class="material-icons hiw__icon">${s.icon}</span>
+      <span class="hiw__num">0${i + 1}</span>
       <span class="hiw__body">
         <span class="hiw__title">${s.label}</span>
         <span class="hiw__detail">${s.detail}</span>

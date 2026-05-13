@@ -7,8 +7,9 @@
 /* ─── So funktioniert's ─── */
 .hiw {
   background: var(--accent-bg);
-  padding: calc(var(--base) * 0.6) 0;
+  padding: calc(var(--base) * 0.35) 0;
 }
+.hiw .page { padding-top: 0; padding-bottom: 0; }
 
 .hiw__track {
   display: flex;
@@ -30,13 +31,13 @@
 }
 .hiw__step:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 
-.hiw__icon {
-  font-size: 1.1rem;
+.hiw__num {
+  font-size: var(--text-sm);
+  font-weight: 700;
   line-height: 1.4;
   flex-shrink: 0;
   color: var(--border);
   transition: color var(--anim-fast);
-  user-select: none;
 }
 
 .hiw__body {
@@ -64,7 +65,7 @@
   transition: max-height var(--anim-mid), opacity var(--anim-mid), margin-top var(--anim-fast);
 }
 
-.hiw__step.--active .hiw__icon   { color: var(--green); }
+.hiw__step.--active .hiw__num    { color: var(--green); }
 .hiw__step.--active .hiw__title  { color: var(--fg); }
 .hiw__step.--active .hiw__detail {
   max-height: 5rem;
