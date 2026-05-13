@@ -1813,6 +1813,7 @@
     <table class="spec-table">
       <tr><th>Basis</th><td><code>.cart-item</code> + <code>.product-thumb</code> + <code>.cart-item__info</code> + <code>.cart-item__top</code></td></tr>
       <tr><th>Mit Menge</th><td><code>.cart-item__bottom</code> + <code>.qty-selector.--sm</code></td></tr>
+      <tr><th>Mit Button</th><td><code>.cart-item__bottom</code> + <code>.btn.--sm</code> — z. B. Produktfinder-Ergebnis oder Empfehlungs-Vorschau</td></tr>
       <tr><th>Mit Badge-Overlay</th><td><code>.product-thumb-wrap</code> (statt <code>.product-thumb</code> direkt) + <code>.floating-meta</code> darin</td></tr>
       <tr><th>Counter + Badge</th><td><code>.cart-item__counter</code> wrapping <code>.qty-selector.--sm</code> + inline Badge</td></tr>
     </table>
@@ -1884,6 +1885,26 @@
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
                 <span class="material-icons">close</span>
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-label">5 — Mit Button (.cart-item__bottom + .btn.--sm)</div>
+    <div class="sg-demo-pad">
+      <div style="max-width: 28rem;">
+        <div class="cart-item">
+          <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <div>
+                <p class="cart-item__name">Calmin Balance Tabletten</p>
+                <div class="cart-item__variant">60 Stück · 39,90 €</div>
+              </div>
+            </div>
+            <div class="cart-item__bottom">
+              <button type="button" class="btn --primary --sm">Zum Produkt</button>
             </div>
           </div>
         </div>

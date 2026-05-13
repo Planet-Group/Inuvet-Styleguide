@@ -1428,7 +1428,9 @@ function renderFinderResult(matches) {
                 ${variant ? `<div class="cart-item__variant">${variant}</div>` : ''}
               </div>
             </div>
-            <button class="btn --primary --sm" onclick="event.stopPropagation();closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">Zum Produkt</button>
+            <div class="cart-item__bottom">
+              <button class="btn --primary --sm" onclick="event.stopPropagation();closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">Zum Produkt</button>
+            </div>
           </div>
         </div>`;
       }).join('')
