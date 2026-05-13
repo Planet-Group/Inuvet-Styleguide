@@ -49,6 +49,9 @@
   .hiw__step + .hiw__step { border-left: none; border-top: 1px solid var(--border); }
 }
 
+/* ─── Logo-Override (nur diese Seite) ─── */
+.nav-center img { transform: scale(1.5); }
+
 /* ─── Seiten-Elemente (Mockup-Inhalt, nicht inuvet.css, nicht mockup-ui.css) ─── */
 
 .shop-notice {
