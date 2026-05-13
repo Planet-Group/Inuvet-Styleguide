@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-08
+> **Letzte Aktualisierung:** 2026-05-13
 
 ---
 
@@ -39,6 +39,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── Bundle.html                 # Bundle-Builder Mockup (Naturalrabatt-System)
     ├── bundle.css
     ├── Bundle-Info.html            # Konzept-/Spezifikations-Artikel zum Bundle
+    ├── Produkt-Modell.html         # Blog-Beitrag: Indikation → Familie → Einzelprodukt → Variante
     ├── Tierarzt-Empfehlung-Mockup.html   # Hauptmockup: Rezeptanfrage-Flow
     ├── Tierarzt-Empfehlung-Mockup.css
     ├── Inuvet-Freigabe-Mockup.html # Vet-Portal: Empfehlungsanfragen freigeben
@@ -384,12 +385,23 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 3. Bestätigungs-Screen mit E-Mail-Overlays
 
 ### `Bundle.html` — Bundle-Builder
-- Naturalrabatt-System mit Tier-Konfiguration
+- Naturalrabatt-System mit Tier-Konfiguration (Kondition A / B)
 - `.summary-card` (sticky/floating) als Bestell-Übersicht
-- Mockup-FAB für Backend-Konfiguration der Stufen
+- Empfehlungs-Schiene (horizontal scrollbar, `recommendationsCount` konfigurierbar)
+- Mockup-FAB für Backend-Konfiguration der Stufen + Zeitraum-Simulation
+- **Sichtbarkeits-Logik**: `initBundle()` wird **einmalig beim Load** aufgerufen:
+  1. 180-Tage-Pool (`past6Months`) prüfen — Gratis-Produkt? → Section zeigen
+  2. Nein → 549-Tage-Fallback (`past18Months`) prüfen
+  3. Immer noch nein → Section dauerhaft ausgeblendet
+  Nach dem Load ändert sich die Sichtbarkeit nicht mehr (auch wenn User alle Rabatt-Produkte entfernt).
+- Mockup-Settings-Modal: „Zeitraum simulieren" Toggle (Normal / Nur 18 Monate) für Fallback-Demo
 
 ### `Bundle-Info.html` — Konzept-Artikel
 Strategie, UX-Konzept und technische Spezifikation des Bundle-Builders. Article-Layout mit Sidebar.
+Dokumentiert: beide Konditions-Modelle (A/B), zweistufige Anzeige-Bedingung (180→549 Tage), One-Shot-Sichtbarkeits-Regel, `resolveBundle()`-Pseudocode.
+
+### `Produkt-Modell.html` — Erklärungs-Artikel
+Blog-Beitrag im `article-layout`-Design. Erklärt die vier Ebenen (Indikation → Produktfamilie → Einzelprodukt → Variante) mit Kontext-Tabelle (was wird wo angezeigt). Verlinkt aus Styleguide-Sektionen C.1 und E.2.
 
 ### `Inuvet-Freigabe-Mockup.html` — Vet-Portal
 Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehnen + optionale Notiz.
@@ -462,7 +474,16 @@ docs: …      (Doku-Updates)
 - **Page-Refactor**: `Inuvet-Freigabe-Mockup.html` komplett aufgeräumt — Custom Header durch Standard-`.site-nav` ersetzt, lokale Klassen-Duplikate (`.approval-breadcrumb*`, `.approval-product-thumb`, `.approval-success*`) durch globale Komponenten ersetzt, ~160 Zeilen Inline-`<style>` nach `freigabe.css` ausgelagert
 - **Dead Code entfernt**: `breadcrumb()` JS-Helper in Tierarzt-Mockup, alle Breadcrumb-Aufrufe, `starter.html` komplett
 
+### Stand 2026-05-13 (Produkt-Modell-Doku + Bundle-Sichtbarkeitslogik)
+- **`pages/Produkt-Modell.html`** neu erstellt: Beitrag erklärt Indikation → Familie → Einzelprodukt → Variante; verlinkt aus C.1 und E.2 im Styleguide
+- **`inuvet.css`**: `.rte table th/td` — `padding-left: 0` (Tabellenzellen linksbündig); `.article__header h1` — `margin-bottom: var(--half-module)` ergänzt
+- **`styleguide.html` A.4**: `.rte`-Demo um Tabellen-Beispiel + Spec-Tabelle erweitert
+- **`Bundle.html`**: `initBundle()` mit zweistufiger Sichtbarkeits-Logik (180→549 Tage), `past18Months`-Feld in allen Produkten, Mockup-Toggle für Zeitraum-Simulation
+- **`Bundle-Info.html`**: Anzeige-Bedingung vollständig neu dokumentiert (zweistufig, One-Shot, `resolveBundle()`-Pseudocode), Datum auf 13. Mai aktualisiert
+
 ### Offene Punkte
-- **Bundle.html**: Recommendations-Sektion ist temporär entfernt (`recommendedPool`, `addProduct` Funktionen sind dead code). Wenn die Sektion wieder gewünscht ist, brauchen wir ein anderes Card-Pattern für den Kontext.
+- **`styleguide.html` A.1 Seitenbreiten-Bug**: Ab Sektion A.1 ist ein `<div class="page">` in das äußere `<div class="page">` verschachtelt (Zeile 146). Das verdoppelt den horizontalen `padding: var(--margin)` und macht den Inhalt ab A.1 schmaler als gewünscht. Fix: das innere `<div class="page">` bei A.1 entfernen (und bei allen folgenden Sektionen prüfen — A.2ff sind eigene `.page`-Divs und korrekt).
+- **`Tierarzt-Empfehlung-Mockup.html`**: Letzte Review-Runde noch offen — PDP-Layout, Variantenmenü und Options-Drawer implementiert, aber noch nicht finalisiert/abgenommen.
+- **`Inuvet-Freigabe-Mockup.html`**: Grundfunktion läuft. Nächste Session: offene Feedback-Punkte klären.
 - **Empty-State `max-width: 28rem`** könnte responsiver sein (minor)
-- **Sektion 23 (Tabs)**: `.tab-panel` als globale Klasse noch nicht in Sektion 12 (Form) referenziert — minor
+- **Sektion C.5 (Tabs)**: `.tab-panel` als globale Klasse noch nicht in C.4 (Form) referenziert — minor
