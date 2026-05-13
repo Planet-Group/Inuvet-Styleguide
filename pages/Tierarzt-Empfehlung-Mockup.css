@@ -71,30 +71,7 @@
   .hiw__connector { display: none; }
 }
 
-/* ─── Finder-Teaser (Collection-Seite) ─── */
-.finder-teaser {
-  background: var(--bg);
-  border-bottom: none;
-  padding: 0 0 var(--half-module);
-  overflow: visible;
-}
-.finder-teaser .page { padding-top: 0; padding-bottom: 0; }
-.finder-teaser__inner {
-  display: flex;
-  gap: var(--module);
-  overflow: visible;
-}
-.finder-teaser__headline {
-  font-size: var(--text-l);
-  font-weight: 700;
-  line-height: var(--lh-h2);
-  margin: calc(var(--base) * 0.2) 0 calc(var(--base) * 0.3);
-}
-.finder-teaser__body {
-  font-size: var(--text-base);
-  color: var(--fg-muted);
-  margin: 0;
-}
+/* ─── Finder-Teaser (Collection-Seite) — nutzt .section-type --v1 --reverse aus inuvet.css ─── */
 
 /* ─── Produktfinder-Modal ─── */
 .finder__modal {
@@ -136,46 +113,6 @@
   border-top: 1px solid var(--border);
 }
 
-/* ─── Finder-Teaser: Lottie-Animation (50/50, Überlapp nach oben) ─── */
-.finder-teaser__inner {
-  align-items: flex-end;  /* Text sitzt am unteren Rand, Animation ragt oben raus */
-  overflow: visible;
-}
-.finder-teaser__text {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-top: var(--half-module);
-}
-/* Abstände folgen dem D.3-Muster: headline → body → btn je var(--half-module) */
-.finder-teaser__text .label-caps        { margin: 0 0 calc(var(--base) * 0.25); }
-.finder-teaser__text .finder-teaser__headline { margin: 0 0 var(--half-module); }
-.finder-teaser__text .finder-teaser__body     { margin: 0 0 var(--half-module); color: var(--fg-muted); line-height: var(--lh-base); }
-.finder-teaser__text .btn               { align-self: flex-start; }
-
-.finder-teaser__anim {
-  flex: 1 1 0;
-  overflow: visible;          /* nach oben bluten erlaubt */
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  pointer-events: none;
-  user-select: none;
-  position: relative;
-  z-index: calc(var(--z-nav) + 2);   /* über announcement-bar + nav */
-  /* Animation um ~60 % der Header-Höhe nach oben schieben */
-  transform: translateY(calc(var(--header-height) * -0.6));
-}
-.finder-teaser__anim lottie-player {
-  width: 100%;
-  height: auto;
-  min-height: 14rem;
-}
-
-@media (max-width: 600px) {
-  .finder-teaser__anim { display: none; }
-}
 
 /* ─── Logo-Override (nur diese Seite) ─── */
 .nav-center img { transform: scale(1.5); }
