@@ -831,7 +831,7 @@ function renderCartDrawer() {
 /* Cart-Item im Drawer (mit Mengenauswahl + Entfernen) */
 function drawerItemHTML(item, type) {
   const p         = getProduct(item.id);
-  const info      = type === 'approved' ? 'Einzulösen mit Empfehlung' : 'Anfrage an Praxis';
+  const info      = type === 'approved' ? 'Einzulösen mit Empfehlung' : '';
   const thumbHTML = p.img
     ? `<img src="${p.img}" alt="${item.cartName}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
     : '';
@@ -845,7 +845,7 @@ function drawerItemHTML(item, type) {
         <div>
           <p class="cart-item__name">${item.cartName}</p>
           <div class="cart-item__variant">${item.variantLabel}</div>
-          <div class="cart-item__variant">${info}</div>
+          ${info ? `<div class="cart-item__variant">${info}</div>` : ''}
         </div>
         <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"
           onclick="removeFromCart('${eName}','${eVar}')">
