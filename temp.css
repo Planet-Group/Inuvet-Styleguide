@@ -42,7 +42,6 @@
 
 .options-drawer__section {
   padding: var(--half-module);
-  border-bottom: 1px solid var(--border);
 }
 
 .options-drawer__section-label {
@@ -65,15 +64,9 @@
   cursor: pointer;
   transition: border-color var(--anim-fast), background var(--anim-fast);
 }
-.options-variant-btn:hover  { border-color: var(--fg); }
+.options-variant-btn:hover   { border-color: var(--fg); }
 .options-variant-btn.--active {
   border-color: var(--fg);
   background: var(--fg);
   color: var(--bg);
-}
-
-.options-drawer__footer {
-  padding: var(--half-module);
-  border-top: 1px solid var(--border);
-  margin-top: auto;
 }

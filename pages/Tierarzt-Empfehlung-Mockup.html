@@ -443,10 +443,13 @@ function renderOptionsDrawer() {
         </button>
       </div>
     </div>
-    <div class="options-drawer__footer">
-      <button class="${ctaClass}" onclick="confirmOptions()">
+    <div class="cart-drawer__footer">
+      <button class="${ctaClass} cart-drawer__checkout" onclick="confirmOptions()">
         ${ctaIcon}${ctaLabel}
       </button>
+      <div class="cart-drawer__continue-wrap">
+        <button class="btn --ghost cart-drawer__continue" onclick="closeOptions()">Zurück</button>
+      </div>
     </div>`;
 }
 
