@@ -45,41 +45,55 @@
 <!-- ════════════════════════════════════════
      Hauptinhalt
      ════════════════════════════════════════ -->
-<main class="page --narrow approval-page" id="approvalMain">
+<main class="page approval-page" id="approvalMain">
 
   <!-- Titel -->
-  <h1 class="h2">Empfehlungsanfrage von Max Mustermann</h1>
+  <h1 class="h2">Empfehlungsanfrage</h1>
 
   <!-- Patienten-Meta — schlanke Header-Zeile mit .label-caps Keys -->
   <div class="approval-meta">
+    <span class="approval-meta__item"><span class="label-caps">Name</span><span class="approval-meta__val">Max Mustermann</span></span>
     <span class="approval-meta__item"><span class="label-caps">Eingegangen</span><span class="approval-meta__val">07.05.2026</span></span>
     <span class="approval-meta__item"><span class="label-caps">E-Mail</span><span class="approval-meta__val">kunde@email.com</span></span>
-    <span class="approval-meta__item"><span class="label-caps">Praxis</span><span class="approval-meta__val">Tierarztpraxis Grüntal</span></span>
   </div>
 
   <!-- Produkt-Liste -->
   <h2 class="section-label --sub">Angefragt (2 Produkte)</h2>
 
-  <!-- Produkt 1: Calmin Balance -->
+  <div class="approval-product-grid">
+
+  <!-- Produkt 1: Calmin Balance Tabletten -->
   <div class="approval-product-card" id="card-1" data-status="open">
-    <div class="approval-product-card__inner">
-      <div class="product-thumb placeholder-bg">
-        <span class="material-icons">inventory_2</span>
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin Balance Tabletten">
+        <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
       </div>
-      <div class="approval-product-info">
-        <div class="approval-product-name">Calmin Balance Tabletten</div>
-        <div class="approval-product-variant">60 Stück</div>
-        <div class="label-caps">Empfehlung</div>
-        <div class="approval-qty-group">
-          <button class="choice-box" type="button" onclick="setQty(1,'reject',this)">Ablehnen</button>
-          <button class="choice-box" type="button" onclick="setQty(1,'max1',this)">max. 1×</button>
-          <button class="choice-box" type="button" onclick="setQty(1,'max2',this)">max. 2×</button>
-          <button class="choice-box" type="button" onclick="setQty(1,'max5',this)">max. 5×</button>
-          <button class="choice-box" type="button" onclick="setQty(1,'unlimited',this)">Unbegrenzt</button>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Calmin Balance Tabletten</p>
+          </div>
         </div>
-        <div class="approval-commission">
-          <span class="label-caps">Deine Provision</span>
-          <span class="approval-commission__value --muted">Wähle eine Empfehlung</span>
+        <div class="approval-size-group">
+          <button class="choice-box --sm --active" type="button" onclick="setVariant(1,'60 Stück',this)">60 Stück</button>
+          <button class="choice-box --sm" type="button" onclick="setVariant(1,'90 Stück',this)">90 Stück</button>
+        </div>
+        <div class="approval-controls">
+          <div class="form-field --sm">
+            <select id="approval-select-1" onchange="setQty(1, this.value)">
+              <option value="" disabled selected>Bitte entscheiden …</option>
+              <option value="reject">Ablehnen</option>
+              <option value="max1">max. 1×</option>
+              <option value="max2">max. 2×</option>
+              <option value="max5">max. 5×</option>
+              <option value="unlimited">Unbegrenzt</option>
+            </select>
+          </div>
+          <div class="approval-commission">
+            <span class="label-caps">Provision</span>
+            <span class="approval-commission__value --muted" id="commission-1">—</span>
+          </div>
         </div>
       </div>
     </div>
@@ -91,26 +105,38 @@
     </div>
   </div>
 
-  <!-- Produkt 2: Hepax forte -->
+  <!-- Produkt 2: Hepax forte Tabletten -->
   <div class="approval-product-card" id="card-2" data-status="open">
-    <div class="approval-product-card__inner">
-      <div class="product-thumb placeholder-bg">
-        <span class="material-icons">inventory_2</span>
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte Tabletten">
+        <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
       </div>
-      <div class="approval-product-info">
-        <div class="approval-product-name">Hepax forte Tabletten</div>
-        <div class="approval-product-variant">30 Stück</div>
-        <div class="label-caps">Empfehlung</div>
-        <div class="approval-qty-group">
-          <button class="choice-box" type="button" onclick="setQty(2,'reject',this)">Ablehnen</button>
-          <button class="choice-box" type="button" onclick="setQty(2,'max1',this)">max. 1×</button>
-          <button class="choice-box" type="button" onclick="setQty(2,'max2',this)">max. 2×</button>
-          <button class="choice-box" type="button" onclick="setQty(2,'max5',this)">max. 5×</button>
-          <button class="choice-box" type="button" onclick="setQty(2,'unlimited',this)">Unbegrenzt</button>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Hepax forte Tabletten</p>
+          </div>
         </div>
-        <div class="approval-commission">
-          <span class="label-caps">Deine Provision</span>
-          <span class="approval-commission__value --muted">Wähle eine Empfehlung</span>
+        <div class="approval-size-group">
+          <button class="choice-box --sm --active" type="button" onclick="setVariant(2,'30 Stück',this)">30 Stück</button>
+          <button class="choice-box --sm" type="button" onclick="setVariant(2,'60 Stück',this)">60 Stück</button>
+        </div>
+        <div class="approval-controls">
+          <div class="form-field --sm">
+            <select id="approval-select-2" onchange="setQty(2, this.value)">
+              <option value="" disabled selected>Bitte entscheiden …</option>
+              <option value="reject">Ablehnen</option>
+              <option value="max1">max. 1×</option>
+              <option value="max2">max. 2×</option>
+              <option value="max5">max. 5×</option>
+              <option value="unlimited">Unbegrenzt</option>
+            </select>
+          </div>
+          <div class="approval-commission">
+            <span class="label-caps">Provision</span>
+            <span class="approval-commission__value --muted" id="commission-2">—</span>
+          </div>
         </div>
       </div>
     </div>
@@ -121,6 +147,8 @@
       </div>
     </div>
   </div>
+
+  </div><!-- /.approval-product-grid -->
 
   <!-- Status-Counter + Footer-CTA -->
   <p class="approval-counter" id="approvalCounter">0 von 2 Produkten entschieden</p>
@@ -141,7 +169,7 @@
   <div class="mockup-fab-panel__title">Mockup-Kontext</div>
   <p>Diese Seite simuliert die inuvet.com-Ansicht für Tierärzte.</p>
   <p>Ein Tierarzt öffnet diese Seite, um eine Empfehlungsanfrage von Max Mustermann zu bearbeiten.</p>
-  <p>Er kann pro Produkt eine Menge freigeben oder ablehnen und optional eine Notiz hinterlassen.</p>
+  <p>Er kann pro Produkt die Füllmenge anpassen, eine Empfehlungs-Stufe wählen und optional eine Notiz hinterlassen.</p>
   <p>Nach Absenden wird dem Tierbesitzer eine E-Mail geschickt.</p>
 </div>
 
@@ -151,17 +179,33 @@
    commissionPerOrder = Provision pro tatsächlicher Bestellung
    ════════════════════════════════════════════ */
 const REQUEST_PRODUCTS = [
-  { id:1, name:'Calmin Balance', variant:'Tabletten, 60 Stück', img: '', commissionPerOrder: 4.50 },
-  { id:2, name:'Hepax forte',          variant:'Tabletten, 30 Stück',   img: '', commissionPerOrder: 5.20 },
+  {
+    id: 1,
+    cartName: 'Calmin Balance Tabletten',
+    variants: [
+      { label: '60 Stück', price: '39,90 €' },
+      { label: '90 Stück', price: '54,90 €' },
+    ],
+    commissionPerOrder: 4.50,
+  },
+  {
+    id: 2,
+    cartName: 'Hepax forte Tabletten',
+    variants: [
+      { label: '30 Stück', price: '34,90 €' },
+      { label: '60 Stück', price: '64,90 €' },
+    ],
+    commissionPerOrder: 5.20,
+  },
 ];
 
 // Mapping Empfehlungs-Stufe → maximale Anzahl Bestellungen
 const QTY_MAX = { reject: 0, max1: 1, max2: 2, max5: 5, unlimited: Infinity };
 
-// State pro Produkt — kein Default, Tierarzt muss aktiv entscheiden
+// State pro Produkt — angefragte Größe als Default, Empfehlung offen
 const approvalState = {
-  1: { qty: null, note: '' },
-  2: { qty: null, note: '' },
+  1: { qty: null, variantLabel: '60 Stück' },
+  2: { qty: null, variantLabel: '30 Stück' },
 };
 
 function formatEur(value) {
@@ -169,31 +213,32 @@ function formatEur(value) {
 }
 
 function commissionForProduct(productId) {
-  const state   = approvalState[productId];
+  const s       = approvalState[productId];
   const product = REQUEST_PRODUCTS.find(p => p.id === productId);
-  if (!state || state.qty === null) return { text: 'Wähle eine Empfehlung', muted: true };
-  if (state.qty === 'reject')        return { text: 'Keine Provision',     muted: true };
+  if (!s || s.qty === null)   return { text: '—', muted: true };
+  if (s.qty === 'reject')     return { text: 'Keine Provision', muted: true };
   const perOrder = product.commissionPerOrder;
-  const max      = QTY_MAX[state.qty];
+  const max      = QTY_MAX[s.qty];
   if (max === Infinity) return { text: formatEur(perOrder) + ' pro Bestellung', muted: false };
-  return { text: formatEur(perOrder) + ' × ' + max + ' Bestellungen = max. ' + formatEur(perOrder * max), muted: false };
+  return { text: formatEur(perOrder) + ' × ' + max + ' = max. ' + formatEur(perOrder * max), muted: false };
 }
 
-function setQty(productId, value, btn) {
-  approvalState[productId].qty = value;
-  // Choice-Box visuell aktivieren
-  btn.closest('.approval-qty-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
+function setVariant(productId, label, btn) {
+  approvalState[productId].variantLabel = label;
+  btn.closest('.approval-size-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
   btn.classList.add('--active');
-  // Card-Status setzen (steuert border-left Farbe via CSS)
+}
+
+function setQty(productId, value) {
+  approvalState[productId].qty = value || null;
   const card = document.getElementById('card-' + productId);
-  card.dataset.status = (value === 'reject') ? 'rejected' : 'approved';
-  // Provisions-Zeile pro Card aktualisieren
+  card.dataset.status = value === 'reject' ? 'rejected' : value ? 'approved' : 'open';
   updateCommission(productId);
   updateCounter();
 }
 
 function updateCommission(productId) {
-  const el = document.querySelector('#card-' + productId + ' .approval-commission__value');
+  const el = document.getElementById('commission-' + productId);
   if (!el) return;
   const c = commissionForProduct(productId);
   el.textContent = c.text;
@@ -201,11 +246,10 @@ function updateCommission(productId) {
 }
 
 function updateCounter() {
-  const total    = Object.keys(approvalState).length;
-  const decided  = Object.values(approvalState).filter(s => s.qty !== null).length;
-  const counter  = document.getElementById('approvalCounter');
+  const total   = Object.keys(approvalState).length;
+  const decided = Object.values(approvalState).filter(s => s.qty !== null).length;
+  const counter = document.getElementById('approvalCounter');
 
-  // Provisions-Summe live berechnen — auch teilweise sichtbar machen
   let totalCommission = 0;
   let hasUnlimited = false;
   REQUEST_PRODUCTS.forEach(p => {
@@ -219,14 +263,13 @@ function updateCounter() {
   let text = `${decided} von ${total} Produkten entschieden`;
   if (totalCommission > 0 || hasUnlimited) {
     const suffix = hasUnlimited ? ' + Unbegrenzt' : '';
-    text += ` · Deine Provision: bis zu ${formatEur(totalCommission)}${suffix}`;
+    text += ` · Provision: bis zu ${formatEur(totalCommission)}${suffix}`;
   }
   counter.textContent = text;
   counter.classList.toggle('--complete', decided === total);
 }
 
 function submitApproval() {
-  // Validierung: alle Produkte müssen entschieden sein
   const undecided = Object.entries(approvalState).filter(([_, s]) => s.qty === null);
   if (undecided.length > 0) {
     const counter = document.getElementById('approvalCounter');
@@ -236,17 +279,18 @@ function submitApproval() {
     return;
   }
 
+  const qtyLabel = { max1: 'max. 1×', max2: 'max. 2×', max5: 'max. 5×', unlimited: 'Unbegrenzt' };
+
   const results = REQUEST_PRODUCTS.map(p => {
-    const s = approvalState[p.id];
+    const s    = approvalState[p.id];
     const note = document.getElementById('note-' + p.id)?.value ?? '';
-    return { ...p, qty: s.qty, note };
+    return { ...p, qty: s.qty, variantLabel: s.variantLabel, note };
   });
 
-  const qtyLabel = { 'max1':'max. 1×', 'max2':'max. 2×', 'max5':'max. 5×', 'unlimited':'Unbegrenzt' };
-
   const productLines = results.map(r => {
-    if (r.qty === 'reject') return `<li>${r.name}: <em>Abgelehnt</em>${r.note ? ` – ${r.note}` : ''}</li>`;
-    return `<li>${r.name}: ${qtyLabel[r.qty] || r.qty}${r.note ? ` – <em>${r.note}</em>` : ''}</li>`;
+    const variant = r.variantLabel ? ` (${r.variantLabel})` : '';
+    if (r.qty === 'reject') return `<li>${r.cartName}${variant}: <em>Abgelehnt</em>${r.note ? ` – ${r.note}` : ''}</li>`;
+    return `<li>${r.cartName}${variant}: ${qtyLabel[r.qty] || r.qty}${r.note ? ` – <em>${r.note}</em>` : ''}</li>`;
   }).join('');
 
   const emailBody = `
@@ -278,7 +322,7 @@ function submitApproval() {
         </div>
       </div>
     </div>
-    <div class="approval-footer --centered">
+    <div class="approval-footer">
       <a href="#" onclick="location.reload();return false;" class="btn --ghost">Zurück zur Übersicht</a>
     </div>
   `;

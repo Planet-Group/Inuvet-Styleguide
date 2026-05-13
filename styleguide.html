@@ -816,6 +816,7 @@
       <tr><th>Secondary<br><code>.btn.--secondary</code></th><td>Hintergrund transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert (schwarz gefüllt, weiße Schrift)</td></tr>
       <tr><th>Ghost<br><code>.btn.--ghost</code></th><td>Kein Hintergrund, kein Rand, kein Padding-left/right · Text + animierter Pfeil <code>' →'</code> · Hover: Pfeil verschiebt sich · <strong>Mobile:</strong> Padding <code>0.75rem</code> links/rechts + <code>margin-left: −0.75rem</code> (visuell bündig, Touch-Target ≥ 44 px)</td></tr>
       <tr><th>Volle Breite<br><code>.btn.--full</code></th><td>Zusatz-Modifier: <code>width: 100%</code> · Kombinierbar mit allen drei Stilvarianten</td></tr>
+      <tr><th>Klein<br><code>.btn.--sm</code></th><td>Zusatz-Modifier: <code>font-size: var(--text-sm)</code> · Padding <code>0.5rem × --half-module</code> · Kombinierbar mit <code>--with-icon</code> und <code>--full</code></td></tr>
       <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code></td></tr>
       <tr><th>Icon-only<br><code>.btn.--icon</code></th><td>Kein Hintergrund, kein Border, kein Padding · Für Nav-Icons (Suche, Warenkorb, Schließen) · Kombinierbar mit <code>.icon-badged</code></td></tr>
       <tr><th>Disabled<br><code>[disabled]</code> / <code>.--disabled</code></th><td><code>opacity: 0.35</code> · <code>pointer-events: none</code> · Für <code>&lt;button&gt;</code>: HTML-Attribut <code>disabled</code>. Für <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
@@ -856,6 +857,14 @@
     <p class="demo-note">Primary als Hauptaktion, Secondary als Alternative.</p>
 
     <!-- Demo: Mit Icon -->
+    <div class="demo-label">Klein — <code>.btn.--sm</code></div>
+    <div class="sg-btn-row">
+      <button class="btn --primary --sm">Primary klein</button>
+      <button class="btn --secondary --sm">Secondary klein</button>
+      <button class="btn --secondary --sm --with-icon"><span class="material-icons">add</span> Hinzufügen</button>
+    </div>
+    <p class="demo-note"><code>height: calc(var(--base) * 2)</code> — exakt gleiche Höhe wie <code>.qty-selector.--sm</code> und <code>.choice-box.--sm</code>. Kombinierbar mit <code>.--with-icon</code> und <code>.--full</code>.</p>
+
     <div class="demo-label">Mit Icon — <code>.btn.--with-icon</code></div>
     <div class="sg-btn-row">
       <button class="btn --primary --with-icon"><span class="material-icons">shopping_cart</span> In den Warenkorb</button>
@@ -1278,6 +1287,28 @@
     </div>
     <p class="demo-note">Custom-Pfeil. Label schwebt bei Auswahl.</p>
 
+    <div class="demo-label">Select klein — <code>.form-field.--sm</code></div>
+    <div class="sg-form-demo">
+      <div style="display:flex; gap: var(--half-module); align-items: flex-end; flex-wrap:wrap;">
+        <div class="form-field --sm" style="width:12rem;">
+          <label for="demo-select-sm">Empfehlung</label>
+          <select id="demo-select-sm">
+            <option value="" disabled selected>Bitte entscheiden …</option>
+            <option value="reject">Ablehnen</option>
+            <option value="max1">max. 1×</option>
+            <option value="max2">max. 2×</option>
+            <option value="max5">max. 5×</option>
+            <option value="unlimited">Unbegrenzt</option>
+          </select>
+        </div>
+        <div class="form-field --sm" style="width:12rem;">
+          <label for="demo-input-sm">Suchfeld</label>
+          <input type="text" id="demo-input-sm" placeholder="Suchen …">
+        </div>
+      </div>
+    </div>
+    <p class="demo-note"><code>.form-field.--sm</code>: Label statisch über dem Feld, <code>height: calc(var(--base) * 2)</code> — bündig mit <code>.btn.--sm</code>, <code>.choice-box.--sm</code> und <code>.qty-selector.--sm</code>.</p>
+
     <!-- Demo: Checkboxen & Radios -->
     <div class="demo-label">Checkboxen &amp; Radio-Buttons</div>
     <div class="sg-form-demo --mb">
@@ -1319,9 +1350,23 @@
     <div class="sg-form-demo --wide">
       <p class="sg-p">Als Alternative zu Standard-Radiobuttons. Ideal für Varianten oder Versandarten.</p>
       <div class="sg-demo-stack">
-        <div style="display: flex; gap: var(--half-module);">
-          <button class="choice-box --active" type="button">120g</button>
-          <button class="choice-box" type="button">250g</button>
+        <div style="display: flex; gap: var(--half-module); flex-wrap: wrap; align-items: flex-start;">
+          <div>
+            <p class="label-caps" style="margin-bottom: calc(var(--base) * 0.375);">Standard</p>
+            <div style="display: flex; gap: calc(var(--base) * 0.4);">
+              <button class="choice-box --active" type="button">120g</button>
+              <button class="choice-box" type="button">250g</button>
+            </div>
+          </div>
+          <div>
+            <p class="label-caps" style="margin-bottom: calc(var(--base) * 0.375);">Klein — <code>.--sm</code></p>
+            <div style="display: flex; gap: calc(var(--base) * 0.4);">
+              <button class="choice-box --sm" type="button" onclick="this.parentNode.querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Ablehnen</button>
+              <button class="choice-box --sm --active" type="button" onclick="this.parentNode.querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">max. 1×</button>
+              <button class="choice-box --sm" type="button" onclick="this.parentNode.querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">max. 2×</button>
+              <button class="choice-box --sm" type="button" onclick="this.parentNode.querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Unbegrenzt</button>
+            </div>
+          </div>
         </div>
         <div class="tile-grid" style="gap: var(--half-module);">
           <button class="choice-box --block --active" type="button">
@@ -1334,6 +1379,7 @@
           </button>
         </div>
       </div>
+      <p class="demo-note"><code>.--sm</code>: <code>font-size: var(--text-sm)</code>, <code>height: calc(var(--base) * 2)</code> — exakt gleiche Höhe wie <code>.btn.--sm</code> und <code>.qty-selector.--sm</code>. Typisch: Mengen- oder Empfehlungs-Stufen in kompakten Card-Layouts.</p>
     </div>
 
     <!-- Demo: Komplettes Formular -->

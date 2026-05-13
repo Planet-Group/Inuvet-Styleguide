@@ -380,20 +380,6 @@
   }
 }
 
-/* Add-Button: exakt Höhe von qty-selector.--sm. .btn ist global inline-block,
-   für korrekte vertikale Zentrierung des Material-Icons + Text auf inline-flex. */
-.bundle-recommendations__add {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: calc(var(--base) * 2);
-  padding: 0 var(--half-module);
-  font-size: var(--text-sm);
-  line-height: 1;
-  gap: calc(var(--base) * 0.25);
-}
-.bundle-recommendations__add .material-icons { font-size: var(--text-base); }
 
 
 

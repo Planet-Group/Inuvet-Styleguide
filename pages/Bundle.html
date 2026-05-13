@@ -772,11 +772,11 @@
             <div class="cart-item__top">
               <div>
                 <p class="cart-item__name">${displayName}</p>
-                <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.</div>
+                <div class="cart-item__variant">${sizeLabel} · ${fmt(getActivePrice(p))}</div>
               </div>
             </div>
             <div class="cart-item__bottom">
-              <button type="button" class="btn --secondary bundle-recommendations__add" onclick="addProduct(${p.id})">
+              <button type="button" class="btn --secondary --sm --with-icon --full" onclick="addProduct(${p.id})">
                 <span class="material-icons">add</span> Hinzufügen
               </button>
             </div>
