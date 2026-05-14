@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-13
+> **Letzte Aktualisierung:** 2026-05-14
 
 ---
 
@@ -49,8 +49,6 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     └── Prozess-Diagramm.html       # Swimlanes für Empfehlungs- + Naturalrabatt-Flow
 ```
 
-> **Hinweis:** `starter.html` als statische Datei wurde gelöscht — sie veraltete schneller, als sie genutzt wurde. Stattdessen lebt das **Page-Skeleton in Sektion E.1 des Styleguides** als Code-Snippet mit Verweisen zu allen Detail-Sektionen. Es bleibt damit immer synchron mit dem System. Wer einen anderen Pattern-Typ braucht (Hero-led, Stand-Alone-Form), kopiert die strukturell passende existierende Page.
-
 ---
 
 ## Produkt-Modell (Domain-Wissen)
@@ -92,6 +90,11 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
 | `temp.css` | Neue globale Styles im Test (Staging) | Produktions-Code — nie deployen |
 
+**Aktueller `temp.css`-Inhalt (Stand 2026-05-14, noch nicht nach `inuvet.css` promoted):**
+- **Login/Registrieren Modal** — `.login-overlay`, `.login-modal`, `.login-brand` (Dark-Side), `.login-form-panel`, `.login-tabs`, `.login-tab`, `.login-panel`, `.login-form`, `.login-form__row`, `.login-forgot`, `.login-cta`, `.login-divider`, `.login-social`, `.login-switch`
+- **Shop-Modal** (Checkout-Bestätigung) — `.shop-modal-overlay`, `.shop-modal`, `.shop-modal__icon/title/body/actions`
+- **Options-Drawer** (Varianten wählen) — `.options-overlay`, `.options-drawer`, `.options-drawer__items/product/section/section-label`, `.options-variants`
+
 ### Seiten-Architektur
 
 - **Hero-led Pages** (Bundle, Tierarzt-Mockup): `<main>` direkt, ohne `.page` — section-types sind selbst-containerisiert
@@ -113,17 +116,9 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 
 ---
 
-## Designprinzipien (nie brechen)
+## Designprinzipien
 
-1. **Immer bestehende Klassen nutzen** — Erst `inuvet.css` prüfen, dann erst neu erfinden.
-2. **Atomic Design / Lego-Prinzip** — Atome kombinieren statt neue Komponenten erfinden.
-3. **`border-radius: 0` überall** — Ausnahmen nur: `.badge.--pill` (`2em`) und Avatar (`50%`).
-4. **Kein `text-align: center`** für Inhalte — Nur funktional (Button-Text, Qty-Input, Empty/Success-State).
-5. **Kein `!important`** — Niemals.
-6. **Alle Werte als Token** — Keine Magic Numbers. Alles via `var(--...)`.
-7. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.tile.--featured`, `.--active`, `.--open`.
-8. **Linien sparsam einsetzen** — Whitespace ist die Standard-Trennung. `border-top` für Trennzwecke ist ein Code-Smell.
-9. **Page-Spacing über Tokens** — `--page-pt` für Atemraum unter dem sticky Header (siehe Layout-Tokens).
+→ Verbindliche Regeln stehen in **`CLAUDE.md` (Goldene Regeln)** — dort gepflegt, nicht hier.
 
 ---
 
@@ -254,7 +249,8 @@ Drei standardisierte Lese-Breiten statt ad-hoc `max-width`-Werten:
 - `.tile.--featured` = Sonderkachel (grüner Hintergrund)
 - `.tile-grid.--cols-2/3/4` für Grid-Layouts
 - **Preis in `.tile__price` immer mit „ab"** — in der Übersicht ist noch keine Darreichungsform/Füllmenge gewählt. `<span>ab 39,90 €</span>`. Bei Sale: `<span>ab 24,90 €</span><span class="--old">49,90 €</span>`.
-- **Cart Item `.cart-item__variant`**: Füllmenge + Preis ohne „/ Stk.": `60 Stück · 39,90 €`
+- **Cart Item `.cart-item__variant`**: Füllmenge + Preis: `60 Stück · 39,90 €` — immer `cart-item__variant` (xs, muted), nie eigene Klassen
+- **Cart Item Variante „Mit Button"** (C.2 Demo 5): statt `qty-selector` im `cart-item__bottom` ein `.btn.--sm` — z.B. im Produktfinder-Ergebnis oder Empfehlungs-Vorschau
 
 ### Card-Patterns (4 verschiedene, bewusst getrennt)
 | Klasse | Verwendung |
@@ -295,6 +291,21 @@ Beide sind global in `inuvet.css`. Einsetzbar inline, im Modal, im Drawer.
 </div>
 ```
 Gelber Hintergrund (`#FEFFDA`), kein Border. Drei Varianten: einzeilig, mehrzeilig, mit CTA.
+
+### Spacing-Systemregel — H→p→Button-Stacks
+
+Überall wo Headline + Fließtext + CTA gestapelt werden (Hero, Teaser, Banner):
+- Headline → Body: `margin-bottom: var(--half-module)`
+- Body → Button: `margin-bottom: var(--half-module)`
+
+Dieses Muster ist in D.3 als explizite Systemregel dokumentiert (Stand 2026-05-14). Gilt in `section-type__headline/body` genauso wie in page-spezifischen Teasern.
+
+### section-type — Animation-Variante
+
+`.section-type --v1 --reverse` mit `.section-type__animation` statt Bild:
+- Content nimmt die **volle Spaltenbreite** (kein `max-width`, kein horizontales Einrücken)
+- Vertikal zentriert via `margin-block: auto`
+- Für Teaser/Banner-Sections, die eine Lottie-Animation zeigen wollen, diese Variante direkt aus D.3 kopieren — kein custom CSS nötig
 
 ### PDP — Einzelprodukt vs. Produktfamilie
 - **Einzelprodukt**: Darreichungsform direkt im Namen (z.B. „Laxin Pulver"), keine Größenwahl
@@ -385,6 +396,76 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 
 ---
 
+### Klassen-Schnellreferenz (Komponentenindex)
+
+> Schnellüberblick für die Arbeit mit `inuvet.css`. A (Foundations) enthält keine Klassen-Komponenten — nur Tokens, Farben, Typografie. Bei Bedarf Details zur einzelnen Komponente gezielt aus `styleguide.html` lesen (Anker: `#A1`, `#B1` … `#E10`).
+
+#### B — Atome
+
+| Sektion | Komponente | Klasse(n) | Modifier | Wichtige Kinder / Hinweise |
+|---|---|---|---|---|
+| B.1 | Button | `.btn` | `--primary --ghost --sm --danger --loading` | — |
+| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` für Kategorie | `.label-caps` für Caps-Beschriftung (eigenständig) |
+| B.3 | Icon & Icon-Box | `.icon-box` | — | `.material-icons` |
+| B.4 | Formularfeld | `.form-field` | `--sm` | `label + input/select/textarea`; `.form-grid` (`--full`) für Mehrspalter; `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
+| B.5 | Product Thumb | `.product-thumb` | — | 2× `<img>` (Produkt + Rollover) |
+| B.6 | Breadcrumb | `.breadcrumb` | — | `__item __sep --current` |
+
+#### C — Moleküle
+
+| Sektion | Komponente | Klasse(n) | Modifier | Wichtige Kinder / Hinweise |
+|---|---|---|---|---|
+| C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` | `__image-wrap __image __headline-row __headline __description __price __cart __cart-icon`; `.floating-meta .rating .price-stack (--old)` |
+| C.2 | Cart Item | `.cart-item` | — | `__info __top __name __variant __bottom __remove __price`; benötigt `.product-thumb`; in `__bottom`: `.qty-selector` oder `.btn.--sm` |
+| C.3 | Card-Pattern | — | — | Lehrstück: welche Karte für welchen Kontext — kein eigenes BEM |
+| C.4 | Formular-Shell | `.form-page` | — | Wrapper für Stand-Alone-Formulare |
+| C.5 | Tabs & Akkordeon | `.tabs .tab-panel` | — | `.accordion .accordion-item .accordion-trigger .accordion-content .accordion-icon` |
+| C.6 | Pagination | `.pagination` | — | `__page (--current) __btn __dots` |
+| C.7 | Notice / Infobox | `.notice` | — | `__title __actions` |
+| C.8 | Empty / Success | `.empty-state` `.success-state` | — | `__icon __title __body __actions` |
+| C.9 | Toast | `.toast` | `--success --error --info --out` | `.toast-container` (fixed Wrapper) |
+| C.10 | Modal | `.modal` `.modal-overlay` | `--open` auf overlay | Modal-Inhalt direkt als Kind; `.modal__title` |
+
+#### D — Organismen
+
+| Sektion | Komponente | Klasse(n) | Modifier | Wichtige Kinder / Hinweise |
+|---|---|---|---|---|
+| D.1 | Navigation | `.site-nav` `.announcement-bar` | — | `.nav-left .nav-center .nav-right .nav-item .nav-hamburger .mobile-menu` |
+| D.2 | Footer | `.site-footer` | — | `.footer-main .footer-bar` |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` | `__content __headline __body __bottom __image __animation` |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4 --boxed` | `.tile` (generisch); `.tile.--product` → C.1 |
+| D.5 | Testimonials | `.testimonial-grid .testimonial` | — | `.testimonial-slider .slider-nav .slider-btn .slider-counter` |
+| D.6 | Marquee | `.marquee` | — | — |
+| D.7 | Newsletter | `.newsletter` | — | — |
+| D.8 | Cookie-Banner | `.cookie-banner` | — | `__text __actions` |
+
+#### E — Seiten-Vorlagen
+
+| Sektion | Komponente | Klasse(n) | Modifier | Wichtige Kinder / Hinweise |
+|---|---|---|---|---|
+| E.2 | PDP | `.pdp` | — | `.pdp__type-selector .pdp__type-row .pdp__type-label .pdp__type-animals` |
+| E.3 | Collection | `.collection-layout` | — | `.collection-sidebar .collection-toolbar` |
+| E.4 | Warenkorb-Drawer | `.cart-drawer` `.cart-overlay` | `--open` | `__header __title __items __footer` |
+| E.5 | Checkout | `.checkout` | — | `.summary-line .summary-total` |
+| E.7 | Suche | `.search-overlay .search-panel` | — | `.search-results .search-result` |
+| E.8 | Blog | `.article-layout .article-sidebar` | — | `.rte` für Fließtext; `.blog-card` |
+
+#### Globale Helfer (kein eigener Styleguide-Abschnitt)
+
+| Klasse | Modifier | Zweck |
+|---|---|---|
+| `.page` | `--narrow --form --no-pt` | Container mit max-width + padding |
+| `.section-label` | `--sub` | Caps-Label als Abschnittsüberschrift |
+| `.label-caps` | — | Inline Caps-Beschriftung (xs, muted, bold, uppercase) |
+| `.qty-selector` | `--sm` | Mengenauswahl (`__btn __input`) |
+| `.choice-box` | — | Auswahl-Button (Tier, Option, Darreichungsform) |
+| `.check-list` | — | Liste mit Haken-Icons |
+| `.price-stack` | — | Preis + `--old` für Streichpreise |
+| `.placeholder-bg` | — | Grauer Platzhalter für Produktbilder ohne Foto |
+| `.header` | — | Seitenkopf-Hero (Titel + Meta) |
+
+---
+
 ## Mockups (`pages/`)
 
 ### `Tierarzt-Empfehlung-Mockup.html` — Hauptmockup
@@ -457,49 +538,3 @@ docs: …      (Doku-Updates)
 ### CSS Cache-Busting (Development)
 `inuvet.css?v=N` — N hochzählen nach CSS-Änderungen (vor Push entfernen).
 
----
-
-## Verworfene Entscheidungen (nicht nochmal vorschlagen)
-
-- ❌ **Generische `.card`-Basis-Klasse** — die 5 Card-Patterns sind bewusst getrennt (siehe Sektion 14)
-- ❌ **Sektion 16 (Product Thumb) in Atome-Block verschieben** — Aufwand/Nutzen schlecht; Cross-Reference reicht
-- ❌ **Eigene Sektion „13a — Globale Atome"** — Atome im Verwendungs-Kontext zu zeigen hat eigenen Pädagogik-Wert
-- ❌ **Breadcrumbs aktiv nutzen** — flacher Katalog braucht sie nicht; Komponente bleibt dokumentiert
-- ❌ **Dark-Variante** für Komponenten — nicht gewünscht
-- ❌ **Zentrierte Layouts** für Content
-- ❌ **`!important`** — Niemals
-- ❌ **`border-radius` auf normalen Elementen** — außer explizite Ausnahmen (badge.--pill, avatar)
-- ❌ **3-Layer Token-Architektur** (vollständiges Refactoring) — zu aufwändig; semantische Aliase nur gezielt
-- ❌ **`starter.html` als Vorlage** — gelöscht; existing pages copy-pasten ist robuster
-
----
-
-## Audit-Historie
-
-### Stand 2026-05-08 (Inuvet-Freigabe Layout-Refactor + CLAUDE.md geschärft)
-- **Inuvet-Freigabe-Mockup** komplett neu gestaltet (Konzept A): schlanke Meta-Header-Zeile statt schwerer Patienten-Box, Status-Indikator als Border-Left pro Card (grün/rot/transparent), Notiz-Feld dauerhaft sichtbar, Submit-Validierung mit Live-Counter „X von Y Produkten entschieden", kein Default-Aktiv mehr (kein versehentliches Ablehnen), Footer mit Primary + Ghost-Button nebeneinander.
-- **Linien drastisch reduziert**: Card nutzt `background: var(--accent-bg)` statt umlaufendem Border. Meta-Bottom-Border und Note-Top-Border entfernt. 5 Linien → 2.
-- **CLAUDE.md Goldene Regel #1 geschärft** mit konkretem Anti-Pattern-Beispiel: `.approval-qty-label` als 1:1-Duplikat von globalem `.label-caps` wurde zur Live-Warnung dokumentiert (Pflicht-Workflow: greppen → wiederverwenden).
-
-### Stand 2026-05-08 (große Aufräum-Session)
-- **Sektions-Struktur komplett neu gestaltet**: Ablösung des Patchwork-Schemas (00–38 mit 12a/17a/34a-Suffixen) durch Atomic-Design-Hierarchie A–E (Foundations, Atome, Moleküle, Organismen, Seiten-Vorlagen). Erweiterbar ohne Suffixe. Alle Anker-IDs und Cross-References migriert. Mobile-Nav und Footer-Nav komplett neu strukturiert.
-- **Globale Konventionen etabliert**: `--page-pt`, `.page.--narrow/--form/--no-pt`, `.section-label.--sub`, `.success-state`-Komponente
-- **Hardcoded-Werte eliminiert**: 4 Farben in `bundle.css`, `1.5rem` in `formulare.css`, alle Animation-Hardcodes (`0.12s` etc.)
-- **Doku-Lücken geschlossen**: `--text-sm`, `--lh-h3`, `--border-focus`, alle `--anim-*`, `--z-*` Tokens in Sektion 02 dokumentiert
-- **Strukturelle Fixes**: Footer-Link-Bugs (4 falsche Verlinkungen), `.checkout__success-icon` durch globalen `.success-state__icon` ersetzt, `.product-thumb` aus Sektion 03 entfernt (gehörte in 16)
-- **Page-Refactor**: `Inuvet-Freigabe-Mockup.html` komplett aufgeräumt — Custom Header durch Standard-`.site-nav` ersetzt, lokale Klassen-Duplikate (`.approval-breadcrumb*`, `.approval-product-thumb`, `.approval-success*`) durch globale Komponenten ersetzt, ~160 Zeilen Inline-`<style>` nach `freigabe.css` ausgelagert
-- **Dead Code entfernt**: `breadcrumb()` JS-Helper in Tierarzt-Mockup, alle Breadcrumb-Aufrufe, `starter.html` komplett
-
-### Stand 2026-05-13 (Produkt-Modell-Doku + Bundle-Sichtbarkeitslogik)
-- **`pages/Produkt-Modell.html`** neu erstellt: Beitrag erklärt Indikation → Familie → Einzelprodukt → Variante; verlinkt aus C.1 und E.2 im Styleguide
-- **`inuvet.css`**: `.rte table th/td` — `padding-left: 0` (Tabellenzellen linksbündig); `.article__header h1` — `margin-bottom: var(--half-module)` ergänzt
-- **`styleguide.html` A.4**: `.rte`-Demo um Tabellen-Beispiel + Spec-Tabelle erweitert
-- **`Bundle.html`**: `initBundle()` mit zweistufiger Sichtbarkeits-Logik (180→549 Tage), `past18Months`-Feld in allen Produkten, Mockup-Toggle für Zeitraum-Simulation
-- **`Bundle-Info.html`**: Anzeige-Bedingung vollständig neu dokumentiert (zweistufig, One-Shot, `resolveBundle()`-Pseudocode), Datum auf 13. Mai aktualisiert
-
-### Offene Punkte
-- **`styleguide.html` A.1 Seitenbreiten-Bug**: Ab Sektion A.1 ist ein `<div class="page">` in das äußere `<div class="page">` verschachtelt (Zeile 146). Das verdoppelt den horizontalen `padding: var(--margin)` und macht den Inhalt ab A.1 schmaler als gewünscht. Fix: das innere `<div class="page">` bei A.1 entfernen (und bei allen folgenden Sektionen prüfen — A.2ff sind eigene `.page`-Divs und korrekt).
-- **`Tierarzt-Empfehlung-Mockup.html`**: Letzte Review-Runde noch offen — PDP-Layout, Variantenmenü und Options-Drawer implementiert, aber noch nicht finalisiert/abgenommen.
-- **`Inuvet-Freigabe-Mockup.html`**: Grundfunktion läuft. Nächste Session: offene Feedback-Punkte klären.
-- **Empty-State `max-width: 28rem`** könnte responsiver sein (minor)
-- **Sektion C.5 (Tabs)**: `.tab-panel` als globale Klasse noch nicht in C.4 (Form) referenziert — minor

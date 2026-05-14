@@ -21,6 +21,9 @@
 6. **Kein `text-align: center`** für Inhalte — nur funktional (Button-Text, Qty-Input, Empty/Success-State).
 7. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.--active`, `.--open`.
 8. **Linien sparsam** — Whitespace trennt. `border-top` für Trennzwecke ist Code-Smell.
+9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente muss sofort an zwei Stellen dokumentiert werden: (1) als Demo-Abschnitt in `styleguide.html`, (2) als Zeile in der Klassen-Schnellreferenz in `CONTEXT.md`. Beides zusammen, nie nur eines.
+10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird (egal ob in `temp.css`, einer Page-CSS oder `inuvet.css`): kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
+11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn aus dem Kontext nicht eindeutig hervorgeht, ob es sich um ein Einzelprodukt (mit Darreichungsform im Namen) oder eine Produktfamilie handelt: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
 
 ---
 
@@ -34,7 +37,7 @@
 | Cart, Checkout, Bestellübersicht, Freigabe | `Calmin Balance Tabletten`, `Hepax forte Tabletten` |
 | Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
 
-In Cart/Checkout: Varianten-Zeile zeigt nur Füllmenge (`60 Stück`). → Vollständiges Modell mit Indikation/Produkt/Variante/Familie in CONTEXT.md.
+In Cart/Checkout: Varianten-Zeile zeigt Füllmenge + Preis — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Nie eigene Klassen für diese Zeile. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2). → Vollständiges Modell mit Indikation/Produkt/Variante/Familie in CONTEXT.md.
 
 ---
 
