@@ -3657,10 +3657,7 @@
 &lt;!-- ── Footer (Sektion 19) — wenn vorhanden ── --&gt;
 
 &lt;!-- ── Globale JS-Helper (Mobile-Toggle, Announcement-Close etc.) ── --&gt;
-&lt;script&gt;
-  function toggleMobile() { /* siehe Sektion 17 */ }
-  function closeAnnouncement() { /* siehe Sektion 17 */ }
-&lt;/script&gt;
+&lt;script src="inuvet.js"&gt;&lt;/script&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -4711,23 +4708,6 @@
 </footer>
 
 <script>
-function toggleMobile() {
-  var menu = document.getElementById('mobileMenu');
-  var btn = document.getElementById('hamburger');
-  var isOpen = menu.classList.toggle('--open');
-  btn.classList.toggle('--open');
-  btn.setAttribute('aria-expanded', isOpen);
-  btn.setAttribute('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
-}
-
-function closeMobile() {
-  var menu = document.getElementById('mobileMenu');
-  var btn = document.getElementById('hamburger');
-  menu.classList.remove('--open');
-  btn.classList.remove('--open');
-  btn.setAttribute('aria-expanded', 'false');
-  btn.setAttribute('aria-label', 'Navigation öffnen');
-}
 
 // ─── Modal ───
 function openModal(id) {

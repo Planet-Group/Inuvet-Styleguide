@@ -280,18 +280,6 @@
       bar.classList.add('--closed');
       document.documentElement.style.setProperty('--announcement-height', '0px');
     };
-    window.toggleMobile = () => {
-      const menu = document.getElementById('mobileMenu');
-      const btn  = document.getElementById('hamburger');
-      const open = menu.classList.toggle('--open');
-      btn.classList.toggle('--open', open);
-      btn.setAttribute('aria-expanded', String(open));
-    };
-    window.closeMobile = () => {
-      document.getElementById('mobileMenu')?.classList.remove('--open');
-      const btn = document.getElementById('hamburger');
-      if (btn) { btn.classList.remove('--open'); btn.setAttribute('aria-expanded', 'false'); }
-    };
     window.openSearch  = () => document.getElementById('searchOverlay').classList.add('--open');
     window.closeSearch = () => document.getElementById('searchOverlay').classList.remove('--open');
     window.handleSearchOverlayClick = (e) => {
@@ -1007,5 +995,6 @@
     applyVisibility();
     if (bundleVisible) renderBundle();
   </script>
+  <script src="../inuvet.js"></script>
 </body>
 </html>
