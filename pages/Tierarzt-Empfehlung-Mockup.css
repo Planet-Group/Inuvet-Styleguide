@@ -229,3 +229,10 @@ body.--page-home .section-type.--viewport {
   line-height: var(--lh-h3);
   margin-bottom: var(--half-module);
 }
+
+/* ─── Button-Gruppe (Hero-CTA) ─── */
+.btn-row {
+  display: flex;
+  gap: var(--half-module);
+  flex-wrap: wrap;
+}
