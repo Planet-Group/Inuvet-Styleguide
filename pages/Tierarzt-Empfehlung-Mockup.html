@@ -93,6 +93,7 @@
   <div class="nav-col" id="mobileNavCol">
     <a href="#" onclick="setPage('collection');closeMobile();return false;">Alle Produkte</a>
     <a href="#" onclick="setPage('recommended');closeMobile();return false;" id="mobileRecommended" style="display:none">Empfohlene Produkte</a>
+    <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
   </div>
 </div>
 
@@ -1128,6 +1129,10 @@ function renderNav() {
   if (state === 'with-release') {
     addLink('Empfohlene Produkte', (e) => { e.preventDefault(); setPage('recommended'); });
   }
+  const docsLink = document.createElement('a');
+  docsLink.href = 'Tierarzt-Empfehlung-Info.html';
+  docsLink.textContent = 'Dokumentation';
+  navLinks.appendChild(docsLink);
 
   // Mobile-Menu synchronisieren
   const mobileRec = document.getElementById('mobileRecommended');
@@ -1142,11 +1147,12 @@ function renderNav() {
   cartBtn.querySelector('.material-icons').textContent = 'shopping_cart';
 
   if (state === 'guest') {
-    const loginLink = document.createElement('a');
-    loginLink.href      = '#';
-    loginLink.textContent = 'Einloggen';
-    loginLink.onclick   = (e) => { e.preventDefault(); openLoginModal('login', 'no-release'); };
-    navRight.appendChild(loginLink);
+    const loginBtn = document.createElement('button');
+    loginBtn.className = 'btn --icon';
+    loginBtn.setAttribute('aria-label', 'Einloggen');
+    loginBtn.innerHTML = '<span class="material-icons">person_outline</span>';
+    loginBtn.onclick = () => openLoginModal('login', 'no-release');
+    navRight.appendChild(loginBtn);
   }
 }
 
