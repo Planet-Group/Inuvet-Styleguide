@@ -4,3 +4,42 @@
    Wenn festgehalten → nach inuvet.css verschieben und hier löschen.
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
+
+/* ─── Announcement Bar — Marquee-Variante (.--marquee) ─── */
+/* Nutzt @keyframes marquee aus inuvet.css */
+html .announcement-bar.--marquee {
+  justify-content: flex-start;
+}
+
+html .announcement-bar.--marquee .announcement-bar__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+  animation: marquee-px 28s linear infinite;
+}
+
+@keyframes marquee-px {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--marquee-shift, -50%)); }
+}
+
+html .announcement-bar.--marquee .announcement-bar__item {
+  position: static;
+  opacity: 1;
+  animation: none;
+  white-space: nowrap;
+  font-size: var(--text-sm);
+}
+
+html .announcement-bar.--marquee .announcement-bar__sep {
+  display: inline-flex;
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.35;
+  margin: 0 var(--module);
+}

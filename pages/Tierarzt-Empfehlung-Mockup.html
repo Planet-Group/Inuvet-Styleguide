@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
-  <link rel="stylesheet" href="../temp.css">
+  <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
   <link rel="stylesheet" href="Tierarzt-Empfehlung-Mockup.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -47,14 +47,22 @@
 <!-- ════════════════════════════════════════
      SHOP-HEADER
      ════════════════════════════════════════ -->
-<div class="announcement-bar" id="announcementBar">
-  <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span>
-  <span class="announcement-bar__item">30 Tage Rückgabe</span>
-  <span class="announcement-bar__item">Tierärztlich entwickelt</span>
-  <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span>
-  <button class="btn --icon" onclick="closeAnnouncement()" aria-label="Schließen">
-    <span class="material-icons">close</span>
-  </button>
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Bitte anmelden um Empfehlung einzulösen</span><span class="announcement-bar__sep"></span>
+    <!-- Sentinel: markiert exakten Nahtpunkt für JS-Messung -->
+    <span class="announcement-bar__sentinel" aria-hidden="true"></span>
+    <!-- Duplikat für nahtlose Schleife -->
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Bitte anmelden um Empfehlung einzulösen</span><span class="announcement-bar__sep"></span>
+  </div>
 </div>
 
 <nav class="site-nav" aria-label="Hauptnavigation">
@@ -1998,6 +2006,16 @@ document.addEventListener('click', e => {
 
 render();
 initSliders();
+
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
+      const sentinel = track.querySelector('.announcement-bar__sentinel');
+      const shift = sentinel ? sentinel.offsetLeft : track.scrollWidth / 2;
+      track.style.setProperty('--marquee-shift', `-${shift}px`);
+    });
+  });
+});
 </script>
 </body>
 </html>

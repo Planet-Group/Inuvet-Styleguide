@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="inuvet.css">
 <link rel="stylesheet" href="sg.css">
+<link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
@@ -912,7 +913,7 @@
       <div class="rule"><h4>Aufbau</h4><p><code>.rating</code> nutzt Material Icons <code>star</code> / <code>star_border</code>. Leere Sterne via <code>.material-icons.--empty</code>. Optionale Textzahl direkt im Container.</p></div>
     </div>
     <table class="spec-table">
-      <tr><th><code>.rating</code></th><td>Flex, <code>gap: 0.25rem</code>, <code>font-size: var(--text-xs)</code>, <code>color: var(--fg-muted)</code></td></tr>
+      <tr><th><code>.rating</code></th><td>Flex, <code>gap: 0.25rem</code>, <code>font-size: var(--text-sm)</code>, <code>color: var(--fg-muted)</code></td></tr>
       <tr><th><code>.rating .material-icons</code></th><td><code>font-size: 1rem</code>, <code>color: var(--fg)</code></td></tr>
       <tr><th><code>.rating .material-icons.--empty</code></th><td><code>color: var(--border-light)</code> — leerer Stern</td></tr>
     </table>
@@ -2443,6 +2444,26 @@
     </table>
 
     <p class="sg-p --mb">Live-Demo: Die Announcement Bar und Navigation oben auf dieser Seite nutzen das dokumentierte Pattern.</p>
+
+    <div class="demo-label">Announcement Bar — Marquee-Variante (<code>.--marquee</code>)</div>
+    <div class="announcement-bar --marquee">
+      <div class="announcement-bar__track">
+        <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">Über 10.000 zufriedene Kunden</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__sentinel" aria-hidden="true"></span>
+        <!-- Duplikat für nahtlose Schleife -->
+        <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+        <span class="announcement-bar__item">Über 10.000 zufriedene Kunden</span><span class="announcement-bar__sep"></span>
+      </div>
+    </div>
+    <p class="demo-note">Items + Separator-Dots werden im HTML verdoppelt für nahtlose Endlosschleife. Modifier <code>.--marquee</code> — kein Close-Button.</p>
+
     <div class="demo-label">Announcement Bar — Live-Demo</div>
     <button class="btn --secondary" onclick="(function(){
       var bar = document.getElementById('announcementBar');
@@ -5145,6 +5166,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     items.forEach((item, i) => item.classList.toggle('--active', i === searchActiveIndex));
     if (searchActiveIndex >= 0) items[searchActiveIndex].scrollIntoView({ block: 'nearest' });
+  });
+});
+
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
+      const sentinel = track.querySelector('.announcement-bar__sentinel');
+      const shift = sentinel ? sentinel.offsetLeft : track.scrollWidth / 2;
+      track.style.setProperty('--marquee-shift', `-${shift}px`);
+    });
   });
 });
 
