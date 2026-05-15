@@ -1374,16 +1374,16 @@ function renderFinderStep() {
 
   // Schritt 1: Tierwahl — Choice-Boxes nebeneinander
   const options = isAnimal
-    ? `<div style="display:flex;gap:var(--half-module)">
-        ${FINDER_ANIMALS.map(a =>
-          `<button class="choice-box" style="flex:1" onclick="finderPickAnimal('${a.value}')">${a.label}</button>`
-        ).join('')}
-       </div>`
+    ? FINDER_ANIMALS.map(a =>
+        `<button class="choice-box" onclick="finderPickAnimal('${a.value}')">${a.label}</button>`
+      ).join('')
     // Schritt 2: Indikation — choice-box mit Label + Beschreibung
     : FINDER_INDICATIONS.map(ind =>
-        `<button class="choice-box" style="width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:calc(var(--base)*0.1);padding:calc(var(--base)*0.5) var(--half-module);text-align:left" onclick="finderPickIndication('${ind.value}')">
-          <strong style="font-size:var(--text-sm);font-weight:600">${ind.label}</strong>
-          <span style="font-size:var(--text-xs);color:var(--fg-muted);line-height:var(--lh-base)">${ind.desc}</span>
+        `<button class="choice-box --detail" onclick="finderPickIndication('${ind.value}')">
+          <span class="choice-box__content">
+            <span class="choice-box__label">${ind.label}</span>
+            <span class="choice-box__desc">${ind.desc}</span>
+          </span>
         </button>`
       ).join('');
 
@@ -1398,7 +1398,7 @@ function renderFinderStep() {
       </div>
       <div class="finder__body">
         <p class="finder__question">${isAnimal ? 'Welches Tier hast du?' : 'Was beschäftigt dich?'}</p>
-        <div class="finder__options">${options}</div>
+        <div class="finder__options ${isAnimal ? '--row' : ''}">${options}</div>
       </div>
       ${back}
     </div>`;
@@ -1415,7 +1415,7 @@ function renderFinderResult(matches) {
         // Unterzeile: "60 Stück · 39,90 €"
         const variant   = [firstVariant?.label, firstVariant?.price].filter(Boolean).join(' · ');
         return `
-        <div class="cart-item" style="cursor:pointer" onclick="closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
+        <div class="cart-item --clickable" onclick="closeFinder();activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')">
           <div class="product-thumb">
             ${p.img ? `<img src="${p.img}" alt="${cartName}">` : ''}
             ${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}
@@ -1433,7 +1433,7 @@ function renderFinderResult(matches) {
           </div>
         </div>`;
       }).join('')
-    : `<p style="color:var(--fg-muted);font-size:var(--text-sm)">Kein passendes Produkt gefunden — frag deinen Tierarzt.</p>`;
+    : `<p class="text-xs text-muted">Kein passendes Produkt gefunden — frag deinen Tierarzt.</p>`;
 
   overlay.innerHTML = `
     <div class="modal finder__modal">

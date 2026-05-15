@@ -90,10 +90,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
 | `temp.css` | Neue globale Styles im Test (Staging) | Produktions-Code — nie deployen |
 
-**Aktueller `temp.css`-Inhalt (Stand 2026-05-14, noch nicht nach `inuvet.css` promoted):**
-- **Login/Registrieren Modal** — `.login-overlay`, `.login-modal`, `.login-brand` (Dark-Side), `.login-form-panel`, `.login-tabs`, `.login-tab`, `.login-panel`, `.login-form`, `.login-form__row`, `.login-forgot`, `.login-cta`, `.login-divider`, `.login-social`, `.login-switch`
-- **Shop-Modal** (Checkout-Bestätigung) — `.shop-modal-overlay`, `.shop-modal`, `.shop-modal__icon/title/body/actions`
-- **Options-Drawer** (Varianten wählen) — `.options-overlay`, `.options-drawer`, `.options-drawer__items/product/section/section-label`, `.options-variants`
+**`temp.css`-Inhalt:** leer (alle Klassen nach `inuvet.css` promoted, Stand 2026-05-14)
 
 ### Seiten-Architektur
 
@@ -408,6 +405,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` für Kategorie | `.label-caps` für Caps-Beschriftung (eigenständig) |
 | B.3 | Icon & Icon-Box | `.icon-box` | — | `.material-icons` |
 | B.4 | Formularfeld | `.form-field` | `--sm` | `label + input/select/textarea`; `.form-grid` (`--full`) für Mehrspalter; `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
+| B.4a | Auswahlbox | `.choice-box` | `--sm --block --detail` | Standard: Varianten/Größen. `--block`: Icon + Text (Versandart). `--detail`: Spalten-Layout mit `.choice-box__label` + `.choice-box__desc` (Finder, Onboarding). |
 | B.5 | Product Thumb | `.product-thumb` | — | 2× `<img>` (Produkt + Rollover) |
 | B.6 | Breadcrumb | `.breadcrumb` | — | `__item __sep --current` |
 
@@ -425,6 +423,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 | C.8 | Empty / Success | `.empty-state` `.success-state` | — | `__icon __title __body __actions` |
 | C.9 | Toast | `.toast` | `--success --error --info --out` | `.toast-container` (fixed Wrapper) |
 | C.10 | Modal | `.modal` `.modal-overlay` | `--open` auf overlay | Modal-Inhalt direkt als Kind; `.modal__title` |
+| C.10a | Bestätigungs-Dialog | `.shop-modal-overlay` `.shop-modal` | `--open` auf overlay | `__icon __title __body __actions`; Icon-Farbe via `var(--green)` |
 
 #### D — Organismen
 
@@ -446,7 +445,9 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 | E.2 | PDP | `.pdp` | — | `.pdp__type-selector .pdp__type-row .pdp__type-label .pdp__type-animals` |
 | E.3 | Collection | `.collection-layout` | — | `.collection-sidebar .collection-toolbar` |
 | E.4 | Warenkorb-Drawer | `.cart-drawer` `.cart-overlay` | `--open` | `__header __title __items __footer` |
+| E.4a | Options-Drawer | `.options-drawer` `.options-overlay` | `--open` | `__header __title __items __product __section __section-label __footer`; `.options-variants` für Choice-Box-Gruppe |
 | E.5 | Checkout | `.checkout` | — | `.summary-line .summary-total` |
+| E.6 | Account-Seiten / Login-Modal | `.login-overlay` `.login-modal` | `--open` auf overlay | `.login-brand` (Dark-Panel, ab 640px) + `.login-form-panel`; Tabs: `.login-tabs` / `.login-tab.--active`; Panels: `.login-panel` / `.--hidden`; `.order-item` für Bestellhistorie |
 | E.7 | Suche | `.search-overlay .search-panel` | — | `.search-results .search-result` |
 | E.8 | Blog | `.article-layout .article-sidebar` | — | `.rte` für Fließtext; `.blog-card` |
 

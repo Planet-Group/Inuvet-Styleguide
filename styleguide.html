@@ -1378,8 +1378,55 @@
             <span><strong>Expressversand</strong> — DHL Express · 1–2 Werktage · <strong>4,99 €</strong></span>
           </button>
         </div>
+        <div style="display: flex; gap: var(--module); flex-wrap: wrap; align-items: flex-start;">
+          <div style="flex: 1; min-width: 16rem; max-width: 26rem; display: flex; flex-direction: column; gap: calc(var(--base) * 0.4);">
+            <p class="label-caps" style="margin-bottom: 0;">Ohne Icon — <code>.--detail</code></p>
+            <button class="choice-box --detail --active" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="choice-box__content">
+                <span class="choice-box__label">Nervosität &amp; Stress</span>
+                <span class="choice-box__desc">Mein Tier ist ängstlich, unruhig oder gestresst.</span>
+              </span>
+            </button>
+            <button class="choice-box --detail" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="choice-box__content">
+                <span class="choice-box__label">Leber &amp; Stoffwechsel</span>
+                <span class="choice-box__desc">Unterstützung bei Leberproblemen oder Verdauungsschwäche.</span>
+              </span>
+            </button>
+            <button class="choice-box --detail" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="choice-box__content">
+                <span class="choice-box__label">Verdauung</span>
+                <span class="choice-box__desc">Verdauungsprobleme, Unterstützung der Bauchspeicheldrüse.</span>
+              </span>
+            </button>
+          </div>
+          <div style="flex: 1; min-width: 16rem; max-width: 26rem; display: flex; flex-direction: column; gap: calc(var(--base) * 0.4);">
+            <p class="label-caps" style="margin-bottom: 0;">Mit Icon — <code>.--detail</code> + <code>.material-icons</code></p>
+            <button class="choice-box --detail --active" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="material-icons">psychology</span>
+              <span class="choice-box__content">
+                <span class="choice-box__label">Nervosität &amp; Stress</span>
+                <span class="choice-box__desc">Mein Tier ist ängstlich, unruhig oder gestresst.</span>
+              </span>
+            </button>
+            <button class="choice-box --detail" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="material-icons">biotech</span>
+              <span class="choice-box__content">
+                <span class="choice-box__label">Leber &amp; Stoffwechsel</span>
+                <span class="choice-box__desc">Unterstützung bei Leberproblemen oder Verdauungsschwäche.</span>
+              </span>
+            </button>
+            <button class="choice-box --detail" type="button" onclick="this.closest('div').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">
+              <span class="material-icons">medical_services</span>
+              <span class="choice-box__content">
+                <span class="choice-box__label">Verdauung</span>
+                <span class="choice-box__desc">Verdauungsprobleme, Unterstützung der Bauchspeicheldrüse.</span>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
-      <p class="demo-note"><code>.--sm</code>: <code>font-size: var(--text-sm)</code>, <code>height: calc(var(--base) * 2)</code> — exakt gleiche Höhe wie <code>.btn.--sm</code> und <code>.qty-selector.--sm</code>. Typisch: Mengen- oder Empfehlungs-Stufen in kompakten Card-Layouts.</p>
+      <p class="demo-note"><code>.--sm</code>: <code>font-size: var(--text-sm)</code>, <code>height: calc(var(--base) * 2)</code> — exakt gleiche Höhe wie <code>.btn.--sm</code> und <code>.qty-selector.--sm</code>. Typisch: Mengen- oder Empfehlungs-Stufen in kompakten Card-Layouts.<br><code>.--block</code>: Horizontales Grid mit Icon + Text — für Versandarten, Zahlungsarten etc.<br><code>.--detail</code>: Vertikale Stapelung mit <code>.choice-box__label</code> + <code>.choice-box__desc</code> — für Finder, Onboarding-Schritte oder thematische Auswahl.</p>
     </div>
 
     <!-- Demo: Komplettes Formular -->
@@ -2352,6 +2399,21 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-label" style="margin-top:var(--half-module);">Bestätigungs-Dialog — <code>.shop-modal</code></div>
+    <button class="btn --secondary" onclick="document.getElementById('demoShopModal').classList.add('--open');document.body.style.overflow='hidden'">Bestellung bestätigen</button>
+    <div class="shop-modal-overlay" id="demoShopModal" onclick="document.getElementById('demoShopModal').classList.remove('--open');document.body.style.overflow=''">
+      <div class="shop-modal" onclick="event.stopPropagation()">
+        <div class="shop-modal__icon"><span class="material-icons">check_circle</span></div>
+        <h2 class="shop-modal__title">Bestellung eingegangen!</h2>
+        <p class="shop-modal__body">Deine Bestellung wird bearbeitet. Du erhältst in Kürze eine Bestätigung per E-Mail.</p>
+        <div class="shop-modal__actions">
+          <button class="btn --primary" onclick="document.getElementById('demoShopModal').classList.remove('--open');document.body.style.overflow=''">Verstanden</button>
+          <button class="btn --ghost" onclick="document.getElementById('demoShopModal').classList.remove('--open');document.body.style.overflow=''">Zur Bestellübersicht</button>
+        </div>
+      </div>
+    </div>
+    <p class="demo-note"><code>.shop-modal-overlay</code> + <code>.--open</code>: Backdrop mit Fade-Transition. <code>.shop-modal</code>: Kompakte Box <code>min(24rem, 100%)</code> mit <code>__icon</code>, <code>__title</code>, <code>__body</code>, <code>__actions</code>. Icon-Farbe via <code>var(--green)</code>.</p>
   </section>
 </div>
 
@@ -3981,6 +4043,11 @@
       <button class="btn --primary" onclick="openCart('cartFull')">Mit Produkten</button>
       <button class="btn --secondary" onclick="openCart('cartEmpty')">Leerer Warenkorb</button>
     </div>
+
+    <div class="demo-label" style="margin-top:var(--half-module);">Options-Drawer — <code>.options-drawer</code></div>
+    <p class="sg-p">Slide-in von rechts zur Varianten-Auswahl (Darreichungsform, Größe, Menge). Strukturell identisch mit dem Warenkorb-Drawer — gleicher Overlay-Typ, gleiche Breite.</p>
+    <button class="btn --secondary" onclick="openOptionsDrawer()">Varianten wählen</button>
+    <p class="demo-note"><code>.options-overlay</code> + <code>.options-drawer</code>: Overlay <code>var(--z-overlay)</code>, Drawer <code>var(--z-drawer)</code>. Inhalt: optionales <code>__product</code> (Cart-Item), <code>__section</code> mit <code>__section-label</code>, <code>.options-variants</code> (Choice-Boxes). Footer: <code>.options-drawer__footer</code>.</p>
   </section>
 </div>
 
@@ -4256,6 +4323,11 @@
         <a class="order-item__link" href="#">Details</a>
       </div>
     </div>
+
+    <div class="demo-label" style="margin-top:var(--module);">Login-Modal — <code>.login-modal</code></div>
+    <p class="sg-p">Zweispaltiges Overlay: linkes Brand-Panel (ab 640 px sichtbar, Dark Background), rechtes Formular-Panel mit Tab-Navigation (Login / Registrierung).</p>
+    <button class="btn --secondary" onclick="openLoginModal()">Login-Modal öffnen</button>
+    <p class="demo-note"><code>.login-overlay</code> + <code>.--open</code>: Backdrop mit Fade. <code>.login-brand</code>: Dark-Panel mit Logo, Headline, Feature-Liste. <code>.login-form-panel</code>: Flex-Column mit <code>.login-tabs</code> / <code>.login-tab.--active</code>. Panels via <code>.login-panel</code> / <code>.login-panel.--hidden</code>.</p>
   </section>
 </div>
 
@@ -5090,6 +5162,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script>
 // ─── PDP Thumbnail Switcher ───
+function openOptionsDrawer() {
+  document.getElementById('sgOptionsOverlay').classList.add('--open');
+  document.getElementById('sgOptionsDrawer').classList.add('--open');
+  document.body.style.overflow = 'hidden';
+}
+function closeOptionsDrawer() {
+  document.getElementById('sgOptionsOverlay').classList.remove('--open');
+  document.getElementById('sgOptionsDrawer').classList.remove('--open');
+  document.body.style.overflow = '';
+}
+
+function openLoginModal() {
+  document.getElementById('sgLoginOverlay').classList.add('--open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLoginModal() {
+  document.getElementById('sgLoginOverlay').classList.remove('--open');
+  document.body.style.overflow = '';
+}
+function handleLoginOverlayClickSg(e) {
+  if (e.target === document.getElementById('sgLoginOverlay')) closeLoginModal();
+}
+function switchLoginTab(btn, panelId) {
+  btn.closest('.login-tabs').querySelectorAll('.login-tab').forEach(function(t) { t.classList.remove('--active'); });
+  btn.classList.add('--active');
+  btn.closest('.login-form-panel').querySelectorAll('.login-panel').forEach(function(p) { p.classList.add('--hidden'); });
+  document.getElementById(panelId).classList.remove('--hidden');
+}
+
 function pdpSwitch(el, src, captionText, authorText) {
   document.querySelectorAll('.pdp__thumbs .pdp__thumb').forEach(function(t) {
     t.classList.remove('--active');
@@ -5107,6 +5208,105 @@ function pdpSwitch(el, src, captionText, authorText) {
   }
 }
 </script>
+
+<!-- ─── Options-Drawer (Styleguide-Demo) ─── -->
+<div class="options-overlay" id="sgOptionsOverlay" onclick="closeOptionsDrawer()"></div>
+<div class="options-drawer" id="sgOptionsDrawer">
+  <div class="options-drawer__header">
+    <span class="options-drawer__title">Variante wählen</span>
+    <button class="btn --icon" onclick="closeOptionsDrawer()"><span class="material-icons">close</span></button>
+  </div>
+  <div class="options-drawer__items">
+    <div class="cart-item options-drawer__product">
+      <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin Balance Tabletten"></div>
+      <div class="cart-item__info">
+        <div class="cart-item__top"><div><p class="cart-item__name">Calmin Balance Tabletten</p></div></div>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Darreichungsform</div>
+      <div class="options-variants">
+        <button class="choice-box --active" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Tabletten</button>
+        <button class="choice-box" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Pulver</button>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Größe</div>
+      <div class="options-variants">
+        <button class="choice-box --active" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">30 Stück</button>
+        <button class="choice-box" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">60 Stück</button>
+        <button class="choice-box" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">90 Stück</button>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Menge</div>
+      <div class="options-variants">
+        <button class="choice-box --active" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">1×</button>
+        <button class="choice-box" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">2×</button>
+        <button class="choice-box" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">3×</button>
+      </div>
+    </div>
+  </div>
+  <div class="options-drawer__footer">
+    <button class="btn --primary" style="width:100%;text-align:center" onclick="closeOptionsDrawer()">In den Warenkorb</button>
+  </div>
+</div>
+
+<!-- ─── Login-Modal (Styleguide-Demo) ─── -->
+<div class="login-overlay" id="sgLoginOverlay" onclick="handleLoginOverlayClickSg(event)">
+  <div class="login-modal">
+    <div class="login-brand">
+      <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet" class="login-brand__logo">
+      <div class="login-brand__content">
+        <p class="login-brand__headline">Dein Konto. Deine Gesundheitsprodukte.</p>
+        <ul class="login-brand__features">
+          <li>Bestellungen im Blick</li>
+          <li>Tierärztliche Empfehlungen speichern</li>
+          <li>Schneller nachbestellen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="login-form-panel">
+      <button class="btn --icon login-modal__close" onclick="closeLoginModal()"><span class="material-icons">close</span></button>
+      <div class="login-tabs">
+        <button class="login-tab --active" onclick="switchLoginTab(this,'sg-panel-login')">Anmelden</button>
+        <button class="login-tab" onclick="switchLoginTab(this,'sg-panel-register')">Registrieren</button>
+      </div>
+      <div class="login-panel" id="sg-panel-login">
+        <div class="login-panel__header">
+          <p class="login-panel__title">Willkommen zurück</p>
+          <p class="login-panel__sub">Melde dich mit deiner E-Mail-Adresse an.</p>
+        </div>
+        <form class="login-form" onsubmit="return false;">
+          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
+          <a href="#" class="login-forgot">Passwort vergessen?</a>
+          <button class="btn --primary login-cta">Anmelden</button>
+        </form>
+        <div class="login-divider">oder</div>
+        <button class="login-social">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          Mit Google fortfahren
+        </button>
+      </div>
+      <div class="login-panel --hidden" id="sg-panel-register">
+        <div class="login-panel__header">
+          <p class="login-panel__title">Konto erstellen</p>
+          <p class="login-panel__sub">Kostenlos und unverbindlich registrieren.</p>
+        </div>
+        <form class="login-form" onsubmit="return false;">
+          <div class="login-form__row">
+            <div class="form-field"><input type="text" placeholder=" "><label>Vorname</label></div>
+            <div class="form-field"><input type="text" placeholder=" "><label>Nachname</label></div>
+          </div>
+          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
+          <button class="btn --primary login-cta">Konto erstellen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

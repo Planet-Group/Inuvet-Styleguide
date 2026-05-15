@@ -101,6 +101,8 @@
   flex-direction: column;
   gap: calc(var(--base) * 0.4);
 }
+.finder__options.--row { flex-direction: row; }
+.finder__options.--row .choice-box { flex: 1; }
 .finder__results {
   display: flex;
   flex-direction: column;
