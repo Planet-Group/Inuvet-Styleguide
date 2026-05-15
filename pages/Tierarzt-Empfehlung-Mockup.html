@@ -1445,7 +1445,7 @@ function renderFinderStep() {
       ).join('');
 
   const back = finderStep > 0
-    ? `<div class="finder__footer"><button class="btn --ghost --sm" onclick="finderStep=0;finderAnimal=null;renderFinderStep()">← Zurück</button></div>` : '';
+    ? `<div class="finder__footer"><button class="btn --ghost --back --sm" onclick="finderStep=0;finderAnimal=null;renderFinderStep()">Zurück</button></div>` : '';
 
   overlay.innerHTML = `
     <div class="modal finder__modal">
@@ -1503,7 +1503,7 @@ function renderFinderResult(matches) {
         <div class="finder__results">${items}</div>
       </div>
       <div class="finder__footer">
-        <button class="btn --ghost --sm" onclick="openFinder()">← Neu starten</button>
+        <button class="btn --ghost --back --sm" onclick="openFinder()">Neu starten</button>
         <button class="btn --ghost --sm" onclick="closeFinder();setPage('collection')">Alle Produkte</button>
       </div>
     </div>`;

@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meine Provision – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <link rel="stylesheet" href="provision-portal.css">
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+    <button class="btn --icon" id="cartBtn" aria-label="Warenkorb" onclick="openCart()">
+      <span class="material-icons">redeem</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="../styleguide.html" onclick="closeMobile()">Styleguide</a>
+  </div>
+</div>
+
+<!-- Cart Overlay + Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer"></div>
+
+<!-- Auszahlung Modal -->
+<div class="modal-overlay" id="auszahlungModal" onclick="closeAuszahlungModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Provision auszahlen</span>
+      <button class="btn --icon" onclick="closeAuszahlungModal()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body">
+      <p style="color:var(--fg-muted);font-size:var(--text-sm);margin-bottom:var(--module);">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
+      <div class="form-field">
+        <input type="text" id="modal-iban" placeholder=" " value="DE89 3704 0044 0532 0130 00">
+        <label for="modal-iban">IBAN</label>
+      </div>
+      <div class="form-field" style="margin-top:var(--half-module);">
+        <input type="text" id="modal-ust" placeholder=" " value="DE123456789">
+        <label for="modal-ust">Ust. IdNr.</label>
+      </div>
+      <button class="btn --primary --full" style="margin-top:var(--module);" onclick="completePayout()">Provision einlösen</button>
+    </div>
+  </div>
+</div>
+
+<!-- SPA-Container -->
+<main id="app"></main>
+
+<!-- Mockup FAB -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Mockup-Kontext
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Mockup-Kontext</div>
+  <p>Provision-Portal: Tierarzt löst angesammelte Provisionen ein — entweder als Barauszahlung oder als Prämie.</p>
+  <div class="mockup-fab-panel__field">
+    <input type="number" id="provisionInput" step="0.01" placeholder="0.00">
+    <label for="provisionInput">Provision simulieren (€)</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setProvision()">Übernehmen</button>
+
+  <div class="mockup-fab-panel__field" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #333;">
+    <input type="text" id="voucherBrand" placeholder="z. B. amazon" value="amazon">
+    <label for="voucherBrand">Gutschein — Marke</label>
+  </div>
+  <div class="mockup-fab-panel__field">
+    <input type="text" id="voucherValue" placeholder="z. B. 400 €" value="400 €">
+    <label for="voucherValue">Gutschein — Wert</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setVoucher()">Übernehmen</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   DATEN
+   ═══════════════════════════════════════ */
+
+const PREMIUMS = [
+  {
+    id: 1,
+    name: 'Amazon Gutschein 400 Euro',
+    price: 400.00,
+    desc: 'Flexibel einlösbar im gesamten Amazon-Sortiment — von Tiernahrung bis Haushaltsgeräten.',
+    longDesc: 'Dein Amazon Gutschein über 400 Euro ist sofort nach der Einlösung in deinem Amazon-Konto verfügbar. Nutze ihn für alles, was du brauchst — ohne Ablaufdatum und ohne Einschränkungen. Der Gutscheincode wird dir per E-Mail zugesendet.',
+    voucher: { brand: 'amazon', value: '400 €' }
+  },
+  {
+    id: 2,
+    name: 'Espresso-Maschine deLonghi',
+    price: 456.99,
+    desc: 'Professioneller Kaffeegenuß für zuhause — die deLonghi Dedica Style im klassischen Design.',
+    longDesc: 'Die deLonghi Dedica Style EC 685 überzeugt mit kompakter Bauform und professioneller Brühtechnik. 15 Bar Pumpendruck, Thermoblock-Heizsystem und ein Milchaufschäumer für perfekten Cappuccino — direkt aus deiner Praxis-Küche. Lieferung frei Haus, innerhalb von 3–5 Werktagen.',
+    image: '../assets/images/Kaffeemaschine.jpg'
+  },
+  {
+    id: 3,
+    name: 'Luxusreise nach Rimini',
+    price: 1200.00,
+    desc: 'Vier Tage Auszeit an der Adria: Hotel, Frühstück und Strandkorb inklusive.',
+    longDesc: 'Erhol dich nach einem langen Praxis-Jahr an der Adria. Das Paket beinhaltet 4 Übernachtungen im 4-Sterne-Hotel mit Meerblick, tägliches Frühstücksbuffet sowie einen reservierten Strandkorb. Reisetermin frei wählbar (April–Oktober). Buchungsbestätigung innerhalb von 48 Stunden.',
+    image: '../assets/images/Rimini.jpg'
+  }
+];
+
+const PROVISION_HISTORY = [
+  { name: 'Max Mustermann',  date: '07.05.2026', amount: 4.50 },
+  { name: 'Mina Mustermann', date: '03.05.2026', amount: 4.50 },
+  { name: 'Hugo Tierlieb',   date: '28.04.2026', amount: 9.00 },
+  { name: 'Sara Müller',     date: '21.04.2026', amount: 4.50 },
+  { name: 'Bernd Schäfer',   date: '14.04.2026', amount: 9.00 },
+];
+
+/* ═══════════════════════════════════════
+   ZUSTAND
+   ═══════════════════════════════════════ */
+
+let provisionTotal = 485.00;
+let cart = [];
+let currentPage = 'portal';
+let activePremiumId = null;
+let lastOrder = null;
+
+/* ═══════════════════════════════════════
+   HILFSFUNKTIONEN
+   ═══════════════════════════════════════ */
+
+function cartTotal() {
+  return cart.reduce((sum, id) => sum + PREMIUMS.find(p => p.id === id).price, 0);
+}
+
+function provisionAvailable() {
+  return provisionTotal - cartTotal();
+}
+
+function fmt(n) {
+  return n.toFixed(2).replace('.', ',') + ' €';
+}
+
+function tilePct(p) {
+  if (cart.includes(p.id)) return 100;
+  return Math.min(100, Math.floor(provisionAvailable() / p.price * 100));
+}
+
+function canAfford(p) {
+  return provisionAvailable() >= p.price;
+}
+
+/* ═══════════════════════════════════════
+   CART
+   ═══════════════════════════════════════ */
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('--open');
+  document.getElementById('cartDrawer').classList.add('--open');
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('--open');
+  document.getElementById('cartDrawer').classList.remove('--open');
+}
+
+function addToCart(id) {
+  if (!cart.includes(id)) cart.push(id);
+  render();
+  openCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i !== id);
+  render();
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════ */
+
+function openPDP(id) {
+  activePremiumId = id;
+  currentPage = 'pdp';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function backToPortal() {
+  currentPage = 'portal';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function goToCheckout() {
+  closeCart();
+  currentPage = 'checkout';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function completeCheckout() {
+  lastOrder = {
+    items: cart.map(id => PREMIUMS.find(p => p.id === id)),
+    total: cartTotal(),
+    remaining: provisionAvailable()
+  };
+  provisionTotal = provisionAvailable();
+  cart = [];
+  currentPage = 'success';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function setVoucher() {
+  const brand = document.getElementById('voucherBrand').value.trim();
+  const value = document.getElementById('voucherValue').value.trim();
+  const p = PREMIUMS.find(x => x.voucher);
+  if (p && (brand || value)) {
+    if (brand) p.voucher.brand = brand;
+    if (value) p.voucher.value = value;
+    render();
+    document.getElementById('mockupFabPanel').classList.remove('--open');
+  }
+}
+
+function openAuszahlungModal() {
+  document.getElementById('auszahlungModal').classList.add('--open');
+}
+
+function closeAuszahlungModal() {
+  document.getElementById('auszahlungModal').classList.remove('--open');
+}
+
+function completePayout() {
+  closeAuszahlungModal();
+  const amount = provisionAvailable();
+  provisionTotal = 0;
+  cart = [];
+  lastOrder = { items: [], total: amount, remaining: 0, payout: true };
+  currentPage = 'success';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function setCheckoutOption(btn) {
+  btn.closest('.tile-grid').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+}
+
+/* ═══════════════════════════════════════
+   MOCKUP FAB
+   ═══════════════════════════════════════ */
+
+function setProvision() {
+  const val = parseFloat(document.getElementById('provisionInput').value);
+  if (!isNaN(val) && val >= 0) {
+    provisionTotal = val;
+    cart = [];
+    render();
+    document.getElementById('mockupFabPanel').classList.remove('--open');
+  }
+}
+
+/* ═══════════════════════════════════════
+   RENDER: PORTAL
+   ═══════════════════════════════════════ */
+
+function renderTile(p) {
+  const pct = tilePct(p);
+  const inCart = cart.includes(p.id);
+  const affordable = canAfford(p);
+
+  let cartOverlay = '';
+  let floatingMeta = '';
+
+  if (inCart) {
+    cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); removeFromCart(${p.id})">Entfernen</button></div>`;
+  } else if (affordable) {
+    floatingMeta = `<div class="floating-meta"><div class="badge --sale">Einlösbar</div></div>`;
+    cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">In den Warenkorb</button></div>`;
+  } else {
+    const missing = p.price - provisionAvailable();
+    floatingMeta = `<div class="floating-meta"><div class="badge --dark">Noch ${fmt(missing)}</div></div>`;
+  }
+
+  return `
+    <div class="tile --product" onclick="openPDP(${p.id})">
+      <div class="tile__image-wrap">
+        <div class="tile__progress">
+          <span class="tile__progress-pct">${pct}%</span>
+          <div class="tile__progress-bar">
+            <div class="tile__progress-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+        ${p.voucher
+          ? `<div class="tile__image --square voucher-frame">${floatingMeta}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
+          : `<div class="tile__image --square${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${floatingMeta}</div>`
+        }
+        ${cartOverlay}
+      </div>
+      <div class="tile__headline-row">
+        <h3 class="tile__headline">${p.name}</h3>
+      </div>
+      <p class="tile__description">${p.desc}</p>
+      <div class="tile__price">
+        <div class="price-stack"><span>${fmt(p.price)}</span></div>
+      </div>
+    </div>`;
+}
+
+function renderHistoryRows() {
+  return PROVISION_HISTORY.map(h => `
+    <tr>
+      <td style="width:3rem;">
+        <span class="material-icons" style="color:var(--fg-muted);font-size:1.25rem;vertical-align:middle;">person</span>
+      </td>
+      <td>${h.name}</td>
+      <td>${h.date}</td>
+      <td style="text-align:right;color:var(--green);font-weight:700;">${fmt(h.amount)}</td>
+    </tr>`).join('');
+}
+
+function renderPortal() {
+  const available = provisionAvailable();
+  return `
+    <section class="provision-hero">
+      <p class="provision-hero__label">Deine aktuelle Provision</p>
+      <p class="provision-hero__amount">${fmt(available)}</p>
+      <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
+      <div class="provision-hero__divider">oder</div>
+    </section>
+
+    <div class="page" style="padding-top:var(--half-module);padding-bottom:var(--module-2xl);">
+      <h2 style="font-size:var(--text-l);font-weight:900;margin-bottom:var(--half-module);text-align:center;">Prämie kassieren</h2>
+      <div class="tile-grid --cols-3">
+        ${PREMIUMS.map(renderTile).join('')}
+      </div>
+    </div>
+
+    <div class="page" style="padding-bottom:var(--module-2xl);">
+      <div class="section-label --sub">Eingegangene Provisionen</div>
+      <div class="rte">
+        <table style="display:table;">
+          <colgroup>
+            <col style="width:3.5rem;">
+            <col style="width:40%;">
+            <col>
+            <col style="width:20%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Eingegangen</th>
+              <th style="text-align:right;">Provision</th>
+            </tr>
+          </thead>
+          <tbody>${renderHistoryRows()}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: PDP
+   ═══════════════════════════════════════ */
+
+function renderPDP() {
+  const p = PREMIUMS.find(x => x.id === activePremiumId);
+  const inCart = cart.includes(p.id);
+  const affordable = canAfford(p);
+
+  let actionBtn;
+  if (inCart) {
+    actionBtn = `<button class="btn --ghost" onclick="removeFromCart(${p.id}); backToPortal()">Aus Warenkorb entfernen</button>`;
+  } else if (affordable) {
+    actionBtn = `<button class="btn --primary" onclick="addToCart(${p.id})">In den Warenkorb</button>`;
+  } else {
+    const missing = p.price - provisionAvailable();
+    actionBtn = `<button class="btn --primary" disabled>Noch ${fmt(missing)} fehlend</button>`;
+  }
+
+  return `
+    <div class="page" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+      <button class="btn --ghost --back --sm" onclick="backToPortal()" style="margin-bottom:var(--module);">Alle Prämien</button>
+      <div class="pdp">
+        <div class="pdp__gallery">
+          ${p.voucher
+            ? `<div class="pdp__main-image voucher-frame"><div class="pdp__caption --hidden" aria-live="polite"></div><div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
+            : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}"><div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>`
+          }
+          <div class="pdp__thumbs">
+            <div class="pdp__thumb --active${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>
+            <div class="pdp__thumb placeholder-bg"></div>
+            <div class="pdp__thumb placeholder-bg"></div>
+            <div class="pdp__thumb placeholder-bg"></div>
+            <div class="pdp__thumb placeholder-bg"></div>
+          </div>
+        </div>
+        <div class="pdp__info">
+          <h1 class="pdp__title">${p.name}</h1>
+          <p class="pdp__description">${p.desc}</p>
+          <div class="pdp__price">
+            <div class="price-stack text-m"><span>${fmt(p.price)}</span></div>
+            <span class="label-caps">Provisionswert</span>
+          </div>
+          <div class="pdp__actions">
+            <div>
+              <div class="pdp__variant-label label-caps">Menge</div>
+              <div class="qty-selector">
+                <button class="qty-selector__btn" type="button" aria-label="Menge verringern" disabled><span class="material-icons">remove</span></button>
+                <input class="qty-selector__input" type="number" value="1" min="1" max="1" readonly>
+                <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" disabled><span class="material-icons">add</span></button>
+              </div>
+            </div>
+            ${actionBtn}
+            <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
+          </div>
+          <div class="accordion">
+            <div class="accordion-item --open">
+              <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>${p.longDesc}</p></div></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Wie funktioniert das?<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>Der Wert der Prämie wird von deiner verfügbaren Provision abgezogen. Du hast aktuell <strong>${fmt(provisionAvailable())}</strong> verfügbar.</p></div></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>Die Prämie wird innerhalb von 5–7 Werktagen nach Einlösung an deine hinterlegte Adresse gesendet.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: CART DRAWER
+   ═══════════════════════════════════════ */
+
+function renderCartDrawer() {
+  if (cart.length === 0) {
+    return `
+      <div class="cart-drawer__header">
+        <h2 class="cart-drawer__title">Prämien-Warenkorb</h2>
+        <button class="btn --icon" onclick="closeCart()" aria-label="Schließen">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="cart-drawer__empty">
+        <div class="empty-state">
+          <span class="material-icons">redeem</span>
+          <p class="empty-state__title">Noch keine Prämie gewählt</p>
+          <p class="empty-state__sub">Wähle eine Prämie aus und löse deine Provision ein.</p>
+        </div>
+      </div>`;
+  }
+
+  const items = cart.map(id => {
+    const p = PREMIUMS.find(x => x.id === id);
+    return `
+      <div class="cart-item">
+        <div class="product-thumb${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${p.name}</p>
+              <div class="cart-item__variant">Prämie</div>
+            </div>
+            <button type="button" class="btn --icon cart-item__remove" onclick="removeFromCart(${id})" aria-label="Entfernen">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <div class="cart-item__bottom">
+            <span></span>
+            <span class="cart-item__price">${fmt(p.price)}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const total = cartTotal();
+  const remaining = provisionAvailable();
+
+  return `
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Prämien-Warenkorb <span class="cart-drawer__count">(${cart.length})</span></h2>
+      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="cart-drawer__items">${items}</div>
+    <div class="cart-drawer__footer">
+      <div class="summary-total">
+        <span>Gesamt</span>
+        <span>${fmt(total)}</span>
+      </div>
+      <div class="cart-drawer__tax">
+        Verbleibende Provision nach Einlösung: ${fmt(remaining)}
+      </div>
+      <button class="btn --primary cart-drawer__checkout" onclick="goToCheckout()">Prämie einlösen</button>
+      <div class="cart-drawer__continue-wrap">
+        <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter stöbern</button>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: CHECKOUT
+   ═══════════════════════════════════════ */
+
+function renderCheckout() {
+  const items = cart.map(id => {
+    const p = PREMIUMS.find(x => x.id === id);
+    return `
+      <div class="cart-item">
+        <div class="cart-item__image product-thumb${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${p.name}</p>
+              <div class="cart-item__variant">Prämie</div>
+            </div>
+          </div>
+          <div class="cart-item__bottom">
+            <div class="cart-item__qty-text">1 Stück</div>
+            <div class="price-stack">${fmt(p.price)}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const total = cartTotal();
+  const remaining = provisionAvailable();
+
+  return `
+    <div class="page" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+      <button class="btn --ghost --back --sm" onclick="backToPortal()" style="margin-bottom:var(--module);">Prämienauswahl</button>
+      <div class="checkout">
+
+        <!-- Linke Spalte: Adresse + Versand -->
+        <div>
+          <div>
+            <h3 class="section-label --sub">Lieferadresse</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <input type="text" id="co-vorname" placeholder=" " value="Michael">
+                <label for="co-vorname">Vorname</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-nachname" placeholder=" " value="Berger">
+                <label for="co-nachname">Nachname</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-strasse" placeholder=" " value="Musterstraße">
+                <label for="co-strasse">Straße</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-hausnr" placeholder=" " value="12">
+                <label for="co-hausnr">Nr.</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-plz" placeholder=" " value="80333">
+                <label for="co-plz">PLZ</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-ort" placeholder=" " value="München">
+                <label for="co-ort">Ort</label>
+              </div>
+              <div class="form-field" style="grid-column: span 2">
+                <input type="email" id="co-email" placeholder=" " value="m.berger@tierarztpraxis-berger.de">
+                <label for="co-email">E-Mail-Adresse</label>
+              </div>
+              <div class="form-field" style="grid-column: span 2">
+                <input type="tel" id="co-tel" placeholder=" " value="+49 89 123456">
+                <label for="co-tel">Telefon (optional)</label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="section-label --sub">Versandart</h3>
+            <div class="tile-grid" style="gap:var(--half-module);">
+              <button class="choice-box --block --active" type="button" onclick="setCheckoutOption(this)">
+                <span class="material-icons">local_shipping</span>
+                <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
+              </button>
+              <button class="choice-box --block" type="button" onclick="setCheckoutOption(this)">
+                <span class="material-icons">rocket_launch</span>
+                <span><strong>Expressversand</strong> — DHL Express · 1–2 Werktage · <strong>4,99 €</strong></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rechte Spalte: Bestellübersicht -->
+        <aside class="checkout__sidebar">
+          <h3 class="section-label --sub">Bestellübersicht</h3>
+          ${items}
+          <div class="summary-line"><span>Provisionswert</span><span>${fmt(total)}</span></div>
+          <div class="summary-line"><span>Versand</span><span>kostenlos</span></div>
+          <div class="summary-total"><span>Verbleibende Provision</span><span>${fmt(remaining)}</span></div>
+          <div class="checkout__cta">
+            <button class="btn --primary --full" type="button" onclick="completeCheckout()">Prämie einlösen</button>
+          </div>
+        </aside>
+
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: ERFOLG
+   ═══════════════════════════════════════ */
+
+function renderSuccess() {
+  if (lastOrder.payout) {
+    return `
+      <div class="page --narrow" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+        <div class="success-state">
+          <span class="success-state__icon material-icons">check_circle</span>
+          <h1 class="success-state__title">Auszahlung beantragt!</h1>
+          <p class="success-state__body"><strong>${fmt(lastOrder.total)}</strong> werden innerhalb von 3–5 Werktagen auf dein hinterlegtes Konto überwiesen.</p>
+        </div>
+        <div class="success-state__actions">
+          <button class="btn --primary" onclick="backToPortal()">Zurück zur Übersicht</button>
+        </div>
+      </div>`;
+  }
+
+  const items = lastOrder.items.map(p => `
+    <div class="cart-item">
+      <div class="cart-item__image product-thumb placeholder-bg"></div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">${p.name}</p>
+            <div class="cart-item__variant">Prämie</div>
+          </div>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="cart-item__qty-text">1 Stück</div>
+          <div class="price-stack">${fmt(p.price)}</div>
+        </div>
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="page --narrow" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+      <div class="success-state">
+        <span class="success-state__icon material-icons">check_circle</span>
+        <h1 class="success-state__title">Deine Prämie ist unterwegs!</h1>
+        <p class="success-state__body">Du hast <strong>${fmt(lastOrder.total)}</strong> Provision erfolgreich eingelöst. Eine Bestätigung wird an deine hinterlegte E-Mail-Adresse gesendet.</p>
+      </div>
+      <div style="margin-top:var(--module);">
+        ${items}
+        <div class="summary-line"><span>Eingelöste Provision</span><span>${fmt(lastOrder.total)}</span></div>
+        <div class="summary-total"><span>Verbleibende Provision</span><span>${fmt(lastOrder.remaining)}</span></div>
+      </div>
+      <div class="success-state__actions">
+        <button class="btn --primary" onclick="backToPortal()">Zurück zur Übersicht</button>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   HAUPT-RENDER
+   ═══════════════════════════════════════ */
+
+function render() {
+  const views = { portal: renderPortal, pdp: renderPDP, checkout: renderCheckout, success: renderSuccess };
+  document.getElementById('app').innerHTML = (views[currentPage] || renderPortal)();
+  document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
+}
+
+render();
+</script>
+
+<script src="../inuvet.js"></script>
+</body>
+</html>

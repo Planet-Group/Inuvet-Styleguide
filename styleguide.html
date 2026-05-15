@@ -472,6 +472,22 @@
         </div>
       </div>
       <div class="color-card">
+        <div class="color-card__swatch" style="background:#E8A020"></div>
+        <div class="color-card__info">
+          <span class="color-card__token">--color-amber</span>
+          <span class="color-card__hex">#E8A020</span>
+          <span class="color-card__role">Warmer Akzent: Sterne, Testimonials, Gutscheinkarten</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-card__swatch" style="background:#FEFFDA; border-bottom: 1px solid var(--border-light);"></div>
+        <div class="color-card__info">
+          <span class="color-card__token">--color-notice-bg</span>
+          <span class="color-card__hex">#FEFFDA</span>
+          <span class="color-card__role">Infobox-Hintergrund (Notice, Hinweise)</span>
+        </div>
+      </div>
+      <div class="color-card">
         <div class="color-card__swatch" style="background:#cccccc"></div>
         <div class="color-card__info">
           <span class="color-card__token">--border</span>
@@ -821,6 +837,7 @@
       <tr><th>Primary<br><code>.btn.--primary</code></th><td>Hintergrund <code>--fg</code> · Schrift <code>--bg</code> · Border <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --fg</code></td></tr>
       <tr><th>Secondary<br><code>.btn.--secondary</code></th><td>Hintergrund transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert (schwarz gefüllt, weiße Schrift)</td></tr>
       <tr><th>Ghost<br><code>.btn.--ghost</code></th><td>Kein Hintergrund, kein Rand, kein Padding-left/right · Text + animierter Pfeil <code>' →'</code> · Hover: Pfeil verschiebt sich · <strong>Mobile:</strong> Padding <code>0.75rem</code> links/rechts + <code>margin-left: −0.75rem</code> (visuell bündig, Touch-Target ≥ 44 px)</td></tr>
+      <tr><th>Zurück<br><code>.btn.--ghost.--back</code></th><td>Modifier für <code>.--ghost</code>: unterdrückt <code>' →'</code>, fügt <code>'←'</code> als <code>::before</code> hinzu · Hover: Pfeil schiebt sich nach links · Für alle Zurück-Navigationen (PDP → Übersicht, Finder, Checkout-Steps)</td></tr>
       <tr><th>Volle Breite<br><code>.btn.--full</code></th><td>Zusatz-Modifier: <code>width: 100%</code> · Kombinierbar mit allen drei Stilvarianten</td></tr>
       <tr><th>Klein<br><code>.btn.--sm</code></th><td>Zusatz-Modifier: <code>font-size: var(--text-sm)</code> · Padding <code>0.5rem × --half-module</code> · Kombinierbar mit <code>--with-icon</code> und <code>--full</code></td></tr>
       <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code></td></tr>
@@ -904,6 +921,14 @@
       <button class="btn --ghost" disabled>Mehr erfahren</button>
     </div>
     <p class="demo-note">Attribut <code>disabled</code> auf <code>&lt;button&gt;</code> oder Klasse <code>.--disabled</code> auf <code>&lt;a&gt;</code>: Opacity 35%, kein Pointer-Cursor.</p>
+
+    <!-- Demo: Ghost Zurück -->
+    <div class="demo-label">Ghost Zurück — <code>.btn.--ghost.--back</code></div>
+    <div class="sg-btn-row">
+      <button class="btn --ghost --back">Alle Prämien</button>
+      <button class="btn --ghost --back --sm">Zurück</button>
+    </div>
+    <p class="demo-note">Modifier <code>.--back</code> spiegelt den Ghost-Button: <code>'←'</code> als <code>::before</code>, Hover-Animation nach links. Für alle Zurück-Navigationen. Kein <code>arrow_back</code>-Icon nötig.</p>
 
   </section>
 </div>
@@ -2257,7 +2282,7 @@
     </div>
 
     <table class="spec-table">
-      <tr><th><code>.notice</code></th><td>Container. Hintergrund <code>#FEFFDA</code>, kein Border. Padding <code>var(--half-module)</code>. Flex-Column mit <code>gap</code>.</td></tr>
+      <tr><th><code>.notice</code></th><td>Container. Hintergrund <code>var(--color-notice-bg)</code>, kein Border. Padding <code>var(--half-module)</code>. Flex-Column mit <code>gap</code>.</td></tr>
       <tr><th><code>.notice__title</code></th><td>Optionaler Titel: fett, <code>var(--text-base)</code>.</td></tr>
       <tr><th><code>.notice p</code></th><td>Fließtext innerhalb der Box: <code>var(--text-base)</code>, Zeilenabstand <code>var(--lh-base)</code>.</td></tr>
       <tr><th><code>.notice__actions</code></th><td>Optionaler CTA-Bereich: Flex-Row, <code>gap</code>, oben leichter Zusatzabstand.</td></tr>

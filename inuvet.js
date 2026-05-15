@@ -22,3 +22,16 @@ function closeAnnouncement() {
   document.documentElement.style.setProperty('--announcement-height', '0px');
   sessionStorage.setItem('announcementClosed', '1');
 }
+
+function initMarquees() {
+  document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
+    const bar = track.closest('.announcement-bar');
+    const minWidth = bar.offsetWidth * 2;
+    const originalChildren = [...track.children];
+    while (track.scrollWidth < minWidth) {
+      originalChildren.forEach(child => track.appendChild(child.cloneNode(true)));
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initMarquees);

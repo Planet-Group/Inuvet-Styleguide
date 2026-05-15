@@ -1,0 +1,104 @@
+/* ══════════════════════════════════════════════════════════════
+   provision-portal.css — Seitenspezifische Styles
+   Für: pages/Provision-Portal.html
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Provision Hero ───────────────────────────────────────── */
+
+.provision-hero {
+  text-align: center;
+  padding: var(--module) 0 0;
+}
+.provision-hero__label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: calc(var(--base) * 0.5);
+}
+.provision-hero__amount {
+  font-size: clamp(4.5rem, 2rem + 10vw, 11rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: var(--module);
+}
+.provision-hero__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--half-module);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  max-width: 20rem;
+  margin: var(--half-module) auto 0;
+}
+.provision-hero__divider::before,
+.provision-hero__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Statusbalken in Prämien-Kacheln ─────────────────────── */
+
+.tile__progress {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  padding: calc(var(--base) * 0.35) 0;
+  background: var(--bg);
+}
+.tile__progress-pct {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 2.25rem;
+}
+.tile__progress-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--border-light);
+}
+.tile__progress-fill {
+  height: 100%;
+  background: var(--green);
+  transition: width var(--anim-mid);
+}
+
+/* ── Gutscheinkarte ───────────────────────────────────────── */
+
+.voucher-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--half-module);
+  background: var(--accent-bg);
+}
+/* border-radius: bewusste Ausnahme — Gutschein-Visualisierung */
+.voucher-card {
+  width: 100%;
+  aspect-ratio: 1.586;
+  border-radius: 1.25rem;
+  background: var(--color-amber);
+  color: var(--bg);
+  padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) * 0.25);
+  text-align: center;
+}
+.voucher-card__brand {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
+}
+.voucher-card__value {
+  font-size: var(--text-xl);
+  font-weight: 900;
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
+}

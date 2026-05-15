@@ -25,6 +25,7 @@
 9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente muss sofort an zwei Stellen dokumentiert werden: (1) als Demo-Abschnitt in `styleguide.html`, (2) als Zeile in der Klassen-Schnellreferenz in `CONTEXT.md`. Beides zusammen, nie nur eines.
 10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird (egal ob in `temp.css`, einer Page-CSS oder `inuvet.css`): kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
 11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn aus dem Kontext nicht eindeutig hervorgeht, ob es sich um ein Einzelprodukt (mit Darreichungsform im Namen) oder eine Produktfamilie handelt: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
+12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente (FAB, Panel, Bar, Buttons darin) kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen (`.btn`, `.form-field` etc.) innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal` verwenden. Eigene Elemente: `.mockup-btn`, `.mockup-fab-panel__field` u. a.
 
 ---
 
@@ -70,10 +71,13 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 - `pages/Bundle.html` + `bundle.css` — Bundle-Builder mit Naturalrabatt
 - `pages/Bundle-Info.html` — Konzept-Artikel zum Bundle
-- `pages/Tierarzt-Empfehlung-Mockup.html` + `.css` — Hauptmockup, Rezeptanfrage-Flow
+- `pages/Tierarzt-Empfehlung-Mockup.html` + `Tierarzt-Empfehlung-Mockup.css` — Hauptmockup, Rezeptanfrage-Flow
 - `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
 - `pages/Inuvet-Freigabe-Mockup.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
+- `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
+- `pages/Provision-Portal.html` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
+- `pages/_template.html` — Boilerplate für neue Mockup-Pages
 
 ---
 

@@ -46,7 +46,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── freigabe.css
     ├── Formular-Reklamation.html   # Stand-Alone-Formular-Beispiel
     ├── formulare.css
-    └── Prozess-Diagramm.html       # Swimlanes für Empfehlungs- + Naturalrabatt-Flow
+    └── _template.html              # Boilerplate für neue Mockup-Pages
 ```
 
 ---
@@ -86,7 +86,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 |---|---|---|
 | `inuvet.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
 | `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
-| `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal, Email-Overlays) | Page-Content, Theme-Komponenten |
+| `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal, Email-Overlays) | Page-Content, Theme-Komponenten, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
 | `temp.css` | Alle neuen Styles im Test (Staging) — global wie seitenspezifisch | Produktions-Code — nie deployen |
 
@@ -496,6 +496,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
   3. Immer noch nein → Section dauerhaft ausgeblendet
   Nach dem Load ändert sich die Sichtbarkeit nicht mehr (auch wenn User alle Rabatt-Produkte entfernt).
 - Mockup-Settings-Modal: „Zeitraum simulieren" Toggle (Normal / Nur 18 Monate) für Fallback-Demo
+- Prozess-Swimlane wurde entfernt — Flow ist in `Bundle-Info.html` dokumentiert
 
 ### `Bundle-Info.html` — Konzept-Artikel
 Strategie, UX-Konzept und technische Spezifikation des Bundle-Builders. Article-Layout mit Sidebar.
