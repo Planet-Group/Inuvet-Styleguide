@@ -80,8 +80,8 @@
   width: 100%;
   aspect-ratio: 1.586;
   border-radius: 1.25rem;
-  background: var(--color-amber);
-  color: var(--bg);
+  background: linear-gradient(135deg, var(--color-amber), var(--color-notice-bg));
+  color: var(--fg);
   padding: var(--half-module);
   display: flex;
   flex-direction: column;
