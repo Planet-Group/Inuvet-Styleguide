@@ -473,14 +473,17 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 **Scenario:** Shopify-Shop für Tiergesundheitsprodukte mit Rezeptpflicht-System.
 
 **3 User-States (umschaltbar per Mockup-Bar):**
-- ① Nicht eingeloggt
+- ① Gast (nicht eingeloggt) — kein Login-Gate vor dem Warenkorb; Login erst beim Absenden der Anfrage
 - ② Eingeloggt, keine Freigabe
 - ③ Eingeloggt, mit Freigabe (mind. 1 Praxis hat Empfehlung ausgestellt)
 
 **Rezeptanfrage-Flow:**
-1. „Produkt anfragen" → Cart-Item
-2. Cart öffnet → Praxis-Dropdown (alphabetisch, grüner Punkt = Empfehlung vorhanden)
-3. Bestätigungs-Screen mit E-Mail-Overlays
+1. „Produkt anfragen" → Cart-Item (auch als Gast möglich)
+2. „Anfragen" im Cart → Login-Modal (nur für Gäste); nach Login: Warenkorb-Redistribution — freigegebene Produkte wandern direkt in `cartApproved`, Schritt 2 wird übersprungen wenn `cartRequested` danach leer ist
+3. Praxis-Dropdown (Vet-Hinweis darunter dynamisch: grüner Punkt + „schnellere Bearbeitung" bei `hasRecommended: true`, leerer Punkt + Info-Text sonst)
+4. Bestätigungs-Screen mit E-Mail-Overlay (Kunden-E-Mail + ggf. Vet-E-Mail oder interne Nachricht bei unbekannter Praxis)
+
+**Zugehörige Dokumentation:** `Tierarzt-Empfehlung-Info.html`
 
 ### `Bundle.html` — Bundle-Builder
 - Naturalrabatt-System mit Tier-Konfiguration (Kondition A / B)
@@ -506,13 +509,13 @@ Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehne
 - Standard `.site-nav` Header (mit Announcement Bar)
 - `<main class="page --narrow approval-page">`
 - `.choice-box` als Mengen-Auswahl (Ablehnen, max. 1×, max. 2×, max. 5×, Unbegrenzt)
-- Globaler `.success-state` für Erfolgs-Bestätigung
+- Nach Absenden: `.success-state` + E-Mail-Overlay (analog Tierarzt-Empfehlung-Mockup) mit zwei Nachrichten: Kunden-E-Mail + interne Nachricht an `team@inuvet.com`
 
 ### `Formular-Reklamation.html` — Stand-Alone-Formular
 Beispiel für Sektion C.4. Nutzt `.form-page` Shell.
 
-### `Prozess-Diagramm.html` — Swimlane-Diagramme
-Zwei Diagramme: Empfehlungsanfrage-Flow + Naturalrabatt-Konfiguration. Marketing → Backend → Frontend Spalten.
+### `Tierarzt-Empfehlung-Info.html` — Technische Dokumentation
+Article-Layout mit Sidebar. Dokumentiert vollständig das Rezeptanfrage-System: drei Nutzerzustände, 5-Schritt-Anfrage-Flow, Warenkorb-Redistribution nach Login, E-Mail als zentrales Pflichtfeld, Tierarzt-Portal (inkl. Ablehnung und interner Benachrichtigung), technische Implementierungs-Schritte.
 
 ---
 
@@ -535,6 +538,12 @@ docs: …      (Doku-Updates)
 - Produkte: `assets/images/Calmin_Packshot_01.jpeg` etc.
 - Logo: `assets/graphics/Inuvet_Logo_RGB.svg` (als `<img>`, nicht inline)
 - **Globale Regel**: Nur Calmin- und Hepax-Packshots existieren; alle anderen Produkte zeigen `placeholder-bg`
+
+### Globale JS-Datei (`inuvet.js`)
+Analog zu `inuvet.css` — enthält shared UI-Funktionen die in allen Pages gebraucht werden.
+Aktuell: `toggleMobile()` / `closeMobile()` für das Burger-Menü.
+Einbindung: `<script src="../inuvet.js"></script>` am Ende von `<body>` (in `pages/`) bzw. `<script src="inuvet.js"></script>` in `styleguide.html`.
+Neue globale JS-Funktionen gehören hierher, nicht inline in einzelne Pages.
 
 ### CSS Cache-Busting (Development)
 `inuvet.css?v=N` — N hochzählen nach CSS-Änderungen (vor Push entfernen).

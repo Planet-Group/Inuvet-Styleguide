@@ -8,6 +8,7 @@
 
 1. [`CONTEXT.md`](./CONTEXT.md) lesen — Architektur, Tokens, Mockups, verworfene Entscheidungen
 2. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
+3. Globale JS-Datei: `inuvet.js` — enthält `toggleMobile()` / `closeMobile()`, wird in alle Pages eingebunden (analog zu `inuvet.css`)
 
 ---
 
@@ -70,9 +71,9 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Bundle.html` + `bundle.css` — Bundle-Builder mit Naturalrabatt
 - `pages/Bundle-Info.html` — Konzept-Artikel zum Bundle
 - `pages/Tierarzt-Empfehlung-Mockup.html` + `.css` — Hauptmockup, Rezeptanfrage-Flow
+- `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
 - `pages/Inuvet-Freigabe-Mockup.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
-- `pages/Prozess-Diagramm.html` — Swimlane-Diagramme
 
 ---
 
