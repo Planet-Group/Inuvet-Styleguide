@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tierarzt-Empfehlung — Dokumentation – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung-Mockup.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcementBar">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span>
+    <button class="btn --icon" onclick="closeAnnouncement()" aria-label="Schließen"><span class="material-icons">close</span></button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Tierarzt-Empfehlung-Mockup.html" class="nav-item__trigger">Mockup</a>
+      </div>
+      <div class="nav-item">
+        <a href="Tierarzt-Empfehlung-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
+      </div>
+      <div class="nav-item">
+        <a href="Prozess-Diagramm.html" class="nav-item__trigger">Prozess</a>
+      </div>
+    </div>
+    <div class="nav-center">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logo_RGB.svg" alt="Tierarzt-Empfehlung Logo">
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Tierarzt-Empfehlung-Mockup.html" onclick="closeMobile()">Mockup</a>
+    </div>
+    <div class="nav-col">
+      <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+    <div class="nav-col">
+      <a href="Prozess-Diagramm.html" onclick="closeMobile()">Prozess</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="page" id="infoMain">
+
+      <div class="article-layout">
+
+        <!-- Sidebar: Autor + Tags -->
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Michael Hoppe</p>
+              <p class="article__author-role">Technische Dokumentation</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Shopify</span>
+            <span class="filter-tag">IT-Spezifikation</span>
+            <span class="filter-tag">Tierarzt-Empfehlung</span>
+            <span class="filter-tag">Backend</span>
+            <span class="filter-tag">Frontend</span>
+            <span class="filter-tag">E-Mail</span>
+          </div>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Dokumentation · Stand 15. Mai 2026</span>
+            <h1>Tierarzt-Empfehlung — Dokumentation</h1>
+          </header>
+
+          <div class="article__body rte">
+
+            <p>Dieses Dokument beschreibt die <strong>Funktionsweise des Tierarzt-Empfehlungs-Systems</strong> im inuvet Shop. Es richtet sich an IT, Marketing und alle, die den Ablauf verstehen oder implementieren möchten. Im Mittelpunkt steht die Frage: Wie gelangt ein Tierbesitzer von der Produktentdeckung zur tierärztlich freigegebenen Bestellung?</p>
+
+            <h2>Grundidee</h2>
+            <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise auf Empfehlung eines Tierarztes eingesetzt. Das System ermöglicht es Tierbesitzern, Produkte zu <strong>anfragen</strong> — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt die Bestellung frei. Erst nach dieser Freigabe kann der Tierbesitzer das Produkt kaufen.</p>
+
+            <p>Produkte können auch <strong>ohne Empfehlung angefragt</strong> werden — in diesem Fall leitet inuvet die Anfrage an eine Tierarztpraxis weiter und übernimmt die Koordination.</p>
+
+            <h2>Die drei Nutzerzustände</h2>
+            <p>Das System unterscheidet drei Zustände, die das gesamte UI steuern:</p>
+
+            <table>
+              <thead>
+                <tr><th>Zustand</th><th>Beschreibung</th><th>Mögliche Aktionen</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>① Gast</strong></td>
+                  <td>Nicht angemeldet. E-Mail unbekannt.</td>
+                  <td>Produkte anfragen, Warenkorb befüllen. Einloggen beim Abschicken.</td>
+                </tr>
+                <tr>
+                  <td><strong>② Angemeldet · keine Freigabe</strong></td>
+                  <td>Eingeloggt. Keine aktive Empfehlung vorhanden.</td>
+                  <td>Anfrage an Tierarztpraxis stellen. Auf E-Mail-Benachrichtigung warten.</td>
+                </tr>
+                <tr>
+                  <td><strong>③ Angemeldet · mit Freigabe</strong></td>
+                  <td>Eingeloggt. Tierarzt hat Empfehlung erteilt.</td>
+                  <td>Empfohlene Produkte direkt in den Warenkorb legen und kaufen.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Der Anfrage-Flow (Schritt für Schritt)</h2>
+
+            <h3>1 — Produkt entdecken und anfragen</h3>
+            <p>Jeder Besucher — auch ohne Login — kann Produkte über den Button <strong>„Anfragen"</strong> in den Warenkorb legen. Es gibt kein Login-Gate vor dem Warenkorb. Das Ziel: möglichst wenig Reibung beim Entdecken.</p>
+
+            <h3>2 — Anfrage abschicken (Login erforderlich)</h3>
+            <p>Wenn der Nutzer im Warenkorb auf <strong>„Anfragen"</strong> klickt, erscheint das Login- bzw. Registrierformular. Hier greift ein zentrales Prinzip: <strong>Die E-Mail-Adresse ist der eindeutige Schlüssel.</strong> Das System verknüpft die Anfrage mit der E-Mail — über diese Adresse erfolgt die spätere Benachrichtigung, wenn der Tierarzt die Empfehlung freigibt (oder ablehnt).</p>
+            <p>Nach dem Login prüft das System automatisch, ob für die angefragten Produkte bereits eine Freigabe vorliegt:</p>
+            <ul>
+              <li><strong>Freigabe vorhanden</strong> → Produkt wandert direkt in „Einzulösende Produkte". Kein Tierarzt-Auswahlschritt — die Empfehlung ist bereits mit einer Praxis verknüpft. Weiter zum Checkout.</li>
+              <li><strong>Keine Freigabe</strong> → Nutzer wählt eine Tierarztpraxis aus, an die die Anfrage gesendet wird.</li>
+            </ul>
+
+            <h3>3 — Tierarzt auswählen (nur bei fehlender Freigabe)</h3>
+            <p>Der Nutzer wählt aus einer Liste bekannter Tierarztpraxen. Praxen, die bereits am Empfehlungsprogramm teilnehmen, sind markiert — dort ist eine schnellere Bearbeitung zu erwarten. Ist die eigene Praxis nicht in der Liste, kann sie manuell eingegeben werden.</p>
+            <p>Nach dem Absenden:</p>
+            <ul>
+              <li><strong>Bekannte Praxis</strong>: E-Mail direkt an die Praxis, die über das inuvet-Portal die Freigabe erteilen kann.</li>
+              <li><strong>Unbekannte Praxis</strong>: Interne Benachrichtigung an inuvet — das Team kontaktiert die Praxis und nimmt sie ins Programm auf.</li>
+            </ul>
+
+            <h3>4 — Warten auf Freigabe</h3>
+            <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Empfehlung im inuvet-Portal freigibt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — die freigegebenen Produkte liegen direkt zur Bestellung bereit.</p>
+
+            <h3>5 — Einlösen und kaufen</h3>
+            <p>Mit aktiver Freigabe können freigegebene Produkte direkt in den Warenkorb gelegt und bestellt werden — ohne weiteren Anfrageschritt. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
+
+            <h2>Warenkorb-Redistribution beim Login</h2>
+            <p>Ein wichtiges Detail: Ein Nutzer kann als Gast Produkte in den Warenkorb legen und sich erst beim Abschicken einloggen. In diesem Moment prüft das System jeden Warenkorb-Artikel einzeln:</p>
+            <ul>
+              <li>Artikel mit vorhandener Freigabe → wandern automatisch in den <strong>Kauf-Warenkorb</strong> (sofort bestellbar)</li>
+              <li>Artikel ohne Freigabe → verbleiben im <strong>Anfrage-Warenkorb</strong> (durchlaufen den Anfrage-Flow)</li>
+            </ul>
+            <p>Der Nutzer sieht das Ergebnis unmittelbar: Freigegebene Produkte erscheinen unter „Einzulösende Produkte", anfragepflichtige unter „Anzufragende Produkte". Ein gemischter Warenkorb ist möglich.</p>
+
+            <h2>Die E-Mail-Adresse — zentrales Pflichtfeld</h2>
+            <p>Die E-Mail-Adresse erfüllt im System drei Funktionen gleichzeitig:</p>
+            <ol>
+              <li><strong>Account-Identifier</strong> — verknüpft Nutzer, Empfehlungen und Bestellhistorie</li>
+              <li><strong>Benachrichtigungs-Kanal</strong> — Freigabe oder Ablehnung der Empfehlung wird per E-Mail kommuniziert</li>
+              <li><strong>Checkout-Pflichtfeld</strong> — für Bestellbestätigung und Sendungsverfolgung</li>
+            </ol>
+            <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist.</p>
+
+            <h2>Das Tierarzt-Portal (Freigabe-Seite)</h2>
+            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Empfehlungsanfragen einsehen und mit einem Klick freigeben oder ablehnen können. Das Portal ist bewusst einfach gehalten — minimale Klicks, klare Übersicht.</p>
+            <p>Nach der Freigabe im Portal:</p>
+            <ol>
+              <li>Das System aktualisiert den Empfehlungsstatus des Nutzers (verknüpft via E-Mail)</li>
+              <li>Der Nutzer erhält eine Benachrichtigungs-E-Mail</li>
+              <li>Beim nächsten Login erscheinen die freigegebenen Produkte direkt im Shop</li>
+            </ol>
+
+            <h2>Announcement Bar — Gast-Hinweis</h2>
+            <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar. Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
+
+            <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
+            <p>Empfehlungen beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform</strong> (z.B. „Calmin Balance Tabletten"), nie auf Produktfamilien (z.B. „Calmin Balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt. Die Freigabe durch den Tierarzt ist produktspezifisch.</p>
+
+            <h2>Technische Umsetzung — Übersicht</h2>
+
+            <h3>Nutzerzustände im Frontend</h3>
+            <p>Das Frontend unterscheidet drei States (<code>guest</code>, <code>no-release</code>, <code>with-release</code>), die das gesamte UI steuern: CTAs, Nav-Elemente, Announcement Bar, Warenkorb-Inhalt und verfügbare Seiten.</p>
+            <pre><code>// Zustand bestimmt: welche CTAs sichtbar sind
+// - guest:        „Anfragen" ohne Login-Gate, Login-Link in Nav
+// - no-release:   „Anfragen" → führt zu Tierarzt-Auswahl
+// - with-release: „In den Warenkorb" für freigegebene Produkte</code></pre>
+
+            <h3>Warenkorb-Struktur</h3>
+            <p>Der Warenkorb besteht intern aus zwei Arrays:</p>
+            <pre><code>cartApproved  = []  // Produkte mit Freigabe → direkt kaufbar
+cartRequested = []  // Produkte ohne Freigabe → durchlaufen Anfrage-Flow</code></pre>
+            <p>Beim Login wird jeder Artikel aus <code>cartRequested</code> neu bewertet. Hat der Nutzer eine Freigabe für das Produkt, wandert es nach <code>cartApproved</code>.</p>
+
+            <h3>E-Mail-Verknüpfung</h3>
+            <p>Empfehlungen werden serverseitig per E-Mail-Adresse verwaltet. Das Frontend schickt beim Login die E-Mail — das Backend liefert zurück, für welche Produkte eine aktive Freigabe vorliegt. Diese Produktliste bestimmt, welche Artikel nach dem Login als <code>approved</code> markiert werden.</p>
+
+            <h3>Implementierungs-Schritte</h3>
+            <ol>
+              <li><strong>Empfehlungs-Datensatz:</strong> Pro Nutzer-E-Mail eine Liste freigegebener Produkt-IDs speichern. Timestamp der Freigabe und verknüpfte Tierarztpraxis mitführen.</li>
+              <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend nutzt diese Liste für die Warenkorb-Redistribution.</li>
+              <li><strong>Anfrage-Flow:</strong> Anfrage-Submission speichert: Nutzer-E-Mail, Produkt-IDs, ausgewählte Praxis, Timestamp. Löst E-Mail-Benachrichtigung an Praxis aus.</li>
+              <li><strong>Freigabe-Event:</strong> Tierarzt bestätigt im Portal → Status-Update in Datenbank → Nutzer-E-Mail mit Link zum Shop.</li>
+              <li><strong>Checkout:</strong> E-Mail-Feld ist <code>required</code>. Bei eingeloggten Nutzern vorausgefüllt.</li>
+              <li><strong>Announcement Bar:</strong> Gast-Item über Conditional Rendering gesteuert — niemals für eingeloggte Nutzer sichtbar.</li>
+            </ol>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    window.closeAnnouncement = () => {
+      document.getElementById('announcementBar').classList.add('--closed');
+      document.documentElement.style.setProperty('--announcement-height', '0px');
+    };
+    window.toggleMobile = () => {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('--open');
+      btn.classList.toggle('--open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    window.closeMobile = () => {
+      document.getElementById('mobileMenu')?.classList.remove('--open');
+      const btn = document.getElementById('hamburger');
+      if (btn) { btn.classList.remove('--open'); btn.setAttribute('aria-expanded', 'false'); }
+    };
+  </script>
+
+</body>
+</html>
