@@ -168,13 +168,20 @@
             <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist.</p>
 
             <h2>Das Tierarzt-Portal (Freigabe-Seite)</h2>
-            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Empfehlungsanfragen einsehen und mit einem Klick freigeben oder ablehnen können. Das Portal ist bewusst einfach gehalten — minimale Klicks, klare Übersicht.</p>
-            <p>Nach der Freigabe im Portal:</p>
+            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Empfehlungsanfragen einsehen können. Pro Produkt wählt der Tierarzt eine Empfehlungs-Stufe (unbegrenzt, max. 1–5×) oder lehnt das Produkt ab. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
+            <p>Nach der Bearbeitung im Portal werden zwei Nachrichten ausgelöst:</p>
             <ol>
-              <li>Das System aktualisiert den Empfehlungsstatus des Nutzers (verknüpft via E-Mail)</li>
-              <li>Der Nutzer erhält eine Benachrichtigungs-E-Mail</li>
-              <li>Beim nächsten Login erscheinen die freigegebenen Produkte direkt im Shop</li>
+              <li><strong>E-Mail an den Tierbesitzer</strong> — Zusammenfassung der Entscheidung pro Produkt. Bei mindestens einem freigegebenen Produkt mit Link zum Shop zum Einlösen. Bei vollständiger Ablehnung mit entsprechendem Hinweis.</li>
+              <li><strong>Interne Benachrichtigung an das inuvet-Team</strong> — Zusammenfassung welcher Tierarzt welche Produkte für welchen Tierbesitzer freigegeben oder abgelehnt hat, inklusive Zeitstempel.</li>
             </ol>
+            <p>Parallel dazu:</p>
+            <ol start="3">
+              <li>Das System aktualisiert den Empfehlungsstatus des Nutzers (verknüpft via E-Mail)</li>
+              <li>Beim nächsten Login erscheinen freigegebene Produkte direkt im Shop</li>
+            </ol>
+
+            <h3>Ablehnung durch den Tierarzt</h3>
+            <p>Der Tierarzt kann einzelne oder alle Produkte ablehnen. Eine Ablehnung bedeutet: das Produkt bleibt nicht freigegeben, der Tierbesitzer erhält eine E-Mail mit der Begründung (sofern der Tierarzt eine Notiz hinterlassen hat). Abgelehnte Produkte können erneut angefragt werden — etwa wenn sich der Gesundheitszustand des Tieres geändert hat oder ein anderer Tierarzt konsultiert wird. Es gibt keine technische Sperrfrist.</p>
 
             <h2>Announcement Bar — Gast-Hinweis</h2>
             <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar. Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
