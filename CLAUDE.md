@@ -14,7 +14,7 @@
 ## Goldene Regeln (nie brechen)
 
 1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden. Details + Anti-Pattern-Beispiel in CONTEXT.md.
-2. **Neue Styles: temp.css → inuvet.css** — Muss doch etwas Neues entstehen: erst in `temp.css` testen. Erst wenn bestätigt → nach `inuvet.css` verschieben. Nie direkt in `inuvet.css` schreiben ohne vorherigen Test. Details zum Workflow in CONTEXT.md.
+2. **Neue Styles immer zuerst in temp.css** — Jedes neue CSS-Element landet zunächst in `temp.css`, egal ob es sich später als global oder seitenspezifisch herausstellt. Das wird zum Zeitpunkt der Entwicklung noch nicht entschieden. Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → die zugehörige Page-CSS-Datei (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`. Details zum Workflow in CONTEXT.md.
 3. **Keine Magic Numbers** — alles via `var(--…)`.
 4. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
 5. **Kein `!important`**. Niemals.
