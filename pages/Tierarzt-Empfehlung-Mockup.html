@@ -1853,7 +1853,13 @@ function render() {
   document.body.classList.toggle('--page-home', page === 'home');
   const main = document.getElementById('shopMain');
   switch (page) {
-    case 'home':        main.innerHTML = renderHome();        break;
+    case 'home':
+      main.innerHTML = renderHome();
+      requestAnimationFrame(() => {
+        const strip = document.querySelector('.intro-strip');
+        if (strip) document.documentElement.style.setProperty('--intro-strip-height', strip.offsetHeight + 'px');
+      });
+      break;
     case 'collection':  main.innerHTML = renderCollection();  break;
     case 'recommended': main.innerHTML = renderRecommended(); break;
     case 'product':     main.innerHTML = renderProduct();     break;
