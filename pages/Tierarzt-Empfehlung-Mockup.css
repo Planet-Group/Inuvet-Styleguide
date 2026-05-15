@@ -144,10 +144,10 @@ body.--page-home .site-nav { border-bottom: none; }
   padding: calc(var(--base) * 0.5) 0;
 }
 
-/* Animation: eigenes Flex-Item, quadratisch, oben/unten bündig */
+/* Animation: feste Breite, quadratisch — explizite Maße verhindern Feedback-Loop */
 .intro-strip__anim {
-  align-self: stretch;
-  aspect-ratio: 1 / 1;
+  width: calc(var(--module) * 3);
+  height: calc(var(--module) * 3);
   flex-shrink: 0;
   overflow: hidden;
 }
