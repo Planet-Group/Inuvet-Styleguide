@@ -1080,7 +1080,7 @@
      ═══════════════════════════════════════════ */
 
   /* ─── Rating ─── */
-  .rating { display: flex; align-items: center; gap: 0.25rem; font-size: var(--text-sm); color: var(--fg-muted); }
+  .rating { display: flex; align-items: center; gap: 0.25rem; font-size: var(--text-sm); color: var(--fg); }
   .rating .material-icons { font-size: 1rem; color: var(--color-rating); }
   .rating .material-icons.--empty { color: var(--border-light); }
 
