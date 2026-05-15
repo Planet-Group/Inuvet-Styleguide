@@ -146,8 +146,8 @@ body.--page-home .site-nav { border-bottom: none; }
 
 /* Animation: feste Breite, quadratisch — explizite Maße verhindern Feedback-Loop */
 .intro-strip__anim {
-  width: calc(var(--module) * 3);
-  height: calc(var(--module) * 3);
+  width: calc(var(--module) * 0.75);
+  height: calc(var(--module) * 0.75);
   flex-shrink: 0;
   overflow: hidden;
 }
