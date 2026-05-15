@@ -53,7 +53,7 @@
     <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
     <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
     <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
-    <span class="announcement-bar__item">Bitte anmelden um Empfehlung einzulösen</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item --guest-only">Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →</span><span class="announcement-bar__sep --guest-only"></span>
     <!-- Sentinel: markiert exakten Nahtpunkt für JS-Messung -->
     <span class="announcement-bar__sentinel" aria-hidden="true"></span>
     <!-- Duplikat für nahtlose Schleife -->
@@ -61,7 +61,7 @@
     <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
     <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
     <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
-    <span class="announcement-bar__item">Bitte anmelden um Empfehlung einzulösen</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item --guest-only">Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →</span><span class="announcement-bar__sep --guest-only"></span>
   </div>
 </div>
 
@@ -1496,7 +1496,7 @@ function renderHome() {
       <button class="btn --primary" onclick="setPage('recommended')">Empfehlung einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
     </div>`;
-    introText  = 'Dein Tierarzt hat eine Empfehlung für dich freigegeben';
+    introText  = 'Du möchtest ein Inuvet-Produkt? So erhältst du eine Empfehlung von deiner Tierarztpraxis';
   }
 
   const stepCols = INTRO_STEPS.map((text, i) => `
@@ -1874,6 +1874,7 @@ function render() {
     case 'checkout':    main.innerHTML = renderCheckout();    break;
   }
   initSliders();
+  initMarquees();
 }
 
 /* ════════════════════════════════════════════
@@ -2004,12 +2005,19 @@ document.addEventListener('click', e => {
   }
 });
 
-render();
-initSliders();
+const _marqueeBase = new Map();
 
-(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+function initMarquees() {
   requestAnimationFrame(() => {
     document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
+      if (_marqueeBase.has(track)) {
+        track.innerHTML = _marqueeBase.get(track);
+      } else {
+        _marqueeBase.set(track, track.innerHTML);
+      }
+      track.querySelectorAll('.--guest-only').forEach(el => {
+        el.style.display = (state === 'guest') ? '' : 'none';
+      });
       const sentinel = track.querySelector('.announcement-bar__sentinel');
       if (!sentinel) return;
       const shift = sentinel.offsetLeft;
@@ -2024,7 +2032,12 @@ initSliders();
       track.style.setProperty('--marquee-shift', `-${shift}px`);
     });
   });
-});
+}
+
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(initMarquees);
+
+render();
+initSliders();
 </script>
 </body>
 </html>

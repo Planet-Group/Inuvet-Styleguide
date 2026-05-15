@@ -119,9 +119,11 @@
 /* ─── Header-Linie auf Home-Seite ausblenden ─── */
 body.--page-home .site-nav { border-bottom: none; }
 
-/* ─── Hero: Höhe um Intro-Strip reduzieren ─── */
-body.--page-home .section-type.--viewport {
-  height: calc(100dvh - var(--header-height) - var(--intro-strip-height, 0px));
+/* ─── Hero: Höhe um Intro-Strip reduzieren (nur ab 768px) ─── */
+@media (min-width: 768px) {
+  body.--page-home .section-type.--viewport {
+    height: calc(100dvh - var(--header-height) - var(--intro-strip-height, 0px));
+  }
 }
 
 /* ─── Intro-Strip (direkt unter Header, über Hero) ─── */
