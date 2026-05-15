@@ -179,7 +179,7 @@
       <div class="login-panel" id="loginPanel">
         <div class="login-panel__header">
           <h2 class="login-panel__title">Willkommen zurück</h2>
-          <p class="login-panel__sub">Melde dich an, um Empfehlungen deines Tierarztes einzulösen.</p>
+          <p class="login-panel__sub">Melde dich an, um Empfehlungen deines Tierarztes einzulösen oder anzufragen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="form-field">
@@ -205,7 +205,7 @@
       <div class="login-panel --hidden" id="registerPanel">
         <div class="login-panel__header">
           <h2 class="login-panel__title">Konto erstellen</h2>
-          <p class="login-panel__sub">Registriere dich kostenlos und löse Empfehlungen deines Tierarztes ein.</p>
+          <p class="login-panel__sub">Registriere dich kostenlos, um Empfehlungen deines Tierarztes einzulösen oder anzufragen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="login-form__row">
@@ -432,17 +432,15 @@ function closeCart() {
    ════════════════════════════════════════════ */
 const optionsState = { productId: null, formIndex: 0, variantIndex: 0 };
 
-function tileGuestLogin(e) {
-  e.stopPropagation();
-  openLoginModal();
-}
-
 /* ── Login-Modal ── */
-let loginTargetState = 'no-release';
+let loginTargetState    = 'no-release';
+let loginAfterCallback  = null;
 
 function openLoginModal(tab, targetState) {
   loginTargetState = targetState || 'no-release';
   switchLoginTab(tab || 'login');
+
+  // Wenn aus dem Warenkorb-Flow: CTA durch Simulation-Auswahl ersetzen
   document.getElementById('loginOverlay').classList.add('--open');
   document.body.style.overflow = 'hidden';
   setTimeout(() => document.getElementById('login-email')?.focus(), 320);
@@ -466,7 +464,35 @@ function switchLoginTab(tab) {
 
 function simulateLogin() {
   closeLoginModal();
+  const savedRequested = [...cartRequested];
+  const savedApproved  = [...cartApproved];
   setState(loginTargetState, document.querySelector(`[data-state="${loginTargetState}"]`));
+  // Warenkorb-Items aus Gast-Session redistribuieren
+  savedRequested.forEach(item => {
+    const p = getProduct(item.id);
+    addToCart(item, isApproved(p) ? 'approved' : 'requested');
+  });
+  savedApproved.forEach(item => addToCart(item, 'approved'));
+  if (loginAfterCallback) {
+    const cb = loginAfterCallback;
+    loginAfterCallback = null;
+    if (cartRequested.length > 0) {
+      cb(); // noch offene Anfragen → Step 2 (Praxis wählen)
+    } else {
+      // Alle Items sind nun freigegeben — direkt Warenkorb Step 1
+      cartDrawerStep = 1;
+      renderCartDrawer();
+    }
+  }
+}
+
+function proceedToRequest() {
+  if (state === 'guest') {
+    loginAfterCallback = () => setCartStep(2);
+    openLoginModal('login', 'with-release');
+    return;
+  }
+  setCartStep(2);
 }
 
 function openOptions(id) {
@@ -938,10 +964,10 @@ function renderCartDrawer() {
   let ctaLabel, ctaFn;
   if (hasRequested && hasApproved) {
     ctaLabel = 'Kaufen & Anfragen';
-    ctaFn    = `setCartStep(2)`;
+    ctaFn    = `proceedToRequest()`;
   } else if (hasRequested) {
     ctaLabel = 'Anfragen';
-    ctaFn    = `setCartStep(2)`;
+    ctaFn    = `proceedToRequest()`;
   } else {
     ctaLabel = 'Zur Kasse';
     ctaFn    = `closeCart();setPage('checkout')`;
@@ -1109,16 +1135,18 @@ function renderNav() {
 
   navRight.innerHTML = '';
 
-  // Warenkorb ↔ Login je nach State
+  // Cart immer als Cart — Login-Link für Gäste in navRight
   const cartBtn = document.getElementById('cartBtn');
+  cartBtn.setAttribute('aria-label', 'Warenkorb öffnen');
+  cartBtn.setAttribute('onclick', 'openCart()');
+  cartBtn.querySelector('.material-icons').textContent = 'shopping_cart';
+
   if (state === 'guest') {
-    cartBtn.setAttribute('aria-label', 'Registrieren / Einloggen');
-    cartBtn.setAttribute('onclick', 'openLoginModal()');
-    cartBtn.querySelector('.material-icons').textContent = 'person_outline';
-  } else {
-    cartBtn.setAttribute('aria-label', 'Warenkorb öffnen');
-    cartBtn.setAttribute('onclick', 'openCart()');
-    cartBtn.querySelector('.material-icons').textContent = 'shopping_cart';
+    const loginLink = document.createElement('a');
+    loginLink.href      = '#';
+    loginLink.textContent = 'Einloggen';
+    loginLink.onclick   = (e) => { e.preventDefault(); openLoginModal('login', 'no-release'); };
+    navRight.appendChild(loginLink);
   }
 }
 
@@ -1244,15 +1272,7 @@ function tileHTML(p) {
   const approved = isApproved(p);
 
   let cartOverlay = '';
-  if (state === 'guest') {
-    cartOverlay = `
-      <button class="tile__cart-icon" type="button" aria-label="Registrieren / Einloggen" onclick="tileGuestLogin(event)">
-        <span class="material-icons">person_outline</span>
-      </button>
-      <div class="tile__cart">
-        <button class="btn --primary" onclick="tileGuestLogin(event)">Registrieren / Einloggen</button>
-      </div>`;
-  } else if (approved) {
+  if (approved) {
     cartOverlay = `
       <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})">
         <span class="material-icons">shopping_cart</span>
@@ -1612,13 +1632,7 @@ function renderProduct() {
   let sizeSection  = '';
   let actions      = '';
 
-  if (state === 'guest') {
-    priceDisplay = `<div class="pdp__price"><div class="price-stack text-m"><span>ab ${productStartPrice(p)}</span></div></div>`;
-    actions = `<div class="shop-notice">
-      <p>Wenn Sie eine Empfehlung haben, können Sie dieses nach der Registrierung oder dem Login einlösen.</p>
-      <button class="btn --primary" onclick="openLoginModal('register')">Jetzt registrieren</button>
-    </div>`;
-  } else {
+  {
     const startForm     = p.familie ? p.darreichungsformen[0] : null;
     const startVariants = startForm ? startForm.variants : p.variants;
     const startPrice    = startVariants[0].price;
