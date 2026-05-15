@@ -117,7 +117,7 @@
 
 
 /* ─── Header-Linie auf Home-Seite ausblenden ─── */
-body.--page-home .nav { border-bottom: none; }
+body.--page-home .site-nav { border-bottom: none; }
 
 /* ─── Intro-Strip (direkt unter Header, über Hero) ─── */
 .intro-strip {
