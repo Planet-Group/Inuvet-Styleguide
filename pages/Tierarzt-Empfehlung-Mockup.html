@@ -735,6 +735,18 @@ function showVetDropdown() {
   dropdown.style.display = '';
 }
 
+function updateVetHint() {
+  const el = document.getElementById('vetHint');
+  if (!el) return;
+  if (selectedVet && selectedVet.hasRecommended) {
+    el.innerHTML = '<span class="vet-recommended-dot">●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung';
+  } else if (selectedVet && selectedVet.custom) {
+    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Programm – inuvet nimmt Kontakt auf';
+  } else {
+    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit';
+  }
+}
+
 function selectVet(id) {
   selectedVet = VETS.find(v => v.id === id);
   const input = document.getElementById('vetSearchInput');
@@ -743,6 +755,7 @@ function selectVet(id) {
   // Zusatzfelder ausblenden (falls vorher freie Eingabe gewählt)
   const extra = document.getElementById('customVetExtra');
   if (extra) extra.style.display = 'none';
+  updateVetHint();
 }
 
 function selectCustomVet(name) {
@@ -751,6 +764,7 @@ function selectCustomVet(name) {
   if (input) input.value = name;
   document.getElementById('vetDropdown').style.display = 'none';
 
+  updateVetHint();
   // Zusatzfelder für unbekannte Praxis einblenden
   const extra = document.getElementById('customVetExtra');
   if (extra) {
@@ -835,7 +849,12 @@ function renderRequestStep() {
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
-        <p class="vet-legend"><span class="vet-recommended-dot">●</span> Praxis hat bereits eine Empfehlung erstellt – in der Regel schnellere Bearbeitung</p>
+        <p id="vetHint" class="vet-legend">${selectedVet && selectedVet.hasRecommended
+          ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
+          : selectedVet && selectedVet.custom
+            ? '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Programm – inuvet nimmt Kontakt auf'
+            : '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
+        }</p>
       </div>
       <!-- Zusatzfelder: nur bei freier Praxis-Eingabe sichtbar -->
       <div id="customVetExtra" style="display:none;">
