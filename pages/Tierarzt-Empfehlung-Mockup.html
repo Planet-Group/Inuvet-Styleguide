@@ -1471,14 +1471,14 @@ function renderHome() {
     body       = 'Dein Tier kann dir nicht sagen, was es braucht. Aber dein Tierarzt weiß es — und du sorgst dafür, dass es genau das bekommt: tierärztlich entwickelt, persönlich empfohlen, direkt zu dir nach Hause.';
     cta        = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
       <button class="btn --primary" onclick="openLoginModal('login','with-release')">Empfehlung einlösen</button>
-      <button class="btn --ghost"   onclick="setPage('collection')">Produkt empfehlen lassen</button>
+      <button class="btn --ghost"   onclick="setPage('collection')">Produkte finden</button>
     </div>`;
     introText  = 'Du möchtest ein Inuvet-Produkt und hast noch keine Empfehlung von deinem Tierarzt';
   } else if (state === 'no-release') {
     headline   = 'Dein Tierarzt weiß, was dein Tier wirklich braucht.';
     body       = 'Finde das Richtige für dein Tier und lass es von deinem Tierarzt persönlich freigeben — weil Gesundheit mit dem richtigen Rat beginnt.';
     cta        = `<div style="display:flex;gap:var(--half-module);flex-wrap:wrap">
-      <button class="btn --primary" onclick="setPage('collection')">Produkt empfehlen lassen</button>
+      <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
     </div>`;
     introText  = 'Du bist angemeldet und kannst jetzt ein Produkt zur Freigabe anfragen';
   } else {
@@ -1504,7 +1504,7 @@ function renderHome() {
           <div class="intro-strip__anim">
             <lottie-player src="../assets/lotties/_inuvet_animation_tierarztpraxislogo_json.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
-          <p class="intro-strip__text">${introText}</p>
+          <p class="intro-strip__text --intro">${introText}</p>
         </div>
         ${stepCols}
       </div>

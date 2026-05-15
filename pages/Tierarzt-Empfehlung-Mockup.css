@@ -180,6 +180,10 @@ body.--page-home .site-nav { border-bottom: none; }
   margin: 0;
 }
 
+.intro-strip__text.--intro {
+  font-weight: 700;
+}
+
 @media (max-width: 800px) {
   .intro-strip__inner {
     overflow-x: auto;
