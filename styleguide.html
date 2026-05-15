@@ -4743,11 +4743,6 @@ function showToast(message, type) {
 }
 
 
-function closeAnnouncement() {
-  document.getElementById('announcementBar').classList.add('--closed');
-  document.documentElement.style.setProperty('--announcement-height', '0px');
-  sessionStorage.setItem('announcementClosed', '1');
-}
 
 // Restore closed state on page load (avoids flash)
 if (sessionStorage.getItem('announcementClosed')) {
