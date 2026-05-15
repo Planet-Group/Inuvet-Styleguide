@@ -2011,7 +2011,16 @@ initSliders();
   requestAnimationFrame(() => {
     document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
       const sentinel = track.querySelector('.announcement-bar__sentinel');
-      const shift = sentinel ? sentinel.offsetLeft : track.scrollWidth / 2;
+      if (!sentinel) return;
+      const shift = sentinel.offsetLeft;
+      const barWidth = track.parentElement.offsetWidth;
+      const afterSentinel = Array.from(track.children).slice(
+        Array.from(track.children).indexOf(sentinel) + 1
+      );
+      let safety = 0;
+      while (track.scrollWidth - shift < barWidth * 2 && safety++ < 20) {
+        afterSentinel.forEach(el => track.appendChild(el.cloneNode(true)));
+      }
       track.style.setProperty('--marquee-shift', `-${shift}px`);
     });
   });
