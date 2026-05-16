@@ -148,7 +148,7 @@ body.--page-home .site-nav { border-bottom: none; }
   align-items: flex-start;
   gap: calc(var(--base) * 0.5);
   flex: 1;
-  padding: calc(var(--base) * 0.5) 0;
+  padding: calc(var(--base) * 0.5) 0 var(--base) 0;
 }
 
 /* Animation: etwas größer als __num-Circles, aber inline-bündig */
