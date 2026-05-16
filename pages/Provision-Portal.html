@@ -359,7 +359,7 @@ function renderPortal() {
   return `
     <section class="provision-hero">
       <p class="provision-hero__label">Deine aktuelle Provision</p>
-      <p class="provision-hero__amount">${fmt(available)}</p>
+      <p class="provision-hero__amount" id="provisionAmount">${fmt(available)}</p>
       <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
       <div class="provision-hero__divider">oder</div>
     </section>
@@ -693,10 +693,24 @@ function renderSuccess() {
    HAUPT-RENDER
    ═══════════════════════════════════════ */
 
+function countUp(target, duration = 1800) {
+  const el = document.getElementById('provisionAmount');
+  if (!el) return;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(eased * target);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 function render() {
   const views = { portal: renderPortal, pdp: renderPDP, checkout: renderCheckout, success: renderSuccess };
   document.getElementById('app').innerHTML = (views[currentPage] || renderPortal)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
+  if (currentPage === 'portal') countUp(provisionAvailable());
 }
 
 render();

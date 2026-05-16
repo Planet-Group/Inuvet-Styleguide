@@ -813,7 +813,8 @@
   .tile__image { position: relative; overflow: hidden; }
   .tile__image.--square { aspect-ratio: 1 / 1; }
   .tile__image.--landscape { aspect-ratio: 4 / 3; }
-  .tile__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile__image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--anim-mid); }
+  .tile__image:hover img:nth-child(1) { transform: scale(1.05); }
 
   /* ─── Produkt-Rollover ─── */
   /* Zweites img = Rollover-Bild, absolut überlagert, auf Hover sichtbar */
