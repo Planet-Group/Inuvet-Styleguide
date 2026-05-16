@@ -151,10 +151,10 @@ body.--page-home .site-nav { border-bottom: none; }
   padding: calc(var(--base) * 0.5) 0;
 }
 
-/* Animation: feste Breite, quadratisch — explizite Maße verhindern Feedback-Loop */
+/* Animation: etwas größer als __num-Circles, aber inline-bündig */
 .intro-strip__anim {
-  width: var(--module);
-  height: var(--module);
+  width: calc(var(--base) * 2.5);
+  height: calc(var(--base) * 2.5);
   flex-shrink: 0;
   overflow: hidden;
 }
