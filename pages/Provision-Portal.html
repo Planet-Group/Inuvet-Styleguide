@@ -695,6 +695,20 @@ function renderSuccess() {
    HAUPT-RENDER
    ═══════════════════════════════════════ */
 
+function initTileAnimations() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('--in-view'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
+
+  document.querySelectorAll('.tile-grid .tile').forEach((tile, i) => {
+    tile.setAttribute('data-animate', '');
+    tile.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
+    observer.observe(tile);
+  });
+}
+
 function initRings() {
   const circ = 113.1;
   const observer = new IntersectionObserver(entries => {
@@ -728,7 +742,7 @@ function render() {
   const views = { portal: renderPortal, pdp: renderPDP, checkout: renderCheckout, success: renderSuccess };
   document.getElementById('app').innerHTML = (views[currentPage] || renderPortal)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
-  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(initRings); }
+  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { initRings(); initTileAnimations(); }); }
 }
 
 render();
