@@ -35,3 +35,19 @@ function initMarquees() {
 }
 
 document.addEventListener('DOMContentLoaded', initMarquees);
+
+function initScrollAnimations() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('--in-view'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
+
+  document.querySelectorAll('.tile-grid .tile:not([data-animate])').forEach((tile, i) => {
+    tile.setAttribute('data-animate', '');
+    tile.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
+    observer.observe(tile);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initScrollAnimations);
