@@ -3,6 +3,19 @@
    Für: pages/Provision-Portal.html
    ══════════════════════════════════════════════════════════════ */
 
+/* ── Fortschrittsring ────────────────────────────────────── */
+
+.tile__ring {
+  position: absolute;
+  top: calc(var(--base) * 0.75);
+  right: calc(var(--base) * 0.75);
+  z-index: 2;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.12));
+}
+.tile__ring-fill {
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* ── Provision Hero ───────────────────────────────────────── */
 
 .provision-hero {
@@ -38,32 +51,6 @@
   flex: 1;
   height: 1px;
   background: var(--border);
-}
-
-/* ── Statusbalken in Prämien-Kacheln ─────────────────────── */
-
-.tile__progress {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--base) * 0.5);
-  padding: calc(var(--base) * 0.35) 0;
-  background: var(--bg);
-}
-.tile__progress-pct {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  flex-shrink: 0;
-  min-width: 2.25rem;
-}
-.tile__progress-bar {
-  flex: 1;
-  height: 4px;
-  background: var(--border-light);
-}
-.tile__progress-fill {
-  height: 100%;
-  background: var(--green);
-  transition: width var(--anim-mid);
 }
 
 /* ── Gutscheinkarte ───────────────────────────────────────── */

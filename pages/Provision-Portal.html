@@ -320,16 +320,18 @@ function renderTile(p) {
   return `
     <div class="tile --product" onclick="openPDP(${p.id})">
       <div class="tile__image-wrap">
-        <div class="tile__progress">
-          <span class="tile__progress-pct">${pct}%</span>
-          <div class="tile__progress-bar">
-            <div class="tile__progress-fill" style="width:${pct}%"></div>
-          </div>
-        </div>
-        ${p.voucher
+${p.voucher
           ? `<div class="tile__image --square voucher-frame">${floatingMeta}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
           : `<div class="tile__image --square${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${floatingMeta}</div>`
         }
+        <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
+          <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="24" cy="24" r="18" fill="none" stroke="var(--border-light)" stroke-width="3"/>
+          <circle cx="24" cy="24" r="18" fill="none" stroke="var(--green)" stroke-width="3"
+            stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"
+            transform="rotate(-90 24 24)" class="tile__ring-fill" data-pct="${pct}"/>
+          <text x="24" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)" class="tile__ring-text">${pct}%</text>
+        </svg>
         ${cartOverlay}
       </div>
       <div class="tile__headline-row">
@@ -693,6 +695,22 @@ function renderSuccess() {
    HAUPT-RENDER
    ═══════════════════════════════════════ */
 
+function initRings() {
+  const circ = 113.1;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const fill = entry.target.querySelector('.tile__ring-fill');
+      if (!fill || fill.dataset.animated) return;
+      fill.dataset.animated = '1';
+      const pct = parseFloat(fill.dataset.pct);
+      fill.style.strokeDashoffset = circ * (1 - pct / 100);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.tile.--product').forEach(t => observer.observe(t));
+}
+
 function countUp(target, duration = 1800) {
   const el = document.getElementById('provisionAmount');
   if (!el) return;
@@ -710,7 +728,7 @@ function render() {
   const views = { portal: renderPortal, pdp: renderPDP, checkout: renderCheckout, success: renderSuccess };
   document.getElementById('app').innerHTML = (views[currentPage] || renderPortal)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
-  if (currentPage === 'portal') countUp(provisionAvailable());
+  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(initRings); }
 }
 
 render();
