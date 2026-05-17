@@ -1911,7 +1911,7 @@
   [data-cat="immun"]        { background: var(--cat-immun-light); }
   [data-cat="atemwege"]     { background: var(--cat-atemwege-light); }
   [data-cat="hormone"]      { background: var(--cat-hormone-light); }
-  .pdp__title { font-size: var(--text-l); font-weight: 700; line-height: var(--lh-h2); margin-bottom: 0.5rem; }
+  .pdp__title { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h2); margin-bottom: var(--half-module); }
   .pdp__price { display: flex; align-items: center; gap: var(--half-module); margin-bottom: var(--half-module); }
   .pdp__info .rating { margin-bottom: var(--half-module); }
 
