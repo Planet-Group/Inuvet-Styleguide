@@ -411,7 +411,7 @@ function renderPDP() {
 
   let actionBtn;
   if (inCart) {
-    actionBtn = `<button class="btn --ghost" onclick="removeFromCart(${p.id}); backToPortal()">Aus Warenkorb entfernen</button>`;
+    actionBtn = `<button class="btn --secondary" onclick="removeFromCart(${p.id}); backToPortal()">Aus Warenkorb entfernen</button>`;
   } else if (affordable) {
     actionBtn = `<button class="btn --primary" onclick="addToCart(${p.id})">In den Warenkorb</button>`;
   } else {
