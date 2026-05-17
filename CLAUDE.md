@@ -8,7 +8,7 @@
 
 1. [`CONTEXT.md`](./CONTEXT.md) lesen — Architektur, Tokens, Mockups, verworfene Entscheidungen
 2. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
-3. Globale JS-Datei: `inuvet.js` — enthält `toggleMobile()` / `closeMobile()`, wird in alle Pages eingebunden (analog zu `inuvet.css`)
+3. Globale JS-Datei: `inuvet.js` — enthält `toggleMobile()` / `closeMobile()`, `closeAnnouncement()`, `initMarquees()`, `toggleAccordion()`, `initScrollAnimations()` — wird in alle Pages eingebunden (analog zu `inuvet.css`)
 
 ---
 
@@ -76,7 +76,7 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Inuvet-Freigabe-Mockup.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
 - `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
-- `pages/Provision-Portal.html` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
+- `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
 - `pages/_template.html` — Boilerplate für neue Mockup-Pages
 
 ---

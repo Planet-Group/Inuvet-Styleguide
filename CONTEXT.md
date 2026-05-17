@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-14
+> **Letzte Aktualisierung:** 2026-05-17
 
 ---
 
@@ -46,6 +46,8 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── freigabe.css
     ├── Formular-Reklamation.html   # Stand-Alone-Formular-Beispiel
     ├── formulare.css
+    ├── Provision-Portal.html       # Tierarzt-Provisions-Portal (Auszahlung / Prämie)
+    ├── provision-portal.css
     └── _template.html              # Boilerplate für neue Mockup-Pages
 ```
 
@@ -401,7 +403,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 
 | Sektion | Komponente | Klasse(n) | Modifier | Wichtige Kinder / Hinweise |
 |---|---|---|---|---|
-| B.1 | Button | `.btn` | `--primary --ghost --sm --danger --loading` | — |
+| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --danger --loading` | — |
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` für Kategorie | `.label-caps` für Caps-Beschriftung (eigenständig) |
 | B.3 | Icon & Icon-Box | `.icon-box` | — | `.material-icons` |
 | B.4 | Formularfeld | `.form-field` | `--sm` | `label + input/select/textarea`; `.form-grid` (`--full`) für Mehrspalter; `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
@@ -512,6 +514,14 @@ Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehne
 - `.choice-box` als Mengen-Auswahl (Ablehnen, max. 1×, max. 2×, max. 5×, Unbegrenzt)
 - Nach Absenden: `.success-state` + E-Mail-Overlay (analog Tierarzt-Empfehlung-Mockup) mit zwei Nachrichten: Kunden-E-Mail + interne Nachricht an `team@inuvet.com`
 
+### `Provision-Portal.html` — Tierarzt-Provisions-Portal
+Tierarzt-Ansicht: verdiente Provisionen einsehen und einlösen — als Barauszahlung (IBAN-Modal) oder als Prämie (Gutschein / Sachprämie).
+- SPA-Rendering via `render()` + State-Flags (`view`, `activePremiumId`, `cart`)
+- 3 Views: Portal (Prämien-Übersicht), PDP (Prämien-Detail), Checkout + Erfolgsseite
+- Fortschrittsring (SVG) im Hero + auf jeder Prämien-Kachel (`data-animate` + `--in-view` Scroll-Animation)
+- Prämien sortiert von teuer → günstig; Hero-Hint zeigt nächstgünstige erreichbare Prämie als Link zur PDP
+- Gutscheinkarten nutzen `.voucher-frame` + `.voucher-card` (bewusste Ausnahme: `border-radius: 1.25rem`)
+
 ### `Formular-Reklamation.html` — Stand-Alone-Formular
 Beispiel für Sektion C.4. Nutzt `.form-page` Shell.
 
@@ -542,7 +552,15 @@ docs: …      (Doku-Updates)
 
 ### Globale JS-Datei (`inuvet.js`)
 Analog zu `inuvet.css` — enthält shared UI-Funktionen die in allen Pages gebraucht werden.
-Aktuell: `toggleMobile()` / `closeMobile()` für das Burger-Menü.
+
+| Funktion | Zweck |
+|---|---|
+| `toggleMobile()` / `closeMobile()` | Burger-Menü öffnen / schließen |
+| `closeAnnouncement()` | Announcement-Bar ausblenden |
+| `initMarquees()` | Marquee-Animationen initialisieren |
+| `toggleAccordion(trigger)` | Akkordeon-Item umschalten (global, PDP + C.5) |
+| `initScrollAnimations()` | IntersectionObserver für `[data-animate]` / `.--in-view` |
+
 Einbindung: `<script src="../inuvet.js"></script>` am Ende von `<body>` (in `pages/`) bzw. `<script src="inuvet.js"></script>` in `styleguide.html`.
 Neue globale JS-Funktionen gehören hierher, nicht inline in einzelne Pages.
 
