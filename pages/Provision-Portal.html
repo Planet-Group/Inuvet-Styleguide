@@ -67,16 +67,16 @@
       </button>
     </div>
     <div class="modal__body">
-      <p style="color:var(--fg-muted);font-size:var(--text-sm);margin-bottom:var(--module);">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
+      <p class="auszahlung-hint">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
       <div class="form-field">
         <input type="text" id="modal-iban" placeholder=" " value="DE89 3704 0044 0532 0130 00">
         <label for="modal-iban">IBAN</label>
       </div>
-      <div class="form-field" style="margin-top:var(--half-module);">
+      <div class="form-field">
         <input type="text" id="modal-ust" placeholder=" " value="DE123456789">
         <label for="modal-ust">Ust. IdNr.</label>
       </div>
-      <button class="btn --primary --full" style="margin-top:var(--module);" onclick="completePayout()">Provision einlösen</button>
+      <button class="btn --primary --full" onclick="completePayout()">Provision einlösen</button>
     </div>
   </div>
 </div>
@@ -347,36 +347,76 @@ ${p.voucher
 function renderHistoryRows() {
   return PROVISION_HISTORY.map(h => `
     <tr>
-      <td style="width:3rem;">
-        <span class="material-icons" style="color:var(--fg-muted);font-size:1.25rem;vertical-align:middle;">person</span>
-      </td>
+      <td><span class="material-icons">person</span></td>
       <td>${h.name}</td>
       <td>${h.date}</td>
-      <td style="text-align:right;color:var(--green);font-weight:700;">${fmt(h.amount)}</td>
+      <td class="portal-history__amount">${fmt(h.amount)}</td>
     </tr>`).join('');
+}
+
+function nextNonAffordable() {
+  const available = provisionAvailable();
+  return [...PREMIUMS].sort((a, b) => a.price - b.price).find(p => p.price > available) || null;
 }
 
 function renderPortal() {
   const available = provisionAvailable();
+  const target = nextNonAffordable();
+  const circ = 515.2;
+  const pct = target ? Math.min(available / target.price, 1) : 1;
+  const offset = +(circ * (1 - pct)).toFixed(2);
+  const hintText = target
+    ? `Noch <strong>${fmt(target.price - available)}</strong> bis <em>${target.name}</em>`
+    : `Alle Prämien einlösbar`;
+
+  const pctInt = Math.round(pct * 100);
+
   return `
     <section class="provision-hero">
-      <p class="provision-hero__label">Deine aktuelle Provision</p>
-      <p class="provision-hero__amount" id="provisionAmount">${fmt(available)}</p>
-      <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
-      <div class="provision-hero__divider">oder</div>
+      <div class="provision-hero__grid">
+        <div class="provision-hero__col --label">
+          <p class="provision-hero__title">Deine aktuelle Provision</p>
+        </div>
+        <div class="provision-hero__col">
+          <p class="provision-hero__mobile-title">Deine aktuelle Provision</p>
+          <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
+          <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
+        </div>
+        <div class="provision-hero__col --ring">
+          <div class="provision-hero__ring-wrap">
+            <svg class="provision-hero__ring-svg" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="var(--border-light)" stroke-width="16"/>
+              <circle cx="100" cy="100" r="82" fill="none" stroke="var(--green)" stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="${circ}"
+                stroke-dashoffset="${circ}"
+                transform="rotate(-90 100 100)"
+                class="provision-hero__ring-fill"
+                data-offset="${offset}"/>
+            </svg>
+            <div class="provision-hero__ring-inner">
+              <span class="provision-hero__ring-pct">${pctInt}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="provision-hero__sub --label">auf Basis von ${PROVISION_HISTORY.length} Empfehlungen</div>
+        <div class="provision-hero__sub --oder">oder</div>
+        <div class="provision-hero__sub --hint">${hintText}</div>
+      </div>
     </section>
 
-    <div class="page" style="padding-top:var(--half-module);padding-bottom:var(--module-2xl);">
-      <h2 style="font-size:var(--text-l);font-weight:900;margin-bottom:var(--half-module);text-align:center;">Prämie kassieren</h2>
+    <div class="page --no-pt portal-section">
+      <h2 class="portal-section__title">Prämie kassieren</h2>
       <div class="tile-grid --cols-3">
         ${PREMIUMS.map(renderTile).join('')}
       </div>
     </div>
 
-    <div class="page" style="padding-bottom:var(--module-2xl);">
+    <div class="page portal-section portal-history">
       <div class="section-label --sub">Eingegangene Provisionen</div>
       <div class="rte">
-        <table style="display:table;">
+        <table>
           <colgroup>
             <col style="width:3.5rem;">
             <col style="width:40%;">
@@ -388,7 +428,7 @@ function renderPortal() {
               <th></th>
               <th>Name</th>
               <th>Eingegangen</th>
-              <th style="text-align:right;">Provision</th>
+              <th class="portal-history__amount">Provision</th>
             </tr>
           </thead>
           <tbody>${renderHistoryRows()}</tbody>
@@ -416,14 +456,28 @@ function renderPDP() {
     actionBtn = `<button class="btn --primary" disabled>Noch ${fmt(missing)} fehlend</button>`;
   }
 
+  const pct = tilePct(p);
+  let pdpBadge = '';
+  if (!inCart && affordable) pdpBadge = `<div class="floating-meta"><div class="badge --sale">Einlösbar</div></div>`;
+  else if (!inCart) pdpBadge = `<div class="floating-meta"><div class="badge --dark">Noch ${fmt(p.price - provisionAvailable())}</div></div>`;
+  const pdpRing = `
+    <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
+      <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,0.7)"/>
+      <circle cx="24" cy="24" r="18" fill="none" stroke="var(--border-light)" stroke-width="3"/>
+      <circle cx="24" cy="24" r="18" fill="none" stroke="var(--green)" stroke-width="3"
+        stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"
+        transform="rotate(-90 24 24)" class="tile__ring-fill" data-pct="${pct}"/>
+      <text x="24" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)" class="tile__ring-text">${pct}%</text>
+    </svg>`;
+
   return `
-    <div class="page" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
-      <button class="btn --ghost --back --sm" onclick="backToPortal()" style="margin-bottom:var(--module);">Alle Prämien</button>
+    <div class="page portal-section">
+      <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Alle Prämien</button>
       <div class="pdp">
         <div class="pdp__gallery">
           ${p.voucher
-            ? `<div class="pdp__main-image voucher-frame"><div class="pdp__caption --hidden" aria-live="polite"></div><div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
-            : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}"><div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>`
+            ? `<div class="pdp__main-image voucher-frame">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${pdpRing}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
+            : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${pdpRing}</div>`
           }
           <div class="pdp__thumbs">
             <div class="pdp__thumb --active${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>
@@ -562,8 +616,8 @@ function renderCheckout() {
   const remaining = provisionAvailable();
 
   return `
-    <div class="page" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
-      <button class="btn --ghost --back --sm" onclick="backToPortal()" style="margin-bottom:var(--module);">Prämienauswahl</button>
+    <div class="page portal-section">
+      <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Prämienauswahl</button>
       <div class="checkout">
 
         <!-- Linke Spalte: Adresse + Versand -->
@@ -595,11 +649,11 @@ function renderCheckout() {
                 <input type="text" id="co-ort" placeholder=" " value="München">
                 <label for="co-ort">Ort</label>
               </div>
-              <div class="form-field" style="grid-column: span 2">
+              <div class="form-field --span-2">
                 <input type="email" id="co-email" placeholder=" " value="m.berger@tierarztpraxis-berger.de">
                 <label for="co-email">E-Mail-Adresse</label>
               </div>
-              <div class="form-field" style="grid-column: span 2">
+              <div class="form-field --span-2">
                 <input type="tel" id="co-tel" placeholder=" " value="+49 89 123456">
                 <label for="co-tel">Telefon (optional)</label>
               </div>
@@ -608,7 +662,7 @@ function renderCheckout() {
 
           <div>
             <h3 class="section-label --sub">Versandart</h3>
-            <div class="tile-grid" style="gap:var(--half-module);">
+            <div class="tile-grid --compact">
               <button class="choice-box --block --active" type="button" onclick="setCheckoutOption(this)">
                 <span class="material-icons">local_shipping</span>
                 <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
@@ -644,7 +698,7 @@ function renderCheckout() {
 function renderSuccess() {
   if (lastOrder.payout) {
     return `
-      <div class="page --narrow" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+      <div class="page --narrow portal-section">
         <div class="success-state">
           <span class="success-state__icon material-icons">check_circle</span>
           <h1 class="success-state__title">Auszahlung beantragt!</h1>
@@ -674,13 +728,13 @@ function renderSuccess() {
     </div>`).join('');
 
   return `
-    <div class="page --narrow" style="padding-top:var(--page-pt);padding-bottom:var(--module-2xl);">
+    <div class="page --narrow portal-section">
       <div class="success-state">
         <span class="success-state__icon material-icons">check_circle</span>
         <h1 class="success-state__title">Deine Prämie ist unterwegs!</h1>
         <p class="success-state__body">Du hast <strong>${fmt(lastOrder.total)}</strong> Provision erfolgreich eingelöst. Eine Bestätigung wird an deine hinterlegte E-Mail-Adresse gesendet.</p>
       </div>
-      <div style="margin-top:var(--module);">
+      <div class="portal-success__items">
         ${items}
         <div class="summary-line"><span>Eingelöste Provision</span><span>${fmt(lastOrder.total)}</span></div>
         <div class="summary-total"><span>Verbleibende Provision</span><span>${fmt(lastOrder.remaining)}</span></div>
@@ -725,11 +779,25 @@ function countUp(target, duration = 1800) {
   requestAnimationFrame(tick);
 }
 
+function animateHeroRing() {
+  const fill = document.querySelector('.provision-hero__ring-fill');
+  if (!fill) return;
+  fill.style.strokeDashoffset = fill.dataset.offset;
+}
+
+function animatePDPRing() {
+  const fill = document.querySelector('.pdp__main-image .tile__ring-fill');
+  if (!fill || fill.dataset.animated) return;
+  fill.dataset.animated = '1';
+  fill.style.strokeDashoffset = 113.1 * (1 - parseFloat(fill.dataset.pct) / 100);
+}
+
 function render() {
   const views = { portal: renderPortal, pdp: renderPDP, checkout: renderCheckout, success: renderSuccess };
   document.getElementById('app').innerHTML = (views[currentPage] || renderPortal)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
-  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { initRings(); initScrollAnimations(); }); }
+  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { animateHeroRing(); initRings(); initScrollAnimations(); }); }
+  if (currentPage === 'pdp') { requestAnimationFrame(animatePDPRing); }
 }
 
 render();
