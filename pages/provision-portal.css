@@ -117,8 +117,8 @@
 /* ── Portal Seiten-Sektionen ─────────────────────────────── */
 
 .portal-section { padding-bottom: var(--module-2xl); }
-.portal-section__title { font-size: var(--text-l); font-weight: 900; margin-bottom: var(--half-module); text-align: center; }
-.portal-back-btn { margin-bottom: var(--module); }
+.portal-section__title { font-size: var(--text-l); font-weight: 900; margin-bottom: var(--module); text-align: center; }
+.portal-back-btn { margin-bottom: var(--half-module); }
 .portal-success__items { margin-top: var(--module); }
 
 /* ── Checkout ─────────────────────────────────────────────── */

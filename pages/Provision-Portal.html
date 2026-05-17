@@ -350,7 +350,7 @@ function renderPortal() {
   const pct = target ? Math.min(available / target.price, 1) : 1;
   const offset = +(circ * (1 - pct)).toFixed(2);
   const hintText = target
-    ? `Noch <strong>${fmt(target.price - available)}</strong> bis <a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
+    ? `Noch <strong>${fmt(target.price - available)}</strong> bis<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
     : `Alle Prämien einlösbar`;
 
   const pctInt = Math.round(pct * 100);
