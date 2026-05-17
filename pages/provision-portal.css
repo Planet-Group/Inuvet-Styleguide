@@ -126,11 +126,6 @@
 .form-field.--span-2 { grid-column: span 2; }
 .tile-grid.--compact { gap: var(--half-module); }
 
-/* ── Eingegangene Provisionen ─────────────────────────────── */
-
-.portal-history .rte table { display: table; }
-.portal-history .material-icons { color: var(--fg-muted); font-size: 1.25rem; vertical-align: middle; }
-.portal-history__amount { text-align: right; color: var(--green); font-weight: 700; }
 
 /* ── Modal Auszahlung ─────────────────────────────────────── */
 

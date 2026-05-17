@@ -140,13 +140,6 @@ const PREMIUMS = [
   }
 ];
 
-const PROVISION_HISTORY = [
-  { name: 'Max Mustermann',  date: '07.05.2026', amount: 4.50 },
-  { name: 'Mina Mustermann', date: '03.05.2026', amount: 4.50 },
-  { name: 'Hugo Tierlieb',   date: '28.04.2026', amount: 9.00 },
-  { name: 'Sara Müller',     date: '21.04.2026', amount: 4.50 },
-  { name: 'Bernd Schäfer',   date: '14.04.2026', amount: 9.00 },
-];
 
 /* ═══════════════════════════════════════
    ZUSTAND
@@ -344,15 +337,6 @@ ${p.voucher
     </div>`;
 }
 
-function renderHistoryRows() {
-  return PROVISION_HISTORY.map(h => `
-    <tr>
-      <td><span class="material-icons">person</span></td>
-      <td>${h.name}</td>
-      <td>${h.date}</td>
-      <td class="portal-history__amount">${fmt(h.amount)}</td>
-    </tr>`).join('');
-}
 
 function nextNonAffordable() {
   const available = provisionAvailable();
@@ -366,7 +350,7 @@ function renderPortal() {
   const pct = target ? Math.min(available / target.price, 1) : 1;
   const offset = +(circ * (1 - pct)).toFixed(2);
   const hintText = target
-    ? `Noch <strong>${fmt(target.price - available)}</strong> bis <em>${target.name}</em>`
+    ? `Noch <strong>${fmt(target.price - available)}</strong> bis <a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
     : `Alle Prämien einlösbar`;
 
   const pctInt = Math.round(pct * 100);
@@ -400,7 +384,7 @@ function renderPortal() {
           </div>
         </div>
 
-        <div class="provision-hero__sub --label">auf Basis von ${PROVISION_HISTORY.length} Empfehlungen</div>
+        <div class="provision-hero__sub --label">auf Basis von 5 Empfehlungen</div>
         <div class="provision-hero__sub --oder">oder</div>
         <div class="provision-hero__sub --hint">${hintText}</div>
       </div>
@@ -413,28 +397,7 @@ function renderPortal() {
       </div>
     </div>
 
-    <div class="page portal-section portal-history">
-      <div class="section-label --sub">Eingegangene Provisionen</div>
-      <div class="rte">
-        <table>
-          <colgroup>
-            <col style="width:3.5rem;">
-            <col style="width:40%;">
-            <col>
-            <col style="width:20%;">
-          </colgroup>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Eingegangen</th>
-              <th class="portal-history__amount">Provision</th>
-            </tr>
-          </thead>
-          <tbody>${renderHistoryRows()}</tbody>
-        </table>
-      </div>
-    </div>`;
+    `;
 }
 
 /* ═══════════════════════════════════════
