@@ -156,9 +156,9 @@
       var item = document.createElement('div');
       item.className = 'form-upload__file';
       item.innerHTML =
-        '<span class="material-icons" style="font-size:1rem;flex-shrink:0;">image</span>' +
-        '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + file.name + '</span>' +
-        '<span style="color:var(--fg-muted);white-space:nowrap;">' + (file.size / 1024 / 1024).toFixed(1) + ' MB</span>';
+        '<span class="material-icons">image</span>' +
+        '<span class="form-upload__file__name">' + file.name + '</span>' +
+        '<span class="form-upload__file__size">' + (file.size / 1024 / 1024).toFixed(1) + ' MB</span>';
       list.appendChild(item);
     });
   }

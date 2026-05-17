@@ -238,3 +238,15 @@ body.--page-home .site-nav { border-bottom: none; }
   gap: var(--half-module);
   flex-wrap: wrap;
 }
+
+/* ─── Tierarzt-Dropdown ─── */
+.vet-dropdown__meta {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+}
+.vet-dropdown__add-icon {
+  font-size: var(--base);
+  vertical-align: middle;
+  margin-right: calc(var(--base) * 0.25);
+  color: var(--fg-muted);
+}

@@ -700,7 +700,7 @@ function setCartStep(step) {
 function vetItemHTML(v) {
   return `<div class="vet-dropdown__item" onclick="selectVet(${v.id})">
     <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
-    <span style="font-size:var(--text-xs);color:var(--fg-muted);">${v.doctor} · ${v.city}</span>
+    <span class="vet-dropdown__meta">${v.doctor} · ${v.city}</span>
   </div>`;
 }
 
@@ -717,9 +717,9 @@ function filterVets(query) {
   if (q && !matches.find(v => v.name.toLowerCase() === q)) {
     const escaped = query.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     html += `<div class="vet-dropdown__item vet-dropdown__custom" onclick="selectCustomVet('${escaped}')">
-      <span class="material-icons" style="font-size:1rem;vertical-align:middle;margin-right:0.25rem;color:var(--fg-muted)">add_circle_outline</span>
+      <span class="material-icons vet-dropdown__add-icon">add_circle_outline</span>
       <strong>„${query}" verwenden</strong><br>
-      <span style="font-size:var(--text-xs);color:var(--fg-muted)">Praxis nicht in der Liste</span>
+      <span class="vet-dropdown__meta">Praxis nicht in der Liste</span>
     </div>`;
   }
 
@@ -1660,7 +1660,7 @@ function renderProduct() {
     const startVariants = startForm ? startForm.variants : p.variants;
     const startPrice    = startVariants[0].price;
 
-    priceDisplay = `<div class="pdp__price"><div class="price-stack text-m"><span id="pdpPrice">${startPrice}</span></div></div>`;
+    priceDisplay = `<div class="pdp__price"><div class="price-stack"><span id="pdpPrice">${startPrice}</span></div></div>`;
 
     // Darreichungsform-Auswahl — nur Familien, VOR dem Preis (wie Styleguide)
     if (p.familie) {
