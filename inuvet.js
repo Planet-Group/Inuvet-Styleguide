@@ -36,6 +36,12 @@ function initMarquees() {
 
 document.addEventListener('DOMContentLoaded', initMarquees);
 
+function toggleAccordion(trigger) {
+  const item = trigger.parentElement;
+  const isOpen = item.classList.toggle('--open');
+  trigger.setAttribute('aria-expanded', isOpen);
+}
+
 function initScrollAnimations() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
