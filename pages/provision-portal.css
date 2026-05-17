@@ -81,6 +81,7 @@
   font-size: var(--text-base);
   color: var(--fg-muted);
   text-align: center;
+  margin-top: calc(var(--base) * 0.25);
 }
 .provision-hero__sub.--oder {
   display: flex;
