@@ -333,7 +333,8 @@ let cartRequested = [];
    ════════════════════════════════════════════ */
 const getProduct = id => PRODUCTS.find(p => p.id === id);
 const cartTotal  = () => cartApproved.length + cartRequested.length;
-let approvedProductIds = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+let approvedProductIds    = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+let approvedVariantByProduct = new Map(PRODUCTS.filter(p => p.approved).map(p => [p.id, { formIndex: 0, variantIndex: 0 }]));
 const isApproved = p => state === 'with-release' && approvedProductIds.has(p.id);
 
 function productStartPrice(p) {
@@ -489,15 +490,58 @@ function simulateLogin() {
   openLoginResultPopup();
 }
 
+function loginPopupVariantHTML(p) {
+  if (!p.familie) {
+    const av = approvedVariantByProduct.get(p.id);
+    return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+      <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
+        ${p.variants.map((v, i) => `<option value="${i}"${av && av.variantIndex === i ? ' selected' : ''}>${v.label}</option>`).join('')}
+      </select>
+    </div>`;
+  }
+  const av = approvedVariantByProduct.get(p.id);
+  const initFormIdx = av ? av.formIndex : 0;
+  const initSizeIdx = av ? av.variantIndex : 0;
+  const formOptions = p.darreichungsformen.map((f, i) => `<option value="${i}"${i === initFormIdx ? ' selected' : ''}>${f.label}</option>`).join('');
+  const sizeOptions = p.darreichungsformen[initFormIdx].variants.map((v, i) => `<option value="${i}"${i === initSizeIdx ? ' selected' : ''}>${v.label}</option>`).join('');
+  return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+    <select id="loginVariant_form_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;"
+      onchange="updateLoginSizeSelect(${p.id})">
+      ${formOptions}
+    </select>
+    <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
+      ${sizeOptions}
+    </select>
+  </div>`;
+}
+
+function updateLoginSizeSelect(productId) {
+  const p = getProduct(productId);
+  const formSel = document.getElementById(`loginVariant_form_${productId}`);
+  const sizeSel = document.getElementById(`loginVariant_size_${productId}`);
+  if (!formSel || !sizeSel || !p.familie) return;
+  const formIndex = +formSel.value;
+  sizeSel.innerHTML = p.darreichungsformen[formIndex].variants.map((v, i) =>
+    `<option value="${i}">${v.label}</option>`).join('');
+}
+
+function toggleLoginVariant(productId) {
+  const el = document.getElementById(`loginVariantWrap_${productId}`);
+  const cb = document.querySelector(`#loginResultBody input[data-product-id="${productId}"]`);
+  if (el) el.style.display = cb && cb.checked ? '' : 'none';
+}
+
 function openLoginResultPopup() {
   const rows = PRODUCTS.map(p => {
     const preChecked = approvedProductIds.has(p.id) ? 'checked' : '';
     return `
       <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;color:#ccc;">
         <input type="checkbox" data-product-id="${p.id}" ${preChecked}
-          style="accent-color:var(--green);width:0.9rem;height:0.9rem;cursor:pointer;">
+          style="accent-color:var(--green);width:0.9rem;height:0.9rem;cursor:pointer;"
+          onchange="toggleLoginVariant(${p.id})">
         <span>${p.name}</span>
-      </label>`;
+      </label>
+      <div id="loginVariantWrap_${p.id}" style="${preChecked ? '' : 'display:none'}">${loginPopupVariantHTML(p)}</div>`;
   }).join('');
 
   document.getElementById('loginResultBody').innerHTML = `
@@ -523,6 +567,16 @@ function applyLoginResult(approvedIds) {
   _loginPending = null;
 
   approvedProductIds = new Set(approvedIds);
+  approvedVariantByProduct = new Map();
+  approvedIds.forEach(id => {
+    const formSel = document.getElementById(`loginVariant_form_${id}`);
+    const sizeSel = document.getElementById(`loginVariant_size_${id}`);
+    approvedVariantByProduct.set(id, {
+      formIndex:    formSel ? +formSel.value : 0,
+      variantIndex: sizeSel ? +sizeSel.value : 0
+    });
+  });
+
   const newState = approvedIds.length > 0 ? 'with-release' : 'no-release';
   setState(newState, document.querySelector(`[data-state="${newState}"]`), true);
 
@@ -551,9 +605,10 @@ function proceedToRequest() {
 }
 
 function openOptions(id) {
+  const av = isApproved(getProduct(id)) ? approvedVariantByProduct.get(id) : null;
   optionsState.productId    = id;
-  optionsState.formIndex    = 0;
-  optionsState.variantIndex = 0;
+  optionsState.formIndex    = av ? av.formIndex    : 0;
+  optionsState.variantIndex = av ? av.variantIndex : 0;
   renderOptionsDrawer();
   document.getElementById('optionsOverlay').classList.add('--open');
   document.getElementById('optionsDrawer').classList.add('--open');
@@ -604,12 +659,15 @@ function renderOptionsDrawer() {
     : '';
   const thumbClass = p.img ? 'product-thumb' : 'product-thumb placeholder-bg';
 
+  const av = approved ? approvedVariantByProduct.get(p.id) : null;
+
   let formSection = '';
   if (p.familie) {
-    const formBtns = p.darreichungsformen.map((f, i) =>
-      `<button class="choice-box${i === optionsState.formIndex ? ' --active' : ''}" type="button"
-        onclick="selectOptionsForm(${i})">${f.label}</button>`
-    ).join('');
+    const formBtns = p.darreichungsformen.map((f, i) => {
+      const isApprovedForm = av && av.formIndex === i;
+      return `<button class="choice-box${i === optionsState.formIndex ? ' --active' : ''}${isApprovedForm ? ' --approved' : ''}" type="button"
+        onclick="selectOptionsForm(${i})">${f.label}${isApprovedForm ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+    }).join('');
     formSection = `
     <div class="options-drawer__section">
       <div class="label-caps options-drawer__section-label">Darreichungsform</div>
@@ -617,10 +675,11 @@ function renderOptionsDrawer() {
     </div>`;
   }
 
-  const variantBtns = currentVariants.map((v, i) =>
-    `<button class="choice-box --sm${i === optionsState.variantIndex ? ' --active' : ''}" type="button"
-      onclick="selectOptionsVariant(${i})">${v.label}</button>`
-  ).join('');
+  const variantBtns = currentVariants.map((v, i) => {
+    const isApprovedSize = av && av.formIndex === optionsState.formIndex && av.variantIndex === i;
+    return `<button class="choice-box --sm${i === optionsState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
+      onclick="selectOptionsVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+  }).join('');
 
   document.getElementById('optionsDrawer').innerHTML = `
     <div class="cart-drawer__header">
@@ -704,12 +763,15 @@ const pdpState = { formIndex: 0, variantIndex: 0 };
 function selectPdpForm(index) {
   pdpState.formIndex    = index;
   pdpState.variantIndex = 0;
-  const form = activeProduct.darreichungsformen[index];
+  const p    = activeProduct;
+  const form = p.darreichungsformen[index];
+  const av   = isApproved(p) ? approvedVariantByProduct.get(p.id) : null;
   const sizeEl = document.getElementById('pdpSizeOptions');
-  if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) =>
-    `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
-      onclick="selectPdpVariant(${i})">${v.label}</button>`
-  ).join('');
+  if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) => {
+    const isApprovedSize = av && av.formIndex === index && av.variantIndex === i;
+    return `<button class="choice-box${i === 0 ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
+      onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+  }).join('');
   const priceEl = document.getElementById('pdpPrice');
   if (priceEl) priceEl.textContent = form.variants[0].price;
 }
@@ -1129,7 +1191,8 @@ function checkoutItemHTML(item) {
 function setState(s, btn, skipApprovedReset = false) {
   state = s;
   if (!skipApprovedReset) {
-    approvedProductIds = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+    approvedProductIds       = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+    approvedVariantByProduct = new Map(PRODUCTS.filter(p => p.approved).map(p => [p.id, { formIndex: 0, variantIndex: 0 }]));
   }
   cartApproved = []; cartRequested = [];
   updateCartBadge();
@@ -1693,9 +1756,10 @@ function renderProduct() {
   const p        = activeProduct;
   const approved = isApproved(p);
 
-  // Auswahl-State bei jedem Seitenwechsel zurücksetzen
-  pdpState.formIndex    = 0;
-  pdpState.variantIndex = 0;
+  // Approved Variante vorauswählen, sonst auf Index 0 zurücksetzen
+  const pdpAv = approved ? approvedVariantByProduct.get(p.id) : null;
+  pdpState.formIndex    = pdpAv ? pdpAv.formIndex    : 0;
+  pdpState.variantIndex = pdpAv ? pdpAv.variantIndex : 0;
 
   const imgBadges = `<div class="floating-meta">
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
@@ -1716,21 +1780,25 @@ function renderProduct() {
   let actions      = '';
 
   {
-    const startForm     = p.familie ? p.darreichungsformen[0] : null;
+    const startForm     = p.familie ? p.darreichungsformen[pdpState.formIndex] : null;
     const startVariants = startForm ? startForm.variants : p.variants;
-    const startPrice    = startVariants[0].price;
+    const startPrice    = startVariants[pdpState.variantIndex].price;
 
     priceDisplay = `<div class="pdp__price"><div class="price-stack"><span id="pdpPrice">${startPrice}</span></div></div>`;
 
     // Darreichungsform-Auswahl — nur Familien, VOR dem Preis (wie Styleguide)
     if (p.familie) {
-      const formRows = p.darreichungsformen.map((f, i) =>
-        `<label class="pdp__type-row">
-          <input type="radio" name="pdpType"${i === 0 ? ' checked' : ''} onchange="selectPdpForm(${i})">
-          <span class="pdp__type-label">${f.label}</span>
+      const formRows = p.darreichungsformen.map((f, i) => {
+        const isApprovedForm = pdpAv && pdpAv.formIndex === i;
+        const checkIcon = isApprovedForm
+          ? ' <span class="material-icons" style="font-size:0.9rem;color:var(--green);vertical-align:-2px">check_circle</span>'
+          : '';
+        return `<label class="pdp__type-row">
+          <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
+          <span class="pdp__type-label">${f.label}${checkIcon}</span>
           <span class="pdp__type-animals">${f.animals || ''}</span>
-        </label>`
-      ).join('');
+        </label>`;
+      }).join('');
       typeSection = `
         <div class="pdp__variants">
           <div class="pdp__type-selector">
@@ -1745,10 +1813,11 @@ function renderProduct() {
     }
 
     // Größen-Auswahl
-    const sizeBtns = startVariants.map((v, i) =>
-      `<button class="choice-box${i === 0 ? ' --active' : ''}" type="button"
-        onclick="selectPdpVariant(${i})">${v.label}</button>`
-    ).join('');
+    const sizeBtns = startVariants.map((v, i) => {
+      const isApprovedSize = pdpAv && pdpAv.formIndex === pdpState.formIndex && pdpAv.variantIndex === i;
+      return `<button class="choice-box${i === pdpState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
+        onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+    }).join('');
     sizeSection = `
       <div class="pdp__variants">
         <div class="pdp__variant-label label-caps">Größe</div>

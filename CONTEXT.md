@@ -486,7 +486,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 3. Praxis-Dropdown (Vet-Hinweis darunter dynamisch: grüner Punkt + „schnellere Bearbeitung" bei `hasRecommended: true`, leerer Punkt + Info-Text sonst)
 4. Bestätigungs-Screen + E-Mail-Overlay: Login ist Pflicht vor der Tierarzt-Auswahl → E-Mail bekannt → Nachrichten sofort auslösen (Kunden-E-Mail + Vet-E-Mail oder interne Meldung bei unbekannter Praxis)
 
-**Freigabe-Logik:** `approvedProductIds` (Laufzeit-Set) steuert alle Badges, CTAs, Redistribution und Startseiten-Text. `isApproved(p)` = `state === 'with-release' && approvedProductIds.has(p.id)`. Set wird gesetzt: bei Mockup-Bar-Wechsel (Defaults aus `p.approved`), nach Login-Popup (Nutzerauswahl), bei Seitenstart.
+**Freigabe-Logik:** `approvedProductIds` (Laufzeit-Set) steuert Badges, CTAs, Redistribution und Startseiten-Text. `isApproved(p)` = `state === 'with-release' && approvedProductIds.has(p.id)`. Zusätzlich: `approvedVariantByProduct` (Map: `productId → { formIndex, variantIndex }`) speichert die konkrete freigegebene Variante. PDP und Options-Drawer wählen diese vor und markieren sie mit grünem Badge (`.choice-box.--approved` + `.choice-box__check`, Darreichungsform per `check_circle`-Icon). Beide Strukturen werden gesetzt: bei Mockup-Bar-Wechsel (Defaults aus `p.approved`), nach Login-Popup (Nutzerauswahl inkl. Darreichungsform+Größe-Dropdowns), bei Seitenstart.
 
 **Zugehörige Dokumentation:** `Tierarzt-Empfehlung-Info.html`
 

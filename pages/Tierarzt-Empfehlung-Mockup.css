@@ -250,3 +250,16 @@ body.--page-home .site-nav { border-bottom: none; }
   margin-right: calc(var(--base) * 0.25);
   color: var(--fg-muted);
 }
+
+/* Freigabe-Badge auf Auswahl-Optionen */
+.choice-box.--approved { position: relative; }
+.choice-box__check {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 16px; height: 16px;
+  background: var(--green);
+  border-radius: 50%; /* Ausnahme: Freigabe-Indikator */
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.choice-box__check .material-icons { font-size: 11px; color: #fff; line-height: 1; }
