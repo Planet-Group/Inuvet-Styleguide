@@ -336,6 +336,11 @@ const cartTotal  = () => cartApproved.length + cartRequested.length;
 let approvedProductIds    = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
 let approvedVariantByProduct = new Map(PRODUCTS.filter(p => p.approved).map(p => [p.id, { formIndex: 0, variantIndex: 0 }]));
 const isApproved = p => state === 'with-release' && approvedProductIds.has(p.id);
+const isApprovedVariant = (p, formIndex, variantIndex) => {
+  if (!isApproved(p)) return false;
+  const av = approvedVariantByProduct.get(p.id);
+  return av && av.formIndex === formIndex && av.variantIndex === variantIndex;
+};
 
 function productStartPrice(p) {
   return p.familie ? p.darreichungsformen[0].variants[0].price : p.variants[0].price;
@@ -635,11 +640,18 @@ function selectOptionsVariant(index) {
   if (priceEl) priceEl.textContent = price;
   document.querySelectorAll('#optionsSizeVariants .choice-box').forEach((btn, i) =>
     btn.classList.toggle('--active', i === index));
+  // CTA aktualisieren: nur freigegebene Variante → "In den Warenkorb"
+  const approvedNow = isApprovedVariant(p, optionsState.formIndex, index);
+  const ctaBtn = document.querySelector('.cart-drawer__checkout');
+  if (ctaBtn) {
+    ctaBtn.className = `btn ${approvedNow ? '--primary' : '--secondary'} cart-drawer__checkout`;
+    ctaBtn.textContent = approvedNow ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
+  }
 }
 
 function renderOptionsDrawer() {
   const p       = getProduct(optionsState.productId);
-  const approved = isApproved(p);
+  const approved = isApprovedVariant(p, optionsState.formIndex, optionsState.variantIndex);
 
   let currentVariants, currentPrice;
   if (p.familie) {
@@ -732,7 +744,7 @@ function renderOptionsDrawer() {
 
 function confirmOptions() {
   const p        = getProduct(optionsState.productId);
-  const approved = isApproved(p);
+  const approved = isApprovedVariant(p, optionsState.formIndex, optionsState.variantIndex);
   let cartName, variantLabel, priceStr;
 
   if (p.familie) {
@@ -790,7 +802,7 @@ function selectPdpVariant(index) {
 
 function pdpAddToCart() {
   const p        = activeProduct;
-  const approved = isApproved(p);
+  const approved = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
   let cartName, variantLabel, priceStr;
   if (p.familie) {
     const form    = p.darreichungsformen[pdpState.formIndex];
