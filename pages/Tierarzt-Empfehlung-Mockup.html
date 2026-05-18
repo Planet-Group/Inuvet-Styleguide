@@ -144,6 +144,19 @@
   <div class="mockup-email-panel__body" id="emailPanelBody"></div>
 </div>
 
+<!-- Login-Result-Popup (Mockup-Steuerung) -->
+<div class="modal-overlay mockup-modal-overlay" id="loginResultOverlay">
+  <div class="mockup-modal">
+    <div class="mockup-modal__header">
+      <span class="mockup-modal__title">Backend-Simulation: Login</span>
+      <button class="mockup-modal__close" onclick="applyLoginResult([])" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="mockup-modal__body" id="loginResultBody"></div>
+  </div>
+</div>
+
 <!-- ════════════════════════════════════════
      LOGIN / REGISTRIEREN MODAL
      ════════════════════════════════════════ -->
@@ -320,7 +333,8 @@ let cartRequested = [];
    ════════════════════════════════════════════ */
 const getProduct = id => PRODUCTS.find(p => p.id === id);
 const cartTotal  = () => cartApproved.length + cartRequested.length;
-const isApproved = p  => state === 'with-release' && p.approved;
+let approvedProductIds = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+const isApproved = p => state === 'with-release' && approvedProductIds.has(p.id);
 
 function productStartPrice(p) {
   return p.familie ? p.darreichungsformen[0].variants[0].price : p.variants[0].price;
@@ -461,24 +475,66 @@ function switchLoginTab(tab) {
   document.getElementById('registerPanel').classList.toggle('--hidden', tab !== 'register');
 }
 
+let _loginPending = null;
+
 function simulateLogin() {
   closeLoginModal();
-  const savedRequested = [...cartRequested];
-  const savedApproved  = [...cartApproved];
-  setState(loginTargetState, document.querySelector(`[data-state="${loginTargetState}"]`));
-  // Warenkorb-Items aus Gast-Session redistribuieren
+  _loginPending = {
+    savedRequested: [...cartRequested],
+    savedApproved:  [...cartApproved],
+    callback:       loginAfterCallback,
+    targetState:    loginTargetState
+  };
+  loginAfterCallback = null;
+  openLoginResultPopup();
+}
+
+function openLoginResultPopup() {
+  const rows = PRODUCTS.map(p => {
+    const preChecked = approvedProductIds.has(p.id) ? 'checked' : '';
+    return `
+      <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;color:#ccc;">
+        <input type="checkbox" data-product-id="${p.id}" ${preChecked}
+          style="accent-color:var(--green);width:0.9rem;height:0.9rem;cursor:pointer;">
+        <span>${p.name}</span>
+      </label>`;
+  }).join('');
+
+  document.getElementById('loginResultBody').innerHTML = `
+    <div class="mockup-modal__note">
+      <span class="material-icons">info</span>
+      <span>Simuliert die Backend-Antwort nach Login — welche Freigaben liegen für diesen Kunden vor?</span>
+    </div>
+    <p class="mockup-modal__desc">Freigaben für diesen Kunden:</p>
+    <div style="display:flex;flex-direction:column;gap:0.5rem;">${rows}</div>
+    <div class="mockup-modal__footer">
+      <button class="mockup-btn" onclick="applyLoginResult(
+        [...document.querySelectorAll('#loginResultBody input[type=checkbox]:checked')].map(el => +el.dataset.productId)
+      )">Weiter →</button>
+    </div>`;
+
+  document.getElementById('loginResultOverlay').classList.add('--open');
+}
+
+function applyLoginResult(approvedIds) {
+  document.getElementById('loginResultOverlay').classList.remove('--open');
+  if (!_loginPending) return;
+  const { savedRequested, savedApproved, callback, targetState } = _loginPending;
+  _loginPending = null;
+
+  approvedProductIds = new Set(approvedIds);
+  const newState = approvedIds.length > 0 ? 'with-release' : 'no-release';
+  setState(newState, document.querySelector(`[data-state="${newState}"]`), true);
+
   savedRequested.forEach(item => {
-    const p = getProduct(item.id);
-    addToCart(item, isApproved(p) ? 'approved' : 'requested');
+    addToCart(item, approvedIds.includes(item.id) ? 'approved' : 'requested');
   });
   savedApproved.forEach(item => addToCart(item, 'approved'));
-  if (loginAfterCallback) {
-    const cb = loginAfterCallback;
-    loginAfterCallback = null;
+
+  if (callback) {
     if (cartRequested.length > 0) {
-      cb(); // noch offene Anfragen → Step 2 (Praxis wählen)
+      callback();
     } else {
-      // Alle Items sind nun freigegeben — direkt Warenkorb Step 1
       cartDrawerStep = 1;
       renderCartDrawer();
     }
@@ -1070,8 +1126,11 @@ function checkoutItemHTML(item) {
 /* ════════════════════════════════════════════
    ZUSTAND & SEITE WECHSELN
    ════════════════════════════════════════════ */
-function setState(s, btn) {
+function setState(s, btn, skipApprovedReset = false) {
   state = s;
+  if (!skipApprovedReset) {
+    approvedProductIds = new Set(PRODUCTS.filter(p => p.approved).map(p => p.id));
+  }
   cartApproved = []; cartRequested = [];
   updateCartBadge();
 
@@ -1534,7 +1593,8 @@ function renderHome() {
     introText  = 'Du bist angemeldet und kannst jetzt ein Produkt zur Freigabe anfragen';
   } else {
     headline   = 'Deine Praxis hat entschieden — für dein Tier.';
-    body       = '2 Produkte wurden speziell für dein Tier empfohlen. Jetzt einlösen und direkt bestellen — mit dem Vertrauen deines Tierarztes.';
+    const approvedCount = approvedProductIds.size;
+    body       = `${approvedCount} ${approvedCount === 1 ? 'Produkt wurde' : 'Produkte wurden'} speziell für dein Tier empfohlen. Jetzt einlösen und direkt bestellen — mit dem Vertrauen deines Tierarztes.`;
     cta        = `<div class="btn-row">
       <button class="btn --primary" onclick="setPage('recommended')">Empfehlung einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
@@ -1612,7 +1672,7 @@ function renderCollection() {
 
 /* ── Empfohlene Produkte ── */
 function renderRecommended() {
-  const approved = PRODUCTS.filter(p => p.approved);
+  const approved = PRODUCTS.filter(p => approvedProductIds.has(p.id));
   return `
     <div class="page">
       <h2 class="shop-page-title">Empfohlene Produkte</h2>

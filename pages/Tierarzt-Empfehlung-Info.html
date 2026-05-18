@@ -213,10 +213,21 @@ cartRequested = []  // Produkte ohne Freigabe → durchlaufen Anfrage-Flow</code
             <h3>E-Mail-Verknüpfung</h3>
             <p>Empfehlungen werden serverseitig per E-Mail-Adresse verwaltet. Das Frontend schickt beim Login die E-Mail — das Backend liefert zurück, für welche Produkte eine aktive Freigabe vorliegt. Diese Produktliste bestimmt, welche Artikel nach dem Login als <code>approved</code> markiert werden.</p>
 
+            <h3>Freigabe-Logik im Frontend (<code>approvedProductIds</code>)</h3>
+            <p>Das Frontend verwaltet die aktiven Freigaben als Laufzeit-Set <code>approvedProductIds</code>. Alle Stellen, die prüfen ob ein Produkt freigegeben ist — Badges, CTAs, Warenkorb-Redistribution, „Empfohlene Produkte"-Seite, Startseiten-Text — lesen ausschließlich aus diesem Set:</p>
+            <pre><code>isApproved(p) → state === 'with-release' && approvedProductIds.has(p.id)</code></pre>
+            <p>Das Set wird in drei Situationen aktualisiert:</p>
+            <ul>
+              <li><strong>Seitenstart / Mockup-Bar-Wechsel:</strong> Standardwerte aus den Produktdaten (<code>p.approved: true</code>)</li>
+              <li><strong>Nach Login:</strong> Backend-Antwort mit <code>approvedProductIds[]</code> überschreibt die Defaults</li>
+              <li><strong>Manuell im Mockup:</strong> „Backend-Simulation: Login"-Popup erlaubt produktweise Auswahl für Demo-Zwecke</li>
+            </ul>
+            <p>Der Startseiten-Text („X Produkte wurden speziell für dein Tier empfohlen") wird dynamisch aus <code>approvedProductIds.size</code> berechnet und passt sich automatisch an.</p>
+
             <h3>Implementierungs-Schritte</h3>
             <ol>
               <li><strong>Empfehlungs-Datensatz:</strong> Pro Nutzer-E-Mail eine Liste freigegebener Produkt-IDs speichern. Timestamp der Freigabe und verknüpfte Tierarztpraxis mitführen.</li>
-              <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend nutzt diese Liste für die Warenkorb-Redistribution.</li>
+              <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend setzt damit <code>approvedProductIds</code> und führt die Warenkorb-Redistribution durch.</li>
               <li><strong>Anfrage-Flow:</strong> Login ist Pflicht vor der Tierarzt-Auswahl — die E-Mail-Adresse ist damit beim Absenden bereits bekannt. Anfrage-Submission speichert: Nutzer-E-Mail, Produkt-IDs, ausgewählte Praxis, Timestamp. Löst sofort alle Backend-Nachrichten aus: Bestätigungs-E-Mail an den Tierbesitzer + E-Mail an die Praxis (bei bekannter Praxis) oder interne Meldung (bei unbekannter Praxis).</li>
               <li><strong>Freigabe-Event:</strong> Tierarzt bestätigt im Portal → Status-Update in Datenbank → Nutzer-E-Mail mit Link zum Shop.</li>
               <li><strong>Announcement Bar:</strong> Gast-Item über Conditional Rendering gesteuert — niemals für eingeloggte Nutzer sichtbar.</li>

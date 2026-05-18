@@ -482,9 +482,11 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 
 **Rezeptanfrage-Flow:**
 1. „Produkt anfragen" → Cart-Item (auch als Gast möglich)
-2. „Anfragen" im Cart → Login-Modal (nur für Gäste); nach Login: Warenkorb-Redistribution — freigegebene Produkte wandern direkt in `cartApproved`, Schritt 2 wird übersprungen wenn `cartRequested` danach leer ist
+2. „Anfragen" im Cart → Login-Modal (nur für Gäste); nach Login: **„Backend-Simulation: Login"-Popup** (Mockup-Steuerung) — produktweise Checkboxen, welche Freigaben für diesen Kunden vorliegen; setzt `approvedProductIds`; danach Warenkorb-Redistribution — freigegebene Produkte wandern direkt in `cartApproved`, Schritt 3 wird übersprungen wenn `cartRequested` danach leer ist
 3. Praxis-Dropdown (Vet-Hinweis darunter dynamisch: grüner Punkt + „schnellere Bearbeitung" bei `hasRecommended: true`, leerer Punkt + Info-Text sonst)
 4. Bestätigungs-Screen + E-Mail-Overlay: Login ist Pflicht vor der Tierarzt-Auswahl → E-Mail bekannt → Nachrichten sofort auslösen (Kunden-E-Mail + Vet-E-Mail oder interne Meldung bei unbekannter Praxis)
+
+**Freigabe-Logik:** `approvedProductIds` (Laufzeit-Set) steuert alle Badges, CTAs, Redistribution und Startseiten-Text. `isApproved(p)` = `state === 'with-release' && approvedProductIds.has(p.id)`. Set wird gesetzt: bei Mockup-Bar-Wechsel (Defaults aus `p.approved`), nach Login-Popup (Nutzerauswahl), bei Seitenstart.
 
 **Zugehörige Dokumentation:** `Tierarzt-Empfehlung-Info.html`
 
