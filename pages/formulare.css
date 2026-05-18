@@ -1,0 +1,62 @@
+/* ══════════════════════════════════════════════════════════════
+   formulare.css — Formular-spezifische Styles
+   Gilt für alle Stand-Alone-Formulare (Formular-*.html)
+   Layout-Shell wird von .form-page* (inuvet.css) übernommen
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── form-grid Abstand nach unten ─── */
+#reklamationForm .form-grid {
+  margin-bottom: var(--half-module);
+}
+
+/* ─── Checkbox group ─── */
+.rk-check-group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--half-module);
+}
+
+/* ─── reCAPTCHA placeholder ─── */
+.rk-captcha {
+  border: 1px solid var(--border-light);
+  border-radius: 0;
+  padding: calc(var(--base) * 0.75) var(--base);
+  display: flex;
+  align-items: center;
+  gap: var(--base);
+  margin-bottom: var(--half-module);
+  max-width: calc(var(--module) * 10);
+}
+
+.rk-captcha__checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.rk-captcha__label {
+  font-size: var(--text-base);
+  color: var(--fg);
+  flex: 1;
+}
+
+.rk-captcha__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.rk-captcha__brand-logo {
+  font-size: var(--text-m);
+  line-height: 1;
+}
+
+.rk-captcha__brand-name {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

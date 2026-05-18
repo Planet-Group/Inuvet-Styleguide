@@ -1,0 +1,593 @@
+/* ═══════════════════════════════════════════════════════
+   mockup-ui.css — Steuerleiste für HTML-Mockup-Seiten
+   Wiederverwendbar für alle Prototypen-Seiten
+   Nie in Produktion einbinden.
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Body-Padding wenn Leiste sichtbar ─── */
+body.--mockup-bar-visible {
+  padding-bottom: 3.25rem;
+}
+
+/* ─── Floating Parameter-Button ─── */
+.mockup-fab {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: #aaa;
+  border: 1px solid #383838;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.35em 0.7em;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.mockup-fab:hover { color: #fff; border-color: #666; }
+
+/* ─── Steuerleiste (fixiert, unten) ─── */
+.mockup-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 1rem 0.45rem 1.25rem;
+  font-size: 0.7rem;
+  font-family: monospace;
+  flex-wrap: wrap;
+  border-top: 1px solid #333;
+  transform: translateY(0);
+  transition: transform 0.2s ease;
+}
+.mockup-bar.--hidden {
+  transform: translateY(100%);
+}
+
+/* ─── Gruppen & Trennlinien ─── */
+.mockup-bar__group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+.mockup-bar__group-label {
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-right: 0.15rem;
+  flex-shrink: 0;
+}
+.mockup-bar__sep {
+  width: 1px;
+  height: 1.2em;
+  background: #333;
+  flex-shrink: 0;
+}
+
+/* ─── Buttons in der Leiste ─── */
+.mockup-btn {
+  background: transparent;
+  border: 1px solid #383838;
+  color: #aaa;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.2em 0.55em;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.mockup-btn:hover       { border-color: #666; color: #fff; }
+.mockup-btn.--active    { background: var(--green); border-color: var(--green); color: #fff; }
+
+/* ─── Collapse-Button (rechts in der Leiste) ─── */
+.mockup-bar__collapse {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid #383838;
+  color: #666;
+  font-family: monospace;
+  font-size: 0.65rem;
+  padding: 0.2em 0.5em;
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s;
+  white-space: nowrap;
+}
+.mockup-bar__collapse:hover { color: #fff; border-color: #666; }
+
+/* ─── Revive-Tab (erscheint wenn Leiste ausgeblendet) ─── */
+.mockup-revive {
+  position: fixed;
+  bottom: 0;
+  right: 1.25rem;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: #666;
+  border: 1px solid #333;
+  border-bottom: none;
+  font-family: monospace;
+  font-size: 0.65rem;
+  padding: 0.25em 0.6em;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: color 0.12s;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, color 0.12s;
+}
+.mockup-revive:hover       { color: #fff; }
+.mockup-revive.--visible   { opacity: 1; pointer-events: auto; }
+
+/* ─── Mockup-Modal ─── */
+.mockup-modal-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.mockup-modal {
+  background: #1a1a1a;
+  color: #aaa;
+  font-family: monospace;
+  font-size: 0.75rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #333;
+}
+
+.mockup-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  gap: 0.5rem;
+}
+
+.mockup-modal__title {
+  color: #fff;
+  font-family: monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.mockup-modal__close {
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.12s;
+  font-size: 1rem;
+}
+.mockup-modal__close:hover { color: #fff; }
+.mockup-modal__close .material-icons { font-size: 1.1rem; }
+
+.mockup-modal__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mockup-modal__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: #111;
+  border-left: 2px solid #383838;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: #777;
+}
+.mockup-modal__note .material-icons { font-size: 0.9rem; flex-shrink: 0; color: #888; }
+.mockup-modal__note strong          { color: #ccc; }
+
+/* ─── Mockup FAB Panel — Kontext-Tooltip neben dem Mockup-FAB-Button ─── */
+.mockup-fab-panel {
+  display: none;
+  position: fixed;
+  bottom: 4rem;
+  right: 1.25rem;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 0.75rem 1rem;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: #888;
+  z-index: 9998;
+  max-width: 280px;
+  line-height: 1.6;
+}
+.mockup-fab-panel.--open { display: block; }
+.mockup-fab-panel__title {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+.mockup-modal__desc {
+  font-size: 0.7rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mockup-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Einfaches Label-Input-Paar im FAB-Panel — kein Floating-Label */
+.mockup-fab-panel__field {
+  display: block;
+  margin-top: 0.75rem;
+}
+.mockup-fab-panel__field label {
+  display: block;
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.mockup-fab-panel__field input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* Confirm-Variante des mockup-btn */
+.mockup-btn.--confirm {
+  border-color: var(--green);
+  color: var(--green);
+}
+.mockup-btn.--confirm:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ─── Toggle-Buttons im Mockup-Modal (Kondition A/B, Kundentyp) ─── */
+.mockup-customer-toggle,
+.mockup-model-row__toggle {
+  display: flex;
+  gap: 0.25rem;
+}
+.mockup-toggle-btn {
+  background: #0d0d0d;
+  border: 1px solid #333;
+  color: #888;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.35em 0.75em;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.mockup-toggle-btn:hover { color: #ccc; border-color: #555; }
+.mockup-toggle-btn.--active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ─── Modell-Auswahl-Zeile pro Produkt ─── */
+.mockup-model-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  font-size: 0.7rem;
+  color: #ccc;
+}
+.mockup-model-row__name { font-family: monospace; flex: 1; }
+
+/* ─── Vet Dropdown: Empfehlung-Dot ─── */
+.vet-recommended-dot        { color: var(--green); font-size: 0.6rem; line-height: 1; }
+.vet-recommended-dot.--empty { color: var(--border); }
+.vet-legend {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  margin-top: calc(var(--base) * 0.375);
+  line-height: var(--lh-base);
+}
+
+/* ─── Simulierte E-Mail / interne Nachricht ─── */
+.mockup-email-section {
+  margin-top: var(--half-module);
+}
+.mockup-email-section__label {
+  font-size: 0.65rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: calc(var(--base) * 0.375);
+}
+
+.mockup-email {
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid var(--green);
+  background: #111;
+  margin-bottom: calc(var(--base) * 0.375);
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+.mockup-email.--internal {
+  border-left-color: #f59e0b;
+}
+
+.mockup-email__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+.mockup-email__header:hover { background: #161616; }
+
+.mockup-email__tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--green);
+  color: #fff;
+  padding: 0.1em 0.4em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mockup-email__tag.--internal {
+  background: #f59e0b;
+  color: #000;
+}
+
+.mockup-email__recipient {
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 12rem;
+}
+
+.mockup-email__subject {
+  color: #999;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mockup-email__toggle {
+  color: #444;
+  font-size: 1rem !important;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.mockup-email__body {
+  display: none;
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid #1e1e1e;
+  color: #888;
+  line-height: 1.6;
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+.mockup-email__body.--open { display: block; }
+.mockup-email__body p { margin: 0 0 0.5rem; }
+.mockup-email__body p:last-child { margin-bottom: 0; }
+.mockup-email__body strong { color: #ccc; }
+
+.mockup-email__meta {
+  color: #444;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+/* ─── Notification Chips (im Drawer) ─── */
+.mockup-notif-chips {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.25);
+}
+
+.mockup-notif-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid var(--green);
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.12s;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: inherit;
+}
+.mockup-notif-chip:hover { background: #161616; border-left-color: #4ade80; }
+.mockup-notif-chip.--internal { border-left-color: #f59e0b; }
+.mockup-notif-chip.--internal:hover { border-left-color: #fbbf24; }
+
+.mockup-notif-chip__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+  color: #555;
+}
+.mockup-notif-chip__info > span:first-child { color: #777; }
+.mockup-notif-chip__subject {
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mockup-notif-chip__arrow {
+  color: #333;
+  font-size: 0.85rem !important;
+  flex-shrink: 0;
+}
+
+/* ─── E-Mail Overlay ─── */
+.mockup-email-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.mockup-email-overlay.--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mockup-email-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%);
+  z-index: 10001;
+  width: min(520px, calc(100vw - 2rem));
+  max-height: 80vh;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.mockup-email-panel.--open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.mockup-email-panel__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  flex-shrink: 0;
+}
+
+.mockup-email-panel__meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  overflow: hidden;
+  min-width: 0;
+}
+.mockup-email-panel__meta .mockup-email__recipient { color: #555; font-size: 0.7rem; }
+.mockup-email-panel__meta .mockup-email__subject   { color: #999; font-size: 0.7rem; white-space: normal; }
+
+.mockup-email-panel__counter {
+  font-size: 0.65rem;
+  color: #fff;
+  font-family: monospace;
+  font-weight: 700;
+  flex: 1; /* nimmt den Platz zwischen Tag-Leerfeld und Close ein */
+}
+
+/* ─── Inline-E-Mails im Panel (alle untereinander) ─── */
+.mockup-email-inline {
+  border-left: 3px solid var(--green);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+.mockup-email-inline:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.mockup-email-inline.--internal { border-left-color: #f59e0b; }
+
+.mockup-email-inline__header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+  padding-left: 0.6rem;
+}
+.mockup-email-inline__to      { color: #555; font-size: 0.68rem; }
+.mockup-email-inline__subject { color: #888; font-size: 0.68rem; flex: 1; }
+
+.mockup-email-inline__body {
+  padding-left: 0.6rem;
+  color: #888;
+  line-height: 1.7;
+}
+.mockup-email-inline__body p { margin: 0 0 0.5rem; }
+.mockup-email-inline__body p:last-child { margin-bottom: 0; }
+.mockup-email-inline__body strong { color: #ccc; }
+
+.mockup-email-panel__close {
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.12s;
+}
+.mockup-email-panel__close:hover { color: #fff; }
+.mockup-email-panel__close .material-icons { font-size: 1.1rem; }
+
+.mockup-email-panel__body {
+  padding: 1rem;
+  overflow-y: auto;
+  color: #888;
+  line-height: 1.7;
+}
+.mockup-email-panel__body p { margin: 0 0 0.6rem; }
+.mockup-email-panel__body p:last-child { margin-bottom: 0; }
+.mockup-email-panel__body strong { color: #ccc; }
+.mockup-email-panel__body a { color: var(--green); }
+
+.mockup-email-panel__note {
+  font-size: 0.65rem !important;
+  color: #555 !important;
+  background: #111;
+  padding: 0.4rem 0.6rem;
+  border-left: 2px solid #333;
+  margin-top: 0.4rem;
+}

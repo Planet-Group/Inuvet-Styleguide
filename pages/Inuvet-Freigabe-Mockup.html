@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Empfehlungsanfrage freigeben</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../temp.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="freigabe.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     Announcement Bar + Standard-Navigation (inuvet.css)
+     ════════════════════════════════════════ -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" aria-label="Navigation öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     Hauptinhalt
+     ════════════════════════════════════════ -->
+<main class="page approval-page" id="approvalMain">
+
+  <!-- Intro: 2-spaltig auf Desktop (wie bundle-intro) -->
+  <div class="approval-intro">
+    <h1 class="h2">Empfehlungsanfrage</h1>
+    <div class="approval-meta">
+      <span class="approval-meta__item"><span class="label-caps">Name</span><span class="approval-meta__val">Max Mustermann</span></span>
+      <span class="approval-meta__item"><span class="label-caps">Eingegangen</span><span class="approval-meta__val">07.05.2026</span></span>
+      <span class="approval-meta__item"><span class="label-caps">E-Mail</span><span class="approval-meta__val">kunde@email.com</span></span>
+    </div>
+  </div>
+
+  <div class="approval-product-grid">
+
+  <!-- Produkt 1: Calmin Balance Tabletten -->
+  <div class="approval-product-card" id="card-1" data-status="open">
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin Balance Tabletten">
+        <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Calmin Balance Tabletten</p>
+          </div>
+        </div>
+        <div class="approval-size-group">
+          <button class="choice-box --sm --active" type="button" onclick="setVariant(1,'60 Stück',this)">60 Stück</button>
+          <button class="choice-box --sm" type="button" onclick="setVariant(1,'90 Stück',this)">90 Stück</button>
+        </div>
+      </div>
+    </div>
+    <div class="approval-controls">
+      <div class="form-field --sm">
+        <select id="approval-select-1" onchange="setQty(1, this.value)">
+          <option value="unlimited" selected>Unbegrenzt</option>
+          <option value="max5">max. 5×</option>
+          <option value="max2">max. 2×</option>
+          <option value="max1">max. 1×</option>
+          <option value="reject">Ablehnen</option>
+        </select>
+      </div>
+      <div class="approval-commission">
+        <span class="label-caps">Provision</span>
+        <span class="approval-commission__value --muted" id="commission-1">—</span>
+      </div>
+    </div>
+    <div class="approval-product-card__note">
+      <div class="form-field">
+        <textarea id="note-1" rows="2" placeholder=" "></textarea>
+        <label for="note-1">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Produkt 2: Hepax forte Tabletten -->
+  <div class="approval-product-card" id="card-2" data-status="open">
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte Tabletten">
+        <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Hepax forte Tabletten</p>
+          </div>
+        </div>
+        <div class="approval-size-group">
+          <button class="choice-box --sm --active" type="button" onclick="setVariant(2,'30 Stück',this)">30 Stück</button>
+          <button class="choice-box --sm" type="button" onclick="setVariant(2,'60 Stück',this)">60 Stück</button>
+        </div>
+      </div>
+    </div>
+    <div class="approval-controls">
+      <div class="form-field --sm">
+        <select id="approval-select-2" onchange="setQty(2, this.value)">
+          <option value="unlimited" selected>Unbegrenzt</option>
+          <option value="max5">max. 5×</option>
+          <option value="max2">max. 2×</option>
+          <option value="max1">max. 1×</option>
+          <option value="reject">Ablehnen</option>
+        </select>
+      </div>
+      <div class="approval-commission">
+        <span class="label-caps">Provision</span>
+        <span class="approval-commission__value --muted" id="commission-2">—</span>
+      </div>
+    </div>
+    <div class="approval-product-card__note">
+      <div class="form-field">
+        <textarea id="note-2" rows="2" placeholder=" "></textarea>
+        <label for="note-2">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /.approval-product-grid -->
+
+  <!-- Status-Counter + Footer-CTA -->
+  <p class="approval-counter" id="approvalCounter">0 von 2 Produkten entschieden</p>
+  <div class="approval-footer">
+    <button class="btn --primary" onclick="submitApproval()">Freigabe absenden</button>
+  </div>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     E-Mail-Overlay
+     ════════════════════════════════════════ -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     Mockup FAB + Panel
+     ════════════════════════════════════════ -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Mockup-Kontext
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Mockup-Kontext</div>
+  <p>Diese Seite simuliert die inuvet.com-Ansicht für Tierärzte.</p>
+  <p>Ein Tierarzt öffnet diese Seite, um eine Empfehlungsanfrage von Max Mustermann zu bearbeiten.</p>
+  <p>Er kann pro Produkt die Füllmenge anpassen, eine Empfehlungs-Stufe wählen und optional eine Notiz hinterlassen.</p>
+  <p>Nach Absenden wird dem Tierbesitzer eine E-Mail geschickt.</p>
+</div>
+
+<script>
+/* ════════════════════════════════════════════
+   Produkt-Daten für diese Anfrage
+   commissionPerOrder = Provision pro tatsächlicher Bestellung
+   ════════════════════════════════════════════ */
+const REQUEST_PRODUCTS = [
+  {
+    id: 1,
+    cartName: 'Calmin Balance Tabletten',
+    variants: [
+      { label: '60 Stück', price: '39,90 €', commission: 4.50 },
+      { label: '90 Stück', price: '54,90 €', commission: 6.20 },
+    ],
+  },
+  {
+    id: 2,
+    cartName: 'Hepax forte Tabletten',
+    variants: [
+      { label: '30 Stück', price: '34,90 €', commission: 5.20 },
+      { label: '60 Stück', price: '64,90 €', commission: 9.70 },
+    ],
+  },
+];
+
+// Mapping Empfehlungs-Stufe → maximale Anzahl Bestellungen
+const QTY_MAX = { reject: 0, max1: 1, max2: 2, max5: 5, unlimited: Infinity };
+
+const approvalState = {
+  1: { qty: 'unlimited', variantLabel: '60 Stück' },
+  2: { qty: 'unlimited', variantLabel: '30 Stück' },
+};
+
+function formatEur(value) {
+  return value.toFixed(2).replace('.', ',') + ' €';
+}
+
+function getVariantCommission(productId) {
+  const s       = approvalState[productId];
+  const product = REQUEST_PRODUCTS.find(p => p.id === productId);
+  const variant = product.variants.find(v => v.label === s.variantLabel) ?? product.variants[0];
+  return variant.commission;
+}
+
+function commissionForProduct(productId) {
+  const s        = approvalState[productId];
+  if (!s || s.qty === null)  return { text: '—', muted: true };
+  if (s.qty === 'reject')    return { text: 'Keine Provision', muted: true };
+  const perOrder = getVariantCommission(productId);
+  const max      = QTY_MAX[s.qty];
+  if (max === Infinity) return { text: formatEur(perOrder) + ' pro Bestellung', muted: false };
+  return { text: formatEur(perOrder) + ' × ' + max + ' = max. ' + formatEur(perOrder * max), muted: false };
+}
+
+function setVariant(productId, label, btn) {
+  approvalState[productId].variantLabel = label;
+  btn.closest('.approval-size-group').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+  updateCommission(productId);
+  updateCounter();
+}
+
+function setQty(productId, value) {
+  approvalState[productId].qty = value || null;
+  const card = document.getElementById('card-' + productId);
+  card.dataset.status = value === 'reject' ? 'rejected' : value ? 'approved' : 'open';
+  updateCommission(productId);
+  updateCounter();
+}
+
+function updateCommission(productId) {
+  const el = document.getElementById('commission-' + productId);
+  if (!el) return;
+  const c = commissionForProduct(productId);
+  el.textContent = c.text;
+  el.classList.toggle('--muted', c.muted);
+}
+
+function updateCounter() {
+  const total   = Object.keys(approvalState).length;
+  const decided = Object.values(approvalState).filter(s => s.qty !== null).length;
+  const counter = document.getElementById('approvalCounter');
+
+  let totalFixed = 0;
+  let unlimitedPerOrder = 0;
+  REQUEST_PRODUCTS.forEach(p => {
+    const s = approvalState[p.id];
+    if (!s || s.qty === null || s.qty === 'reject') return;
+    const perOrder = getVariantCommission(p.id);
+    const max = QTY_MAX[s.qty];
+    if (max === Infinity) unlimitedPerOrder += perOrder;
+    else totalFixed += perOrder * max;
+  });
+
+  let text = `${decided} von ${total} Produkten entschieden`;
+  if (totalFixed > 0 || unlimitedPerOrder > 0) {
+    let provText;
+    if (totalFixed > 0 && unlimitedPerOrder > 0) {
+      provText = `bis zu ${formatEur(totalFixed)} + ${formatEur(unlimitedPerOrder)} pro Bestellung`;
+    } else if (totalFixed > 0) {
+      provText = `bis zu ${formatEur(totalFixed)}`;
+    } else {
+      provText = `${formatEur(unlimitedPerOrder)} pro Bestellung`;
+    }
+    text += ` · Provision: ${provText}`;
+  }
+  counter.textContent = text;
+  counter.classList.toggle('--complete', decided === total);
+}
+
+// Initialzustand rendern (Default: Unbegrenzt für alle Produkte)
+REQUEST_PRODUCTS.forEach(p => updateCommission(p.id));
+updateCounter();
+
+let emailOverlayData = {};
+
+function openEmailsOverlay(keys) {
+  const count = keys.length;
+  document.getElementById('emailPanelCounter').textContent = `${count} Nachrichten ausgelöst`;
+  document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
+    const d = emailOverlayData[key];
+    if (!d) return '';
+    return `
+      <div class="mockup-email-inline${d.internal ? ' --internal' : ''}">
+        <div class="mockup-email-inline__header">
+          <span class="mockup-email__tag${d.internal ? ' --internal' : ''}">${d.tag}</span>
+          <span class="mockup-email-inline__to">an: ${d.recipient}</span>
+          <span class="mockup-email-inline__subject">Betreff: ${d.subject}</span>
+        </div>
+        <div class="mockup-email-inline__body">${d.body}</div>
+      </div>`;
+  }).join('');
+  document.getElementById('emailOverlay').classList.add('--open');
+  document.getElementById('emailPanel').classList.add('--open');
+}
+
+function closeEmailOverlay() {
+  document.getElementById('emailOverlay').classList.remove('--open');
+  document.getElementById('emailPanel').classList.remove('--open');
+}
+
+function submitApproval() {
+  const undecided = Object.entries(approvalState).filter(([_, s]) => s.qty === null);
+  if (undecided.length > 0) {
+    const counter = document.getElementById('approvalCounter');
+    counter.style.color = 'var(--color-error)';
+    counter.textContent = `Bitte alle ${Object.keys(approvalState).length} Produkte entscheiden, bevor du absendest.`;
+    counter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  const qtyLabel = { max1: 'max. 1×', max2: 'max. 2×', max5: 'max. 5×', unlimited: 'Unbegrenzt' };
+
+  const results = REQUEST_PRODUCTS.map(p => {
+    const s    = approvalState[p.id];
+    const note = document.getElementById('note-' + p.id)?.value ?? '';
+    return { ...p, qty: s.qty, variantLabel: s.variantLabel, note };
+  });
+
+  const approvedResults = results.filter(r => r.qty !== 'reject');
+  const rejectedResults = results.filter(r => r.qty === 'reject');
+  const allRejected     = approvedResults.length === 0;
+
+  const customerLines = results.map(r => {
+    const variant = r.variantLabel ? ` (${r.variantLabel})` : '';
+    if (r.qty === 'reject') return `<li>${r.cartName}${variant}: <em>Nicht freigegeben</em>${r.note ? ` – ${r.note}` : ''}</li>`;
+    return `<li>${r.cartName}${variant}: ${qtyLabel[r.qty] || r.qty}${r.note ? ` – <em>${r.note}</em>` : ''}</li>`;
+  }).join('');
+
+  const internalLines = results.map(r => {
+    const variant = r.variantLabel ? ` (${r.variantLabel})` : '';
+    if (r.qty === 'reject') return `<li>${r.cartName}${variant}: <strong>Abgelehnt</strong>${r.note ? ` – ${r.note}` : ''}</li>`;
+    return `<li>${r.cartName}${variant}: <strong>${qtyLabel[r.qty] || r.qty}</strong>${r.note ? ` – <em>${r.note}</em>` : ''}</li>`;
+  }).join('');
+
+  emailOverlayData = {
+    customer: {
+      tag: 'E-Mail',
+      recipient: 'kunde@email.com',
+      subject: allRejected ? 'Ihre Empfehlungsanfrage wurde bearbeitet' : 'Ihre Empfehlung ist da!',
+      body: `
+        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+        <ul>${customerLines}</ul>
+        ${allRejected
+          ? '<p>Leider wurden keine Produkte freigegeben. Bei Fragen wenden Sie sich bitte an Ihre Tierarztpraxis.</p>'
+          : '<p>Sie können freigegebene Produkte jetzt auf inuvet.com einlösen.</p>'}
+      `,
+    },
+    internal: {
+      tag: 'Intern',
+      recipient: 'team@inuvet.com',
+      subject: `Freigabe bearbeitet: Max Mustermann`,
+      internal: true,
+      body: `
+        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat die Empfehlungsanfrage von <strong>Max Mustermann</strong> (kunde@email.com) bearbeitet:</p>
+        <ul>${internalLines}</ul>
+        <p>${approvedResults.length} von ${results.length} Produkt${results.length !== 1 ? 'en' : ''} freigegeben${rejectedResults.length > 0 ? `, ${rejectedResults.length} abgelehnt` : ''}.</p>
+        <p class="mockup-email-panel__note">Max Mustermann wurde automatisch per E-Mail benachrichtigt.</p>
+      `,
+    },
+  };
+
+  document.getElementById('approvalMain').innerHTML = `
+    <div class="success-state">
+      <span class="material-icons success-state__icon">check_circle</span>
+      <h2 class="success-state__title">Freigabe übermittelt</h2>
+      <p class="success-state__body">
+        Max Mustermann wird per E-Mail über Ihre Entscheidung informiert.
+      </p>
+    </div>
+    <div class="approval-footer">
+      <a href="#" onclick="location.reload();return false;" class="btn --ghost">Zurück zur Übersicht</a>
+    </div>
+  `;
+
+  setTimeout(() => openEmailsOverlay(['customer', 'internal']), 500);
+}
+</script>
+<script src="../inuvet.js"></script>
+
+</body>
+</html>

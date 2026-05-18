@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkt- und Familienstruktur – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-center">
+      <a href="#" aria-label="Zur Startseite">
+        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="../styleguide.html" onclick="closeMobile()">Styleguide</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="page">
+      <div class="article-layout">
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Michael Hoppe</p>
+              <p class="article__author-role">Design-System</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Datenmodell</span>
+            <span class="filter-tag">Produktkarte</span>
+            <span class="filter-tag">PDP</span>
+            <span class="filter-tag">Styleguide</span>
+          </div>
+          <nav class="article__toc" aria-label="Inhalt">
+            <p class="label-caps" style="margin-bottom: var(--half-module)">Inhalt</p>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem;">
+              <li><a href="#ueberblick">Überblick</a></li>
+              <li><a href="#indikation">Indikation</a></li>
+              <li><a href="#familie">Produktfamilie</a></li>
+              <li><a href="#einzelprodukt">Einzelprodukt</a></li>
+              <li><a href="#variante">Variante</a></li>
+              <li><a href="#auswirkungen">Auswirkungen auf das UI</a></li>
+            </ul>
+          </nav>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Design-System · Stand 13. Mai 2026</span>
+            <h1>Produkt- und Familienstruktur</h1>
+            <p class="article__lead">Warum manche Produkte im Shop eine Darreichungsform-Auswahl haben und andere nicht — und wie sich das durch die gesamte Oberfläche zieht.</p>
+          </header>
+
+          <div class="article__body rte">
+
+            <h2 id="ueberblick">Überblick</h2>
+            <p>Das inuvet-Sortiment ist in vier Ebenen gegliedert. Jede Ebene hat eine klar definierte Aufgabe — im Backend, im Shop und im Design-System.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Ebene</th>
+                  <th>Beispiel</th>
+                  <th>Bedeutung</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Indikation</strong></td>
+                  <td>Beruhigung</td>
+                  <td>Gesundheitsbereich — filtert das Sortiment</td>
+                </tr>
+                <tr>
+                  <td><strong>Produktfamilie</strong></td>
+                  <td>Calmin Balance</td>
+                  <td>Name, der mehrere Darreichungsformen bündelt</td>
+                </tr>
+                <tr>
+                  <td><strong>Einzelprodukt</strong></td>
+                  <td>Calmin Balance Tabletten</td>
+                  <td>Eine Darreichungsform — geht in den Warenkorb</td>
+                </tr>
+                <tr>
+                  <td><strong>Variante</strong></td>
+                  <td>60 Stück / 90 Stück</td>
+                  <td>Füllmenge — bestimmt den Preis</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>In den Warenkorb kommen <strong>immer Einzelprodukte</strong>, nie Familien. Sobald Darreichungsform und Preis bekannt sind, ist es ein Einzelprodukt.</p>
+
+            <h2 id="indikation">Indikation</h2>
+            <p>Die Indikation ist der Gesundheitsbereich, den ein Produkt adressiert — zum Beispiel <em>Beruhigung</em>, <em>Leber</em> oder <em>Bauchspeicheldrüse</em>. Sie dient ausschließlich der Navigation und Filterung im Shop. Die Indikation erscheint als farbiger Badge auf der Produktkarte und auf der Produktdetailseite.</p>
+
+            <p>Ein Produkt gehört immer zu genau einer Indikation. Die Indikation selbst hat kein eigenes Preisschild — das liegt erst auf Ebene der Variante.</p>
+
+            <h2 id="familie">Produktfamilie</h2>
+            <p>Eine Produktfamilie fasst inhaltlich verwandte Produkte unter einem gemeinsamen Namen zusammen, die sich in ihrer <strong>Darreichungsform</strong> unterscheiden. <em>Calmin Balance</em> gibt es zum Beispiel als Tabletten und als Pulver — beide tragen denselben Familiennamen, sind aber im Sortiment zwei eigenständige Einzelprodukte.</p>
+
+            <p>Erkennungszeichen im Shop: das Badge <strong>„Produktfamilie"</strong> auf der Kachel. Auf der Produktdetailseite (PDP) erscheint oberhalb des Preises ein Selektor, mit dem man die gewünschte Darreichungsform auswählt — inklusive einer Spalte, für welche Tiere das jeweilige Format geeignet ist.</p>
+
+            <div class="notice">
+              <p><strong>Darreichungsform ≠ Variante.</strong> Die Darreichungsform (Tabletten vs. Pulver) unterscheidet ganze Einzelprodukte voneinander. Die Variante (60 Stück vs. 90 Stück) ist nur eine Füllmenge innerhalb desselben Einzelprodukts.</p>
+            </div>
+
+            <h2 id="einzelprodukt">Einzelprodukt</h2>
+            <p>Ein Einzelprodukt ist genau eine Darreichungsform eines Präparats. Es hat einen eigenen Namen der Form <em>Familienname + Darreichungsform</em> — also etwa <strong>Calmin Balance Tabletten</strong> oder <strong>Hepax forte Pulver</strong>. Produkte ohne Familie tragen nur den Produktnamen, der bereits die Darreichungsform enthält — zum Beispiel <strong>Inzym Pulver</strong>.</p>
+
+            <p>Das Einzelprodukt ist die Einheit, die in den Warenkorb gelegt, empfohlen, freigegeben und bestellt wird. Alle transaktionalen Kontexte (Warenkorb, Checkout, Bestellübersicht, Tierarzt-Freigabe) zeigen immer den vollständigen Einzelprodukt-Namen.</p>
+
+            <h2 id="variante">Variante</h2>
+            <p>Jedes Einzelprodukt hat mindestens eine Variante. Eine Variante ist eine <strong>Füllmenge</strong> mit eigenem Preis — zum Beispiel <em>60 Stück</em> für 39,90 € oder <em>90 Stück</em> für 54,90 €. Im Warenkorb und im Checkout wird nur die Füllmenge angezeigt, nicht der volle Produktname ein weiteres Mal.</p>
+
+            <h2 id="auswirkungen">Auswirkungen auf das UI</h2>
+            <p>Die Struktur bestimmt, was auf welcher Oberfläche wie angezeigt wird:</p>
+
+            <h3>Produktkarte (Tile)</h3>
+            <p>Kacheln zeigen immer den <strong>Familiennamen</strong> ohne Darreichungsform (<em>Calmin Balance</em>, nicht <em>Calmin Balance Tabletten</em>). Produktfamilien erhalten das Badge „Produktfamilie". Der angezeigte Preis ist der Einstiegspreis der günstigsten Variante der ersten Darreichungsform, mit dem Zusatz „ab".</p>
+            <p>Ein Klick auf eine Familienprodukt-Kachel öffnet einen Options-Drawer, in dem zuerst die Darreichungsform und dann die Variante gewählt wird. Einzelprodukte öffnen den Drawer direkt auf der Varianten-Ebene.</p>
+
+            <h3>Produktdetailseite (PDP)</h3>
+            <p>Die PDP zeigt ebenfalls den <strong>Familiennamen</strong> als Titel. Für Produktfamilien erscheint unmittelbar über dem Preis der <strong>Darreichungsform-Selektor</strong> — eine Tabelle mit Radiobuttons, die gleichzeitig anzeigt, für welche Tiere die jeweilige Form geeignet ist. Darunter folgen die Varianten-Buttons (Füllmengen) und dann die Mengen- und Warenkorb-Steuerung.</p>
+            <p>Für Einzelprodukte entfällt der Darreichungsform-Selektor; es erscheinen nur die Varianten-Buttons.</p>
+
+            <h3>Warenkorb, Checkout, Freigabe</h3>
+            <p>Hier wird immer der vollständige Einzelprodukt-Name angezeigt (<em>Calmin Balance Tabletten</em>). Die Varianten-Zeile darunter zeigt nur die Füllmenge. Der Familienname allein würde nicht eindeutig genug identifizieren, was bestellt wurde.</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Kontext</th>
+                  <th>Angezeigter Name</th>
+                  <th>Zusatzinfo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tile, Collection, Suche</td>
+                  <td><em>Calmin Balance</em></td>
+                  <td>Badge „Produktfamilie", ab-Preis</td>
+                </tr>
+                <tr>
+                  <td>PDP</td>
+                  <td><em>Calmin Balance</em></td>
+                  <td>Darreichungsform-Selektor + Varianten-Buttons</td>
+                </tr>
+                <tr>
+                  <td>Warenkorb, Checkout</td>
+                  <td><em>Calmin Balance Tabletten</em></td>
+                  <td>Füllmenge als Variantenzeile</td>
+                </tr>
+                <tr>
+                  <td>Tierarzt-Freigabe</td>
+                  <td><em>Calmin Balance Tabletten</em></td>
+                  <td>Füllmenge als Variantenzeile</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../inuvet.js"></script>
+
+</body>
+</html>

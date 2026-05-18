@@ -1,0 +1,171 @@
+/* ══════════════════════════════════════════════════════════════
+   provision-portal.css — Seitenspezifische Styles
+   Für: pages/Provision-Portal.html
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Fortschrittsring ────────────────────────────────────── */
+
+.tile__ring {
+  position: absolute;
+  top: calc(var(--base) * 0.75);
+  right: calc(var(--base) * 0.75);
+  z-index: 2;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.12));
+}
+.tile__ring-fill {
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Provision Hero ───────────────────────────────────────── */
+
+.provision-hero {
+  padding: var(--module) 0 calc(var(--base) * 0.5);
+}
+.provision-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: var(--module);
+  row-gap: var(--base);
+  align-items: center;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--module);
+}
+.provision-hero__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--half-module);
+}
+.provision-hero__col.--label {
+  align-items: center;
+  text-align: center;
+}
+.provision-hero__title {
+  font-size: var(--text-l);
+  font-weight: 900;
+  line-height: 1.2;
+}
+.provision-hero__amount {
+  font-size: clamp(3rem, 1rem + 7vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+}
+.provision-hero__ring-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.provision-hero__ring-svg {
+  width: clamp(130px, 15vw, 185px);
+  height: clamp(130px, 15vw, 185px);
+  display: block;
+}
+.provision-hero__ring-fill {
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.provision-hero__ring-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.provision-hero__ring-pct {
+  font-size: var(--text-l);
+  font-weight: 900;
+  line-height: 1;
+}
+.provision-hero__sub {
+  font-size: var(--text-base);
+  color: var(--fg-muted);
+  text-align: center;
+  margin-top: calc(var(--base) * 0.25);
+}
+.provision-hero__sub.--oder {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.75);
+}
+.provision-hero__sub.--oder::before,
+.provision-hero__sub.--oder::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.provision-hero__sub.--hint {
+  text-align: center;
+}
+.provision-hero__mobile-title {
+  display: none;
+  font-size: var(--text-l);
+  font-weight: 900;
+  line-height: 1.2;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .provision-hero__grid { grid-template-columns: 1fr; text-align: center; }
+  .provision-hero__col.--label { display: none; }
+  .provision-hero__col { align-items: center; }
+  .provision-hero__col.--ring { display: none; }
+  .provision-hero__sub { display: none; }
+  .provision-hero__mobile-title { display: block; }
+}
+
+/* ── Portal Seiten-Sektionen ─────────────────────────────── */
+
+.portal-section { padding-bottom: var(--module-2xl); }
+.portal-section__title { font-size: var(--text-l); font-weight: 900; margin-bottom: var(--module); text-align: center; }
+.portal-back-btn { margin-bottom: var(--half-module); }
+.portal-success__items { margin-top: var(--module); }
+
+/* ── Checkout ─────────────────────────────────────────────── */
+
+.form-field.--span-2 { grid-column: span 2; }
+.tile-grid.--compact { gap: var(--half-module); }
+
+
+/* ── Modal Auszahlung ─────────────────────────────────────── */
+
+.auszahlung-hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--module); }
+#auszahlungModal .form-field + .form-field { margin-top: var(--half-module); }
+#auszahlungModal .btn.--primary { margin-top: var(--module); }
+
+/* ── Gutscheinkarte ───────────────────────────────────────── */
+
+.voucher-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--half-module);
+  background: var(--accent-bg);
+}
+/* border-radius: bewusste Ausnahme — Gutschein-Visualisierung */
+.voucher-card {
+  width: 100%;
+  aspect-ratio: 1.586;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, var(--color-amber), var(--color-notice-bg));
+  color: var(--fg);
+  padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) * 0.25);
+  text-align: center;
+}
+.voucher-card__brand {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
+}
+.voucher-card__value {
+  font-size: var(--text-xl);
+  font-weight: 900;
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
+}

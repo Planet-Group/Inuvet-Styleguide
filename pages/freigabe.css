@@ -1,0 +1,111 @@
+/* ══════════════════════════════════════════════════════════════
+   freigabe.css — Empfehlungsanfrage-Freigabe (Tierarzt-Portal)
+   Page-spezifische Styles. Globale Atome via inuvet.css.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Seiten-Container ─── */
+.approval-page { padding-bottom: var(--module-3xl); }
+
+/* ─── Intro: 2-spaltig auf Desktop (Headline links, Meta rechts) ─── */
+.approval-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--module);
+}
+@media (min-width: 768px) {
+  .approval-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--gutter);
+    align-items: start;
+  }
+}
+.approval-intro h1 { margin: 0; }
+
+/* ─── Patienten-Meta ─── */
+.approval-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--base) * 0.4) var(--module);
+  font-size: var(--text-sm);
+}
+@media (min-width: 768px) {
+  .approval-meta { padding-top: calc(var(--base) * 0.4); }
+}
+.approval-meta__item { display: flex; gap: calc(var(--base) * 0.5); align-items: baseline; }
+.approval-meta__val  { color: var(--fg); }
+
+/* ─── Produkt-Grid: 3-spaltig auf Desktop ─── */
+.approval-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--module);
+  margin-bottom: var(--module);
+}
+@media (max-width: 900px) {
+  .approval-product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .approval-product-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Cart-Item innerhalb der Card — nutzt globales .cart-item als Basis ─── */
+.approval-product-card .cart-item {
+  padding: 0;
+  border-bottom: none;
+}
+
+/* ─── Größen-Auswahl (.choice-box.--sm Gruppe) ─── */
+.approval-size-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--base) * 0.4);
+  margin-top: calc(var(--base) * 0.5);
+}
+
+/* ─── Empfehlung-Zeile: Dropdown + Provision nebeneinander ─── */
+.approval-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--half-module);
+  margin-top: var(--half-module);
+  flex-wrap: wrap;
+}
+.approval-controls .form-field.--sm { flex: 0 0 12rem; }
+
+/* ─── Provisions-Zeile ─── */
+.approval-commission {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--base) * 0.4);
+  font-size: var(--text-sm);
+}
+.approval-commission .label-caps { margin-bottom: 0; }
+.approval-commission__value { color: var(--green); font-weight: 700; }
+.approval-commission__value.--muted { color: var(--fg-muted); font-weight: 400; }
+
+/* ─── Notiz-Bereich ─── */
+.approval-product-card__note {
+  margin-top: var(--half-module);
+}
+
+/* ─── Status-Counter ─── */
+.approval-counter {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  margin-bottom: var(--half-module);
+}
+.approval-counter.--complete { color: var(--green); font-weight: 700; }
+
+/* ─── Footer-CTA ─── */
+.approval-footer {
+  margin-top: var(--module);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--half-module);
+}
+.approval-footer .btn.--primary { min-width: calc(var(--base) * 14); }

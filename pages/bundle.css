@@ -1,0 +1,385 @@
+/* ═══════════════════════════════════════════
+   Bundle Builder — Seiten-spezifische Styles
+   Basiert auf inuvet.css Tokens & Komponenten
+   ═══════════════════════════════════════════ */
+
+/* ─── Seiten-Abstände ───
+   .page hat Default padding-top: var(--page-pt) (= 6rem).
+   #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
+   dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
+   Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
+/* padding-bottom: --module gibt dem .bundle-item__tier-hint ausreichend Platz
+   (der mit translateY(50%) halb über die Card-Bottom-Kante hinausragt) und
+   trennt das Bundle visuell sauber von der nachfolgenden Section. */
+#bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
+#bundleTestimonials  { padding-bottom: var(--module-2xl); }
+#bundleTiles         { padding-bottom: var(--module-2xl); }
+#bundleInfoMain      { padding-bottom: var(--module-2xl); }
+
+/* ─── Intro ─── */
+.bundle-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--module);
+}
+
+@media (min-width: 768px) {
+  .bundle-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--gutter);
+    align-items: start;
+  }
+}
+
+.bundle-intro h2 {
+  margin: 0;
+}
+
+.bundle-intro p {
+  color: var(--fg-muted);
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  margin: 0;
+}
+
+/* ─── Two-Column Grid ─── */
+.bundle-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gutter);
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .bundle-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+/* ─── Spaltenraster-Basis ─── */
+/* 2-Spalten erst ab 1100px: unterhalb zu wenig Platz in der linken bundle-Spalte */
+.col-grid                { display: grid; }
+.col-grid[data-cols="2"] { grid-template-columns: minmax(0, 1fr); }
+
+@media (min-width: 1100px) {
+  .col-grid[data-cols="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+/* ─── Product List ─── */
+.bundle-list {
+  row-gap: 0;
+  column-gap: var(--gutter);
+}
+
+/* ─── Bundle Item ─── */
+.bundle-item { position: relative; }
+
+.bundle-item__tier-hint {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: var(--bg);
+  padding: 0 calc(var(--base) * 0.5);
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.bundle-item.is-entering {
+  animation: bundleSlideIn var(--anim-mid) forwards;
+}
+
+@keyframes bundleSlideIn {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.product-thumb-wrap .floating-meta {
+  top: 0;
+  left: 0;
+}
+
+
+.badge.--free {
+  letter-spacing: 0.04em;
+  padding: 2px calc(var(--base) * 0.375);
+  animation: popIn var(--anim-fast) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Recommendations ─── */
+.rec-section {
+  margin-top: var(--half-module);
+}
+
+.rec-grid {
+  display: flex;
+  gap: calc(var(--base) * 0.75);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--base) * 0.5);
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) var(--accent-bg);
+}
+
+.rec-grid::-webkit-scrollbar        { height: 4px; }
+.rec-grid::-webkit-scrollbar-track  { background: var(--accent-bg); }
+.rec-grid::-webkit-scrollbar-thumb  { background: var(--green); }
+
+.rec-card {
+  min-width: 6.5rem;
+  width: 6.5rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-light);
+  transition: border-color var(--anim-fast);
+  scroll-snap-align: start;
+  animation: recSlideIn var(--anim-fast) ease forwards;
+}
+
+@keyframes recSlideIn {
+  from { opacity: 0; transform: translateX(0.75rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.rec-card:hover { border-color: var(--green); }
+
+.rec-card__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.rec-card__body {
+  padding: calc(var(--base) * 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.2);
+  flex: 1;
+}
+
+.rec-card__title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.rec-card__price {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  margin-bottom: calc(var(--base) * 0.2);
+}
+
+@media (max-width: 767px) {
+  .rec-grid {
+    scrollbar-width: none;
+  }
+  .rec-grid::-webkit-scrollbar { display: none; }
+
+  /* Testimonial-Mobile: Layout übernimmt inuvet.css (vertikaler Stack + display:none).
+     JS setzt .--visible auf sichtbare Slides — kein Override nötig. */
+}
+
+/* ─── Summary Card ─── */
+.summary-card {
+  background: var(--green);
+  color: var(--bg);
+  padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+}
+
+/* Desktop: oben ausrichten */
+@media (min-width: 768px) {
+  .summary-card {
+    position: static;
+  }
+}
+
+/* Mobile: fixed bar am unteren Rand — nur sichtbar wenn Bundle-Grid im Viewport */
+@media (max-width: 767px) {
+  .summary-card {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 50;
+    box-shadow: 0 -4px 2rem rgba(0,0,0,0.12);
+    transform: translateY(110%);
+    transition: transform var(--anim-mid);
+  }
+  .summary-card.--sticky-visible {
+    transform: translateY(0);
+  }
+  /* Extra Abstand damit Inhalt nicht hinter der Fixed-Bar verschwindet */
+  #bundleMain {
+    padding-bottom: calc(var(--module) * 5) !important;
+  }
+}
+
+.summary-card__title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  color: rgba(255,255,255,0.6);
+}
+
+/* Kommaseparierte Produktliste */
+.summary-card__products {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.7);
+  line-height: var(--lh-base);
+  margin-top: calc(var(--base) * -0.25);
+}
+
+.summary-card__line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-base);
+}
+
+/* Gratisprodukte im Wert von */
+.summary-card__line.--free {
+  color: var(--bg);
+  font-size: var(--text-base);
+  font-weight: 700;
+  align-items: baseline;
+}
+
+/* CTA auf grünem Hintergrund — schwarzer Button */
+.summary-card__cta {
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  font-weight: 700;
+  justify-content: center;
+  transition: background var(--anim-fast), color var(--anim-fast);
+}
+.summary-card__cta:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ─── Cart Drawer — Bundle-spezifische Zusatzzeilen ─── */
+.cart-drawer__free-row,
+.cart-drawer__savings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-base);
+  padding: calc(var(--base) * 0.2) 0;
+}
+
+.cart-drawer__free-row {
+  font-size: var(--text-m);
+  font-weight: 700;
+  color: var(--green);
+  padding-top: calc(var(--base) * 0.5);
+}
+
+.cart-drawer__savings-row {
+  font-weight: 700;
+  padding-bottom: calc(var(--base) * 0.5);
+}
+
+.cart-drawer__continue-wrap {
+  margin-top: calc(var(--base) * 0.5);
+  text-align: center;
+}
+
+.cart-drawer__continue {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ─── Empfehlungen Label ─── */
+.rec-section .label-caps { margin-bottom: var(--half-module); }
+
+/* ─── Rec-Card Add-Button ─── */
+.rec-card .btn {
+  font-size: var(--text-xs);
+  padding: calc(var(--base) * 0.3) calc(var(--base) * 0.4);
+  width: 100%;
+  text-align: center;
+}
+
+/* ─── Cart-Drawer Bundle-Werte ─── */
+.cart-drawer__free-value    { color: var(--green); font-weight: 700; }
+.cart-drawer__savings-value { font-weight: 700; }
+
+/* ─── Empty State ─── */
+.empty-state .material-icons { font-size: 2rem; color: var(--border-light); }
+
+/* ─── Empfehlungen: weitere Produkte hinzufügen ───
+   Edge-to-edge Section mit --green-light Hintergrund.
+   Horizontal scrollbarer Container: 4/3/2/1 Items je nach Viewport-Breite.
+   Sehr tight am Bundle-Bereich — Bg-Wechsel ist Trenner genug. */
+.bundle-recommendations {
+  background: var(--green-light);
+  padding: var(--half-module) 0 var(--module);
+}
+.bundle-recommendations .page {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.bundle-recommendations__lead {
+  color: var(--fg-muted);
+  margin: 0 0 var(--half-module);
+  font-size: var(--text-base);
+}
+
+/* Scroller: horizontale Reihe, scroll-snap, native Scrollbar dezent */
+.bundle-recommendations__scroller {
+  display: flex;
+  gap: var(--gutter);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--half-module);   /* Platz für Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--green) transparent;
+}
+.bundle-recommendations__scroller::-webkit-scrollbar        { height: 4px; }
+.bundle-recommendations__scroller::-webkit-scrollbar-track  { background: transparent; }
+.bundle-recommendations__scroller::-webkit-scrollbar-thumb  { background: var(--green); }
+
+/* Pro Item: cart-item-Pattern (C.2) ohne weißen Box-Hintergrund — Cards liegen
+   direkt auf dem --green-light, keine zusätzliche Einkasten-Optik.
+   Feste Breite je nach Viewport: 4 sichtbar auf XL, 3 auf L, 2 auf M, 1 auf S. */
+.bundle-recommendations__scroller .cart-item {
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - var(--gutter) * 3) / 4);
+  background: transparent;
+  padding: 0;
+  border-bottom: none;
+}
+
+@media (max-width: 1199px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: calc((100% - var(--gutter) * 2) / 3);
+  }
+}
+@media (max-width: 991px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: calc((100% - var(--gutter)) / 2);
+  }
+}
+@media (max-width: 767px) {
+  .bundle-recommendations__scroller .cart-item {
+    flex-basis: 85%;                    /* Ein Item plus Peek auf das nächste */
+  }
+}
+
+
+
+
