@@ -77,6 +77,7 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
 - `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
 - `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
+- `pages/Provision-Portal-Info.html` — Technische Dokumentation zum Provisions-Portal
 - `pages/_template.html` — Boilerplate für neue Mockup-Pages
 
 ---

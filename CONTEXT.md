@@ -47,6 +47,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── Formular-Reklamation.html   # Stand-Alone-Formular-Beispiel
     ├── formulare.css
     ├── Provision-Portal.html       # Tierarzt-Provisions-Portal (Auszahlung / Prämie)
+    ├── Provision-Portal-Info.html  # Technische Dokumentation zum Provisions-Portal
     ├── provision-portal.css
     └── _template.html              # Boilerplate für neue Mockup-Pages
 ```
@@ -514,13 +515,15 @@ Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehne
 - `.choice-box` als Mengen-Auswahl (Ablehnen, max. 1×, max. 2×, max. 5×, Unbegrenzt)
 - Nach Absenden: `.success-state` + E-Mail-Overlay (analog Tierarzt-Empfehlung-Mockup) mit zwei Nachrichten: Kunden-E-Mail + interne Nachricht an `team@inuvet.com`
 
-### `Provision-Portal.html` — Tierarzt-Provisions-Portal
+### `Provision-Portal.html` + `Provision-Portal-Info.html` — Tierarzt-Provisions-Portal
 Tierarzt-Ansicht: verdiente Provisionen einsehen und einlösen — als Barauszahlung (IBAN-Modal) oder als Prämie (Gutschein / Sachprämie).
-- SPA-Rendering via `render()` + State-Flags (`view`, `activePremiumId`, `cart`)
-- 3 Views: Portal (Prämien-Übersicht), PDP (Prämien-Detail), Checkout + Erfolgsseite
-- Fortschrittsring (SVG) im Hero + auf jeder Prämien-Kachel (`data-animate` + `--in-view` Scroll-Animation)
+- SPA-Rendering via `render()` + State-Flags (`currentPage`, `activePremiumId`, `cart`)
+- 4 Views: Portal (Prämien-Übersicht), PDP (Prämien-Detail), Checkout, Erfolgsseite
+- Fortschrittsring (SVG) im Hero + auf jeder Prämien-Kachel (IntersectionObserver, `initRings()`)
+- Animierter Count-Up für Provisionsbetrag (`countUp()`)
 - Prämien sortiert von teuer → günstig; Hero-Hint zeigt nächstgünstige erreichbare Prämie als Link zur PDP
 - Gutscheinkarten nutzen `.voucher-frame` + `.voucher-card` (bewusste Ausnahme: `border-radius: 1.25rem`)
+- **Zugehörige Dokumentation:** `Provision-Portal-Info.html`
 
 ### `Formular-Reklamation.html` — Stand-Alone-Formular
 Beispiel für Sektion C.4. Nutzt `.form-page` Shell.
