@@ -885,8 +885,16 @@ function renderSuccessStep() {
 
   const requestedNames = cartRequested.map(item => item.cartName).join(', ');
 
-  // E-Mail-Daten für Overlay vorbereiten (owner-E-Mail wird erst beim Checkout-Submit befüllt)
-  emailOverlayData = {};
+  // E-Mail-Adresse ist nach Login bekannt — Overlay kann sofort nach Submit ausgelöst werden
+  emailOverlayData = {
+    owner: {
+      tag: 'E-Mail', recipient: 'kunde@email.com',
+      subject: 'Neue Anfrage', internal: false,
+      body: `
+        <p>Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</p>
+        <p>Sie erhalten eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>`
+    }
+  };
 
   if (vetKnown) {
     emailOverlayData.vet = {
@@ -933,6 +941,8 @@ function renderSuccessStep() {
       </div>
     </div>`;
 
+  // Login war Pflicht vor diesem Schritt → E-Mail bekannt → Nachrichten sofort auslösen
+  setTimeout(() => openEmailsOverlay(vetKnown ? ['owner', 'vet'] : ['owner', 'internal']), 500);
 }
 
 function renderCartDrawer() {
@@ -1830,7 +1840,7 @@ function renderCheckout() {
           <div class="summary-line"><span>Versand</span><span>kostenlos</span></div>
           <div class="summary-total"><span>Gesamt</span><span>${total.toFixed(2).replace('.',',')} €</span></div>
           <div class="checkout__cta">
-            <button class="btn --primary cart-drawer__checkout" onclick="submitCheckout()">Jetzt kaufen</button>
+            <button class="btn --primary cart-drawer__checkout">Jetzt kaufen</button>
           </div>
         </aside>
 
@@ -1879,31 +1889,6 @@ function openCheckoutModal() {
 document.getElementById('checkoutModal').addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('--open');
 });
-
-function submitCheckout() {
-  const emailField = document.getElementById('co-email');
-  const email = emailField ? emailField.value.trim() : '';
-  if (!email) {
-    if (emailField) {
-      emailField.closest('.form-field').classList.add('--error');
-      emailField.focus();
-    }
-    return;
-  }
-  emailField.closest('.form-field').classList.remove('--error');
-
-  const vetName = selectedVet ? selectedVet.name : 'der Tierarztpraxis';
-  emailOverlayData.owner = {
-    tag: 'E-Mail', recipient: email,
-    subject: 'Neue Anfrage', internal: false,
-    body: `
-      <p>Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</p>
-      <p>Sie erhalten eine Nachricht per E-Mail (${email}), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>`
-  };
-
-  const vetKnown = selectedVet && selectedVet.hasRecommended;
-  openEmailsOverlay(vetKnown ? ['owner', 'vet'] : ['owner', 'internal']);
-}
 
 /* ════════════════════════════════════════════
    HAUPT-RENDER

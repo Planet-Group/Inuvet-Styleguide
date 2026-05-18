@@ -143,20 +143,17 @@
 
             <h3>3 — Tierarzt auswählen (nur bei fehlender Freigabe)</h3>
             <p>Der Nutzer wählt aus einer Liste bekannter Tierarztpraxen. Praxen, die bereits am Empfehlungsprogramm teilnehmen, sind markiert — dort ist eine schnellere Bearbeitung zu erwarten. Ist die eigene Praxis nicht in der Liste, kann sie manuell eingegeben werden.</p>
-            <p>Nach dem Absenden zeigt das System einen Bestätigungs-Screen. Die Backend-Nachrichten werden zu diesem Zeitpunkt <strong>noch nicht ausgelöst</strong> — die E-Mail-Adresse des Tierbesitzers ist erst im Checkout bekannt (Pflichtfeld). Falls freigegebene Produkte im Warenkorb liegen, kann der Nutzer direkt zum Checkout weitergehen.</p>
-
-            <h3>4 — Checkout (wenn freigegebene Produkte vorhanden)</h3>
-            <p>Im Checkout gibt der Nutzer seine Lieferadresse und <strong>E-Mail-Adresse</strong> ein. Das E-Mail-Feld ist immer ein Pflichtfeld — auch für eingeloggte Nutzer. Erst mit dem Klick auf <strong>„Jetzt kaufen"</strong> werden die Backend-Nachrichten ausgelöst:</p>
+            <p>Nach dem Absenden werden die Backend-Nachrichten <strong>sofort ausgelöst</strong> — die E-Mail-Adresse ist durch den vorhergehenden Login bereits bekannt:</p>
             <ul>
-              <li><strong>Bekannte Praxis</strong>: E-Mail an die Praxis über das inuvet-Portal zur Freigabe.</li>
+              <li><strong>Bekannte Praxis</strong>: E-Mail direkt an die Praxis, die über das inuvet-Portal die Freigabe erteilen kann.</li>
               <li><strong>Unbekannte Praxis</strong>: Interne Benachrichtigung an inuvet — das Team kontaktiert die Praxis und nimmt sie ins Programm auf.</li>
-              <li>In beiden Fällen: Bestätigungs-E-Mail an den Tierbesitzer (mit der gerade eingegebenen Adresse).</li>
+              <li>In beiden Fällen: Bestätigungs-E-Mail an den Tierbesitzer.</li>
             </ul>
 
-            <h3>5 — Warten auf Freigabe</h3>
+            <h3>4 — Warten auf Freigabe</h3>
             <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Empfehlung im inuvet-Portal freigibt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — die freigegebenen Produkte liegen direkt zur Bestellung bereit.</p>
 
-            <h3>6 — Einlösen und kaufen</h3>
+            <h3>5 — Einlösen und kaufen</h3>
             <p>Mit aktiver Freigabe können freigegebene Produkte direkt in den Warenkorb gelegt und bestellt werden — ohne weiteren Anfrageschritt. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
 
             <h2>Warenkorb-Redistribution beim Login</h2>
@@ -220,8 +217,7 @@ cartRequested = []  // Produkte ohne Freigabe → durchlaufen Anfrage-Flow</code
             <ol>
               <li><strong>Empfehlungs-Datensatz:</strong> Pro Nutzer-E-Mail eine Liste freigegebener Produkt-IDs speichern. Timestamp der Freigabe und verknüpfte Tierarztpraxis mitführen.</li>
               <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend nutzt diese Liste für die Warenkorb-Redistribution.</li>
-              <li><strong>Anfrage-Flow:</strong> Anfrage-Submission speichert: Produkt-IDs, ausgewählte Praxis, Timestamp. Backend-Nachrichten werden <strong>noch nicht ausgelöst</strong> — die Nutzer-E-Mail ist erst im Checkout bekannt.</li>
-              <li><strong>Checkout-Submit:</strong> E-Mail-Feld ist <code>required</code>. Erst nach erfolgreichem Absenden werden alle ausstehenden Backend-Nachrichten ausgelöst: Bestätigungs-E-Mail an den Tierbesitzer + E-Mail/interne Meldung für die Praxis. Bei eingeloggten Nutzern ist das E-Mail-Feld vorausgefüllt.</li>
+              <li><strong>Anfrage-Flow:</strong> Login ist Pflicht vor der Tierarzt-Auswahl — die E-Mail-Adresse ist damit beim Absenden bereits bekannt. Anfrage-Submission speichert: Nutzer-E-Mail, Produkt-IDs, ausgewählte Praxis, Timestamp. Löst sofort alle Backend-Nachrichten aus: Bestätigungs-E-Mail an den Tierbesitzer + E-Mail an die Praxis (bei bekannter Praxis) oder interne Meldung (bei unbekannter Praxis).</li>
               <li><strong>Freigabe-Event:</strong> Tierarzt bestätigt im Portal → Status-Update in Datenbank → Nutzer-E-Mail mit Link zum Shop.</li>
               <li><strong>Announcement Bar:</strong> Gast-Item über Conditional Rendering gesteuert — niemals für eingeloggte Nutzer sichtbar.</li>
             </ol>

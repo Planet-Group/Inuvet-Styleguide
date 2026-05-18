@@ -484,8 +484,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 1. „Produkt anfragen" → Cart-Item (auch als Gast möglich)
 2. „Anfragen" im Cart → Login-Modal (nur für Gäste); nach Login: Warenkorb-Redistribution — freigegebene Produkte wandern direkt in `cartApproved`, Schritt 2 wird übersprungen wenn `cartRequested` danach leer ist
 3. Praxis-Dropdown (Vet-Hinweis darunter dynamisch: grüner Punkt + „schnellere Bearbeitung" bei `hasRecommended: true`, leerer Punkt + Info-Text sonst)
-4. Bestätigungs-Screen („Anfrage versendet") — kein E-Mail-Overlay hier, da E-Mail-Adresse noch unbekannt
-5. Checkout (nur wenn `cartApproved` nicht leer): E-Mail-Pflichtfeld; erst nach „Jetzt kaufen" (`submitCheckout()`) werden Backend-Nachrichten ausgelöst: Kunden-E-Mail + Vet-E-Mail oder interne Meldung
+4. Bestätigungs-Screen + E-Mail-Overlay: Login ist Pflicht vor der Tierarzt-Auswahl → E-Mail bekannt → Nachrichten sofort auslösen (Kunden-E-Mail + Vet-E-Mail oder interne Meldung bei unbekannter Praxis)
 
 **Zugehörige Dokumentation:** `Tierarzt-Empfehlung-Info.html`
 
@@ -530,7 +529,7 @@ Tierarzt-Ansicht: verdiente Provisionen einsehen und einlösen — als Barauszah
 Beispiel für Sektion C.4. Nutzt `.form-page` Shell.
 
 ### `Tierarzt-Empfehlung-Info.html` — Technische Dokumentation
-Article-Layout mit Sidebar. Dokumentiert vollständig das Rezeptanfrage-System: drei Nutzerzustände, 6-Schritt-Anfrage-Flow, Warenkorb-Redistribution nach Login, E-Mail als zentrales Pflichtfeld, Tierarzt-Portal (inkl. Ablehnung und interner Benachrichtigung), technische Implementierungs-Schritte. Wichtig: Backend-Nachrichten (inkl. Kunden-E-Mail) werden erst beim Checkout-Submit ausgelöst, nicht beim Absenden der Tierarzt-Anfrage.
+Article-Layout mit Sidebar. Dokumentiert vollständig das Rezeptanfrage-System: drei Nutzerzustände, 5-Schritt-Anfrage-Flow, Warenkorb-Redistribution nach Login, E-Mail als zentrales Pflichtfeld, Tierarzt-Portal (inkl. Ablehnung und interner Benachrichtigung), technische Implementierungs-Schritte. Wichtig: Login ist Pflicht vor der Tierarzt-Auswahl → E-Mail dadurch beim Absenden bekannt → Backend-Nachrichten werden sofort nach dem Vet-Request ausgelöst.
 
 ---
 
