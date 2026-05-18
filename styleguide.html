@@ -7,7 +7,7 @@
 <meta name="description" content="Design-System für das inuvet Shopify-Theme. Tokens, Komponenten und Patterns nach Atomic Design.">
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="inuvet.css">
+<link rel="stylesheet" href="inuvet.css?v=2">
 <link rel="stylesheet" href="sg.css">
 <link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -994,6 +994,24 @@
       <button class="btn --icon icon-badged" aria-label="Warenkorb 3 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">3</span></button>
       <button class="btn --icon icon-badged" aria-label="Warenkorb 12 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">12</span></button>
       <button class="btn --icon icon-badged" aria-label="Warenkorb 99+ Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">99</span></button>
+    </div>
+
+    <!-- ── circle-badge ── -->
+    <h3 class="sg-h3 --top">circle-badge</h3>
+    <div class="rules">
+      <div class="rule"><h4>Varianten</h4><p>22 × 22 px runder Indikator. <code>.--num</code> für Ziffern (Schritte, Zähler), <code>.--check</code> für Material-Icon <code>check</code>. Positionierungskontext (z. B. <code>position: absolute</code>) wird durch die verwendende Komponente gesetzt.</p></div>
+    </div>
+    <table class="spec-table">
+      <tr><th><code>.circle-badge</code></th><td>22 × 22 px · grün · weiß · <code>border-radius: 50%</code> · <code>flex-shrink: 0</code></td></tr>
+      <tr><th><code>.circle-badge.--num</code></th><td><code>var(--text-xs)</code> · <code>font-weight: 700</code> — für Schrittzahlen</td></tr>
+      <tr><th><code>.circle-badge.--check</code></th><td>Icon <code>check</code> bei <code>calc(var(--base) * 0.8125)</code> (≈ 13 px) — für Freigabe-Indikatoren</td></tr>
+    </table>
+    <div class="demo-label">Varianten</div>
+    <div style="display:flex;gap:var(--half-module);align-items:center;">
+      <span class="circle-badge --num">1</span>
+      <span class="circle-badge --num">2</span>
+      <span class="circle-badge --num">3</span>
+      <span class="circle-badge --check"><span class="material-icons">check</span></span>
     </div>
 
     <!-- ── Wishlist ── -->

@@ -406,6 +406,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 |---|---|---|---|---|
 | B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --danger --loading` | — |
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` für Kategorie | `.label-caps` für Caps-Beschriftung (eigenständig) |
+| B.2a | circle-badge | `.circle-badge` | `--num` (Zahl, Schritte) · `--check` (Icon `check`) | 22 × 22 px, grün, `border-radius: 50%`; Positionierung durch Komponente |
 | B.3 | Icon & Icon-Box | `.icon-box` | — | `.material-icons` |
 | B.4 | Formularfeld | `.form-field` | `--sm` | `label + input/select/textarea`; `.form-grid` (`--full`) für Mehrspalter; `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
 | B.4a | Auswahlbox | `.choice-box` | `--sm --block --detail` | Standard: Varianten/Größen. `--block`: Icon + Text (Versandart). `--detail`: Spalten-Layout mit `.choice-box__label` + `.choice-box__desc` (Finder, Onboarding). |

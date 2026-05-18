@@ -314,6 +314,29 @@
     color: var(--bg);
   }
 
+  /* circle-badge — runder Indikator (22x22 px), Zahl oder Icon */
+  .circle-badge {
+    width: calc(var(--base) * 1.375);
+    height: calc(var(--base) * 1.375);
+    border-radius: 50%; /* Ausnahme: circle-badge */
+    background: var(--green);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  .circle-badge.--num {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .circle-badge.--check .material-icons {
+    font-size: calc(var(--base) * 0.8125); /* 13px */
+    line-height: 1;
+  }
+
 
   /* ─── Nav dropdown (Sektionen) ─── */
   .nav-item {

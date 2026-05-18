@@ -6,7 +6,7 @@
   <title>Tierarzt-Empfehlung — HTML Mockup</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../inuvet.css?v=2">
   <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
   <link rel="stylesheet" href="Tierarzt-Empfehlung-Mockup.css">
@@ -678,7 +678,7 @@ function renderOptionsDrawer() {
     const formBtns = p.darreichungsformen.map((f, i) => {
       const isApprovedForm = av && av.formIndex === i;
       return `<button class="choice-box${i === optionsState.formIndex ? ' --active' : ''}${isApprovedForm ? ' --approved' : ''}" type="button"
-        onclick="selectOptionsForm(${i})">${f.label}${isApprovedForm ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+        onclick="selectOptionsForm(${i})">${f.label}${isApprovedForm ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
     }).join('');
     formSection = `
     <div class="options-drawer__section">
@@ -690,7 +690,7 @@ function renderOptionsDrawer() {
   const variantBtns = currentVariants.map((v, i) => {
     const isApprovedSize = av && av.formIndex === optionsState.formIndex && av.variantIndex === i;
     return `<button class="choice-box --sm${i === optionsState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
-      onclick="selectOptionsVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+      onclick="selectOptionsVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
   }).join('');
 
   document.getElementById('optionsDrawer').innerHTML = `
@@ -782,7 +782,7 @@ function selectPdpForm(index) {
   if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) => {
     const isApprovedSize = av && av.formIndex === index && av.variantIndex === i;
     return `<button class="choice-box${i === 0 ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
-      onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+      onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
   }).join('');
   const priceEl = document.getElementById('pdpPrice');
   if (priceEl) priceEl.textContent = form.variants[0].price;
@@ -1456,9 +1456,9 @@ function tileHTML(p) {
     <div class="tile__image-wrap">
       <div class="floating-meta">
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
-        ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
         ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
       </div>
+      ${approved ? '<div class="floating-meta --right"><div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>empfohlen</div></div>' : ''}
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
     </div>
@@ -1679,7 +1679,7 @@ function renderHome() {
 
   const stepCols = INTRO_STEPS.map((text, i) => `
     <div class="intro-strip__col">
-      <span class="intro-strip__num">${i + 1}</span>
+      <span class="circle-badge --num intro-strip__num">${i + 1}</span>
       <p class="intro-strip__text">${text}</p>
     </div>`).join('');
 
@@ -1775,9 +1775,9 @@ function renderProduct() {
 
   const imgBadges = `<div class="floating-meta">
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
-    ${approved ? '<div class="badge --sale">Empfohlen</div>' : ''}
     ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
-  </div>`;
+  </div>
+  ${approved ? '<div class="floating-meta --right"><div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>empfohlen</div></div>' : ''}`;
 
   // Bewertung — wie im Styleguide: Sterne + Text
   const ratingHTML = p.rating ? `
@@ -1802,12 +1802,12 @@ function renderProduct() {
     if (p.familie) {
       const formRows = p.darreichungsformen.map((f, i) => {
         const isApprovedForm = pdpAv && pdpAv.formIndex === i;
-        const checkIcon = isApprovedForm
-          ? ' <span class="material-icons" style="font-size:0.9rem;color:var(--green);vertical-align:-2px">check_circle</span>'
+        const badge = isApprovedForm
+          ? '<span class="circle-badge --check pdp__type-badge"><span class="material-icons">check</span></span>'
           : '';
-        return `<label class="pdp__type-row">
+        return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
           <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
-          <span class="pdp__type-label">${f.label}${checkIcon}</span>
+          <span class="pdp__type-label">${f.label}${badge}</span>
           <span class="pdp__type-animals">${f.animals || ''}</span>
         </label>`;
       }).join('');
@@ -1828,7 +1828,7 @@ function renderProduct() {
     const sizeBtns = startVariants.map((v, i) => {
       const isApprovedSize = pdpAv && pdpAv.formIndex === pdpState.formIndex && pdpAv.variantIndex === i;
       return `<button class="choice-box${i === pdpState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
-        onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+        onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
     }).join('');
     sizeSection = `
       <div class="pdp__variants">
