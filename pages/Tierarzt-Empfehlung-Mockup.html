@@ -253,6 +253,25 @@
 </div>
 
 <!-- ════════════════════════════════════════
+     FREIGABE-WILLKOMMEN POPUP (Kunden-UI)
+     Erscheint nach Login, wenn Produkte
+     bereits vom Tierarzt freigegeben sind.
+     ════════════════════════════════════════ -->
+<div class="shop-modal-overlay" id="releaseWelcomeOverlay">
+  <div class="shop-modal">
+    <div class="shop-modal__icon">
+      <span class="material-icons">check_circle</span>
+    </div>
+    <div class="shop-modal__title" id="releaseWelcomeTitle"></div>
+    <div class="shop-modal__body"  id="releaseWelcomeBody"></div>
+    <div class="shop-modal__actions">
+      <button class="btn --primary --full" onclick="closeReleaseWelcome(true)">Zum Warenkorb</button>
+      <button class="btn --ghost --full"   onclick="closeReleaseWelcome(false)">Weitere Produkte anfragen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
      CHECKOUT-MODAL (Popup — nur bei Anfragen)
      ════════════════════════════════════════ -->
 <div class="shop-modal-overlay" id="checkoutModal">
@@ -373,6 +392,32 @@ function addToCart(item, type) {
   }
   updateCartBadge();
   if (document.getElementById('cartDrawer').classList.contains('--open')) renderCartDrawer();
+}
+
+/* ════════════════════════════════════════════
+   FREIGABE-WILLKOMMEN POPUP
+   ════════════════════════════════════════════ */
+const VET_NAME = 'Dr. Müller'; // Mockup-Platzhalter für Tierarzt-Name
+
+function showReleaseWelcome() {
+  const items = cartApproved.map(item =>
+    `<li style="display:flex;justify-content:space-between;align-items:baseline;
+                padding:calc(var(--base)*0.35) 0;border-bottom:1px solid var(--border-light);">
+       <span style="font-weight:700;color:var(--fg);">${item.cartName}</span>
+       <span style="color:var(--fg-muted);font-size:var(--text-sm);white-space:nowrap;margin-left:0.5rem;">${item.variantLabel} · ${item.price}</span>
+     </li>`
+  ).join('');
+
+  document.getElementById('releaseWelcomeTitle').textContent = `Freigabe von ${VET_NAME}`;
+  document.getElementById('releaseWelcomeBody').innerHTML =
+    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben – wir haben sie bereits in den Warenkorb gelegt:</p>
+     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${items}</ul>`;
+  document.getElementById('releaseWelcomeOverlay').classList.add('--open');
+}
+
+function closeReleaseWelcome(goToCart) {
+  document.getElementById('releaseWelcomeOverlay').classList.remove('--open');
+  if (goToCart) openCart();
 }
 
 function removeFromCart(cartName, variantLabel) {
@@ -590,7 +635,28 @@ function applyLoginResult(approvedIds) {
   });
   savedApproved.forEach(item => addToCart(item, 'approved'));
 
-  if (callback) {
+  // Direkt freigegebene Produkte in den Cart — auch wenn savedRequested leer war
+  // (z. B. Login direkt nach Empfehlungs-E-Mail, ohne vorherigen Warenkorb)
+  approvedIds.forEach(id => {
+    const p  = getProduct(id);
+    if (!p) return;
+    const av = approvedVariantByProduct.get(id);
+    const df = p.familie ? p.darreichungsformen[av.formIndex] : null;
+    const v  = p.familie
+      ? df.variants[av.variantIndex]
+      : p.variants[av.variantIndex];
+    const cartName = p.familie ? df.cartName : p.name;
+    const price    = parseFloat(v.price.replace(',', '.').replace(' €', ''));
+    const item = { id: p.id, cartName, variantLabel: v.label, price, qty: 1 };
+    if (!cartApproved.find(x => x.cartName === item.cartName && x.variantLabel === item.variantLabel)) {
+      addToCart(item, 'approved');
+    }
+  });
+
+  if (approvedIds.length > 0) {
+    // Freigegebene Produkte → Willkommen-Popup statt Cart öffnen
+    showReleaseWelcome();
+  } else if (callback) {
     if (cartRequested.length > 0) {
       callback();
     } else {
