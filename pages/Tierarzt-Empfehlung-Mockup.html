@@ -189,16 +189,16 @@
 
       <!-- Login -->
       <div class="login-panel" id="loginPanel">
-        <div class="login-panel__header" style="margin-bottom:var(--half-module);">
-          <p class="login-panel__sub" style="font-size:var(--text-m);font-weight:700;color:var(--fg);line-height:var(--lh-h3);">Melde dich an, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
+        <div class="login-panel__header">
+          <p class="login-panel__sub">Melde dich an, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="form-field">
             <input type="email" id="login-email" placeholder=" " autocomplete="email">
             <label for="login-email">E-Mail-Adresse</label>
           </div>
-          <div>
-            <div class="form-field" style="margin-bottom:0;">
+          <div class="login-forgot-wrap">
+            <div class="form-field">
               <input type="password" id="login-pw" placeholder=" " autocomplete="current-password">
               <label for="login-pw">Passwort</label>
             </div>
@@ -1102,9 +1102,9 @@ function renderRequestStep() {
       <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">
-      <p style="color:var(--fg-muted); font-size:var(--text-base); margin-bottom:var(--half-module);">An welche Praxis möchtest du deine Freigabe-Anfrage stellen?</p>
+      <p class="vet-search__intro">An welche Praxis möchtest du deine Freigabe-Anfrage stellen?</p>
       <!-- Vet search field -->
-      <div class="vet-search" style="position:relative; margin-bottom:var(--half-module);">
+      <div class="vet-search">
         <div class="form-field">
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder="Tierarztpraxis suchen …"

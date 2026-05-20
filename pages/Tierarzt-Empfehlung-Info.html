@@ -89,18 +89,18 @@
         <article class="article">
 
           <header class="article__header">
-            <span class="label-caps">Dokumentation · Stand 15. Mai 2026</span>
+            <span class="label-caps">Dokumentation · Stand 20. Mai 2026</span>
             <h1>Tierarzt-Empfehlung — Dokumentation</h1>
           </header>
 
           <div class="article__body rte">
 
-            <p>Dieses Dokument beschreibt die <strong>Funktionsweise des Tierarzt-Empfehlungs-Systems</strong> im inuvet Shop. Es richtet sich an IT, Marketing und alle, die den Ablauf verstehen oder implementieren möchten. Im Mittelpunkt steht die Frage: Wie gelangt ein Tierbesitzer von der Produktentdeckung zur tierärztlich freigegebenen Bestellung?</p>
+            <p>Dieses Dokument beschreibt die <strong>Funktionsweise des Tierarzt-Freigabe-Systems</strong> im inuvet Shop. Es richtet sich an IT, Marketing und alle, die den Ablauf verstehen oder implementieren möchten. Im Mittelpunkt steht die Frage: Wie gelangt ein Tierbesitzer von der Produktentdeckung zur tierärztlich freigegebenen Bestellung?</p>
 
             <h2>Grundidee</h2>
-            <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise auf Empfehlung eines Tierarztes eingesetzt. Das System ermöglicht es Tierbesitzern, Produkte zu <strong>anfragen</strong> — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt die Bestellung frei. Erst nach dieser Freigabe kann der Tierbesitzer das Produkt kaufen.</p>
+            <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise mit Freigabe eines Tierarztes eingesetzt. Das System ermöglicht es Tierbesitzern, eine <strong>Freigabe-Anfrage</strong> zu stellen — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt es frei. Erst nach dieser Freigabe kann der Tierbesitzer das Produkt kaufen.</p>
 
-            <p>Produkte können auch <strong>ohne Empfehlung angefragt</strong> werden — in diesem Fall leitet inuvet die Anfrage an eine Tierarztpraxis weiter und übernimmt die Koordination.</p>
+            <p>Produkte können auch <strong>ohne bestehende Freigabe angefragt</strong> werden — in diesem Fall leitet inuvet die Freigabe-Anfrage an eine Tierarztpraxis weiter und übernimmt die Koordination.</p>
 
             <h2>Die drei Nutzerzustände</h2>
             <p>Das System unterscheidet drei Zustände, die das gesamte UI steuern:</p>
@@ -117,28 +117,28 @@
                 </tr>
                 <tr>
                   <td><strong>② Angemeldet · keine Freigabe</strong></td>
-                  <td>Eingeloggt. Keine aktive Empfehlung vorhanden.</td>
-                  <td>Anfrage an Tierarztpraxis stellen. Auf E-Mail-Benachrichtigung warten.</td>
+                  <td>Eingeloggt. Keine aktive Freigabe vorhanden.</td>
+                  <td>Freigabe-Anfrage an Tierarztpraxis stellen. Auf E-Mail-Benachrichtigung warten.</td>
                 </tr>
                 <tr>
                   <td><strong>③ Angemeldet · mit Freigabe</strong></td>
-                  <td>Eingeloggt. Tierarzt hat Empfehlung erteilt.</td>
-                  <td>Empfohlene Produkte direkt in den Warenkorb legen und kaufen.</td>
+                  <td>Eingeloggt. Tierarzt hat Freigabe erteilt.</td>
+                  <td>Freigegebene Produkte direkt in den Warenkorb legen und kaufen.</td>
                 </tr>
               </tbody>
             </table>
 
             <h2>Der Anfrage-Flow (Schritt für Schritt)</h2>
 
-            <h3>1 — Produkt entdecken und anfragen</h3>
-            <p>Jeder Besucher — auch ohne Login — kann Produkte über den Button <strong>„Anfragen"</strong> in den Warenkorb legen. Es gibt kein Login-Gate vor dem Warenkorb. Das Ziel: möglichst wenig Reibung beim Entdecken.</p>
+            <h3>1 — Produkt entdecken</h3>
+            <p>Jeder Besucher — auch ohne Login — sieht im Shop, welche Produkte eine Tierarzt-Freigabe benötigen (Badge <em>„Freigabe benötigt"</em>). Über den Button <strong>„Freigabe anfragen"</strong> können Produkte in den Warenkorb gelegt werden. Es gibt kein Login-Gate vor dem Warenkorb. Das Ziel: möglichst wenig Reibung beim Entdecken.</p>
 
-            <h3>2 — Anfrage abschicken (Login erforderlich)</h3>
-            <p>Wenn der Nutzer im Warenkorb auf <strong>„Anfragen"</strong> klickt, erscheint das Login- bzw. Registrierformular. Hier greift ein zentrales Prinzip: <strong>Die E-Mail-Adresse ist der eindeutige Schlüssel.</strong> Das System verknüpft die Anfrage mit der E-Mail — über diese Adresse erfolgt die spätere Benachrichtigung, wenn der Tierarzt die Empfehlung freigibt (oder ablehnt).</p>
+            <h3>2 — Freigabe-Anfrage abschicken (Login erforderlich)</h3>
+            <p>Wenn der Nutzer im Warenkorb auf <strong>„Jetzt Freigabe anfragen"</strong> klickt, erscheint das Login- bzw. Registrierformular. Hier greift ein zentrales Prinzip: <strong>Die E-Mail-Adresse ist der eindeutige Schlüssel.</strong> Das System verknüpft die Freigabe-Anfrage mit der E-Mail — über diese Adresse erfolgt die spätere Benachrichtigung, wenn der Tierarzt die Freigabe erteilt (oder ablehnt).</p>
             <p>Nach dem Login prüft das System automatisch, ob für die angefragten Produkte bereits eine Freigabe vorliegt:</p>
             <ul>
-              <li><strong>Freigabe vorhanden</strong> → Produkt wandert direkt in „Einzulösende Produkte". Kein Tierarzt-Auswahlschritt — die Empfehlung ist bereits mit einer Praxis verknüpft. Weiter zum Checkout.</li>
-              <li><strong>Keine Freigabe</strong> → Nutzer wählt eine Tierarztpraxis aus, an die die Anfrage gesendet wird.</li>
+              <li><strong>Freigabe vorhanden</strong> → Ein Willkommen-Popup informiert den Nutzer, welche Produkte freigegeben wurden und in welcher Menge. Die Produkte liegen bereits im Warenkorb. Weiter zum Checkout.</li>
+              <li><strong>Keine Freigabe</strong> → Nutzer wählt eine Tierarztpraxis aus, an die die Freigabe-Anfrage gesendet wird.</li>
             </ul>
 
             <h3>3 — Tierarzt auswählen (nur bei fehlender Freigabe)</h3>
@@ -151,18 +151,18 @@
             </ul>
 
             <h3>4 — Warten auf Freigabe</h3>
-            <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Empfehlung im inuvet-Portal freigibt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — die freigegebenen Produkte liegen direkt zur Bestellung bereit.</p>
+            <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Freigabe im inuvet-Portal erteilt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
 
             <h3>5 — Einlösen und kaufen</h3>
-            <p>Mit aktiver Freigabe können freigegebene Produkte direkt in den Warenkorb gelegt und bestellt werden — ohne weiteren Anfrageschritt. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
+            <p>Mit aktiver Freigabe erscheint bei freigegebenen Produkten das Badge <em>„freigegeben"</em> (grün). Sie können direkt in den Warenkorb gelegt werden — ohne weiteren Anfrageschritt. Im Warenkorb ist die Menge auf das vom Tierarzt freigegebene Maximum begrenzt; ein Hinweis erscheint, wenn die Grenze erreicht wird. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
 
             <h2>Warenkorb-Redistribution beim Login</h2>
             <p>Ein wichtiges Detail: Ein Nutzer kann als Gast Produkte in den Warenkorb legen und sich erst beim Abschicken einloggen. In diesem Moment prüft das System jeden Warenkorb-Artikel einzeln:</p>
             <ul>
               <li>Artikel mit vorhandener Freigabe → wandern automatisch in den <strong>Kauf-Warenkorb</strong> (sofort bestellbar)</li>
-              <li>Artikel ohne Freigabe → verbleiben im <strong>Anfrage-Warenkorb</strong> (durchlaufen den Anfrage-Flow)</li>
+              <li>Artikel ohne Freigabe → verbleiben im <strong>Freigabe-Anfrage-Warenkorb</strong> (durchlaufen den Anfrage-Flow)</li>
             </ul>
-            <p>Der Nutzer sieht das Ergebnis unmittelbar: Freigegebene Produkte erscheinen unter „Einzulösende Produkte", anfragepflichtige unter „Anzufragende Produkte". Ein gemischter Warenkorb ist möglich.</p>
+            <p>Der Nutzer sieht das Ergebnis unmittelbar: Freigegebene Produkte erscheinen unter „Einzulösende Produkte", anfragepflichtige unter „Freizugebende Produkte". Ein gemischter Warenkorb ist möglich.</p>
 
             <h2>Die E-Mail-Adresse — zentrales Pflichtfeld</h2>
             <p>Die E-Mail-Adresse erfüllt im System drei Funktionen gleichzeitig:</p>
@@ -174,7 +174,7 @@
             <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist.</p>
 
             <h2>Das Tierarzt-Portal (Freigabe-Seite)</h2>
-            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Empfehlungsanfragen einsehen können. Pro Produkt wählt der Tierarzt eine Empfehlungs-Stufe (unbegrenzt, max. 1–5×) oder lehnt das Produkt ab. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
+            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Freigabe-Anfragen einsehen können. Pro Produkt wählt der Tierarzt eine Freigabe-Menge (1–∞ Packungen) oder lehnt das Produkt ab. Die freigegebene Menge ist verbindlich: Der Tierbesitzer kann im Shop nicht mehr bestellen als freigegeben. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
             <p>Nach der Bearbeitung im Portal werden zwei Nachrichten ausgelöst:</p>
             <ol>
               <li><strong>E-Mail an den Tierbesitzer</strong> — Zusammenfassung der Entscheidung pro Produkt. Bei mindestens einem freigegebenen Produkt mit Link zum Shop zum Einlösen. Bei vollständiger Ablehnung mit entsprechendem Hinweis.</li>
@@ -190,7 +190,7 @@
             <p>Der Tierarzt kann einzelne oder alle Produkte ablehnen. Eine Ablehnung bedeutet: das Produkt bleibt nicht freigegeben, der Tierbesitzer erhält eine E-Mail mit der Begründung (sofern der Tierarzt eine Notiz hinterlassen hat). Abgelehnte Produkte können erneut angefragt werden — etwa wenn sich der Gesundheitszustand des Tieres geändert hat oder ein anderer Tierarzt konsultiert wird. Es gibt keine technische Sperrfrist.</p>
 
             <h2>Announcement Bar — Gast-Hinweis</h2>
-            <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar. Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
+            <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar (CSS-Klasse <code>.--guest-only</code>). Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
 
             <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
             <p>Empfehlungen beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform</strong> (z.B. „Calmin Balance Tabletten"), nie auf Produktfamilien (z.B. „Calmin Balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt. Die Freigabe durch den Tierarzt ist produktspezifisch.</p>
@@ -213,16 +213,21 @@ cartRequested = []  // Produkte ohne Freigabe → durchlaufen Anfrage-Flow</code
             <h3>E-Mail-Verknüpfung</h3>
             <p>Empfehlungen werden serverseitig per E-Mail-Adresse verwaltet. Das Frontend schickt beim Login die E-Mail — das Backend liefert zurück, für welche Produkte eine aktive Freigabe vorliegt. Diese Produktliste bestimmt, welche Artikel nach dem Login als <code>approved</code> markiert werden.</p>
 
-            <h3>Freigabe-Logik im Frontend (<code>approvedProductIds</code>)</h3>
-            <p>Das Frontend verwaltet die aktiven Freigaben als Laufzeit-Set <code>approvedProductIds</code>. Alle Stellen, die prüfen ob ein Produkt freigegeben ist — Badges, CTAs, Warenkorb-Redistribution, „Empfohlene Produkte"-Seite, Startseiten-Text — lesen ausschließlich aus diesem Set:</p>
+            <h3>Freigabe-Logik im Frontend (<code>approvedProductIds</code> + <code>approvedVariantByProduct</code>)</h3>
+            <p>Das Frontend verwaltet die aktiven Freigaben über zwei Laufzeit-Datenstrukturen:</p>
+            <pre><code>approvedProductIds        // Set&lt;id&gt; — welche Produkte sind freigegeben?
+approvedVariantByProduct  // Map&lt;id, { formIndex, variantIndex, maxQty }&gt;
+                          // — welche Variante in welcher Maximalmenge?</code></pre>
+            <p>Alle Stellen, die prüfen ob ein Produkt freigegeben ist — Badges, CTAs, Warenkorb-Redistribution, „Empfohlene Produkte"-Seite, Startseiten-Text — lesen ausschließlich aus diesen:</p>
             <pre><code>isApproved(p) → state === 'with-release' && approvedProductIds.has(p.id)</code></pre>
-            <p>Das Set wird in drei Situationen aktualisiert:</p>
+            <p>Die Datenstrukturen werden in drei Situationen aktualisiert:</p>
             <ul>
-              <li><strong>Seitenstart / Mockup-Bar-Wechsel:</strong> Standardwerte aus den Produktdaten (<code>p.approved: true</code>)</li>
-              <li><strong>Nach Login:</strong> Backend-Antwort mit <code>approvedProductIds[]</code> überschreibt die Defaults</li>
-              <li><strong>Manuell im Mockup:</strong> „Backend-Simulation: Login"-Popup erlaubt produktweise Auswahl für Demo-Zwecke</li>
+              <li><strong>Seitenstart / Mockup-Bar-Wechsel:</strong> Standardwerte aus den Produktdaten (<code>p.approved: true</code>), <code>maxQty: 2</code></li>
+              <li><strong>Nach Login:</strong> Backend-Antwort überschreibt die Defaults — Variante und <code>maxQty</code> kommen aus dem internen Mockup-Popup</li>
+              <li><strong>Manuell im Mockup:</strong> „Backend-Simulation: Login"-Popup erlaubt produktweise Auswahl von Variante und freigegebener Menge</li>
             </ul>
-            <p>Der Startseiten-Text („X Produkte wurden speziell für dein Tier empfohlen") wird dynamisch aus <code>approvedProductIds.size</code> berechnet und passt sich automatisch an.</p>
+            <p>Die <code>maxQty</code> wird beim Einlösen durchgesetzt: Der <code>+</code>-Button im Warenkorb ist auf diesen Wert begrenzt; ein Toast-Hinweis erscheint bei Überschreitung.</p>
+            <p>Der Startseiten-Text wird dynamisch aus <code>approvedProductIds.size</code> berechnet.</p>
 
             <h3>Implementierungs-Schritte</h3>
             <ol>

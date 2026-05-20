@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-17
+> **Letzte Aktualisierung:** 2026-05-20
 
 ---
 
@@ -40,8 +40,9 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── bundle.css
     ├── Bundle-Info.html            # Konzept-/Spezifikations-Artikel zum Bundle
     ├── Produkt-Modell.html         # Blog-Beitrag: Indikation → Familie → Einzelprodukt → Variante
-    ├── Tierarzt-Empfehlung-Mockup.html   # Hauptmockup: Rezeptanfrage-Flow
+    ├── Tierarzt-Empfehlung-Mockup.html   # Hauptmockup: Freigabe-Flow
     ├── Tierarzt-Empfehlung-Mockup.css
+    ├── Tierarzt-Empfehlung-Testprotokoll.html  # Testprotokoll (Online-Formular, exportierbar)
     ├── Inuvet-Freigabe-Mockup.html # Vet-Portal: Empfehlungsanfragen freigeben
     ├── freigabe.css
     ├── Formular-Reklamation.html   # Stand-Alone-Formular-Beispiel
@@ -93,7 +94,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
 | `temp.css` | Alle neuen Styles im Test (Staging) — global wie seitenspezifisch | Produktions-Code — nie deployen |
 
-**`temp.css`-Inhalt:** leer (alle Klassen nach `inuvet.css` promoted, Stand 2026-05-14)
+**`temp.css`-Inhalt:** leer (alle Klassen nach `inuvet.css` promoted, Stand 2026-05-20)
 
 ### Seiten-Architektur
 
