@@ -991,28 +991,6 @@ function filterVets(query) {
   dropdown.style.display = '';
 }
 
-function vetSearchKeydown(e) {
-  if (e.key !== 'Enter') return;
-  e.preventDefault();
-  const input    = document.getElementById('vetSearchInput');
-  const val      = input ? input.value.trim() : '';
-  const dropdown = document.getElementById('vetDropdown');
-
-  // 1 — Dropdown offen: ersten Treffer auswählen
-  if (dropdown && dropdown.style.display !== 'none') {
-    const first = dropdown.querySelector('.vet-dropdown__item');
-    if (first) { first.click(); return; }
-  }
-
-  // 2 — Input-Wert weicht von gespeicherter Auswahl ab → als freie Praxis behandeln
-  if (val && (!selectedVet || selectedVet.name !== val)) {
-    selectCustomVet(val);
-    return; // Felder PLZ/Ort einblenden — Nutzer muss erst ergänzen
-  }
-
-  // 3 — Auswahl unverändert → direkt weiter
-  if (selectedVet) submitVetRequest();
-}
 
 function showVetDropdown() {
   // Bei Fokus immer alle Praxen zeigen — unabhängig vom aktuellen Input-Wert
@@ -1133,8 +1111,7 @@ function renderRequestStep() {
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder="Tierarztpraxis suchen …"
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
-            oninput="filterVets(this.value)" onfocus="showVetDropdown()"
-            onkeydown="vetSearchKeydown(event)">
+            oninput="filterVets(this.value)" onfocus="showVetDropdown()">
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
