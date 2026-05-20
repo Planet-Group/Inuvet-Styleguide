@@ -25,13 +25,6 @@
     <button class="mockup-btn"          data-state="with-release" onclick="setState('with-release', this)">③ Angemeldet · mit Freigabe</button>
   </div>
   <div class="mockup-bar__sep"></div>
-  <div class="mockup-bar__group">
-    <span class="mockup-bar__group-label">Max. Menge (Freigabe):</span>
-    <input id="approvedMaxQtyInput" type="number" min="1" value="2"
-      style="width:3rem;padding:0.2em 0.4em;border:1px solid var(--border);background:var(--bg);color:var(--fg);font-size:var(--text-xs);font-family:var(--font);"
-      onchange="updateApprovedMaxQty(this.value)">
-  </div>
-  <div class="mockup-bar__sep"></div>
   <div class="mockup-bar__group" id="pageNav">
     <span class="mockup-bar__group-label">Seite:</span>
     <button class="mockup-btn --active" onclick="setPage('home',        this)">Startseite</button>
@@ -389,19 +382,8 @@ function updateCartBadge() {
   badge.textContent   = n;
 }
 
-/* ── Freigegebene Maximalmenge aus Mockup-Bar ── */
-function getApprovedMaxQty() {
-  const el = document.getElementById('approvedMaxQtyInput');
-  return el ? Math.max(1, parseInt(el.value, 10) || 2) : 2;
-}
-
-/* Mockup-Bar-Änderung → alle approvedVariantByProduct + bestehende Cart-Items anpassen */
-function updateApprovedMaxQty(val) {
-  const qty = Math.max(1, parseInt(val, 10) || 2);
-  approvedVariantByProduct.forEach(av => { av.maxQty = qty; });
-  cartApproved.forEach(item => { if (item.qty > qty) item.qty = qty; });
-  if (document.getElementById('cartDrawer').classList.contains('--open')) renderCartDrawer();
-}
+/* Pending approved IDs — zwischengespeichert bis Popup bestätigt wird */
+let _pendingApprovedIds = [];
 
 /* Toast (C.9) */
 function showToast(msg, type = '') {
@@ -472,22 +454,65 @@ function addToCart(item, type) {
 const VET_NAME = 'Dr. Müller'; // Mockup-Platzhalter für Tierarzt-Name
 
 function showReleaseWelcome() {
-  const items = cartApproved.map(item =>
-    `<li style="display:flex;justify-content:space-between;align-items:baseline;
-                padding:calc(var(--base)*0.35) 0;border-bottom:1px solid var(--border-light);">
-       <span style="font-weight:700;color:var(--fg);">${item.cartName}</span>
-       <span style="color:var(--fg-muted);font-size:var(--text-sm);white-space:nowrap;margin-left:0.5rem;">${item.variantLabel} · ${item.price}</span>
-     </li>`
-  ).join('');
+  const rows = _pendingApprovedIds.map(id => {
+    const p  = getProduct(id);
+    if (!p) return '';
+    const av       = approvedVariantByProduct.get(id);
+    const df       = p.familie ? p.darreichungsformen[av.formIndex] : null;
+    const v        = p.familie ? df.variants[av.variantIndex] : p.variants[av.variantIndex];
+    const cartName = p.familie ? df.cartName : p.name;
+    return `
+      <li style="display:flex;justify-content:space-between;align-items:center;gap:var(--base);
+                 padding:calc(var(--base)*0.5) 0;border-bottom:1px solid var(--border-light);">
+        <div>
+          <div style="font-weight:700;color:var(--fg);font-size:var(--text-base);">${cartName}</div>
+          <div style="color:var(--fg-muted);font-size:var(--text-sm);">${v.label} · ${v.price}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:calc(var(--base)*0.5);flex-shrink:0;">
+          <span style="font-size:var(--text-xs);color:var(--fg-muted);white-space:nowrap;">Menge:</span>
+          <div class="qty-selector --sm">
+            <button class="qty-selector__btn" type="button" aria-label="Weniger"
+              onclick="const i=document.getElementById('relQty_${id}');i.value=Math.max(1,+i.value-1)">
+              <span class="material-icons">remove</span>
+            </button>
+            <input class="qty-selector__input" type="number" id="relQty_${id}" value="2" min="1" max="99">
+            <button class="qty-selector__btn" type="button" aria-label="Mehr"
+              onclick="const i=document.getElementById('relQty_${id}');i.value=Math.min(99,+i.value+1)">
+              <span class="material-icons">add</span>
+            </button>
+          </div>
+        </div>
+      </li>`;
+  }).join('');
 
   document.getElementById('releaseWelcomeTitle').textContent = `Freigabe von ${VET_NAME}`;
   document.getElementById('releaseWelcomeBody').innerHTML =
-    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben – wir haben sie bereits in den Warenkorb gelegt:</p>
-     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${items}</ul>`;
+    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben. Wie viele Packungen wurden freigegeben?</p>
+     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${rows}</ul>`;
   document.getElementById('releaseWelcomeOverlay').classList.add('--open');
 }
 
 function closeReleaseWelcome(goToCart) {
+  // Qty-Eingaben lesen → maxQty setzen + Produkte in Cart legen
+  _pendingApprovedIds.forEach(id => {
+    const inp  = document.getElementById(`relQty_${id}`);
+    const qty  = inp ? Math.max(1, parseInt(inp.value, 10) || 1) : 1;
+    const av   = approvedVariantByProduct.get(id);
+    if (av) av.maxQty = qty;
+
+    const p        = getProduct(id);
+    if (!p) return;
+    const df       = p.familie ? p.darreichungsformen[av.formIndex] : null;
+    const v        = p.familie ? df.variants[av.variantIndex] : p.variants[av.variantIndex];
+    const cartName = p.familie ? df.cartName : p.name;
+    const price    = parseFloat(v.price.replace(',', '.').replace(' €', ''));
+    if (!cartApproved.find(x => x.cartName === cartName && x.variantLabel === v.label)) {
+      cartApproved.push({ id: p.id, cartName, variantLabel: v.label, price, qty });
+    }
+  });
+  _pendingApprovedIds = [];
+  updateCartBadge();
+
   document.getElementById('releaseWelcomeOverlay').classList.remove('--open');
   if (goToCart) openCart();
 }
@@ -696,7 +721,7 @@ function applyLoginResult(approvedIds) {
     approvedVariantByProduct.set(id, {
       formIndex:    formSel ? +formSel.value : 0,
       variantIndex: sizeSel ? +sizeSel.value : 0,
-      maxQty:       getApprovedMaxQty()
+      maxQty:       2
     });
   });
 
@@ -708,26 +733,9 @@ function applyLoginResult(approvedIds) {
   });
   savedApproved.forEach(item => addToCart(item, 'approved'));
 
-  // Direkt freigegebene Produkte in den Cart — auch wenn savedRequested leer war
-  // (z. B. Login direkt nach Empfehlungs-E-Mail, ohne vorherigen Warenkorb)
-  approvedIds.forEach(id => {
-    const p  = getProduct(id);
-    if (!p) return;
-    const av = approvedVariantByProduct.get(id);
-    const df = p.familie ? p.darreichungsformen[av.formIndex] : null;
-    const v  = p.familie
-      ? df.variants[av.variantIndex]
-      : p.variants[av.variantIndex];
-    const cartName = p.familie ? df.cartName : p.name;
-    const price    = parseFloat(v.price.replace(',', '.').replace(' €', ''));
-    const item = { id: p.id, cartName, variantLabel: v.label, price, qty: 1 };
-    if (!cartApproved.find(x => x.cartName === item.cartName && x.variantLabel === item.variantLabel)) {
-      addToCart(item, 'approved');
-    }
-  });
-
   if (approvedIds.length > 0) {
-    // Freigegebene Produkte → Willkommen-Popup statt Cart öffnen
+    // Mengen noch nicht bekannt → Popup zeigt Qty-Inputs, Cart-Befüllung erfolgt erst bei Bestätigung
+    _pendingApprovedIds = [...approvedIds];
     showReleaseWelcome();
   } else if (callback) {
     if (cartRequested.length > 0) {
