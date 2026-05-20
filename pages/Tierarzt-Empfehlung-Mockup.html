@@ -982,14 +982,24 @@ function filterVets(query) {
     const escaped = query.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     html += `<div class="vet-dropdown__item vet-dropdown__custom" onclick="selectCustomVet('${escaped}')">
       <span class="material-icons vet-dropdown__add-icon">add_circle_outline</span>
-      <strong>„${query}" verwenden</strong><br>
-      <span class="vet-dropdown__meta">Praxis nicht in der Liste</span>
+      <strong>„${query}" verwenden</strong>
     </div>`;
   }
 
   if (!html) { dropdown.style.display = 'none'; return; }
   dropdown.innerHTML = html;
   dropdown.style.display = '';
+}
+
+function vetSearchKeydown(e) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const dropdown = document.getElementById('vetDropdown');
+  if (dropdown && dropdown.style.display !== 'none') {
+    const first = dropdown.querySelector('.vet-dropdown__item');
+    if (first) { first.click(); return; }
+  }
+  if (selectedVet) submitVetRequest();
 }
 
 function showVetDropdown() {
@@ -1005,7 +1015,7 @@ function updateVetHint() {
   if (selectedVet && selectedVet.hasRecommended) {
     el.innerHTML = '<span class="vet-recommended-dot">●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung';
   } else if (selectedVet && selectedVet.custom) {
-    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Programm – inuvet nimmt Kontakt auf';
+    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Wir werden diese Praxis für Sie kontaktieren';
   } else {
     el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit';
   }
@@ -1033,23 +1043,25 @@ function selectCustomVet(name) {
   const extra = document.getElementById('customVetExtra');
   if (extra) {
     extra.style.display = '';
-    const cityInput = document.getElementById('customVetCity');
-    if (cityInput) setTimeout(() => cityInput.focus(), 80);
+    const plzInput = document.getElementById('customVetPlz');
+    if (plzInput) setTimeout(() => plzInput.focus(), 80);
   }
 }
 
 function submitVetRequest() {
-  // Freie Praxis: Ort pflichtfeld prüfen
+  // Freie Praxis: PLZ + Ort prüfen
   if (selectedVet && selectedVet.custom) {
+    const plzField  = document.getElementById('customVetPlz');
     const cityField = document.getElementById('customVetCity');
+    const plz  = plzField  ? plzField.value.trim()  : '';
     const city = cityField ? cityField.value.trim() : '';
-    if (!city) {
-      cityField.closest('.form-field').classList.add('--error');
-      cityField.focus();
-      return;
-    }
+    let hasError = false;
+    if (!plz)  { plzField.closest('.form-field').classList.add('--error');  plzField.focus();  hasError = true; }
+    if (!city) { cityField.closest('.form-field').classList.add('--error'); if (!hasError) cityField.focus(); hasError = true; }
+    if (hasError) return;
+    plzField.closest('.form-field').classList.remove('--error');
     cityField.closest('.form-field').classList.remove('--error');
-    selectedVet.city = city;
+    selectedVet.city = `${plz} ${city}`;
   }
   setCartStep(3);
 }
@@ -1109,24 +1121,33 @@ function renderRequestStep() {
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder="Tierarztpraxis suchen …"
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
-            oninput="filterVets(this.value)" onfocus="showVetDropdown()">
+            oninput="filterVets(this.value)" onfocus="showVetDropdown()"
+            onkeydown="vetSearchKeydown(event)">
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
         <p id="vetHint" class="vet-legend">${selectedVet && selectedVet.hasRecommended
           ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
           : selectedVet && selectedVet.custom
-            ? '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Programm – inuvet nimmt Kontakt auf'
+            ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren'
             : '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
         }</p>
       </div>
       <!-- Zusatzfelder: nur bei freier Praxis-Eingabe sichtbar -->
       <div id="customVetExtra" style="display:none;">
-        <div class="form-field">
-          <input type="text" id="customVetCity" placeholder=" "
-            oninput="this.closest('.form-field').classList.remove('--error')">
-          <label for="customVetCity">Ort der Praxis *</label>
-          <div class="form-field__error">Bitte Ort angeben</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <input type="text" id="customVetPlz" placeholder=" " maxlength="5"
+              oninput="this.closest('.form-field').classList.remove('--error')">
+            <label for="customVetPlz">PLZ *</label>
+            <div class="form-field__error">Bitte PLZ angeben</div>
+          </div>
+          <div class="form-field">
+            <input type="text" id="customVetCity" placeholder=" "
+              oninput="this.closest('.form-field').classList.remove('--error')">
+            <label for="customVetCity">Ort *</label>
+            <div class="form-field__error">Bitte Ort angeben</div>
+          </div>
         </div>
       </div>
       <!-- Notes -->
