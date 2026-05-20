@@ -1096,6 +1096,7 @@ function closeEmailOverlay() {
 }
 
 function renderRequestStep() {
+  selectedVet = null; // Bewusste Wahl — nie vorausfüllen
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
