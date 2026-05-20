@@ -190,8 +190,7 @@
       <!-- Login -->
       <div class="login-panel" id="loginPanel">
         <div class="login-panel__header">
-          <h2 class="login-panel__title">Willkommen zurück</h2>
-          <p class="login-panel__sub">Melde dich an, um Empfehlungen deines Tierarztes einzulösen oder anzufragen.</p>
+          <p class="login-panel__sub" style="font-size:var(--text-m);font-weight:700;color:var(--fg);">Melde dich an, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="form-field">
@@ -216,8 +215,7 @@
       <!-- Registrieren -->
       <div class="login-panel --hidden" id="registerPanel">
         <div class="login-panel__header">
-          <h2 class="login-panel__title">Konto erstellen</h2>
-          <p class="login-panel__sub">Registriere dich kostenlos, um Empfehlungen deines Tierarztes einzulösen oder anzufragen.</p>
+          <p class="login-panel__sub" style="font-size:var(--text-m);font-weight:700;color:var(--fg);">Registriere dich kostenlos, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="login-form__row">
@@ -711,7 +709,7 @@ function selectOptionsVariant(index) {
   const ctaBtn = document.querySelector('.cart-drawer__checkout');
   if (ctaBtn) {
     ctaBtn.className = `btn ${approvedNow ? '--primary' : '--secondary'} cart-drawer__checkout`;
-    ctaBtn.textContent = approvedNow ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
+    ctaBtn.textContent = approvedNow ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
   }
 }
 
@@ -730,7 +728,7 @@ function renderOptionsDrawer() {
   }
 
   const ctaClass = approved ? 'btn --primary' : 'btn --secondary';
-  const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
+  const ctaLabel = approved ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
 
   const thumbHTML  = p.img
     ? `<img src="${p.img}" alt="${p.name}">${p.imgHover ? `<img src="${p.imgHover}" alt="" aria-hidden="true">` : ''}`
@@ -1097,7 +1095,7 @@ function renderSuccessStep() {
       tag: 'E-Mail', recipient: vetEmail,
       subject: 'Neue Anfrage von Max Mustermann', internal: false,
       body: `
-        <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Empfehlungsanfrage gestellt.</p>
+        <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
         <p>Angefragt: <strong>${requestedNames}</strong></p>
         <p>Diese können Sie hier einsehen und freigeben:<br>
         <a href="Inuvet-Freigabe-Mockup.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
@@ -1106,9 +1104,9 @@ function renderSuccessStep() {
   } else {
     emailOverlayData.internal = {
       tag: 'Intern', recipient: 'team@inuvet.com',
-      subject: 'Dringende Empfehlungsanfrage!', internal: true,
+      subject: 'Dringende Freigabe-Anfrage!', internal: true,
       body: `
-        <p>Tierbesitzer*in <strong>Max Mustermann</strong> möchte bei <strong>${vetName}</strong> (${vetDoctor}) eine Empfehlung erhalten.</p>
+        <p>Tierbesitzer*in <strong>Max Mustermann</strong> möchte bei <strong>${vetName}</strong> (${vetDoctor}) eine Freigabe erhalten.</p>
         <p>Angefragt: <strong>${requestedNames}</strong></p>
         <p><strong>Bitte kontaktiere umgehend die Praxis.</strong> Nimm sie in das Empfehlungsprogramm auf und sorge dafür, dass das Rezept für den/die Tierbesitzer*in ausgestellt wird.</p>
         <p class="mockup-email-panel__note">⚠ An diese Praxis darf noch keine E-Mail gesendet werden – sie ist noch nicht im Empfehlungsprogramm.</p>`
@@ -1168,7 +1166,7 @@ function renderCartDrawer() {
     items += cartApproved.map(item => drawerItemHTML(item, 'approved')).join('');
   }
   if (hasRequested) {
-    items += `<h3 class="section-label">Anzufragende Produkte</h3>`;
+    items += `<h3 class="section-label">Freizugebende Produkte</h3>`;
     items += cartRequested.map(item => drawerItemHTML(item, 'requested')).join('');
   }
 
@@ -1177,10 +1175,10 @@ function renderCartDrawer() {
   /* CTA-Label und -Aktion je nach Warenkorb-Inhalt */
   let ctaLabel, ctaFn;
   if (hasRequested && hasApproved) {
-    ctaLabel = 'Kaufen & Anfragen';
+    ctaLabel = 'Kaufen & Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
   } else if (hasRequested) {
-    ctaLabel = 'Anfragen';
+    ctaLabel = 'Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
   } else {
     ctaLabel = 'Zur Kasse';
@@ -1505,11 +1503,11 @@ function tileHTML(p) {
       </div>`;
   } else {
     cartOverlay = `
-      <button class="tile__cart-icon" type="button" aria-label="Anfrage in den Korb legen" onclick="openOptions(${p.id})">
+      <button class="tile__cart-icon" type="button" aria-label="Freigabe anfragen" onclick="openOptions(${p.id})">
         <span class="material-icons">mail_outline</span>
       </button>
       <div class="tile__cart">
-        <button class="btn --secondary" onclick="openOptions(${p.id})">Anfragen</button>
+        <button class="btn --secondary" onclick="openOptions(${p.id})">Freigabe anfragen</button>
       </div>`;
   }
 
@@ -1735,7 +1733,7 @@ function renderHome() {
   } else {
     headline   = 'Deine Praxis hat entschieden — für dein Tier.';
     const approvedCount = approvedProductIds.size;
-    body       = `${approvedCount} ${approvedCount === 1 ? 'Produkt wurde' : 'Produkte wurden'} speziell für dein Tier empfohlen. Jetzt einlösen und direkt bestellen — mit dem Vertrauen deines Tierarztes.`;
+    body       = `${approvedCount} ${approvedCount === 1 ? 'Produkt wurde' : 'Produkte wurden'} von deinem Tierarzt freigegeben. Jetzt einlösen und direkt bestellen.`;
     cta        = `<div class="btn-row">
       <button class="btn --primary" onclick="setPage('recommended')">Empfehlung einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
@@ -1902,9 +1900,9 @@ function renderProduct() {
         <div class="pdp__variant-options" id="pdpSizeOptions">${sizeBtns}</div>
       </div>`;
 
-    const ctaClass = approved ? 'btn --primary' : 'btn --secondary --with-icon';
-    const ctaIcon  = approved ? '' : '<span class="material-icons">mail_outline</span> ';
-    const ctaLabel = approved ? 'In den Warenkorb' : 'Anfrage in den Korb legen';
+    const ctaClass = 'btn --primary';
+    const ctaIcon  = '';
+    const ctaLabel = approved ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
     actions = `<div class="pdp__actions">
       <div>
         <div class="pdp__variant-label label-caps">Menge</div>
