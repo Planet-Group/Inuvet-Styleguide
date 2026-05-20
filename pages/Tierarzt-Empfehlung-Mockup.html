@@ -17,7 +17,7 @@
 <!-- ════════════════════════════════════════
      MOCKUP-STEUERLEISTE
      ════════════════════════════════════════ -->
-<div class="mockup-bar" id="mockupBar">
+<div class="mockup-bar --hidden" id="mockupBar">
   <div class="mockup-bar__group">
     <span class="mockup-bar__group-label">Zustand:</span>
     <button class="mockup-btn --active" data-state="guest"        onclick="setState('guest',        this)">① Nicht angemeldet</button>
@@ -40,7 +40,7 @@
   </div>
   <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
 </div>
-<button class="mockup-revive" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
+<button class="mockup-revive --visible" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
 <!-- ════════════════════════════════════════
      SHOP-HEADER
