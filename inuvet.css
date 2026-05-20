@@ -1528,12 +1528,12 @@
 
   /* ─── Section Label ─── */
   /* Zwei Tokens für präzise Kontrolle pro Kontext:
-     --section-label-mb  Abstand von der Linie zum nächsten Element (default: --module)
-     --section-label-mt  Abstand vom vorherigen Element zur Überschrift (default: --module)
+     --section-label-mb  Abstand von der Linie zum nächsten Element (default: --half-module)
+     --section-label-mt  Abstand vom vorherigen Element zur Überschrift (default: --module-2xl)
      Tipp: In Kontexten wo das folgende Element (cart-item, form-grid) eigenes
      padding-top hat, --section-label-mb auf 0 setzen — kein Doppelabstand. */
-  .section-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); margin-bottom: var(--section-label-mb, var(--module)); }
-  * + .section-label { margin-top: var(--section-label-mt, var(--module)); }
+  .section-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); margin-bottom: var(--section-label-mb, var(--half-module)); }
+  * + .section-label { margin-top: var(--section-label-mt, var(--module-2xl)); }
   /* ─── Sub-Variant — für h3-Sub-Sektionen innerhalb von Formularen, Checkout etc.
      Leichter Border, kleinerer Top-Abstand. Sema­ntik: h3 mit .section-label.--sub */
   .section-label.--sub { border-bottom-color: var(--border-light); padding-bottom: calc(var(--half-module) * 0.5); margin-bottom: var(--half-module); }
