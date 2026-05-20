@@ -255,8 +255,7 @@ body.--page-home .site-nav { border-bottom: none; }
   border-radius: 2em; /* Ausnahme: Pill-Badge */
   background: var(--green);
   color: #fff;
-  text-transform: none;
-  letter-spacing: 0;
+  letter-spacing: 0.05em;
 }
 .badge--rec .material-icons {
   font-size: calc(var(--base) * 0.8125);
