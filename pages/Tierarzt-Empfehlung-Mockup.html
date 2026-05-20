@@ -454,65 +454,24 @@ function addToCart(item, type) {
 const VET_NAME = 'Dr. Müller'; // Mockup-Platzhalter für Tierarzt-Name
 
 function showReleaseWelcome() {
-  const rows = _pendingApprovedIds.map(id => {
-    const p  = getProduct(id);
-    if (!p) return '';
-    const av       = approvedVariantByProduct.get(id);
-    const df       = p.familie ? p.darreichungsformen[av.formIndex] : null;
-    const v        = p.familie ? df.variants[av.variantIndex] : p.variants[av.variantIndex];
-    const cartName = p.familie ? df.cartName : p.name;
-    return `
-      <li style="display:flex;justify-content:space-between;align-items:center;gap:var(--base);
-                 padding:calc(var(--base)*0.5) 0;border-bottom:1px solid var(--border-light);">
-        <div>
-          <div style="font-weight:700;color:var(--fg);font-size:var(--text-base);">${cartName}</div>
-          <div style="color:var(--fg-muted);font-size:var(--text-sm);">${v.label} · ${v.price}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:calc(var(--base)*0.5);flex-shrink:0;">
-          <span style="font-size:var(--text-xs);color:var(--fg-muted);white-space:nowrap;">Menge:</span>
-          <div class="qty-selector --sm">
-            <button class="qty-selector__btn" type="button" aria-label="Weniger"
-              onclick="const i=document.getElementById('relQty_${id}');i.value=Math.max(1,+i.value-1)">
-              <span class="material-icons">remove</span>
-            </button>
-            <input class="qty-selector__input" type="number" id="relQty_${id}" value="2" min="1" max="99">
-            <button class="qty-selector__btn" type="button" aria-label="Mehr"
-              onclick="const i=document.getElementById('relQty_${id}');i.value=Math.min(99,+i.value+1)">
-              <span class="material-icons">add</span>
-            </button>
-          </div>
-        </div>
-      </li>`;
-  }).join('');
+  const items = cartApproved.map(item =>
+    `<li style="display:flex;justify-content:space-between;align-items:baseline;
+                padding:calc(var(--base)*0.35) 0;border-bottom:1px solid var(--border-light);">
+       <span style="font-weight:700;color:var(--fg);">${item.cartName}</span>
+       <span style="color:var(--fg-muted);font-size:var(--text-sm);white-space:nowrap;margin-left:0.5rem;">
+         ${item.variantLabel} · ${item.qty}×
+       </span>
+     </li>`
+  ).join('');
 
   document.getElementById('releaseWelcomeTitle').textContent = `Freigabe von ${VET_NAME}`;
   document.getElementById('releaseWelcomeBody').innerHTML =
-    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben. Wie viele Packungen wurden freigegeben?</p>
-     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${rows}</ul>`;
+    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben – wir haben sie bereits in den Warenkorb gelegt:</p>
+     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${items}</ul>`;
   document.getElementById('releaseWelcomeOverlay').classList.add('--open');
 }
 
 function closeReleaseWelcome(goToCart) {
-  // Qty-Eingaben lesen → maxQty setzen + Produkte in Cart legen
-  _pendingApprovedIds.forEach(id => {
-    const inp  = document.getElementById(`relQty_${id}`);
-    const qty  = inp ? Math.max(1, parseInt(inp.value, 10) || 1) : 1;
-    const av   = approvedVariantByProduct.get(id);
-    if (av) av.maxQty = qty;
-
-    const p        = getProduct(id);
-    if (!p) return;
-    const df       = p.familie ? p.darreichungsformen[av.formIndex] : null;
-    const v        = p.familie ? df.variants[av.variantIndex] : p.variants[av.variantIndex];
-    const cartName = p.familie ? df.cartName : p.name;
-    const price    = parseFloat(v.price.replace(',', '.').replace(' €', ''));
-    if (!cartApproved.find(x => x.cartName === cartName && x.variantLabel === v.label)) {
-      cartApproved.push({ id: p.id, cartName, variantLabel: v.label, price, qty });
-    }
-  });
-  _pendingApprovedIds = [];
-  updateCartBadge();
-
   document.getElementById('releaseWelcomeOverlay').classList.remove('--open');
   if (goToCart) openCart();
 }
@@ -638,12 +597,17 @@ function simulateLogin() {
 }
 
 function loginPopupVariantHTML(p) {
+  const qtyInput = `<input id="loginVariant_qty_${p.id}" type="number" value="2" min="1" max="99"
+    style="width:3rem;background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;text-align:center;"
+    title="Max. freigegebene Menge">`;
   if (!p.familie) {
     const av = approvedVariantByProduct.get(p.id);
-    return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+    return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
       <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
         ${p.variants.map((v, i) => `<option value="${i}"${av && av.variantIndex === i ? ' selected' : ''}>${v.label}</option>`).join('')}
       </select>
+      <span style="color:#666;font-size:0.65rem;">×</span>
+      ${qtyInput}
     </div>`;
   }
   const av = approvedVariantByProduct.get(p.id);
@@ -651,7 +615,7 @@ function loginPopupVariantHTML(p) {
   const initSizeIdx = av ? av.variantIndex : 0;
   const formOptions = p.darreichungsformen.map((f, i) => `<option value="${i}"${i === initFormIdx ? ' selected' : ''}>${f.label}</option>`).join('');
   const sizeOptions = p.darreichungsformen[initFormIdx].variants.map((v, i) => `<option value="${i}"${i === initSizeIdx ? ' selected' : ''}>${v.label}</option>`).join('');
-  return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+  return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
     <select id="loginVariant_form_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;"
       onchange="updateLoginSizeSelect(${p.id})">
       ${formOptions}
@@ -659,6 +623,8 @@ function loginPopupVariantHTML(p) {
     <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
       ${sizeOptions}
     </select>
+    <span style="color:#666;font-size:0.65rem;">×</span>
+    ${qtyInput}
   </div>`;
 }
 
@@ -718,10 +684,11 @@ function applyLoginResult(approvedIds) {
   approvedIds.forEach(id => {
     const formSel = document.getElementById(`loginVariant_form_${id}`);
     const sizeSel = document.getElementById(`loginVariant_size_${id}`);
+    const qtySel = document.getElementById(`loginVariant_qty_${id}`);
     approvedVariantByProduct.set(id, {
       formIndex:    formSel ? +formSel.value : 0,
       variantIndex: sizeSel ? +sizeSel.value : 0,
-      maxQty:       2
+      maxQty:       qtySel  ? Math.max(1, parseInt(qtySel.value, 10) || 1) : 1
     });
   });
 
@@ -733,9 +700,22 @@ function applyLoginResult(approvedIds) {
   });
   savedApproved.forEach(item => addToCart(item, 'approved'));
 
+  // Freigegebene Produkte mit der konfigurierten Menge in den Cart legen
+  approvedIds.forEach(id => {
+    const p  = getProduct(id);
+    if (!p) return;
+    const av       = approvedVariantByProduct.get(id);
+    const df       = p.familie ? p.darreichungsformen[av.formIndex] : null;
+    const v        = p.familie ? df.variants[av.variantIndex] : p.variants[av.variantIndex];
+    const cartName = p.familie ? df.cartName : p.name;
+    const price    = parseFloat(v.price.replace(',', '.').replace(' €', ''));
+    if (!cartApproved.find(x => x.cartName === cartName && x.variantLabel === v.label)) {
+      cartApproved.push({ id: p.id, cartName, variantLabel: v.label, price, qty: av.maxQty });
+    }
+  });
+  updateCartBadge();
+
   if (approvedIds.length > 0) {
-    // Mengen noch nicht bekannt → Popup zeigt Qty-Inputs, Cart-Befüllung erfolgt erst bei Bestätigung
-    _pendingApprovedIds = [...approvedIds];
     showReleaseWelcome();
   } else if (callback) {
     if (cartRequested.length > 0) {
