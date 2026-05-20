@@ -528,7 +528,8 @@ const VETS = [
   { id:5, name:'Tierarztpraxis Sonnenhügel',      doctor:'Dr. Lisa Braun',               city:'Stuttgart',  hasRecommended:false },
   { id:6, name:'Tiermedizinisches Zentrum Nord',  doctor:'Dr. Klaus Hoffmann',           city:'Dortmund',   hasRecommended:false },
 ];
-let selectedVet    = VETS[0]; // Default: zuletzt verwendete Praxis
+let selectedVet    = null;
+let approvedByVet  = null; // Praxis, die zuletzt Produkte freigegeben hat
 let cartDrawerStep = 1;
 
 /* ════════════════════════════════════════════
@@ -693,6 +694,7 @@ function applyLoginResult(approvedIds) {
   });
 
   const newState = approvedIds.length > 0 ? 'with-release' : 'no-release';
+  if (approvedIds.length > 0) approvedByVet = VETS.find(v => v.hasRecommended) || VETS[0];
   setState(newState, document.querySelector(`[data-state="${newState}"]`), true);
 
   savedRequested.forEach(item => {
@@ -1096,7 +1098,7 @@ function closeEmailOverlay() {
 }
 
 function renderRequestStep() {
-  selectedVet = null; // Bewusste Wahl — nie vorausfüllen
+  selectedVet = (state === 'with-release' && approvedByVet) ? approvedByVet : null;
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
@@ -1110,17 +1112,20 @@ function renderRequestStep() {
       <div class="vet-search">
         <div class="form-field">
           <input type="text" id="vetSearchInput" autocomplete="off"
-            placeholder="Tierarztpraxis suchen …"
+            placeholder=" "
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
             oninput="filterVets(this.value)" onfocus="showVetDropdown()">
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
-        <p id="vetHint" class="vet-legend">${selectedVet && selectedVet.hasRecommended
-          ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
-          : selectedVet && selectedVet.custom
-            ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren'
-            : '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
+        <p id="vetHint" class="vet-legend">${
+          selectedVet && selectedVet.hasRecommended
+            ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
+            : selectedVet && selectedVet.custom
+              ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren'
+              : selectedVet
+                ? '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
+                : ''
         }</p>
       </div>
       <!-- Zusatzfelder: nur bei freier Praxis-Eingabe sichtbar -->
