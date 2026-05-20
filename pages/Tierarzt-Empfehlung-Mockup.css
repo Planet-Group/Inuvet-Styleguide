@@ -261,6 +261,14 @@ body.--page-home .site-nav { border-bottom: none; }
   font-size: calc(var(--base) * 0.8125);
   line-height: 1;
 }
+.badge--needs-release {
+  gap: calc(var(--base) * 0.25);
+  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+  border-radius: 2em;
+  background: var(--color-amber);
+  color: #fff;
+  letter-spacing: 0.05em;
+}
 
 /* 2 — choice-box: nur Positionierung, Visuals via .circle-badge */
 .choice-box.--approved { position: relative; }

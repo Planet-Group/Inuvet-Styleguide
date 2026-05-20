@@ -1522,7 +1522,7 @@ function tileHTML(p) {
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
         ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
       </div>
-      ${approved ? '<div class="floating-meta --right"><div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div></div>' : ''}
+      <div class="floating-meta --right">${approved ? '<div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge badge--needs-release">Freigabe benötigt</div>'}</div>
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
     </div>
@@ -1841,7 +1841,8 @@ function renderProduct() {
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
     ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
   </div>
-  ${approved ? '<div class="floating-meta --right"><div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div></div>' : ''}`;
+  <div class="floating-meta --right">${approved ? '<div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge badge--needs-release">Freigabe benötigt</div>'}</div>`;
+
 
   // Bewertung — wie im Styleguide: Sterne + Text
   const ratingHTML = p.rating ? `
