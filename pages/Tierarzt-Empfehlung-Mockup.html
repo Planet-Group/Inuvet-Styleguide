@@ -1175,10 +1175,10 @@ function renderCartDrawer() {
   /* CTA-Label und -Aktion je nach Warenkorb-Inhalt */
   let ctaLabel, ctaFn;
   if (hasRequested && hasApproved) {
-    ctaLabel = 'Kaufen & Freigabe anfragen';
+    ctaLabel = 'Kaufen & Jetzt Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
   } else if (hasRequested) {
-    ctaLabel = 'Freigabe anfragen';
+    ctaLabel = 'Jetzt Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
   } else {
     ctaLabel = 'Zur Kasse';
