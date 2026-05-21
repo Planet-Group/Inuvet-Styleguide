@@ -1218,8 +1218,10 @@
     padding: calc(var(--base) * 1.25) calc(var(--base) * 0.75) calc(var(--base) * 0.5);
     width: 100%;
     outline: none;
-    transition: border-color var(--anim-fast);
+    transition: border-color var(--anim-fast), background var(--anim-fast);
   }
+  .form-field input,
+  .form-field textarea { background: var(--green-light); }
   .form-field textarea {
     resize: vertical;
     min-height: 8rem;
@@ -1245,6 +1247,10 @@
   .form-field select:focus {
     border-color: var(--border-focus);
   }
+  .form-field input:focus,
+  .form-field input:not(:placeholder-shown),
+  .form-field textarea:focus,
+  .form-field textarea:not(:placeholder-shown) { background: var(--bg); }
   /* Setzt den globalen :focus-visible durch höhere Spezifität wieder ein,
      da der Base-Selektor (.form-field input) outline:none mit (0,1,1) überschreibt. */
   .form-field input:focus-visible,
@@ -1265,7 +1271,7 @@
     color: var(--fg-muted);
     pointer-events: none;
     transition: all var(--anim-fast);
-    background: var(--bg);
+    background: transparent;
     padding: 0 0.25rem;
   }
   .form-field textarea ~ label {
@@ -1284,6 +1290,7 @@
     transform: translateY(-50%);
     font-size: var(--text-xs);
     color: var(--fg);
+    background: var(--bg);
   }
 
   /* ─── Error state ─── */
