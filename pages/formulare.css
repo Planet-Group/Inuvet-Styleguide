@@ -147,6 +147,12 @@
 /* ─── Hint direkt unter dem Feld — form-field margin-bottom überschreiben ─── */
 .form-field:has(+ .nw-hint) { margin-bottom: calc(var(--base) * 0.35); }
 
+/* ─── Date-Input: native Breite/Spinner entfernen, Date-Picker bleibt erhalten ─── */
+.form-field input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* ─── Date-Input: Label immer in gefloateter Position ─── */
 .form-field input[type="date"] ~ label {
   top: 0;
