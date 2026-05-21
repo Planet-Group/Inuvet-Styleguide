@@ -1950,7 +1950,7 @@ function renderAbout() {
       </div>
     </div>
     <div class="section-type --v2 --reverse">
-      <div class="section-type__image placeholder-bg"></div>
+      <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
       <div class="section-type__content">
         <h2 class="section-type__headline">Nur in der Praxis</h2>
         <div class="section-type__bottom">
@@ -1978,11 +1978,14 @@ function renderCollection() {
       <div class="section-type__content">
         <h2 class="section-type__headline">Produkte finden und von deinem Tierarzt freigeben lassen</h2>
         <div class="section-type__bottom">
-          <button class="btn --primary" onclick="openFinder()">Produktfinder starten</button>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="openFinder()">Produktfinder starten</button>
+            <button class="btn --ghost" onclick="document.getElementById('collectionGrid').scrollIntoView({behavior:'smooth'})">Alle Produkte</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="page" id="collectionGrid">
       <h2 class="shop-page-title">Alle Produkte</h2>
       <div class="collection-toolbar">
         <div class="collection-toolbar__count">${PRODUCTS.length} Produkte</div>
