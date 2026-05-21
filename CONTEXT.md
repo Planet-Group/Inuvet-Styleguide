@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-20
+> **Letzte Aktualisierung:** 2026-05-21
 
 ---
 
@@ -31,8 +31,10 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 ├── sg.css                          # Styleguide-Only UI-Klassen (sg-Präfix)
 ├── mockup-ui.css                   # Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal)
 ├── assets/
-│   ├── images/                     # Calmin_Packshot_01/02/03, Hepax_Packshot_01/02
-│   ├── graphics/                   # Inuvet_Logo_RGB.svg
+│   ├── images/                     # Calmin_Packshot_01/02/03, Hepax_Packshot_01/02, Partner_Mia_01.png
+│   ├── graphics/                   # Inuvet_Logo_RGB.svg, Tierarzt-Empfehlung_Logo_RGB.svg
+│   │                               # Animation_About_Inuvet.json
+│   │                               # Icon_Tierarztpraxis/Langeitgabe/Schutz/Auto.json
 │   ├── lotties/                    # Lottie-Animationen (.json)
 │   └── videos/
 └── pages/
@@ -40,7 +42,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── bundle.css
     ├── Bundle-Info.html            # Konzept-/Spezifikations-Artikel zum Bundle
     ├── Produkt-Modell.html         # Blog-Beitrag: Indikation → Familie → Einzelprodukt → Variante
-    ├── Tierarzt-Empfehlung-Mockup.html   # Hauptmockup: Freigabe-Flow
+    ├── Tierarzt-Empfehlung-Mockup.html   # Hauptmockup: Freigabe-Flow + »Was ist Inuvet?«-Seite
     ├── Tierarzt-Empfehlung-Mockup.css
     ├── Tierarzt-Empfehlung-Testprotokoll.html  # Testprotokoll (Online-Formular, exportierbar)
     ├── Inuvet-Freigabe-Mockup.html # Vet-Portal: Empfehlungsanfragen freigeben
@@ -409,7 +411,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` für Kategorie | `.label-caps` für Caps-Beschriftung (eigenständig) |
 | B.2a | circle-badge | `.circle-badge` | `--num` (Zahl, Schritte) · `--check` (Icon `check`) | 22 × 22 px, grün, `border-radius: 50%`; Positionierung durch Komponente |
 | B.3 | Icon & Icon-Box | `.icon-box` | — | `.material-icons` |
-| B.4 | Formularfeld | `.form-field` | `--sm` | `label + input/select/textarea`; `.form-grid` (`--full`) für Mehrspalter; `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
+| B.4 | Formularfeld | `.form-field` | `--sm --full` | `label + input/select/textarea`; `.form-grid` für Mehrspalter; `.form-field.--full` = `grid-column: 1/-1` (volles Feld über beide Spalten); `.form-check` für Checkboxen; `.form-upload`; `.actionable-input` |
 | B.4a | Auswahlbox | `.choice-box` | `--sm --block --detail` | Standard: Varianten/Größen. `--block`: Icon + Text (Versandart). `--detail`: Spalten-Layout mit `.choice-box__label` + `.choice-box__desc` (Finder, Onboarding). |
 | B.5 | Product Thumb | `.product-thumb` | — | 2× `<img>` (Produkt + Rollover) |
 | B.6 | Breadcrumb | `.breadcrumb` | — | `__item __sep --current` |
@@ -436,8 +438,8 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 |---|---|---|---|---|
 | D.1 | Navigation | `.site-nav` `.announcement-bar` | — | `.nav-left .nav-center .nav-right .nav-item .nav-hamburger .mobile-menu` |
 | D.2 | Footer | `.site-footer` | — | `.footer-main .footer-bar` |
-| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` | `__content __headline __body __bottom __image __animation` |
-| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4 --boxed` | `.tile` (generisch); `.tile.--product` → C.1 |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` | `__content __headline __body __bottom __image __animation`; **`--v1`/`--v2`**: `heroPanIn` auf Bild + gestaffeltes `heroFadeUp` auf Content-Kindern (0.1s/0.25s/0.4s); Inhalt vertikal zentriert (`justify-content:center + gap`); `overflow:hidden` auf `__image` für sauberen Scale-Clip |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4 --boxed` | `.tile` (generisch); `.tile.--product` → C.1; **`--cols-4`**: 4 Sp. > 1100px → 3 Sp. ≤ 1100px → 2 Sp. ≤ 1023px, **nie 1-spaltig** |
 | D.5 | Testimonials | `.testimonial-grid .testimonial` | — | `.testimonial-slider .slider-nav .slider-btn .slider-counter` |
 | D.6 | Marquee | `.marquee` | — | — |
 | D.7 | Newsletter | `.newsletter` | — | — |
@@ -489,6 +491,10 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 4. Bestätigungs-Screen + E-Mail-Overlay: Login ist Pflicht vor der Tierarzt-Auswahl → E-Mail bekannt → Nachrichten sofort auslösen (Kunden-E-Mail + Vet-E-Mail oder interne Meldung bei unbekannter Praxis)
 
 **Freigabe-Logik:** `approvedProductIds` (Laufzeit-Set) steuert Badges, CTAs, Redistribution und Startseiten-Text. `isApproved(p)` = `state === 'with-release' && approvedProductIds.has(p.id)`. Zusätzlich: `approvedVariantByProduct` (Map: `productId → { formIndex, variantIndex }`) speichert die konkrete freigegebene Variante. PDP und Options-Drawer wählen diese vor und markieren sie mit grünem Badge (`.choice-box.--approved` + `.choice-box__check`, Darreichungsform per `check_circle`-Icon). Beide Strukturen werden gesetzt: bei Mockup-Bar-Wechsel (Defaults aus `p.approved`), nach Login-Popup (Nutzerauswahl inkl. Darreichungsform+Größe-Dropdowns), bei Seitenstart.
+
+**Navigation (Desktop + Mobile):** Alle Produkte → Empfohlene Produkte *(nur state=with-release)* → Was ist Inuvet? → Dokumentation
+
+**Seite »Was ist Inuvet?« (`renderAbout()`):** Hero `--v1` mit `Animation_About_Inuvet.json` + Text → 4-Spalter mit Lottie-Icons (`Icon_Tierarztpraxis/Langeitgabe/Schutz/Auto.json`, Größe `calc(var(--icon-box-md)*2)`) → Hero `--v2 --reverse` (Partner_Mia_01.png, id=`aboutPraxis`) + Text → Produktkollektion 3-spaltig »Beliebte Produkte« → Newsletter. Ghost-Button »Warum nur in der Praxis?« scrollt zu `#aboutPraxis`.
 
 **Zugehörige Dokumentation:** `Tierarzt-Empfehlung-Info.html`
 

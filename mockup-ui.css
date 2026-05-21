@@ -591,3 +591,53 @@ body.--mockup-bar-visible {
   border-left: 2px solid #333;
   margin-top: 0.4rem;
 }
+
+/* ─── Login-Result-Popup: Produkt-Auswahl + Varianten-Konfiguration ─── */
+.mockup-product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mockup-check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  color: #ccc;
+}
+.mockup-check-row input[type="checkbox"] {
+  accent-color: var(--green);
+  width: 0.9rem;
+  height: 0.9rem;
+  cursor: pointer;
+}
+.mockup-variant-row {
+  margin-left: 1.5rem;
+  margin-top: 0.35rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.mockup-select {
+  background: #111;
+  color: #ccc;
+  border: 1px solid #333;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.2em 0.4em;
+}
+.mockup-qty-input {
+  width: 3rem;
+  background: #111;
+  color: #ccc;
+  border: 1px solid #333;
+  font-family: monospace;
+  font-size: 0.7rem;
+  padding: 0.2em 0.4em;
+  text-align: center;
+}
+.mockup-variant-sep {
+  color: #666;
+  font-size: 0.65rem;
+}

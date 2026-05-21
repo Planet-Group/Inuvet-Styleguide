@@ -218,8 +218,8 @@
 
       <!-- Registrieren -->
       <div class="login-panel --hidden" id="registerPanel">
-        <div class="login-panel__header" style="margin-bottom:var(--half-module);">
-          <p class="login-panel__sub" style="font-size:var(--text-m);font-weight:700;color:var(--fg);line-height:var(--lh-h3);">Registriere dich kostenlos, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
+        <div class="login-panel__header">
+          <p class="login-panel__sub">Registriere dich kostenlos, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="login-form__row">
@@ -601,15 +601,14 @@ function simulateLogin() {
 
 function loginPopupVariantHTML(p) {
   const qtyInput = `<input id="loginVariant_qty_${p.id}" type="number" value="2" min="1" max="99"
-    style="width:3rem;background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;text-align:center;"
-    title="Max. freigegebene Menge">`;
+    class="mockup-qty-input" title="Max. freigegebene Menge">`;
   if (!p.familie) {
     const av = approvedVariantByProduct.get(p.id);
-    return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
-      <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
+    return `<div id="loginVariant_${p.id}" class="mockup-variant-row">
+      <select id="loginVariant_size_${p.id}" class="mockup-select">
         ${p.variants.map((v, i) => `<option value="${i}"${av && av.variantIndex === i ? ' selected' : ''}>${v.label}</option>`).join('')}
       </select>
-      <span style="color:#666;font-size:0.65rem;">×</span>
+      <span class="mockup-variant-sep">×</span>
       ${qtyInput}
     </div>`;
   }
@@ -618,15 +617,14 @@ function loginPopupVariantHTML(p) {
   const initSizeIdx = av ? av.variantIndex : 0;
   const formOptions = p.darreichungsformen.map((f, i) => `<option value="${i}"${i === initFormIdx ? ' selected' : ''}>${f.label}</option>`).join('');
   const sizeOptions = p.darreichungsformen[initFormIdx].variants.map((v, i) => `<option value="${i}"${i === initSizeIdx ? ' selected' : ''}>${v.label}</option>`).join('');
-  return `<div id="loginVariant_${p.id}" style="margin-left:1.5rem;margin-top:0.35rem;display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
-    <select id="loginVariant_form_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;"
-      onchange="updateLoginSizeSelect(${p.id})">
+  return `<div id="loginVariant_${p.id}" class="mockup-variant-row">
+    <select id="loginVariant_form_${p.id}" class="mockup-select" onchange="updateLoginSizeSelect(${p.id})">
       ${formOptions}
     </select>
-    <select id="loginVariant_size_${p.id}" style="background:#111;color:#ccc;border:1px solid #333;font-family:monospace;font-size:0.7rem;padding:0.2em 0.4em;">
+    <select id="loginVariant_size_${p.id}" class="mockup-select">
       ${sizeOptions}
     </select>
-    <span style="color:#666;font-size:0.65rem;">×</span>
+    <span class="mockup-variant-sep">×</span>
     ${qtyInput}
   </div>`;
 }
@@ -651,9 +649,8 @@ function openLoginResultPopup() {
   const rows = PRODUCTS.map(p => {
     const preChecked = approvedProductIds.has(p.id) ? 'checked' : '';
     return `
-      <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer;color:#ccc;">
+      <label class="mockup-check-row">
         <input type="checkbox" data-product-id="${p.id}" ${preChecked}
-          style="accent-color:var(--green);width:0.9rem;height:0.9rem;cursor:pointer;"
           onchange="toggleLoginVariant(${p.id})">
         <span>${p.name}</span>
       </label>
@@ -666,7 +663,7 @@ function openLoginResultPopup() {
       <span>Simuliert die Backend-Antwort nach Login — welche Freigaben liegen für diesen Kunden vor?</span>
     </div>
     <p class="mockup-modal__desc">Freigaben für diesen Kunden:</p>
-    <div style="display:flex;flex-direction:column;gap:0.5rem;">${rows}</div>
+    <div class="mockup-product-list">${rows}</div>
     <div class="mockup-modal__footer">
       <button class="mockup-btn" onclick="applyLoginResult(
         [...document.querySelectorAll('#loginResultBody input[type=checkbox]:checked')].map(el => +el.dataset.productId)
@@ -2192,7 +2189,7 @@ function renderCheckout() {
               <div class="form-field"><input type="text" id="co-hausnr"   placeholder=""><label for="co-hausnr">Nr.</label></div>
               <div class="form-field"><input type="text" id="co-plz"      placeholder=""><label for="co-plz">PLZ</label></div>
               <div class="form-field"><input type="text" id="co-ort"      placeholder=""><label for="co-ort">Ort</label></div>
-              <div class="form-field" style="grid-column:span 2"><input type="email" id="co-email" placeholder="" required><label for="co-email">E-Mail-Adresse *</label></div>
+              <div class="form-field --full"><input type="email" id="co-email" placeholder="" required><label for="co-email">E-Mail-Adresse *</label></div>
             </div>
           </div>
 

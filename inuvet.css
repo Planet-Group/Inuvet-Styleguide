@@ -1370,6 +1370,8 @@
   }
 /* WICHTIG: Felder im Grid dürfen keinen eigenen Margin haben */
 .form-grid > .form-field { margin-bottom: 0; }
+/* Volles Feld über beide Spalten: <div class="form-field --full"> */
+.form-field.--full { grid-column: 1 / -1; }
 
 /* ─── Kompaktes Formularfeld — kein Floating Label, Höhe = --sm-Komponenten ─── */
 .form-field.--sm { margin-bottom: 0; }
@@ -1653,7 +1655,7 @@
   .checkout__cta { margin-top: var(--module); }
   /* .checkout__success-icon — entfernt, durch globale .success-state__icon ersetzt */
   .checkout .tile-grid { gap: var(--half-module); }
-  @media (max-width: 767px) { .checkout { grid-template-columns: 1fr; } .checkout .form-grid { grid-template-columns: 1fr; } .checkout .form-field[style*="grid-column"] { grid-column: 1 !important; } }
+  @media (max-width: 767px) { .checkout { grid-template-columns: 1fr; } .checkout .form-grid { grid-template-columns: 1fr; } .checkout .form-field.--full { grid-column: 1; } }
 
   /* ═══════════════════════════════════════════
      FOOTER
