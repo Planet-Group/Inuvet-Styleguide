@@ -28,6 +28,7 @@
   <div class="mockup-bar__group" id="pageNav">
     <span class="mockup-bar__group-label">Seite:</span>
     <button class="mockup-btn --active" onclick="setPage('home',        this)">Startseite</button>
+    <button class="mockup-btn"          onclick="setPage('about',       this)">Was ist Inuvet?</button>
     <button class="mockup-btn"          onclick="setPage('collection',  this)">Alle Produkte</button>
     <button class="mockup-btn"          onclick="setPage('recommended', this)" id="btnRecommended" style="display:none">Empfohlene Produkte</button>
     <button class="mockup-btn"          onclick="setPage('product',     this)">Produktseite</button>
@@ -91,6 +92,7 @@
   <div class="nav-col" id="mobileNavCol">
     <a href="#" onclick="setPage('collection');closeMobile();return false;">Alle Produkte</a>
     <a href="#" onclick="setPage('recommended');closeMobile();return false;" id="mobileRecommended" style="display:none">Empfohlene Produkte</a>
+    <a href="#" onclick="setPage('about');closeMobile();return false;">Was ist Inuvet?</a>
     <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
   </div>
 </div>
@@ -1464,6 +1466,7 @@ function renderNav() {
   if (state === 'with-release') {
     addLink('Empfohlene Produkte', (e) => { e.preventDefault(); setPage('recommended'); });
   }
+  addLink('Was ist Inuvet?', (e) => { e.preventDefault(); setPage('about'); });
   const docsLink = document.createElement('a');
   docsLink.href = 'Tierarzt-Empfehlung-Info.html';
   docsLink.textContent = 'Dokumentation';
@@ -1890,12 +1893,75 @@ function renderHome() {
       </div>
     </div>
     <div class="page">
-      <h3 class="section-label">Unsere Produkte</h3>
+      <h3 class="section-label">Beliebte Produkte</h3>
       <div class="tile-grid --cols-3">
         ${PRODUCTS.map(tileHTML).join('')}
       </div>
     </div>
     ${testimonialSectionHTML()}
+    ${newsletterHTML()}
+`;
+}
+
+/* ── Was ist Inuvet? ── */
+function renderAbout() {
+  return `
+    <div class="section-type --v1">
+      <div class="section-type__image placeholder-bg"></div>
+      <div class="section-type__content">
+        <h2 class="section-type__headline">Pflanzlich. Hoch dosiert. Nur über die Praxis.</h2>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Du möchtest dein Tier pflanzlich unterstützen? Dann bist du hier genau richtig. Produkte von Inuvet sind pflanzlich, hoch dosiert und seit mehr als 15 Jahren in der Tiermedizin im Einsatz — stetig weiterentwickelt, nah an der Forschung.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <div class="tile-grid --cols-4">
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/graphics/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--icon-box-md)*2);height:calc(var(--icon-box-md)*2);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Beste Expertise</p>
+          <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/graphics/Icon_Langeitgabe.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--icon-box-md)*2);height:calc(var(--icon-box-md)*2);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Für die Langzeitgabe</p>
+          <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/graphics/Icon_Schutz.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--icon-box-md)*2);height:calc(var(--icon-box-md)*2);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Immer gut unterstützt</p>
+          <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/graphics/Icon_Auto.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--icon-box-md)*2);height:calc(var(--icon-box-md)*2);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Schnell bei dir</p>
+          <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+        </div>
+      </div>
+    </div>
+    <div class="section-type --v2 --reverse">
+      <div class="section-type__image placeholder-bg"></div>
+      <div class="section-type__content">
+        <h2 class="section-type__headline">Nur in der Praxis</h2>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Warum gibt es Inuvet-Produkte nur in der Tierarztpraxis? Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <h3 class="section-label">Beliebte Produkte</h3>
+      <div class="tile-grid --cols-3">
+        ${PRODUCTS.map(tileHTML).join('')}
+      </div>
+    </div>
     ${newsletterHTML()}
 `;
 }
@@ -2230,6 +2296,7 @@ function render() {
         if (strip) document.documentElement.style.setProperty('--intro-strip-height', strip.offsetHeight + 'px');
       });
       break;
+    case 'about':       main.innerHTML = renderAbout();       break;
     case 'collection':  main.innerHTML = renderCollection();  break;
     case 'recommended': main.innerHTML = renderRecommended(); break;
     case 'product':     main.innerHTML = renderProduct();     break;
