@@ -1294,6 +1294,25 @@
     background: var(--bg);
   }
 
+  /* ─── Date-Input: native Breite/Spinner entfernen, Date-Picker bleibt erhalten ─── */
+  .form-field input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    /* Höhe explizit: padding-top + 1.5em Zeilenhöhe + padding-bottom + 2px Border */
+    min-height: calc(var(--base) * 1.75 + 1.5em + 2px);
+    /* Chrome Android wertet TT.MM.JJJJ als :placeholder-shown → grüner Hintergrund unterdrückt */
+    background: var(--bg);
+  }
+
+  /* ─── Date-Input: Label immer in gefloateter Position ─── */
+  .form-field input[type="date"] ~ label {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: var(--text-xs);
+    color: var(--fg);
+    background: var(--bg);
+  }
+
   /* ─── Error state ─── */
   .form-field.--error input,
   .form-field.--error textarea,
@@ -2448,79 +2467,6 @@
   .article__author-name { font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); }
   .article__author-role { font-size: var(--text-xs); color: var(--fg-muted); }
   .article__tags { display: flex; flex-wrap: wrap; gap: calc(var(--base) * 0.5); }
-
-  /* ═══════════════════════════════════════════
-     STAND-ALONE FORMULAR (form-page)
-     Eigenständige Formularseite mit Logo-Header
-     und rechtlichem Footer — z.B. Reklamation,
-     Kontakt, Registrierung außerhalb des Shops.
-     ═══════════════════════════════════════════ */
-
-  /* ─── Seitenhintergrund + Zentrierung ─── */
-  .form-page {
-    min-height: 100vh;
-    background: var(--accent-bg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: var(--half-module) var(--base) var(--module);
-  }
-
-  /* ─── Weißer Card-Container ─── */
-  .form-page__card {
-    background: var(--bg);
-    width: 100%;
-    max-width: 640px;
-    padding: var(--half-module) var(--module) calc(var(--module) * 1.5);
-  }
-
-  @media (max-width: 480px) {
-    .form-page__card { padding: var(--half-module) var(--half-module) var(--module); }
-  }
-
-  /* ─── Header — Logo zentriert ─── */
-  .form-page__header {
-    display: flex;
-    justify-content: center;
-    padding-bottom: var(--half-module);
-    margin-bottom: var(--module);
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .form-page__header svg,
-  .form-page__header img {
-    height: calc(var(--module) * 1.75);
-    width: auto;
-    display: block;
-  }
-
-  /* ─── Seiten-Titel (H1) ─── */
-  .form-page__title {
-    font-size: var(--text-l);
-    font-weight: 700;
-    color: var(--fg);
-    line-height: var(--lh-h2);
-    margin-bottom: var(--module);
-  }
-
-  /* ─── Datenschutzhinweis ─── */
-  .form-page__privacy {
-    font-size: var(--text-xs);
-    color: var(--fg-muted);
-    margin-top: var(--half-module);
-    line-height: var(--lh-base);
-  }
-
-  /* ─── Rechtlicher Footer (Impressum) ─── */
-  .form-page__footer {
-    width: 100%;
-    max-width: 640px;
-    margin-top: var(--half-module);
-    font-size: var(--text-xs);
-    color: var(--fg-muted);
-    line-height: var(--lh-base);
-    text-align: center;
-  }
 
   /* ─── Keyframes ─── */
   @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
