@@ -16,9 +16,15 @@
 
     <!-- Header -->
     <header class="form-page__header">
-      <div>
-        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
-      </div>
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <select class="form-lang-switch" aria-label="Sprache wählen">
+        <option value="de" selected>Deutsch</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="hu">Magyar</option>
+        <option value="nl">Nederlands</option>
+      </select>
     </header>
 
     <!-- Title -->
@@ -32,7 +38,7 @@
         <label for="belegnummer">Belegnummer</label>
       </div>
 
-      <h3 class="section-label">Kontaktdaten</h3>
+      <h3 class="section-label --sub --in-view" data-animate="">Kontaktdaten</h3>
 
       <div class="form-grid">
         <div class="form-field">
@@ -54,7 +60,7 @@
       </div>
 
       <!-- ── 2. Liefer-/Fehlerdetails ── -->
-      <h3 class="section-label">Liefer- / Fehlerdetails</h3>
+      <h3 class="section-label --sub --in-view" data-animate="">Liefer- / Fehlerdetails</h3>
 
       <div class="rk-check-group">
         <label class="form-check">
@@ -80,7 +86,7 @@
       </div>
 
       <!-- ── 3. Produktdetails ── -->
-      <h3 class="section-label">Produktdetails</h3>
+      <h3 class="section-label --sub --in-view" data-animate="">Produktdetails</h3>
 
       <div class="form-field">
         <input type="text" id="produktname" name="produktname" placeholder="" required>
@@ -104,7 +110,7 @@
       </div>
 
       <!-- ── 4. Fehlerbeschreibung ── -->
-      <h3 class="section-label">Fehlerbeschreibung</h3>
+      <h3 class="section-label --sub --in-view" data-animate="">Fehlerbeschreibung</h3>
 
       <div class="form-field">
         <textarea id="fehlerbeschreibung" name="fehlerbeschreibung" placeholder="" rows="5" required></textarea>
@@ -112,7 +118,7 @@
       </div>
 
       <!-- ── 5. Foto hochladen ── -->
-      <h3 class="section-label">Foto hochladen</h3>
+      <h3 class="section-label --sub --in-view" data-animate="">Foto hochladen</h3>
 
       <div class="form-upload" id="uploadZone">
         <input type="file" id="fotoInput" name="fotos" accept="image/*" multiple onchange="handleFiles(this.files)">
@@ -143,7 +149,9 @@
 
   </div><!-- /.form-page__card -->
 
-  <!-- Footer: wird global gestaltet und hier ergänzt -->
+  <footer class="form-page__footer">
+    Inuvet GmbH · Berner Weg 19 · 79539 Lörrach · <a href="mailto:info@inuvet.com">info@inuvet.com</a>
+  </footer>
 
 </div><!-- /.form-page -->
 

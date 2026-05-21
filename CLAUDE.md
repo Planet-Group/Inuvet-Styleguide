@@ -72,7 +72,6 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Bundle.html` + `bundle.css` — Bundle-Builder mit Naturalrabatt
 - `pages/Bundle-Info.html` — Konzept-Artikel zum Bundle
 - `pages/Tierarzt-Empfehlung-Mockup.html` + `Tierarzt-Empfehlung-Mockup.css` — Hauptmockup, Freigabe-Flow
-- `pages/Tierarzt-Empfehlung-Testprotokoll.html` — Testprotokoll (Online-Formular, druckbar/exportierbar)
 - `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
 - `pages/Inuvet-Freigabe-Mockup.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
