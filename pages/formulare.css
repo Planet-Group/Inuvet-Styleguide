@@ -26,6 +26,72 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+/* ─── Date-Input: native Breite/Spinner entfernen, Date-Picker bleibt erhalten ─── */
+.form-field input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  /* Höhe explizit: padding-top + 1.5em Zeilenhöhe + padding-bottom + 2px Border */
+  min-height: calc(var(--base) * 1.75 + 1.5em + 2px);
+  /* Chrome Android zeigt TT.MM.JJJJ als :placeholder-shown → grüner Hintergrund unterdrückt */
+  background: var(--bg);
+}
+
+/* ─── Date-Input: Label immer in gefloateter Position ─── */
+.form-field input[type="date"] ~ label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: var(--text-xs);
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* ─── reCAPTCHA Platzhalter (alle Formulare) ─── */
+.form-captcha {
+  border: 1px solid var(--border-light);
+  padding: calc(var(--base) * 0.75) var(--base);
+  display: flex;
+  align-items: center;
+  gap: var(--base);
+  margin-bottom: var(--half-module);
+  max-width: calc(var(--module) * 10);
+}
+
+.form-captcha__checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.form-captcha__label {
+  font-size: var(--text-base);
+  color: var(--fg);
+  flex: 1;
+}
+
+.form-captcha__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.form-captcha__brand-logo {
+  font-size: var(--text-m);
+  line-height: 1;
+}
+
+.form-captcha__brand-name {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REKLAMATIONSFORMULAR (Formular-Reklamation)
+   ══════════════════════════════════════════════════════════════ */
+
 /* ─── form-grid Abstand nach unten ─── */
 #reklamationForm .form-grid {
   margin-bottom: var(--half-module);
@@ -39,52 +105,8 @@
   margin-bottom: var(--half-module);
 }
 
-/* ─── reCAPTCHA placeholder ─── */
-.rk-captcha {
-  border: 1px solid var(--border-light);
-  border-radius: 0;
-  padding: calc(var(--base) * 0.75) var(--base);
-  display: flex;
-  align-items: center;
-  gap: var(--base);
-  margin-bottom: var(--half-module);
-  max-width: calc(var(--module) * 10);
-}
-
-.rk-captcha__checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-}
-
-.rk-captcha__label {
-  font-size: var(--text-base);
-  color: var(--fg);
-  flex: 1;
-}
-
-.rk-captcha__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.125rem;
-}
-
-.rk-captcha__brand-logo {
-  font-size: var(--text-m);
-  line-height: 1;
-}
-
-.rk-captcha__brand-name {
-  font-size: var(--text-xs);
-  color: var(--fg-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 /* ══════════════════════════════════════════════════════════════
-   MELDEFORMULAR UNERWÜNSCHTE WIRKUNGEN (Formular-Nebenwirkungen)
+   MELDEFORMULAR UNERWÜNSCHTE WIRKUNGEN (Formular-Nebenwirkungen-TB + TA)
    ══════════════════════════════════════════════════════════════ */
 
 /* ─── Intro-Block ─── */
@@ -114,7 +136,8 @@
   margin-bottom: 0;
 }
 /* Nur standalone Hints (direkte Kinder des Forms) brauchen unteren Abstand */
-#nebenwirkungenForm > .nw-hint { margin-bottom: var(--half-module); }
+#nebenwirkungenForm > .nw-hint,
+#nebenwirkungenTAForm > .nw-hint { margin-bottom: var(--half-module); }
 
 /* ─── Gruppen-Label für Radio-Felder (kein Floating Label) ─── */
 .nw-group-label {
@@ -142,79 +165,15 @@
 }
 
 /* ─── Grid: kein Stretch, damit Labels vertikal zentriert bleiben ─── */
-#nebenwirkungenForm .form-grid { align-items: start; }
+#nebenwirkungenForm .form-grid,
+#nebenwirkungenTAForm .form-grid { align-items: start; }
 
 /* ─── Hint direkt unter dem Feld — form-field margin-bottom überschreiben ─── */
 .form-field:has(+ .nw-hint) { margin-bottom: calc(var(--base) * 0.35); }
 
-/* ─── Date-Input: native Breite/Spinner entfernen, Date-Picker bleibt erhalten ─── */
-.form-field input[type="date"] {
-  -webkit-appearance: none;
-  appearance: none;
-  /* Höhe explizit: padding-top + 1.5em Zeilenhöhe + padding-bottom + 2px Border */
-  min-height: calc(var(--base) * 1.75 + 1.5em + 2px);
-  /* Chrome Android zeigt TT.MM.JJJJ als Placeholder → :placeholder-shown greift → grün bleibt */
-  background: var(--bg);
-}
-
-/* ─── Date-Input: Label immer in gefloateter Position ─── */
-.form-field input[type="date"] ~ label {
-  top: 0;
-  transform: translateY(-50%);
-  font-size: var(--text-xs);
-  color: var(--fg);
-  background: var(--bg);
-}
-
-/* ─── reCAPTCHA Platzhalter ─── */
-.nw-captcha {
-  border: 1px solid var(--border-light);
-  padding: calc(var(--base) * 0.75) var(--base);
-  display: flex;
-  align-items: center;
-  gap: var(--base);
-  margin-bottom: var(--half-module);
-  max-width: calc(var(--module) * 10);
-}
-
-.nw-captcha__checkbox {
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid var(--border);
-  flex-shrink: 0;
-}
-
-.nw-captcha__label {
-  font-size: var(--text-base);
-  color: var(--fg);
-  flex: 1;
-}
-
-.nw-captcha__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.125rem;
-}
-
-.nw-captcha__brand-logo {
-  font-size: var(--text-m);
-  line-height: 1;
-}
-
-.nw-captcha__brand-name {
-  font-size: var(--text-xs);
-  color: var(--fg-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 /* ══════════════════════════════════════════════════════════════
    MELDEFORMULAR TIERARZTPRAXIS (Formular-Nebenwirkungen-TA)
    ══════════════════════════════════════════════════════════════ */
-
-#nebenwirkungenTAForm .form-grid { align-items: start; }
-#nebenwirkungenTAForm > .nw-hint { margin-bottom: var(--half-module); }
 
 /* ─── Vertikale Radio-Gruppe ─── */
 .ta-radio-col {
