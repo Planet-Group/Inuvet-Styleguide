@@ -75,7 +75,7 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
 - `pages/Freigabe.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
 - `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular Reklamation
-- `pages/Formular-Nebenwirkungen.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
+- `pages/Formular-Nebenwirkungen-TB.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
 - `pages/Formular-Nebenwirkungen-TA.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierarztpraxis)
 - `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
 - `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
