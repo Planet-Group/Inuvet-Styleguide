@@ -1217,6 +1217,7 @@
     border: 1px solid var(--border-light);
     padding: calc(var(--base) * 1.25) calc(var(--base) * 0.75) calc(var(--base) * 0.5);
     width: 100%;
+    min-width: 0;
     outline: none;
     transition: border-color var(--anim-fast), background var(--anim-fast);
   }
