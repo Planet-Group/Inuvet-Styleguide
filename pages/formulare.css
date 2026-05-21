@@ -198,3 +198,40 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   MELDEFORMULAR TIERARZTPRAXIS (Formular-Nebenwirkungen-TA)
+   ══════════════════════════════════════════════════════════════ */
+
+#nebenwirkungenTAForm .form-grid { align-items: start; }
+#nebenwirkungenTAForm > .nw-hint { margin-bottom: var(--half-module); }
+
+/* ─── Vertikale Radio-Gruppe ─── */
+.ta-radio-col {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--half-module);
+}
+
+/* ─── Sonstige-Option mit Inline-Textfeld ─── */
+.ta-rolle-other { align-items: center; flex-wrap: nowrap; }
+
+.ta-rolle-other__input {
+  flex: 1;
+  min-width: 0;
+  height: 1.5rem;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  color: var(--fg);
+  padding: 0 calc(var(--base) * 0.25);
+  transition: border-color var(--anim-fast);
+}
+
+.ta-rolle-other__input:focus {
+  outline: none;
+  border-bottom-color: var(--fg);
+}

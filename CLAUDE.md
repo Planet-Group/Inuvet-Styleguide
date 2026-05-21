@@ -71,11 +71,12 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 - `pages/Bundle.html` + `bundle.css` — Bundle-Builder mit Naturalrabatt
 - `pages/Bundle-Info.html` — Konzept-Artikel zum Bundle
-- `pages/Tierarzt-Empfehlung-Mockup.html` + `Tierarzt-Empfehlung-Mockup.css` — Hauptmockup, Freigabe-Flow
+- `pages/Tierarzt-Empfehlung.html` + `Tierarzt-Empfehlung.css` — Hauptmockup, Freigabe-Flow
 - `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
-- `pages/Inuvet-Freigabe-Mockup.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
-- `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular
-- `pages/Formular-Nebenwirkungen.html` + `nebenwirkungen.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
+- `pages/Freigabe.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
+- `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular Reklamation
+- `pages/Formular-Nebenwirkungen.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
+- `pages/Formular-Nebenwirkungen-TA.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierarztpraxis)
 - `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
 - `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
 - `pages/Provision-Portal-Info.html` — Technische Dokumentation zum Provisions-Portal
