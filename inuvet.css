@@ -1378,6 +1378,8 @@
   }
 /* WICHTIG: Felder im Grid dürfen keinen eigenen Margin haben */
 .form-grid > .form-field { margin-bottom: 0; }
+/* Verhindert, dass Grid-Cells durch native Input-Mindestbreiten (z. B. date) überlaufen */
+.form-grid > * { min-width: 0; }
 /* Volles Feld über beide Spalten: <div class="form-field --full"> */
 .form-field.--full { grid-column: 1 / -1; }
 
