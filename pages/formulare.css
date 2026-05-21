@@ -153,6 +153,8 @@
   appearance: none;
   /* Höhe explizit: padding-top + 1.5em Zeilenhöhe + padding-bottom + 2px Border */
   min-height: calc(var(--base) * 1.75 + 1.5em + 2px);
+  /* Chrome Android zeigt TT.MM.JJJJ als Placeholder → :placeholder-shown greift → grün bleibt */
+  background: var(--bg);
 }
 
 /* ─── Date-Input: Label immer in gefloateter Position ─── */
