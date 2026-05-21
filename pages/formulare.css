@@ -151,6 +151,7 @@
 .form-field input[type="date"] {
   -webkit-appearance: none;
   appearance: none;
+  min-height: calc(var(--base) * 1.25 + var(--text-base) * var(--lh-base) + var(--base) * 0.5 + 2px);
 }
 
 /* ─── Date-Input: Label immer in gefloateter Position ─── */
