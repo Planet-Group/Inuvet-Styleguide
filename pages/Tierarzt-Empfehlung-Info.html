@@ -175,7 +175,7 @@
             <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist.</p>
 
             <h2>Das Tierarzt-Portal (Freigabe-Seite)</h2>
-            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Freigabe-Anfragen einsehen können. Pro Produkt wählt der Tierarzt eine Freigabe-Menge (1–∞ Packungen) oder lehnt das Produkt ab. Die freigegebene Menge ist verbindlich: Der Tierbesitzer kann im Shop nicht mehr bestellen als freigegeben. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
+            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Freigabe.html">Freigabe-Mockup</a>), auf dem sie eingegangene Freigabe-Anfragen einsehen können. Pro Produkt wählt der Tierarzt eine Freigabe-Menge (1–∞ Packungen) oder lehnt das Produkt ab. Die freigegebene Menge ist verbindlich: Der Tierbesitzer kann im Shop nicht mehr bestellen als freigegeben. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
             <p>Nach der Bearbeitung im Portal werden zwei Nachrichten ausgelöst:</p>
             <ol>
               <li><strong>E-Mail an den Tierbesitzer</strong> — Zusammenfassung der Entscheidung pro Produkt. Bei mindestens einem freigegebenen Produkt mit Link zum Shop zum Einlösen. Bei vollständiger Ablehnung mit entsprechendem Hinweis.</li>
@@ -192,6 +192,19 @@
 
             <h2>Announcement Bar — Gast-Hinweis</h2>
             <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar (CSS-Klasse <code>.--guest-only</code>). Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
+
+            <h2>Produktentdeckung — Suche und Produktfinder</h2>
+            <p>Zwei Einstiegspfade helfen Nutzern, das richtige Produkt zu finden, bevor sie eine Freigabe-Anfrage stellen:</p>
+            <h3>Suche</h3>
+            <p>Ein Suche-Overlay ist über das Lupen-Icon in der Navigation erreichbar. Die Suche filtert in Echtzeit (debounced, 200 ms) über Produktnamen und Kategorien sowie über vordefinierte Suchvorschläge. Tastatur-Navigation (Pfeiltasten, Enter, Escape) ist vollständig unterstützt. Ein Klick auf ein Produkt öffnet direkt die Produktseite.</p>
+            <h3>Produktfinder</h3>
+            <p>Der Produktfinder ist ein zweistufiger Modal-Dialog, der Nutzern ohne Vorwissen das passende Produkt empfiehlt:</p>
+            <ol>
+              <li><strong>Schritt 1 — Tier:</strong> Hund oder Katze auswählen.</li>
+              <li><strong>Schritt 2 — Indikation:</strong> Problembereich wählen (z. B. Nervosität &amp; Stress, Leber &amp; Stoffwechsel, Verdauung).</li>
+            </ol>
+            <p>Das System filtert danach die Produktdaten anhand von Kategorie und Tierart. Treffer werden als klickbare Karten angezeigt, die direkt zur Produktseite führen. Gibt es keinen Treffer, erscheint ein Hinweis, den Tierarzt zu konsultieren. Der Finder ist über den Button „Produktfinder starten" auf der Alle-Produkte-Seite erreichbar.</p>
+            <p>Beide Einstiegspfade führen letztlich zur Produktseite und damit in den normalen Freigabe-Anfrage-Flow.</p>
 
             <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
             <p>Empfehlungen beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform</strong> (z.B. „Calmin Balance Tabletten"), nie auf Produktfamilien (z.B. „Calmin Balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt. Die Freigabe durch den Tierarzt ist produktspezifisch.</p>
