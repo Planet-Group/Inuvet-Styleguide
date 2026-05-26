@@ -101,6 +101,9 @@
             <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise mit Freigabe eines Tierarztes eingesetzt. Das System ermöglicht es Tierbesitzern, eine <strong>Freigabe-Anfrage</strong> zu stellen — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt es frei. Erst nach dieser Freigabe kann der Tierbesitzer das Produkt kaufen.</p>
 
             <p>Produkte können auch <strong>ohne bestehende Freigabe angefragt</strong> werden — in diesem Fall leitet inuvet die Freigabe-Anfrage an eine Tierarztpraxis weiter und übernimmt die Koordination.</p>
+            <div class="notice">
+              <p><strong>Interne Verantwortung:</strong> Geht eine Anfrage über eine noch unbekannte Praxis ein, gibt es keinen automatisierten Folgeprozess — der nächste Schritt liegt vollständig beim inuvet-Team. Der Tierbesitzer wartet. Gewissenhaftes und schnelles Handeln ist hier zwingend erforderlich.</p>
+            </div>
 
             <h2>Die drei Nutzerzustände</h2>
             <p>Das System unterscheidet drei Zustände, die das gesamte UI steuern:</p>
@@ -150,6 +153,16 @@
               <li><strong>Unbekannte Praxis</strong>: Interne Benachrichtigung an inuvet — das Team kontaktiert die Praxis und nimmt sie ins Programm auf.</li>
               <li>In beiden Fällen: Bestätigungs-E-Mail an den Tierbesitzer.</li>
             </ul>
+            <div class="notice">
+              <p><strong>Bei unbekannter Praxis — Checkliste für Mitarbeiter:</strong></p>
+              <ol>
+                <li>Interne E-Mail prüfen: Tierbesitzer-E-Mail, angefragte Produkte, Praxisname, PLZ und Ort.</li>
+                <li>Praxis kontaktieren (telefonisch oder per E-Mail) und klären, ob der Tierarzt die Produkte für dieses Tier befürwortet.</li>
+                <li><strong>Freigabe erteilt:</strong> Praxis ins Portal aufnehmen, Freigabe eintragen — das System benachrichtigt den Tierbesitzer automatisch per E-Mail.</li>
+                <li><strong>Freigabe abgelehnt:</strong> Tierbesitzer manuell per E-Mail informieren.</li>
+              </ol>
+              <p>Es gibt kein technisches Timeout. Solange das Team nicht handelt, wartet der Tierbesitzer ohne Rückmeldung.</p>
+            </div>
 
             <h3>4 — Warten auf Freigabe</h3>
             <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Freigabe im inuvet-Portal erteilt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
