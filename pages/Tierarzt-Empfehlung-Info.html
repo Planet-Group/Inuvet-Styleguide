@@ -101,6 +101,9 @@
             <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise mit Freigabe eines Tierarztes eingesetzt. Das System ermöglicht es Tierbesitzern, eine <strong>Freigabe-Anfrage</strong> zu stellen — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt es frei. Erst nach dieser Freigabe kann der Tierbesitzer das Produkt kaufen.</p>
 
             <p>Produkte können auch <strong>ohne bestehende Freigabe angefragt</strong> werden — in diesem Fall leitet inuvet die Freigabe-Anfrage an eine Tierarztpraxis weiter und übernimmt die Koordination.</p>
+            <div class="notice">
+              <p><strong>Interne Verantwortung:</strong> Geht eine Anfrage über eine noch unbekannte Praxis ein, gibt es keinen automatisierten Folgeprozess — der nächste Schritt liegt vollständig beim inuvet-Team. Der Tierbesitzer wartet. Gewissenhaftes und schnelles Handeln ist hier zwingend erforderlich.</p>
+            </div>
 
             <h2>Die drei Nutzerzustände</h2>
             <p>Das System unterscheidet drei Zustände, die das gesamte UI steuern:</p>
@@ -150,6 +153,16 @@
               <li><strong>Unbekannte Praxis</strong>: Interne Benachrichtigung an inuvet — das Team kontaktiert die Praxis und nimmt sie ins Programm auf.</li>
               <li>In beiden Fällen: Bestätigungs-E-Mail an den Tierbesitzer.</li>
             </ul>
+            <div class="notice">
+              <p><strong>Bei unbekannter Praxis — Checkliste für Mitarbeiter:</strong></p>
+              <ol>
+                <li>Interne E-Mail prüfen: Tierbesitzer-E-Mail, angefragte Produkte, Praxisname, PLZ und Ort.</li>
+                <li>Praxis kontaktieren (telefonisch oder per E-Mail) und klären, ob der Tierarzt die Produkte für dieses Tier befürwortet.</li>
+                <li><strong>Freigabe erteilt:</strong> Praxis ins Portal aufnehmen, Freigabe eintragen — das System benachrichtigt den Tierbesitzer automatisch per E-Mail.</li>
+                <li><strong>Freigabe abgelehnt:</strong> Tierbesitzer manuell per E-Mail informieren.</li>
+              </ol>
+              <p>Es gibt kein technisches Timeout. Solange das Team nicht handelt, wartet der Tierbesitzer ohne Rückmeldung.</p>
+            </div>
 
             <h3>4 — Warten auf Freigabe</h3>
             <p>Der Tierbesitzer erhält eine Bestätigungs-E-Mail. Sobald die Tierarztpraxis die Freigabe im inuvet-Portal erteilt, wird der Nutzer per E-Mail benachrichtigt. Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
@@ -175,7 +188,7 @@
             <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist.</p>
 
             <h2>Das Tierarzt-Portal (Freigabe-Seite)</h2>
-            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Inuvet-Freigabe-Mockup.html">Freigabe-Mockup</a>), auf dem sie eingegangene Freigabe-Anfragen einsehen können. Pro Produkt wählt der Tierarzt eine Freigabe-Menge (1–∞ Packungen) oder lehnt das Produkt ab. Die freigegebene Menge ist verbindlich: Der Tierbesitzer kann im Shop nicht mehr bestellen als freigegeben. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
+            <p>Tierarztpraxen erhalten Zugang zu einem separaten Portal (<a href="Freigabe.html">Freigabe-Mockup</a>), auf dem sie eingegangene Freigabe-Anfragen einsehen können. Pro Produkt wählt der Tierarzt eine Freigabe-Menge (1–∞ Packungen) oder lehnt das Produkt ab. Die freigegebene Menge ist verbindlich: Der Tierbesitzer kann im Shop nicht mehr bestellen als freigegeben. Optional kann eine Notiz an den Tierbesitzer hinterlassen werden.</p>
             <p>Nach der Bearbeitung im Portal werden zwei Nachrichten ausgelöst:</p>
             <ol>
               <li><strong>E-Mail an den Tierbesitzer</strong> — Zusammenfassung der Entscheidung pro Produkt. Bei mindestens einem freigegebenen Produkt mit Link zum Shop zum Einlösen. Bei vollständiger Ablehnung mit entsprechendem Hinweis.</li>
@@ -192,6 +205,19 @@
 
             <h2>Announcement Bar — Gast-Hinweis</h2>
             <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar ein Hinweis: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em>. Dieser Hinweis ist ausschließlich für Gäste sichtbar (CSS-Klasse <code>.--guest-only</code>). Eingeloggte Nutzer sehen ihn nicht — das System kennt ihren Status.</p>
+
+            <h2>Produktentdeckung — Suche und Produktfinder</h2>
+            <p>Zwei Einstiegspfade helfen Nutzern, das richtige Produkt zu finden, bevor sie eine Freigabe-Anfrage stellen:</p>
+            <h3>Suche</h3>
+            <p>Ein Suche-Overlay ist über das Lupen-Icon in der Navigation erreichbar. Die Suche filtert in Echtzeit (debounced, 200 ms) über Produktnamen und Kategorien sowie über vordefinierte Suchvorschläge. Tastatur-Navigation (Pfeiltasten, Enter, Escape) ist vollständig unterstützt. Ein Klick auf ein Produkt öffnet direkt die Produktseite.</p>
+            <h3>Produktfinder</h3>
+            <p>Der Produktfinder ist ein zweistufiger Modal-Dialog, der Nutzern ohne Vorwissen das passende Produkt empfiehlt:</p>
+            <ol>
+              <li><strong>Schritt 1 — Tier:</strong> Hund oder Katze auswählen.</li>
+              <li><strong>Schritt 2 — Indikation:</strong> Problembereich wählen (z. B. Nervosität &amp; Stress, Leber &amp; Stoffwechsel, Verdauung).</li>
+            </ol>
+            <p>Das System filtert danach die Produktdaten anhand von Kategorie und Tierart. Treffer werden als klickbare Karten angezeigt, die direkt zur Produktseite führen. Gibt es keinen Treffer, erscheint ein Hinweis, den Tierarzt zu konsultieren. Der Finder ist über den Button „Produktfinder starten" auf der Alle-Produkte-Seite erreichbar.</p>
+            <p>Beide Einstiegspfade führen letztlich zur Produktseite und damit in den normalen Freigabe-Anfrage-Flow.</p>
 
             <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
             <p>Empfehlungen beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform</strong> (z.B. „Calmin Balance Tabletten"), nie auf Produktfamilien (z.B. „Calmin Balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt. Die Freigabe durch den Tierarzt ist produktspezifisch.</p>
