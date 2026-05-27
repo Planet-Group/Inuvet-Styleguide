@@ -77,57 +77,59 @@
 
 <!-- Inhalt -->
 <main>
-  <div class="page">
+  <div class="page --narrow">
 
-    <div class="header">
-      <span class="label-caps">Provisions-Portal</span>
-      <h1>Dein Bereich für Provisionen &amp; Prämien</h1>
-    </div>
+    <p class="portal-start__greeting">Schön, dass du da bist.</p>
 
     <div class="portal-start__options">
 
-      <!-- Option 1: Testmodus -->
+      <!-- Entweder: Erstmal umschauen -->
       <div class="portal-start__option">
-        <span class="label-caps">Unverbindlich</span>
-        <h3>Portal im Testmodus ansehen</h3>
-        <p>Entdecke alle Funktionen des Provisions-Portals – ganz ohne Registrierung.</p>
+        <h3>Erstmal umschauen</h3>
+        <p>Entdecke dein Provisions-Portal – ganz ohne Registrierung.</p>
         <a href="Provision-Portal.html" class="btn --primary">jetzt ansehen</a>
       </div>
 
-      <!-- Option 2: Registrieren -->
-      <div class="portal-start__option" id="register">
-        <span class="label-caps">Neu hier</span>
-        <h3>Registrieren &amp; 10&nbsp;€ kassieren</h3>
-        <p>Melde dich einmalig an und erhalte sofort 10&nbsp;€ Startprovision gutgeschrieben.</p>
-        <form onsubmit="submitRegister(event)" novalidate>
-          <div class="form-field">
-            <input type="text" id="reg-name" placeholder=" " autocomplete="name" required>
-            <label for="reg-name">Name</label>
-          </div>
-          <div class="form-field">
-            <input type="email" id="reg-email" placeholder=" " autocomplete="email" required>
-            <label for="reg-email">E-Mail-Adresse</label>
-          </div>
-          <button class="btn --primary --full" type="submit">Jetzt registrieren</button>
-        </form>
-      </div>
+      <!-- Oder-Trenner -->
+      <div class="portal-start__divider" aria-hidden="true">oder</div>
 
-      <!-- Option 3: Einloggen -->
-      <div class="portal-start__option">
-        <span class="label-caps">Bereits angemeldet</span>
-        <h3>Direkt einloggen</h3>
-        <p>Melde dich mit deiner Kundennummer und Postleitzahl an.</p>
-        <form onsubmit="submitLogin(event)" novalidate>
-          <div class="form-field">
-            <input type="text" id="login-kdnr" placeholder=" " autocomplete="off" required>
-            <label for="login-kdnr">Kundennummer</label>
-          </div>
-          <div class="form-field">
-            <input type="text" id="login-plz" placeholder=" " autocomplete="postal-code" maxlength="5" required>
-            <label for="login-plz">PLZ</label>
-          </div>
-          <button class="btn --primary --full" type="submit">Einloggen</button>
-        </form>
+      <!-- Oder: Registrieren / Anmelden -->
+      <div class="portal-start__option" id="register">
+        <h3>Direkt registrieren &amp; 10&nbsp;€ kassieren</h3>
+
+        <div class="tabs">
+          <button class="tab-btn --active" type="button" onclick="switchTab(this, 'tab-reg')">Registrieren</button>
+          <button class="tab-btn" type="button" onclick="switchTab(this, 'tab-login')">Anmelden</button>
+        </div>
+
+        <div class="tab-panel --active" id="tab-reg">
+          <form onsubmit="submitRegister(event)" novalidate>
+            <div class="form-field">
+              <input type="text" id="reg-name" placeholder=" " autocomplete="name" required>
+              <label for="reg-name">Name</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="reg-email" placeholder=" " autocomplete="email" required>
+              <label for="reg-email">E-Mail-Adresse</label>
+            </div>
+            <button class="btn --primary --full" type="submit">Jetzt registrieren</button>
+          </form>
+        </div>
+
+        <div class="tab-panel" id="tab-login">
+          <form onsubmit="submitLogin(event)" novalidate>
+            <div class="form-field">
+              <input type="text" id="login-kdnr" placeholder=" " autocomplete="off" required>
+              <label for="login-kdnr">Kundennummer</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="login-plz" placeholder=" " autocomplete="postal-code" maxlength="5" required>
+              <label for="login-plz">PLZ</label>
+            </div>
+            <button class="btn --primary --full" type="submit">Einloggen</button>
+          </form>
+        </div>
+
       </div>
 
     </div>
@@ -150,6 +152,14 @@ function copyPromoCode(btn) {
     icon.textContent = 'check';
     setTimeout(() => { icon.textContent = 'content_copy'; }, 1500);
   });
+}
+
+function switchTab(btn, panelId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+  const option = btn.closest('.portal-start__option');
+  option.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('--active'));
+  option.querySelector('#' + panelId).classList.add('--active');
 }
 
 function submitRegister(e) {

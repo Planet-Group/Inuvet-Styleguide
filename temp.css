@@ -21,34 +21,58 @@
 }
 
 /* ── Startseite Provision-Portal ─────────────────────────── */
+.portal-start__greeting {
+  font-size: var(--text-l);
+  font-weight: 900;
+  line-height: var(--lh-h2);
+  margin-bottom: var(--module);
+}
 .portal-start__options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr auto 1fr;
   gap: var(--module);
-  padding: 0 0 var(--module-2xl);
+  padding-bottom: var(--module-2xl);
 }
 .portal-start__option {
   display: flex;
   flex-direction: column;
   gap: var(--half-module);
-  padding: var(--module);
-  background: var(--accent-bg);
 }
 .portal-start__option > h3,
 .portal-start__option > p { margin: 0; }
-.portal-start__option > p { color: var(--fg-muted); }
-.portal-start__option > .btn,
-.portal-start__option > form {
-  margin-top: auto;
-  padding-top: var(--half-module);
-}
+.portal-start__option > p { color: var(--fg-muted); line-height: var(--lh-base); }
+.portal-start__option > .btn { margin-top: var(--half-module); }
+.portal-start__option .tabs { margin-bottom: 0; }
 .portal-start__option form {
   display: flex;
   flex-direction: column;
-  gap: var(--half-module);
+  gap: 0; /* form-field hat margin-bottom eingebaut */
 }
-@media (max-width: 860px) {
+
+/* Vertikaler „oder"-Trenner */
+.portal-start__divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--half-module);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-muted);
+}
+.portal-start__divider::before,
+.portal-start__divider::after {
+  content: '';
+  flex: 1;
+  width: 1px;
+  background: var(--border-light);
+}
+@media (max-width: 680px) {
   .portal-start__options { grid-template-columns: 1fr; }
+  .portal-start__divider { flex-direction: row; }
+  .portal-start__divider::before,
+  .portal-start__divider::after { flex: 1; width: auto; height: 1px; }
 }
 
 /* ── Provision Störer ─────────────────────────────────────── */
