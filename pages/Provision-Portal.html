@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <link rel="stylesheet" href="provision-portal.css">
+  <link rel="stylesheet" href="../temp.css">
 </head>
 <body>
 
@@ -88,6 +89,15 @@
       <button class="btn --primary --full" onclick="completePayout()">Provision einlösen</button>
     </div>
   </div>
+</div>
+
+<!-- Promo Bar -->
+<div class="promo-bar">
+  <span class="label-caps">codice sconto per la clientela</span>
+  <strong class="promo-bar__code">T159075X</strong>
+  <button class="btn --icon" onclick="copyPromoCode(this)" aria-label="Code in Zwischenablage kopieren">
+    <span class="material-icons">content_copy</span>
+  </button>
 </div>
 
 <!-- SPA-Container -->
@@ -276,6 +286,14 @@ function completePayout() {
   currentPage = 'success';
   render();
   window.scrollTo(0, 0);
+}
+
+function copyPromoCode(btn) {
+  navigator.clipboard.writeText('T159075X').then(() => {
+    const icon = btn.querySelector('.material-icons');
+    icon.textContent = 'check';
+    setTimeout(() => { icon.textContent = 'content_copy'; }, 1500);
+  });
 }
 
 function setCheckoutOption(btn) {
