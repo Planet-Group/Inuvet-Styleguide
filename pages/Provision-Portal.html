@@ -83,6 +83,9 @@
       </button>
     </div>
     <div class="modal__body">
+      <div class="notice" id="payoutMinNotice" style="display:none">
+        <p>Eine Auszahlung ist erst ab <strong>20&nbsp;€</strong> möglich. Dein aktuelles Guthaben beträgt <strong id="payoutMinAmount"></strong>.</p>
+      </div>
       <p class="auszahlung-hint">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
       <div class="form-field">
         <input type="text" id="modal-iban" placeholder=" " value="DE89 3704 0044 0532 0130 00">
@@ -282,7 +285,15 @@ function setVoucher() {
   }
 }
 
+const PAYOUT_MIN = 20;
+
 function openAuszahlungModal() {
+  const available = provisionAvailable();
+  const notice = document.getElementById('payoutMinNotice');
+  const amountEl = document.getElementById('payoutMinAmount');
+  const belowMin = available < PAYOUT_MIN;
+  notice.style.display = belowMin ? '' : 'none';
+  if (belowMin) amountEl.textContent = fmt(available);
   document.getElementById('auszahlungModal').classList.add('--open');
 }
 
@@ -394,8 +405,6 @@ function renderPortal() {
     : `Alle Prämien einlösbar`;
 
   const pctInt = Math.round(pct * 100);
-  const PAYOUT_MIN = 50;
-  const canPayout = available >= PAYOUT_MIN;
 
   return `
     <section class="provision-hero">
@@ -406,11 +415,7 @@ function renderPortal() {
         <div class="provision-hero__col">
           <p class="provision-hero__mobile-title">Deine aktuelle Provision</p>
           <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
-          <button class="btn --primary" onclick="openAuszahlungModal()" ${canPayout ? '' : 'disabled'}>Sofort auszahlen</button>
-          <p class="shipping-hint">
-            <span class="material-icons" aria-hidden="true">${canPayout ? 'check_circle' : 'lock'}</span>
-            ${canPayout ? `Mindestbetrag 50&nbsp;€ erreicht` : `Noch ${fmt(PAYOUT_MIN - available)} bis zur Auszahlung`}
-          </p>
+          <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
         </div>
         <div class="provision-hero__col --ring">
           <div class="provision-hero__ring-wrap">
