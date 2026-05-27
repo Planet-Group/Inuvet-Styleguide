@@ -129,9 +129,8 @@
 
 /* ── Modal Auszahlung ─────────────────────────────────────── */
 
-.auszahlung-hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--module); }
-#auszahlungModal .form-field + .form-field { margin-top: var(--half-module); }
-#auszahlungModal .btn.--primary { margin-top: var(--module); }
+.auszahlung-hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--half-module); }
+#auszahlungModal .btn.--primary { margin-top: var(--half-module); }
 
 /* ── Gutscheinkarte ───────────────────────────────────────── */
 
