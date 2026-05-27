@@ -145,14 +145,6 @@
 </div>
 
 <script>
-function copyPromoCode(btn) {
-  navigator.clipboard.writeText('T159075X').then(() => {
-    const icon = btn.querySelector('.material-icons');
-    icon.textContent = 'check';
-    setTimeout(() => { icon.textContent = 'content_copy'; }, 1500);
-  });
-}
-
 function switchTab(btn, panelId) {
   btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('--active'));
   btn.classList.add('--active');

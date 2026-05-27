@@ -1035,10 +1035,10 @@
      TABS
      ═══════════════════════════════════════════ */
 
-  .tabs { margin-bottom: var(--module); }
+  .tabs { display: flex; gap: var(--module); border-bottom: 1px solid var(--border); padding-bottom: 0; margin-bottom: var(--module); }
   .tab-nav { display: flex; gap: var(--module); box-shadow: inset 0 -1px 0 var(--border-light); margin-bottom: var(--module); overflow-x: auto; scrollbar-width: none; }
   .tab-nav::-webkit-scrollbar { display: none; }
-  .tab-btn { font-family: var(--font); font-size: var(--text-base); font-weight: 700; color: var(--fg-muted); background: none; border: none; border-bottom: 1px solid transparent; padding: 0 0 var(--half-module) 0; cursor: pointer; transition: color var(--anim-fast), border-color var(--anim-fast); white-space: nowrap; }
+  .tab-btn { font-family: var(--font); font-size: var(--text-base); font-weight: 700; color: var(--fg-muted); background: none; border: none; border-bottom: 1px solid transparent; padding: 0 0 var(--half-module) 0; margin-bottom: -1px; cursor: pointer; transition: color var(--anim-fast), border-color var(--anim-fast); white-space: nowrap; }
   .tab-btn:hover { color: var(--fg); border-color: var(--border); }
   .tab-btn.--active { color: var(--fg); border-color: var(--border-active); }
   .tab-panel { display: none; }
