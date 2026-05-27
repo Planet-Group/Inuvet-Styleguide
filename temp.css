@@ -41,15 +41,17 @@
 .portal-start__option > h3,
 .portal-start__option > p { margin: 0; }
 .portal-start__option > p { color: var(--fg-muted); line-height: var(--lh-base); }
-.portal-start__option > .btn { margin-top: var(--half-module); }
+.portal-start__option > .btn { margin-top: 0; }
 .portal-start__option .tabs { margin-bottom: var(--half-module); }
 /* .tabs fehlt in inuvet.css das flex-Layout — hier global korrigiert, Kandidat für inuvet.css */
 .tabs {
   display: flex;
   gap: var(--module);
   border-bottom: 1px solid var(--border);
-  padding-bottom: calc(var(--base) * 0.25);
+  padding-bottom: 0;
 }
+/* margin-bottom: -1px lässt den aktiven tab-btn border-bottom die Container-Linie überlagern */
+.tab-btn { margin-bottom: -1px; }
 .portal-start__option form {
   display: flex;
   flex-direction: column;
