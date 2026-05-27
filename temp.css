@@ -22,9 +22,10 @@
 
 /* ── Startseite Provision-Portal ─────────────────────────── */
 .portal-start__greeting {
-  font-size: var(--text-l);
+  font-size: var(--text-xl);
   font-weight: 900;
-  line-height: var(--lh-h2);
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
   margin-bottom: var(--module);
 }
 .portal-start__options {
