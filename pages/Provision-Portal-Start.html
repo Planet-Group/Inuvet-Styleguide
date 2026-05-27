@@ -75,6 +75,20 @@
   </button>
 </div>
 
+<!-- Registrierung Erfolgs-Modal -->
+<div class="shop-modal-overlay" id="registerModal" onclick="closeRegisterModal()">
+  <div class="shop-modal" onclick="event.stopPropagation()">
+    <div class="shop-modal__icon">
+      <span class="material-icons">mark_email_read</span>
+    </div>
+    <p class="shop-modal__title">Gleich bist du dabei!</p>
+    <p class="shop-modal__body">Wir richten in den nächsten Tagen ein Kundenkonto für dich ein und informieren dich per E-Mail.</p>
+    <div class="shop-modal__actions">
+      <button class="btn --primary" onclick="closeRegisterModal()">Verstanden</button>
+    </div>
+  </div>
+</div>
+
 <!-- Inhalt -->
 <main>
   <div class="page --narrow">
@@ -111,6 +125,10 @@
             <div class="form-field">
               <input type="email" id="reg-email" placeholder=" " autocomplete="email" required>
               <label for="reg-email">E-Mail-Adresse</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="reg-tel" placeholder=" " autocomplete="tel">
+              <label for="reg-tel">Telefonnummer (optional)</label>
             </div>
             <button class="btn --primary --full" type="submit">Jetzt registrieren</button>
           </form>
@@ -162,9 +180,17 @@ function switchTab(btn, panelId) {
   option.querySelector('#' + panelId).classList.add('--active');
 }
 
+function openRegisterModal() {
+  document.getElementById('registerModal').classList.add('--open');
+}
+
+function closeRegisterModal() {
+  document.getElementById('registerModal').classList.remove('--open');
+}
+
 function submitRegister(e) {
   e.preventDefault();
-  window.location.href = 'Provision-Portal.html';
+  openRegisterModal();
 }
 
 function submitLogin(e) {
