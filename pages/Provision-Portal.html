@@ -394,6 +394,8 @@ function renderPortal() {
     : `Alle Prämien einlösbar`;
 
   const pctInt = Math.round(pct * 100);
+  const PAYOUT_MIN = 50;
+  const canPayout = available >= PAYOUT_MIN;
 
   return `
     <section class="provision-hero">
@@ -404,7 +406,11 @@ function renderPortal() {
         <div class="provision-hero__col">
           <p class="provision-hero__mobile-title">Deine aktuelle Provision</p>
           <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
-          <button class="btn --primary" onclick="openAuszahlungModal()">Sofort auszahlen</button>
+          <button class="btn --primary" onclick="openAuszahlungModal()" ${canPayout ? '' : 'disabled'}>Sofort auszahlen</button>
+          <p class="shipping-hint">
+            <span class="material-icons" aria-hidden="true">${canPayout ? 'check_circle' : 'lock'}</span>
+            ${canPayout ? `Mindestbetrag 50&nbsp;€ erreicht` : `Noch ${fmt(PAYOUT_MIN - available)} bis zur Auszahlung`}
+          </p>
         </div>
         <div class="provision-hero__col --ring">
           <div class="provision-hero__ring-wrap">
