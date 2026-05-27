@@ -55,26 +55,29 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer"></div>
 
-<!-- Modale Pagamento -->
-<div class="modal-overlay" id="auszahlungModal" onclick="closeAuszahlungModal()">
+<!-- Modale Richiesta Prodotti -->
+<div class="modal-overlay" id="productRequestModal" onclick="closeProductRequestModal()">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal__header">
-      <span class="modal__title">Riscossione della provvigione</span>
-      <button class="btn --icon" onclick="closeAuszahlungModal()" aria-label="Chiudi">
+      <span class="modal__title">Richiesta prodotti</span>
+      <button class="btn --icon" onclick="closeProductRequestModal()" aria-label="Chiudi">
         <span class="material-icons">close</span>
       </button>
     </div>
-    <div class="modal__body">
-      <p class="auszahlung-hint">Dati bancari e partita IVA. La provvigione verrà accreditata entro 3–5 giorni lavorativi.</p>
+    <div class="modal__body" id="product-request-form-body">
+      <p class="auszahlung-hint">Indicare i prodotti desiderati. Il team vetalità elaborerà la richiesta e consegnerà i prodotti direttamente.</p>
       <div class="form-field">
-        <input type="text" id="modal-iban" placeholder=" ">
-        <label for="modal-iban">IBAN</label>
+        <textarea id="product-request-text" placeholder=" " rows="5"></textarea>
+        <label for="product-request-text">Prodotti richiesti</label>
       </div>
-      <div class="form-field">
-        <input type="text" id="modal-ust" placeholder=" ">
-        <label for="modal-ust">Partita IVA</label>
-      </div>
-      <button class="btn --primary --full" onclick="completePayout()">Riscuoti la provvigione</button>
+      <p id="product-request-error" style="display:none; color:var(--color-error); font-size:var(--text-sm); margin-bottom:var(--half-module);"></p>
+      <button class="btn --primary --full" id="product-request-submit" onclick="submitProductRequest()">Invia richiesta</button>
+    </div>
+    <div class="modal__body" id="product-request-success-body" style="display:none; text-align:center; padding: var(--module) var(--module) calc(var(--module) * 1.5);">
+      <span class="material-icons" style="font-size:3rem; color:var(--color-primary); display:block; margin-bottom:.75rem;">check_circle</span>
+      <p style="font-size:var(--text-lg); font-weight:600; margin-bottom:.5rem;">Richiesta inviata!</p>
+      <p style="color:var(--color-muted); font-size:var(--text-sm); margin-bottom:1.5rem;">Il team vetalità la contatterà a breve.</p>
+      <button class="btn --primary --full" onclick="closeProductRequestModal()">Chiudi</button>
     </div>
   </div>
 </div>
@@ -179,7 +182,7 @@ async function refreshBalance() {
     const data = await res.json();
     if (res.status === 401) { clearSession(); accountId = null; currentPage = 'login'; render(); return; }
     if (res.ok) {
-      const newTotal = data.provision_total;
+      const newTotal = Math.max(0, data.provision_total);
       const newCode  = data.discount_code || null;
       const codeChanged = newCode !== discountCode;
       discountCode = newCode;
@@ -299,23 +302,47 @@ function completeCheckout() {
 }
 
 
-function openAuszahlungModal() {
-  document.getElementById('auszahlungModal').classList.add('--open');
+function openProductRequestModal() {
+  document.getElementById('product-request-text').value = '';
+  document.getElementById('product-request-error').style.display = 'none';
+  document.getElementById('product-request-form-body').style.display = '';
+  document.getElementById('product-request-success-body').style.display = 'none';
+  document.getElementById('productRequestModal').classList.add('--open');
 }
 
-function closeAuszahlungModal() {
-  document.getElementById('auszahlungModal').classList.remove('--open');
+function closeProductRequestModal() {
+  document.getElementById('productRequestModal').classList.remove('--open');
 }
 
-function completePayout() {
-  closeAuszahlungModal();
-  const amount = provisionAvailable();
-  provisionTotal = 0;
-  cart = [];
-  lastOrder = { items: [], total: amount, remaining: 0, payout: true };
-  currentPage = 'success';
-  render();
-  window.scrollTo(0, 0);
+async function submitProductRequest() {
+  const text = document.getElementById('product-request-text').value.trim();
+  const errEl = document.getElementById('product-request-error');
+  errEl.style.display = 'none';
+
+  if (!text) {
+    errEl.textContent = 'Indicare almeno un prodotto.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('product-request-submit');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(`${API_BASE}/webhooks/vetalita_product_request`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ account_id: accountId, request_text: text }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
+    document.getElementById('product-request-form-body').style.display = 'none';
+    document.getElementById('product-request-success-body').style.display = '';
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+    btn.disabled = false;
+  }
 }
 
 function setCheckoutOption(btn) {
@@ -433,7 +460,7 @@ async function submitLogin() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Accesso negato.');
     accountId      = data.account_id;
-    provisionTotal = data.provision_total;
+    provisionTotal = Math.max(0, data.provision_total);
     discountCode   = data.discount_code || null;
     currentPage    = 'portal';
     saveSession();
@@ -571,7 +598,7 @@ function renderPortal() {
         <div class="provision-hero__col">
           <p class="provision-hero__mobile-title">Provvigione disponibile</p>
           <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
-          <button class="btn --primary" onclick="openAuszahlungModal()">Paga subito</button>
+          <button class="btn --primary" onclick="openProductRequestModal()">Richiedi prodotti</button>
         </div>
         <div class="provision-hero__col --ring">
           <div class="provision-hero__ring-wrap">
@@ -872,19 +899,6 @@ function renderCheckout() {
    ═══════════════════════════════════════ */
 
 function renderSuccess() {
-  if (lastOrder.payout) {
-    return `
-      <div class="page --narrow portal-section">
-        <div class="success-state">
-          <span class="success-state__icon material-icons">check_circle</span>
-          <h1 class="success-state__title">Pagamento richiesto!</h1>
-          <p class="success-state__body"><strong>${fmt(lastOrder.total)}</strong> saranno accreditati entro 3–5 giorni lavorativi sul conto registrato.</p>
-        </div>
-        <div class="success-state__actions">
-          <button class="btn --primary" onclick="backToPortal()">Torna alla panoramica</button>
-        </div>
-      </div>`;
-  }
 
   const items = lastOrder.items.map(p => `
     <div class="cart-item">
