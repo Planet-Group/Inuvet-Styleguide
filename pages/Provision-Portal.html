@@ -34,6 +34,9 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-item">
+      <a href="Provision-Portal-Start.html" class="nav-item__trigger">Start</a>
+    </div>
+    <div class="nav-item">
       <a href="Provision-Portal.html" class="nav-item__trigger" aria-current="page">Mockup</a>
     </div>
     <div class="nav-item">
@@ -55,6 +58,9 @@
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="Provision-Portal-Start.html" onclick="closeMobile()">Start</a>
+  </div>
   <div class="nav-col">
     <a href="Provision-Portal.html" onclick="closeMobile()">Mockup</a>
   </div>
@@ -102,6 +108,11 @@
 
 <!-- SPA-Container -->
 <main id="app"></main>
+
+<!-- Provision Störer -->
+<a href="Provision-Portal-Start.html#register" class="provision-stoerer" aria-label="Jetzt registrieren und 10 € Startprovision kassieren">
+  Registrieren<br>10&nbsp;€ kassieren
+</a>
 
 <!-- Mockup FAB -->
 <button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">

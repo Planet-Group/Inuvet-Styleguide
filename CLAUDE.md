@@ -78,7 +78,8 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `pages/Formular-Nebenwirkungen-TB.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
 - `pages/Formular-Nebenwirkungen-TA.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierarztpraxis)
 - `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
-- `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite
+- `pages/Provision-Portal-Start.html` — Startseite Provisions-Portal: Testmodus / Neuregistrierung (10 € Startprovision) / Login (Kundennummer + PLZ)
+- `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite; Störer verlinkt auf Startseite
 - `pages/Provision-Portal-Info.html` — Technische Dokumentation zum Provisions-Portal
 - `pages/_template.html` — Boilerplate für neue Mockup-Pages
 
