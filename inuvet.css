@@ -511,10 +511,10 @@
     color: var(--fg-muted);
     margin-bottom: var(--half-module);
   }
-  h1 { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h1); letter-spacing: -0.02em; }
-  h2 { font-size: var(--text-l); font-weight: 700; line-height: var(--lh-h2); }
-  h3 { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); }
-  h4 { font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); }
+  h1 { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h1); letter-spacing: -0.02em; margin-bottom: var(--half-module); }
+  h2 { font-size: var(--text-l); font-weight: 700; line-height: var(--lh-h2); margin-bottom: var(--half-module); }
+  h3 { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin-bottom: var(--half-module); }
+  h4 { font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); margin-bottom: var(--half-module); }
   /* Visuelle Überschriften-Klassen für Demo-Zwecke (kein semantisches Gewicht) */
   .h1 { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h1); letter-spacing: -0.02em; }
   .h2 { font-size: var(--text-l); font-weight: 700; line-height: var(--lh-h2); }
@@ -1224,6 +1224,7 @@
   .form-field input,
   .form-field textarea { background: var(--green-light); }
   .form-field textarea {
+    display: block; /* inline-block-Default erzeugt Descender-Gap am Feldende */
     resize: vertical;
     min-height: 8rem;
   }
@@ -1321,6 +1322,7 @@
   }
   .form-field.--error label {
     color: var(--color-error);
+    background: var(--bg); /* fehlt → Border scheint durch Label-Text */
     top: 0;
     transform: translateY(-50%);
     font-size: var(--text-xs);
