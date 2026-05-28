@@ -38,9 +38,13 @@
 
 <!-- Navigation -->
 <nav class="site-nav" aria-label="Navigazione del sito">
-  <div class="nav-left"></div>
+  <div class="nav-left">
+    <button class="btn --icon" id="logoutBtn" onclick="logout()" style="display:none" aria-label="Esci">
+      <span class="material-icons">logout</span>
+    </button>
+  </div>
   <div class="nav-center">
-    <a href="#" aria-label="Vai alla home">
+    <a href="#" onclick="navToPortal(); return false;" aria-label="Vai alla panoramica">
       <img src="logo.png" alt="vetalità Logo" style="height: 92px; width: auto;">
     </a>
   </div>
@@ -48,6 +52,7 @@
     <button class="btn --icon" id="cartBtn" aria-label="Carrello" onclick="openCart()">
       <span class="material-icons">redeem</span>
     </button>
+    <button class="btn --ghost --sm" id="exitPreviewBtn" onclick="exitPreview()" style="display:none">Esci dall'anteprima</button>
   </div>
 </nav>
 
@@ -81,6 +86,26 @@
     </div>
   </div>
 </div>
+
+<!-- Modale Errore -->
+<div class="modal-overlay" id="errorModal" onclick="closeErrorModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Si è verificato un errore</span>
+      <button class="btn --icon" onclick="closeErrorModal()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body" style="text-align:center; padding: var(--module) var(--module) calc(var(--module) * 1.5);">
+      <span class="material-icons" style="font-size:2.5rem; color:var(--color-error, #c0392b); display:block; margin-bottom:.75rem;">error_outline</span>
+      <p id="error-modal-message" style="font-size:var(--text-base); margin-bottom:1.5rem;"></p>
+      <button class="btn --primary --full" onclick="closeErrorModal()">Chiudi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Promo Bar -->
+<div id="promo-bar-slot"></div>
 
 <!-- SPA-Container -->
 <main id="app"></main>
@@ -135,9 +160,9 @@ let cart = [];
 let currentPage = 'login';
 let activePremiumId = null;
 let lastOrder = null;
-let shippingCost = 0;
 let _countUpRunning = false;
 let _countUpPending = null;
+let previewMode = false;
 
 function saveSession() {
   localStorage.setItem(SESSION_KEY, JSON.stringify({
@@ -163,6 +188,7 @@ function restoreSession() {
     provisionTotal = s.provisionTotal ?? 0;
     discountCode   = s.discountCode   ?? null;
     currentPage    = 'portal';
+    renderPromoBar();
     // refresh balance in background without blocking the render
     refreshBalance();
   } catch (e) {
@@ -187,6 +213,7 @@ async function refreshBalance() {
       const codeChanged = newCode !== discountCode;
       discountCode = newCode;
       saveSession();
+      renderPromoBar();
       if (currentPage === 'portal') {
         if (codeChanged) {
           render();
@@ -209,7 +236,10 @@ render();
 
 function thumbHTML(p, cssClass = 'product-thumb') {
   if (p.voucher) {
-    return `<div class="${cssClass} voucher-frame"><div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`;
+    const small = cssClass.includes('cart-item__image');
+    return small
+      ? `<div class="${cssClass} voucher-thumb">${p.voucher.brand[0]}</div>`
+      : `<div class="${cssClass} voucher-frame"><div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`;
   }
   return `<div class="${cssClass}${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>`;
 }
@@ -271,8 +301,44 @@ function openPDP(id) {
   window.scrollTo(0, 0);
 }
 
+function enterPreview() {
+  previewMode    = true;
+  provisionTotal = 456.78;
+  discountCode   = 'DEMO2026';
+  currentPage    = 'portal';
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function exitPreview() {
+  previewMode    = false;
+  provisionTotal = 0;
+  discountCode   = null;
+  currentPage    = 'login';
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function navToPortal() {
+  if (previewMode) { exitPreview(); return; }
+  if (currentPage !== 'login') backToPortal();
+}
+
+function logout() {
+  clearSession();
+  accountId      = null;
+  provisionTotal = 0;
+  discountCode   = null;
+  cart           = [];
+  currentPage    = 'login';
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
 function backToPortal() {
-  shippingCost = 0;
   currentPage = 'portal';
   render();
   window.scrollTo(0, 0);
@@ -286,21 +352,50 @@ function goToCheckout() {
 }
 
 function completeCheckout() {
-  const total = cartTotal() + shippingCost;
+  const total = cartTotal();
   lastOrder = {
     items: cart.map(id => PREMIUMS.find(p => p.id === id)),
     total,
-    shipping: shippingCost,
-    remaining: provisionAvailable() - shippingCost
+    remaining: provisionAvailable() - total
   };
-  provisionTotal = provisionAvailable() - shippingCost;
+  provisionTotal = provisionAvailable() - total;
   cart = [];
-  shippingCost = 0;
   currentPage = 'success';
   render();
   window.scrollTo(0, 0);
 }
 
+
+function renderPromoBar() {
+  const slot = document.getElementById('promo-bar-slot');
+  if (!slot) return;
+  slot.innerHTML = discountCode ? `
+    <div class="promo-bar">
+      <span class="label-caps">Codice sconto per la clientela</span>
+      <strong class="promo-bar__code">${discountCode}</strong>
+      <button class="btn --icon" onclick="copyPromoCode(this)" aria-label="Copia codice">
+        <span class="material-icons">content_copy</span>
+      </button>
+    </div>` : '';
+}
+
+function copyPromoCode(btn) {
+  const code = btn.closest('.promo-bar').querySelector('.promo-bar__code').textContent.trim();
+  navigator.clipboard.writeText(code).then(() => {
+    const icon = btn.querySelector('.material-icons');
+    icon.textContent = 'check';
+    setTimeout(() => { icon.textContent = 'content_copy'; }, 1500);
+  });
+}
+
+function showErrorModal(msg) {
+  document.getElementById('error-modal-message').textContent = msg;
+  document.getElementById('errorModal').classList.add('--open');
+}
+
+function closeErrorModal() {
+  document.getElementById('errorModal').classList.remove('--open');
+}
 
 function openProductRequestModal() {
   document.getElementById('product-request-text').value = '';
@@ -345,25 +440,15 @@ async function submitProductRequest() {
   }
 }
 
-function setCheckoutOption(btn) {
-  btn.closest('.tile-grid').querySelectorAll('.choice-box').forEach(b => b.classList.remove('--active'));
-  btn.classList.add('--active');
-  shippingCost = parseFloat(btn.dataset.cost || 0);
-  updateCheckoutSummary();
-}
-
 function updateCheckoutSummary() {
   const el = document.getElementById('checkout-summary');
   if (!el) return;
-  const total = cartTotal();
-  const remaining = provisionAvailable() - shippingCost;
-  el.innerHTML = renderCheckoutSummary(total, remaining);
+  el.innerHTML = renderCheckoutSummary(cartTotal(), provisionAvailable());
 }
 
 function renderCheckoutSummary(total, remaining) {
   return `
     <div class="summary-line"><span>Valore provvigione</span><span>${fmt(total)}</span></div>
-    <div class="summary-line"><span>Spedizione</span><span>${shippingCost > 0 ? fmt(shippingCost) : 'gratuita'}</span></div>
     <div class="summary-total"><span>Provvigione rimanente</span><span>${fmt(remaining)}</span></div>`;
 }
 
@@ -389,6 +474,7 @@ function renderLogin() {
         </div>
         ${loginError ? `<p style="color:var(--color-error, #c0392b); font-size:var(--text-sm); text-align:center; margin-bottom:var(--half-module);">${loginError}</p>` : ''}
         <button class="btn --primary --full" onclick="submitLogin()">Accedi</button>
+        <button class="btn --ghost --full" style="margin-top:var(--half-module);" onclick="enterPreview()">Anteprima del portale</button>
       </div>
     </div>`;
 }
@@ -464,6 +550,7 @@ async function submitLogin() {
     discountCode   = data.discount_code || null;
     currentPage    = 'portal';
     saveSession();
+    renderPromoBar();
     render();
   } catch (err) {
     loginError  = err.message;
@@ -481,8 +568,7 @@ async function submitRedeem() {
     const p = PREMIUMS.find(x => x.id === id);
     return { name: p.name, price: p.price };
   });
-  const shippingLabel = shippingCost > 0 ? 'GLS Express' : 'GLS Standard';
-  const total = cartTotal() + shippingCost;
+  const total = cartTotal();
 
   currentPage = 'loading';
   render();
@@ -492,10 +578,8 @@ async function submitRedeem() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        account_id:     accountId,
+        account_id: accountId,
         items,
-        shipping_label: shippingLabel,
-        shipping_cost:  shippingCost,
         total,
       }),
     });
@@ -505,12 +589,10 @@ async function submitRedeem() {
     lastOrder = {
       items: cart.map(id => PREMIUMS.find(p => p.id === id)),
       total,
-      shipping: shippingCost,
-      remaining: provisionAvailable() - shippingCost,
+      remaining: provisionAvailable() - total,
     };
-    provisionTotal = provisionAvailable() - shippingCost;
-    cart        = [];
-    shippingCost = 0;
+    provisionTotal = provisionAvailable() - total;
+    cart = [];
     currentPage = 'success';
     saveSession();
     render();
@@ -518,7 +600,7 @@ async function submitRedeem() {
   } catch (err) {
     currentPage = 'checkout';
     render();
-    alert(err.message);
+    showErrorModal(err.message);
   }
 }
 
@@ -534,11 +616,11 @@ function renderTile(p) {
   let cartOverlay = '';
   let floatingMeta = '';
 
-  if (inCart) {
+  if (!previewMode && inCart) {
     cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); removeFromCart(${p.id})">Rimuovi</button></div>`;
   } else if (affordable) {
     floatingMeta = `<div class="floating-meta"><div class="badge --sale">Riscattabile</div></div>`;
-    cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">Aggiungi al carrello</button></div>`;
+    if (!previewMode) cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">Aggiungi al carrello</button></div>`;
   } else {
     const missing = p.price - provisionAvailable();
     floatingMeta = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(missing)}</div></div>`;
@@ -590,6 +672,12 @@ function renderPortal() {
   const pctInt = Math.round(pct * 100);
 
   return `
+    ${previewMode ? `
+    <div class="preview-banner">
+      <span class="material-icons" style="font-size:1.1rem;vertical-align:middle;">visibility</span>
+      Modalità anteprima — i dati sono di esempio.
+      <button class="btn --ghost --sm" onclick="exitPreview()" style="margin-left:1rem;">Torna al login</button>
+    </div>` : ''}
     <section class="provision-hero">
       <div class="provision-hero__grid">
         <div class="provision-hero__col --label">
@@ -598,7 +686,7 @@ function renderPortal() {
         <div class="provision-hero__col">
           <p class="provision-hero__mobile-title">Provvigione disponibile</p>
           <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
-          <button class="btn --primary" onclick="openProductRequestModal()">Richiedi prodotti</button>
+          ${previewMode ? '' : '<button class="btn --primary" onclick="openProductRequestModal()">Richiedi prodotti</button>'}
         </div>
         <div class="provision-hero__col --ring">
           <div class="provision-hero__ring-wrap">
@@ -623,14 +711,6 @@ function renderPortal() {
         <div class="provision-hero__sub --hint">${hintText}</div>
       </div>
     </section>
-
-    ${discountCode ? `
-    <div class="page --no-pt">
-      <div class="discount-code-banner">
-        <span class="label-caps">Codice sconto per la clientela</span>
-        <span class="discount-code-banner__code">${discountCode}</span>
-      </div>
-    </div>` : ''}
 
     <div class="page --no-pt portal-section">
       <h2 class="portal-section__title">Premi disponibili</h2>
@@ -684,13 +764,6 @@ function renderPDP() {
             ? `<div class="pdp__main-image voucher-frame">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${pdpRing}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
             : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${pdpRing}</div>`
           }
-          <div class="pdp__thumbs">
-            <div class="pdp__thumb --active${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>
-            <div class="pdp__thumb placeholder-bg"></div>
-            <div class="pdp__thumb placeholder-bg"></div>
-            <div class="pdp__thumb placeholder-bg"></div>
-            <div class="pdp__thumb placeholder-bg"></div>
-          </div>
         </div>
         <div class="pdp__info">
           <h1 class="pdp__title">${p.name}</h1>
@@ -711,10 +784,11 @@ function renderPDP() {
               <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Come funziona?<span class="accordion-icon material-icons">expand_more</span></button>
               <div class="accordion-content"><div class="accordion-content__inner"><p>Il valore del premio viene detratto dalla provvigione disponibile. Saldo attuale: <strong>${fmt(provisionAvailable())}</strong>.</p></div></div>
             </div>
+            ${p.id === 2 ? `
             <div class="accordion-item">
               <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Spedizione &amp; consegna<span class="accordion-icon material-icons">expand_more</span></button>
               <div class="accordion-content"><div class="accordion-content__inner"><p>Il premio verrà inviato entro 5–7 giorni lavorativi dal riscatto all'indirizzo registrato.</p></div></div>
-            </div>
+            </div>` : ''}
           </div>
         </div>
       </div>
@@ -747,7 +821,7 @@ function renderCartDrawer() {
     const p = PREMIUMS.find(x => x.id === id);
     return `
       <div class="cart-item">
-        ${thumbHTML(p)}
+        ${thumbHTML(p, 'cart-item__image product-thumb')}
         <div class="cart-item__info">
           <div class="cart-item__top">
             <div>
@@ -865,19 +939,6 @@ function renderCheckout() {
             </div>
           </div>
 
-          <div>
-            <h3 class="section-label --sub">Metodo di spedizione</h3>
-            <div class="tile-grid --compact">
-              <button class="choice-box --block --active" type="button" data-cost="0" onclick="setCheckoutOption(this)">
-                <span class="material-icons">local_shipping</span>
-                <span><strong>Spedizione standard</strong> — GLS · 3–5 giorni lavorativi · <strong>gratuita</strong></span>
-              </button>
-              <button class="choice-box --block" type="button" data-cost="4.99" onclick="setCheckoutOption(this)">
-                <span class="material-icons">rocket_launch</span>
-                <span><strong>Spedizione express</strong> — GLS Express · 1–2 giorni lavorativi · <strong>4,99 €</strong></span>
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- Colonna destra: riepilogo ordine -->
@@ -886,7 +947,7 @@ function renderCheckout() {
           ${items}
           <div id="checkout-summary">${renderCheckoutSummary(total, remaining)}</div>
           <div class="checkout__cta">
-            <button class="btn --primary --full" type="button" onclick="submitRedeem()">Riscatta premio</button>
+            <button class="btn --primary --full" type="button" onclick="submitRedeem()" ${previewMode ? 'disabled' : ''}>Riscatta premio</button>
           </div>
         </aside>
 
@@ -1026,6 +1087,7 @@ function updateProvisionDisplay(newTotal) {
   if (newTotal === provisionTotal) return;
   const oldAvailable = provisionAvailable();
   provisionTotal = newTotal;
+  saveSession();
   const newAvailable = provisionAvailable();
   if (_countUpRunning) {
     _countUpPending = [newAvailable, refreshTilesInPlace];
@@ -1058,6 +1120,12 @@ function render() {
   };
   document.getElementById('app').innerHTML = (views[currentPage] || renderLogin)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) logoutBtn.style.display = (currentPage === 'login' || previewMode) ? 'none' : '';
+  const cartBtn = document.getElementById('cartBtn');
+  if (cartBtn) cartBtn.style.display = previewMode ? 'none' : '';
+  const exitPreviewBtn = document.getElementById('exitPreviewBtn');
+  if (exitPreviewBtn) exitPreviewBtn.style.display = previewMode ? '' : 'none';
 
   if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { animateHeroRing(); initRings(); initScrollAnimations(); }); }
   if (currentPage === 'pdp') { requestAnimationFrame(animatePDPRing); }

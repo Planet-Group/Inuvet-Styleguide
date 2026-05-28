@@ -200,7 +200,7 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 }
 
 @media (max-width: 767px) {
-  .site-nav { padding: 0 var(--half-module); }
+  .site-nav { padding: 0 var(--half-module); height: max(90px, var(--nav-height)); }
 }
 
 /* ── Page ─────────────────────────────────────────────────── */
@@ -416,6 +416,10 @@ html .announcement-bar.--marquee .announcement-bar__sep {
   background: transparent;
   padding: 0 0.25rem;
 }
+.form-field textarea ~ label {
+  top: 0.85rem;
+  transform: none;
+}
 .form-field input:focus ~ label,
 .form-field input:not(:placeholder-shown) ~ label,
 .form-field textarea:focus ~ label,
@@ -583,23 +587,34 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 }
 
 
-/* ── Discount Code Banner ─────────────────────────────────── */
+/* ── Preview Banner ───────────────────────────────────────── */
 
-.discount-code-banner {
+.preview-banner {
   display: flex;
   align-items: center;
-  gap: var(--half-module);
-  padding: var(--half-module) var(--module);
-  background: var(--green-light);
-  border: 1px solid var(--border-light);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-.discount-code-banner__code {
-  font-size: var(--text-m);
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-notice-bg, #fff8e1);
+  border-bottom: 1px solid var(--color-amber, #f5c518);
+  padding: 0.5rem var(--module);
+  font-size: var(--text-sm);
   color: var(--fg);
+}
+
+/* ── Promo Bar (discount code) ────────────────────────────── */
+
+.promo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) * 0.75);
+  background: var(--accent-bg);
+  padding: calc(var(--base) * 0.5) var(--module);
+  border-bottom: 1px solid var(--border-light);
+}
+.promo-bar__code {
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 /* ── Fortschrittsring ─────────────────────────────────────── */
@@ -766,4 +781,24 @@ html .announcement-bar.--marquee .announcement-bar__sep {
   font-weight: 900;
   line-height: var(--lh-h1);
   letter-spacing: -0.02em;
+}
+.voucher-thumb {
+  background: linear-gradient(135deg, var(--color-amber), var(--color-notice-bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  font-size: calc(var(--base) * 2.5);
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1;
+  padding-bottom: 0.5rem;
+}
+.voucher-card.--sm {
+  border-radius: 0.5rem;
+  padding: calc(var(--base) * 0.25);
+  gap: 0;
+}
+.voucher-card.--sm .voucher-card__brand {
+  font-size: var(--text-xs);
 }
