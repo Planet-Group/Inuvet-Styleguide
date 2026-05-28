@@ -34,6 +34,9 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-item">
+      <a href="Provision-Portal-Start.html" class="nav-item__trigger">Start</a>
+    </div>
+    <div class="nav-item">
       <a href="Provision-Portal.html" class="nav-item__trigger" aria-current="page">Mockup</a>
     </div>
     <div class="nav-item">
@@ -56,6 +59,9 @@
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
   <div class="nav-col">
+    <a href="Provision-Portal-Start.html" onclick="closeMobile()">Start</a>
+  </div>
+  <div class="nav-col">
     <a href="Provision-Portal.html" onclick="closeMobile()">Mockup</a>
   </div>
   <div class="nav-col">
@@ -77,6 +83,9 @@
       </button>
     </div>
     <div class="modal__body">
+      <div class="notice" id="payoutMinNotice" style="display:none">
+        <p>Eine Auszahlung ist erst ab <strong>20&nbsp;€</strong> möglich. Dein aktuelles Guthaben beträgt <strong id="payoutMinAmount"></strong>.</p>
+      </div>
       <p class="auszahlung-hint">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
       <div class="form-field">
         <input type="text" id="modal-iban" placeholder=" " value="DE89 3704 0044 0532 0130 00">
@@ -102,6 +111,13 @@
 
 <!-- SPA-Container -->
 <main id="app"></main>
+
+<!-- Provision Störer -->
+<a href="Provision-Portal-Start.html#register" class="provision-stoerer" aria-label="Jetzt registrieren und 10 € Startprovision kassieren">
+  <span class="provision-stoerer__label">Registrieren</span>
+  <span class="provision-stoerer__amount">10 €</span>
+  <span class="provision-stoerer__label">kassieren</span>
+</a>
 
 <!-- Mockup FAB -->
 <button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
@@ -269,7 +285,15 @@ function setVoucher() {
   }
 }
 
+const PAYOUT_MIN = 20;
+
 function openAuszahlungModal() {
+  const available = provisionAvailable();
+  const notice = document.getElementById('payoutMinNotice');
+  const amountEl = document.getElementById('payoutMinAmount');
+  const belowMin = available < PAYOUT_MIN;
+  notice.style.display = belowMin ? '' : 'none';
+  if (belowMin) amountEl.textContent = fmt(available);
   document.getElementById('auszahlungModal').classList.add('--open');
 }
 

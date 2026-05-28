@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provisions-Portal – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <link rel="stylesheet" href="provision-portal.css">
+  <link rel="stylesheet" href="../temp.css">
+  <style>
+    /* Keine Announcement Bar auf dieser Seite → Nav direkt am oberen Rand */
+    .site-nav { top: 0; }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-item">
+      <a href="Provision-Portal-Start.html" class="nav-item__trigger" aria-current="page">Start</a>
+    </div>
+    <div class="nav-item">
+      <a href="Provision-Portal.html" class="nav-item__trigger">Mockup</a>
+    </div>
+    <div class="nav-item">
+      <a href="Provision-Portal-Info.html" class="nav-item__trigger">Dokumentation</a>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="Provision-Portal-Start.html" onclick="closeMobile()">Start</a>
+  </div>
+  <div class="nav-col">
+    <a href="Provision-Portal.html" onclick="closeMobile()">Mockup</a>
+  </div>
+  <div class="nav-col">
+    <a href="Provision-Portal-Info.html" onclick="closeMobile()">Dokumentation</a>
+  </div>
+</div>
+
+<!-- Registrierung Erfolgs-Modal -->
+<div class="shop-modal-overlay" id="registerModal" onclick="closeRegisterModal()">
+  <div class="shop-modal" onclick="event.stopPropagation()">
+    <div class="shop-modal__icon">
+      <span class="material-icons">mark_email_read</span>
+    </div>
+    <p class="shop-modal__title">Gleich bist du dabei!</p>
+    <p class="shop-modal__body">Wir richten in den nächsten Tagen ein Kundenkonto für dich ein und informieren dich per E-Mail.</p>
+    <div class="shop-modal__actions">
+      <button class="btn --primary" onclick="closeRegisterModal()">Verstanden</button>
+    </div>
+  </div>
+</div>
+
+<!-- Inhalt -->
+<main>
+  <div class="page --narrow">
+
+    <p class="portal-start__greeting">Schön, dass du da bist.</p>
+
+    <div class="portal-start__options">
+
+      <!-- Entweder: Erstmal umschauen -->
+      <div class="portal-start__option">
+        <h3>Erstmal umschauen</h3>
+        <p>Entdecke dein Provisions-Portal – ganz ohne Registrierung.</p>
+        <a href="Provision-Portal.html" class="btn --primary">jetzt ansehen</a>
+      </div>
+
+      <!-- Oder-Trenner -->
+      <div class="portal-start__divider" aria-hidden="true">oder</div>
+
+      <!-- Oder: Registrieren / Anmelden -->
+      <div class="portal-start__option" id="register">
+        <h3>Direkt registrieren &amp; 10&nbsp;€ kassieren</h3>
+
+        <div class="tabs">
+          <button class="tab-btn --active" type="button" onclick="switchTab(this, 'tab-reg')">Registrieren</button>
+          <button class="tab-btn" type="button" onclick="switchTab(this, 'tab-login')">Anmelden</button>
+        </div>
+
+        <div class="tab-panel --active" id="tab-reg">
+          <form onsubmit="submitRegister(event)" novalidate>
+            <div class="form-field">
+              <input type="text" id="reg-name" placeholder=" " autocomplete="name" required>
+              <label for="reg-name">Name</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="reg-email" placeholder=" " autocomplete="email" required>
+              <label for="reg-email">E-Mail-Adresse</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="reg-tel" placeholder=" " autocomplete="tel">
+              <label for="reg-tel">Telefonnummer (optional)</label>
+            </div>
+            <button class="btn --primary --full" type="submit">Jetzt registrieren</button>
+          </form>
+        </div>
+
+        <div class="tab-panel" id="tab-login">
+          <form onsubmit="submitLogin(event)" novalidate>
+            <div class="form-field">
+              <input type="text" id="login-kdnr" placeholder=" " autocomplete="off" required>
+              <label for="login-kdnr">Kundennummer</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="login-plz" placeholder=" " autocomplete="postal-code" maxlength="5" required>
+              <label for="login-plz">PLZ</label>
+            </div>
+            <button class="btn --primary --full" type="submit">Einloggen</button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- Mockup FAB -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Mockup-Kontext
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Mockup-Kontext</div>
+  <p>Startseite des Provisions-Portals. Drei Einstiegspunkte: Testmodus, Neuregistrierung (inkl. 10&nbsp;€ Startprovision), und Login für bestehende Kunden.</p>
+</div>
+
+<script>
+function switchTab(btn, panelId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+  const option = btn.closest('.portal-start__option');
+  option.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('--active'));
+  option.querySelector('#' + panelId).classList.add('--active');
+}
+
+function openRegisterModal() {
+  document.getElementById('registerModal').classList.add('--open');
+}
+
+function closeRegisterModal() {
+  document.getElementById('registerModal').classList.remove('--open');
+}
+
+function submitRegister(e) {
+  e.preventDefault();
+  openRegisterModal();
+}
+
+function submitLogin(e) {
+  e.preventDefault();
+  window.location.href = 'Provision-Portal.html';
+}
+</script>
+
+<script src="../inuvet.js"></script>
+</body>
+</html>

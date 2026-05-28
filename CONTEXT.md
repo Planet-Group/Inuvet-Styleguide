@@ -49,6 +49,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
     ├── freigabe.css
     ├── Formular-Reklamation.html   # Stand-Alone-Formular-Beispiel
     ├── formulare.css
+    ├── Provision-Portal-Start.html # Startseite: Testmodus / Registrierung (10 €) / Login
     ├── Provision-Portal.html       # Tierarzt-Provisions-Portal (Auszahlung / Prämie)
     ├── Provision-Portal-Info.html  # Technische Dokumentation zum Provisions-Portal
     ├── provision-portal.css
@@ -524,6 +525,9 @@ Tierarzt-Ansicht: einzelne Empfehlungsanfrage von Tierbesitzer freigeben/ablehne
 - `<main class="page --narrow approval-page">`
 - `.choice-box` als Mengen-Auswahl (Ablehnen, max. 1×, max. 2×, max. 5×, Unbegrenzt)
 - Nach Absenden: `.success-state` + E-Mail-Overlay (analog Tierarzt-Empfehlung-Mockup) mit zwei Nachrichten: Kunden-E-Mail + interne Nachricht an `team@inuvet.com`
+
+### `Provision-Portal-Start.html` — Startseite Provisions-Portal
+Einstiegsseite mit drei Optionen: (1) Portal im Testmodus ansehen (Button → `Provision-Portal.html`), (2) Neuregistrierung mit Name + E-Mail (10 € Startprovision, Anchor `#register`), (3) Login für bestehende Kunden mit Kundennummer + PLZ. Formular-Submits leiten jeweils ins Mockup weiter. Teilt `provision-portal.css` + `temp.css` mit dem Portal.
 
 ### `Provision-Portal.html` + `Provision-Portal-Info.html` — Tierarzt-Provisions-Portal
 Tierarzt-Ansicht: verdiente Provisionen einsehen und einlösen — als Barauszahlung (IBAN-Modal) oder als Prämie (Gutschein / Sachprämie).

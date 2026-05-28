@@ -4,18 +4,3 @@
    Wenn festgehalten → nach inuvet.css verschieben und hier löschen.
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
-
-/* ── Promo Bar (Provision-Portal) ─────────────────────────── */
-.promo-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--base) * 0.75);
-  background: var(--accent-bg);
-  padding: calc(var(--base) * 0.5) var(--module);
-  border-bottom: 1px solid var(--border-light);
-}
-.promo-bar__code {
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}

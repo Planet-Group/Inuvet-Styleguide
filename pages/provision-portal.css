@@ -1,7 +1,113 @@
 /* ══════════════════════════════════════════════════════════════
    provision-portal.css — Seitenspezifische Styles
-   Für: pages/Provision-Portal.html
+   Für: pages/Provision-Portal.html + pages/Provision-Portal-Start.html
    ══════════════════════════════════════════════════════════════ */
+
+/* ── Promo Bar ────────────────────────────────────────────── */
+
+.promo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base) * 0.75);
+  background: var(--accent-bg);
+  padding: calc(var(--base) * 0.5) var(--module);
+  border-bottom: 1px solid var(--border-light);
+}
+.promo-bar__code {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* ── Startseite ───────────────────────────────────────────── */
+
+.portal-start__greeting {
+  font-size: var(--text-xl);
+  font-weight: 900;
+  line-height: var(--lh-h1);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--module);
+}
+.portal-start__options {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--module);
+  padding-bottom: var(--module-2xl);
+}
+.portal-start__option {
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-module);
+}
+.portal-start__option > h3,
+.portal-start__option > p { margin: 0; }
+.portal-start__option > p { color: var(--fg-muted); line-height: var(--lh-base); }
+.portal-start__option > .btn { margin-top: 0; }
+.portal-start__option .tabs { margin-bottom: var(--half-module); }
+.portal-start__option form {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* form-field hat margin-bottom eingebaut */
+}
+
+/* Vertikaler „oder"-Trenner */
+.portal-start__divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--half-module);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-muted);
+}
+.portal-start__divider::before,
+.portal-start__divider::after {
+  content: '';
+  flex: 1;
+  width: 1px;
+  background: var(--border-light);
+}
+@media (max-width: 680px) {
+  .portal-start__options { grid-template-columns: 1fr; }
+  .portal-start__divider { flex-direction: row; }
+  .portal-start__divider::before,
+  .portal-start__divider::after { flex: 1; width: auto; height: 1px; }
+}
+
+/* ── Provision Störer ─────────────────────────────────────── */
+/* border-radius: 50% — bewusste Ausnahme, Kreis-Störer analog Avatar */
+
+.provision-stoerer {
+  position: fixed;
+  bottom: var(--module);
+  left: var(--module);
+  width: clamp(6.5rem, 10vw, 10rem);
+  height: clamp(6.5rem, 10vw, 10rem);
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* funktional: Button-Text im Kreis */
+  z-index: var(--z-overlay);
+  font-weight: 700;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  line-height: 1;
+  gap: 0.2em;
+  text-decoration: none;
+  padding: 1em;
+  transition: background var(--anim-fast), transform var(--anim-fast);
+}
+.provision-stoerer:hover {
+  background: var(--green-hover);
+  transform: scale(1.07);
+}
+.provision-stoerer__label { font-size: 1em; }
+.provision-stoerer__amount { font-size: 2.5em; line-height: 1; }
 
 /* ── Fortschrittsring ────────────────────────────────────── */
 
@@ -129,9 +235,8 @@
 
 /* ── Modal Auszahlung ─────────────────────────────────────── */
 
-.auszahlung-hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--module); }
-#auszahlungModal .form-field + .form-field { margin-top: var(--half-module); }
-#auszahlungModal .btn.--primary { margin-top: var(--module); }
+.auszahlung-hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--half-module); }
+#auszahlungModal .btn.--primary { margin-top: var(--half-module); }
 
 /* ── Gutscheinkarte ───────────────────────────────────────── */
 
