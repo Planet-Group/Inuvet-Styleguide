@@ -39,9 +39,8 @@
 <!-- Navigation -->
 <nav class="site-nav" aria-label="Navigazione del sito">
   <div class="nav-left">
-    <button class="btn --icon" id="logoutBtn" onclick="logout()" style="display:none" aria-label="Esci">
-      <span class="material-icons">logout</span>
-    </button>
+    <button class="btn --ghost --sm" id="logoutBtn" onclick="logout()" style="display:none">Esci dal portale</button>
+    <button class="btn --ghost --sm" id="exitPreviewBtn" onclick="exitPreview()" style="display:none">Esci dall'anteprima</button>
   </div>
   <div class="nav-center">
     <a href="#" onclick="navToPortal(); return false;" aria-label="Vai alla panoramica">
@@ -52,7 +51,6 @@
     <button class="btn --icon" id="cartBtn" aria-label="Carrello" onclick="openCart()">
       <span class="material-icons">redeem</span>
     </button>
-    <button class="btn --ghost --sm" id="exitPreviewBtn" onclick="exitPreview()" style="display:none">Esci dall'anteprima</button>
   </div>
 </nav>
 
@@ -60,29 +58,73 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer"></div>
 
-<!-- Modale Richiesta Prodotti -->
-<div class="modal-overlay" id="productRequestModal" onclick="closeProductRequestModal()">
+<!-- Modale Riscossione in Contanti -->
+<div class="modal-overlay" id="cashRequestModal" onclick="closeCashRequestModal()">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal__header">
-      <span class="modal__title">Richiesta prodotti</span>
-      <button class="btn --icon" onclick="closeProductRequestModal()" aria-label="Chiudi">
+      <span class="modal__title">Riscossione in contanti</span>
+      <button class="btn --icon" onclick="closeCashRequestModal()" aria-label="Chiudi">
         <span class="material-icons">close</span>
       </button>
     </div>
-    <div class="modal__body" id="product-request-form-body">
-      <p class="auszahlung-hint">Indicare i prodotti desiderati. Il team vetalità elaborerà la richiesta e consegnerà i prodotti direttamente.</p>
-      <div class="form-field">
-        <textarea id="product-request-text" placeholder=" " rows="5"></textarea>
-        <label for="product-request-text">Prodotti richiesti</label>
+    <div class="modal__body" id="cash-request-form-body">
+      <div class="notice" id="cash-payout-min-notice" style="display:none">
+        <p>La riscossione in contanti è disponibile a partire da <strong>20&nbsp;€</strong>. Il saldo attuale è <strong id="cash-payout-current-amount"></strong>.</p>
       </div>
-      <p id="product-request-error" style="display:none; color:var(--color-error); font-size:var(--text-sm); margin-bottom:var(--half-module);"></p>
-      <button class="btn --primary --full" id="product-request-submit" onclick="submitProductRequest()">Invia richiesta</button>
+      <p class="auszahlung-hint">Verificare l'IBAN e la partita IVA. Il pagamento verrà effettuato entro 3–5 giorni lavorativi.</p>
+      <div class="form-field">
+        <input type="text" id="cash-request-iban" placeholder=" ">
+        <label for="cash-request-iban">IBAN</label>
+      </div>
+      <div class="form-field">
+        <input type="text" id="cash-request-vat" placeholder=" ">
+        <label for="cash-request-vat">Partita IVA</label>
+      </div>
+      <p id="cash-request-error" class="modal-field-error"></p>
+      <button class="btn --primary --full" id="cash-request-submit" onclick="submitCashRequest()">Invia richiesta</button>
     </div>
-    <div class="modal__body" id="product-request-success-body" style="display:none; text-align:center; padding: var(--module) var(--module) calc(var(--module) * 1.5);">
-      <span class="material-icons" style="font-size:3rem; color:var(--color-primary); display:block; margin-bottom:.75rem;">check_circle</span>
-      <p style="font-size:var(--text-lg); font-weight:600; margin-bottom:.5rem;">Richiesta inviata!</p>
-      <p style="color:var(--color-muted); font-size:var(--text-sm); margin-bottom:1.5rem;">Il team vetalità la contatterà a breve.</p>
-      <button class="btn --primary --full" onclick="closeProductRequestModal()">Chiudi</button>
+  </div>
+</div>
+
+<!-- Modale Registrazione -->
+<div class="modal-overlay" id="registrationModal" onclick="closeRegistrationModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Registrazione nuovo account</span>
+      <button class="btn --icon" onclick="closeRegistrationModal()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body" id="registration-form-body">
+      <p class="auszahlung-hint">Inserire i dati di contatto. Il team vetalità creerà un account e invierà le credenziali di accesso entro breve.</p>
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="text" id="reg-vorname" placeholder=" " required>
+          <label for="reg-vorname">Nome</label>
+        </div>
+        <div class="form-field">
+          <input type="text" id="reg-nachname" placeholder=" " required>
+          <label for="reg-nachname">Cognome</label>
+        </div>
+        <div class="form-field --span-2">
+          <input type="text" id="reg-clinic" placeholder=" ">
+          <label for="reg-clinic">Studio / clinica</label>
+        </div>
+        <div class="form-field --span-2">
+          <input type="email" id="reg-email" placeholder=" " required>
+          <label for="reg-email">Indirizzo e-mail</label>
+        </div>
+        <div class="form-field --span-2">
+          <input type="tel" id="reg-tel" placeholder=" ">
+          <label for="reg-tel">Telefono (opzionale)</label>
+        </div>
+        <div class="form-field --span-2">
+          <input type="text" id="reg-address" placeholder=" ">
+          <label for="reg-address">Indirizzo (opzionale)</label>
+        </div>
+      </div>
+      <p id="registration-error" class="modal-field-error"></p>
+      <button class="btn --primary --full" id="registration-submit" onclick="submitRegistration()">Invia richiesta</button>
     </div>
   </div>
 </div>
@@ -103,6 +145,16 @@
     </div>
   </div>
 </div>
+
+<!-- Registration Störer -->
+<button class="reg-badge" id="regStoerer" onclick="openRegistrationModal()" aria-label="Registra un nuovo account e ricevi 10 euro di bonus">
+  <span class="reg-badge__label">Registrati</span>
+  <span class="reg-badge__amount">10 €</span>
+  <span class="reg-badge__label">di bonus</span>
+</button>
+
+<!-- Preview Banner -->
+<div id="preview-banner-slot"></div>
 
 <!-- Promo Bar -->
 <div id="promo-bar-slot"></div>
@@ -128,18 +180,19 @@ const PREMIUMS = [
   {
     id: 2,
     name: 'Macchina da caffè deLonghi',
-    price: 456.99,
+    price: 150.00,
     desc: 'Piacere del caffè professionale per casa — la deLonghi Dedica Style nel design classico.',
     longDesc: 'La deLonghi Dedica Style EC 685 convince con dimensioni compatte e tecnica di estrazione professionale. 15 bar di pressione pompa, sistema di riscaldamento thermoblock e schiumalatte per un cappuccino perfetto — direttamente dalla cucina in clinica. Consegna a domicilio entro 3–5 giorni lavorativi.',
     image: 'coffee.jpg'
   },
   {
     id: 1,
-    name: 'Buono Amazon 400 Euro',
-    price: 400.00,
+    name: 'Buono Amazon',
+    price: 50.00,
     desc: 'Utilizzabile su tutto l\'assortimento Amazon — dal cibo per animali agli elettrodomestici.',
-    longDesc: 'Il buono Amazon da 400 Euro è immediatamente disponibile nell\'account Amazon dopo il riscatto. Utilizzabile per qualsiasi acquisto — senza scadenza e senza restrizioni. Il codice buono verrà inviato via e-mail.',
-    voucher: { brand: 'amazon', value: '400 €' }
+    longDesc: 'Il buono Amazon è immediatamente disponibile nell\'account Amazon dopo il riscatto. Utilizzabile per qualsiasi acquisto — senza scadenza e senza restrizioni. Il codice buono verrà inviato via e-mail.',
+    voucher: { brand: 'amazon', value: '50 €' },
+    sizes: [50, 100, 200, 400]
   }
 ];
 
@@ -156,13 +209,14 @@ let provisionTotal = 0;
 let accountId = null;
 let discountCode = null;
 let loginError = null;
-let cart = [];
+let cart = {}; // { [id]: quantity }
 let currentPage = 'login';
 let activePremiumId = null;
 let lastOrder = null;
 let _countUpRunning = false;
 let _countUpPending = null;
 let previewMode = false;
+let voucherSizes = {}; // { [premiumId]: selectedPrice }
 
 function saveSession() {
   localStorage.setItem(SESSION_KEY, JSON.stringify({
@@ -239,13 +293,38 @@ function thumbHTML(p, cssClass = 'product-thumb') {
     const small = cssClass.includes('cart-item__image');
     return small
       ? `<div class="${cssClass} voucher-thumb">${p.voucher.brand[0]}</div>`
-      : `<div class="${cssClass} voucher-frame"><div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`;
+      : `<div class="${cssClass} voucher-frame"><div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`;
   }
   return `<div class="${cssClass}${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>`;
 }
 
+function effectivePrice(p) {
+  return p.sizes ? (voucherSizes[p.id] || p.sizes[0]) : p.price;
+}
+
+// Cart keys: plain "id" for regular products, "id:price" for products with sizes.
+function cartKey(p) {
+  return p.sizes ? `${p.id}:${effectivePrice(p)}` : String(p.id);
+}
+function keyId(key)    { return +key.split(':')[0]; }
+function keyPrice(key) {
+  const parts = key.split(':');
+  if (parts[1]) return +parts[1];
+  const p = PREMIUMS.find(x => x.id === keyId(key));
+  return effectivePrice(p);
+}
+function premiumForKey(key) { return PREMIUMS.find(p => p.id === keyId(key)); }
+
+// cartQty(id): total units of a premium regardless of size
+function cartQty(id) {
+  return Object.entries(cart)
+    .filter(([k]) => keyId(k) === +id)
+    .reduce((s, [, q]) => s + q, 0);
+}
+function cartTotalItems() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+
 function cartTotal() {
-  return cart.reduce((sum, id) => sum + PREMIUMS.find(p => p.id === id).price, 0);
+  return Object.entries(cart).reduce((sum, [key, qty]) => sum + keyPrice(key) * qty, 0);
 }
 
 function provisionAvailable() {
@@ -257,12 +336,12 @@ function fmt(n) {
 }
 
 function tilePct(p) {
-  if (cart.includes(p.id)) return 100;
-  return Math.min(100, Math.floor(provisionAvailable() / p.price * 100));
+  if (cartQty(p.id) > 0) return 100;
+  return Math.min(100, Math.floor(provisionAvailable() / effectivePrice(p) * 100));
 }
 
 function canAfford(p) {
-  return provisionAvailable() >= p.price;
+  return provisionAvailable() >= effectivePrice(p);
 }
 
 /* ═══════════════════════════════════════
@@ -280,13 +359,20 @@ function closeCart() {
 }
 
 function addToCart(id) {
-  if (!cart.includes(id)) cart.push(id);
+  const p = PREMIUMS.find(x => x.id === +id);
+  const key = cartKey(p);
+  cart[key] = (cart[key] || 0) + 1;
   render();
   openCart();
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(i => i !== id);
+function removeFromCart(key) {
+  // Accept either a full key ("id:price") or a plain id
+  if (cart[key] === undefined) {
+    key = Object.keys(cart).find(k => keyId(k) === +key);
+    if (!key) return;
+  }
+  if (cart[key] <= 1) delete cart[key]; else cart[key]--;
   render();
 }
 
@@ -306,6 +392,7 @@ function enterPreview() {
   provisionTotal = 456.78;
   discountCode   = 'DEMO2026';
   currentPage    = 'portal';
+  renderPreviewBanner();
   renderPromoBar();
   render();
   window.scrollTo(0, 0);
@@ -316,9 +403,16 @@ function exitPreview() {
   provisionTotal = 0;
   discountCode   = null;
   currentPage    = 'login';
+  renderPreviewBanner();
   renderPromoBar();
   render();
   window.scrollTo(0, 0);
+}
+
+function selectVoucherSize(id, size) {
+  voucherSizes[id] = size;
+  currentPage = 'pdp';
+  render();
 }
 
 function navToPortal() {
@@ -331,7 +425,7 @@ function logout() {
   accountId      = null;
   provisionTotal = 0;
   discountCode   = null;
-  cart           = [];
+  cart           = {};
   currentPage    = 'login';
   renderPromoBar();
   render();
@@ -353,18 +447,33 @@ function goToCheckout() {
 
 function completeCheckout() {
   const total = cartTotal();
+  const newProvision = provisionAvailable();
   lastOrder = {
-    items: cart.map(id => PREMIUMS.find(p => p.id === id)),
+    items: Object.entries(cart).map(([key, qty]) => {
+      const p = premiumForKey(key);
+      const price = keyPrice(key);
+      return { p, price, qty };
+    }),
     total,
-    remaining: provisionAvailable() - total
+    remaining: newProvision,
   };
-  provisionTotal = provisionAvailable() - total;
-  cart = [];
+  provisionTotal = newProvision;
+  cart = {};
   currentPage = 'success';
   render();
   window.scrollTo(0, 0);
 }
 
+
+function renderPreviewBanner() {
+  const slot = document.getElementById('preview-banner-slot');
+  if (!slot) return;
+  slot.innerHTML = previewMode ? `
+    <div class="preview-banner">
+      <span class="material-icons">visibility</span>
+      Modalità anteprima — i dati sono di esempio.
+    </div>` : '';
+}
 
 function renderPromoBar() {
   const slot = document.getElementById('promo-bar-slot');
@@ -397,46 +506,135 @@ function closeErrorModal() {
   document.getElementById('errorModal').classList.remove('--open');
 }
 
-function openProductRequestModal() {
-  document.getElementById('product-request-text').value = '';
-  document.getElementById('product-request-error').style.display = 'none';
-  document.getElementById('product-request-form-body').style.display = '';
-  document.getElementById('product-request-success-body').style.display = 'none';
-  document.getElementById('productRequestModal').classList.add('--open');
+function setBtnState(btn, state) {
+  // state: 'idle' | 'loading' | 'success'
+  btn.disabled = state !== 'idle';
+  btn.classList.toggle('--loading', state === 'loading');
+  if (state === 'idle')    { btn.innerHTML = 'Invia richiesta'; }
+  if (state === 'loading') { btn.innerHTML = '<span class="btn-spinner"></span>Invio in corso…'; }
+  if (state === 'success') { btn.innerHTML = '<span class="material-icons btn-check">check</span>Inviata!'; }
 }
 
-function closeProductRequestModal() {
-  document.getElementById('productRequestModal').classList.remove('--open');
+let _cashRequestDone = false;
+
+function openCashRequestModal() {
+  _cashRequestDone = false;
+  document.getElementById('cash-request-iban').value = '';
+  document.getElementById('cash-request-vat').value = '';
+  document.getElementById('cash-request-error').style.display = 'none';
+  const available = provisionAvailable();
+  const notice = document.getElementById('cash-payout-min-notice');
+  notice.style.display = available < 20 ? '' : 'none';
+  if (available < 20) {
+    document.getElementById('cash-payout-current-amount').textContent = fmt(available);
+  }
+  const btn = document.getElementById('cash-request-submit');
+  setBtnState(btn, 'idle');
+  btn.disabled = previewMode || available < 20;
+  document.getElementById('cashRequestModal').classList.add('--open');
 }
 
-async function submitProductRequest() {
-  const text = document.getElementById('product-request-text').value.trim();
-  const errEl = document.getElementById('product-request-error');
+function closeCashRequestModal() {
+  document.getElementById('cashRequestModal').classList.remove('--open');
+  _cashRequestDone = false;
+}
+
+async function submitCashRequest() {
+  const iban  = document.getElementById('cash-request-iban').value.trim();
+  const vat   = document.getElementById('cash-request-vat').value.trim();
+  const errEl = document.getElementById('cash-request-error');
+  const btn   = document.getElementById('cash-request-submit');
   errEl.style.display = 'none';
 
-  if (!text) {
-    errEl.textContent = 'Indicare almeno un prodotto.';
+  if (!iban) {
+    errEl.textContent = 'Inserire l\'IBAN.';
     errEl.style.display = 'block';
     return;
   }
 
-  const btn = document.getElementById('product-request-submit');
-  btn.disabled = true;
+  const lines = [`IBAN: ${iban}`];
+  if (vat) lines.push(`Partita IVA: ${vat}`);
+  const request_text = lines.join('\n');
 
+  setBtnState(btn, 'loading');
   try {
-    const res = await fetch(`${API_BASE}/webhooks/vetalita_product_request`, {
+    const res  = await fetch(`${API_BASE}/webhooks/vetalita_cash_request`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ account_id: accountId, request_text: text }),
+      body:    JSON.stringify({ account_id: accountId, request_text, available: provisionAvailable() }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
-    document.getElementById('product-request-form-body').style.display = 'none';
-    document.getElementById('product-request-success-body').style.display = '';
+    _cashRequestDone = true;
+    setBtnState(btn, 'success');
+    updateProvisionDisplay(0);
   } catch (err) {
     errEl.textContent = err.message;
     errEl.style.display = 'block';
-    btn.disabled = false;
+    setBtnState(btn, 'idle');
+  }
+}
+
+function openRegistrationModal() {
+  ['reg-vorname','reg-nachname','reg-clinic','reg-email','reg-tel','reg-address'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; el.closest('.form-field')?.classList.remove('--error'); }
+  });
+  document.getElementById('registration-error').style.display = 'none';
+  setBtnState(document.getElementById('registration-submit'), 'idle');
+  document.getElementById('registrationModal').classList.add('--open');
+}
+
+function closeRegistrationModal() {
+  document.getElementById('registrationModal').classList.remove('--open');
+}
+
+async function submitRegistration() {
+  const errEl = document.getElementById('registration-error');
+  const btn   = document.getElementById('registration-submit');
+  errEl.style.display = 'none';
+
+  const required = ['reg-vorname', 'reg-nachname', 'reg-email'];
+  const missing = required.filter(id => !document.getElementById(id)?.value.trim());
+  if (missing.length) {
+    missing.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.add('--error'));
+    errEl.textContent = 'Compilare i campi obbligatori.';
+    errEl.style.display = 'block';
+    return;
+  }
+  required.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.remove('--error'));
+
+  const payload = {
+    first_name: document.getElementById('reg-vorname').value.trim(),
+    last_name:  document.getElementById('reg-nachname').value.trim(),
+    clinic:     document.getElementById('reg-clinic').value.trim(),
+    email:      document.getElementById('reg-email').value.trim(),
+    phone:      document.getElementById('reg-tel').value.trim(),
+    address:    document.getElementById('reg-address').value.trim(),
+  };
+
+  setBtnState(btn, 'loading');
+  try {
+    const res  = await fetch(`${API_BASE}/webhooks/vetalita_registration`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
+    setBtnState(btn, 'success');
+    btn.textContent = 'Richiesta inviata';
+    const body = document.getElementById('registration-form-body');
+    body.innerHTML = `
+      <div style="text-align:center; padding: var(--module) 0;">
+        <span class="material-icons" style="font-size:3rem; color:var(--color-success, #27ae60); display:block; margin-bottom:1rem;">check_circle</span>
+        <p style="font-size:var(--text-base); font-weight:700; margin-bottom:.5rem;">Richiesta ricevuta</p>
+        <p style="font-size:var(--text-sm); color:var(--fg-light);">Il team vetalità contatterà a breve all'indirizzo indicato e fornirà i dati di accesso al portale.</p>
+      </div>`;
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+    setBtnState(btn, 'idle');
   }
 }
 
@@ -475,6 +673,7 @@ function renderLogin() {
         ${loginError ? `<p style="color:var(--color-error, #c0392b); font-size:var(--text-sm); text-align:center; margin-bottom:var(--half-module);">${loginError}</p>` : ''}
         <button class="btn --primary --full" onclick="submitLogin()">Accedi</button>
         <button class="btn --ghost --full" style="margin-top:var(--half-module);" onclick="enterPreview()">Anteprima del portale</button>
+        <button class="btn --ghost --full" style="margin-top:var(--half-module);" onclick="openRegistrationModal()">Registra nuovo account</button>
       </div>
     </div>`;
 }
@@ -564,9 +763,20 @@ async function submitLogin() {
    ═══════════════════════════════════════ */
 
 async function submitRedeem() {
-  const items = cart.map(id => {
-    const p = PREMIUMS.find(x => x.id === id);
-    return { name: p.name, price: p.price };
+  const requiredFields = ['co-vorname', 'co-nachname', 'co-strasse', 'co-hausnr', 'co-plz', 'co-ort', 'co-email'];
+  const missing = requiredFields.filter(id => !document.getElementById(id)?.value.trim());
+  if (missing.length) {
+    missing.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.add('--error'));
+    showErrorModal('Compila tutti i campi obbligatori prima di procedere.');
+    return;
+  }
+  requiredFields.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.remove('--error'));
+
+  const items = Object.entries(cart).flatMap(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const label = p.sizes ? `${p.name} (${fmt(price)})` : p.name;
+    return Array(qty).fill({ name: label, price });
   });
   const total = cartTotal();
 
@@ -586,13 +796,18 @@ async function submitRedeem() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Errore durante il riscatto.');
 
+    const newProvision = provisionAvailable(); // capture before clearing cart
     lastOrder = {
-      items: cart.map(id => PREMIUMS.find(p => p.id === id)),
+      items: Object.entries(cart).map(([key, qty]) => {
+        const p = premiumForKey(key);
+        const price = keyPrice(key);
+        return { p, price, qty };
+      }),
       total,
-      remaining: provisionAvailable() - total,
+      remaining: newProvision,
     };
-    provisionTotal = provisionAvailable() - total;
-    cart = [];
+    provisionTotal = newProvision;
+    cart = {};
     currentPage = 'success';
     saveSession();
     render();
@@ -610,27 +825,40 @@ async function submitRedeem() {
 
 function renderTile(p) {
   const pct = tilePct(p);
-  const inCart = cart.includes(p.id);
+  const inCart = cartQty(p.id) > 0;
   const affordable = canAfford(p);
 
   let cartOverlay = '';
   let floatingMeta = '';
 
-  if (!previewMode && inCart) {
-    cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); removeFromCart(${p.id})">Rimuovi</button></div>`;
+  const qty = cartQty(p.id);
+  if (!previewMode && qty > 0) {
+    if (p.sizes) {
+      // For multi-size products, just show a badge and let user manage via PDP
+      floatingMeta = `<div class="floating-meta"><div class="badge --sale">${qty} nel carrello</div></div>`;
+    } else {
+      cartOverlay = `<div class="tile__cart tile__cart--stepper">
+        <button class="stepper__btn" onclick="event.stopPropagation(); removeFromCart('${p.id}')">−</button>
+        <span class="stepper__qty">${qty}</span>
+        <button class="stepper__btn" onclick="event.stopPropagation(); addToCart(${p.id})" ${affordable ? '' : 'disabled'}>+</button>
+      </div>`;
+    }
   } else if (affordable) {
     floatingMeta = `<div class="floating-meta"><div class="badge --sale">Riscattabile</div></div>`;
-    if (!previewMode) cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">Aggiungi al carrello</button></div>`;
+    if (!previewMode) cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">Aggiungi</button></div>`;
   } else {
-    const missing = p.price - provisionAvailable();
+    const missing = effectivePrice(p) - provisionAvailable();
     floatingMeta = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(missing)}</div></div>`;
   }
+
+  const ep = effectivePrice(p);
+  const voucherVal = p.voucher ? fmt(ep) : p.voucher?.value;
 
   return `
     <div class="tile --product" onclick="openPDP(${p.id})">
       <div class="tile__image-wrap">
 ${p.voucher
-          ? `<div class="tile__image --square voucher-frame">${floatingMeta}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
+          ? `<div class="tile__image --square voucher-frame">${floatingMeta}<div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`
           : `<div class="tile__image --square${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${floatingMeta}</div>`
         }
         <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
@@ -648,7 +876,7 @@ ${p.voucher
       </div>
       <p class="tile__description">${p.desc}</p>
       <div class="tile__price">
-        <div class="price-stack"><span>${fmt(p.price)}</span></div>
+        <div class="price-stack"><span>${p.sizes ? `da ${fmt(p.sizes[0])}` : fmt(ep)}</span></div>
       </div>
     </div>`;
 }
@@ -656,28 +884,23 @@ ${p.voucher
 
 function nextNonAffordable() {
   const available = provisionAvailable();
-  return [...PREMIUMS].sort((a, b) => a.price - b.price).find(p => p.price > available) || null;
+  return [...PREMIUMS].sort((a, b) => effectivePrice(a) - effectivePrice(b)).find(p => effectivePrice(p) > available) || null;
 }
 
 function renderPortal() {
   const available = provisionAvailable();
   const target = nextNonAffordable();
   const circ = 515.2;
-  const pct = target ? Math.min(available / target.price, 1) : 1;
+  const targetPrice = target ? effectivePrice(target) : 0;
+  const pct = target ? Math.min(available / targetPrice, 1) : 1;
   const offset = +(circ * (1 - pct)).toFixed(2);
   const hintText = target
-    ? `Ancora <strong>${fmt(target.price - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
+    ? `Ancora <strong>${fmt(targetPrice - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
     : `Tutti i premi riscattabili`;
 
   const pctInt = Math.round(pct * 100);
 
   return `
-    ${previewMode ? `
-    <div class="preview-banner">
-      <span class="material-icons" style="font-size:1.1rem;vertical-align:middle;">visibility</span>
-      Modalità anteprima — i dati sono di esempio.
-      <button class="btn --ghost --sm" onclick="exitPreview()" style="margin-left:1rem;">Torna al login</button>
-    </div>` : ''}
     <section class="provision-hero">
       <div class="provision-hero__grid">
         <div class="provision-hero__col --label">
@@ -686,7 +909,9 @@ function renderPortal() {
         <div class="provision-hero__col">
           <p class="provision-hero__mobile-title">Provvigione disponibile</p>
           <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
-          ${previewMode ? '' : '<button class="btn --primary" onclick="openProductRequestModal()">Richiedi prodotti</button>'}
+          <div class="provision-hero__actions">
+            <button class="btn --primary" onclick="openCashRequestModal()">Riscuoti in contanti</button>
+          </div>
         </div>
         <div class="provision-hero__col --ring">
           <div class="provision-hero__ring-wrap">
@@ -728,23 +953,33 @@ function renderPortal() {
 
 function renderPDP() {
   const p = PREMIUMS.find(x => x.id === activePremiumId);
-  const inCart = cart.includes(p.id);
+  const inCart = cartQty(p.id) > 0;
   const affordable = canAfford(p);
 
+  const ep = effectivePrice(p);
+
+  // For products with sizes, track qty of the currently selected size only
+  const currentKey = p.sizes ? `${p.id}:${ep}` : String(p.id);
+  const pdpQty = cart[currentKey] || 0;
   let actionBtn;
-  if (inCart) {
-    actionBtn = `<button class="btn --secondary" onclick="removeFromCart(${p.id}); backToPortal()">Rimuovi dal carrello</button>`;
+  if (pdpQty > 0) {
+    actionBtn = `
+      <div class="pdp__stepper">
+        <button class="stepper__btn --lg" onclick="removeFromCart('${currentKey}')">−</button>
+        <span class="stepper__qty --lg">${pdpQty}</span>
+        <button class="stepper__btn --lg" onclick="cart['${currentKey}']=(cart['${currentKey}']||0)+1;render()" ${affordable ? '' : 'disabled'}>+</button>
+      </div>
+      <button class="btn --ghost" onclick="delete cart['${currentKey}']; render()">Rimuovi</button>`;
   } else if (affordable) {
     actionBtn = `<button class="btn --primary" onclick="addToCart(${p.id})">Aggiungi al carrello</button>`;
   } else {
-    const missing = p.price - provisionAvailable();
-    actionBtn = `<button class="btn --primary" disabled>Ancora ${fmt(missing)} mancanti</button>`;
+    actionBtn = `<button class="btn --primary" disabled>Ancora ${fmt(ep - provisionAvailable())} mancanti</button>`;
   }
 
   const pct = tilePct(p);
   let pdpBadge = '';
   if (!inCart && affordable) pdpBadge = `<div class="floating-meta"><div class="badge --sale">Riscattabile</div></div>`;
-  else if (!inCart) pdpBadge = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(p.price - provisionAvailable())}</div></div>`;
+  else if (!inCart) pdpBadge = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(ep - provisionAvailable())}</div></div>`;
   const pdpRing = `
     <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
       <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,0.7)"/>
@@ -755,21 +990,35 @@ function renderPDP() {
       <text x="24" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)" class="tile__ring-text">${pct}%</text>
     </svg>`;
 
+  const sizePicker = p.sizes ? `
+    <div class="pdp__sizes">
+      <span class="label-caps">Importo</span>
+      <div class="pdp__size-options">
+        ${p.sizes.map(s => `
+          <button class="choice-box${s === ep ? ' --active' : ''}"
+            type="button"
+            onclick="selectVoucherSize(${p.id}, ${s})">
+            ${fmt(s)}
+          </button>`).join('')}
+      </div>
+    </div>` : '';
+
   return `
     <div class="page portal-section">
       <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Tutti i premi</button>
       <div class="pdp">
         <div class="pdp__gallery">
           ${p.voucher
-            ? `<div class="pdp__main-image voucher-frame">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${pdpRing}<div class="voucher-card"><span class="voucher-card__brand">${p.voucher.brand}</span><span class="voucher-card__value">${p.voucher.value}</span></div></div>`
+            ? `<div class="pdp__main-image voucher-frame">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${pdpRing}<div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`
             : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${pdpRing}</div>`
           }
         </div>
         <div class="pdp__info">
           <h1 class="pdp__title">${p.name}</h1>
           <p class="pdp__description">${p.desc}</p>
+          ${sizePicker}
           <div class="pdp__price">
-            <div class="price-stack"><span>${fmt(p.price)}</span></div>
+            <div class="price-stack"><span>${fmt(ep)}</span></div>
             <span class="label-caps">Valore provvigione</span>
           </div>
           <div class="pdp__actions">
@@ -800,7 +1049,7 @@ function renderPDP() {
    ═══════════════════════════════════════ */
 
 function renderCartDrawer() {
-  if (cart.length === 0) {
+  if (Object.keys(cart).length === 0) {
     return `
       <div class="cart-drawer__header">
         <h2 class="cart-drawer__title">Carrello premi</h2>
@@ -817,24 +1066,31 @@ function renderCartDrawer() {
       </div>`;
   }
 
-  const items = cart.map(id => {
-    const p = PREMIUMS.find(x => x.id === id);
+  const items = Object.entries(cart).map(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const affordable = provisionAvailable() >= price;
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
     return `
       <div class="cart-item">
         ${thumbHTML(p, 'cart-item__image product-thumb')}
         <div class="cart-item__info">
           <div class="cart-item__top">
             <div>
-              <p class="cart-item__name">${p.name}</p>
+              <p class="cart-item__name">${label}</p>
               <div class="cart-item__variant">Premio</div>
             </div>
-            <button type="button" class="btn --icon cart-item__remove" onclick="removeFromCart(${id})" aria-label="Rimuovi">
+            <button type="button" class="btn --icon cart-item__remove" onclick="delete cart['${key}']; render()" aria-label="Rimuovi tutto">
               <span class="material-icons">close</span>
             </button>
           </div>
           <div class="cart-item__bottom">
-            <span></span>
-            <span class="cart-item__price">${fmt(p.price)}</span>
+            <div class="cart-item__stepper">
+              <button class="stepper__btn" onclick="removeFromCart('${key}')">−</button>
+              <span class="stepper__qty">${qty}</span>
+              <button class="stepper__btn" onclick="cart['${key}']=(cart['${key}']||0)+1;render()" ${affordable ? '' : 'disabled'}>+</button>
+            </div>
+            <span class="cart-item__price">${fmt(price * qty)}</span>
           </div>
         </div>
       </div>`;
@@ -845,7 +1101,7 @@ function renderCartDrawer() {
 
   return `
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title">Carrello premi <span class="cart-drawer__count">(${cart.length})</span></h2>
+      <h2 class="cart-drawer__title">Carrello premi <span class="cart-drawer__count">(${cartTotalItems()})</span></h2>
       <button class="btn --icon" onclick="closeCart()" aria-label="Chiudi">
         <span class="material-icons">close</span>
       </button>
@@ -871,21 +1127,23 @@ function renderCartDrawer() {
    ═══════════════════════════════════════ */
 
 function renderCheckout() {
-  const items = cart.map(id => {
-    const p = PREMIUMS.find(x => x.id === id);
+  const items = Object.entries(cart).map(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
     return `
       <div class="cart-item">
         ${thumbHTML(p, 'cart-item__image product-thumb')}
         <div class="cart-item__info">
           <div class="cart-item__top">
             <div>
-              <p class="cart-item__name">${p.name}</p>
+              <p class="cart-item__name">${label}</p>
               <div class="cart-item__variant">Premio</div>
             </div>
           </div>
           <div class="cart-item__bottom">
-            <div class="cart-item__qty-text">1 pezzo</div>
-            <div class="price-stack">${fmt(p.price)}</div>
+            <div class="cart-item__qty-text">${qty} pezzo${qty > 1 ? 'i' : ''}</div>
+            <div class="price-stack">${fmt(price * qty)}</div>
           </div>
         </div>
       </div>`;
@@ -905,31 +1163,31 @@ function renderCheckout() {
             <h3 class="section-label --sub">Indirizzo di consegna</h3>
             <div class="form-grid">
               <div class="form-field">
-                <input type="text" id="co-vorname" placeholder=" ">
+                <input type="text" id="co-vorname" placeholder=" " required>
                 <label for="co-vorname">Nome</label>
               </div>
               <div class="form-field">
-                <input type="text" id="co-nachname" placeholder=" ">
+                <input type="text" id="co-nachname" placeholder=" " required>
                 <label for="co-nachname">Cognome</label>
               </div>
               <div class="form-field">
-                <input type="text" id="co-strasse" placeholder=" ">
+                <input type="text" id="co-strasse" placeholder=" " required>
                 <label for="co-strasse">Via</label>
               </div>
               <div class="form-field">
-                <input type="text" id="co-hausnr" placeholder=" ">
+                <input type="text" id="co-hausnr" placeholder=" " required>
                 <label for="co-hausnr">N.</label>
               </div>
               <div class="form-field">
-                <input type="text" id="co-plz" placeholder=" ">
+                <input type="text" id="co-plz" placeholder=" " required>
                 <label for="co-plz">CAP</label>
               </div>
               <div class="form-field">
-                <input type="text" id="co-ort" placeholder=" ">
+                <input type="text" id="co-ort" placeholder=" " required>
                 <label for="co-ort">Città</label>
               </div>
               <div class="form-field --span-2">
-                <input type="email" id="co-email" placeholder=" ">
+                <input type="email" id="co-email" placeholder=" " required>
                 <label for="co-email">Indirizzo e-mail</label>
               </div>
               <div class="form-field --span-2">
@@ -961,22 +1219,25 @@ function renderCheckout() {
 
 function renderSuccess() {
 
-  const items = lastOrder.items.map(p => `
+  const items = lastOrder.items.map(({ p, price, qty }) => {
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
+    return `
     <div class="cart-item">
       ${thumbHTML(p, 'cart-item__image product-thumb')}
       <div class="cart-item__info">
         <div class="cart-item__top">
           <div>
-            <p class="cart-item__name">${p.name}</p>
+            <p class="cart-item__name">${label}</p>
             <div class="cart-item__variant">Premio</div>
           </div>
         </div>
         <div class="cart-item__bottom">
-          <div class="cart-item__qty-text">1 pezzo</div>
-          <div class="price-stack">${fmt(p.price)}</div>
+          <div class="cart-item__qty-text">${qty} pezzo${qty > 1 ? 'i' : ''}</div>
+          <div class="price-stack">${fmt(price * qty)}</div>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   return `
     <div class="page --narrow portal-section">
@@ -1078,7 +1339,7 @@ function refreshTilesInPlace() {
     const target = nextNonAffordable();
     const available = provisionAvailable();
     hint.innerHTML = target
-      ? `Ancora <strong>${fmt(target.price - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
+      ? `Ancora <strong>${fmt(effectivePrice(target) - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
       : `Tutti i premi riscattabili`;
   }
 }
@@ -1120,12 +1381,13 @@ function render() {
   };
   document.getElementById('app').innerHTML = (views[currentPage] || renderLogin)();
   document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
+  renderPreviewBanner();
   const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) logoutBtn.style.display = (currentPage === 'login' || previewMode) ? 'none' : '';
-  const cartBtn = document.getElementById('cartBtn');
-  if (cartBtn) cartBtn.style.display = previewMode ? 'none' : '';
+  if (logoutBtn) logoutBtn.style.display = (!previewMode && currentPage !== 'login') ? '' : 'none';
   const exitPreviewBtn = document.getElementById('exitPreviewBtn');
   if (exitPreviewBtn) exitPreviewBtn.style.display = previewMode ? '' : 'none';
+  const regStoerer = document.getElementById('regStoerer');
+  if (regStoerer) regStoerer.classList.toggle('--hidden', currentPage !== 'login' && !previewMode);
 
   if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { animateHeroRing(); initRings(); initScrollAnimations(); }); }
   if (currentPage === 'pdp') { requestAnimationFrame(animatePDPRing); }
