@@ -53,6 +53,19 @@ Container-Modifier: `.page.--narrow` (720px) · `.page.--form` (480px) · `.page
 
 ---
 
+## Formular-Kurzregeln
+
+- **Felder einzeln**: nichts tun — `margin-bottom: var(--half-module)` ist eingebaut
+- **Flex-Container**: `gap: 0` setzen — sonst Doppelabstand
+- **Mehrspaltiger**: `.form-grid` + `.form-field.--full` für volle Breite
+- **Section-Trenner**: `<h3 class="section-label --sub">Titel</h3>` — einzige korrekte Lösung
+- **Button nach Formular**: direkt setzen, kein `margin-top` nötig
+- `.login-divider` ist nur für „oder"-Trennungen (Login/Registrierung), **nicht** für Formular-Sektionen
+
+→ Vollständiges Muster mit Code-Beispielen in CONTEXT.md → „Formular-Patterns & Spacing-Regeln"
+
+---
+
 ## Sektions-Schema
 
 A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen — jeweils dezimal nummeriert (A.1, B.3, C.11 …). → Vollständige Tabelle in CONTEXT.md.

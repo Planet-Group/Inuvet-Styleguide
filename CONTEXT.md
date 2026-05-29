@@ -2,7 +2,7 @@
 
 Diese Datei fasst die Projektgeschichte, alle Designentscheidungen und den aktuellen Stand zusammen. Sie ist der Einstiegspunkt für jede neue Session und wird bei größeren Änderungen aktiv gepflegt.
 
-> **Letzte Aktualisierung:** 2026-05-21
+> **Letzte Aktualisierung:** 2026-05-28
 
 ---
 
@@ -97,7 +97,7 @@ Ein umfassender HTML/CSS Design System Styleguide für die Marke **inuvet** (Tie
 | `pages/[name].css` | Page-spezifische Overrides + page-eigene Klassen | Globale Design-System-Änderungen |
 | `temp.css` | Alle neuen Styles im Test (Staging) — global wie seitenspezifisch | Produktions-Code — nie deployen |
 
-**`temp.css`-Inhalt:** leer (alle Klassen nach `inuvet.css` promoted, Stand 2026-05-20)
+**`temp.css`-Inhalt:** leer (alle Klassen nach `inuvet.css` promoted, Stand 2026-05-28)
 
 ### Seiten-Architektur
 
@@ -303,6 +303,100 @@ Gelber Hintergrund (`#FEFFDA`), kein Border. Drei Varianten: einzeilig, mehrzeil
 - Body → Button: `margin-bottom: var(--half-module)`
 
 Dieses Muster ist in D.3 als explizite Systemregel dokumentiert (Stand 2026-05-14). Gilt in `section-type__headline/body` genauso wie in page-spezifischen Teasern.
+
+### Formular-Patterns & Spacing-Regeln
+
+> **Referenz-Demo:** `styleguide.html` B.4 → „Komplexes Formular (mit Zwischenrubriken)"
+
+#### Spacing-Grundregeln
+
+| Situation | Regel |
+|---|---|
+| Felder im normalen Dokumentfluss | Nichts tun — `.form-field` hat `margin-bottom: var(--half-module)` eingebaut |
+| Felder in einem **Flex-Container** | `gap: 0` auf dem Container setzen — sonst gap + margin-bottom = doppelter Abstand |
+| Felder im **form-grid** | Nichts tun — `.form-grid > .form-field` hat `margin-bottom: 0`; der Grid trägt den Abstand via `gap` |
+| **Button** nach letztem Feld | Direkt setzen — der Abstand kommt vom `margin-bottom` des vorherigen `.form-field` |
+| **Button** nach `form-check` / `form-check-group` | `margin-top: var(--half-module)` greift automatisch via `+`-Selektor |
+
+#### Mehrspalten-Layout
+
+```html
+<div class="form-grid">
+  <div class="form-field">…</div>          <!-- Spalte 1 -->
+  <div class="form-field">…</div>          <!-- Spalte 2 -->
+  <div class="form-field --full">…</div>   <!-- volle Breite -->
+</div>
+```
+- `.form-grid` → 2-spaltig, `gap: var(--half-module)`, bricht bei ≤ 767px auf 1-spaltig
+- `.form-field.--full` → `grid-column: 1 / -1`
+- `.form-grid.--full` → zwingt 1 Spalte auf allen Breakpoints
+
+#### Section-Trenner im Formular
+
+**Einzig korrekte Lösung:** `<h3 class="section-label --sub">Abschnittsname</h3>`
+
+```html
+<h3 class="section-label --sub">Persönliche Daten</h3>
+<div class="form-grid">…</div>
+
+<h3 class="section-label --sub">Lieferadresse</h3>
+<div class="form-grid">…</div>
+```
+
+- Abstand nach oben: automatisch via `* + .section-label.--sub { margin-top: var(--module); }`
+- Kein `<hr>`, kein nacktes `<h3>`, kein `.login-divider` für diesen Zweck
+- `.login-divider` ist ausschließlich für das „oder"-Muster (z. B. Login vs. Registrierung)
+
+#### Zustände
+
+| Modifier | Wirkung | Kindelement für Hilfstext |
+|---|---|---|
+| `.form-field.--error` | roter Border, Label rot + gefloatet | `.form-field__error` |
+| `.form-field.--success` | grüner Border, Label grün + gefloatet | `.form-field__success` (mit `.material-icons`) |
+
+Beide Modifier setzen das Label **immer** in den gefloateten Zustand (unabhängig vom Feldinhalt).  
+**Wichtig:** `.form-field.--error label` erhält `background: var(--bg)` — fehlt es, scheint die Border durch den Label-Text.
+
+#### Kompaktes Formular-Muster (Flex, z. B. Provisions-Portal-Start)
+
+```html
+<form style="display:flex; flex-direction:column; gap:0">
+  <div class="form-field">…</div>
+  <div class="form-field">…</div>
+  <button class="btn --primary --full">Absenden</button>
+</form>
+```
+
+#### Komplexes Formular (Referenz-Muster)
+
+```html
+<h3 class="section-label --sub">Persönliche Daten</h3>
+<div class="form-grid">
+  <div class="form-field"><input …><label>Vorname</label></div>
+  <div class="form-field"><input …><label>Nachname</label></div>
+  <div class="form-field --full"><input type="email" …><label>E-Mail</label></div>
+</div>
+
+<h3 class="section-label --sub">Lieferadresse</h3>
+<div class="form-grid">
+  <div class="form-field --full"><input …><label>Straße &amp; Hausnummer</label></div>
+  <div class="form-field"><input …><label>PLZ</label></div>
+  <div class="form-field"><input …><label>Ort</label></div>
+</div>
+
+<h3 class="section-label --sub">Einwilligung</h3>
+<label class="form-check"><input type="checkbox"><span>AGB akzeptieren</span></label>
+<button class="btn --primary --full">Absenden</button>
+```
+
+#### Formular-Container
+
+| Klasse | Breite | Wann |
+|---|---|---|
+| `.page.--form` | ≈ 480 px | Stand-Alone-Formulare (Reklamation, Onboarding) |
+| `.page.--narrow` | ≈ 720 px | Content-nahe Formulare (Provisions-Portal-Start) |
+
+---
 
 ### section-type — Animation-Variante
 
