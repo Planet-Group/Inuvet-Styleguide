@@ -86,45 +86,14 @@
   </div>
 </div>
 
-<!-- Modale Registrazione -->
-<div class="modal-overlay" id="registrationModal" onclick="closeRegistrationModal()">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal__header">
-      <span class="modal__title">Registrazione nuovo account</span>
-      <button class="btn --icon" onclick="closeRegistrationModal()" aria-label="Chiudi">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-    <div class="modal__body" id="registration-form-body">
-      <p class="auszahlung-hint">Inserire i dati di contatto. Il team vetalità creerà un account e invierà le credenziali di accesso entro breve.</p>
-      <div class="form-grid">
-        <div class="form-field">
-          <input type="text" id="reg-vorname" placeholder=" " required>
-          <label for="reg-vorname">Nome</label>
-        </div>
-        <div class="form-field">
-          <input type="text" id="reg-nachname" placeholder=" " required>
-          <label for="reg-nachname">Cognome</label>
-        </div>
-        <div class="form-field --span-2">
-          <input type="text" id="reg-clinic" placeholder=" ">
-          <label for="reg-clinic">Studio / clinica</label>
-        </div>
-        <div class="form-field --span-2">
-          <input type="email" id="reg-email" placeholder=" " required>
-          <label for="reg-email">Indirizzo e-mail</label>
-        </div>
-        <div class="form-field --span-2">
-          <input type="tel" id="reg-tel" placeholder=" ">
-          <label for="reg-tel">Telefono (opzionale)</label>
-        </div>
-        <div class="form-field --span-2">
-          <input type="text" id="reg-address" placeholder=" ">
-          <label for="reg-address">Indirizzo (opzionale)</label>
-        </div>
-      </div>
-      <p id="registration-error" class="modal-field-error"></p>
-      <button class="btn --primary --full" id="registration-submit" onclick="submitRegistration()">Invia richiesta</button>
+<!-- Modale Successo Registrazione -->
+<div class="shop-modal-overlay" id="registrationModal" onclick="closeRegistrationModal()">
+  <div class="shop-modal" onclick="event.stopPropagation()">
+    <div class="shop-modal__icon"><span class="material-icons">mark_email_read</span></div>
+    <p class="shop-modal__title">Super, sei registrato!</p>
+    <p class="shop-modal__body">Configureremo un account nei prossimi giorni e ti informeremo via e-mail.</p>
+    <div class="shop-modal__actions">
+      <button class="btn --primary" onclick="closeRegistrationModal()">Capito</button>
     </div>
   </div>
 </div>
@@ -147,7 +116,7 @@
 </div>
 
 <!-- Registration Störer -->
-<button class="reg-badge" id="regStoerer" onclick="openRegistrationModal()" aria-label="Registra un nuovo account e ricevi 10 euro di bonus">
+<button class="reg-badge" id="regStoerer" onclick="openRegistrationTab()" aria-label="Registra un nuovo account e ricevi 10 euro di bonus">
   <span class="reg-badge__label">Registrati</span>
   <span class="reg-badge__amount">10 €</span>
   <span class="reg-badge__label">di bonus</span>
@@ -575,13 +544,13 @@ async function submitCashRequest() {
   }
 }
 
-function openRegistrationModal() {
-  ['reg-vorname','reg-nachname','reg-clinic','reg-email','reg-tel','reg-address'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.value = ''; el.closest('.form-field')?.classList.remove('--error'); }
-  });
-  document.getElementById('registration-error').style.display = 'none';
-  setBtnState(document.getElementById('registration-submit'), 'idle');
+function openRegistrationTab() {
+  const tabBtn = document.querySelector('[onclick*="tab-register"]');
+  if (tabBtn) switchLoginTab(tabBtn, 'tab-register');
+  document.getElementById('tab-register')?.scrollIntoView({ behavior: 'smooth' });
+}
+
+function openRegistrationSuccessModal() {
   document.getElementById('registrationModal').classList.add('--open');
 }
 
@@ -589,12 +558,25 @@ function closeRegistrationModal() {
   document.getElementById('registrationModal').classList.remove('--open');
 }
 
+function clearRegistrationForm() {
+  ['reg-vorname', 'reg-nachname', 'reg-clinic', 'reg-email', 'reg-zip', 'reg-tel', 'reg-address'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+    input?.closest('.form-field')?.classList.remove('--error');
+  });
+  const errEl = document.getElementById('registration-error');
+  if (errEl) {
+    errEl.textContent = '';
+    errEl.style.display = 'none';
+  }
+}
+
 async function submitRegistration() {
   const errEl = document.getElementById('registration-error');
   const btn   = document.getElementById('registration-submit');
   errEl.style.display = 'none';
 
-  const required = ['reg-vorname', 'reg-nachname', 'reg-email'];
+  const required = ['reg-vorname', 'reg-nachname', 'reg-email', 'reg-zip'];
   const missing = required.filter(id => !document.getElementById(id)?.value.trim());
   if (missing.length) {
     missing.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.add('--error'));
@@ -609,6 +591,7 @@ async function submitRegistration() {
     last_name:  document.getElementById('reg-nachname').value.trim(),
     clinic:     document.getElementById('reg-clinic').value.trim(),
     email:      document.getElementById('reg-email').value.trim(),
+    zip_code:   document.getElementById('reg-zip').value.trim(),
     phone:      document.getElementById('reg-tel').value.trim(),
     address:    document.getElementById('reg-address').value.trim(),
   };
@@ -622,15 +605,9 @@ async function submitRegistration() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
-    setBtnState(btn, 'success');
-    btn.textContent = 'Richiesta inviata';
-    const body = document.getElementById('registration-form-body');
-    body.innerHTML = `
-      <div style="text-align:center; padding: var(--module) 0;">
-        <span class="material-icons" style="font-size:3rem; color:var(--color-success, #27ae60); display:block; margin-bottom:1rem;">check_circle</span>
-        <p style="font-size:var(--text-base); font-weight:700; margin-bottom:.5rem;">Richiesta ricevuta</p>
-        <p style="font-size:var(--text-sm); color:var(--fg-light);">Il team vetalità contatterà a breve all'indirizzo indicato e fornirà i dati di accesso al portale.</p>
-      </div>`;
+    setBtnState(btn, 'idle');
+    clearRegistrationForm();
+    openRegistrationSuccessModal();
   } catch (err) {
     errEl.textContent = err.message;
     errEl.style.display = 'block';
@@ -657,25 +634,88 @@ function renderCheckoutSummary(total, remaining) {
 
 function renderLogin() {
   return `
-    <div class="page --narrow portal-section" style="display:flex; align-items:center; justify-content:center; min-height:60vh;">
-      <div style="width:100%; max-width:420px;">
-        <h1 style="font-size:var(--text-l); font-weight:900; text-align:center; margin-bottom:var(--module);">Portale premi vetalità</h1>
-        <div class="form-field" style="margin-bottom:var(--half-module);">
-          <input type="text" id="login-customer-number" placeholder=" " maxlength="7" inputmode="numeric"
-            onkeydown="if(event.key==='Enter') submitLogin()">
-          <label for="login-customer-number">Numero cliente (7 cifre)</label>
+    <div class="page --wide portal-section">
+      <p class="portal-start__greeting">Benvenuto nel portale premi.</p>
+      <div class="portal-start__options">
+
+        <div class="portal-start__option">
+          <h3>Dai un'occhiata</h3>
+          <p>Esplora il portale senza registrarti.</p>
+          <button class="btn --ghost" onclick="enterPreview()">Anteprima</button>
         </div>
-        <div class="form-field" style="margin-bottom:var(--module);">
-          <input type="text" id="login-zip" placeholder=" " inputmode="numeric"
-            onkeydown="if(event.key==='Enter') submitLogin()">
-          <label for="login-zip">CAP</label>
+
+        <div class="portal-start__divider" aria-hidden="true">
+          <span class="portal-start__divider-line"></span>
+          <span class="portal-start__divider-label">oppure</span>
+          <span class="portal-start__divider-line --grow"></span>
         </div>
-        ${loginError ? `<p style="color:var(--color-error, #c0392b); font-size:var(--text-sm); text-align:center; margin-bottom:var(--half-module);">${loginError}</p>` : ''}
-        <button class="btn --primary --full" onclick="submitLogin()">Accedi</button>
-        <button class="btn --ghost --full" style="margin-top:var(--half-module);" onclick="enterPreview()">Anteprima del portale</button>
-        <button class="btn --ghost --full" style="margin-top:var(--half-module);" onclick="openRegistrationModal()">Registra nuovo account</button>
+
+        <div class="portal-start__option">
+          <h3>Registrati e ottieni 10&nbsp;€</h3>
+          <div class="tabs">
+            <button class="tab-btn --active" type="button" onclick="switchLoginTab(this, 'tab-register')">Registrati</button>
+            <button class="tab-btn" type="button" onclick="switchLoginTab(this, 'tab-login')">Accedi</button>
+          </div>
+
+          <div class="tab-panel --active" id="tab-register">
+            <div class="form-field">
+              <input type="text" id="reg-vorname" placeholder=" ">
+              <label for="reg-vorname">Nome</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-nachname" placeholder=" ">
+              <label for="reg-nachname">Cognome</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-clinic" placeholder=" ">
+              <label for="reg-clinic">Studio / clinica</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="reg-email" placeholder=" ">
+              <label for="reg-email">Indirizzo e-mail</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-zip" placeholder=" " inputmode="numeric">
+              <label for="reg-zip">CAP</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="reg-tel" placeholder=" ">
+              <label for="reg-tel">Telefono (opzionale)</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-address" placeholder=" ">
+              <label for="reg-address">Indirizzo (opzionale)</label>
+            </div>
+            <p id="registration-error" class="modal-field-error"></p>
+            <button class="btn --primary --full" id="registration-submit" onclick="submitRegistration()">Registrati ora</button>
+          </div>
+
+          <div class="tab-panel" id="tab-login">
+            <div class="form-field">
+              <input type="text" id="login-customer-number" placeholder=" " maxlength="7" inputmode="numeric"
+                onkeydown="if(event.key==='Enter') submitLogin()">
+              <label for="login-customer-number">Numero cliente (7 cifre)</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="login-zip" placeholder=" " inputmode="numeric"
+                onkeydown="if(event.key==='Enter') submitLogin()">
+              <label for="login-zip">CAP</label>
+            </div>
+            ${loginError ? `<p style="color:var(--color-error, #c0392b); font-size:var(--text-sm); margin-bottom:var(--half-module);">${loginError}</p>` : ''}
+            <button class="btn --primary --full" onclick="submitLogin()">Accedi</button>
+          </div>
+        </div>
+
       </div>
     </div>`;
+}
+
+function switchLoginTab(btn, panelId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+  const option = btn.closest('.portal-start__option');
+  option.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('--active'));
+  option.querySelector('#' + panelId).classList.add('--active');
 }
 
 /* ═══════════════════════════════════════
