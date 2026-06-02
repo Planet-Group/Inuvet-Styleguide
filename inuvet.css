@@ -700,6 +700,11 @@
   .section-type.--v3 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v3 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
   /* ─── Flow-Spacing: kontextsensitiver Rhythmus in section-type__content ─── */
+  /* Browser-Default-Margins auf direkten Kindern zurücksetzen */
+  .section-type.--v1 .section-type__content > *,
+  .section-type.--v2 .section-type__content > *,
+  .section-type.--v3 .section-type__content > * { margin-bottom: 0; }
+
   .section-type.--v1 .section-type__content > * + *,
   .section-type.--v2 .section-type__content > * + *,
   .section-type.--v3 .section-type__content > * + * {
