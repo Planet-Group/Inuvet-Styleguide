@@ -566,6 +566,7 @@ Atomic-Design-Hierarchie mit 5 Gruppen (A–E). Erweiterbar ohne Suffix-Patches.
 | `.price-stack` | — | Preis + `--old` für Streichpreise |
 | `.placeholder-bg` | — | Grauer Platzhalter für Produktbilder ohne Foto |
 | `.header` | — | Seitenkopf-Hero (Titel + Meta) |
+| `.flow` | `--flow-space` (CSS Custom Property) | Kontextsensitives Typografie-Spacing (Every Layout). Setzt `margin-top` je nach Elementkombination (h2+* eng, *+h2 weiter). Einsatz: Info-Pages, `section-type__content`. Nicht für `.rte`. |
 
 ---
 

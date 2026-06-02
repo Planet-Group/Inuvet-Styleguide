@@ -202,3 +202,27 @@
   padding-right: 0;
   max-width: none;
 }
+
+/* ─── .flow Demo (A.7) ─── */
+.flow-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  margin-top: var(--half-module);
+}
+@media (max-width: 680px) {
+  .flow-compare { grid-template-columns: 1fr; }
+}
+.flow-compare__label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-muted);
+  margin-bottom: calc(var(--base) * 0.5);
+}
+.flow-compare__box {
+  background: var(--accent-bg);
+  padding: var(--half-module);
+  outline: 1px solid var(--border-light);
+}
+.flow-compare__box.--with { outline-color: var(--green); }

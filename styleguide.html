@@ -695,6 +695,47 @@
       <tr><td><code>.mb-half</code></td><td><code>margin-bottom</code></td><td><code>var(--half-module)</code></td><td>1.5rem</td></tr>
       <tr><td><code>.mb-1</code></td><td><code>margin-bottom</code></td><td><code>var(--module)</code></td><td>3rem</td></tr>
     </table>
+
+    <h3 class="sg-h3 --top">.flow — Kontextsensitives Spacing</h3>
+    <p class="sg-p">Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Einsatz auf Info-Pages und <code>.section-type__content</code>. Nicht für <code>.rte</code>-Blöcke (eigene Regelung).</p>
+
+    <table class="spec-table">
+      <tr><th>Regel</th><th>Token</th><th>Px (Desktop)</th><th>Logik</th></tr>
+      <tr><td><code>* + *</code> (Default)</td><td><code>var(--base)</code></td><td>16 px</td><td>Paragraph → Paragraph</td></tr>
+      <tr><td><code>h1 + *</code></td><td><code>calc(var(--base) * 0.75)</code></td><td>12 px</td><td>Intro-Text gehört zur Headline</td></tr>
+      <tr><td><code>h2 + *</code></td><td><code>var(--base)</code></td><td>16 px</td><td>Content nah am Heading</td></tr>
+      <tr><td><code>h3 + *</code></td><td><code>calc(var(--base) * 0.75)</code></td><td>12 px</td><td>h3 fast body-groß → sehr eng</td></tr>
+      <tr><td><code>h4 + *</code></td><td><code>calc(var(--base) * 0.5)</code></td><td>8 px</td><td>Minimalabstand</td></tr>
+      <tr><td><code>* + h2</code></td><td><code>var(--module)</code></td><td>24–48 px</td><td>Neuer Abschnitt — deutliche Zäsur</td></tr>
+      <tr><td><code>* + h3</code></td><td><code>var(--half-module)</code></td><td>12–24 px</td><td>Unterabschnitt</td></tr>
+      <tr><td><code>* + h4</code></td><td><code>calc(var(--base) * 1.5)</code></td><td>24 px</td><td>Kleinstes Heading-Level</td></tr>
+    </table>
+
+    <div class="flow-compare">
+      <div>
+        <p class="flow-compare__label">ohne .flow</p>
+        <div class="flow-compare__box">
+          <h2>Produktgruppe Calmin</h2>
+          <p>Kurze Beschreibung der Indikation und des Einsatzbereichs für Hunde und Katzen mit erhöhtem Stresslevel.</p>
+          <h3>Anwendungshinweise</h3>
+          <p>Täglich zum Futter geben. Dosierung nach Körpergewicht — siehe Tabelle auf der Packung.</p>
+          <h3>Inhaltsstoffe</h3>
+          <p>Baldrian-Extrakt, Hopfen-Extrakt, L-Tryptophan. Frei von synthetischen Wirkstoffen.</p>
+        </div>
+      </div>
+      <div>
+        <p class="flow-compare__label">mit .flow</p>
+        <div class="flow-compare__box --with flow">
+          <h2>Produktgruppe Calmin</h2>
+          <p>Kurze Beschreibung der Indikation und des Einsatzbereichs für Hunde und Katzen mit erhöhtem Stresslevel.</p>
+          <h3>Anwendungshinweise</h3>
+          <p>Täglich zum Futter geben. Dosierung nach Körpergewicht — siehe Tabelle auf der Packung.</p>
+          <h3>Inhaltsstoffe</h3>
+          <p>Baldrian-Extrakt, Hopfen-Extrakt, L-Tryptophan. Frei von synthetischen Wirkstoffen.</p>
+        </div>
+      </div>
+    </div>
+    <p class="demo-note">Override per Inline-Custom-Property: <code>&lt;p style="--flow-space: var(--module)"&gt;</code></p>
   </section>
 </div>
 

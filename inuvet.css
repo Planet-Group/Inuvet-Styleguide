@@ -1628,6 +1628,34 @@
   .mt-2    { margin-top: var(--module-2xl); }
   .mb-half { margin-bottom: var(--half-module); }
   .mb-1    { margin-bottom: var(--module); }
+
+  /* ─── .flow — Kontextsensitives Typografie-Spacing ─────────────────────────
+     Basiert auf dem Every-Layout-Flow-Pattern (Andy Bell / heydonworks.com).
+     Setzt margin-top kontextsensitiv via --flow-space CSS Custom Property.
+
+     Einsatz:      Info-Pages, section-type__content, überall wo Headings
+                   und Fließtext gemischt auftreten.
+     Nicht für:    .rte-Blöcke (eigene Regelung) + Komponenten-Interna.
+     Override:     --flow-space direkt am Element setzen für Sonderfälle.
+     ──────────────────────────────────────────────────────────────────────── */
+
+  /* margin-bottom aller direkten Kinder zurücksetzen — margin-top übernimmt Rhythmus */
+  .flow > * { margin-bottom: 0; }
+
+  /* Default: Paragraph → Paragraph */
+  .flow > * + * { margin-top: var(--flow-space, var(--base)); }
+
+  /* Nach Heading: zugehöriger Content bleibt nah */
+  .flow > h1 + * { --flow-space: calc(var(--base) * 0.75); }
+  .flow > h2 + * { --flow-space: var(--base); }
+  .flow > h3 + * { --flow-space: calc(var(--base) * 0.75); }
+  .flow > h4 + * { --flow-space: calc(var(--base) * 0.5); }
+
+  /* Vor Heading: neuer Abschnitt — Zäsur nach oben
+     Reihenfolge bewusst: diese Regeln kommen zuletzt und gewinnen bei h2+h3-Folgen */
+  .flow > * + h2 { --flow-space: var(--module); }
+  .flow > * + h3 { --flow-space: var(--half-module); }
+  .flow > * + h4 { --flow-space: calc(var(--base) * 1.5); }
   .label.--inset { margin: 0 var(--margin) var(--half-module); }
 
   /* ═══════════════════════════════════════════
@@ -1837,9 +1865,10 @@
     padding-top: 0.5rem;
   }
   
-  /* ─── Avatar (Platzhalter) ─── */
-  /* .testimonial__avatar — nutzt .placeholder-bg + .icon-box */
-  .testimonial__avatar { border: 1px solid var(--border-light); flex-shrink: 0; }
+  /* ─── Avatar (Platzhalter oder Foto) ─── */
+  /* .testimonial__avatar — nutzt .placeholder-bg + .icon-box oder enthält <img> */
+  .testimonial__avatar { border: 1px solid var(--border-light); flex-shrink: 0; border-radius: 50%; overflow: hidden; }
+  .testimonial__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   
   /* ─── Name + Rolle ─── */
   .testimonial__name {

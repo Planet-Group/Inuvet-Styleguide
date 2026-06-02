@@ -22,71 +22,44 @@ body.--page-home .site-nav { border-bottom: none; }
   }
 }
 
-/* ─── Intro-Strip (direkt unter Header, über Hero) ─── */
+/* ─── Testimonial-Strip (direkt unter Header, über Hero) ─── */
 .intro-strip {
   background: var(--bg);
   position: relative;
-  overflow: visible;
 }
 
 .intro-strip__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  /* kein vertikales Padding — Animation oben/unten bündig */
-  padding: 0 var(--module);
-  display: flex;
-  align-items: flex-start;
+  padding: var(--half-module) var(--module);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--module);
 }
 
-.intro-strip__col {
-  display: flex;
-  align-items: flex-start;
-  gap: calc(var(--base) * 0.5);
-  flex: 1;
-  padding: calc(var(--base) * 0.5) 0 var(--base) 0;
+.intro-strip .testimonial {
+  border-top: none;
+  padding-top: 0;
+  gap: calc(var(--base) * 0.25);
 }
+.intro-strip .testimonial__text { font-style: italic; }
 
-/* Animation: etwas größer als __num-Circles, aber inline-bündig */
-.intro-strip__anim {
-  width: calc(var(--base) * 2.5);
-  height: calc(var(--base) * 2.5);
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.intro-strip__anim lottie-player {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* .intro-strip__num erbt alle Visuals von .circle-badge.--num */
-
-.intro-strip__text {
-  font-size: var(--text-sm);
-  color: var(--fg);
-  line-height: var(--lh-base);
-  margin: 0;
-}
-
-.intro-strip__text.--intro {
-  font-weight: 700;
+@media (max-width: 1100px) and (min-width: 801px) {
+  .intro-strip__inner { grid-template-columns: repeat(3, 1fr); }
+  .intro-strip .testimonial:last-child { display: none; }
 }
 
 @media (max-width: 800px) {
   .intro-strip__inner {
+    display: flex;
     overflow-x: auto;
     flex-wrap: nowrap;
-    gap: calc(var(--base) * 0.8);
-    padding: calc(var(--base) * 0.5) var(--half-module);
+    gap: var(--half-module);
+    padding: var(--half-module);
     scrollbar-width: none;
   }
   .intro-strip__inner::-webkit-scrollbar { display: none; }
-  .intro-strip::-webkit-scrollbar { display: none; }
-  .intro-strip__col { flex: 0 0 auto; max-width: 52vw; }
-  .intro-strip__col.--media { max-width: none; }
-  .intro-strip__anim { height: calc(var(--module) * 2.5); margin-top: calc(var(--module) * -1); }
+  .intro-strip .testimonial { flex: 0 0 72vw; }
 }
 
 /* ─── So funktioniert's — Prozess-Pfad ─── */

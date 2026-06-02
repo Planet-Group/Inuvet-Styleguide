@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css?v=2">
   <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
-  <link rel="stylesheet" href="Tierarzt-Empfehlung.css">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=4">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
@@ -1661,11 +1661,12 @@ function tileHTML(p) {
    SEITEN
    ════════════════════════════════════════════ */
 
-/* ── So funktioniert's ── */
-const INTRO_STEPS = [
-  'Finde hier das passende Produkt für dein Haustier',
-  'Wir senden eine Anfrage an deinen Tierarzt',
-  'Du erhältst deine Freigabe per Email und kannst deine Produkte hier shoppen',
+/* ── Testimonial-Strip ── */
+const STRIP_TESTIMONIALS = [
+  { text: 'Schon nach wenigen Wochen war mein Golden Retriever viel entspannter — ich bin so dankbar für die Empfehlung.',  name: 'Sandra M.',         role: 'Tierbesitzerin, München', img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
+  { text: 'Gut verträglich, transparente Inhaltsstoffe — ich empfehle Inuvet-Produkte regelmäßig in meiner Praxis.',       name: 'Dr. Thomas Berger', role: 'Tierarzt, Hamburg',       img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
+  { text: 'Hepax forte hat meiner Katze nach der OP wirklich geholfen. Schnelle Lieferung, unkompliziert.',                name: 'Klaus W.',          role: 'Tierhalter, Frankfurt' },
+  { text: 'Als Tierärztin schätze ich fundierte Formeln — und meine Klientinnen fragen regelmäßig gezielt danach.',        name: 'Dr. Sarah Koch',    role: 'Tierärztin, Berlin' },
 ];
 
 const HIW_STEPS = [
@@ -1833,8 +1834,6 @@ function renderHome() {
   let body     = '';
   let cta      = '';
 
-  let introText = '';
-
   if (state === 'guest') {
     headline   = 'Weil dein Tier das Beste verdient.';
     body       = 'Dein Tier kann dir nicht sagen, was es braucht. Aber dein Tierarzt weiß es — und du sorgst dafür, dass es genau das bekommt: tierärztlich entwickelt, persönlich empfohlen, direkt zu dir nach Hause.';
@@ -1842,14 +1841,12 @@ function renderHome() {
       <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Produkte finden</button>
     </div>`;
-    introText  = 'Du möchtest ein Inuvet-Produkt und hast noch keine Freigabe von deinem Tierarzt?';
   } else if (state === 'no-release') {
     headline   = 'Dein Tierarzt weiß, was dein Tier wirklich braucht.';
     body       = 'Finde das Richtige für dein Tier und lass es von deinem Tierarzt persönlich freigeben — weil Gesundheit mit dem richtigen Rat beginnt.';
     cta        = `<div class="btn-row">
       <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
     </div>`;
-    introText  = 'Du bist angemeldet und kannst jetzt ein Produkt zur Freigabe anfragen';
   } else {
     headline   = 'Deine Praxis hat entschieden — für dein Tier.';
     const approvedCount = approvedProductIds.size;
@@ -1858,25 +1855,24 @@ function renderHome() {
       <button class="btn --primary" onclick="setPage('recommended')">Freigabe einlösen</button>
       <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
     </div>`;
-    introText  = 'Du möchtest ein Inuvet-Produkt? So erhältst du eine Empfehlung von deiner Tierarztpraxis';
   }
 
-  const stepCols = INTRO_STEPS.map((text, i) => `
-    <div class="intro-strip__col">
-      <span class="circle-badge --num intro-strip__num">${i + 1}</span>
-      <p class="intro-strip__text">${text}</p>
+  const stripCols = STRIP_TESTIMONIALS.map(t => `
+    <div class="testimonial">
+      <p class="testimonial__text">${t.text}</p>
+      <div class="testimonial__author">
+        <div class="testimonial__avatar icon-box${t.img ? '' : ' placeholder-bg'}">${t.img ? `<img src="${t.img}" alt="${t.name}">` : ''}</div>
+        <div>
+          <p class="testimonial__name">${t.name}</p>
+          <div class="testimonial__role">${t.role}</div>
+        </div>
+      </div>
     </div>`).join('');
 
   return `
     <div class="intro-strip">
       <div class="intro-strip__inner">
-        <div class="intro-strip__col">
-          <div class="intro-strip__anim">
-            <lottie-player src="../assets/lotties/_inuvet_animation_tierarztpraxislogo_json.json" background="transparent" speed="1" loop autoplay></lottie-player>
-          </div>
-          <p class="intro-strip__text --intro">${introText}</p>
-        </div>
-        ${stepCols}
+        ${stripCols}
       </div>
     </div>
     <div class="section-type --v3 --viewport --reverse">
