@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css?v=5">
   <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
-  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=10">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=12">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
@@ -72,7 +72,7 @@
   </div>
   <div class="nav-center">
     <a href="#" onclick="setPage('home');return false;" aria-label="Zur Startseite">
-      <img src="../assets/graphics/Tierarzt-Empfehlung_Logo_RGB.svg" alt="Tierarzt-Empfehlung Logo">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logotype_RGB.svg" alt="Tierarzt-Empfehlung Logo">
     </a>
   </div>
   <div class="nav-right">
@@ -166,7 +166,7 @@
 
     <!-- Linke Markenseite -->
     <div class="login-brand">
-      <img src="../assets/graphics/Tierarzt-Empfehlung_Logo_RGB.svg" alt="Tierarzt-Empfehlung" class="login-brand__logo">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logotype_RGB.svg" alt="Tierarzt-Empfehlung" class="login-brand__logo">
       <div class="login-brand__content">
         <h2 class="login-brand__headline">Gesundheit für dein Tier — empfohlen von deinem Tierarzt.</h2>
         <ul class="login-brand__features">
@@ -191,7 +191,8 @@
       <!-- Login -->
       <div class="login-panel" id="loginPanel">
         <div class="login-panel__header">
-          <p class="login-panel__sub">Melde dich an, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
+          <p class="login-panel__sub">Melde dich an, um Produkte einzulösen oder freigeben zu lassen.</p>
+          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="form-field">
@@ -218,7 +219,8 @@
       <!-- Registrieren -->
       <div class="login-panel --hidden" id="registerPanel">
         <div class="login-panel__header">
-          <p class="login-panel__sub">Registriere dich kostenlos, um Produkte einzulösen oder von deinem Tierarzt freigeben zu lassen.</p>
+          <p class="login-panel__sub">Registriere dich kostenlos, um Produkte einzulösen oder freigeben zu lassen.</p>
+          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="login-form__row">
@@ -1038,9 +1040,24 @@ function updateVetHint() {
   if (selectedVet && selectedVet.hasRecommended) {
     el.innerHTML = '<span class="vet-recommended-dot">●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung';
   } else if (selectedVet && selectedVet.custom) {
-    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Wir werden diese Praxis für Sie kontaktieren';
+    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Wir werden diese Praxis für Sie kontaktieren. Diese Praxis ist bisher noch nicht im Empfehlungsprogramm von Inuvet. Bitte geben Sie uns noch ein paar Details:';
   } else {
     el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit';
+  }
+}
+
+function handleVetInputKeydown(e) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const val = e.target.value.trim();
+  if (!val) return;
+  // Exakter Treffer in der Liste → Praxis auswählen
+  const match = VETS.find(v => v.name.toLowerCase() === val.toLowerCase());
+  if (match) {
+    selectVet(match.id);
+  } else {
+    // Kein Treffer → freie Eingabe bestätigen (wie „Verwenden"-Klick)
+    selectCustomVet(val);
   }
 }
 
@@ -1145,7 +1162,7 @@ function renderRequestStep() {
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder=" "
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
-            oninput="filterVets(this.value)" onfocus="showVetDropdown()">
+            oninput="filterVets(this.value)" onfocus="showVetDropdown()" onkeydown="handleVetInputKeydown(event)">
           <label for="vetSearchInput">Tierarztpraxis</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
@@ -1153,7 +1170,7 @@ function renderRequestStep() {
           selectedVet && selectedVet.hasRecommended
             ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
             : selectedVet && selectedVet.custom
-              ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren'
+              ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren. Diese Praxis ist bisher noch nicht im Empfehlungsprogramm von Inuvet. Bitte geben Sie uns noch ein paar Details:'
               : selectedVet
                 ? '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
                 : ''
@@ -2037,6 +2054,7 @@ function renderCollection() {
       <div class="section-type__content">
         <h2 class="section-type__headline">Produkte finden und von deinem Tierarzt freigeben lassen</h2>
         <div class="section-type__bottom">
+          <p class="section-type__body">Inuvet Produkte sind pflanzlich, hoch dosiert und speziell für Hunde und Katzen entwickelt — in enger Zusammenarbeit mit Tierärzten. Hast du bereits eine Empfehlung? Dann kannst du sie hier direkt einlösen. Noch keine? Kein Problem — stöbere durch unser Sortiment und frage ein Produkt bei deiner Praxis an.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openFinder()">Produktfinder starten</button>
             <button class="btn --ghost" onclick="document.getElementById('collectionGrid').scrollIntoView({behavior:'smooth'})">Alle Produkte</button>
