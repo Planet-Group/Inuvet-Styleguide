@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css?v=3">
   <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
-  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=8">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=9">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
@@ -92,7 +92,6 @@
   <div class="nav-col" id="mobileNavCol">
     <a href="#" onclick="setPage('collection');closeMobile();return false;">Alle Produkte</a>
     <a href="#" onclick="setPage('recommended');closeMobile();return false;" id="mobileRecommended" style="display:none">Empfohlene Produkte</a>
-    <a href="#" onclick="setPage('about');closeMobile();return false;">Was ist Inuvet?</a>
     <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
   </div>
 </div>
@@ -291,6 +290,8 @@
 /* ════════════════════════════════════════════
    BILD-KONSTANTEN
    ════════════════════════════════════════════ */
+const HERO_IMG = '../assets/images/Hero_Mood_03.jpg';
+
 const CALMIN_1 = '../assets/images/Calmin_Packshot_01.jpeg';
 const CALMIN_2 = '../assets/images/Calmin_Packshot_02.png';
 const CALMIN_3 = '../assets/images/Calmin_Packshot_03.png';
@@ -1463,7 +1464,7 @@ function renderNav() {
   if (state === 'with-release') {
     addLink('Empfohlene Produkte', (e) => { e.preventDefault(); setPage('recommended'); });
   }
-  addLink('Was ist Inuvet?', (e) => { e.preventDefault(); setPage('about'); });
+
   const docsLink = document.createElement('a');
   docsLink.href = 'Tierarzt-Empfehlung-Info.html';
   docsLink.textContent = 'Dokumentation';
@@ -1876,7 +1877,7 @@ function renderHome() {
       </div>
     </div>
     <div class="section-type --v3 --viewport --reverse">
-      <div class="section-type__image" style="background-image:url('../assets/images/caring-veterinarian-examining-dog-at-vet-clinic-2026-03-19-23-05-54-utc.jpg');"></div>
+      <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
         <div class="section-type__content">
           <h2 class="section-type__headline">${headline}</h2>
