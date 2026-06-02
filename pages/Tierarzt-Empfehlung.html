@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css?v=5">
   <link rel="stylesheet" href="../temp.css?v=3">
   <link rel="stylesheet" href="../mockup-ui.css">
-  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=12">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung.css?v=18">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
@@ -114,6 +114,38 @@
      HAUPTINHALT
      ════════════════════════════════════════ -->
 <main id="shopMain"></main>
+
+<footer class="site-footer" id="shopFooter">
+  <div class="footer-main">
+    <div class="footer-col --newsletter --on-green">
+      <h3>Bleib auf dem Laufenden</h3>
+      <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
+      <form class="footer-nl-form" onsubmit="return false;">
+        <div class="form-field">
+          <input type="email" id="nl-email" placeholder="">
+          <label for="nl-email">E-Mail-Adresse</label>
+        </div>
+        <button class="btn --primary" type="submit">Anmelden</button>
+      </form>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#" onclick="setPage('collection');return false;">Alle Produkte</a></li>
+        <li><a href="#" onclick="openFinder();return false;">Produktfinder starten</a></li>
+        <li><a href="#" onclick="openLoginModal('login');return false;">Freigabe einlösen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">AGB</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
 <!-- ════════════════════════════════════════
      OPTIONS-DRAWER (Varianten wählen)
@@ -1970,7 +2002,6 @@ function renderHome() {
       </div>
     </div>
     ${testimonialSectionHTML()}
-    ${newsletterHTML()}
 `;
 }
 
@@ -2040,7 +2071,6 @@ function renderAbout() {
         ${PRODUCTS.map(tileHTML).join('')}
       </div>
     </div>
-    ${newsletterHTML()}
 `;
 }
 
@@ -2072,7 +2102,6 @@ function renderCollection() {
       </div>
     </div>
     ${testimonialSectionHTML()}
-    ${newsletterHTML()}
 `;
 }
 
@@ -2090,7 +2119,6 @@ function renderRecommended() {
       </div>
     </div>
     ${testimonialSectionHTML()}
-    ${newsletterHTML()}
 `;
 }
 
@@ -2239,7 +2267,6 @@ function renderProduct() {
       </div>
     </div>
     ${testimonialSectionHTML()}
-    ${newsletterHTML()}
 `;
 }
 
@@ -2320,7 +2347,6 @@ function renderCheckout() {
       </div>
     </div>
     ${testimonialSectionHTML()}
-    ${newsletterHTML()}
 `;
 }
 
