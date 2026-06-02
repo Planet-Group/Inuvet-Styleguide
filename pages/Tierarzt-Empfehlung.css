@@ -31,7 +31,7 @@ body.--page-home .site-nav { border-bottom: none; }
 .intro-strip__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--half-module) var(--module);
+  padding: 0 var(--module) var(--half-module);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--module);
@@ -43,6 +43,7 @@ body.--page-home .site-nav { border-bottom: none; }
   gap: calc(var(--base) * 0.25);
 }
 .intro-strip .testimonial__text { font-style: italic; }
+.intro-strip .testimonial__name { font-size: var(--text-xs); }
 
 @media (max-width: 1100px) and (min-width: 801px) {
   .intro-strip__inner { grid-template-columns: repeat(3, 1fr); }
