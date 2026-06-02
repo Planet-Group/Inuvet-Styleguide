@@ -860,6 +860,7 @@
     font-size: var(--text-base);
     font-weight: 700;
     line-height: var(--lh-base);
+    margin-bottom: 0;
   }
   .tile__body {
     font-size: var(--text-base);
