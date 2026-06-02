@@ -589,7 +589,7 @@
   }
   .section-type.--v1 .section-type__content {
     justify-content: center;
-    gap: var(--half-module);
+    gap: 0;
   }
   .section-type.--v1 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -619,7 +619,7 @@
     background: var(--green-light);
     padding: var(--module);
     justify-content: center;
-    gap: var(--half-module);
+    gap: 0;
   }
   .section-type.--v2 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -686,12 +686,10 @@
     font-size: var(--text-l);
     font-weight: 700;
     line-height: var(--lh-h2);
-    margin-bottom: var(--half-module);
   }
   .section-type.--v3 .section-type__body {
     color: var(--fg-muted);
     line-height: var(--lh-base);
-    margin-bottom: var(--half-module);
   }
   /* Staggered entrance for content children */
   .section-type.--v3 .section-type__content > * {
@@ -701,6 +699,23 @@
   .section-type.--v3 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v3 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v3 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
+  /* ─── Flow-Spacing: kontextsensitiver Rhythmus in section-type__content ─── */
+  .section-type.--v1 .section-type__content > * + *,
+  .section-type.--v2 .section-type__content > * + *,
+  .section-type.--v3 .section-type__content > * + * {
+    margin-top: var(--flow-space, var(--base));
+  }
+  /* Headline → Body: nah */
+  .section-type.--v1 .section-type__content > .section-type__headline + *,
+  .section-type.--v2 .section-type__content > .section-type__headline + *,
+  .section-type.--v3 .section-type__content > .section-type__headline + * {
+    --flow-space: var(--base);
+  }
+  /* Body → CTA (--v3, direkte Kinder): etwas Luft */
+  .section-type.--v3 .section-type__content > .section-type__body + * {
+    --flow-space: var(--half-module);
+  }
+
   /* Reduced motion: skip animations */
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v1 .section-type__image,
