@@ -47,7 +47,7 @@ body.--page-home .section-type.--v3 .section-type__content {
 .intro-strip__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--module) var(--half-module);
+  padding: var(--module) var(--module) var(--half-module);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--module);

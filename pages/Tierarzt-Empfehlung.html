@@ -1920,11 +1920,6 @@ function renderHome() {
     </div>`).join('');
 
   return `
-    <div class="intro-strip">
-      <div class="intro-strip__inner">
-        ${stripCols}
-      </div>
-    </div>
     <div class="section-type --v3 --viewport --reverse">
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
@@ -1933,6 +1928,11 @@ function renderHome() {
           <p class="section-type__body">${body}</p>
           ${cta}
         </div>
+      </div>
+    </div>
+    <div class="intro-strip">
+      <div class="intro-strip__inner">
+        ${stripCols}
       </div>
     </div>
     <div class="section-type --v1">
@@ -2093,10 +2093,6 @@ function renderCollection() {
       </div>
     </div>
     <div class="page" id="collectionGrid">
-      <h2 class="shop-page-title">Alle Produkte</h2>
-      <div class="collection-toolbar">
-        <div class="collection-toolbar__count">${PRODUCTS.length} Produkte</div>
-      </div>
       <div class="tile-grid --cols-3">
         ${PRODUCTS.map(tileHTML).join('')}
       </div>
@@ -2111,9 +2107,7 @@ function renderRecommended() {
   return `
     <div class="page">
       <h2 class="shop-page-title">Empfohlene Produkte</h2>
-      <div class="collection-toolbar">
-        <div class="collection-toolbar__count">${approved.length} Empfehlungen</div>
-      </div>
+      <div class="collection-toolbar"></div>
       <div class="tile-grid --cols-3">
         ${approved.map(tileHTML).join('')}
       </div>
