@@ -1,37 +1,42 @@
-# Claude Code — Session-Einstieg für Inuvet Styleguide
-
-> **Automatisch geladen zu Sessionbeginn. Bewusst kurz — alle Details in [`CONTEXT.md`](./CONTEXT.md).**
+# Inuvet Styleguide — Claude Code
 
 ---
 
 ## Erstkontakt-Checkliste
 
-1. [`CONTEXT.md`](./CONTEXT.md) lesen — Architektur, Tokens, Mockups, verworfene Entscheidungen
-2. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
-3. Globale JS-Datei: `inuvet.js` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details in CONTEXT.md.
+1. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
+2. Globale JS-Datei: `inuvet.js` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
 
 ---
 
 ## Goldene Regeln (nie brechen)
 
-1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden. Details + Anti-Pattern-Beispiel in CONTEXT.md.
-2. **Neue Styles immer zuerst in temp.css** — Jedes neue CSS-Element landet zunächst in `temp.css`, egal ob es sich später als global oder seitenspezifisch herausstellt. Das wird zum Zeitpunkt der Entwicklung noch nicht entschieden. Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → die zugehörige Page-CSS-Datei (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`. Details zum Workflow in CONTEXT.md.
+1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden.
+2. **Neue Styles immer zuerst in temp.css** — Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → Page-CSS (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`.
 3. **Keine Magic Numbers** — alles via `var(--…)`.
 4. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
 5. **Kein `!important`**. Niemals.
 6. **Kein `text-align: center`** für Inhalte — nur funktional (Button-Text, Qty-Input, Empty/Success-State).
 7. **BEM-Modifier mit Doppel-Bindestrich**: `.btn.--primary`, `.--active`, `.--open`.
 8. **Linien sparsam** — Whitespace trennt. `border-top` für Trennzwecke ist Code-Smell.
-9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente muss sofort an zwei Stellen dokumentiert werden: (1) als Demo-Abschnitt in `styleguide.html`, (2) als Zeile in der Klassen-Schnellreferenz in `CONTEXT.md`. Beides zusammen, nie nur eines.
-10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird (egal ob in `temp.css`, einer Page-CSS oder `inuvet.css`): kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
-11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn aus dem Kontext nicht eindeutig hervorgeht, ob es sich um ein Einzelprodukt (mit Darreichungsform im Namen) oder eine Produktfamilie handelt: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
-12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente (FAB, Panel, Bar, Buttons darin) kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen (`.btn`, `.form-field` etc.) innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal` verwenden. Eigene Elemente: `.mockup-btn`, `.mockup-fab-panel__field` u. a.
+9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente: (1) Demo-Abschnitt in `styleguide.html`, (2) Zeile in der Klassen-Schnellreferenz unten. Beides zusammen, nie nur eines.
+10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird: kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
+11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn nicht eindeutig klar: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
+12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`.
+13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 
 ---
 
 ## Produkt-Modell
 
-**Grundprinzip:** In den Warenkorb kommen immer Einzelprodukte, nie Familien. Sobald ein Preis oder eine Darreichungsform im Kontext steht, ist es ein Einzelprodukt.
+| Begriff | Definition | Beispiel |
+|---|---|---|
+| **Indikation** | Krankheitsbild, gibt dem Produkt seinen Namen | Durchfall → „EnteroGast" |
+| **Produkt** | Konkrete Darreichungsform einer Indikation | „EnteroGast Tabletten", „EnteroGast Pulver" |
+| **Variante** | Unterschiedliche Füllmengen desselben Produkts | EnteroGast Tabletten in 21 / 90 Stk. |
+| **Produktfamilie** | Alle Produkte mit derselben Indikation | Familie „EnteroGast" = Tabletten + Pulver |
+
+**Anzeige-Regel (kontextabhängig):**
 
 | Kontext | Anzeige |
 |---|---|
@@ -39,36 +44,274 @@
 | Cart, Checkout, Bestellübersicht, Freigabe | `Calmin Balance Tabletten`, `Hepax forte Tabletten` |
 | Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
 
-In Cart/Checkout: Varianten-Zeile zeigt Füllmenge + Preis — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Nie eigene Klassen für diese Zeile. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2). → Vollständiges Modell mit Indikation/Produkt/Variante/Familie in CONTEXT.md.
+In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2).
+
+Aktuelle Mockup-Produkte: **Calmin Balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).
 
 ---
 
-## Tokens — nicht raten, nachschlagen
+## Architektur
 
-Spacing: `--half-module`, `--module`, `--module-2xl/3xl` · Text: `--text-xs/sm/base/m/l/xl` · Layout: `--header-height`, `--page-pt`, `--container-max` · Z-Index: `--z-nav/overlay/drawer/modal` · Animation: `--anim-fast/mid/base/slow`
+### CSS-Schichten
 
-Container-Modifier: `.page.--narrow` (720px) · `.page.--form` (480px) · `.page.--no-pt`
+| Datei | Zweck | Darf nicht enthalten |
+|---|---|---|
+| `inuvet.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
+| `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
+| `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
+| `pages/[name].css` | Page-spezifische Overrides | Globale Design-System-Änderungen |
+| `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 
-→ Vollständige Werte mit `clamp()`-Formeln in CONTEXT.md.
+`temp.css`-Inhalt: leer (Stand 2026-05-28).
+
+### CSS-Workflow: Neue Styles
+
+1. **Bestehende Klasse wiederverwenden** — `grep -n "…" inuvet.css` vor jedem neuen Style
+2. **Komposition** — Lassen sich zwei bestehende Atome kombinieren? → Kein neuer Style nötig
+3. **temp.css** — Erst wenn wirklich etwas Neues gebraucht wird: in `temp.css` testen
+4. **Entscheidung nach Abschluss** — gemeinsam: `inuvet.css` (global) oder `pages/[name].css` (seitenspezifisch)
+
+### JS-Schichtung (analog zu CSS)
+
+Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js` · Kein Inline-Script.
+
+**Ladereihenfolge (zwingend):**
+```html
+<script src="../inuvet.js?v=2"></script>   <!-- zuerst: global -->
+<script src="xyz.js"></script>              <!-- dann: seitenspezifisch -->
+```
+
+**`inuvet.js` — globale Funktionen:**
+
+| Funktion | Zweck |
+|---|---|
+| `toggleMobile()` / `closeMobile()` | Burger-Menü |
+| `closeAnnouncement()` | Announcement-Bar ausblenden |
+| `initMarquees()` | Marquee-Animationen |
+| `toggleAccordion(trigger)` | Akkordeon-Item umschalten |
+| `initScrollAnimations()` | IntersectionObserver für `.--in-view` |
+| `initSliders()` | Testimonial-Slider (Desktop: prev/next, Mobile: Mehr anzeigen) |
+| `showMoreSlider(btn)` | Mobile: je 3 weitere Slides einblenden |
+
+**Seitenspezifische JS-Dateien:**
+
+| Datei | Page |
+|---|---|
+| `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
+| `pages/freigabe.js` | Freigabe-Portal |
+| `pages/provision-portal.js` | Provisions-Portal |
+| `pages/provision-portal-start.js` | Provisions-Portal Startseite |
+| `pages/provision-portal-vetalita.js` | Provisions-Portal Vetalita |
+| `pages/formular-reklamation.js` | Formular Reklamation |
+| `pages/formular-nebenwirkungen-ta.js` | Formular Nebenwirkungen (Tierarzt) |
+| `pages/formular-nebenwirkungen-tb.js` | Formular Nebenwirkungen (Tierbesitzer) |
+| `sg.js` | Styleguide |
 
 ---
 
-## Formular-Kurzregeln
+## Token-System (`inuvet.css` `:root`)
 
-- **Felder einzeln**: nichts tun — `margin-bottom: var(--half-module)` ist eingebaut
-- **Flex-Container**: `gap: 0` setzen — sonst Doppelabstand
-- **Mehrspaltiger**: `.form-grid` + `.form-field.--full` für volle Breite
-- **Section-Trenner**: `<h3 class="section-label --sub">Titel</h3>` — einzige korrekte Lösung
-- **Button nach Formular**: direkt setzen, kein `margin-top` nötig
-- `.login-divider` ist nur für „oder"-Trennungen (Login/Registrierung), **nicht** für Formular-Sektionen
+### Spacing
+```css
+--base: 1rem
+--half-module: clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)
+--module: clamp(1.5rem, 1rem + 2.7vw, 3rem)
+--module-2xl: calc(var(--module) * 2)
+--module-3xl: calc(var(--module) * 3)
+--gutter: var(--module)
+```
 
-→ Vollständiges Muster mit Code-Beispielen in CONTEXT.md → „Formular-Patterns & Spacing-Regeln"
+### Typografie
+```css
+--text-xs: 0.667rem
+--text-sm: 0.8rem
+--text-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem)
+--text-m: clamp(1.25rem, 1rem + 0.7vw, 1.5rem)
+--text-l: clamp(1.5rem, 1rem + 1.7vw, 2.25rem)
+--text-xl: clamp(2rem, 1rem + 3.2vw, 3.375rem)
+--lh-base: 1.5  --lh-h3: 1.2  --lh-h2: 1.17  --lh-h1: 1.11
+--font: "schnebel-sans-me", sans-serif
+```
+
+### Layout
+```css
+--header-height: calc(var(--module) * 3.5)
+--page-pt: var(--module)
+--container-max: 1536px
+```
+
+### Z-Index
+```css
+--z-nav: 100  --z-overlay: 200  --z-drawer: 210  --z-modal: 220
+```
+
+### Animation
+```css
+--anim-fast: 0.2s ease  --anim-mid: 0.3s ease
+--anim-base: 0.4s ease  --anim-slow: 0.6s ease
+```
+
+### Farben
+```css
+--green: #78b41b  --green-hover: #58990F  --green-light: #f0fae6
+--fg: #000  --fg-muted: #666  --bg: #fff
+--border: #cccccc  --border-light: #e0e0e0  --accent-bg: #f2f2f2
+```
+
+14 Kategorie-Farben als `--cat-X` + `--cat-X-light`: beruhigung, leber, gelenke, immun, herz, magendarm, haut-fell, atemwege, niere, krebs, augen, alter, bewegung, cbd.
+
+---
+
+## Container-Modifier
+
+| Klasse | Breite | Verwendung |
+|---|---|---|
+| `.page` | 1536px | Standard, Listen, Übersichten |
+| `.page.--narrow` | ≈ 720px | Lese-Content, Detail-Seiten |
+| `.page.--form` | ≈ 480px | Eingabe-Formulare |
+| `.page.--no-pt` | — | Hebt `--page-pt` auf |
+
+---
+
+## Komponenten & Patterns
+
+### Floating Label (Form Field)
+```html
+<div class="form-field">
+  <input placeholder=" " id="x">
+  <label for="x">Label</label>
+</div>
+```
+`placeholder=" "` (Leerzeichen) triggert `:not(:placeholder-shown)`. Modifier: `.--on-green`, `.--error`, `.--success`.
+
+### Tile / Produktkachel
+- `.tile-grid.--cols-2/3/4` für Grid-Layouts
+- **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
+- `.cart-item__variant`: `60 Stück · 39,90 €` — immer diese Klasse, nie eigene
+
+### Card-Patterns (4 verschiedene, bewusst getrennt)
+| Klasse | Verwendung |
+|---|---|
+| `.tile.--product` | Produkt-Übersicht im Grid |
+| `.cart-item` | Reihe im Cart-Drawer |
+| `.summary-card` | Highlighted Action Card (grüner BG) |
+| `.rec-card` | Compact Product Tile (horizontaler Scroll) |
+
+### Section-Label Modifier
+- `.section-label` — Top-Level (h2), `--border`
+- `.section-label.--sub` — Sub-Sektion (h3), `--border-light`
+
+### Spacing: H→p→Button-Stacks
+Überall wo Headline + Fließtext + CTA gestapelt: je `margin-bottom: var(--half-module)`. In `section-type__headline/body` genauso wie in seitenspezifischen Teasern (D.3).
+
+---
+
+## Formular-Patterns & Spacing-Regeln
+
+| Situation | Regel |
+|---|---|
+| Felder im normalen Fluss | Nichts tun — `.form-field` hat `margin-bottom: var(--half-module)` eingebaut |
+| Felder in Flex-Container | `gap: 0` auf dem Container — sonst Doppelabstand |
+| Felder im `form-grid` | Nichts tun — Grid trägt den Abstand via `gap` |
+| Button nach letztem Feld | Direkt setzen — Abstand kommt vom vorherigen `.form-field` |
+
+**Mehrspalten:**
+```html
+<div class="form-grid">
+  <div class="form-field">…</div>
+  <div class="form-field --full">…</div>   <!-- volle Breite -->
+</div>
+```
+
+**Section-Trenner — einzig korrekte Lösung:**
+```html
+<h3 class="section-label --sub">Abschnittsname</h3>
+```
+Kein `<hr>`, kein `.login-divider` (nur für „oder"-Trennungen).
+
+**Zustände:** `.form-field.--error` → roter Border + `.form-field__error`; `.form-field.--success` → grüner Border + `.form-field__success`.
 
 ---
 
 ## Sektions-Schema
 
-A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen — jeweils dezimal nummeriert (A.1, B.3, C.11 …). → Vollständige Tabelle in CONTEXT.md.
+A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen — dezimal nummeriert (A.1, B.3 …). Neue Komponente = nächste Nummer ohne Suffixe.
+
+### Klassen-Schnellreferenz
+
+#### B — Atome
+| Sek. | Komponente | Klasse(n) | Modifier |
+|---|---|---|---|
+| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --danger --loading` |
+| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` |
+| B.3 | Icon-Box | `.icon-box` | — |
+| B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
+| B.4a | Auswahlbox | `.choice-box` | `--sm --block --detail` |
+| B.5 | Product Thumb | `.product-thumb` | — |
+
+#### C — Moleküle
+| Sek. | Komponente | Klasse(n) | Modifier |
+|---|---|---|---|
+| C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` |
+| C.2 | Cart Item | `.cart-item` | — |
+| C.4 | Formular-Shell | `.form-page` | — |
+| C.5 | Tabs & Akkordeon | `.tabs .tab-panel .accordion` | — |
+| C.7 | Notice / Infobox | `.notice` | — |
+| C.8 | Empty / Success | `.empty-state` `.success-state` | — |
+| C.9 | Toast | `.toast` | `--success --error --info --out` |
+| C.10 | Modal | `.modal .modal-overlay` | `--open` |
+
+#### D — Organismen
+| Sek. | Komponente | Klasse(n) | Modifier |
+|---|---|---|---|
+| D.1 | Navigation | `.site-nav .announcement-bar` | — |
+| D.2 | Footer | `.site-footer` | — |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4 --boxed` |
+| D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
+| D.6 | Marquee | `.marquee` | — |
+| D.7 | Newsletter | `.newsletter` | — |
+
+#### E — Seiten-Vorlagen
+| Sek. | Komponente | Klasse(n) |
+|---|---|---|
+| E.2 | PDP | `.pdp`, `.pdp__type-selector` |
+| E.3 | Collection | `.collection-layout .collection-sidebar .collection-toolbar` |
+| E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
+| E.5 | Checkout | `.checkout .summary-line .summary-total` |
+| E.6 | Login-Modal | `.login-overlay .login-modal` |
+| E.7 | Suche | `.search-overlay .search-panel` |
+
+#### Globale Helfer
+| Klasse | Modifier | Zweck |
+|---|---|---|
+| `.page` | `--narrow --form --no-pt` | Container mit max-width + padding |
+| `.section-label` | `--sub` | Abschnittsüberschrift |
+| `.label-caps` | — | Inline Caps-Beschriftung |
+| `.qty-selector` | `--sm` | Mengenauswahl |
+| `.price-stack` | — | Preis + `--old` für Streichpreise |
+| `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
+| `.flow` | — | Kontextsensitives Typografie-Spacing |
+
+---
+
+## Pages aktiv
+
+| Page | CSS | JS | Zweck |
+|---|---|---|---|
+| `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
+| `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
+| `pages/Freigabe.html` | `freigabe.css` | `freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Bundle.html` | `bundle.css` | — | Bundle-Builder mit Naturalrabatt |
+| `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
+| `pages/Formular-Reklamation.html` | `formulare.css` | `formular-reklamation.js` | Stand-Alone-Formular |
+| `pages/Formular-Nebenwirkungen-TB.html` | `formulare.css` | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
+| `pages/Formular-Nebenwirkungen-TA.html` | `formulare.css` | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
+| `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
+| `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provisions-Portal Startseite |
+| `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |
+| `pages/Provision-Portal-Info.html` | — | — | Technische Doku Provisions-Portal |
+| `pages/_template.html` | — | — | Boilerplate neue Mockup-Pages |
 
 ---
 
@@ -80,24 +323,18 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 ---
 
-## Pages aktiv
+## Technische Konventionen
 
-- `pages/Bundle.html` + `bundle.css` — Bundle-Builder mit Naturalrabatt
-- `pages/Bundle-Info.html` — Konzept-Artikel zum Bundle
-- `pages/Tierarzt-Empfehlung.html` + `Tierarzt-Empfehlung.css` — Hauptmockup, Freigabe-Flow
-- `pages/Tierarzt-Empfehlung-Info.html` — Technische Dokumentation zum Rezeptanfrage-System
-- `pages/Freigabe.html` + `freigabe.css` — Vet-Portal, Empfehlungsfreigabe
-- `pages/Formular-Reklamation.html` + `formulare.css` — Stand-Alone-Formular Reklamation
-- `pages/Formular-Nebenwirkungen-TB.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierbesitzer)
-- `pages/Formular-Nebenwirkungen-TA.html` + `formulare.css` — Meldeformular unerwünschte Wirkungen (Tierarztpraxis)
-- `pages/Produkt-Modell.html` — Erklärungs-Artikel: Indikation → Familie → Einzelprodukt → Variante
-- `pages/Provision-Portal-Start.html` — Startseite Provisions-Portal: Testmodus / Neuregistrierung (10 € Startprovision) / Login (Kundennummer + PLZ)
-- `pages/Provision-Portal.html` + `provision-portal.css` — Mockup: Tierarzt löst Provisionen ein (Barauszahlung oder Prämie), inkl. Checkout + Erfolgsseite; Störer verlinkt auf Startseite
-- `pages/Provision-Portal-Info.html` — Technische Dokumentation zum Provisions-Portal
-- `pages/_template.html` — Boilerplate für neue Mockup-Pages
+**Preview-Server:** `python3 -m http.server 3456` aus `~/Inuvet-Styleguide/`
+
+**Commit-Format:** `feat:` / `fix:` / `refactor:` / `docs:`
+
+**Bildpfade:** `assets/images/Calmin_Packshot_01.jpeg` etc. Nur Calmin- und Hepax-Packshots existieren — alle anderen Produkte: `placeholder-bg`.
+
+**CSS Cache-Busting:** `inuvet.css?v=N` — N hochzählen nach Änderungen.
 
 ---
 
 ## Pflege
 
-CLAUDE.md: nur bei Änderung der Goldenen Regeln, Token-Familien oder Pages. Details immer in CONTEXT.md.
+Diese Datei bei Änderungen an: Goldenen Regeln · Token-Familien · Pages · Architektur-Entscheidungen. `CONTEXT.md` existiert nicht mehr.
