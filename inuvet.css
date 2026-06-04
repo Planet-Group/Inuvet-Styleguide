@@ -1069,6 +1069,13 @@
      BUTTONS
      ═══════════════════════════════════════════ */
 
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--half-module);
+  }
+
   .btn {
     display: inline-block;
     font-family: var(--font);
