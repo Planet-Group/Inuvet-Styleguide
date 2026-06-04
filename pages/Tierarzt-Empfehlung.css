@@ -61,6 +61,8 @@ body.--page-home .section-type.--v3 .section-type__content {
 .intro-strip .testimonial__text { font-style: italic; }
 .intro-strip .testimonial__name { font-size: var(--text-xs); }
 
+.testimonial-slider.--no-borders .testimonial { border-top: none; padding-top: 0; }
+
 @media (max-width: 1100px) and (min-width: 801px) {
   .intro-strip__inner { grid-template-columns: repeat(3, 1fr); }
   .intro-strip .testimonial:last-child { display: none; }
