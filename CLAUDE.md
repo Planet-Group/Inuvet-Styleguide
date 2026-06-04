@@ -62,8 +62,10 @@ Aktuelle Mockup-Produkte: **Calmin Balance** (Familie: Tabletten + Pulver), **He
 | `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
 | `pages/[name].css` | Page-spezifische Overrides | Globale Design-System-Änderungen |
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
+| `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`temp.css`-Inhalt: leer (Stand 2026-05-28).
+`temp.css`-Inhalt: leer (Stand 2026-06-04).
+`temp.js`-Inhalt: leer (Stand 2026-06-04).
 
 ### CSS-Workflow: Neue Styles
 
@@ -79,8 +81,15 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 **Ladereihenfolge (zwingend):**
 ```html
 <script src="../inuvet.js?v=2"></script>   <!-- zuerst: global -->
+<script src="../temp.js"></script>          <!-- nur während Staging -->
 <script src="xyz.js"></script>              <!-- dann: seitenspezifisch -->
 ```
+
+**JS-Workflow: Neue Funktionen**
+
+1. **Neue Funktion** → erst in `temp.js` als benannte Funktion implementieren
+2. **Aufruf** → aus `inuvet.js` oder `pages/xyz.js` per Funktionsname referenzieren
+3. **Entscheidung nach Abschluss** → gemeinsam: `inuvet.js` (global) oder `pages/xyz.js` (seitenspezifisch), danach aus `temp.js` löschen
 
 **`inuvet.js` — globale Funktionen:**
 
@@ -171,6 +180,19 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `.page.--narrow` | ≈ 720px | Lese-Content, Detail-Seiten |
 | `.page.--form` | ≈ 480px | Eingabe-Formulare |
 | `.page.--no-pt` | — | Hebt `--page-pt` auf |
+
+## Responsive Breakpoints (vereinheitlicht)
+
+Gilt für `.tile-grid`, `.testimonial-grid`, `.testimonial-slider`:
+
+| Viewport | 4-spaltig | 3-spaltig | 2-spaltig |
+|---|---|---|---|
+| ≥ 1100px | 4 Sp. | 3 Sp. | 2 Sp. |
+| 900–1099px | 3 Sp. | 2 Sp. | 2 Sp. |
+| 768–899px | 2 Sp. | 2 Sp. | 2 Sp. |
+| < 768px | 1 Sp. | 1 Sp. | 1 Sp. |
+
+Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 
 ---
 

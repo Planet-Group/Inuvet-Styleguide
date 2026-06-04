@@ -109,8 +109,12 @@ function initSliders() {
     function getVisible() {
       var w = window.innerWidth;
       if (w <= 767) return slides.length;
-      if (slider.classList.contains('--cols-4')) return w <= 1535 ? 2 : 4;
-      return w <= 1535 ? 2 : 3;
+      if (slider.classList.contains('--cols-4')) {
+        if (w <= 899)  return 2;
+        if (w <= 1100) return 3;
+        return 4;
+      }
+      return w <= 1100 ? 2 : 3;
     }
     function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
     function update() {
