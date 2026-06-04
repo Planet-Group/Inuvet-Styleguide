@@ -8,7 +8,7 @@
 
 1. [`CONTEXT.md`](./CONTEXT.md) lesen — Architektur, Tokens, Mockups, verworfene Entscheidungen
 2. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
-3. Globale JS-Datei: `inuvet.js` — enthält `toggleMobile()` / `closeMobile()`, `closeAnnouncement()`, `initMarquees()`, `toggleAccordion()`, `initScrollAnimations()` — wird in alle Pages eingebunden (analog zu `inuvet.css`)
+3. Globale JS-Datei: `inuvet.js` — enthält `toggleMobile()` / `closeMobile()`, `closeAnnouncement()`, `initMarquees()`, `toggleAccordion()`, `initScrollAnimations()`, `initSliders()`, `showMoreSlider()` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js` (analog zu `pages/xyz.css`). Kein Inline-Script.
 
 ---
 
@@ -25,6 +25,7 @@
 9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente muss sofort an zwei Stellen dokumentiert werden: (1) als Demo-Abschnitt in `styleguide.html`, (2) als Zeile in der Klassen-Schnellreferenz in `CONTEXT.md`. Beides zusammen, nie nur eines.
 10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird (egal ob in `temp.css`, einer Page-CSS oder `inuvet.css`): kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
 11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn aus dem Kontext nicht eindeutig hervorgeht, ob es sich um ein Einzelprodukt (mit Darreichungsform im Namen) oder eine Produktfamilie handelt: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
+13. **JS analog zu CSS schichten** — Globale Funktionen gehören in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script in HTML-Dateien. `inuvet.js` muss **vor** dem seitenspezifischen Script geladen werden.
 12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente (FAB, Panel, Bar, Buttons darin) kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen (`.btn`, `.form-field` etc.) innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal` verwenden. Eigene Elemente: `.mockup-btn`, `.mockup-fab-panel__field` u. a.
 
 ---
