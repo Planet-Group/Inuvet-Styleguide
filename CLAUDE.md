@@ -6,6 +6,7 @@
 
 1. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
 2. Globale JS-Datei: `inuvet.js` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
+3. **Nach Rate-Limit-Abbruch:** Vorherigen Chat wiederherstellen mit `mcp__ccd_session_mgmt__list_sessions` → neuesten Session-Titel „New session" oder ähnlich suchen → `mcp__ccd_session_mgmt__search_session_transcripts` mit Stichworten aus dem letzten Task. Alternativ: `git log --oneline -5` zeigt was zuletzt committet wurde.
 
 ---
 
@@ -315,6 +316,14 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 ---
 
+## Tabu-Bereiche
+
+| Pfad | Grund |
+|---|---|
+| `pages/vetalita/` | Nicht anfassen — kein Lesen, kein Schreiben, kein Refactoring |
+
+---
+
 ## Audit-Verhalten
 
 Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
@@ -323,9 +332,50 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 ---
 
+## Shopify-Integration
+
+### Überblick
+Der Styleguide ist die einzige Quelle des Designs. Das Shopify-Theme ist ein separates Repo, das `inuvet.css` und `inuvet.js` 1:1 übernimmt.
+
+**Pipeline:** Styleguide (`/Users/michaelhoppe/Inuvet-Styleguide`) → GitHub → Shopify (automatisch, kein manueller Upload)
+
+### Theme-Repo
+- **GitHub:** `Planet-Group/inuvet-theme` (privat)
+- **Lokal:** nicht geklont — Zugriff ausschließlich über `gh api`
+- **Lesen:** `gh api "repos/Planet-Group/inuvet-theme/contents/PFAD" --jq '.content' | base64 -d`
+- **Schreiben:** SHA der Datei holen, dann `gh api --method PUT` mit neuem `content` (base64) und `sha`
+
+### Theme-Struktur (relevante Dateien)
+| Datei | Zweck |
+|---|---|
+| `layout/theme.liquid` | Root-Layout — lädt `inuvet.css` + `inuvet.js` |
+| `assets/inuvet.css` | Design System (Kopie aus diesem Repo) |
+| `assets/inuvet.js` | Globale JS (Kopie aus diesem Repo) |
+| `assets/critical.css` | Shopify-eigenes Reset + `.shopify-section`-Grid |
+| `sections/inuvet-hero.liquid` | Hero-Sektion (`.section-type --v3 --viewport --reverse`) |
+
+### Shopify-Section-Grid (wichtig!)
+`critical.css` definiert:
+```css
+.shopify-section { display: grid; grid-template-columns: margin | content | margin; }
+.shopify-section > * { grid-column: 2; }           /* eingeschränkt, mit Seitenabstand */
+.shopify-section > .full-width { grid-column: 1/-1; } /* browser-breit */
+```
+→ Sections, die browser-breit sein sollen (z.B. `.section-type.--v3`), brauchen die Klasse `full-width` auf dem Root-Element des Liquid-Templates.
+
+### Workflow bei Theme-Änderungen
+1. SHA der Zieldatei holen: `gh api "repos/Planet-Group/inuvet-theme/contents/PFAD" --jq '.sha'`
+2. Neuen Inhalt als base64 kodieren
+3. `gh api --method PUT` mit `message`, `content`, `sha`
+4. Shopify übernimmt den Push automatisch — kein manueller Schritt
+
+---
+
 ## Technische Konventionen
 
 **Preview-Server:** `python3 -m http.server 3456` aus `~/Inuvet-Styleguide/`
+
+**Safari — lokale Dateien:** Safari blockiert standardmäßig `../`-Pfade bei `file://`-URLs. Fix: Safari → Einstellungen → Erweitert → „Funktionen für Webentwickler aktivieren" → Menü „Entwickler" → „Lokale Dateieinschränkungen deaktivieren". Einmalig, bleibt gesetzt.
 
 **Commit-Format:** `feat:` / `fix:` / `refactor:` / `docs:`
 
