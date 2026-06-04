@@ -1863,8 +1863,13 @@
   }
   
   /* ─── Quote-Icon ─── */
+  .testimonial__quote-mark {
+    margin-bottom: -0.42rem;
+  }
   .testimonial__quote-mark .material-icons {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
     color: var(--green);
   }
   

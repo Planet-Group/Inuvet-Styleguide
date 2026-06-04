@@ -320,6 +320,7 @@
   </div>
 </div>
 
+<script src="../inuvet.js?v=2"></script>
 <script>
 /* ════════════════════════════════════════════
    BILD-KONSTANTEN
@@ -1548,23 +1549,21 @@ function renderNav() {
    TESTIMONIAL-SLIDER
    ════════════════════════════════════════════ */
 const TESTIMONIALS = [
-  { text: 'Mein Hund hat sich nach wenigen Wochen spürbar beruhigt. Ich bin so froh, dass mir meine Tierärztin Calmin Balance empfohlen hat.',        name: 'Sandra M.',     role: 'Hundemama, München' },
-  { text: 'Endlich ein Produkt, das wirklich hält, was es verspricht. Hepax forte hat meiner Katze nach der Operation schnell wieder auf die Beine geholfen.', name: 'Thomas K.',     role: 'Katzenbesitzer, Hamburg' },
-  { text: 'Die Bestellung war unkompliziert und das Produkt kam schnell an. Mein Tierarzt hat es direkt für meinen Labrador verschrieben.',             name: 'Julia R.',      role: 'Tierliebhaberin, Berlin' },
-  { text: 'Ich vertraue Inuvet seit über zwei Jahren. Die Qualität ist konstant hoch und mein Hund nimmt es problemlos.',                              name: 'Markus T.',     role: 'Golden-Retriever-Besitzer' },
-  { text: 'Super Service und top Beratung. Meine Tierärztin arbeitet seit Jahren mit Inuvet und ich merke den Unterschied jeden Tag.',                 name: 'Petra L.',      role: 'Hundebesitzerin, Köln' },
-  { text: 'Nach der Empfehlung meines Tierarztes haben wir Calmin Balance ausprobiert — mein ängstlicher Beagle ist eine andere Seele geworden.',      name: 'Anna W.',       role: 'Beagle-Mama, Frankfurt' },
+  { text: 'Nach der Empfehlung meines Tierarztes haben wir Calmin Balance ausprobiert — mein ängstlicher Beagle ist eine andere Seele geworden.', name: 'Anna W.',    role: 'Beagle-Mama, Frankfurt',    img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
+  { text: 'Super Service und top Beratung. Meine Tierärztin arbeitet seit Jahren mit Inuvet und ich merke den Unterschied jeden Tag.',             name: 'Sandra M.', role: 'Hundemama, München',        img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
+  { text: 'Gut verträglich, transparente Inhaltsstoffe — ich empfehle Inuvet-Produkte regelmäßig in meiner Praxis.',                              name: 'Julia R.',  role: 'Tierliebhaberin, Berlin',   img: '../assets/images/Partner_Mia_01.png' },
 ];
 
 function testimonialSlideHTML(t) {
   return `
     <div class="testimonial-slider__slide testimonial">
+      <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
       <p class="testimonial__text">${t.text}</p>
       <div class="rating">
         <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
       </div>
       <div class="testimonial__author">
-        <div class="testimonial__avatar icon-box placeholder-bg"></div>
+        <div class="testimonial__avatar icon-box${t.img ? '' : ' placeholder-bg'}">${t.img ? `<img src="${t.img}" alt="${t.name}">` : ''}</div>
         <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
       </div>
     </div>`;
@@ -1583,57 +1582,11 @@ function testimonialSectionHTML(extraClass = '') {
           <button class="slider-btn icon-box" type="button" aria-label="Weiter" data-dir="next"><span class="material-icons">arrow_forward</span></button>
         </div>
       </div>
+      <div class="testimonial-more"><button class="btn --secondary" type="button" onclick="showMoreSlider(this)">Mehr anzeigen</button></div>
     </div>`;
 }
 
-function initSliders() {
-  document.querySelectorAll('.testimonial-slider').forEach(function(slider) {
-    var track   = slider.querySelector('.testimonial-slider__track');
-    var slides  = slider.querySelectorAll('.testimonial-slider__slide');
-    var prevBtn = slider.querySelector('[data-dir="prev"]');
-    var nextBtn = slider.querySelector('[data-dir="next"]');
-    var counter = slider.querySelector('.slider-counter');
-    var current = 0;
-
-    function getVisible() {
-      var w = window.innerWidth;
-      if (w <= 767) return slides.length;
-      return w <= 1535 ? 2 : 3;
-    }
-    function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
-    function update() {
-      var vis     = getVisible();
-      var maxPage = getMaxPage();
-      if (current > maxPage) current = maxPage;
-
-      // .--visible setzen — auf Mobile braucht inuvet.css diese Klasse
-      slides.forEach(function(s, idx) {
-        s.classList.toggle('--visible', idx >= current && idx < current + vis);
-      });
-
-      if (slides.length > 0 && vis < slides.length) {
-        var slideWidth = slides[0].offsetWidth;
-        var gap = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft - slideWidth : 0;
-        track.style.transform = 'translateX(-' + (current * (slideWidth + gap)) + 'px)';
-      } else {
-        track.style.transform = 'translateX(0)';
-      }
-      if (counter) counter.textContent = (current + 1) + ' – ' + Math.min(current + vis, slides.length) + ' / ' + slides.length;
-      if (prevBtn) prevBtn.disabled = current === 0;
-      if (nextBtn) nextBtn.disabled = current >= maxPage;
-    }
-    if (prevBtn) prevBtn.addEventListener('click', function() { if (current > 0) { current--; update(); } });
-    if (nextBtn) nextBtn.addEventListener('click', function() { if (current < getMaxPage()) { current++; update(); } });
-    var startX = 0;
-    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend',   function(e) {
-      var diff = startX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) { if (diff > 0 && current < getMaxPage()) current++; else if (diff < 0 && current > 0) current--; update(); }
-    }, { passive: true });
-    window.addEventListener('resize', function() { update(); });
-    update();
-  });
-}
+// initSliders + showMoreSlider → inuvet.js
 
 function newsletterHTML() {
   return `
@@ -2553,7 +2506,6 @@ render();
 initSliders();
 
 </script>
-<script src="../inuvet.js"></script>
 <div class="toast-container" id="toastContainer"></div>
 </body>
 </html>
