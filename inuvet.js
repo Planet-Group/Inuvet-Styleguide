@@ -59,6 +59,38 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 /* ═══════════════════════════════════════════════════════
+   TESTIMONIAL GRID (Mobile: erste 3 sichtbar, Rest per Button)
+   ═══════════════════════════════════════════════════════ */
+
+function initTestimonials() {
+  document.querySelectorAll('.testimonial-section').forEach(function(section) {
+    var grid = section.classList.contains('testimonial-grid')
+      ? section
+      : section.querySelector('.testimonial-grid');
+    if (!grid) return;
+    var items = grid.querySelectorAll('.testimonial');
+    items.forEach(function(item, i) {
+      if (i < 3) item.classList.add('--visible');
+    });
+  });
+}
+
+function showMore(btn) {
+  var section = btn.closest('.testimonial-section') || btn.closest('.page');
+  var grid = section.querySelector('.testimonial-grid');
+  var hidden = grid.querySelectorAll('.testimonial:not(.--visible)');
+  var count = 0;
+  hidden.forEach(function(item) {
+    if (count < 3) { item.classList.add('--visible'); count++; }
+  });
+  if (grid.querySelectorAll('.testimonial:not(.--visible)').length === 0) {
+    btn.parentElement.classList.add('--hidden');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initTestimonials);
+
+/* ═══════════════════════════════════════════════════════
    TESTIMONIAL SLIDER
    Aufruf: initSliders() nach dem Rendern der Slides.
    showMoreSlider(btn) — onclick auf .testimonial-more > button

@@ -74,38 +74,7 @@ function handleFiles(files) {
   }
 }
 
-// ─── Testimonial Grid: Mobile"Mehr anzeigen" ───
-function initTestimonials() {
-  document.querySelectorAll('.testimonial-section, [class*="testimonial-grid"]').forEach(function(section) {
-    var container = section.closest('.testimonial-section') || section.closest('.page');
-    var grid = section.tagName === 'DIV' && section.classList.contains('testimonial-grid')
-      ? section
-      : section.querySelector('.testimonial-grid');
-    if (!grid) return;
-
-    var items = grid.querySelectorAll('.testimonial');
-    items.forEach(function(item, i) {
-      if (i < 3) item.classList.add('--visible');
-    });
-  });
-}
-
-function showMore(btn) {
-  var section = btn.closest('.testimonial-section') || btn.closest('.page');
-  var grid = section.querySelector('.testimonial-grid');
-  var hidden = grid.querySelectorAll('.testimonial:not(.--visible)');
-
-  var count = 0;
-  hidden.forEach(function(item) {
-    if (count < 3) { item.classList.add('--visible'); count++; }
-  });
-
-  if (grid.querySelectorAll('.testimonial:not(.--visible)').length === 0) {
-    btn.parentElement.classList.add('--hidden');
-  }
-}
-
-initTestimonials();
+// ─── Testimonial Grid: initTestimonials + showMore → inuvet.js ───
 
 // ─── Testimonial Slider ───
 // initSliders + showMoreSlider → inuvet.js
