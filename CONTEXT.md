@@ -662,6 +662,18 @@ docs: …      (Doku-Updates)
 - Logo: `assets/graphics/Inuvet_Logo_RGB.svg` (als `<img>`, nicht inline)
 - **Globale Regel**: Nur Calmin- und Hepax-Packshots existieren; alle anderen Produkte zeigen `placeholder-bg`
 
+### JS-Schichtung (analog zu CSS)
+
+Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js` · Kein Inline-Script in HTML-Dateien.
+
+**Ladereihenfolge (zwingend):**
+```html
+<script src="../inuvet.js?v=2"></script>   <!-- zuerst: globale Funktionen -->
+<script src="xyz.js"></script>              <!-- dann: seitenspezifisch -->
+```
+
+`inuvet.js` muss **vor** dem seitenspezifischen Script stehen — sonst sind globale Funktionen beim Ausführen der Page-Logik noch nicht definiert.
+
 ### Globale JS-Datei (`inuvet.js`)
 Analog zu `inuvet.css` — enthält shared UI-Funktionen die in allen Pages gebraucht werden.
 
@@ -672,9 +684,23 @@ Analog zu `inuvet.css` — enthält shared UI-Funktionen die in allen Pages gebr
 | `initMarquees()` | Marquee-Animationen initialisieren |
 | `toggleAccordion(trigger)` | Akkordeon-Item umschalten (global, PDP + C.5) |
 | `initScrollAnimations()` | IntersectionObserver für `[data-animate]` / `.--in-view` |
+| `initSliders()` | Testimonial-Slider initialisieren (Desktop: prev/next, Mobile: Mehr anzeigen) |
+| `showMoreSlider(btn)` | Mobile: je 3 weitere Slider-Slides einblenden |
 
-Einbindung: `<script src="../inuvet.js"></script>` am Ende von `<body>` (in `pages/`) bzw. `<script src="inuvet.js"></script>` in `styleguide.html`.
-Neue globale JS-Funktionen gehören hierher, nicht inline in einzelne Pages.
+### Seitenspezifische JS-Dateien (`pages/xyz.js`)
+Analog zu `pages/xyz.css` — enthält nur die Logik der jeweiligen Page.
+
+| Datei | Page |
+|---|---|
+| `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
+| `pages/freigabe.js` | Freigabe-Portal |
+| `pages/provision-portal.js` | Provisions-Portal |
+| `pages/provision-portal-start.js` | Provisions-Portal Startseite |
+| `pages/provision-portal-vetalita.js` | Provisions-Portal Vetalita |
+| `pages/formular-reklamation.js` | Formular Reklamation |
+| `pages/formular-nebenwirkungen-ta.js` | Formular Nebenwirkungen (Tierarzt) |
+| `pages/formular-nebenwirkungen-tb.js` | Formular Nebenwirkungen (Tierbesitzer) |
+| `sg.js` | Styleguide |
 
 ### CSS Cache-Busting (Development)
 `inuvet.css?v=N` — N hochzählen nach CSS-Änderungen (vor Push entfernen).
