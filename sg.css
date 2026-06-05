@@ -189,6 +189,22 @@
   .icon-demo .material-icons { font-size: 1.5rem; }
   .icon-demo div { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 0.25rem; }
 
+  /* ─── Demo-Helfer (ersetzen wiederkehrende Inline-Styles) ─── */
+  .sg-caption { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 0.25rem; }
+  .sg-outline { border: 1px solid var(--border-light); }
+  .sg-outline.--solid { border-color: var(--border); overflow: hidden; }
+  .sg-mt { margin-top: var(--half-module); }
+  .sg-mt.--lg { margin-top: var(--module); }
+  .demo-label.--tight { margin-top: var(--half-module); }
+  .sg-row { display: flex; gap: var(--half-module); align-items: center; flex-wrap: wrap; }
+  .sg-row.--end { align-items: flex-end; }
+  .sg-row.--tight { gap: 0.5rem; }
+  .sg-btn-row.--end { align-items: flex-end; }
+  .sg-w-sm { max-width: 16rem; }
+  .sg-w-md { max-width: 28rem; }
+  .sg-gap-half { gap: var(--half-module); }
+  .sg-link-fg { color: var(--fg); }
+
 
 /* ─── Navigation: Hamburger auf Desktop sichtbar (Styleguide hat nur Burger-Nav) ─── */
 @media (min-width: 768px) {

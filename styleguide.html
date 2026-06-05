@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="inuvet.css?v=5">
 <link rel="stylesheet" href="pages/formulare.css">
-<link rel="stylesheet" href="sg.css">
+<link rel="stylesheet" href="sg.css?v=1">
 <link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
@@ -110,7 +110,7 @@
     <a href="#D4" class="--indent" onclick="closeMobile()">D.4 Kachel-Raster</a>
     <a href="#D5" class="--indent" onclick="closeMobile()">D.5 Testimonials</a>
     <a href="#D6" class="--indent" onclick="closeMobile()">D.6 Marquee</a>
-    <a href="#D7" class="--indent" onclick="closeMobile()">D.7 Newsletter</a>
+    <a href="#D7" class="--indent" onclick="closeMobile()">D.7 Newsletter Signup</a>
     <a href="#D8" class="--indent" onclick="closeMobile()">D.8 Cookie-Banner</a>
   </div>
   <!-- E — Seiten-Vorlagen -->
@@ -1034,12 +1034,12 @@
       <div class="badge" data-cat="immun">Immun</div>
       <div class="badge" data-cat="magendarm">Magendarm</div>
     </div>
-    <div class="demo-label" style="margin-top:var(--half-module);">Status-Badges</div>
+    <div class="demo-label --tight">Status-Badges</div>
     <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
       <div class="badge --dark">Neu</div>
       <div class="badge --sale">Sale</div>
     </div>
-    <div class="demo-label" style="margin-top:var(--half-module);">Count-Badge (in .icon-badged)</div>
+    <div class="demo-label --tight">Count-Badge (in .icon-badged)</div>
     <div class="sg-btn-row">
       <button class="btn --icon icon-badged" aria-label="Warenkorb 3 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">3</span></button>
       <button class="btn --icon icon-badged" aria-label="Warenkorb 12 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">12</span></button>
@@ -1057,7 +1057,7 @@
       <tr><th><code>.circle-badge.--check</code></th><td>Icon <code>check</code> bei <code>calc(var(--base) * 0.8125)</code> (≈ 13 px) — für Freigabe-Indikatoren</td></tr>
     </table>
     <div class="demo-label">Varianten</div>
-    <div style="display:flex;gap:var(--half-module);align-items:center;">
+    <div class="sg-row">
       <span class="circle-badge --num">1</span>
       <span class="circle-badge --num">2</span>
       <span class="circle-badge --num">3</span>
@@ -1167,20 +1167,20 @@
     <div class="demo-label">Icon-Box Größen — <code>.icon-box</code> + Modifier</div>
     <div class="sg-btn-row" style="align-items:flex-end;">
       <div>
-        <div class="icon-box --sm" style="border:1px solid var(--border-light);"><span class="material-icons">favorite</span></div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">--sm · 2.5rem</div>
+        <div class="icon-box --sm sg-outline"><span class="material-icons">favorite</span></div>
+        <div class="sg-caption">--sm · 2.5rem</div>
       </div>
       <div>
-        <div class="icon-box --md" style="border:1px solid var(--border-light);"><span class="material-icons">favorite</span></div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">--md · 2.75rem</div>
+        <div class="icon-box --md sg-outline"><span class="material-icons">favorite</span></div>
+        <div class="sg-caption">--md · 2.75rem</div>
       </div>
       <div>
-        <div class="icon-box" style="border:1px solid var(--border-light);"><span class="material-icons">favorite</span></div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">base · 3rem</div>
+        <div class="icon-box sg-outline"><span class="material-icons">favorite</span></div>
+        <div class="sg-caption">base · 3rem</div>
       </div>
       <div>
-        <div class="icon-box --lg" style="border:1px solid var(--border-light);"><span class="material-icons">favorite</span></div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">--lg · 5rem</div>
+        <div class="icon-box --lg sg-outline"><span class="material-icons">favorite</span></div>
+        <div class="sg-caption">--lg · 5rem</div>
       </div>
     </div>
     <p class="demo-note">Alle vier Stufen im Vergleich. Border nur zur Visualisierung der Fläche.</p>
@@ -1192,21 +1192,21 @@
           <span class="material-icons">shopping_cart</span>
           <span class="badge --count">3</span>
         </div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">Standard</div>
+        <div class="sg-caption">Standard</div>
       </div>
       <div>
         <div class="icon-badged">
           <span class="material-icons">shopping_cart</span>
           <span class="badge --count">12</span>
         </div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">Zweistellig</div>
+        <div class="sg-caption">Zweistellig</div>
       </div>
       <div>
         <div class="icon-badged">
           <span class="material-icons">shopping_cart</span>
           <span class="badge --count">128</span>
         </div>
-        <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">Dreistellig</div>
+        <div class="sg-caption">Dreistellig</div>
       </div>
     </div>
     <p class="demo-note">Hover über den Icon — Badge skaliert auf 1.2×</p>
@@ -1467,7 +1467,7 @@
             </div>
           </div>
         </div>
-        <div class="tile-grid" style="gap: var(--half-module);">
+        <div class="tile-grid sg-gap-half">
           <button class="choice-box --block --active" type="button">
             <span class="material-icons">local_shipping</span>
             <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
@@ -1608,7 +1608,7 @@
         <div class="form-grid">
           <div class="form-field"><input type="text" id="demo-c-vorname" placeholder=" "><label for="demo-c-vorname">Vorname</label></div>
           <div class="form-field"><input type="text" id="demo-c-nachname" placeholder=" "><label for="demo-c-nachname">Nachname</label></div>
-          <div class="form-field" style="grid-column: span 2"><input type="email" id="demo-c-email" placeholder=" "><label for="demo-c-email">E-Mail-Adresse</label></div>
+          <div class="form-field --full"><input type="email" id="demo-c-email" placeholder=" "><label for="demo-c-email">E-Mail-Adresse</label></div>
         </div>
       </div>
       <div>
@@ -1654,17 +1654,17 @@
 
     <div class="demo-label">Basis — <code>.product-thumb</code></div>
     <div class="sg-demo-pad">
-      <div style="display:flex;gap:var(--half-module);align-items:flex-end;">
+      <div class="sg-row --end">
         <div>
           <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
-          <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">.product-thumb · 5rem</div>
+          <div class="sg-caption">.product-thumb · 5rem</div>
         </div>
       </div>
     </div>
 
     <div class="demo-label">Mit Badge-Overlay — <code>.product-thumb-wrap</code> + <code>.floating-meta</code></div>
     <div class="sg-demo-pad">
-      <div style="display:flex;gap:var(--half-module);align-items:flex-end;">
+      <div class="sg-row --end">
         <div>
           <div class="product-thumb-wrap">
             <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
@@ -1672,7 +1672,7 @@
               <span class="badge --free">+3 gratis</span>
             </div>
           </div>
-          <div style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:0.25rem;">.product-thumb-wrap + .floating-meta</div>
+          <div class="sg-caption">.product-thumb-wrap + .floating-meta</div>
         </div>
       </div>
     </div>
@@ -1966,7 +1966,7 @@
 
     <div class="demo-label">1 — Basis (.cart-item)</div>
     <div class="sg-demo-pad">
-      <div style="max-width: 28rem;">
+      <div class="sg-w-md">
         <div class="cart-item">
           <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
           <div class="cart-item__info">
@@ -1986,7 +1986,7 @@
 
     <div class="demo-label">2 — Mit Mengenauswahl (.cart-item__bottom + .qty-selector.--sm)</div>
     <div class="sg-demo-pad">
-      <div style="max-width: 28rem;">
+      <div class="sg-w-md">
         <div class="cart-item">
           <div class="product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
           <div class="cart-item__info">
@@ -2014,7 +2014,7 @@
 
     <div class="demo-label">3 — Mit Badge-Overlay (.product-thumb-wrap + .floating-meta)</div>
     <div class="sg-demo-pad">
-      <div style="max-width: 28rem;">
+      <div class="sg-w-md">
         <div class="cart-item">
           <div class="product-thumb-wrap">
             <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
@@ -2039,7 +2039,7 @@
 
     <div class="demo-label">5 — Mit Button (.cart-item__bottom + .btn.--sm)</div>
     <div class="sg-demo-pad">
-      <div style="max-width: 28rem;">
+      <div class="sg-w-md">
         <div class="cart-item">
           <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
           <div class="cart-item__info">
@@ -2059,7 +2059,7 @@
 
     <div class="demo-label">4 — Vollständig (.cart-item__counter + Overlay)</div>
     <div class="sg-demo-pad">
-      <div style="max-width: 28rem;">
+      <div class="sg-w-md">
         <div class="cart-item">
           <div class="product-thumb-wrap">
             <div class="product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
@@ -2394,7 +2394,7 @@
     </table>
 
     <div class="demo-label">Warenkorb leer</div>
-    <div style="border:1px solid var(--border-light);">
+    <div class="sg-outline">
       <div class="empty-state">
         <span class="material-icons">shopping_cart</span>
         <p class="empty-state__title">Dein Warenkorb ist leer</p>
@@ -2403,8 +2403,8 @@
       </div>
     </div>
 
-    <div class="demo-label" style="margin-top:var(--half-module);">Keine Suchergebnisse</div>
-    <div style="border:1px solid var(--border-light);">
+    <div class="demo-label --tight">Keine Suchergebnisse</div>
+    <div class="sg-outline">
       <div class="empty-state">
         <span class="material-icons">search_off</span>
         <p class="empty-state__title">Keine Ergebnisse</p>
@@ -2412,8 +2412,8 @@
       </div>
     </div>
 
-    <div class="demo-label" style="margin-top:var(--half-module);">404 — Seite nicht gefunden</div>
-    <div style="border:1px solid var(--border-light);">
+    <div class="demo-label --tight">404 — Seite nicht gefunden</div>
+    <div class="sg-outline">
       <div class="empty-state">
         <span class="material-icons">error_outline</span>
         <p class="empty-state__title">Seite nicht gefunden</p>
@@ -2433,7 +2433,7 @@
     </table>
 
     <div class="demo-label">Bestätigung (inline)</div>
-    <div style="border:1px solid var(--border-light);">
+    <div class="sg-outline">
       <div class="success-state">
         <span class="material-icons success-state__icon">check_circle</span>
         <h3 class="success-state__title">Anfrage versendet</h3>
@@ -2498,7 +2498,7 @@
       </div>
     </div>
 
-    <div class="demo-label" style="margin-top:var(--half-module);">Bestätigungs-Dialog — <code>.shop-modal</code></div>
+    <div class="demo-label --tight">Bestätigungs-Dialog — <code>.shop-modal</code></div>
     <button class="btn --secondary" onclick="document.getElementById('demoShopModal').classList.add('--open');document.body.style.overflow='hidden'">Bestellung bestätigen</button>
     <div class="shop-modal-overlay" id="demoShopModal" onclick="document.getElementById('demoShopModal').classList.remove('--open');document.body.style.overflow=''">
       <div class="shop-modal" onclick="event.stopPropagation()">
@@ -3667,9 +3667,9 @@
       <tr><th><code>.cookie-banner__actions</code></th><td>Flex-Zeile, <code>gap: var(--half-module)</code></td></tr>
     </table>
     <div class="demo-label">Demo (im Seitenfluss — im echten Einsatz <code>position: fixed</code>)</div>
-    <div style="border:1px solid var(--border-light);">
+    <div class="sg-outline">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--module);padding:var(--half-module) var(--module);background:var(--bg);">
-        <p class="cookie-banner__text" style="position:static;border:none;padding:0;">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" style="color:var(--fg);">Datenschutzerklärung</a>.</p>
+        <p class="cookie-banner__text" style="position:static;border:none;padding:0;">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" class="sg-link-fg">Datenschutzerklärung</a>.</p>
         <div class="cookie-banner__actions">
           <button class="btn --secondary">Ablehnen</button>
           <button class="btn --primary">Akzeptieren</button>
@@ -3677,7 +3677,7 @@
       </div>
     </div>
     <p class="demo-note">Im Einsatz wird der Banner via JS nach Auswahl ausgeblendet (<code>display: none</code> oder <code>visibility: hidden</code>).</p>
-    <div class="demo-label" style="margin-top:var(--half-module);">Live-Demo (öffnet fixed Banner)</div>
+    <div class="demo-label --tight">Live-Demo (öffnet fixed Banner)</div>
     <button class="btn --secondary" onclick="document.getElementById('cookieBannerDemo').style.display='flex';">Cookie-Banner öffnen</button>
   </section>
 </div>
@@ -4005,7 +4005,7 @@
     <h3 class="sg-h3 --top">Wishlist-Button (.pdp__wishlist)</h3>
     <p class="sg-p">Quadratischer Icon-Button neben dem Kauf-CTA. Nutzt <code>.icon-box.--md</code>. Zwei Zustände:</p>
     <div class="demo-label">Inaktiv / Aktiv</div>
-    <div style="display:flex;gap:var(--half-module);align-items:center;">
+    <div class="sg-row">
       <div>
         <p class="label-caps" style="margin-bottom:calc(var(--base)*0.5);">Inaktiv</p>
         <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste hinzufügen" aria-pressed="false">
@@ -4019,7 +4019,7 @@
         </button>
       </div>
     </div>
-    <table class="spec-table" style="margin-top:var(--half-module);">
+    <table class="spec-table sg-mt">
       <tr><th><code>.pdp__wishlist</code></th><td>Inaktiv: <code>border: 1px solid var(--border-light)</code>, Icon <code>favorite_border</code></td></tr>
       <tr><th><code>.pdp__wishlist.--active</code></th><td>Aktiv: <code>border-color: var(--color-error)</code>, Icon <code>favorite</code>, Farbe <code>var(--color-error)</code></td></tr>
       <tr><th><code>:hover</code></th><td><code>border-color: var(--border-active)</code></td></tr>
@@ -4124,7 +4124,7 @@
     </div>
 
     <div class="demo-label">Ergebnis-Anzahl pro Filter-Option (.filter-count)</div>
-    <div class="sg-demo-stack" style="max-width:16rem;">
+    <div class="sg-demo-stack sg-w-sm">
       <div class="filter-group">
         <h4 class="filter-group__title label-caps">Kategorie</h4>
         <label class="form-check"><input type="checkbox" checked><span>Gelenke <span class="filter-count">(12)</span></span></label>
@@ -4134,7 +4134,7 @@
     </div>
 
     <div class="demo-label">Filterg ruppen: offen / eingeklappt (via .accordion-trigger)</div>
-    <div class="sg-demo-stack" style="max-width:16rem;">
+    <div class="sg-demo-stack sg-w-sm">
       <div class="accordion">
         <div class="accordion-item --open">
           <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Darreichungsform <span class="accordion-icon material-icons">expand_more</span></button>
@@ -4186,7 +4186,7 @@
       <button class="btn --secondary" onclick="openCart('cartEmpty')">Leerer Warenkorb</button>
     </div>
 
-    <div class="demo-label" style="margin-top:var(--half-module);">Options-Drawer — <code>.options-drawer</code></div>
+    <div class="demo-label --tight">Options-Drawer — <code>.options-drawer</code></div>
     <p class="sg-p">Slide-in von rechts zur Varianten-Auswahl (Darreichungsform, Größe, Menge). Strukturell identisch mit dem Warenkorb-Drawer — gleicher Overlay-Typ, gleiche Breite.</p>
     <button class="btn --secondary" onclick="openOptionsDrawer()">Varianten wählen</button>
     <p class="demo-note"><code>.options-overlay</code> + <code>.options-drawer</code>: Overlay <code>var(--z-overlay)</code>, Drawer <code>var(--z-drawer)</code>. Inhalt: optionales <code>__product</code> (Cart-Item), <code>__section</code> mit <code>__section-label</code>, <code>.options-variants</code> (Choice-Boxes). Footer: <code>.options-drawer__footer</code>.</p>
@@ -4250,11 +4250,11 @@
                 <input type="text" id="co-ort" placeholder=" ">
                 <label for="co-ort">Ort</label>
               </div>
-              <div class="form-field" style="grid-column: span 2">
+              <div class="form-field --full">
                 <input type="email" id="co-email" placeholder=" ">
                 <label for="co-email">E-Mail-Adresse</label>
               </div>
-              <div class="form-field" style="grid-column: span 2">
+              <div class="form-field --full">
                 <input type="tel" id="co-tel" placeholder=" ">
                 <label for="co-tel">Telefon (optional)</label>
               </div>
@@ -4264,7 +4264,7 @@
           <!-- Versandart -->
           <div>
             <h3 class="section-label --sub">Versandart</h3>
-            <div class="tile-grid" style="gap: var(--half-module);">
+            <div class="tile-grid sg-gap-half">
               <button class="choice-box --block --active" type="button" onclick="selectCheckout(this)">
                 <span class="material-icons">local_shipping</span>
                 <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
@@ -4279,7 +4279,7 @@
           <!-- Zahlung -->
           <div>
             <h3 class="section-label --sub">Zahlung</h3>
-            <div class="tile-grid" style="gap: var(--half-module);">
+            <div class="tile-grid sg-gap-half">
               <button class="choice-box --block --active" type="button" onclick="selectCheckout(this)">
                 <span class="material-icons">credit_card</span>
                 <span>Kreditkarte</span>
@@ -4391,14 +4391,14 @@
             <input type="email" id="acc-email" placeholder=" ">
             <label for="acc-email">E-Mail-Adresse</label>
           </div>
-          <div style="margin-top:var(--half-module);">
+          <div class="sg-mt">
             <div class="form-field" style="margin-bottom:0;">
               <input type="password" id="acc-password" placeholder=" ">
               <label for="acc-password">Passwort</label>
             </div>
-            <a href="#" class="login-forgot" style="color:var(--fg);">Passwort vergessen?</a>
+            <a href="#" class="login-forgot sg-link-fg">Passwort vergessen?</a>
           </div>
-          <button class="btn --primary --full" type="submit" style="margin-top:var(--half-module);width:100%;">Anmelden</button>
+          <button class="btn --primary --full sg-mt" type="submit">Anmelden</button>
         </form>
       </div>
 
@@ -4415,19 +4415,19 @@
               <label for="acc-nachname">Nachname</label>
             </div>
           </div>
-          <div class="form-field" style="margin-top:var(--half-module);">
+          <div class="form-field sg-mt">
             <input type="email" id="acc-reg-email" placeholder=" ">
             <label for="acc-reg-email">E-Mail-Adresse</label>
           </div>
-          <div class="form-field" style="margin-top:var(--half-module);">
+          <div class="form-field sg-mt">
             <input type="password" id="acc-reg-pw" placeholder=" ">
             <label for="acc-reg-pw">Passwort</label>
           </div>
-          <div class="form-field" style="margin-top:var(--half-module);">
+          <div class="form-field sg-mt">
             <input type="password" id="acc-reg-pw2" placeholder=" ">
             <label for="acc-reg-pw2">Passwort wiederholen</label>
           </div>
-          <button class="btn --primary" type="submit" style="margin-top:var(--half-module);width:100%;">Konto erstellen</button>
+          <button class="btn --primary --full sg-mt" type="submit">Konto erstellen</button>
         </form>
       </div>
 
@@ -4439,14 +4439,14 @@
             <input type="email" id="acc-forgot-email" placeholder=" ">
             <label for="acc-forgot-email">E-Mail-Adresse</label>
           </div>
-          <button class="btn --primary" type="submit" style="margin-top:var(--half-module);width:100%;">Link senden</button>
-          <p style="margin-top:var(--half-module);font-size:var(--text-xs);color:var(--fg-muted);"><a href="#" style="color:var(--fg);">Zurück zum Login</a></p>
+          <button class="btn --primary --full sg-mt" type="submit">Link senden</button>
+          <p style="margin-top:var(--half-module);font-size:var(--text-xs);color:var(--fg-muted);"><a href="#" class="sg-link-fg">Zurück zum Login</a></p>
         </form>
       </div>
     </div>
 
     <!-- Bestellhistorie -->
-    <div class="demo-label" style="margin-top:var(--module);">Bestellhistorie</div>
+    <div class="demo-label sg-mt --lg">Bestellhistorie</div>
     <div style="max-width:48rem;">
       <div class="order-item">
         <div>
@@ -4468,7 +4468,7 @@
       </div>
     </div>
 
-    <div class="demo-label" style="margin-top:var(--module);">Login-Modal — <code>.login-modal</code></div>
+    <div class="demo-label sg-mt --lg">Login-Modal — <code>.login-modal</code></div>
     <p class="sg-p">Zweispaltiges Overlay: linkes Brand-Panel (ab 640 px sichtbar, Dark Background), rechtes Formular-Panel mit Tab-Navigation (Login / Registrierung).</p>
     <button class="btn --secondary" onclick="openLoginModal()">Login-Modal öffnen</button>
     <p class="demo-note"><code>.login-overlay</code> + <code>.--open</code>: Backdrop mit Fade. <code>.login-brand</code>: Dark-Panel mit Logo, Headline, Feature-Liste. <code>.login-form-panel</code>: Flex-Column mit <code>.login-tabs</code> / <code>.login-tab.--active</code>. Panels via <code>.login-panel</code> / <code>.login-panel.--hidden</code>.</p>
@@ -4488,7 +4488,7 @@
     <div class="demo-label">Suchleiste (statisch, im Seitenfluss — im echten Einsatz position:fixed)</div>
     <!-- Im realen Einsatz gilt: .search-panel { position: fixed; top: 0; left: 0; right: 0; }
          Für die Styleguide-Demo wird der Block als normaler Block-Container angezeigt. -->
-    <div style="border:1px solid var(--border);overflow:hidden;">
+    <div class="sg-outline --solid">
       <div class="search-panel__bar">
         <span class="material-icons">search</span>
         <input class="search-panel__input" type="search" placeholder="Produkt oder Kategorie suchen …" readonly>
@@ -4498,7 +4498,7 @@
 
     <!-- Statische Demo: Ergebnisliste mit Vorschlägen + Produkten -->
     <div class="demo-label">Ergebnisse — Vorschläge &amp; Produkte</div>
-    <div style="border:1px solid var(--border);overflow:hidden;">
+    <div class="sg-outline --solid">
       <div class="search-results" style="max-height:none;overflow:visible;">
         <div class="search-results__section">
           <div class="section-label">Vorschläge</div>
@@ -4535,7 +4535,7 @@
 
     <!-- Statische Demo: Empty State -->
     <div class="demo-label">Empty State</div>
-    <div style="border:1px solid var(--border);overflow:hidden;">
+    <div class="sg-outline --solid">
       <div class="empty-state">
         <span class="material-icons">search_off</span>
         <p>Keine Ergebnisse für „Mustersuche"</p>
@@ -4548,7 +4548,7 @@
       <span class="material-icons">search</span>
       Suche öffnen
     </button>
-    <p class="sg-p" style="margin-top:var(--half-module);">Tipp: Nach dem Öffnen „Gelenk", „Darm" oder „Haut" eintippen — oder Pfeiltasten zur Navigation nutzen, Escape zum Schließen.</p>
+    <p class="sg-p sg-mt">Tipp: Nach dem Öffnen „Gelenk", „Darm" oder „Haut" eintippen — oder Pfeiltasten zur Navigation nutzen, Escape zum Schließen.</p>
 
     <table class="spec-table">
       <tr><th><code>.search-overlay</code></th><td>Fullscreen-Backdrop, <code>position:fixed</code>, aktiviert via <code>.--open</code></td></tr>
@@ -4638,7 +4638,7 @@
     </div>
 
     <!-- Artikel-Detailseite -->
-    <div class="demo-label" style="margin-top:var(--module);">Artikel-Detailseite (.article-layout)</div>
+    <div class="demo-label sg-mt --lg">Artikel-Detailseite (.article-layout)</div>
     <div class="article-layout">
 
       <!-- Linke Spalte: Autor + Tags (Desktop sticky) -->
@@ -4838,7 +4838,7 @@
 
 <!-- Cookie-Banner Demo (fixed) -->
 <div class="cookie-banner" id="cookieBannerDemo" style="display:none;">
-  <p class="cookie-banner__text">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" style="color:var(--fg);">Datenschutzerklärung</a>.</p>
+  <p class="cookie-banner__text">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" class="sg-link-fg">Datenschutzerklärung</a>.</p>
   <div class="cookie-banner__actions">
     <button class="btn --secondary" onclick="document.getElementById('cookieBannerDemo').style.display='none';">Ablehnen</button>
     <button class="btn --primary" onclick="document.getElementById('cookieBannerDemo').style.display='none';">Akzeptieren</button>

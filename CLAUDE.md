@@ -283,16 +283,19 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
-| B.4a | Auswahlbox | `.choice-box` | `--sm --block --detail` |
+| B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` |
 | B.5 | Product Thumb | `.product-thumb` | — |
+| B.6 | Breadcrumb | `.breadcrumb` | `.--current` (letzter Eintrag) |
 
 #### C — Moleküle
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
 | C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` |
 | C.2 | Cart Item | `.cart-item` | — |
-| C.4 | Formular-Shell | `.form-page` | — |
+| C.3 | Card-Pattern-Übersicht | (Referenztabelle, keine eigene Klasse) | — |
+| C.4 | Stand-Alone-Formular | `.form-page` | — |
 | C.5 | Tabs & Akkordeon | `.tabs .tab-panel .accordion` | — |
+| C.6 | Pagination | `.pagination` | `.--current` |
 | C.7 | Notice / Infobox | `.notice` | — |
 | C.8 | Empty / Success | `.empty-state` `.success-state` | — |
 | C.9 | Toast | `.toast` | `--success --error --info --out` |
