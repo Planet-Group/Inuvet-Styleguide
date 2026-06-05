@@ -5,4 +5,62 @@
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
 
+/* ─── Nav-Logo — etwas kleiner ─── */
+.nav-center img {
+  width: clamp(3.25rem, 2rem + 4.75vw, 5.5rem);
+}
 
+/* ─── Hero Split — Tierarzt-Empfehlung, Gast-Zustand ─── */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .section-type.--has-split .section-type__inner {
+    grid-template-columns: 3fr 1fr;
+  }
+}
+
+
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--half-module);
+}
+
+.hero-split__divider {
+  border-left: 1px dashed var(--border);
+}
+
+.hero-split__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-split__text {
+  color: var(--fg);
+  line-height: var(--lh-base);
+  flex: 1;
+}
+
+
+/* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
+.cart-section--requested {
+  background: var(--color-honey);
+  margin: 0 calc(var(--module) * -1) 0;
+  padding: var(--half-module) var(--module) var(--module);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+}
+.cart-drawer__items > .cart-section--requested:first-child {
+  margin-top: calc(var(--module) * -1);
+}
+
+/* ─── Honey-Button — lokal (Tierarzt-Empfehlung) ─── */
+.btn.--honey {
+  background: var(--color-honey);
+  color: var(--fg);
+  border-color: var(--color-honey);
+}
+.btn.--honey:hover {
+  background: var(--color-honey);
+  border-color: var(--color-honey);
+  box-shadow: 0 0 0 2px var(--color-honey);
+}

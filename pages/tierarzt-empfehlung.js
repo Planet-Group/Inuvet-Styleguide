@@ -1009,8 +1009,10 @@ function renderCartDrawer() {
     items += cartApproved.map(item => drawerItemHTML(item, 'approved')).join('');
   }
   if (hasRequested) {
-    items += `<h3 class="section-label">Freizugebende Produkte</h3>`;
-    items += cartRequested.map(item => drawerItemHTML(item, 'requested')).join('');
+    items += `<div class="cart-section--requested">
+      <h3 class="section-label">Freizugebende Produkte</h3>
+      ${cartRequested.map(item => drawerItemHTML(item, 'requested')).join('')}
+    </div>`;
   }
 
   const totalApproved = calcTotal(cartApproved);
@@ -1508,17 +1510,27 @@ function renderFinderResult(matches) {
 
 /* ── Startseite ── */
 function renderHome() {
-  let headline = '';
-  let body     = '';
-  let cta      = '';
+  let headline     = '';
+  let body         = '';
+  let cta          = '';
+  let heroModifier = '';
 
   if (state === 'guest') {
-    headline   = 'Weil dein Tier das Beste verdient.';
-    body       = 'Dein Tier kann dir nicht sagen, was es braucht. Aber dein Tierarzt weiß es — und du sorgst dafür, dass es genau das bekommt: tierärztlich entwickelt, persönlich empfohlen, direkt zu dir nach Hause.';
-    cta        = `<div class="btn-row">
-      <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
-      <button class="btn --ghost"   onclick="setPage('collection')">Produkte finden</button>
-    </div>`;
+    headline     = 'Weil dein Tier das Beste verdient.';
+    body         = '';
+    heroModifier = '--has-split';
+    cta          = `
+      <div class="hero-split">
+        <div class="hero-split__col flow">
+          <p class="hero-split__text"><strong>Du hast eine Produkt-Freigabe von deiner Praxis?</strong> Dann kannst du sie hier einlösen</p>
+          <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe einlösen</button>
+        </div>
+        <div class="hero-split__divider"></div>
+        <div class="hero-split__col flow">
+          <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Finde passende Produkte und sende deine Anfrage online an eine Praxis deiner Wahl</p>
+          <button class="btn --honey" onclick="setPage('collection')">Produkte finden</button>
+        </div>
+      </div>`;
   } else if (state === 'no-release') {
     headline   = 'Dein Tierarzt weiß, was dein Tier wirklich braucht.';
     body       = 'Finde das Richtige für dein Tier und lass es von deinem Tierarzt persönlich freigeben — weil Gesundheit mit dem richtigen Rat beginnt.';
@@ -1536,12 +1548,12 @@ function renderHome() {
   }
 
   return `
-    <div class="section-type --v3 --viewport --reverse">
+    <div class="section-type --v3 --viewport --reverse ${heroModifier}">
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
         <div class="section-type__content">
           <h2 class="section-type__headline">${headline}</h2>
-          <p class="section-type__body">${body}</p>
+          ${body ? `<p class="section-type__body">${body}</p>` : ''}
           ${cta}
         </div>
       </div>

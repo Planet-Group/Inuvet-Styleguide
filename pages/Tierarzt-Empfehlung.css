@@ -268,8 +268,8 @@ body.--page-home .section-type.--v3 .section-type__content {
   gap: calc(var(--base) * 0.25);
   padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
   border-radius: 2em;
-  background: var(--color-amber);
-  color: #fff;
+  background: var(--color-honey);
+  color: var(--fg);
   letter-spacing: 0.05em;
 }
 

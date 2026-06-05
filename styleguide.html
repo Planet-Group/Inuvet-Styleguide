@@ -268,7 +268,7 @@
 
     <h3 class="sg-h3 --top">Layout</h3>
     <table class="spec-table">
-      <tr><th><code>--announcement-height</code></th><td><code>var(--module)</code> — Höhe der Announcement Bar (wird beim Schließen auf <code>0px</code> gesetzt)</td></tr>
+      <tr><th><code>--announcement-height</code></th><td><code>calc(var(--module) * 0.67)</code> — Höhe der Announcement Bar (wird beim Schließen auf <code>0px</code> gesetzt)</td></tr>
       <tr><th><code>--nav-height</code></th><td><code>calc(var(--module) * 2.5)</code> — Höhe der Navigation</td></tr>
       <tr><th><code>--header-height</code></th><td><code>calc(var(--module) * 3.5)</code> — Announcement + Nav, für <code>scroll-padding-top</code></td></tr>
       <tr><th><code>--page-pt</code></th><td><code>var(--module)</code> — Atemraum unterhalb des sticky Headers zum ersten Content-Element. Default für <code>.page</code>. Pages mit Hero-Section (edge-to-edge) liegen außerhalb von <code>.page</code> und brauchen es nicht.</td></tr>
@@ -478,6 +478,14 @@
           <span class="color-card__token">--color-amber</span>
           <span class="color-card__hex">#E8A020</span>
           <span class="color-card__role">Warmer Akzent: Sterne, Testimonials, Gutscheinkarten</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-card__swatch" style="background:#FFD700"></div>
+        <div class="color-card__info">
+          <span class="color-card__token">--color-honey</span>
+          <span class="color-card__hex">#FFD700</span>
+          <span class="color-card__role">Honig-Gelb</span>
         </div>
       </div>
       <div class="color-card">
@@ -2514,7 +2522,7 @@
     <div class="rules">
       <div class="rule">
         <h4>Announcement Bar</h4>
-        <p>Volle Breite, Höhe: <code>3rem</code> (1 Modul). Scrollt mit dem Content. Mehrere Texte als <code>.announcement-bar__item</code> — jedes blendet nacheinander ein und aus. Anzeigedauer pro Item: <code>var(--anim-announcement)</code> (Standard: 4s). Timing für 3 Items: Gesamtzyklus = <code>--anim-announcement × 3</code>, Delays via <code>:nth-child</code>.</p>
+        <p>Volle Breite, Höhe: <code>calc(var(--module) * 0.67)</code> (~2rem). Kein Border-Bottom. Scrollt mit dem Content. Mehrere Texte als <code>.announcement-bar__item</code> — jedes blendet nacheinander ein und aus. Anzeigedauer pro Item: <code>var(--anim-announcement)</code> (Standard: 4s). Timing für 3 Items: Gesamtzyklus = <code>--anim-announcement × 3</code>, Delays via <code>:nth-child</code>.</p>
       </div>
       <div class="rule">
         <h4>Navigation</h4>
@@ -2523,12 +2531,12 @@
     </div>
 
     <table class="spec-table">
-      <tr><th>Announcement</th><td>Höhe <code>3rem</code> · <code>border-bottom: 1px</code> · scrollt mit · Items per <code>.announcement-bar__item</code></td></tr>
+      <tr><th>Announcement</th><td>Höhe <code>calc(var(--module) * 0.67)</code> · kein Border-Bottom · scrollt mit · Items per <code>.announcement-bar__item</code></td></tr>
       <tr><th>Item-Animation</th><td><code>@keyframes annBarFade</code> · Dauer: <code>var(--anim-announcement) × 3</code> · Delay: <code>0s / --anim-announcement / --anim-announcement × 2</code></td></tr>
       <tr><th>Navigation</th><td>Höhe <code>calc(var(--module) * 2.5)</code> = 7.5rem (Desktop) · sticky · <code>border-bottom: 1px solid</code> · weißer Hintergrund</td></tr>
       <tr><th>Layout</th><td>3-Spalten-Grid: <code>1fr auto 1fr</code>. Links: Menü/Links. Mitte: Logo/Titel. Rechts: Aktionen.</td></tr>
       <tr><th>Padding</th><td>Seitenrand <code>3rem</code> (1 Modul) links und rechts</td></tr>
-      <tr><th>Header-Höhe</th><td>Announcement + Nav = <code>calc(var(--module) * 3.5)</code> = 10.5rem (Desktop) · Token: <code>var(--header-height)</code>. Relevant für <code>scroll-padding-top</code> und <code>--viewport</code> Berechnung.</td></tr>
+      <tr><th>Header-Höhe</th><td>Announcement + Nav = <code>calc(var(--announcement-height) + var(--nav-height))</code> · Token: <code>var(--header-height)</code>. Dynamisch — passt sich automatisch an, wenn sich einer der Teilwerte ändert. Relevant für <code>scroll-padding-top</code> und <code>--viewport</code> Berechnung.</td></tr>
       <tr><th>Responsive</th><td>Mobile: Seitenrand auf halbes Modul reduziert. Sekundäre Menüpunkte ausgeblendet.</td></tr>
     </table>
 
