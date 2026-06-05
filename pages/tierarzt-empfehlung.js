@@ -1246,7 +1246,7 @@ const TESTIMONIALS = [
   { text: 'Nach der Empfehlung meines Tierarztes haben wir Calmin Balance ausprobiert — mein ängstlicher Beagle ist eine andere Seele geworden.', name: 'Anna W.',    role: 'Beagle-Mama, Frankfurt',    img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
   { text: 'Super Service und top Beratung. Meine Tierärztin arbeitet seit Jahren mit Inuvet und ich merke den Unterschied jeden Tag.',             name: 'Sandra M.', role: 'Hundemama, München',        img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
   { text: 'Gut verträglich, transparente Inhaltsstoffe — ich empfehle Inuvet-Produkte regelmäßig in meiner Praxis.',                              name: 'Julia R.',  role: 'Tierliebhaberin, Berlin',   img: '../assets/images/Partner_Mia_01.png' },
-  { text: 'Meine Katze hat nach zwei Wochen deutlich besser geschlafen. Dass das auf Empfehlung unseres Tierarztes kam, hat mir das Vertrauen gegeben, es überhaupt zu probieren.', name: 'Petra K.', role: 'Katzenbesitzerin, Hamburg', img: null },
+  { text: 'Meine Katze hat nach zwei Wochen deutlich besser geschlafen. Ohne die Empfehlung unseres Tierarztes hätte ich es nicht gekauft.', name: 'Petra K.', role: 'Katzenbesitzerin, Hamburg', img: null },
 ];
 
 function testimonialSlideHTML(t) {
