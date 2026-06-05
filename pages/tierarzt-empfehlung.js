@@ -484,7 +484,7 @@ function selectOptionsVariant(index) {
   const approvedNow = isApprovedVariant(p, optionsState.formIndex, index);
   const ctaBtn = document.querySelector('.cart-drawer__checkout');
   if (ctaBtn) {
-    ctaBtn.className = `btn ${approvedNow ? '--primary' : '--secondary'} cart-drawer__checkout`;
+    ctaBtn.className = `btn ${approvedNow ? '--primary' : '--honey'} cart-drawer__checkout`;
     ctaBtn.textContent = approvedNow ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
   }
 }
@@ -503,7 +503,7 @@ function renderOptionsDrawer() {
     currentPrice    = p.variants[optionsState.variantIndex].price;
   }
 
-  const ctaClass = approved ? 'btn --primary' : 'btn --secondary';
+  const ctaClass = approved ? 'btn --primary' : 'btn --honey';
   const ctaLabel = approved ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
 
   const thumbHTML  = p.img
@@ -634,6 +634,7 @@ function selectPdpForm(index) {
   const priceEl = document.getElementById('pdpPrice');
   if (priceEl) priceEl.textContent = form.variants[0].price;
   updatePdpQtyMax();
+  updatePdpCta();
 }
 
 function selectPdpVariant(index) {
@@ -647,6 +648,16 @@ function selectPdpVariant(index) {
   const priceEl = document.getElementById('pdpPrice');
   if (priceEl) priceEl.textContent = price;
   updatePdpQtyMax();
+  updatePdpCta();
+}
+
+function updatePdpCta() {
+  const p           = activeProduct;
+  const approvedNow = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
+  const btn         = document.querySelector('.pdp__actions button[onclick="pdpAddToCart()"]');
+  if (!btn) return;
+  btn.className  = `btn ${approvedNow ? '--primary' : '--honey'}`;
+  btn.textContent = approvedNow ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
 }
 
 function pdpMaxQty() {
@@ -1018,16 +1029,19 @@ function renderCartDrawer() {
   const totalApproved = calcTotal(cartApproved);
 
   /* CTA-Label und -Aktion je nach Warenkorb-Inhalt */
-  let ctaLabel, ctaFn;
+  let ctaLabel, ctaFn, ctaClass;
   if (hasRequested && hasApproved) {
     ctaLabel = 'Kaufen & Jetzt Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
+    ctaClass = '--honey';
   } else if (hasRequested) {
     ctaLabel = 'Jetzt Freigabe anfragen';
     ctaFn    = `proceedToRequest()`;
+    ctaClass = '--honey';
   } else {
     ctaLabel = 'Zur Kasse';
     ctaFn    = `closeCart();setPage('checkout')`;
+    ctaClass = '--primary';
   }
 
   drawer.innerHTML = `
@@ -1040,7 +1054,7 @@ function renderCartDrawer() {
       ${hasApproved ? `
       <div class="summary-total"><span>Gesamt (einzulösend)</span><span>${totalApproved.toFixed(2).replace('.',',')} €</span></div>
       <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>` : ''}
-      <button class="btn --primary cart-drawer__checkout" onclick="${ctaFn}">${ctaLabel}</button>
+      <button class="btn ${ctaClass} cart-drawer__checkout" onclick="${ctaFn}">${ctaLabel}</button>
       <div class="cart-drawer__continue-wrap">
         <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
       </div>
@@ -1307,7 +1321,7 @@ function tileHTML(p) {
         <span class="material-icons">mail_outline</span>
       </button>
       <div class="tile__cart">
-        <button class="btn --secondary" onclick="openOptions(${p.id})">Freigabe anfragen</button>
+        <button class="btn --honey" onclick="openOptions(${p.id})">Freigabe anfragen</button>
       </div>`;
   }
 
@@ -1813,7 +1827,7 @@ function renderProduct() {
         <div class="pdp__variant-options" id="pdpSizeOptions">${sizeBtns}</div>
       </div>`;
 
-    const ctaClass = 'btn --primary';
+    const ctaClass = approved ? 'btn --primary' : 'btn --honey';
     const ctaIcon  = '';
     const ctaLabel = approved ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
     actions = `<div class="pdp__actions">
