@@ -1279,7 +1279,7 @@
       </div>
       <div class="rule">
         <h4>Auf farbigem Hintergrund</h4>
-        <p>Modifier <code>.--on-green</code> auf dem Container: Input- und Label-Hintergrund werden automatisch auf <code>--green-light</code> gesetzt. Niemals weißes Input auf grünem Hintergrund kombinieren.</p>
+        <p>Inputs brauchen immer die Farbe des Hintergrunds, auf dem sie platziert sind. Dafür zwei Tokens überschreiben: <code>--field-bg</code> (leer/unfokussiert, Default: <code>--green-light</code>) und <code>--field-bg-active</code> (fokussiert/ausgefüllt, Default: <code>--bg</code>). Modifier <code>.--on-green</code> auf dem Container erledigt das für grüne Hintergründe automatisch. Für andere Farben (z.B. Honey): beide Tokens am Elternelement setzen.</p>
       </div>
     </div>
 
