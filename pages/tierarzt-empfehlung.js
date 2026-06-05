@@ -713,6 +713,7 @@ function pdpAddToCart() {
 
 function setCartStep(step) {
   cartDrawerStep = step;
+  document.getElementById('cartDrawer').classList.toggle('--request-step', step === 2);
   renderCartDrawer();
 }
 
@@ -868,6 +869,7 @@ function closeEmailOverlay() {
 function renderRequestStep() {
   selectedVet = (state === 'with-release' && approvedByVet) ? approvedByVet : null;
   const drawer = document.getElementById('cartDrawer');
+  drawer.classList.add('--request-step');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
       <button class="btn --icon" onclick="setCartStep(1)" aria-label="Zurück"><span class="material-icons">arrow_back</span></button>
@@ -920,7 +922,7 @@ function renderRequestStep() {
       </div>
     </div>
     <div class="cart-drawer__footer">
-      <button class="btn --primary cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
+      <button class="btn --honey cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
     </div>`;
 }
 

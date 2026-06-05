@@ -254,6 +254,20 @@ Kein `<hr>`, kein `.login-divider` (nur für „oder"-Trennungen).
 
 **Zustände:** `.form-field.--error` → roter Border + `.form-field__error`; `.form-field.--success` → grüner Border + `.form-field__success`.
 
+**Hintergrundfarbe:** Inputs erben den Kontext-Hintergrund über zwei Tokens:
+| Token | Default | Beschreibung |
+|---|---|---|
+| `--field-bg` | `var(--green-light)` | Hintergrund im leeren/unfokussierten Zustand |
+| `--field-bg-active` | `var(--bg)` | Hintergrund im fokussierten / ausgefüllten Zustand |
+
+Faustregel: **Inputs brauchen immer die Farbe des Hintergrunds, auf dem sie platziert sind.** Bei farbigem Kontext (z.B. Honey-Section) beide Tokens im Elternelement überschreiben:
+```css
+.mein-kontext {
+  --field-bg: var(--color-honey);
+  --field-bg-active: var(--color-honey);
+}
+```
+
 ---
 
 ## Sektions-Schema

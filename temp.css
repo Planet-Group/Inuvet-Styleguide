@@ -40,6 +40,17 @@
 }
 
 
+/* ─── Cart Drawer — Freigabe-Anfrage Schritt (komplett Honey) ─── */
+.cart-drawer.--request-step .cart-drawer__items,
+.cart-drawer.--request-step .cart-drawer__footer {
+  background: var(--color-honey);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+  --field-bg: var(--color-honey);
+  --field-bg-active: var(--color-honey);
+}
+
 /* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
 .cart-section--requested {
   background: var(--color-honey);

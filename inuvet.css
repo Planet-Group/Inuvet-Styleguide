@@ -1250,7 +1250,7 @@
     transition: border-color var(--anim-fast), background var(--anim-fast);
   }
   .form-field input,
-  .form-field textarea { background: var(--green-light); }
+  .form-field textarea { background: var(--field-bg, var(--green-light)); }
   .form-field textarea {
     display: block; /* inline-block-Default erzeugt Descender-Gap am Feldende */
     resize: vertical;
@@ -1280,7 +1280,7 @@
   .form-field input:focus,
   .form-field input:not(:placeholder-shown),
   .form-field textarea:focus,
-  .form-field textarea:not(:placeholder-shown) { background: var(--bg); }
+  .form-field textarea:not(:placeholder-shown) { background: var(--field-bg-active, var(--bg)); }
   /* Setzt den globalen :focus-visible durch höhere Spezifität wieder ein,
      da der Base-Selektor (.form-field input) outline:none mit (0,1,1) überschreibt. */
   .form-field input:focus-visible,
