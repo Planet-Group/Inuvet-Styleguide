@@ -2121,7 +2121,7 @@
       </div>
       <div class="rule">
         <h4>Aufbau</h4>
-        <p><code>.form-page</code> als Seitenhintergrund (<code>--accent-bg</code>), <code>.form-page__card</code> als weißer Card-Container (max. 640 px), <code>.form-page__header</code> mit zentriertem Logo, <code>.form-page__title</code> als H1, <code>.form-page__footer</code> für Impressum. Formularinhalte nutzen die globalen Atome aus Sektion 13.</p>
+        <p><code>.form-page</code> als Seitenhintergrund (<code>--accent-bg</code>), <code>.form-page__card</code> als weißer Card-Container (max. 640 px), <code>.form-page__header</code> mit zentriertem Logo, <code>.form-page__title</code> als H1, <code>.form-page__footer</code> für Impressum. Formularinhalte nutzen die globalen Atome aus B.4.</p>
       </div>
     </div>
 
@@ -2135,7 +2135,7 @@
     </table>
 
     <div class="demo-label">Stand-Alone-Formular — Shell-Demo</div>
-    <p class="demo-note">Nur die Hülle wird hier gezeigt. Formularfelder, Section-Labels und Buttons stammen aus Sektion 13.</p>
+    <p class="demo-note">Nur die Hülle wird hier gezeigt. Formularfelder, Section-Labels und Buttons stammen aus B.1/B.4.</p>
     <div class="sg-demo-standalone">
       <div class="form-page" style="min-height:auto;padding:var(--half-module) var(--base);">
         <div class="form-page__card">
@@ -3728,7 +3728,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- ── Navigation (Sektion 17) ── --&gt;
+&lt;!-- ── Navigation (D.1) ── --&gt;
 &lt;nav class="site-nav" aria-label="Seiten-Navigation"&gt;
   &lt;div class="nav-left"&gt;
     &lt;button class="nav-hamburger" id="hamburger" onclick="toggleMobile()"
@@ -3753,15 +3753,15 @@
   &lt;/div&gt;
 &lt;/nav&gt;
 
-&lt;!-- ── Mobile-Menu (Sektion 17) ── --&gt;
+&lt;!-- ── Mobile-Menu (D.1) ── --&gt;
 &lt;div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation"&gt;
   &lt;div class="nav-col"&gt;
     &lt;!-- Mobile-Nav-Inhalt --&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- ── Search-Overlay (Sektion 31) — optional ── --&gt;
-&lt;!-- Cart-Drawer (Sektion 28) — optional --&gt;
+&lt;!-- ── Search-Overlay (E.7) — optional ── --&gt;
+&lt;!-- Cart-Drawer (E.4) — optional --&gt;
 
 &lt;!-- ── Main-Content ── --&gt;
 &lt;main&gt;
@@ -3772,7 +3772,7 @@
   &lt;/div&gt;
 &lt;/main&gt;
 
-&lt;!-- ── Footer (Sektion 19) — wenn vorhanden ── --&gt;
+&lt;!-- ── Footer (D.2) — wenn vorhanden ── --&gt;
 
 &lt;!-- ── Globale JS-Helper (Mobile-Toggle, Announcement-Close etc.) ── --&gt;
 &lt;script src="inuvet.js"&gt;&lt;/script&gt;
@@ -3786,7 +3786,7 @@
       <tr><th>Lese-Content</th><td><code>&lt;main class="page --narrow"&gt;…&lt;/main&gt;</code> — fokussierter Single-Column (≈720px), z.B. Detail-Seiten</td></tr>
       <tr><th>Formulare</th><td><code>&lt;main class="page --form"&gt;…&lt;/main&gt;</code> — kompakte Eingabe (≈480px)</td></tr>
       <tr><th>Hero-Pages</th><td><code>&lt;main&gt;&lt;div class="section-type --v4"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Hero edge-to-edge, ohne <code>.page</code>-Container</td></tr>
-      <tr><th>Stand-Alone-Form</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — siehe Sektion 12a</td></tr>
+      <tr><th>Stand-Alone-Form</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — siehe C.4</td></tr>
     </table>
 
     <p class="demo-note">Wer eine neue Page baut, kopiert den ähnlichsten existierenden Mockup aus <code>pages/</code> als Startpunkt — robuster als ein generisches Template, weil die Mockups immer aktuell sind. Beispiele: <code>Inuvet-Freigabe-Mockup.html</code> für Lese-/Form-Pages, <code>Bundle.html</code> für Hero-led Marketing-Pages.</p>
@@ -3898,13 +3898,13 @@
 
     <!-- ─── Produktfamilie Demo ─── -->
     <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-    <p class="sg-p">Gleiche Struktur wie das Einzelprodukt. Einzige Ergänzung: <code>.pdp__type-selector</code> mit Radio-Zeilen vor der Größenauswahl, plus <code>.notice</code> als Hinweis auf abweichende Inhaltsstoffe (globale Komponente, Sektion 34a).</p>
+    <p class="sg-p">Gleiche Struktur wie das Einzelprodukt. Einzige Ergänzung: <code>.pdp__type-selector</code> mit Radio-Zeilen vor der Größenauswahl, plus <code>.notice</code> als Hinweis auf abweichende Inhaltsstoffe (globale Komponente, C.7).</p>
 
     <table class="spec-table">
       <tr><th><code>.pdp__type-selector</code></th><td>Container für die Radio-Tabelle. Border-top als Trennung zum Preisbereich.</td></tr>
       <tr><th><code>.pdp__type-selector-header</code></th><td>Kopfzeile mit Spaltenbezeichnungen (<code>label-caps</code>-Stil). Zweispaltig via Flex.</td></tr>
       <tr><th><code>.pdp__type-row</code></th><td>Eine Darreichungsform-Zeile: Radio + Label + Tierart. Border-bottom als Trennlinie.</td></tr>
-      <tr><th><code>.notice</code></th><td>Gelber Hinweiskasten bei Inhaltsstoffen, die je nach Typ variieren. Globale Komponente, siehe Sektion 34a.</td></tr>
+      <tr><th><code>.notice</code></th><td>Gelber Hinweiskasten bei Inhaltsstoffen, die je nach Typ variieren. Globale Komponente, siehe C.7.</td></tr>
     </table>
 
     <div class="demo-label">Produktfamilie</div>
@@ -4592,7 +4592,7 @@
       <tr><th><code>.article__hero</code></th><td>16:9, <code>.placeholder-bg</code>, <code>margin-bottom: var(--module)</code></td></tr>
       <tr><th><code>.article__body</code></th><td>Nutzt bestehende <code>.rte</code>-Klasse für Fließtext</td></tr>
       <tr><th><code>.article__author</code></th><td>Flex, rundes Avatar-Bild (<code>border-radius: 50%</code>), Name + Rolle</td></tr>
-      <tr><th><code>.article__tags</code></th><td>Flex-wrap, nutzt <code>.filter-tag</code> Atom (aus Sektion 23)</td></tr>
+      <tr><th><code>.article__tags</code></th><td>Flex-wrap, nutzt <code>.filter-tag</code> Atom (aus E.3)</td></tr>
     </table>
 
     <!-- Blog-Übersicht -->
