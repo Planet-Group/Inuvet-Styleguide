@@ -2565,7 +2565,7 @@
     <button class="btn --secondary" onclick="(function(){
       var bar = document.getElementById('announcementBar');
       bar.classList.remove('--closed');
-      document.documentElement.style.setProperty('--announcement-height', 'var(--module)');
+      document.documentElement.style.removeProperty('--announcement-height');
       sessionStorage.removeItem('announcementClosed');
       bar.scrollIntoView({behavior:'smooth'});
     })()">Announcement Bar wieder einblenden</button>
