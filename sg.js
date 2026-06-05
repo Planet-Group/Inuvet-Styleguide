@@ -373,3 +373,12 @@ function pdpSwitch(el, src, captionText, authorText) {
     cap.classList.add('--hidden');
   }
 }
+
+/* D.1 Demo: Scroll-Away-Modus live umschalten (body.--ann-scroll).
+   Schaltet die echte Announcement Bar oben auf dieser Seite um. */
+function toggleAnnScrollDemo(btn) {
+  var on = document.body.classList.toggle('--ann-scroll');
+  btn.classList.toggle('--primary', on);
+  btn.classList.toggle('--secondary', !on);
+  btn.textContent = on ? 'Scroll-Away deaktivieren' : 'Scroll-Away aktivieren';
+}
