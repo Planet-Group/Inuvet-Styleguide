@@ -1582,7 +1582,7 @@ function renderHome() {
       <div class="section-type__content">
         <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
         <div class="section-type__bottom">
-          <p class="section-type__body">Wenn du bereits eine Empfehlung von einer Tierarztpraxis hast, kannst du sie direkt hier einlösen. Solltest du noch keine Empfehlung haben: kein Problem. Diese kannst du direkt hier anfragen.</p>
+          <p class="section-type__body">Als Tierbesitzer will man das Beste — aber online ist es schwer zu wissen, was wirklich hilft. Versprechen gibt es viele, echte Orientierung wenig. Was zählt, ist die Meinung von jemandem, der dein Tier kennt: dein Tierarzt. Hast du bereits eine Empfehlung? Löse sie hier direkt ein. Noch keine? Finde das passende Produkt und frage es direkt bei deiner Praxis an.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
             <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
