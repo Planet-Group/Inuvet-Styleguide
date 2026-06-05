@@ -3,12 +3,25 @@
    Auf allen Seiten einbinden die .site-nav / .mobile-menu nutzen.
    ═══════════════════════════════════════════════════════ */
 
+/* Mobile-Menü: top dynamisch an die aktuelle Nav-Unterkante setzen.
+   Funktioniert für beide Header-Modi: Standard-Sticky (Wert konstant) und
+   Scroll-Away (body.--ann-scroll, Wert hängt von der Scroll-Position ab).
+   Beim Öffnen ist der Scroll via body{overflow:hidden} gesperrt → stabil. */
+function positionMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const nav  = document.querySelector('.site-nav');
+  if (menu && nav) {
+    menu.style.top = nav.getBoundingClientRect().bottom + 'px';
+  }
+}
+
 function toggleMobile() {
   const menu = document.getElementById('mobileMenu');
   const btn  = document.getElementById('hamburger');
   const open = menu.classList.toggle('--open');
   btn.classList.toggle('--open', open);
   btn.setAttribute('aria-expanded', String(open));
+  if (open) positionMobileMenu();
 }
 
 function closeMobile() {

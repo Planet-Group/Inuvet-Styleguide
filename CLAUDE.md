@@ -95,7 +95,8 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 | Funktion | Zweck |
 |---|---|
-| `toggleMobile()` / `closeMobile()` | Burger-Menü |
+| `toggleMobile()` / `closeMobile()` | Burger-Menü (toggleMobile positioniert das Menü via `positionMobileMenu`) |
+| `positionMobileMenu()` | Mobile-Menü-`top` an die aktuelle Nav-Unterkante setzen (Sticky- & Scroll-Away-Modus) |
 | `initMarquees()` | Marquee-Animationen |
 | `toggleAccordion(trigger)` | Akkordeon-Item umschalten |
 | `initScrollAnimations()` | IntersectionObserver für `.--in-view` |
@@ -225,6 +226,9 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 
 ### Spacing: H→p→Button-Stacks
 Überall wo Headline + Fließtext + CTA gestapelt: je `margin-bottom: var(--half-module)`. In `section-type__headline/body` genauso wie in seitenspezifischen Teasern (D.3).
+
+### Header-Verhalten: Announcement Bar Scroll-Away
+Standard: Announcement Bar **und** Nav bleiben sticky. Optional via Klasse `--ann-scroll` auf `<body>`: Die Bar läuft im Fluss mit (scrollt weg), nur die Nav pinnt oben (`top: 0`). `scroll-padding-top` reduziert sich dann auf `--nav-height`. Das Mobile-Menü-`top` wird in beiden Modi von `positionMobileMenu()` (in `toggleMobile()`) dynamisch an die Nav-Unterkante gesetzt — beim Öffnen ist der Scroll via `body{overflow:hidden}` gesperrt, daher stabil.
 
 ---
 

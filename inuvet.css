@@ -244,6 +244,15 @@
     border-bottom: 1px solid var(--border);
   }
 
+  /* ─── Scroll-Away-Modus (optional: body.--ann-scroll) ───
+     Announcement Bar läuft im Fluss mit (scrollt weg), die Nav bleibt sticky
+     und pinnt allein oben. Das Mobile-Menü-top wird per JS (positionMobileMenu
+     in toggleMobile) an die aktuelle Nav-Unterkante gesetzt — funktioniert in
+     beiden Modi. */
+  body.--ann-scroll .announcement-bar { position: static; }
+  body.--ann-scroll .site-nav { top: 0; }
+  html:has(body.--ann-scroll) { scroll-padding-top: var(--nav-height); }
+
   .nav-left {
     display: flex;
     align-items: center;

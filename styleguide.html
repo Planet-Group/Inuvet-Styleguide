@@ -7,7 +7,7 @@
 <meta name="description" content="Design-System für das inuvet Shopify-Theme. Tokens, Komponenten und Patterns nach Atomic Design.">
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="inuvet.css?v=5">
+<link rel="stylesheet" href="inuvet.css?v=6">
 <link rel="stylesheet" href="pages/formulare.css">
 <link rel="stylesheet" href="sg.css?v=1">
 <link rel="stylesheet" href="temp.css?v=3">
@@ -2561,6 +2561,18 @@
     </div>
     <p class="demo-note">Items + Separator-Dots werden im HTML verdoppelt für nahtlose Endlosschleife. Modifier <code>.--marquee</code> — kein Close-Button.</p>
 
+    <h3 class="section-label --sub --mt">Optional: Scroll-Away-Modus — <code>body.--ann-scroll</code></h3>
+    <div class="rules">
+      <div class="rule">
+        <h4>Verhalten</h4>
+        <p>Standard: Announcement Bar <em>und</em> Nav bleiben sticky. Mit der Klasse <code>--ann-scroll</code> auf <code>&lt;body&gt;</code> läuft die Bar im Fluss mit (scrollt weg), nur die Nav pinnt oben (<code>top: 0</code>). <code>scroll-padding-top</code> reduziert sich dann auf <code>--nav-height</code>. Rein additiv — Default bleibt Voll-Sticky.</p>
+      </div>
+      <div class="rule">
+        <h4>Mobil abgestimmt</h4>
+        <p><code>positionMobileMenu()</code> (aufgerufen in <code>toggleMobile()</code>) setzt das Menü-<code>top</code> beim Öffnen dynamisch auf die aktuelle Nav-Unterkante. So sitzt das Mobile-Menü in beiden Modi bündig unter der Nav — egal ob die Bar noch sichtbar oder bereits weggescrollt ist. Beim Öffnen ist der Scroll via <code>body{overflow:hidden}</code> gesperrt, daher stabil.</p>
+      </div>
+    </div>
+
     <h3 class="section-label --mt">Desktop-Navigation: nav-item mit Dropdown</h3>
 
     <div class="rules">
@@ -4827,7 +4839,7 @@
   </div>
 </footer>
 
-<script src="inuvet.js?v=3"></script>
+<script src="inuvet.js?v=4"></script>
 
 
 <!-- Cookie-Banner Demo (fixed) -->
