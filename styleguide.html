@@ -2561,16 +2561,6 @@
     </div>
     <p class="demo-note">Items + Separator-Dots werden im HTML verdoppelt für nahtlose Endlosschleife. Modifier <code>.--marquee</code> — kein Close-Button.</p>
 
-    <div class="demo-label">Announcement Bar — Live-Demo</div>
-    <button class="btn --secondary" onclick="(function(){
-      var bar = document.getElementById('announcementBar');
-      bar.classList.remove('--closed');
-      document.documentElement.style.removeProperty('--announcement-height');
-      sessionStorage.removeItem('announcementClosed');
-      bar.scrollIntoView({behavior:'smooth'});
-    })()">Announcement Bar wieder einblenden</button>
-    <p class="demo-note">Schließt man die Bar über das ✕, wird die Höhe auf <code>0</code> animiert und der Zustand in <code>sessionStorage</code> gespeichert. Seitenreload stellt sie wieder her.</p>
-
     <h3 class="section-label --mt">Desktop-Navigation: nav-item mit Dropdown</h3>
 
     <div class="rules">
@@ -3724,14 +3714,18 @@
 &lt;/head&gt;
 &lt;body&gt;
 
-&lt;!-- ── Announcement Bar (Sektion 17) ── --&gt;
-&lt;div class="announcement-bar" id="announcementBar"&gt;
-  &lt;span class="announcement-bar__item"&gt;Kostenloser Versand ab 49 €&lt;/span&gt;
-  &lt;span class="announcement-bar__item"&gt;30 Tage Rückgabe&lt;/span&gt;
-  &lt;span class="announcement-bar__item"&gt;Tierärztlich entwickelt&lt;/span&gt;
-  &lt;button class="btn --icon" onclick="closeAnnouncement()" aria-label="Schließen"&gt;
-    &lt;span class="material-icons"&gt;close&lt;/span&gt;
-  &lt;/button&gt;
+&lt;!-- ── Announcement Bar (D.1) ── --&gt;
+&lt;div class="announcement-bar --marquee" id="announcementBar"&gt;
+  &lt;div class="announcement-bar__track"&gt;
+    &lt;span class="announcement-bar__item"&gt;Kostenloser Versand ab 49 €&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+    &lt;span class="announcement-bar__item"&gt;30 Tage Rückgabe&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+    &lt;span class="announcement-bar__item"&gt;Tierärztlich entwickelt&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+    &lt;span class="announcement-bar__sentinel" aria-hidden="true"&gt;&lt;/span&gt;
+    &lt;!-- Duplikat für nahtlose Schleife --&gt;
+    &lt;span class="announcement-bar__item"&gt;Kostenloser Versand ab 49 €&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+    &lt;span class="announcement-bar__item"&gt;30 Tage Rückgabe&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+    &lt;span class="announcement-bar__item"&gt;Tierärztlich entwickelt&lt;/span&gt;&lt;span class="announcement-bar__sep"&gt;&lt;/span&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;!-- ── Navigation (Sektion 17) ── --&gt;
@@ -4833,7 +4827,7 @@
   </div>
 </footer>
 
-<script src="inuvet.js?v=2"></script>
+<script src="inuvet.js?v=3"></script>
 
 
 <!-- Cookie-Banner Demo (fixed) -->
@@ -4947,6 +4941,6 @@
   </div>
 </div>
 
-<script src="sg.js"></script>
+<script src="sg.js?v=1"></script>
 </body>
 </html>

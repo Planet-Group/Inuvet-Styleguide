@@ -32,17 +32,6 @@ function showToast(message, type) {
 }
 
 
-
-// Restore closed state on page load (avoids flash)
-if (sessionStorage.getItem('announcementClosed')) {
-  var bar = document.getElementById('announcementBar');
-  if (bar) {
-    bar.classList.add('--closed');
-    document.documentElement.style.setProperty('--announcement-height', '0px');
-  }
-}
-
-
 // File upload
 var zone = document.getElementById('uploadZone');
 if (zone) {

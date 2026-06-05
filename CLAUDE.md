@@ -96,7 +96,6 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | Funktion | Zweck |
 |---|---|
 | `toggleMobile()` / `closeMobile()` | Burger-Menü |
-| `closeAnnouncement()` | Announcement-Bar ausblenden |
 | `initMarquees()` | Marquee-Animationen |
 | `toggleAccordion(trigger)` | Akkordeon-Item umschalten |
 | `initScrollAnimations()` | IntersectionObserver für `.--in-view` |

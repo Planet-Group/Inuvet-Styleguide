@@ -205,11 +205,6 @@ function calcTotal(items) {
 /* ════════════════════════════════════════════
    UI-HELFER
    ════════════════════════════════════════════ */
-function closeAnnouncement() {
-  document.getElementById('announcementBar').classList.add('--closed');
-  document.documentElement.style.setProperty('--announcement-height', '0px');
-}
-
 function toggleMockupBar() {
   const bar    = document.getElementById('mockupBar');
   const revive = document.getElementById('mockupRevive');
