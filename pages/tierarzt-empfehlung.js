@@ -954,7 +954,7 @@ function renderSuccessStep() {
         <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
         <p>Angefragt: <strong>${requestedNames}</strong></p>
         <p>Diese können Sie hier einsehen und freigeben:<br>
-        <a href="Inuvet-Freigabe-Mockup.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
+        <a href="Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
         <p class="mockup-email-panel__note">@Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung einfügen (z.B. Provision, Patientenbindung).</p>`
     };
   } else {

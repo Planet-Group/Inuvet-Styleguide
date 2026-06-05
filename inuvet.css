@@ -1320,7 +1320,7 @@
     transform: translateY(-50%);
     font-size: var(--text-xs);
     color: var(--fg);
-    background: var(--bg);
+    background: var(--field-bg-active, var(--bg));
   }
 
   /* ─── Date-Input: native Breite/Spinner entfernen, Date-Picker bleibt erhalten ─── */
