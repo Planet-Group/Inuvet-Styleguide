@@ -64,6 +64,9 @@
   margin-top: calc(var(--module) * -1);
 }
 
+/* ─── Hero-Headline — em nicht bold ─── */
+.section-type__headline em { font-weight: normal; }
+
 /* ─── Honey-Button — lokal (Tierarzt-Empfehlung) ─── */
 .btn.--honey {
   background: var(--color-honey);

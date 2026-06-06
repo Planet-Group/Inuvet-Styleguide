@@ -1527,7 +1527,7 @@ function renderHome() {
   let heroModifier = '';
 
   if (state === 'guest') {
-    headline     = 'Weil dein Tier das Beste verdient.';
+    headline     = '<em>Weil dein Tier</em> <strong>das Beste</strong><em> verdient</em>';
     body         = '';
     heroModifier = '--has-split';
     cta          = `
