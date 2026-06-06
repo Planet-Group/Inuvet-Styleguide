@@ -613,9 +613,9 @@
     letter-spacing: -0.02em;
   }
   .section-type.--v1 .section-type__body {
-    color: var(--fg-muted);
+    color: var(--fg);
     line-height: var(--lh-base);
-    margin-bottom: var(--half-module);
+    margin-bottom: calc(var(--half-module) * 1.5);
   }
 
   /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding 3rem, Inhalt vertikal zentriert */
@@ -642,9 +642,9 @@
     line-height: var(--lh-h2);
   }
   .section-type.--v2 .section-type__body {
-    color: var(--fg-muted);
+    color: var(--fg);
     line-height: var(--lh-base);
-    margin-bottom: var(--half-module);
+    margin-bottom: calc(var(--half-module) * 1.5);
   }
 
   /* ─── Hero-Animations ─── */
@@ -697,7 +697,7 @@
     line-height: var(--lh-h2);
   }
   .section-type.--v3 .section-type__body {
-    color: var(--fg-muted);
+    color: var(--fg);
     line-height: var(--lh-base);
   }
   /* Staggered entrance for content children */
@@ -719,15 +719,15 @@
   .section-type.--v3 .section-type__content > * + * {
     margin-top: var(--flow-space, var(--base));
   }
-  /* Headline → Body: nah */
+  /* Headline → Body */
   .section-type.--v1 .section-type__content > .section-type__headline + *,
   .section-type.--v2 .section-type__content > .section-type__headline + *,
   .section-type.--v3 .section-type__content > .section-type__headline + * {
-    --flow-space: var(--base);
-  }
-  /* Body → CTA (--v3, direkte Kinder): etwas Luft */
-  .section-type.--v3 .section-type__content > .section-type__body + * {
     --flow-space: var(--half-module);
+  }
+  /* Body → CTA (--v3, direkte Kinder) */
+  .section-type.--v3 .section-type__content > .section-type__body + * {
+    --flow-space: calc(var(--half-module) * 1.5);
   }
 
   /* Reduced motion: skip animations */
@@ -873,7 +873,7 @@
   }
   .tile__body {
     font-size: var(--text-base);
-    color: var(--fg-muted);
+    color: var(--fg);
     line-height: var(--lh-base);
   }
 
@@ -917,7 +917,7 @@
     margin-top: auto;
   }
   .tile.--featured .tile__body {
-    color: var(--fg-muted);
+    color: var(--fg);
     margin-bottom: var(--half-module);
   }
   /* ─── Tile Variante D: Produktkarte ─── */
@@ -984,7 +984,7 @@
   }
   .tile__description {
     font-size: var(--text-sm);
-    color: var(--fg-muted);
+    color: var(--fg);
     line-height: var(--lh-base);
   }
   .tile__price {
@@ -1683,8 +1683,8 @@
   .flow > * + * { margin-top: var(--flow-space, var(--base)); }
 
   /* Nach Heading: zugehöriger Content bleibt nah */
-  .flow > h1 + * { --flow-space: calc(var(--base) * 0.75); }
-  .flow > h2 + * { --flow-space: var(--base); }
+  .flow > h1 + * { --flow-space: var(--half-module); }
+  .flow > h2 + * { --flow-space: var(--half-module); }
   .flow > h3 + * { --flow-space: calc(var(--base) * 0.75); }
   .flow > h4 + * { --flow-space: calc(var(--base) * 0.5); }
 
@@ -2066,7 +2066,7 @@
   .pdp__price .price-stack { font-size: var(--text-m); }
   .pdp__info .rating { margin-bottom: var(--half-module); }
 
-  .pdp__description { color: var(--fg-muted); font-size: var(--text-base); line-height: var(--lh-base); margin-bottom: var(--half-module); }
+  .pdp__description { color: var(--fg); font-size: var(--text-base); line-height: var(--lh-base); margin-bottom: var(--half-module); }
   .pdp__variants { margin-bottom: var(--half-module); }
   /* .pdp__variant-label — nutzt .label-caps */
   .pdp__variant-label { margin-bottom: 0.5rem; }
@@ -2524,7 +2524,7 @@
   .blog-card__content { display: flex; flex-direction: column; gap: calc(var(--base) * 0.5); padding-top: var(--half-module); flex: 1; }
   /* .blog-card__meta — nutzt .label-caps */
   .blog-card__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); }
-  .blog-card__excerpt { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .blog-card__excerpt { font-size: var(--text-base); color: var(--fg); line-height: var(--lh-base); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .blog-card__cta { font-size: var(--text-base); color: var(--green); text-decoration: none; margin-top: auto; padding-top: calc(var(--base) * 0.5); transition: color var(--anim-fast); }
   .blog-card__cta:hover { color: var(--green-hover); text-decoration: underline; }
 

@@ -1525,9 +1525,10 @@ function renderHome() {
   let body         = '';
   let cta          = '';
   let heroModifier = '';
+  let testHero     = '';
 
   if (state === 'guest') {
-    headline     = '<em>Weil dein Tier</em> <strong>das Beste</strong><em> verdient</em>';
+    headline     = 'Weil dein Tier das Beste verdient';
     body         = '';
     heroModifier = '--has-split';
     cta          = `
@@ -1540,6 +1541,16 @@ function renderHome() {
         <div class="hero-split__col flow">
           <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Sende deine Produkt-Anfrage online an eine Praxis deiner Wahl</p>
           <button class="btn --honey" onclick="setPage('collection')">Produkte finden</button>
+        </div>
+      </div>`;
+    testHero = `
+      <div class="section-type --v1 --hero-test">
+        <div class="section-type__animation">
+          <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        </div>
+        <div class="section-type__content">
+          <h2 class="section-type__headline">${headline}</h2>
+          ${cta}
         </div>
       </div>`;
   } else if (state === 'no-release') {
@@ -1559,7 +1570,8 @@ function renderHome() {
   }
 
   return `
-    <div class="section-type --v3 --viewport --reverse ${heroModifier}">
+    ${testHero}
+    <div class="section-type --v3 --viewport --reverse ${heroModifier}" style="display:none">
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
         <div class="section-type__content">
@@ -1570,14 +1582,12 @@ function renderHome() {
       </div>
     </div>
     ${testimonialSectionHTML('--no-borders')}
-    <div class="section-type --v1">
-      <div class="section-type__animation">
-        <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
-      </div>
+    <div class="section-type --v2 --reverse" id="aboutPraxis">
+      <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
       <div class="section-type__content">
-        <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
+        <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
         <div class="section-type__bottom">
-          <p class="section-type__body">Als Tierbesitzer will man das Beste — aber online ist es schwer zu wissen, was wirklich hilft. Versprechen gibt es viele, echte Orientierung wenig. Was zählt, ist die Meinung von jemandem, der dein Tier kennt: dein Tierarzt. Hast du bereits eine Empfehlung? Löse sie hier direkt ein. Noch keine? Finde das passende Produkt und frage es direkt bei deiner Praxis an.</p>
+          <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
             <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
@@ -1617,12 +1627,14 @@ function renderHome() {
         </div>
       </div>
     </div>
-    <div class="section-type --v2 --reverse" id="aboutPraxis">
-      <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
+    <div class="section-type --v1">
+      <div class="section-type__animation">
+        <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
+      </div>
       <div class="section-type__content">
-        <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
+        <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
         <div class="section-type__bottom">
-          <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
+          <p class="section-type__body">Als Tierbesitzer will man das Beste — aber online ist es schwer zu wissen, was wirklich hilft. Versprechen gibt es viele, echte Orientierung wenig. Was zählt, ist die Meinung von jemandem, der dein Tier kennt: dein Tierarzt. Hast du bereits eine Empfehlung? Löse sie hier direkt ein. Noch keine? Finde das passende Produkt und frage es direkt bei deiner Praxis an.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
             <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
