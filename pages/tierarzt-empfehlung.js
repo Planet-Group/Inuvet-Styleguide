@@ -1538,7 +1538,7 @@ function renderHome() {
         </div>
         <div class="hero-split__divider"></div>
         <div class="hero-split__col flow">
-          <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Finde passende Produkte und sende deine Anfrage online an eine Praxis deiner Wahl</p>
+          <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Sende deine Produkt-Anfrage online an eine Praxis deiner Wahl</p>
           <button class="btn --honey" onclick="setPage('collection')">Produkte finden</button>
         </div>
       </div>`;
