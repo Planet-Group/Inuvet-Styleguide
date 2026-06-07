@@ -5,5 +5,3 @@
    und hier löschen.
    NIEMALS in Produktion einbinden.
    ══════════════════════════════════════════════════════════════ */
-
-

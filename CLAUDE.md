@@ -64,8 +64,8 @@ Aktuelle Mockup-Produkte: **Calmin Balance** (Familie: Tabletten + Pulver), **He
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`temp.css`-Inhalt: leer (Stand 2026-06-04).
-`temp.js`-Inhalt: leer (Stand 2026-06-04).
+`temp.css`-Inhalt: leer (Stand 2026-06-07).
+`temp.js`-Inhalt: leer (Stand 2026-06-07).
 
 ### CSS-Workflow: Neue Styles
 
@@ -334,7 +334,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.qty-selector` | `--sm` | Mengenauswahl |
 | `.price-stack` | — | Preis + `--old` für Streichpreise |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
-| `.flow` | — | Kontextsensitives Typografie-Spacing |
+| `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---
 

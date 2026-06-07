@@ -717,6 +717,7 @@
       <tr><td><code>* + h2</code></td><td><code>var(--module)</code></td><td>24–48 px</td><td>Neuer Abschnitt — deutliche Zäsur</td></tr>
       <tr><td><code>* + h3</code></td><td><code>var(--half-module)</code></td><td>12–24 px</td><td>Unterabschnitt</td></tr>
       <tr><td><code>* + h4</code></td><td><code>calc(var(--base) * 1.5)</code></td><td>24 px</td><td>Kleinstes Heading-Level</td></tr>
+      <tr><td><code>* + .btn, * + .btn-row</code></td><td><code>calc(var(--half-module) * 1.5)</code></td><td>18–36 px</td><td>Body → CTA — bewusst großzügiger als Paragraph-Abstand</td></tr>
     </table>
 
     <div class="flow-compare">
@@ -2731,7 +2732,7 @@
     <div class="demo-label">Default (Content-Höhe)</div>
     <div class="section-type --v1">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 1</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -2745,7 +2746,7 @@
     <div class="demo-label">Mit <code>--viewport</code> (Viewport-Höhe)</div>
     <div class="section-type --v1 --viewport">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 1</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -2759,7 +2760,7 @@
     <div class="demo-label">Reversed (Text links, Bild rechts)</div>
     <div class="section-type --v1 --reverse">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 1</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -2789,7 +2790,7 @@
       <div class="section-type__animation">
         <lottie-player src="assets/lotties/Hero_Animation_01.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Natürlich gesunde Tiere</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -2805,7 +2806,7 @@
       <div class="section-type__animation">
         <lottie-player src="assets/lotties/Hero_Animation_01.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Natürlich gesunde Tiere</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -2835,7 +2836,7 @@
     <div class="demo-label">Default (Content-Höhe)</div>
     <div class="section-type --v2">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 2</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -2849,7 +2850,7 @@
     <div class="demo-label">Mit <code>--viewport</code> (Viewport-Höhe)</div>
     <div class="section-type --v2 --viewport">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 2</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
@@ -2863,7 +2864,7 @@
     <div class="demo-label">Reversed (Text links, Bild rechts)</div>
     <div class="section-type --v2 --reverse">
       <div class="section-type__image placeholder-bg"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h3 class="section-type__headline">Headline 2</h3>
         <div class="section-type__bottom">
           <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -2900,7 +2901,7 @@
 <div class="section-type --v3">
   <div class="section-type__image placeholder-bg"></div>
   <div class="section-type__inner">
-    <div class="section-type__content">
+    <div class="section-type__content flow">
       <h3 class="section-type__headline">Headline 2</h3>
       <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <div class="btn --primary">Call to Action</div>
@@ -2920,7 +2921,7 @@
 <div class="section-type --v3 --viewport">
   <div class="section-type__image placeholder-bg"></div>
   <div class="section-type__inner">
-    <div class="section-type__content">
+    <div class="section-type__content flow">
       <h3 class="section-type__headline">Headline 2</h3>
       <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
       <div class="btn --primary">Call to Action</div>
@@ -2940,7 +2941,7 @@
 <div class="section-type --v3 --reverse">
   <div class="section-type__image placeholder-bg"></div>
   <div class="section-type__inner">
-    <div class="section-type__content">
+    <div class="section-type__content flow">
       <h3 class="section-type__headline">Headline 2</h3>
       <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
       <div class="btn --primary">Call to Action</div>
@@ -2980,7 +2981,7 @@
 <!-- V4 demo breaks out of .page for full viewport width -->
 <div class="section-type --v4">
   <div class="section-type__image placeholder-bg"></div>
-  <div class="section-type__content">
+  <div class="section-type__content flow">
     <h1 class="section-type__headline">Headline auf Bild</h1>
     <p class="section-type__body" style="color:rgba(255,255,255,0.85);">Optionaler Subtext direkt auf dem Bild.</p>
     <div class="section-type--v4__cta">
@@ -3000,7 +3001,7 @@
 
 <div class="section-type --v4 --viewport">
   <div class="section-type__image placeholder-bg"></div>
-  <div class="section-type__content">
+  <div class="section-type__content flow">
     <h1 class="section-type__headline">Headline auf Bild</h1>
     <div class="section-type--v4__cta">
       <div class="btn --primary">Primäre Aktion</div>

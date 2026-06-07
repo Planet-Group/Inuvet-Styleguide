@@ -708,26 +708,14 @@
   .section-type.--v3 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v3 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v3 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
-  /* ─── Flow-Spacing: kontextsensitiver Rhythmus in section-type__content ─── */
-  /* Browser-Default-Margins auf direkten Kindern zurücksetzen */
-  .section-type.--v1 .section-type__content > *,
-  .section-type.--v2 .section-type__content > *,
-  .section-type.--v3 .section-type__content > * { margin-bottom: 0; }
-
-  .section-type.--v1 .section-type__content > * + *,
-  .section-type.--v2 .section-type__content > * + *,
-  .section-type.--v3 .section-type__content > * + * {
-    margin-top: var(--flow-space, var(--base));
-  }
-  /* Headline → Body */
+  /* Headline → Body: Override für .flow in section-type__content.
+     margin-top direkt gesetzt (nicht nur --flow-space) damit :has(.section-type__animation)
+     .section-type__bottom { margin-top: 0 } (Spez. 0,3,0) nicht gewinnt. */
   .section-type.--v1 .section-type__content > .section-type__headline + *,
   .section-type.--v2 .section-type__content > .section-type__headline + *,
   .section-type.--v3 .section-type__content > .section-type__headline + * {
     --flow-space: var(--half-module);
-  }
-  /* Body → CTA (--v3, direkte Kinder) */
-  .section-type.--v3 .section-type__content > .section-type__body + * {
-    --flow-space: calc(var(--half-module) * 1.5);
+    margin-top: var(--half-module);
   }
 
   /* Reduced motion: skip animations */
@@ -1693,6 +1681,10 @@
   .flow > * + h2 { --flow-space: var(--module); }
   .flow > * + h3 { --flow-space: var(--half-module); }
   .flow > * + h4 { --flow-space: calc(var(--base) * 1.5); }
+
+  /* * → CTA: Abstand vor Button/Button-Row etwas großzügiger */
+  .flow > * + .btn,
+  .flow > * + .btn-row { --flow-space: calc(var(--half-module) * 1.5); }
   .label.--inset { margin: 0 var(--margin) var(--half-module); }
 
   /* ═══════════════════════════════════════════

@@ -1548,7 +1548,7 @@ function renderHome() {
         <div class="section-type__animation">
           <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
         </div>
-        <div class="section-type__content">
+        <div class="section-type__content flow">
           <h2 class="section-type__headline">${headline}</h2>
           ${cta}
         </div>
@@ -1574,7 +1574,7 @@ function renderHome() {
     <div class="section-type --v3 --viewport --reverse ${heroModifier}" style="display:none">
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
-        <div class="section-type__content">
+        <div class="section-type__content flow">
           <h2 class="section-type__headline">${headline}</h2>
           ${body ? `<p class="section-type__body">${body}</p>` : ''}
           ${cta}
@@ -1584,7 +1584,7 @@ function renderHome() {
     ${testimonialSectionHTML('--no-borders')}
     <div class="section-type --v2 --reverse" id="aboutPraxis">
       <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
         <div class="section-type__bottom">
           <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
@@ -1631,7 +1631,7 @@ function renderHome() {
       <div class="section-type__animation">
         <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
         <div class="section-type__bottom">
           <p class="section-type__body">Als Tierbesitzer will man das Beste — aber online ist es schwer zu wissen, was wirklich hilft. Versprechen gibt es viele, echte Orientierung wenig. Was zählt, ist die Meinung von jemandem, der dein Tier kennt: dein Tierarzt. Hast du bereits eine Empfehlung? Löse sie hier direkt ein. Noch keine? Finde das passende Produkt und frage es direkt bei deiner Praxis an.</p>
@@ -1658,7 +1658,7 @@ function renderAbout() {
       <div class="section-type__animation">
         <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h2 class="section-type__headline">Pflanzlich. Hoch dosiert. Nur über die Praxis.</h2>
         <div class="section-type__bottom">
           <p class="section-type__body">Du möchtest dein Tier pflanzlich unterstützen? Dann bist du hier genau richtig. Produkte von Inuvet sind pflanzlich, hoch dosiert und seit mehr als 15 Jahren in der Tiermedizin im Einsatz — stetig weiterentwickelt, nah an der Forschung.</p>
@@ -1700,7 +1700,7 @@ function renderAbout() {
     </div>
     <div class="section-type --v2 --reverse" id="aboutPraxis">
       <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
         <div class="section-type__bottom">
           <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
@@ -1727,7 +1727,7 @@ function renderCollection() {
       <div class="section-type__animation">
         <lottie-player src="../assets/lotties/inuvet_website_animation_pagenotfound_json.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
-      <div class="section-type__content">
+      <div class="section-type__content flow">
         <h2 class="section-type__headline">Produkte finden und von deinem Tierarzt freigeben lassen</h2>
         <div class="section-type__bottom">
           <p class="section-type__body">Inuvet Produkte sind pflanzlich und hoch dosiert — in enger Zusammenarbeit mit Tierärzten. Hast du bereits eine Empfehlung? Dann kannst du sie hier direkt einlösen. Noch keine? Kein Problem — stöbere durch unser Sortiment und frage ein Produkt bei deiner Praxis an.</p>

@@ -287,3 +287,80 @@ body.--page-home .section-type.--v3 .section-type__content {
   gap: calc(var(--base) * 0.4);
 }
 /* .pdp__type-badge erbt alle Visuals von .circle-badge.--check */
+
+/* ─── Hero Split — Gast-Zustand ─── */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .section-type.--has-split .section-type__inner {
+    grid-template-columns: 3fr 1fr;
+  }
+}
+
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--half-module);
+}
+
+.hero-split__divider {
+  border-left: 1px dashed var(--border);
+}
+
+.hero-split__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-split__text {
+  color: var(--fg);
+  line-height: var(--lh-base);
+  flex: 1;
+}
+
+@media (min-width: 1100px) {
+  .hero-split__text {
+    font-size: 1.125rem;
+  }
+  .hero-split .btn {
+    font-size: 1.125rem;
+    padding: 1.25rem var(--module);
+  }
+}
+
+/* ─── Cart Drawer — Freigabe-Anfrage Schritt (komplett Honey) ─── */
+.cart-drawer.--request-step .cart-drawer__items,
+.cart-drawer.--request-step .cart-drawer__footer {
+  background: var(--color-honey);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+  --field-bg: var(--color-honey);
+  --field-bg-active: var(--color-honey);
+}
+
+/* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
+.cart-section--requested {
+  background: var(--color-honey);
+  margin: 0 calc(var(--module) * -1) 0;
+  padding: var(--half-module) var(--module) var(--module);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+}
+.cart-drawer__items > .cart-section--requested:first-child {
+  margin-top: calc(var(--module) * -1);
+}
+
+/* ─── Test-Hero: kein margin-top, direkt unter Nav ─── */
+.section-type.--v1.--hero-test { margin-top: 0; }
+
+/* ─── Honey-Button ─── */
+.btn.--honey {
+  background: var(--color-honey);
+  color: var(--fg);
+  border-color: var(--color-honey);
+}
+.btn.--honey:hover {
+  background: var(--color-honey);
+  border-color: var(--color-honey);
+  box-shadow: 0 0 0 2px var(--color-honey);
+}
