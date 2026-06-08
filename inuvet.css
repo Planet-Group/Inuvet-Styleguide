@@ -12,7 +12,7 @@
     --margin: var(--module);
     --section-gap: var(--module);
 
-    --text-xs: 0.667rem;
+    --text-xs: clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem);
     --text-sm: 0.8rem;
     --text-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
     --text-m: clamp(1.25rem, 1rem + 0.7vw, 1.5rem);
@@ -180,7 +180,7 @@
   .rte figcaption { font-size: var(--text-xs); color: var(--fg-muted); margin-top: calc(var(--base) * 0.5); }
   .rte pre { background: var(--accent-bg); border: 1px solid var(--border-light); border-left: 3px solid var(--green); padding: var(--half-module); margin-bottom: var(--half-module); overflow-x: auto; }
   .rte pre code { font-family: 'Courier New', monospace; font-size: var(--text-xs); line-height: 1.6; color: var(--fg); background: none; }
-  .rte h3 { font-size: var(--text-base); font-weight: 700; }
+  .rte h3 { font-size: var(--text-m); font-weight: 700; }
   .rte table { width: 100%; border-collapse: collapse; margin-bottom: var(--half-module); display: block; overflow-x: auto; }
   .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0; border-bottom: 1px solid var(--border-light); font-size: var(--text-base); vertical-align: top; }
   .rte table th { font-weight: 700; border-bottom-color: var(--border); }
@@ -241,7 +241,6 @@
     align-items: center;
     padding: 0 var(--margin);
     background: var(--bg);
-    border-bottom: 1px solid var(--border);
   }
 
   /* ─── Scroll-Away-Modus (optional: body.--ann-scroll) ───
@@ -599,6 +598,8 @@
   .section-type.--v1 .section-type__content {
     justify-content: center;
     gap: 0;
+    max-width: 36rem;
+    margin-inline: auto;
   }
   .section-type.--v1 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -1606,11 +1607,11 @@
 
   /* ─── Section Label ─── */
   /* Zwei Tokens für präzise Kontrolle pro Kontext:
-     --section-label-mb  Abstand von der Linie zum nächsten Element (default: --half-module)
+     --section-label-mb  Abstand von der Linie zum nächsten Element (default: --module)
      --section-label-mt  Abstand vom vorherigen Element zur Überschrift (default: --module-2xl)
      Tipp: In Kontexten wo das folgende Element (cart-item, form-grid) eigenes
      padding-top hat, --section-label-mb auf 0 setzen — kein Doppelabstand. */
-  .section-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); margin-bottom: var(--section-label-mb, var(--half-module)); }
+  .section-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); margin-bottom: var(--section-label-mb, var(--module)); }
   * + .section-label { margin-top: var(--section-label-mt, var(--module-2xl)); }
   /* ─── Sub-Variant — für h3-Sub-Sektionen innerhalb von Formularen, Checkout etc.
      Leichter Border, kleinerer Top-Abstand. Sema­ntik: h3 mit .section-label.--sub */
@@ -1681,6 +1682,10 @@
   .flow > * + h2 { --flow-space: var(--module); }
   .flow > * + h3 { --flow-space: var(--half-module); }
   .flow > * + h4 { --flow-space: calc(var(--base) * 1.5); }
+
+  /* Nach .section-label: deutlicher Abstand zum ersten Content-Element */
+  .flow > .section-label + * { --flow-space: var(--module); }
+  .flow > .section-label.--sub + * { --flow-space: var(--half-module); }
 
   /* * → CTA: Abstand vor Button/Button-Row etwas großzügiger */
   .flow > * + .btn,

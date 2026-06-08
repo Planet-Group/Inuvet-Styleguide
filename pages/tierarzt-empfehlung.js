@@ -1569,29 +1569,33 @@ function renderHome() {
     </div>`;
   }
 
+  const topHero = false ? `
+    <div class="section-type --v1">
+      <div class="section-type__animation">
+        <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+      </div>
+      <div class="section-type__content flow">
+        <h2 class="section-type__headline">Weil dein Tier das Beste verdient</h2>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Produkt-Freigaben von deiner Praxis kannst du hier direkt einlösen. Falls du noch keine Produkt-Freigabe hast, suche <a href="#" onclick="setPage('collection');return false;">hier</a> das passende Produkt und sende deine Produkt-Anfrage an eine Praxis deiner Wahl.</p>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe einlösen</button>
+            <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
+          </div>
+        </div>
+      </div>
+    </div>` : '';
+
   return `
+    ${topHero}
     ${testHero}
-    <div class="section-type --v3 --viewport --reverse ${heroModifier}" style="display:none">
+    <div class="section-type --v3 --viewport --reverse ${heroModifier}" ${state === 'guest' ? 'style="display:none"' : ''}>
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
         <div class="section-type__content flow">
           <h2 class="section-type__headline">${headline}</h2>
           ${body ? `<p class="section-type__body">${body}</p>` : ''}
           ${cta}
-        </div>
-      </div>
-    </div>
-    ${testimonialSectionHTML('--no-borders')}
-    <div class="section-type --v2 --reverse" id="aboutPraxis">
-      <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
-      <div class="section-type__content flow">
-        <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
-        <div class="section-type__bottom">
-          <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
-          <div class="btn-row">
-            <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
-            <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
-          </div>
         </div>
       </div>
     </div>
@@ -1602,7 +1606,7 @@ function renderHome() {
             <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
           <p class="tile__headline">Beste Expertise</p>
-          <p class="tile__body">Inuvet Produkte sind exklusiv über deine Tierarztpraxis erhältlich</p>
+          <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
         </div>
         <div class="tile">
           <div class="tile__icon">
@@ -1627,6 +1631,20 @@ function renderHome() {
         </div>
       </div>
     </div>
+    <div class="section-type --v2 --reverse" id="aboutPraxis">
+      <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
+      <div class="section-type__content flow">
+        <h2 class="section-type__headline">Ich habe keine Produktfreigabe. Was tun?</h2>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Kein Problem — stöbere einfach durch unser Sortiment und wähle ein Produkt aus, das zu deinem Tier passt. Mit einem Klick sendest du eine Anfrage an eine Tierarztpraxis deiner Wahl. Dein Tierarzt prüft die Anfrage und gibt das Produkt persönlich für dich frei. So bestellst du nur das, was wirklich Sinn macht — direkt nach Hause.</p>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
+            <button class="btn --ghost" onclick="openLoginModal('login','with-release')">Freigabe einlösen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${testimonialSectionHTML('--no-borders')}
     <div class="section-type --v1">
       <div class="section-type__animation">
         <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
@@ -1634,10 +1652,9 @@ function renderHome() {
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
         <div class="section-type__bottom">
-          <p class="section-type__body">Als Tierbesitzer will man das Beste — aber online ist es schwer zu wissen, was wirklich hilft. Versprechen gibt es viele, echte Orientierung wenig. Was zählt, ist die Meinung von jemandem, der dein Tier kennt: dein Tierarzt. Hast du bereits eine Empfehlung? Löse sie hier direkt ein. Noch keine? Finde das passende Produkt und frage es direkt bei deiner Praxis an.</p>
+          <p class="section-type__body">Weil deine Tierärzt*in dein Tier besser kennt als Google und weiß, welches Produkt für dein Tier am besten ist. Du interessierst dich für ein Produkt von Inuvet? Dann kannst du direkt hier eine Freigabeanfrage senden.</p>
           <div class="btn-row">
-            <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
-            <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
+            <button class="btn --primary" onclick="setPage('collection')">Produkte finden und anfragen</button>
           </div>
         </div>
       </div>
@@ -1673,7 +1690,7 @@ function renderAbout() {
             <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
           <p class="tile__headline">Beste Expertise</p>
-          <p class="tile__body">Inuvet Produkte sind exklusiv über deine Tierarztpraxis erhältlich</p>
+          <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
         </div>
         <div class="tile">
           <div class="tile__icon">
