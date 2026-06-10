@@ -22,9 +22,6 @@
   margin-top: var(--half-module);
 }
 
-/* ─── Header-Linie auf Home-Seite ausblenden ─── */
-body.--page-home .site-nav { border-bottom: none; }
-
 /* ─── Hero-Content-Box: leicht transparent ─── */
 body.--page-home .section-type.--v3 .section-type__content {
   background: color-mix(in srgb, var(--green-light) 80%, transparent);

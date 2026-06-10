@@ -16,15 +16,15 @@ const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
    ════════════════════════════════════════════ */
 const PRODUCTS = [
   {
-    id: 1, name: 'Calmin Balance', familie: true, cat: 'beruhigung', catLabel: 'Beruhigung',
+    id: 1, name: 'Calmin balance', familie: true, cat: 'beruhigung', catLabel: 'Beruhigung',
     img: CALMIN_1, imgHover: CALMIN_2, imgDetail: CALMIN_3, rating: '4,8', approved: true,
     shortDesc: 'Für Entspannung und innere Balance.',
     desc: 'Unterstützt die natürliche Ausgeglichenheit von Hunden und Katzen. Schonend gewonnen, tierärztlich entwickelt und geprüft.',
     ingredients: 'Passionsblumenextrakt, Baldrian, L-Tryptophan, Vitamin B1. Ohne künstliche Zusatzstoffe.',
     darreichungsformen: [
-      { label: 'Tabletten', cartName: 'Calmin Balance Tabletten', animals: 'Hund, Katze',
+      { label: 'Tabletten', cartName: 'Calmin balance Tabletten', animals: 'Hund, Katze',
         variants: [{ label: '60 Stück', price: '39,90 €' }, { label: '90 Stück', price: '54,90 €' }] },
-      { label: 'Pulver',    cartName: 'Calmin Balance Pulver',    animals: 'Hund, Katze',
+      { label: 'Pulver',    cartName: 'Calmin balance Pulver',    animals: 'Hund, Katze', note: 'für Allergiker geeignet',
         variants: [{ label: '30 g',    price: '29,90 €' }, { label: '60 g',    price: '49,90 €' }] },
     ],
   },
@@ -37,7 +37,7 @@ const PRODUCTS = [
     darreichungsformen: [
       { label: 'Tabletten', cartName: 'Hepax forte Tabletten', animals: 'Hund',
         variants: [{ label: '30 Stück', price: '34,90 €' }, { label: '60 Stück', price: '64,90 €' }] },
-      { label: 'Pulver',    cartName: 'Hepax forte Pulver',    animals: 'Katze, Hund',
+      { label: 'Pulver',    cartName: 'Hepax forte Pulver',    animals: 'Katze, Hund', note: 'für Allergiker geeignet',
         variants: [{ label: '75 g',    price: '39,90 €' }, { label: '175 g',   price: '84,90 €' }] },
     ],
   },
@@ -1075,7 +1075,7 @@ function drawerItemHTML(item, type) {
       <div class="cart-item__top">
         <div>
           <p class="cart-item__name">${item.cartName}</p>
-          <div class="cart-item__variant">${item.variantLabel}</div>
+          <div class="cart-item__variant">${item.variantLabel} · ${item.price.toFixed(2).replace('.',',')} €</div>
         </div>
         <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"
           onclick="removeFromCart('${eName}','${eVar}')">
@@ -1090,7 +1090,7 @@ function drawerItemHTML(item, type) {
           <button class="qty-selector__btn" type="button" aria-label="Mehr"
             onclick="changeCartQty('${eName}','${eVar}','${type}',1)"><span class="material-icons">add</span></button>
         </div>
-        ${type === 'approved' ? `<span class="cart-item__qty-text">${item.price.toFixed(2).replace('.',',')} €</span>` : ''}
+        <span class="cart-item__qty-text">${(item.price * item.qty).toFixed(2).replace('.',',')} €</span>
       </div>
     </div>
   </div>`;
@@ -1109,12 +1109,12 @@ function checkoutItemHTML(item) {
       <div class="cart-item__top">
         <div>
           <p class="cart-item__name">${item.cartName}</p>
-          <div class="cart-item__variant">${item.variantLabel}</div>
+          <div class="cart-item__variant">${item.variantLabel} · ${item.price.toFixed(2).replace('.',',')} €</div>
         </div>
       </div>
       <div class="cart-item__bottom">
         <span class="cart-item__qty-text">${item.qty} Stück</span>
-        <span class="cart-item__qty-text">${item.price.toFixed(2).replace('.',',')} €</span>
+        <span class="cart-item__qty-text">${(item.price * item.qty).toFixed(2).replace('.',',')} €</span>
       </div>
     </div>
   </div>`;
@@ -1238,7 +1238,7 @@ function renderNav() {
    TESTIMONIAL-SLIDER
    ════════════════════════════════════════════ */
 const TESTIMONIALS = [
-  { text: 'Nach der Empfehlung meines Tierarztes haben wir Calmin Balance ausprobiert — mein ängstlicher Beagle ist eine andere Seele geworden.', name: 'Anna W.',    role: 'Beagle-Mama, Frankfurt',    img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
+  { text: 'Nach der Empfehlung meines Tierarztes haben wir Calmin balance ausprobiert — mein ängstlicher Beagle ist eine andere Seele geworden.', name: 'Anna W.',    role: 'Beagle-Mama, Frankfurt',    img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
   { text: 'Super Service und top Beratung. Meine Tierärztin arbeitet seit Jahren mit Inuvet und ich merke den Unterschied jeden Tag.',             name: 'Sandra M.', role: 'Hundemama, München',        img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
   { text: 'Gut verträglich, transparente Inhaltsstoffe — ich empfehle Inuvet-Produkte regelmäßig in meiner Praxis.',                              name: 'Julia R.',  role: 'Tierliebhaberin, Berlin',   img: '../assets/images/Partner_Mia_01.png' },
   { text: 'Meine Katze hat nach zwei Wochen deutlich besser geschlafen. Ohne die Empfehlung unseres Tierarztes hätte ich es nicht gekauft.', name: 'Petra K.', role: 'Katzenbesitzerin, Hamburg', img: null },
@@ -1644,6 +1644,12 @@ function renderHome() {
         </div>
       </div>
     </div>
+    <div class="page">
+      <h3 class="section-label">Beliebte Produkte</h3>
+      <div class="tile-grid --cols-3">
+        ${PRODUCTS.map(tileHTML).join('')}
+      </div>
+    </div>
     ${testimonialSectionHTML('--no-borders')}
     <div class="section-type --v1">
       <div class="section-type__animation">
@@ -1657,12 +1663,6 @@ function renderHome() {
             <button class="btn --primary" onclick="setPage('collection')">Produkte finden und anfragen</button>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="page">
-      <h3 class="section-label">Beliebte Produkte</h3>
-      <div class="tile-grid --cols-3">
-        ${PRODUCTS.map(tileHTML).join('')}
       </div>
     </div>
 `;
@@ -1824,7 +1824,7 @@ function renderProduct() {
           : '';
         return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
           <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
-          <span class="pdp__type-label">${f.label}${badge}</span>
+          <span class="pdp__type-label">${f.label}${f.note ? ` (${f.note})` : ''}${badge}</span>
           <span class="pdp__type-animals">${f.animals || ''}</span>
         </label>`;
       }).join('');
