@@ -5,7 +5,7 @@
 const REQUEST_PRODUCTS = [
   {
     id: 1,
-    cartName: 'Calmin Balance Tabletten',
+    cartName: 'Calmin balance Tabletten',
     variants: [
       { label: '60 Stück', price: '39,90 €', commission: 4.50 },
       { label: '90 Stück', price: '54,90 €', commission: 6.20 },
