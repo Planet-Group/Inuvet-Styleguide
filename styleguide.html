@@ -7,9 +7,9 @@
 <meta name="description" content="Design-System für das inuvet Shopify-Theme. Tokens, Komponenten und Patterns nach Atomic Design.">
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="inuvet.css?v=6">
+<link rel="stylesheet" href="inuvet.css?v=9">
 <link rel="stylesheet" href="pages/formulare.css">
-<link rel="stylesheet" href="sg.css?v=1">
+<link rel="stylesheet" href="sg.css?v=2">
 <link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
@@ -171,12 +171,9 @@
       <tr><th>Hintergrund</th><td>Bevorzugt auf Weiß. Auf <code>--green-light</code> ebenfalls zulässig.</td></tr>
     </table>
 
-    <div class="demo-label">Standard (5.25rem — Desktop-Maximum)</div>
     <div class="sg-demo-pad">
       <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo" class="sg-logo-demo">
     </div>
-    <p class="demo-note">Navigations-Größe: fluid <code>clamp(3rem, 1.5rem + 5vw, 5.25rem)</code>. Bildmarke (grün) + Wortmarke (schwarz).</p>
-
 
 
   </section>
@@ -226,6 +223,7 @@
 
     <h3 class="sg-h3 --top">Spacing</h3>
     <table class="spec-table">
+      <tr><th><code>--base</code></th><td><code>1rem</code> — Basiseinheit (16px), Grundlage aller Berechnungen</td></tr>
       <tr><th><code>--half-module</code></th><td><code>clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)</code> — ½ Modul</td></tr>
       <tr><th><code>--module</code></th><td><code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code> — Grundmodul (1×), flüssig</td></tr>
       <tr><th><code>--module-2xl</code></th><td><code>calc(var(--module) * 2)</code> — 2× Modul</td></tr>
@@ -320,6 +318,7 @@
     </div>
     <div class="type-scale">
       <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.667rem</div></div>
+      <div class="type-scale-step"><div class="glyph --sm">Ag</div><div class="meta"><span class="sg-token">--text-sm</span>0.8rem</div></div>
       <div class="type-scale-step"><div class="glyph --base">Ag</div><div class="meta"><span class="sg-token">--text-base</span>0.875–1rem</div></div>
       <div class="type-scale-step"><div class="glyph --m">Ag</div><div class="meta"><span class="sg-token">--text-m</span>1.25–1.5rem</div></div>
       <div class="type-scale-step"><div class="glyph --l">Ag</div><div class="meta"><span class="sg-token">--text-l</span>1.5–2.25rem</div></div>
@@ -328,7 +327,7 @@
     <div class="specimen">
       <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2–3.375rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
       <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.5–2.25rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
-      <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-m</span><span>1.25–1.5rem</span><span>LH 1.5</span></div><h3>Headline 3</h3></div>
+      <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-m</span><span>1.25–1.5rem</span><span>LH 1.2</span></div><h3>Headline 3</h3></div>
       <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5</span></div><h4>Headline 4</h4></div>
       <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5 · Body</span></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Alle Produkte enthalten <a href="#">natürliche Wirkstoffe</a> – ohne unnötige Zusatzstoffe. Mehr dazu in unserem <a href="#">Ratgeber</a>.</p></div>
       <div class="specimen-row"><div class="specimen-meta"><span>ul · ol</span><span>a:not([class])</span></div><div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--module)"><ul><li>Tierärztlich entwickelt</li><li>Ohne künstliche Zusätze</li><li>Nachhaltige Rohstoffe</li></ul><ol><li>Produkt wählen</li><li>Dosierung beachten</li><li>Regelmäßig anwenden</li></ol></div></div>
@@ -754,6 +753,7 @@
     <div class="rules">
       <div class="rule"><h4>Spalten-Modi</h4><p><code>1</code> (full-width), <code>2</code> (50/50), <code>3</code> (Drittel), <code>4</code> (Viertel).</p></div>
       <div class="rule"><h4>Gutter &amp; Ränder</h4><p>Gutter: <code>3rem</code>. Seitenrand: <code>3rem</code>.</p></div>
+      <div class="rule"><h4>Gap-Verhalten</h4><p>Standard: <code>gap: var(--base) var(--gutter)</code> — Zeilen eng (Text stapelt wie <code>.flow</code>), Spalten weit. Für Kacheln/Bilder mit vollem Zeilenabstand: <code>.col-grid.--spaced</code> → <code>gap: var(--gutter)</code>.</p></div>
     </div>
     <div class="col-demo"><div class="col-demo-label">1 Spalte</div><div class="col-grid" data-cols="1"><div class="col-cell">1 / 1</div></div></div>
     <div class="col-demo"><div class="col-demo-label">2 Spalten</div><div class="col-grid" data-cols="2"><div class="col-cell">1 / 2</div><div class="col-cell">2 / 2</div></div></div>
@@ -1789,7 +1789,7 @@
           <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button>
           <div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div>
         </div>
-        <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+        <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
         <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
         <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
       </div>
@@ -1850,7 +1850,7 @@
           <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button>
           <div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div>
         </div>
-        <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div>
+        <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div>
         <div class="tile__description">Eine etwas ausführlichere Beschreibung des Produkts mit mehr Details.</div>
         <div class="tile__price"><div class="price-stack"><span>ab 59,90 €</span></div></div>
       </div>
@@ -1910,7 +1910,7 @@
           <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button>
           <div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div>
         </div>
-        <div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
+        <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
         <div class="tile__description">Kurze Beschreibung.</div>
         <div class="tile__price"><div class="price-stack"><span>ab 49,90 €</span></div></div>
       </div>
@@ -1955,6 +1955,10 @@
         <h4>Erweiterungen</h4>
         <p><code>.product-thumb-wrap</code> — Wrapper mit <code>position: relative</code> für <code>.floating-meta</code> Overlay. <code>.cart-item__counter</code> — Flex-Zeile für <code>.qty-selector</code> + optionalen Inline-Badge.</p>
       </div>
+      <div class="rule">
+        <h4>Preis-Platzierung</h4>
+        <p>Zwei Slots mit fester Bedeutung — nicht vermischen: Der <strong>Stück-/Einzelpreis</strong> gehört in die Variantenzeile <code>.cart-item__variant</code> (oben, xs, muted), Format <code>60 Stück · 39,90 €</code>. Unten rechts (<code>.cart-item__qty-text</code>) steht ausschließlich die <strong>Zeilensumme</strong> (Menge × Einzelpreis), siehe Demo 2: <code>8 × 44,90 € = 359,20 €</code>. Ein einzelner Stückpreis gehört nie nach unten rechts.</p>
+      </div>
     </div>
 
     <table class="spec-table">
@@ -1973,7 +1977,7 @@
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">Calmin Balance Tabletten</p>
+                <p class="cart-item__name">Calmin balance Tabletten</p>
                 <div class="cart-item__variant">60 Stück · 39,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
@@ -2026,7 +2030,7 @@
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">Calmin Balance Tabletten</p>
+                <p class="cart-item__name">Calmin balance Tabletten</p>
                 <div class="cart-item__variant">60 Stück · 39,90 €</div>
               </div>
               <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
@@ -2046,7 +2050,7 @@
           <div class="cart-item__info">
             <div class="cart-item__top">
               <div>
-                <p class="cart-item__name">Calmin Balance Tabletten</p>
+                <p class="cart-item__name">Calmin balance Tabletten</p>
                 <div class="cart-item__variant">60 Stück · 39,90 €</div>
               </div>
             </div>
@@ -3906,9 +3910,9 @@
     <div class="pdp__recommendations">
       <h3>Das könnte Ihnen auch gefallen</h3>
       <div class="tile-grid --cols-4">
-        <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
+        <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
         <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-        <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>19,90 €</span><span class="--old">39,90 €</span></div></div></div>
+        <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>19,90 €</span><span class="--old">39,90 €</span></div></div></div>
         <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openCart('cartFull')"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Kurze Produktbeschreibung.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
       </div>
     </div>
@@ -4105,7 +4109,7 @@
 
           <div class="tile-grid --cols-3">
             <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-            <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin Balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+            <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
             <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><a class="btn --secondary" onclick="openCart('cartFull')">In den Warenkorb</a></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
           </div>
 
@@ -4317,7 +4321,7 @@
             <div class="cart-item__info">
               <div class="cart-item__top">
                 <div>
-                  <p class="cart-item__name">Calmin Balance Tabletten</p>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
                   <div class="cart-item__variant">60 Stück</div>
                 </div>
               </div>
@@ -4349,7 +4353,7 @@
             <div class="cart-item__info">
               <div class="cart-item__top">
                 <div>
-                  <p class="cart-item__name">Calmin Balance Tabletten</p>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
                   <div class="cart-item__variant">90 Stück · Sale</div>
                 </div>
               </div>
@@ -4533,9 +4537,9 @@
             <div class="search-result__price">44,90 €</div>
           </div>
           <div class="search-result">
-            <div class="search-result__image product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin Balance"><img src="assets/images/Calmin_Packshot_02.png" alt=""></div>
+            <div class="search-result__image product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance"><img src="assets/images/Calmin_Packshot_02.png" alt=""></div>
             <div class="search-result__info">
-              <p class="search-result__name">Calmin Balance</p>
+              <p class="search-result__name">Calmin balance</p>
               <div class="search-result__meta">Beruhigung</div>
             </div>
             <div class="search-result__price">39,90 €</div>
@@ -4868,9 +4872,9 @@
   </div>
   <div class="options-drawer__items">
     <div class="cart-item options-drawer__product">
-      <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin Balance Tabletten"></div>
+      <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
       <div class="cart-item__info">
-        <div class="cart-item__top"><div><p class="cart-item__name">Calmin Balance Tabletten</p></div></div>
+        <div class="cart-item__top"><div><p class="cart-item__name">Calmin balance Tabletten</p></div></div>
       </div>
     </div>
     <div class="options-drawer__section">

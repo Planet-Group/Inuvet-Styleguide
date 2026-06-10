@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="inuvet.css?v=9">
+  <link rel="stylesheet" href="sg.css?v=3">
+  <link rel="stylesheet" href="temp.css">
+  <style>
+    html { scroll-padding-top: var(--module); }
+  </style>
+</head>
+<body>
+
+<div class="sg-layout page --no-pt">
+
+  <aside class="sg-sidebar">
+    <nav>
+
+      <div class="sg-nav-group">
+        <span class="sg-nav-group__title">A — Foundations</span>
+        <a href="#A1">A.1 Logo</a>
+        <a href="#A2">A.2 System-Logik</a>
+        <a href="#A3">A.3 Design Tokens</a>
+        <a href="#A4">A.4 Typografie</a>
+        <a href="#A5">A.5 Farben</a>
+        <a href="#A6">A.6 Linien &amp; Borders</a>
+        <a href="#A7">A.7 Spacing</a>
+        <a href="#A8">A.8 Spaltenraster</a>
+        <a href="#A9">A.9 Responsive</a>
+        <a href="#A10">A.10 Styleguide UI</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <span class="sg-nav-group__title">B — Atome</span>
+        <a href="#B1">B.1 Buttons</a>
+        <a href="#B2">B.2 Badges &amp; Labels</a>
+        <a href="#B3">B.3 Icons &amp; icon-box</a>
+        <a href="#B4">B.4 Form-Felder</a>
+        <a href="#B5">B.5 Product Thumb</a>
+        <a href="#B6">B.6 Breadcrumb</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <span class="sg-nav-group__title">C — Moleküle</span>
+        <a href="#C1">C.1 Produktkarte</a>
+        <a href="#C2">C.2 Cart Item</a>
+        <a href="#C3">C.3 Card-Pattern-Übersicht</a>
+        <a href="#C4">C.4 Stand-Alone-Formular</a>
+        <a href="#C5">C.5 Tabs &amp; Akkordeon</a>
+        <a href="#C6">C.6 Pagination</a>
+        <a href="#C7">C.7 Notice / Infobox</a>
+        <a href="#C8">C.8 Empty / Success State</a>
+        <a href="#C9">C.9 Toast</a>
+        <a href="#C10">C.10 Modal</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <span class="sg-nav-group__title">D — Organismen</span>
+        <a href="#D1">D.1 Navigation &amp; Announcement</a>
+        <a href="#D2">D.2 Footer</a>
+        <a href="#D3">D.3 Hero-Sections</a>
+        <a href="#D4">D.4 Kachel-Raster</a>
+        <a href="#D5">D.5 Testimonials</a>
+        <a href="#D6">D.6 Marquee</a>
+        <a href="#D7">D.7 Newsletter Signup</a>
+        <a href="#D8">D.8 Cookie-Banner</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <span class="sg-nav-group__title">E — Seiten-Vorlagen</span>
+        <a href="#E1">E.1 Page-Skeleton</a>
+        <a href="#E2">E.2 Produktdetailseite</a>
+        <a href="#E3">E.3 Collection</a>
+        <a href="#E4">E.4 Cart-Drawer</a>
+        <a href="#E5">E.5 Checkout</a>
+        <a href="#E6">E.6 Account-Seiten</a>
+        <a href="#E7">E.7 Suche</a>
+        <a href="#E8">E.8 Blog</a>
+        <a href="#E9">E.9 Out-of-Stock</a>
+        <a href="#E10">E.10 Landing-Page-Elemente</a>
+      </div>
+
+    </nav>
+  </aside>
+
+  <main class="sg-main">
+
+    <!-- ══════════════════════════════════════
+         A — FOUNDATIONS
+         ══════════════════════════════════════ -->
+
+    <section class="sg-section-v2 flow" id="A1">
+      <h2 class="section-label">A.1 — Logo</h2>
+      <div class="col-grid" data-cols="2">
+        <p>SVG-Datei, inline eingebettet für volle CSS-Kontrolle. Bildmarke in <code>--green</code>, Wortmarke in <code>--fg</code>. Keine Raster-Fallbacks nötig.</p>
+        <p>Mindestgröße: <code>clamp(3.5rem, 2rem + 5vw, 6rem)</code>. Schutzraum rundum mindestens die halbe Logohöhe — kein anderes Element darf in diese Zone eintreten.</p>
+      </div>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A2">
+      <h2 class="section-label">A.2 — System-Logik</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Ein logisches System auf Basis von <code>1rem</code>, dem Faktor <code>1.5</code> und dem Grundmodul <code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code>. Typografie, Spacing und Grid leiten sich aus denselben Werten ab — kein Wert existiert isoliert.</p>
+        <p>Das System ist fluid: alle Abstände und Schriftgrößen skalieren stufenlos zwischen Mobilminimum und Desktop-Maximum. Feste Pixelwerte sind die Ausnahme, nicht die Regel.</p>
+      </div>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A3">
+      <h2 class="section-label">A.3 — Design Tokens</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Alle Werte sind CSS Custom Properties in <code>:root</code>. Kein Hardcoding von Farben, Größen oder Abständen außerhalb dieser Tokens — immer <code>var(--…)</code>.</p>
+        <p>Neue Werte müssen hier definiert und dokumentiert werden, bevor sie im System verwendet werden dürfen.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>--base</code></th><td><code>1rem</code> — Basiseinheit (16px), Grundlage aller Berechnungen</td></tr>
+        <tr><th><code>--half-module</code></th><td><code>clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)</code> — 12–24px</td></tr>
+        <tr><th><code>--module</code></th><td><code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code> — 24–48px, Grundmodul</td></tr>
+        <tr><th><code>--module-2xl</code></th><td><code>calc(var(--module) * 2)</code></td></tr>
+        <tr><th><code>--module-3xl</code></th><td><code>calc(var(--module) * 3)</code></td></tr>
+        <tr><th><code>--text-xs</code></th><td><code>clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)</code> — Labels, Captions</td></tr>
+        <tr><th><code>--text-sm</code></th><td><code>0.8rem</code> — Hilfstext, Formular-Labels</td></tr>
+        <tr><th><code>--text-base</code></th><td><code>clamp(0.875rem, 0.8rem + 0.3vw, 1rem)</code> — Fließtext</td></tr>
+        <tr><th><code>--text-m</code></th><td><code>clamp(1.25rem, 1rem + 0.7vw, 1.5rem)</code> — H3, Intro</td></tr>
+        <tr><th><code>--text-l</code></th><td><code>clamp(1.5rem, 1rem + 1.7vw, 2.25rem)</code> — H2</td></tr>
+        <tr><th><code>--text-xl</code></th><td><code>clamp(2rem, 1rem + 3.2vw, 3.375rem)</code> — H1</td></tr>
+        <tr><th><code>--green</code></th><td><code>#78b41b</code> — Primärfarbe, CTAs</td></tr>
+        <tr><th><code>--green-light</code></th><td><code>#f0fae6</code> — Hintergründe</td></tr>
+        <tr><th><code>--fg · --fg-muted · --bg</code></th><td><code>#000 · #666 · #fff</code></td></tr>
+        <tr><th><code>--border · --border-light · --accent-bg</code></th><td><code>#ccc · #e0e0e0 · #f2f2f2</code></td></tr>
+        <tr><th><code>--z-nav · --z-overlay · --z-drawer · --z-modal</code></th><td><code>100 · 200 · 210 · 220</code></td></tr>
+        <tr><th><code>--anim-fast · --anim-mid · --anim-base · --anim-slow</code></th><td><code>0.2s · 0.3s · 0.4s · 0.6s ease</code></td></tr>
+      </table>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A4">
+      <h2 class="section-label">A.4 — Typografie</h2>
+      <p>Fluid Typography via <code>clamp()</code>. Sechs Ebenen: H1–H4, Body, Caption. Schrift: Schnebel Sans via Adobe Typekit.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A5">
+      <h2 class="section-label">A.5 — Farben</h2>
+      <p>Basis &amp; Primär, 14 Kategoriefarben als <code>--cat-X</code> + <code>--cat-X-light</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A6">
+      <h2 class="section-label">A.6 — Linien &amp; Borders</h2>
+      <p><code>--border</code> für strukturelle Trennlinien, <code>--border-light</code> für dekorative. Kein <code>border-top</code> als Whitespace-Ersatz.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A7">
+      <h2 class="section-label">A.7 — Spacing</h2>
+      <p>Alle Abstände sind Vielfache von <code>--module</code> oder <code>--half-module</code>. <code>.flow</code> handhabt den vertikalen Rhythmus via Adjacent-Sibling-Kombinator.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A8">
+      <h2 class="section-label">A.8 — Spaltenraster</h2>
+      <p><code>.page</code> als Haupt-Container. Modifier: <code>--narrow</code>, <code>--form</code>, <code>--no-pt</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A9">
+      <h2 class="section-label">A.9 — Responsive</h2>
+      <p>Vereinheitlichte Breakpoints für <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A10">
+      <h2 class="section-label">A.10 — Styleguide UI-Klassen</h2>
+      <p>Klassen ausschließlich für Dokumentationszwecke — nie in Produktion einbinden.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         B — ATOME
+         ══════════════════════════════════════ -->
+
+    <section class="sg-section-v2 flow" id="B1">
+      <h2 class="section-label">B.1 — Buttons</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Einheitliche Basisklasse <code>.btn</code> mit Modifier. Drei Hierarchie-Stufen: Primary, Secondary, Ghost.</p>
+        <p>Buttons lösen Aktionen aus — nie als Link missbrauchen. Ghost-Buttons sind die Ausnahme: sie verhalten sich visuell wie Links, behalten aber das Touch-Target von 44px.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.btn.--primary</code></th><td>Hauptaktion · BG <code>--fg</code> · Schrift <code>--bg</code> · Hover: Box-Shadow</td></tr>
+        <tr><th><code>.btn.--secondary</code></th><td>Nebenaktionen · transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert</td></tr>
+        <tr><th><code>.btn.--ghost</code></th><td>Minimal · kein Rand · Text + animierter Pfeil →</td></tr>
+        <tr><th><code>.btn.--ghost.--back</code></th><td>Wie Ghost, aber mit ← Pfeil. Für alle Zurück-Navigationen.</td></tr>
+        <tr><th><code>.btn.--sm</code></th><td>Gleiche Höhe wie <code>.qty-selector.--sm</code> und <code>.choice-box.--sm</code></td></tr>
+        <tr><th><code>.btn.--full</code></th><td><code>width: 100%</code> · kombinierbar mit allen Varianten</td></tr>
+        <tr><th><code>.btn.--with-icon</code></th><td>Inline-Flex · <code>gap: 0.5rem</code></td></tr>
+        <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer mit <code>aria-label</code></td></tr>
+        <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion</td></tr>
+      </table>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B2">
+      <h2 class="section-label">B.2 — Badges &amp; Labels</h2>
+      <p><code>.badge</code>, <code>.rating</code>, <code>.label-caps</code>, <code>.circle-badge</code>, Kategorie-Badges via <code>[data-cat]</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B3">
+      <h2 class="section-label">B.3 — Icons &amp; icon-box</h2>
+      <p>Material Icons via Google Fonts CDN. <code>.icon-box</code> als strukturierter Container für Icon + Beschriftung.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B4">
+      <h2 class="section-label">B.4 — Form-Felder</h2>
+      <p>Floating-Label-Pattern: <code>placeholder=" "</code> triggert <code>:not(:placeholder-shown)</code>. Felder erben den Kontext-Hintergrund via <code>--field-bg</code> und <code>--field-bg-active</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B5">
+      <h2 class="section-label">B.5 — Product Thumb</h2>
+      <p><code>.product-thumb</code> für Cart, Suche und Mini-Listen.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B6">
+      <h2 class="section-label">B.6 — Breadcrumb</h2>
+      <p><code>.breadcrumb</code>, letzter Eintrag mit <code>.--current</code> — kein Link.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         C — MOLEKÜLE
+         ══════════════════════════════════════ -->
+
+    <section class="sg-section-v2 flow" id="C1">
+      <h2 class="section-label">C.1 — Produktkarte</h2>
+      <p><code>.tile.--product</code> in <code>.tile-grid.--cols-2/3/4</code>. Preis immer mit „ab" in der Übersicht.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C2">
+      <h2 class="section-label">C.2 — Cart Item</h2>
+      <p><code>.cart-item</code> — Reihe im Cart-Drawer. Varianten-Zeile immer via <code>.cart-item__variant</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C3">
+      <h2 class="section-label">C.3 — Card-Pattern-Übersicht</h2>
+      <p>Vier bewusst getrennte Patterns: <code>.tile.--product</code>, <code>.cart-item</code>, <code>.summary-card</code>, <code>.rec-card</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C4">
+      <h2 class="section-label">C.4 — Stand-Alone-Formular</h2>
+      <p><code>.form-page</code> — für Formulare außerhalb des Shops (Reklamation, Nebenwirkungen).</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C5">
+      <h2 class="section-label">C.5 — Tabs &amp; Akkordeon</h2>
+      <p><code>.tabs</code>, <code>.tab-panel</code>, <code>.accordion</code>. Toggle via <code>toggleAccordion(trigger)</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C6">
+      <h2 class="section-label">C.6 — Pagination</h2>
+      <p><code>.pagination</code>, aktive Seite via <code>.--current</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C7">
+      <h2 class="section-label">C.7 — Notice / Infobox</h2>
+      <p><code>.notice</code> — für Hinweise, Warnungen und kontextuelle Informationen.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C8">
+      <h2 class="section-label">C.8 — Empty / Success State</h2>
+      <p><code>.empty-state</code>, <code>.success-state</code> — für leere Listen und abgeschlossene Aktionen.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C9">
+      <h2 class="section-label">C.9 — Toast / Notification</h2>
+      <p><code>.toast</code> mit <code>--success --error --info --out</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="C10">
+      <h2 class="section-label">C.10 — Modal / Pop-up</h2>
+      <p><code>.modal</code>, <code>.modal-overlay</code>. Toggle via <code>.--open</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         D — ORGANISMEN
+         ══════════════════════════════════════ -->
+
+    <section class="sg-section-v2 flow" id="D1">
+      <h2 class="section-label">D.1 — Navigation &amp; Announcement</h2>
+      <p><code>.site-nav</code>, <code>.announcement-bar</code>, Mobile Menu, Sticky-Verhalten, Scroll-Away-Modus.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D2">
+      <h2 class="section-label">D.2 — Footer</h2>
+      <p><code>.site-footer</code>, <code>.footer-main</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D3">
+      <h2 class="section-label">D.3 — Hero-Sections</h2>
+      <p><code>.section-type</code> mit <code>--v1 --v2 --v3 --v4 --reverse --viewport</code>. Content-Blöcke verwenden <code>.section-type__content.flow</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D4">
+      <h2 class="section-label">D.4 — Kachel-Raster</h2>
+      <p><code>.tile-grid.--cols-2/3/4</code>. Responsive Breakpoints vereinheitlicht.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D5">
+      <h2 class="section-label">D.5 — Testimonials</h2>
+      <p><code>.testimonial-grid</code>, <code>.testimonial-slider</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D6">
+      <h2 class="section-label">D.6 — Marquee</h2>
+      <p><code>.marquee</code> — endlos scrollende Zeile, initialisiert via <code>initMarquees()</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D7">
+      <h2 class="section-label">D.7 — Newsletter Signup</h2>
+      <p><code>.newsletter</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="D8">
+      <h2 class="section-label">D.8 — Cookie-Banner</h2>
+      <p><code>.cookie-banner</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════
+         E — SEITEN-VORLAGEN
+         ══════════════════════════════════════ -->
+
+    <section class="sg-section-v2 flow" id="E1">
+      <h2 class="section-label">E.1 — Page-Skeleton</h2>
+      <p>Grundstruktur einer Seite: Announcement Bar, Nav, Content, Footer. Boilerplate in <code>pages/_template.html</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E2">
+      <h2 class="section-label">E.2 — Produktdetailseite (PDP)</h2>
+      <p><code>.pdp</code>, <code>.pdp__type-selector</code>. Einzelprodukt und Produktfamilie.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E3">
+      <h2 class="section-label">E.3 — Produktübersicht / Collection</h2>
+      <p><code>.collection-layout</code>, <code>.collection-sidebar</code>, <code>.collection-toolbar</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E4">
+      <h2 class="section-label">E.4 — Warenkorb-Drawer</h2>
+      <p><code>.cart-drawer</code>, <code>.cart-overlay</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E5">
+      <h2 class="section-label">E.5 — Checkout</h2>
+      <p><code>.checkout</code>, <code>.summary-line</code>, <code>.summary-total</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E6">
+      <h2 class="section-label">E.6 — Account-Seiten</h2>
+      <p><code>.login-overlay</code>, <code>.login-modal</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E7">
+      <h2 class="section-label">E.7 — Suche</h2>
+      <p><code>.search-overlay</code>, <code>.search-panel</code>.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E8">
+      <h2 class="section-label">E.8 — Blog</h2>
+      <p>Blog-Übersicht und Artikel-Template.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E9">
+      <h2 class="section-label">E.9 — Out-of-Stock</h2>
+      <p>Darstellung nicht verfügbarer Produkte.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E10">
+      <h2 class="section-label">E.10 — Landing-Page-Elemente</h2>
+      <p>Wiederkehrende Bausteine für Marketing-Landing-Pages.</p>
+      <div class="sg-demo"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="inuvet.js?v=2"></script>
+<script src="sg.js"></script>
+</body>
+</html>

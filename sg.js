@@ -144,11 +144,6 @@ function closeFilter() {
     observer.observe(el);
   }
 
-  // Section titles
-  document.querySelectorAll('.section-label').forEach(function(el) {
-    animate(el);
-  });
-
   // Section types (full-bleed content blocks)
   document.querySelectorAll('.section-type').forEach(function(el) {
     animate(el);
@@ -189,11 +184,11 @@ const SEARCH_DATA = {
   queries: [
     { text: 'Beruhigung' },
     { text: 'Leber' },
-    { text: 'Calmin Balance' },
+    { text: 'Calmin balance' },
   ],
   products: [
     { name: 'Hepax forte', meta: 'Leber', price: '44,90 €', img: 'assets/images/Hepax_Packshot_01.jpeg', imgHover: 'assets/images/Hepax_Packshot_02.png' },
-    { name: 'Calmin Balance', meta: 'Beruhigung', price: '39,90 €', img: 'assets/images/Calmin_Packshot_01.jpeg', imgHover: 'assets/images/Calmin_Packshot_02.png' },
+    { name: 'Calmin balance', meta: 'Beruhigung', price: '39,90 €', img: 'assets/images/Calmin_Packshot_01.jpeg', imgHover: 'assets/images/Calmin_Packshot_02.png' },
     { name: 'Hepax forte', meta: 'Leber', price: '44,90 €', img: 'assets/images/Hepax_Packshot_01.jpeg', imgHover: 'assets/images/Hepax_Packshot_02.png' },
   ]
 };
