@@ -41,13 +41,13 @@
 
 | Kontext | Anzeige |
 |---|---|
-| Tiles, Collection, Suche | `Calmin Balance`, `Hepax forte` |
-| Cart, Checkout, Bestellübersicht, Freigabe | `Calmin Balance Tabletten`, `Hepax forte Tabletten` |
+| Tiles, Collection, Suche | `Calmin balance`, `Hepax forte` |
+| Cart, Checkout, Bestellübersicht, Freigabe | `Calmin balance Tabletten`, `Hepax forte Tabletten` |
 | Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
 
 In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2).
 
-Aktuelle Mockup-Produkte: **Calmin Balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).
+Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).
 
 ---
 
@@ -334,6 +334,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.qty-selector` | `--sm` | Mengenauswahl |
 | `.price-stack` | — | Preis + `--old` für Streichpreise |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
+| `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` | Spaltenraster (in `sg.css`). Standard-Gap: `var(--base) var(--gutter)` — Zeilen eng (Text stapelt wie `.flow`), Spalten weit. Für Kacheln/Bilder mit vollem Zeilenabstand: `.--spaced` → `gap: var(--gutter)`. Mobile < 768px: immer 1-spaltig. |
 | `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---
@@ -374,48 +375,9 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 ---
 
-## Shopify-Integration
-
-### Überblick
-Der Styleguide ist die einzige Quelle des Designs. Das Shopify-Theme ist ein separates Repo, das `inuvet.css` und `inuvet.js` 1:1 übernimmt.
-
-**Pipeline:** Styleguide (`/Users/michaelhoppe/Inuvet-Styleguide`) → GitHub → Shopify (automatisch, kein manueller Upload)
-
-### Theme-Repo
-- **GitHub:** `Planet-Group/inuvet-theme` (privat)
-- **Lokal:** nicht geklont — Zugriff ausschließlich über `gh api`
-- **Lesen:** `gh api "repos/Planet-Group/inuvet-theme/contents/PFAD" --jq '.content' | base64 -d`
-- **Schreiben:** SHA der Datei holen, dann `gh api --method PUT` mit neuem `content` (base64) und `sha`
-
-### Theme-Struktur (relevante Dateien)
-| Datei | Zweck |
-|---|---|
-| `layout/theme.liquid` | Root-Layout — lädt `inuvet.css` + `inuvet.js` |
-| `assets/inuvet.css` | Design System (Kopie aus diesem Repo) |
-| `assets/inuvet.js` | Globale JS (Kopie aus diesem Repo) |
-| `assets/critical.css` | Shopify-eigenes Reset + `.shopify-section`-Grid |
-| `sections/inuvet-hero.liquid` | Hero-Sektion (`.section-type --v3 --viewport --reverse`) |
-
-### Shopify-Section-Grid (wichtig!)
-`critical.css` definiert:
-```css
-.shopify-section { display: grid; grid-template-columns: margin | content | margin; }
-.shopify-section > * { grid-column: 2; }           /* eingeschränkt, mit Seitenabstand */
-.shopify-section > .full-width { grid-column: 1/-1; } /* browser-breit */
-```
-→ Sections, die browser-breit sein sollen (z.B. `.section-type.--v3`), brauchen die Klasse `full-width` auf dem Root-Element des Liquid-Templates.
-
-### Workflow bei Theme-Änderungen
-1. SHA der Zieldatei holen: `gh api "repos/Planet-Group/inuvet-theme/contents/PFAD" --jq '.sha'`
-2. Neuen Inhalt als base64 kodieren
-3. `gh api --method PUT` mit `message`, `content`, `sha`
-4. Shopify übernimmt den Push automatisch — kein manueller Schritt
-
----
-
 ## Technische Konventionen
 
-**Preview-Server:** `python3 -m http.server 3456` aus `~/Inuvet-Styleguide/`
+**Preview-Server:** `python3 -m http.server 3456` aus `~/code/Inuvet-Styleguide/`
 
 **Safari — lokale Dateien:** Safari blockiert standardmäßig `../`-Pfade bei `file://`-URLs. Fix: Safari → Einstellungen → Erweitert → „Funktionen für Webentwickler aktivieren" → Menü „Entwickler" → „Lokale Dateieinschränkungen deaktivieren". Einmalig, bleibt gesetzt.
 
