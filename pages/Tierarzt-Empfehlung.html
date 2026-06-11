@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tierarzt-Empfehlung — HTML Mockup</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../temp.css?v=4">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body class="--ann-scroll">
+
+<!-- ════════════════════════════════════════
+     MOCKUP-STEUERLEISTE
+     ════════════════════════════════════════ -->
+<div class="mockup-bar --hidden" id="mockupBar">
+  <div class="mockup-bar__group">
+    <span class="mockup-bar__group-label">Zustand:</span>
+    <button class="mockup-btn --active" data-state="guest"        onclick="setState('guest',        this)">① Nicht angemeldet</button>
+    <button class="mockup-btn"          data-state="no-release"   onclick="setState('no-release',   this)">② Angemeldet · keine Freigabe</button>
+    <button class="mockup-btn"          data-state="with-release" onclick="setState('with-release', this)">③ Angemeldet · mit Freigabe</button>
+  </div>
+  <div class="mockup-bar__sep"></div>
+  <div class="mockup-bar__group" id="pageNav">
+    <span class="mockup-bar__group-label">Seite:</span>
+    <button class="mockup-btn --active" onclick="setPage('home',        this)">Startseite</button>
+    <button class="mockup-btn"          onclick="setPage('about',       this)">Was ist Inuvet?</button>
+    <button class="mockup-btn"          onclick="setPage('collection',  this)">Alle Produkte</button>
+    <button class="mockup-btn"          onclick="setPage('recommended', this)" id="btnRecommended" style="display:none">Empfohlene Produkte</button>
+    <button class="mockup-btn"          onclick="setPage('product',     this)">Produktseite</button>
+    <button class="mockup-btn"          onclick="openCart()"                  >Warenkorb</button>
+    <button class="mockup-btn"          onclick="setPage('checkout',    this)">Checkout</button>
+  </div>
+  <div class="mockup-bar__sep" id="productPickerSep" style="display:none"></div>
+  <div class="mockup-bar__group" id="productPicker" style="display:none">
+    <span class="mockup-bar__group-label">Produkt:</span>
+  </div>
+  <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
+</div>
+<button class="mockup-revive --visible" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
+
+<!-- ════════════════════════════════════════
+     SHOP-HEADER
+     ════════════════════════════════════════ -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item --guest-only">Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →</span><span class="announcement-bar__sep --guest-only"></span>
+    <!-- Sentinel: markiert exakten Nahtpunkt für JS-Messung -->
+    <span class="announcement-bar__sentinel" aria-hidden="true"></span>
+    <!-- Duplikat für nahtlose Schleife -->
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item --guest-only">Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →</span><span class="announcement-bar__sep --guest-only"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Hauptnavigation">
+  <div class="nav-left" id="navLinks">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="#" onclick="setPage('home');return false;" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logotype_RGB.svg" alt="Tierarzt-Empfehlung Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <span id="navRight"></span>
+    <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" id="cartBtn" aria-label="Warenkorb öffnen" onclick="openCart()">
+      <span class="material-icons">shopping_cart</span>
+      <span class="badge --count" id="cartCount" style="display:none">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile-Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col" id="mobileNavCol">
+    <a href="#" onclick="setPage('collection');closeMobile();return false;">Alle Produkte</a>
+    <a href="#" onclick="setPage('recommended');closeMobile();return false;" id="mobileRecommended" style="display:none">Empfohlene Produkte</a>
+    <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     SUCHE-OVERLAY
+     ════════════════════════════════════════ -->
+<div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+  <div class="search-panel" id="searchPanel">
+    <div class="search-panel__bar">
+      <span class="material-icons">search</span>
+      <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+      <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     HAUPTINHALT
+     ════════════════════════════════════════ -->
+<main id="shopMain"></main>
+
+<footer class="site-footer" id="shopFooter">
+  <div class="footer-main">
+    <div class="footer-col --newsletter --on-green">
+      <h3>Bleib auf dem Laufenden</h3>
+      <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
+      <form class="footer-nl-form" onsubmit="return false;">
+        <div class="form-field">
+          <input type="email" id="nl-email" placeholder="">
+          <label for="nl-email">E-Mail-Adresse</label>
+        </div>
+        <button class="btn --primary" type="submit">Anmelden</button>
+      </form>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#" onclick="setPage('collection');return false;">Alle Produkte</a></li>
+        <li><a href="#" onclick="openFinder();return false;">Produktfinder starten</a></li>
+        <li><a href="#" onclick="openLoginModal('login');return false;">Freigabe einlösen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">AGB</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════
+     OPTIONS-DRAWER (Varianten wählen)
+     ════════════════════════════════════════ -->
+<div class="options-overlay" id="optionsOverlay" onclick="closeOptions()"></div>
+<div class="options-drawer" id="optionsDrawer">
+  <!-- Inhalt wird per JS gerendert -->
+</div>
+
+<!-- ════════════════════════════════════════
+     WARENKORB-DRAWER (Styleguide-Klassen)
+     ════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <!-- Inhalt wird per JS gerendert -->
+</div>
+
+<!-- ════════════════════════════════════════
+     PRAXIS-FINDER (Karten-Platzhalter)
+     Vollflächiges Pop-up — markiert für die IT,
+     wo das bestehende Kartenmodul eingebunden wird.
+     ════════════════════════════════════════ -->
+<div class="vet-map-overlay" id="vetMapOverlay" onclick="if(event.target===this)closeVetMap()">
+  <div class="vet-map-panel">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Teilnehmende Praxis in der Nähe finden</h2>
+      <button class="btn --icon" onclick="closeVetMap()" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="vet-map-placeholder placeholder-bg">
+      <div class="empty-state">
+        <span class="material-icons">map</span>
+        <p><strong>Kartenmodul</strong><br>Hier wird die bestehende Praxis-Karte von inuvet.com eingebunden — sie zeigt alle teilnehmenden Praxen in der Nähe.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     E-MAIL-OVERLAY (Mockup — Backend-Vorschau)
+     ════════════════════════════════════════ -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
+</div>
+
+<!-- Login-Result-Popup (Mockup-Steuerung) -->
+<div class="modal-overlay mockup-modal-overlay" id="loginResultOverlay">
+  <div class="mockup-modal">
+    <div class="mockup-modal__header">
+      <span class="mockup-modal__title">Backend-Simulation: Login</span>
+      <button class="mockup-modal__close" onclick="applyLoginResult([])" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="mockup-modal__body" id="loginResultBody"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     LOGIN / REGISTRIEREN MODAL
+     ════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay" onclick="handleLoginOverlayClick(event)">
+  <div class="login-modal">
+
+    <!-- Linke Markenseite -->
+    <div class="login-brand">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logotype_RGB.svg" alt="Tierarzt-Empfehlung" class="login-brand__logo">
+      <div class="login-brand__content">
+        <h2 class="login-brand__headline">Gesundheit für dein Tier — empfohlen von deinem Tierarzt.</h2>
+        <ul class="login-brand__features">
+          <li>Tierärztlich entwickelt</li>
+          <li>Persönlich freigegeben</li>
+          <li>Direkt nach Hause</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Rechte Formularseite -->
+    <div class="login-form-panel">
+      <button class="btn --icon login-modal__close" onclick="closeLoginModal()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+
+      <div class="login-tabs" role="tablist">
+        <button class="login-tab --active" data-tab="login"    onclick="switchLoginTab('login')"    role="tab">Einloggen</button>
+        <button class="login-tab"          data-tab="register" onclick="switchLoginTab('register')" role="tab">Registrieren</button>
+      </div>
+
+      <!-- Login -->
+      <div class="login-panel" id="loginPanel">
+        <div class="login-panel__header">
+          <p class="login-panel__sub">Melde dich an, um Produkte einzulösen oder freigeben zu lassen.</p>
+          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
+        </div>
+        <form class="login-form" onsubmit="simulateLogin();return false;">
+          <div class="form-field">
+            <input type="email" id="login-email" placeholder=" " autocomplete="email">
+            <label for="login-email">E-Mail-Adresse</label>
+          </div>
+          <div class="login-forgot-wrap">
+            <div class="form-field">
+              <input type="password" id="login-pw" placeholder=" " autocomplete="current-password">
+              <label for="login-pw">Passwort</label>
+            </div>
+            <a href="#" class="login-forgot" onclick="return false;">Passwort vergessen?</a>
+          </div>
+          <button class="btn --primary login-cta" type="submit">Einloggen</button>
+        </form>
+        <div class="login-divider"><span>oder</span></div>
+        <button class="login-social" type="button" onclick="simulateLogin()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+          Mit Google fortfahren
+        </button>
+        <p class="login-switch">Noch kein Konto? <button class="login-switch__btn" onclick="switchLoginTab('register')">Registrieren</button></p>
+      </div>
+
+      <!-- Registrieren -->
+      <div class="login-panel --hidden" id="registerPanel">
+        <div class="login-panel__header">
+          <p class="login-panel__sub">Registriere dich kostenlos, um Produkte einzulösen oder freigeben zu lassen.</p>
+          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
+        </div>
+        <form class="login-form" onsubmit="simulateLogin();return false;">
+          <div class="login-form__row">
+            <div class="form-field">
+              <input type="text" id="reg-vorname" placeholder=" " autocomplete="given-name">
+              <label for="reg-vorname">Vorname</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-nachname" placeholder=" " autocomplete="family-name">
+              <label for="reg-nachname">Nachname</label>
+            </div>
+          </div>
+          <div class="form-field">
+            <input type="email" id="reg-email" placeholder=" " autocomplete="email">
+            <label for="reg-email">E-Mail-Adresse</label>
+          </div>
+          <div class="form-field">
+            <input type="password" id="reg-pw" placeholder=" " autocomplete="new-password">
+            <label for="reg-pw">Passwort wählen</label>
+          </div>
+          <button class="btn --primary login-cta" type="submit">Konto erstellen</button>
+        </form>
+        <div class="login-divider"><span>oder</span></div>
+        <button class="login-social" type="button" onclick="simulateLogin()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+          Mit Google registrieren
+        </button>
+        <p class="login-switch">Bereits registriert? <button class="login-switch__btn" onclick="switchLoginTab('login')">Einloggen</button></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FREIGABE-WILLKOMMEN POPUP (Kunden-UI)
+     Erscheint nach Login, wenn Produkte
+     bereits vom Tierarzt freigegeben sind.
+     ════════════════════════════════════════ -->
+<div class="shop-modal-overlay" id="releaseWelcomeOverlay">
+  <div class="shop-modal">
+    <div class="shop-modal__icon">
+      <span class="material-icons">check_circle</span>
+    </div>
+    <div class="shop-modal__title" id="releaseWelcomeTitle"></div>
+    <div class="shop-modal__body"  id="releaseWelcomeBody"></div>
+    <div class="shop-modal__actions">
+      <button class="btn --primary --full" onclick="closeReleaseWelcome(true)">Zum Warenkorb</button>
+      <button class="btn --ghost --full"   onclick="closeReleaseWelcome(false)">Weitere Produkte anfragen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     CHECKOUT-MODAL (Popup — nur bei Anfragen)
+     ════════════════════════════════════════ -->
+<div class="shop-modal-overlay" id="checkoutModal">
+  <div class="shop-modal">
+    <div class="shop-modal__icon">
+      <span class="material-icons success-state__icon">check_circle</span>
+    </div>
+    <div class="shop-modal__title"   id="modalTitle"></div>
+    <div class="shop-modal__body"    id="modalBody"></div>
+    <div class="shop-modal__actions" id="modalActions"></div>
+  </div>
+</div>
+
+<script src="../inuvet.js"></script>
+<script src="tierarzt-empfehlung.js?v=16"></script>
+<div class="toast-container" id="toastContainer"></div>
+</body>
+</html>

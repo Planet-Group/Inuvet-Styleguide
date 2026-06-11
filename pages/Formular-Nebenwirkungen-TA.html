@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebenwirkungen melden (Tierarztpraxis) — inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="formulare.css">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-page__card">
+
+    <!-- Header -->
+    <header class="form-page__header">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <select class="form-lang-switch" aria-label="Sprache wählen">
+        <option value="de" selected>Deutsch</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="hu">Magyar</option>
+        <option value="nl">Nederlands</option>
+      </select>
+    </header>
+
+    <!-- Titel -->
+    <h1 class="form-page__title">Meldeformular für unerwünschte Wirkungen bei Futtermitteln und&nbsp;-zusatzstoffen</h1>
+
+    <!-- Intro -->
+    <div class="nw-intro">
+      <p><strong>Liebes Praxisteam,</strong></p>
+      <p>ihr kennt eure Patienten am besten — und genau deshalb ist eure Rückmeldung für uns so wertvoll. Wenn ein Tier nach der Anwendung eines inuvet-Produkts unerwünschte Reaktionen zeigt, helft ihr uns mit dieser Meldung, die Qualität und Sicherheit unserer Produkte kontinuierlich zu verbessern. Tragt bitte so viele Details ein wie möglich — je genauer die Angaben, desto besser können wir nachvollziehen, was passiert ist. Bei Rückfragen erreicht ihr uns jederzeit per Telefon oder E-Mail. Danke euch!</p>
+      <p class="nw-pflicht">Sternchen (*) = Pflichtfelder</p>
+    </div>
+
+    <form id="nebenwirkungenTAForm" novalidate>
+
+      <!-- ── 1. Symptomatik ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Symptomatik</h3>
+
+      <div class="form-field">
+        <textarea id="beschreibung" name="beschreibung" placeholder=" " rows="6" required></textarea>
+        <label for="beschreibung">Beschreibung der unerwünschten Reaktion *</label>
+      </div>
+      <p class="nw-hint">Art, Schweregrad, klinisches Bild …</p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="date" id="datum-auftreten" name="datum_auftreten" required>
+          <label for="datum-auftreten">Erstmaliges Auftreten *</label>
+        </div>
+        <div class="form-field">
+          <input type="date" id="datum-ende" name="datum_ende">
+          <label for="datum-ende">Ende der Symptomatik (falls abgeklungen)</label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="latenz" name="latenz" placeholder=" ">
+        <label for="latenz">Zeitliche Latenz zwischen Verabreichung und Symptombeginn</label>
+      </div>
+      <p class="nw-hint">z. B. 30 min, 2 h, 1 Tag</p>
+
+      <!-- ── 2. Produkt- und Behandlungsdetails ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Produkt- und Behandlungsdetails</h3>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="text" id="produktname" name="produktname" placeholder=" " required>
+          <label for="produktname">Produktname *</label>
+        </div>
+        <div>
+          <div class="form-field">
+            <input type="text" id="packungsgroesse" name="packungsgroesse" placeholder=" " required>
+            <label for="packungsgroesse">Packungsgröße / Darreichungsmenge *</label>
+          </div>
+          <p class="nw-hint">z. B. 250 ml, Tabletten</p>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="chargennummer" name="chargennummer" placeholder=" " required>
+        <label for="chargennummer">Chargen- bzw. Lot-Nummer *</label>
+      </div>
+      <p class="nw-hint">Die Chargennummer findet ihr entweder auf der Umverpackung oder der Unterseite des Produkts.</p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="date" id="datum-therapiebeginn" name="datum_therapiebeginn" required>
+          <label for="datum-therapiebeginn">Therapiebeginn *</label>
+        </div>
+        <div class="form-field">
+          <input type="date" id="datum-therapieabbruch" name="datum_therapieabbruch">
+          <label for="datum-therapieabbruch">Therapieabbruch (falls zutreffend)</label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="dosierung" name="dosierung" placeholder=" ">
+        <label for="dosierung">Applizierte Dosierung</label>
+      </div>
+      <p class="nw-hint">z. B. 2 ml / kg KGW</p>
+
+      <div class="form-field">
+        <input type="text" id="frequenz" name="frequenz" placeholder=" " required>
+        <label for="frequenz">Applikationsfrequenz *</label>
+      </div>
+      <p class="nw-hint">z. B. 2× täglich</p>
+
+      <div class="form-field">
+        <input type="text" id="applikationsart" name="applikationsart" placeholder=" " required>
+        <label for="applikationsart">Applikationsart / Verabreichungsweg *</label>
+      </div>
+      <p class="nw-hint">z. B. oral, topisch, parenteral</p>
+
+      <div class="form-field">
+        <textarea id="therapieverlauf" name="therapieverlauf" placeholder=" " rows="4"></textarea>
+        <label for="therapieverlauf">Therapieverlauf</label>
+      </div>
+      <p class="nw-hint">Verlauf der Anwendung, Besonderheiten …</p>
+
+      <!-- ── 3. Der Patient ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Der Patient</h3>
+
+      <div class="form-grid">
+        <div>
+          <div class="form-field">
+            <input type="text" id="alter" name="alter" placeholder=" " required>
+            <label for="alter">Alter *</label>
+          </div>
+          <p class="nw-hint">z. B. 4 Jahre</p>
+        </div>
+        <div class="form-field">
+          <input type="text" id="tiername" name="tiername" placeholder=" " required>
+          <label for="tiername">Name des Tieres *</label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <div class="form-field">
+            <input type="text" id="tierart" name="tierart" placeholder=" ">
+            <label for="tierart">Tierart / Rasse</label>
+          </div>
+          <p class="nw-hint">z. B. Hund, Labrador</p>
+        </div>
+        <div class="form-field">
+          <input type="number" id="gewicht" name="gewicht" placeholder=" " min="0" step="0.1">
+          <label for="gewicht">Gewicht in kg</label>
+        </div>
+      </div>
+
+      <p class="nw-group-label">Geschlecht des Tiers</p>
+      <div class="nw-radio-grid">
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="weiblich">
+          <span>Weiblich</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="maennlich">
+          <span>Männlich</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="weiblich-kastriert">
+          <span>Weiblich kastriert</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="maennlich-kastriert">
+          <span>Männlich kastriert</span>
+        </label>
+      </div>
+
+      <div class="form-field">
+        <textarea id="vorerkrankungen" name="vorerkrankungen" placeholder=" " rows="4"></textarea>
+        <label for="vorerkrankungen">Vorerkrankungen</label>
+      </div>
+      <p class="nw-hint">Relevante Anamnese …</p>
+
+      <div class="form-field">
+        <input type="text" id="allergien" name="allergien" placeholder=" ">
+        <label for="allergien">Bekannte Allergien / Unverträglichkeiten</label>
+      </div>
+
+      <!-- ── 4. Begleitmedikation ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Begleitmedikation</h3>
+
+      <div class="form-field">
+        <textarea id="begleitmedikation" name="begleitmedikation" placeholder=" " rows="4"></textarea>
+        <label for="begleitmedikation">Parallel angewendete Präparate / Maßnahmen</label>
+      </div>
+      <p class="nw-hint">Produktname, Indikation … Zum Zeitpunkt des Auftretens der Symptomatik.</p>
+
+      <div class="form-field">
+        <textarea id="begleit-dosierung" name="begleit_dosierung" placeholder=" " rows="4"></textarea>
+        <label for="begleit-dosierung">Dosierung und Applikation der Begleitmedikation</label>
+      </div>
+      <p class="nw-hint">Falls relevant …</p>
+
+      <!-- ── 5. Über Euch ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Über Euch</h3>
+
+      <div class="form-field">
+        <input type="text" id="praxis" name="praxis" placeholder=" " required>
+        <label for="praxis">Name der Praxis *</label>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="name" name="name" placeholder=" ">
+        <label for="name">Dein Name</label>
+      </div>
+
+      <div class="form-field">
+        <input type="tel" id="telefon" name="telefon" placeholder=" ">
+        <label for="telefon">Telefonnummer</label>
+      </div>
+
+      <div class="form-field">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">E-Mail-Adresse *</label>
+      </div>
+
+      <p class="nw-group-label">Ich bin * …</p>
+      <div class="ta-radio-col">
+        <label class="form-check">
+          <input type="radio" name="rolle" value="tierarzt" required>
+          <span>Tierarzt / Tierärztin</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="rolle" value="tfa">
+          <span>Tiermedizinische Fachangestellte*r (TFA)</span>
+        </label>
+        <label class="form-check ta-rolle-other">
+          <input type="radio" name="rolle" value="sonstige">
+          <span>Sonstige meldende Person:</span>
+          <input type="text" id="rolle-sonstige" name="rolle_sonstige" class="ta-rolle-other__input" placeholder=" " aria-label="Bezeichnung der sonstigen meldenden Person">
+        </label>
+      </div>
+
+      <!-- reCAPTCHA Platzhalter -->
+      <div class="form-captcha" aria-label="reCAPTCHA Sicherheitsabfrage (Platzhalter)">
+        <div class="form-captcha__checkbox" role="presentation"></div>
+        <span class="form-captcha__label">Ich bin kein Roboter.</span>
+        <div class="form-captcha__brand">
+          <span class="form-captcha__brand-logo" aria-hidden="true">🔒</span>
+          <span class="form-captcha__brand-name">reCAPTCHA</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn --primary --full">Absenden</button>
+
+    </form>
+
+    <p class="form-page__privacy">
+      Für Informationen über unsere Datenschutzpraktiken besuche bitte <a href="https://inuvet.com/policies/privacy-policy" target="_blank" rel="noopener">unsere Website</a>.
+    </p>
+
+  </div><!-- /.form-page__card -->
+
+</div><!-- /.form-page -->
+
+<script src="../inuvet.js"></script>
+
+
+<script src="formular-nebenwirkungen-ta.js"></script>
+</body>
+</html>

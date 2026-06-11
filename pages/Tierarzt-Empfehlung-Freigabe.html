@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Empfehlungsanfrage freigeben</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="Tierarzt-Empfehlung-Freigabe.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     MOCKUP-STEUERLEISTE
+     ════════════════════════════════════════ -->
+<div class="mockup-bar --hidden" id="mockupBar">
+  <div class="mockup-bar__group">
+    <span class="mockup-bar__group-label">Zustand:</span>
+    <button class="mockup-btn --active" data-mode="request" onclick="setApprovalMode('request', this)">① Mit Empfehlungsanfrage</button>
+    <button class="mockup-btn"          data-mode="direct"  onclick="setApprovalMode('direct', this)">② Ohne Anfrage · in der Praxis</button>
+  </div>
+  <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
+</div>
+<button class="mockup-revive --visible" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
+
+<!-- ════════════════════════════════════════
+     Announcement Bar + Standard-Navigation (inuvet.css)
+     ════════════════════════════════════════ -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" aria-label="Navigation öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════
+     Hauptinhalt
+     ════════════════════════════════════════ -->
+<main class="page approval-page" id="approvalMain">
+
+  <!-- Intro: 2-spaltig auf Desktop — Inhalt je Zustand durch JS (renderIntro) -->
+  <div class="approval-intro" id="approvalIntro"></div>
+
+  <!-- Vertrauens-Modus: alle Produkte auf einmal unbegrenzt freigeben -->
+  <div class="approval-trust">
+    <label class="form-check">
+      <input type="checkbox" id="trustToggle" onchange="toggleTrust(this.checked)">
+      <span>Volles Vertrauen: alle Produkte unbegrenzt freigeben</span>
+    </label>
+  </div>
+
+  <!-- Produkt-Grid — datengetrieben durch tierarzt-empfehlung-freigabe.js -->
+  <div class="approval-product-grid" id="approvalGrid"></div>
+
+  <!-- Sticky Submit-Leiste: Counter + CTA bleiben beim Scrollen sichtbar -->
+  <div class="approval-submit-bar">
+    <p class="approval-counter" id="approvalCounter">0 von 5 Produkten freigegeben</p>
+    <button class="btn --primary" onclick="submitApproval()">Freigabe absenden</button>
+  </div>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     E-Mail-Overlay
+     ════════════════════════════════════════ -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
+</div>
+
+<script src="../inuvet.js"></script>
+
+
+<script src="tierarzt-empfehlung-freigabe.js"></script>
+</body>
+</html>

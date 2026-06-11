@@ -1,0 +1,363 @@
+/* ═══════════════════════════════════════════════════════
+   Tierarzt-Empfehlung.css
+   Seitenspezifische Darstellungsanpassungen für dieses Mockup.
+   Nie in Produktion einbinden.
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Seitenweite Tokens ─── */
+:root {
+  --check-icon-size: 13px; /* einheitlich für alle drei Freigabe-Badge-Kontexte */
+}
+
+/* ─── Logo-Override (nur diese Seite) ─── */
+.nav-center img { transform: scale(1.5); }
+
+/* ─── Footer ─── */
+#shopFooter .footer-main { grid-template-columns: repeat(4, 1fr); }
+.footer-col.--newsletter { grid-column: span 2; }
+.footer-nl-form {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+  margin-top: var(--half-module);
+}
+
+/* ─── Hero-Content-Box: leicht transparent ─── */
+body.--page-home .section-type.--v3 .section-type__content {
+  background: color-mix(in srgb, var(--green-light) 80%, transparent);
+}
+
+/* ─── Hero: Höhe um Intro-Strip reduzieren (nur ab 768px) ─── */
+@media (min-width: 768px) {
+  body.--page-home .section-type.--viewport {
+    height: calc(100dvh - var(--header-height) - var(--intro-strip-height, 0px));
+  }
+}
+
+
+/* ─── Testimonial-Strip (direkt unter Header, über Hero) ─── */
+.intro-strip {
+  background: var(--bg);
+  position: relative;
+}
+
+.intro-strip__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--module) var(--module) var(--half-module);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--module);
+}
+
+.intro-strip .testimonial {
+  border-top: none;
+  padding-top: 0;
+  gap: calc(var(--base) * 0.25);
+}
+.intro-strip .testimonial__text { font-style: italic; }
+.intro-strip .testimonial__name { font-size: var(--text-xs); }
+
+.testimonial-slider.--no-borders .testimonial { border-top: none; padding-top: 0; }
+
+@media (max-width: 1100px) and (min-width: 801px) {
+  .intro-strip__inner { grid-template-columns: repeat(3, 1fr); }
+  .intro-strip .testimonial:last-child { display: none; }
+}
+
+@media (max-width: 800px) {
+  .intro-strip__inner {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: var(--half-module);
+    padding: var(--half-module);
+    scrollbar-width: none;
+  }
+  .intro-strip__inner::-webkit-scrollbar { display: none; }
+  .intro-strip .testimonial { flex: 0 0 72vw; }
+}
+
+/* ─── So funktioniert's — Prozess-Pfad ─── */
+.hiw {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--base) * 0.6) 0;
+}
+.hiw .page { padding-top: 0; padding-bottom: 0; }
+
+.hiw__track {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Node — offener Kreis als Prozess-Punkt */
+.hiw__step {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--base) * 0.4);
+  flex: 0 0 auto;
+  max-width: 13rem;
+}
+
+.hiw__node {
+  width:  calc(var(--base) * 0.6);
+  height: calc(var(--base) * 0.6);
+  border: 1.5px solid var(--fg-muted);
+  border-radius: 50%;
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: calc(var(--base) * 0.2);
+}
+
+.hiw__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.05);
+}
+
+.hiw__num {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.2;
+}
+
+.hiw__text {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  line-height: var(--lh-base);
+  margin: 0;
+}
+
+/* Verbindungslinie zwischen den Schritten */
+.hiw__connector {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--border);
+  margin-top: calc(var(--base) * 0.5);
+  min-width: var(--half-module);
+}
+
+@media (max-width: 600px) {
+  .hiw__track    { flex-direction: column; gap: calc(var(--base) * 0.5); }
+  .hiw__step     { max-width: none; }
+  .hiw__connector { display: none; }
+}
+
+/* ─── Produktfinder-Modal ─── */
+.finder__modal {
+  max-width: 28rem;
+  width: 100%;
+}
+.finder__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--half-module);
+  border-bottom: 1px solid var(--border);
+}
+.finder__body {
+  padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-module);
+}
+.finder__question {
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin: 0;
+}
+.finder__options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.4);
+}
+.finder__options.--row { flex-direction: row; }
+.finder__options.--row .choice-box { flex: 1; }
+.finder__results {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+}
+.finder__footer {
+  display: flex;
+  gap: var(--half-module);
+  padding: calc(var(--base) * 0.5) var(--half-module);
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Seiten-Elemente ─── */
+.shop-notice {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--green);
+  padding: var(--half-module);
+  margin-bottom: var(--module);
+}
+.shop-notice p {
+  font-size: var(--text-base);
+  color: var(--fg);
+  line-height: var(--lh-base);
+  margin-bottom: calc(var(--half-module) / 2);
+}
+.shop-notice p:last-child { margin-bottom: 0; }
+
+.shop-page-title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  margin-bottom: var(--half-module);
+}
+
+.btn-row {
+  display: flex;
+  gap: var(--half-module);
+  flex-wrap: wrap;
+}
+
+/* ─── Login-Panel: Abweichungen für Freigabe-Mockup ─── */
+/* Sub-Text agiert als Headline (kein .login-panel__title) */
+.login-form-panel .login-panel__header        { margin-bottom: var(--half-module); }
+.login-form-panel .login-panel__sub           { font-size: var(--text-m); font-weight: 700; color: var(--fg); line-height: var(--lh-h3); }
+/* Passwort-Feld direkt über »Passwort vergessen?« — kein unterer Abstand */
+.login-forgot-wrap > .form-field              { margin-bottom: 0; }
+
+/* ─── Tierarzt-Suche ─── */
+.vet-search { position: relative; margin-bottom: var(--half-module); }
+.vet-search__intro { color: var(--fg-muted); font-size: var(--text-base); margin-bottom: var(--half-module); }
+
+/* ─── Tierarzt-Dropdown ─── */
+.vet-dropdown__meta {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+}
+.vet-dropdown__add-icon {
+  font-size: var(--base);
+  vertical-align: middle;
+  margin-right: calc(var(--base) * 0.25);
+  color: var(--fg-muted);
+}
+
+/* ─── Freigabe-Badges (drei Kontexte — Basis: .circle-badge aus inuvet.css) ─
+   1. Pill-Badge auf Produktbild (top-right)
+   2. .circle-badge.--check auf choice-box (absolut positioniert)
+   3. .circle-badge.--check inline in PDP-Darreichungsform-Zeile
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* 1 — Pill-Badge: floating-meta top-right + Badge-Styling */
+.floating-meta.--right {
+  left: auto;
+  right: calc(var(--base) * 0.75);
+}
+.badge--rec {
+  gap: calc(var(--base) * 0.25);
+  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+  border-radius: 2em; /* Ausnahme: Pill-Badge */
+  background: var(--green);
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+.badge--rec .material-icons {
+  font-size: calc(var(--base) * 0.8125);
+  line-height: 1;
+}
+.badge--needs-release {
+  gap: calc(var(--base) * 0.25);
+  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
+  border-radius: 2em;
+  background: var(--color-honey);
+  color: var(--fg);
+  letter-spacing: 0.05em;
+}
+
+/* 2 — choice-box: nur Positionierung, Visuals via .circle-badge */
+.choice-box.--approved { position: relative; }
+.choice-box__check {
+  position: absolute;
+  top: -8px; right: -8px;
+}
+
+/* 3 — PDP-Darreichungsform: Label als Flex-Container für inline-Badge */
+.pdp__type-row.--approved .pdp__type-label {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.4);
+}
+/* .pdp__type-badge erbt alle Visuals von .circle-badge.--check */
+
+/* ─── Hero Split — Gast-Zustand ─── */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .section-type.--has-split .section-type__inner {
+    grid-template-columns: 3fr 1fr;
+  }
+}
+
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--half-module);
+}
+
+.hero-split__divider {
+  border-left: 1px dashed var(--border);
+}
+
+.hero-split__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-split__text {
+  color: var(--fg);
+  line-height: var(--lh-base);
+  flex: 1;
+}
+
+@media (min-width: 1100px) {
+  .hero-split__text {
+    font-size: 1.125rem;
+  }
+  .hero-split .btn {
+    font-size: 1.125rem;
+    padding: 1.25rem var(--module);
+  }
+}
+
+/* ─── Cart Drawer — Freigabe-Anfrage Schritt (komplett Honey) ─── */
+.cart-drawer.--request-step .cart-drawer__items,
+.cart-drawer.--request-step .cart-drawer__footer {
+  background: var(--color-honey);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+  --field-bg: var(--color-honey);
+  --field-bg-active: var(--color-honey);
+}
+
+/* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
+.cart-section--requested {
+  background: var(--color-honey);
+  margin: 0 calc(var(--module) * -1) 0;
+  padding: var(--half-module) var(--module) var(--module);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+}
+.cart-drawer__items > .cart-section--requested:first-child {
+  margin-top: calc(var(--module) * -1);
+}
+
+/* ─── Test-Hero: kein margin-top, direkt unter Nav ─── */
+.section-type.--v1.--hero-test { margin-top: 0; }
+
+/* ─── Honey-Button ─── */
+.btn.--honey {
+  background: var(--color-honey);
+  color: var(--fg);
+  border-color: var(--color-honey);
+}
+.btn.--honey:hover {
+  background: var(--color-honey);
+  border-color: var(--color-honey);
+  box-shadow: 0 0 0 2px var(--color-honey);
+}

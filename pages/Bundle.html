@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Dein persönliches Angebot</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="bundle.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Bundle.html" class="nav-item__trigger" aria-current="page">Mein Angebot</a>
+      </div>
+      <div class="nav-item">
+        <a href="Bundle-Info.html" class="nav-item__trigger">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
+        <span class="material-icons">shopping_cart</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
+    </div>
+    <div class="nav-col">
+      <a href="Bundle-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WARENKORB-DRAWER
+       ════════════════════════════════════════ -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <!-- Inhalt wird per JS gerendert -->
+  </div>
+
+  <!-- ARCHITEKTUR-REGEL:
+       <main> OHNE .page — section-type Varianten sind selbst-containerisiert.
+       Bundle-Inhalt liegt in <div class="page">, section-types direkt in <main>. -->
+  <main id="bundleMain">
+
+    <!-- ─── Hero ─── -->
+    <div class="section-type --v4 --viewport">
+      <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_02.jpg');"></div>
+      <div class="section-type__content flow">
+        <h1 class="section-type__headline">Jetzt sparen mit deinem<br>persönlichen Angebot</h1>
+        <div class="section-type--v4__cta">
+          <button class="btn --primary" onclick="document.getElementById('bundleSection').scrollIntoView({behavior:'smooth'})">Zum Angebot</button>
+          <a class="btn --ghost" href="Bundle-Info.html">Dokumentation</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Bundle Builder ─── -->
+    <div class="page" id="bundleSection">
+
+      <div class="bundle-intro">
+        <h2>Dein persönliches Angebot</h2>
+        <p>Basierend auf deinen Einkäufen der letzten 6 Monate haben wir dieses Set für dich zusammengestellt.</p>
+      </div>
+
+      <div class="bundle-grid" id="bundleGrid">
+
+        <!-- Linke Spalte: Produktliste -->
+        <div>
+          <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
+        </div>
+
+        <!-- Rechte Spalte: Zusammenfassung + Empfehlungen -->
+        <div>
+          <div class="summary-card" id="summaryCard">
+            <p class="summary-card__title">Dein Angebot (<span id="paidCount">0</span> Produkte)</p>
+            <p class="summary-card__products" id="summaryProducts">—</p>
+
+            <div class="summary-card__line --free">
+              <span>Du sparst</span>
+              <span id="savingsAmount">0,00 €</span>
+            </div>
+
+            <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
+              In den Warenkorb
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- /bundle-section -->
+
+    <!-- ─── Empfehlungen: Weitere Produkte zum Angebot hinzufügen ─── -->
+    <section class="bundle-recommendations" id="bundleRecommendations">
+      <div class="page">
+        <p class="bundle-recommendations__lead">Zum Angebot hinzufügen</p>
+        <div class="bundle-recommendations__scroller" id="recommendationsScroller"></div>
+      </div>
+    </section>
+
+    <!-- ─── Bild + Text Section → Hinweis auf Blogbeitrag ─── -->
+    <div class="section-type --v3 --viewport --reverse">
+      <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_01.jpg');"></div>
+      <div class="section-type__inner">
+        <div class="section-type__content flow">
+          <h2 class="section-type__headline">Bis zu 5 Produkte kostenlos – automatisch.</h2>
+          <p class="section-type__body">Je regelmäßiger du nachbestellst, desto mehr profitierst du. Unser Naturalrabatt-System belohnt dich mit Gratisprodukten – ohne Gutscheine, ohne Aufwand. Erfahre, wie das Angebot aufgebaut ist und wie du das Meiste daraus machst.</p>
+          <div class="section-type__cta">
+            <a class="btn --primary" href="Bundle-Info.html">Mehr erfahren</a>
+            <button class="btn --ghost" onclick="window.scrollTo({top:0,behavior:'smooth'})">Angebot anpassen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Testimonials ─── -->
+    <div class="page" id="bundleTestimonials">
+
+      <div class="testimonial-slider --cols-3" id="tSlider">
+        <div class="testimonial-slider__track" id="tTrack"></div>
+        <div class="slider-nav">
+          <button class="slider-btn icon-box" type="button" aria-label="Zurück"  data-dir="prev" disabled><span class="material-icons">arrow_back</span></button>
+          <span class="slider-counter" id="tCounter"></span>
+          <button class="slider-btn icon-box" type="button" aria-label="Weiter"  data-dir="next"><span class="material-icons">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Produkt-Grid mit Sonderkachel ─── -->
+    <div class="page" id="bundleTiles">
+      <div class="tile-grid --cols-3">
+
+        <!-- Calmin -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <div class="tile__image">
+              <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+            </div>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Calmin balance</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div>
+          </div>
+          <div class="tile__description">Für Entspannung und innere Balance bei Hunden und Katzen.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
+        </div>
+
+        <!-- Hepax -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <div class="tile__image">
+              <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
+              <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+            </div>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Hepax forte</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div>
+          </div>
+          <div class="tile__description">Unterstützt Leber und Stoffwechsel – hochdosiert und tierärztlich geprüft.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 44,90 €</span></div></div>
+        </div>
+
+        <!-- Sonderkachel -->
+        <div class="tile --featured">
+          <h3 class="tile__headline">Entdecke unsere Neuheiten im Sommer</h3>
+          <div class="tile__bottom">
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+            <a href="#" class="btn --primary">Alle Produkte</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mockup-Steuerleiste -->
+  <button class="mockup-fab" onclick="openSettings()" title="Parameter festlegen">⚙ Parameter</button>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay mockup-modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
+    <div class="mockup-modal">
+      <div class="mockup-modal__header">
+        <span class="mockup-modal__title">Naturalrabatt konfigurieren</span>
+        <button type="button" class="mockup-modal__close" onclick="closeSettings()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="mockup-modal__body">
+        <div class="mockup-modal__note">
+          <span class="material-icons">settings</span>
+          <span>Tabellen für Kondition A und B sind <strong>global fix</strong>. Im Backend pro Produkt wählbar: welches Modell gilt. Default ist <strong>Kondition A</strong>.</span>
+        </div>
+
+        <!-- Kundentyp-Toggle (für Mockup; im echten Shop via Customer-Tag) -->
+        <p class="mockup-modal__desc">Kunden-Status (für Demo-Zwecke umschaltbar)</p>
+        <div class="mockup-customer-toggle" id="customerToggle">
+          <button type="button" class="mockup-toggle-btn --active" data-type="standard" onclick="setCustomerType('standard')">Standard-Kunde</button>
+          <button type="button" class="mockup-toggle-btn"          data-type="group"    onclick="setCustomerType('group')">Gruppen-Kunde</button>
+        </div>
+
+        <!-- Produkt-Modell-Auswahl -->
+        <p class="mockup-modal__desc">Modell pro Produkt</p>
+        <div id="modelSelector"></div>
+
+        <!-- Anzahl Empfehlungen unter dem Bundle -->
+        <p class="mockup-modal__desc">Anzahl angezeigter weiterer Empfehlungen</p>
+        <div class="mockup-customer-toggle" id="recommendationsCountToggle">
+          <button type="button" class="mockup-toggle-btn" data-count="0" onclick="setRecommendationsCount(0)">0</button>
+          <button type="button" class="mockup-toggle-btn" data-count="1" onclick="setRecommendationsCount(1)">1</button>
+          <button type="button" class="mockup-toggle-btn" data-count="2" onclick="setRecommendationsCount(2)">2</button>
+          <button type="button" class="mockup-toggle-btn" data-count="3" onclick="setRecommendationsCount(3)">3</button>
+          <button type="button" class="mockup-toggle-btn --active" data-count="4" onclick="setRecommendationsCount(4)">4</button>
+          <button type="button" class="mockup-toggle-btn" data-count="5" onclick="setRecommendationsCount(5)">5</button>
+          <button type="button" class="mockup-toggle-btn" data-count="6" onclick="setRecommendationsCount(6)">6</button>
+        </div>
+
+        <!-- Bestellhistorie simulieren — Mockup-Schalter; im echten Shop serverseitig -->
+        <p class="mockup-modal__desc">Bestellhistorie simulieren <span style="font-weight:400;color:var(--fg-muted)">(im echten Shop serverseitig entschieden)</span></p>
+        <div class="mockup-customer-toggle" id="historyPeriodToggle">
+          <button type="button" class="mockup-toggle-btn --active" data-period="normal"   onclick="setHistoryPeriod('normal')">Normal (180 Tage)</button>
+          <button type="button" class="mockup-toggle-btn"          data-period="fallback" onclick="setHistoryPeriod('fallback')">Nur 18 Monate</button>
+        </div>
+
+        <div class="mockup-modal__footer">
+          <button type="button" class="mockup-btn --confirm" onclick="closeSettings()">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Navigation ──────────────────────────────────────────────────────────
+    window.openSearch  = () => document.getElementById('searchOverlay').classList.add('--open');
+    window.closeSearch = () => document.getElementById('searchOverlay').classList.remove('--open');
+    window.handleSearchOverlayClick = (e) => {
+      if (e.target === document.getElementById('searchOverlay')) closeSearch();
+    };
+
+    // ── Warenkorb-Drawer ────────────────────────────────────────────────────
+    window.openCart = () => {
+      renderCartDrawer();
+      document.getElementById('cartOverlay').classList.add('--open');
+      document.getElementById('cartDrawer').classList.add('--open');
+    };
+    window.closeCart = () => {
+      document.getElementById('cartOverlay').classList.remove('--open');
+      document.getElementById('cartDrawer').classList.remove('--open');
+    };
+
+    window.addBundleToCart = () => {
+      openCart();
+    };
+
+    const renderCartDrawer = () => {
+      const drawer = document.getElementById('cartDrawer');
+      const fmt2 = v => v.toFixed(2).replace('.', ',') + ' €';
+
+      if (activeBundle.length === 0) {
+        drawer.innerHTML = `
+          <div class="cart-drawer__header">
+            <h2 class="cart-drawer__title">Dein Bundle</h2>
+            <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+          </div>
+          <div class="cart-drawer__empty">
+            <p class="text-muted">Dein Bundle ist noch leer.</p>
+          </div>`;
+        return;
+      }
+
+      // Berechnung
+      let totalPaid = 0, totalFree = 0, totalSavings = 0;
+      activeBundle.forEach(p => {
+        totalPaid += p.quantity;
+        const free = calcFree(p);
+        totalFree    += free;
+        totalSavings += free * getActivePrice(p);
+      });
+      const subtotal = activeBundle.reduce((s, p) => s + getActivePrice(p) * p.quantity, 0);
+
+      const productNames = activeBundle.map(p => p.title).join(', ');
+      const firstImage   = activeBundle.find(p => p.image)?.image ?? '';
+      const thumbHTML    = firstImage
+        ? `<img src="${firstImage}" alt="Bundle" >`
+        : '';
+
+      const bundleItemHTML = `
+        <div class="cart-item">
+          <div class="product-thumb-wrap">
+            <div class="product-thumb placeholder-bg">${thumbHTML}</div>
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <div>
+                <p class="cart-item__name">Dein Persönliches Angebot</p>
+                <p class="cart-item__variant">${productNames}</p>
+              </div>
+              <button class="btn --icon cart-item__remove" onclick="closeCart()" aria-label="Entfernen">
+                <span class="material-icons">close</span>
+              </button>
+            </div>
+            <div class="cart-item__bottom">
+              <span class="cart-item__qty-text">${totalPaid} Produkte</span>
+              <span class="cart-item__price">${fmt2(subtotal)}</span>
+            </div>
+          </div>
+        </div>`;
+
+      drawer.innerHTML = `
+        <div class="cart-drawer__header">
+          <h2 class="cart-drawer__title">Warenkorb</h2>
+          <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="cart-drawer__items">${bundleItemHTML}</div>
+        <div class="cart-drawer__footer">
+          ${totalFree > 0 ? `
+          <div class="cart-drawer__free-row">
+            <span>Gratisprodukte (${totalFree}×)</span>
+            <span class="cart-drawer__free-value">Kostenlos</span>
+          </div>
+          <div class="cart-drawer__savings-row">
+            <span>Dein Vorteil</span>
+            <span class="cart-drawer__savings-value">+ ${fmt2(totalSavings)}</span>
+          </div>` : ''}
+          <div class="summary-total">
+            <span>Zwischensumme</span>
+            <span>${fmt2(subtotal)}</span>
+          </div>
+          <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>
+          <button class="btn --primary cart-drawer__checkout" onclick="alert('Weiter zur Kasse …')">Zur Kasse</button>
+          <div class="cart-drawer__continue-wrap">
+            <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Weiter einkaufen</button>
+          </div>
+        </div>`;
+    };
+
+    // ── Naturalrabatt-Tabellen (global, fix) ────────────────────────────────
+    // Kondition A: Bestellwert € → Naturalrabatt-Guthaben €.
+    // Anzahl Gratis-Stück = floor(Guthaben / Einzelpreis).
+    // Funktioniert pro Produktzeile (jeweiliges Produkt als Gratisprodukt).
+    const TABLE_A = [
+      { threshold:   400, credit:   40 },
+      { threshold:   500, credit:   60 },
+      { threshold:   750, credit:  120 },
+      { threshold:  1000, credit:  170 },
+      { threshold:  1500, credit:  170 },  // Plateau
+      { threshold:  2000, credit:  350 },
+      { threshold:  2500, credit:  350 },  // Plateau
+      { threshold:  3000, credit:  540 },
+      { threshold:  5000, credit: 1000 },
+      { threshold:  7500, credit: 1500 },
+      { threshold: 10000, credit: 2000 },
+      { threshold: 15000, credit: 3000 },
+      { threshold: 20000, credit: 4100 },
+    ];
+
+    // Kondition B: Stückzahl → Anzahl Gratis-Stück. Zwei Spalten:
+    // - standard: Default-Kunde
+    // - group:    Kunde mit Gruppen-Status (z.B. Shopify-Tag), Unterstufen leer = 0
+    const TABLE_B = [
+      { minQty:   6, standard:   1, group:   0 },
+      { minQty:  12, standard:   2, group:   0 },
+      { minQty:  18, standard:   3, group:   1 },
+      { minQty:  25, standard:   5, group:   2 },
+      { minQty:  30, standard:   6, group:   3 },
+      { minQty:  60, standard:  13, group:   6 },
+      { minQty:  90, standard:  20, group:  10 },
+      { minQty: 120, standard:  28, group:  14 },
+      { minQty: 240, standard:  56, group:  28 },
+      { minQty: 360, standard:  84, group:  42 },
+      { minQty: 480, standard: 112, group:  56 },
+    ];
+
+    // Globaler Kundentyp (im echten Shop via Customer-Tag, im Mockup via Toggle)
+    let customerType = 'standard';   // 'standard' | 'group'
+
+    // Anzahl angezeigter Produkte in der Empfehlungs-Schiene.
+    // Default = 4 (passt zum 4-spaltigen Raster).
+    // Im echten Shop ein Theme-/App-Setting; im Mockup im Settings-Modal einstellbar.
+    let recommendationsCount = 4;
+
+    // ── Daten ──────────────────────────────────────────────────────────────
+    // pricingModel: 'A' (Default, Kondition A) oder 'B' (Kondition B, Tabelle fix).
+    // Backend-konfigurierbar pro Produkt.
+    const allProducts = [
+      // ── Produktfamilien ──────────────────────────────────────────────────
+      // isFamily: true  → variants[selectedVariantIdx].sizes[selectedSizeIdx].price = aktiver Preis
+      // isFamily: false → price = fixer Preis
+      // past6Months:  Käufe in den letzten 180 Tagen  (Basis-Pool)
+      // past18Months: Käufe in den letzten 549 Tagen  (Fallback-Pool; schließt past6Months ein)
+      { id: 1, isFamily: true, title: 'Hypolene', past6Months: 14, past18Months: 38, pricingModel: 'A',
+        variants: [
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '60 g',      price: 39.90 }, { label: '250 g',     price: 129.90 }] },
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '60 Stück',  price: 35.90 }, { label: '150 Stück', price:  79.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 60 g
+
+      { id: 2, isFamily: true, title: 'EnteroGast', past6Months: 6, past18Months: 16, pricingModel: 'A',
+        variants: [
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '6 Stück',    price:  24.90 }, { label: '21 Stück',   price:  69.90 }] },
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '50 g',        price:  22.90 }, { label: '150 g',      price:  59.90 }] },
+          { type: 'Pulver',    animals: 'Kleintiere',  sizes: [{ label: '50 g',        price:  19.90 }] },
+          { type: 'Sachets',   animals: 'Katze, Hund', sizes: [{ label: '20 Sachets',  price:  26.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 1 },  // meistgekauft: Tabletten, 21 Stück
+
+      { id: 3, isFamily: true, title: 'Respirax', past6Months: 10, past18Months: 27, pricingModel: 'A',
+        variants: [
+          { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '45 g',      price:  27.50 }, { label: '180 g',     price:  89.90 }] },
+          { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '30 Stück',  price:  29.90 }, { label: '90 Stück',  price:  74.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Pulver, 45 g
+
+      { id: 4, isFamily: true, title: 'Vesica', past6Months: 4, past18Months: 11, pricingModel: 'A',
+        variants: [
+          { type: 'Tabletten', animals: 'Hund', sizes: [{ label: '30 Stück', price:  32.00 }, { label: '90 Stück',  price:  85.90 }] },
+          { type: 'Pulver',    animals: 'Hund', sizes: [{ label: '120 g',    price:  35.90 }, { label: '450 g',     price: 109.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },  // meistgekauft: Tabletten, 30 Stück
+
+      // ── Einzelprodukte ──────────────────────────────────────────────────
+      { id:  5, isFamily: false, title: 'Laxin Pulver',           price: 22.50, past6Months: 3, past18Months:  8, pricingModel: 'A' },
+      // Ibedex + Inzym + FloraComplex Pulver: kein 180-Tage-Kauf, aber in 18 Monaten
+      // genug History für ≥ 1 Gratisprodukt (Mindest-Bestellwert 400 € via Kondition A).
+      { id:  6, isFamily: false, title: 'Ibedex Pulver',          price: 29.90, past6Months: 0, past18Months: 14, pricingModel: 'A' },
+      { id:  7, isFamily: false, title: 'Inzym Pulver',           price: 34.50, past6Months: 0, past18Months: 14, pricingModel: 'A' },
+      { id:  9, isFamily: false, title: 'Otysan Fluid',           price: 24.90, past6Months: 0, past18Months:  6, pricingModel: 'A' },
+      { id: 10, isFamily: false, title: 'FloraComplex Tabletten', price: 32.90, past6Months: 0, past18Months:  0, pricingModel: 'A' },
+      { id: 11, isFamily: false, title: 'FloraComplex Pulver',    price: 27.50, past6Months: 0, past18Months: 16, pricingModel: 'A' },
+      { id: 12, isFamily: false, title: 'Calmin balance',         price: 39.90, past6Months: 0, past18Months:  0, pricingModel: 'A', image: '../assets/images/Calmin_Packshot_01.jpeg' },
+      { id: 13, isFamily: false, title: 'Hepax forte',            price: 44.90, past6Months: 0, past18Months:  0, pricingModel: 'A', image: '../assets/images/Hepax_Packshot_01.jpeg' },
+
+      { id: 8, isFamily: true, title: 'Struvex', past6Months: 0, past18Months: 0, pricingModel: 'A',
+        variants: [
+          { type: 'Pulver',    animals: 'Katze', sizes: [{ label: '60 g',      price:  28.50 }, { label: '250 g',     price:  94.90 }] },
+          { type: 'Tabletten', animals: 'Katze', sizes: [{ label: '40 Stück',  price:  26.90 }, { label: '120 Stück', price:  69.90 }] },
+        ],
+        selectedVariantIdx: 0, selectedSizeIdx: 0 },
+    ];
+
+    // Aktiver Preis: bei Familien aus gewählter Variante + Größe, bei Einzelprodukten fix
+    const getActivePrice = (p) => {
+      if (!p.isFamily) return p.price;
+      return p.variants[p.selectedVariantIdx].sizes[p.selectedSizeIdx].price;
+    };
+
+    // ── Sichtbarkeits-Logik (einmalige Entscheidung beim Load) ──────────────
+    // Schritt 1: 180-Tage-Pool (past6Months) prüfen.
+    //   Mindestens ein Produkt mit Gratisartikel? → Section zeigen.
+    // Schritt 2: Nein → 549-Tage-Fallback (past18Months) prüfen.
+    // Schritt 3: Immer noch nichts → Section bleibt ausgeblendet.
+    //
+    // Nach dem initialen Entscheid wird bundleVisible NIE mehr geändert —
+    // auch dann nicht, wenn der User alle Produkte mit Rabatt entfernt.
+    // Im echten Shop würde der Server den Kunden gar nicht auf diese Page leiten
+    // wenn keiner der Pools Gratisartikel erzeugt.
+    let bundleVisible   = false;
+    let activePeriod    = null;    // '180' | '549' | null
+    let activeBundle    = [];
+    let recommendedPool = [];
+
+    const initBundle = (forceEmpty180 = false) => {
+      bundleVisible = false;
+      activePeriod  = null;
+      activeBundle  = [];
+      recommendedPool = [];
+
+      // Hilfsfunktion: Pool für einen Zeitraum aufbauen und prüfen.
+      // Setzt p.quantity direkt auf den Produktobjekten (in-place).
+      const tryPeriod = (periodKey) => {
+        const pool = allProducts
+          .filter(p => (p[periodKey] ?? 0) > 0)
+          .sort((a, b) => (b[periodKey] ?? 0) - (a[periodKey] ?? 0));
+        pool.forEach(p => { p.quantity = Math.ceil(p[periodKey] / 8) * 8; });
+        const bundle      = pool.slice(0, 5);
+        const hasDiscount = bundle.some(p => calcFree(p) > 0);
+        return { pool, bundle, hasDiscount };
+      };
+
+      // Schritt 1: 180 Tage
+      if (!forceEmpty180) {
+        const r = tryPeriod('past6Months');
+        if (r.hasDiscount) {
+          bundleVisible = true;
+          activePeriod  = '180';
+          activeBundle  = r.bundle;
+          const ids = new Set(r.bundle.map(p => p.id));
+          recommendedPool = [
+            ...r.pool.filter(p => !ids.has(p.id)),
+            ...allProducts.filter(p => !(p.past6Months > 0)),
+          ];
+          allProducts.filter(p => !(p.past6Months > 0)).forEach(p => { p.quantity = 1; });
+          return;
+        }
+      }
+
+      // Schritt 2: 549 Tage (Fallback)
+      const r = tryPeriod('past18Months');
+      if (r.hasDiscount) {
+        bundleVisible = true;
+        activePeriod  = '549';
+        activeBundle  = r.bundle;
+        const ids = new Set(r.bundle.map(p => p.id));
+        recommendedPool = [
+          ...r.pool.filter(p => !ids.has(p.id)),
+          ...allProducts.filter(p => !(p.past18Months > 0)),
+        ];
+        allProducts.filter(p => !(p.past18Months > 0)).forEach(p => { p.quantity = 1; });
+        return;
+      }
+
+      // Schritt 3: Kein Pool liefert Gratis-Produkte → Section wird nicht gezeigt.
+    };
+
+    // Wendet bundleVisible auf das DOM an (Section + Empfehlungs-Schiene).
+    const applyVisibility = () => {
+      document.getElementById('bundleSection').style.display = bundleVisible ? '' : 'none';
+      const recsEl = document.getElementById('bundleRecommendations');
+      if (recsEl) recsEl.style.display = bundleVisible ? '' : 'none';
+    };
+
+    const fmt = v => v.toFixed(2).replace('.', ',') + ' €';
+
+    // ── Kondition A: Bestellwert → Guthaben €
+    const lookupCreditA = (orderValue) => {
+      let credit = 0;
+      for (const tier of TABLE_A) {
+        if (orderValue >= tier.threshold) credit = tier.credit;
+        else break;
+      }
+      return credit;
+    };
+
+    // ── Kondition B: Stückzahl → Gratis-Anzahl (Standard oder Gruppen-Spalte)
+    const lookupFreeB = (quantity) => {
+      const tier = [...TABLE_B].reverse().find(t => quantity >= t.minQty);
+      if (!tier) return 0;
+      return customerType === 'group' ? tier.group : tier.standard;
+    };
+
+    // ── Anzahl Gratis-Stück für ein Produkt — wählt automatisch das Modell
+    const calcFree = (p) => {
+      const model = p.pricingModel || 'A';
+      const qty   = p.quantity;
+      const price = getActivePrice(p);
+      if (model === 'A') {
+        const credit = lookupCreditA(qty * price);
+        return Math.floor(credit / price);
+      }
+      return lookupFreeB(qty);
+    };
+
+    // ── Hint: nächste Stufe, die TATSÄCHLICH mehr Gratis-Stück bringt.
+    // Plateaus (gleicher Wert in Folge-Stufe) werden übersprungen.
+    // Gibt { moreQty, moreFree } zurück oder null, wenn nichts mehr möglich.
+    const getHint = (p) => {
+      const model       = p.pricingModel || 'A';
+      const qty         = p.quantity;
+      const price       = getActivePrice(p);
+      const currentFree = calcFree(p);
+
+      if (model === 'A') {
+        const currentValue = qty * price;
+        for (const tier of TABLE_A) {
+          if (tier.threshold <= currentValue) continue;
+          const neededQty = Math.ceil(tier.threshold / price);
+          const newFree   = Math.floor(tier.credit / price);
+          if (newFree > currentFree) {
+            return { moreQty: neededQty - qty, moreFree: newFree - currentFree };
+          }
+        }
+        return null;
+      }
+
+      // Modell B
+      for (const tier of TABLE_B) {
+        if (tier.minQty <= qty) continue;
+        const newFree = customerType === 'group' ? tier.group : tier.standard;
+        if (newFree > currentFree) {
+          return { moreQty: tier.minQty - qty, moreFree: newFree - currentFree };
+        }
+      }
+      return null;
+    };
+
+    // Hint als formatierter Text (mit korrekter Pluralität)
+    const formatHint = (hint) => {
+      if (!hint) return null;
+      const part = hint.moreFree === 1
+        ? '1 weiteres Gratisprodukt'
+        : `${hint.moreFree} weitere Gratisprodukte`;
+      return `${hint.moreQty} Stück hinzufügen für ${part}`;
+    };
+
+    // ── Render: Bundle ─────────────────────────────────────────────────────
+    const renderBundle = () => {
+      // Intro-Text: Zeitraum je nach aktivem Pool dynamisch setzen.
+      const introP = document.querySelector('#bundleSection .bundle-intro p');
+      if (introP) {
+        const label = activePeriod === '549' ? '18 Monaten' : '6 Monaten';
+        introP.textContent = `Basierend auf deinen Einkäufen der letzten ${label} haben wir dieses Set für dich zusammengestellt.`;
+      }
+
+      const list = document.getElementById('productList');
+      list.innerHTML = '';
+
+      if (activeBundle.length === 0) {
+        list.innerHTML = `
+          <div class="empty-state">
+            <span class="material-icons">inventory_2</span>
+            <p>Dein Bundle ist leer. Füge unten Produkte hinzu.</p>
+          </div>`;
+      }
+
+      activeBundle.forEach(p => {
+        const freeItems = calcFree(p);
+
+        const historyText = p.past6Months > 0
+          ? ` · <strong>Letzte 6 Monate: ${p.past6Months}× gekauft</strong>` : '';
+
+        const freeBadgeHtml = freeItems > 0
+          ? `<span class="badge --free">+${freeItems} gratis</span>` : '';
+
+        const thumbContentHtml = p.image
+          ? `<img src="${p.image}" alt="${p.title}" >`
+          : '';
+
+        const card = document.createElement('div');
+        card.className = `cart-item bundle-item${p.isNew ? ' is-entering' : ''}`;
+        p.isNew = false;
+
+        const tierHint = formatHint(getHint(p));
+        const variant  = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
+        const sizeLabel = variant ? variant.sizes[p.selectedSizeIdx].label + ' · ' : '';
+        const displayName = p.isFamily ? `${p.title} ${variant.type}` : p.title;
+
+        card.innerHTML = `
+          <div class="product-thumb-wrap">
+            <div class="product-thumb placeholder-bg">${thumbContentHtml}</div>
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <div>
+                <p class="cart-item__name">${displayName}</p>
+                <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.${historyText}</div>
+              </div>
+              <button type="button" class="btn --icon cart-item__remove"
+                onclick="removeProduct(${p.id})" title="Entfernen">
+                <span class="material-icons">close</span>
+              </button>
+            </div>
+            <div class="cart-item__bottom">
+              <div class="cart-item__counter">
+                <div class="qty-selector --sm">
+                  <button type="button" class="qty-selector__btn"
+                    onclick="updateQuantity(${p.id}, -1)">
+                    <span class="material-icons">remove</span>
+                  </button>
+                  <input class="qty-selector__input" type="number"
+                    value="${p.quantity}" min="1"
+                    onchange="setQuantity(${p.id}, parseInt(this.value)||1)">
+                  <button type="button" class="qty-selector__btn"
+                    onclick="updateQuantity(${p.id}, 1)">
+                    <span class="material-icons">add</span>
+                  </button>
+                </div>
+                ${freeItems > 0 ? `<span class="badge --free">inkl. ${freeItems} Gratis</span>` : ''}
+              </div>
+            </div>
+          </div>
+          ${tierHint ? `<span class="bundle-item__tier-hint" aria-hidden="true">${tierHint}</span>` : ''}`;
+        list.appendChild(card);
+      });
+
+      updateSummary();
+      renderRecommendations();
+    };
+
+    // ── Render: Empfehlungs-Schiene ─────────────────────────────────────────
+    // Cart-Item-Pattern (C.2 aus Styleguide) auf weißem Hintergrund, horizontal scrollbar.
+    // Jedes Item: Thumb + Name/Variante + Preis + "+ Hinzufügen"-Button.
+    // Anzahl gezeigter Items: recommendationsCount (Default 3, im Modal einstellbar).
+    const renderRecommendations = () => {
+      const scroller = document.getElementById('recommendationsScroller');
+      const section  = document.getElementById('bundleRecommendations');
+      if (!scroller || !section) return;
+
+      const visiblePool = recommendedPool.slice(0, recommendationsCount);
+
+      // Section verbergen, wenn nichts zu zeigen ist (Pool leer ODER count = 0)
+      if (visiblePool.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+      scroller.innerHTML = '';
+
+      visiblePool.forEach(p => {
+        const variant     = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
+        const displayName = p.isFamily ? `${p.title} ${variant.type}` : p.title;
+        const sizeLabel   = variant ? variant.sizes[p.selectedSizeIdx].label + ' · ' : '';
+        const thumbHtml   = p.image ? `<img src="${p.image}" alt="${p.title}">` : '';
+
+        const card = document.createElement('div');
+        card.className = 'cart-item';
+        card.innerHTML = `
+          <div class="product-thumb-wrap">
+            <div class="product-thumb placeholder-bg">${thumbHtml}</div>
+          </div>
+          <div class="cart-item__info">
+            <div class="cart-item__top">
+              <div>
+                <p class="cart-item__name">${displayName}</p>
+                <div class="cart-item__variant">${sizeLabel} · ${fmt(getActivePrice(p))}</div>
+              </div>
+            </div>
+            <div class="cart-item__bottom">
+              <button type="button" class="btn --secondary --sm --with-icon --full" onclick="addProduct(${p.id})">
+                <span class="material-icons">add</span> Hinzufügen
+              </button>
+            </div>
+          </div>`;
+        scroller.appendChild(card);
+      });
+    };
+
+
+    // ── Aktionen ────────────────────────────────────────────────────────────
+    window.updateQuantity = (id, delta) => {
+      const p = activeBundle.find(p => p.id === id);
+      if (p && p.quantity + delta >= 1) { p.quantity += delta; renderBundle(); }
+    };
+
+    window.setQuantity = (id, val) => {
+      const p = activeBundle.find(p => p.id === id);
+      if (p && val >= 1) { p.quantity = val; renderBundle(); }
+    };
+
+
+    window.removeProduct = (id) => {
+      const i = activeBundle.findIndex(p => p.id === id);
+      if (i === -1) return;
+      const [removed] = activeBundle.splice(i, 1);
+      removed.quantity = 1;
+      recommendedPool.unshift(removed);
+      renderBundle();
+    };
+
+    window.addProduct = (id) => {
+      const i = recommendedPool.findIndex(p => p.id === id);
+      if (i === -1) return;
+      const [added] = recommendedPool.splice(i, 1);
+      added.isNew = true;
+      activeBundle.push(added);
+      renderBundle();
+      setTimeout(() => {
+        const cards = document.querySelectorAll('#productList .bundle-item');
+        if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    };
+
+    // ── Summary ─────────────────────────────────────────────────────────────
+    const updateSummary = () => {
+      let paidItems = 0, freeItems = 0, savings = 0;
+
+      activeBundle.forEach(p => {
+        paidItems += p.quantity;
+        const free = calcFree(p);
+        freeItems += free;
+        savings   += free * getActivePrice(p);
+      });
+
+      const names = activeBundle.map(p => p.title).join(', ');
+      document.getElementById('summaryProducts').textContent = names || '—';
+      document.getElementById('paidCount').textContent  = paidItems;
+      document.getElementById('savingsAmount').textContent = `+ ${fmt(savings)}`;
+      document.querySelector('.summary-card__line.--free').style.display = freeItems > 0 ? '' : 'none';
+
+    };
+
+
+    // ── Settings Modal ──────────────────────────────────────────────────────
+    window.openSettings = () => {
+      renderCustomerToggle();
+      renderModelSelector();
+      document.getElementById('settingsModal').classList.add('--open');
+    };
+    window.closeSettings = () => document.getElementById('settingsModal').classList.remove('--open');
+    window.handleOverlayClick = (e) => {
+      if (e.target === document.getElementById('settingsModal')) closeSettings();
+    };
+
+    // Aktualisiert den aktiven Zustand der Kundentyp-Buttons
+    const renderCustomerToggle = () => {
+      document.querySelectorAll('#customerToggle .mockup-toggle-btn').forEach(btn => {
+        btn.classList.toggle('--active', btn.dataset.type === customerType);
+      });
+    };
+
+    window.setCustomerType = (type) => {
+      customerType = type;
+      renderCustomerToggle();
+      renderBundle();   // alle Berechnungen neu (Bundle + Summary)
+    };
+
+    // Anzahl Empfehlungen aktualisieren + Toggle-Button-State synchronisieren
+    window.setRecommendationsCount = (count) => {
+      recommendationsCount = +count;
+      document.querySelectorAll('#recommendationsCountToggle .mockup-toggle-btn').forEach(btn => {
+        btn.classList.toggle('--active', +btn.dataset.count === recommendationsCount);
+      });
+      renderRecommendations();
+    };
+
+    // Pro Produkt eine Zeile: Name + A/B-Toggle
+    const renderModelSelector = () => {
+      const container = document.getElementById('modelSelector');
+      container.innerHTML = '';
+      allProducts.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'mockup-model-row';
+        const model = p.pricingModel || 'A';
+        row.innerHTML = `
+          <span class="mockup-model-row__name">${p.title}</span>
+          <div class="mockup-model-row__toggle">
+            <button type="button" class="mockup-toggle-btn ${model === 'A' ? '--active' : ''}"
+                    onclick="setProductModel(${p.id}, 'A')">Kondition A</button>
+            <button type="button" class="mockup-toggle-btn ${model === 'B' ? '--active' : ''}"
+                    onclick="setProductModel(${p.id}, 'B')">Kondition B</button>
+          </div>`;
+        container.appendChild(row);
+      });
+    };
+
+    // Mockup-Schalter: Zeitraum neu simulieren und Bundle neu initialisieren.
+    // Im echten Shop wäre dies eine serverseitige Entscheidung beim Page-Load.
+    window.setHistoryPeriod = (period) => {
+      document.querySelectorAll('#historyPeriodToggle .mockup-toggle-btn').forEach(btn => {
+        btn.classList.toggle('--active', btn.dataset.period === period);
+      });
+      initBundle(period === 'fallback');
+      applyVisibility();
+      if (bundleVisible) renderBundle();
+    };
+
+    window.setProductModel = (productId, model) => {
+      const p = allProducts.find(p => p.id === productId);
+      if (!p) return;
+      p.pricingModel = model;
+      renderModelSelector();
+      renderBundle();
+    };
+
+    // ── Sticky Summary (Mobile) ─────────────────────────────────────────────
+    const summaryCard    = document.getElementById('summaryCard');
+    const bundleSection  = document.getElementById('bundleSection');
+
+    const stickyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => summaryCard.classList.toggle('--sticky-visible', e.isIntersecting));
+    }, { threshold: 0.05 });
+
+    stickyObserver.observe(bundleSection);
+
+    // ── Testimonial-Slider ──────────────────────────────────────────────────
+    const TESTIMONIALS = [
+      { text: 'Nach wenigen Wochen hat sich die Beweglichkeit meiner Hündin spürbar verbessert. Das Vorrats-Bundle spart mir Zeit und bringt echte Vorteile.',    name: 'Sandra M.',   role: 'Labrador-Besitzerin, München'    },
+      { text: 'Endlich eine einfache Möglichkeit, regelmäßig nachzubestellen. Hypolene ist aus dem Alltag mit meinem Retriever nicht mehr wegzudenken.',           name: 'Thomas K.',   role: 'Hundebesitzer, Hamburg'          },
+      { text: 'Das Naturalrabatt-System ist eine tolle Idee. Ich bekomme Gratis-Produkte dazu und muss nicht jedes Mal neu überlegen, was ich bestelle.',           name: 'Julia R.',    role: 'Tierliebhaberin, Berlin'         },
+      { text: 'Seit ich das Bundle nutze, habe ich Respirax immer vorrätig. Mein Tierarzt ist begeistert – und mein Hund auch.',                                    name: 'Markus T.',   role: 'Golden-Retriever-Besitzer'       },
+      { text: 'Der Vorteil beim Bundle ist unschlagbar. Ich zahle weniger und habe immer genug auf Lager. Absolute Empfehlung für alle, die regelmäßig bestellen.', name: 'Petra L.',    role: 'Hundebesitzerin, Köln'           },
+      { text: 'Ich habe das Bundle meiner Tierärztin gezeigt – sie war sofort überzeugt. Jetzt nutzen wir es schon seit Monaten und sind sehr zufrieden.',          name: 'Anna W.',     role: 'Beagle-Mama, Frankfurt'          },
+    ];
+
+    (function initSlider() {
+      const track   = document.getElementById('tTrack');
+      const counter = document.getElementById('tCounter');
+      const slider  = document.getElementById('tSlider');
+      const prevBtn = slider.querySelector('[data-dir="prev"]');
+      const nextBtn = slider.querySelector('[data-dir="next"]');
+      let current   = 0;
+
+      track.innerHTML = TESTIMONIALS.map(t => `
+        <div class="testimonial-slider__slide testimonial">
+          <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+          <p class="testimonial__text">${t.text}</p>
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+          </div>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar icon-box placeholder-bg"></div>
+            <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
+          </div>
+        </div>`).join('');
+
+      const slides = track.querySelectorAll('.testimonial-slider__slide');
+
+      function getVisible() {
+        const w = window.innerWidth;
+        if (w <= 767) return slides.length; // Mobile: alle sichtbar (vertikaler Stack via CSS)
+        return w <= 1535 ? 2 : 3;
+      }
+      function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
+      function update() {
+        const vis     = getVisible();
+        const maxPage = getMaxPage();
+        if (current > maxPage) current = maxPage;
+
+        // .--visible setzen — auf Mobile braucht inuvet.css diese Klasse
+        slides.forEach((s, idx) => {
+          s.classList.toggle('--visible', idx >= current && idx < current + vis);
+        });
+
+        if (slides.length > 0 && vis < slides.length) {
+          const slideWidth = slides[0].offsetWidth;
+          const gap = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft - slideWidth : 0;
+          track.style.transform = `translateX(-${current * (slideWidth + gap)}px)`;
+        } else {
+          track.style.transform = 'translateX(0)';
+        }
+        if (counter) counter.textContent = `${current + 1} – ${Math.min(current + vis, slides.length)} / ${slides.length}`;
+        if (prevBtn) prevBtn.disabled = current === 0;
+        if (nextBtn) nextBtn.disabled = current >= maxPage;
+      }
+
+      prevBtn.addEventListener('click', () => { if (current > 0) { current--; update(); } });
+      nextBtn.addEventListener('click', () => { if (current < getMaxPage()) { current++; update(); } });
+
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && current < getMaxPage()) current++;
+          else if (diff < 0 && current > 0) current--;
+          update();
+        }
+      });
+
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // ── Init ────────────────────────────────────────────────────────────────
+    // Sichtbarkeit einmalig beim Load bestimmen — danach nicht mehr ändern.
+    initBundle();
+    applyVisibility();
+    if (bundleVisible) renderBundle();
+  </script>
+  <script src="../inuvet.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebenwirkungen melden — inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="formulare.css">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-page__card">
+
+    <!-- Header -->
+    <header class="form-page__header">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <select class="form-lang-switch" aria-label="Sprache wählen">
+        <option value="de" selected>Deutsch</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="hu">Magyar</option>
+        <option value="nl">Nederlands</option>
+      </select>
+    </header>
+
+    <!-- Titel -->
+    <h1 class="form-page__title">Meldeformular für unerwünschte Wirkungen bei Futtermitteln und&nbsp;-zusatzstoffen</h1>
+
+    <!-- Intro -->
+    <div class="nw-intro">
+      <p><strong>Liebe*r Tierbesitzer*in,</strong></p>
+      <p>du beobachtest dein Tier jeden Tag — und diese Beobachtung zählt. Wenn dein Tier nach der Anwendung eines Inuvet-Produktes etwas gezeigt hat, das dir aufgefallen ist, freuen wir uns über deine Rückmeldung. Sie hilft uns, Auffälligkeiten zu erkennen. Wenn du Fragen hast, melde dich einfach bei uns.</p>
+      <p>Wenn dein Tier akute Beschwerden hat, ruf bitte zuerst deine Tierarztpraxis an. Dieses Formular dient nur unserer Dokumentation. Danke!</p>
+      <p class="nw-pflicht">Sternchen (*) = Pflichtfelder</p>
+    </div>
+
+    <form id="nebenwirkungenForm" novalidate>
+
+      <!-- ── 1. Was hast du beobachtet? ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Was hast du bei deinem Tier beobachtet?</h3>
+
+      <div class="form-field">
+        <textarea id="beobachtung" name="beobachtung" placeholder=" " rows="6" required></textarea>
+        <label for="beobachtung">Beschreibe möglichst genau *</label>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="date" id="datum-beginn" name="datum_beginn" required>
+          <label for="datum-beginn">Wann hast du es zum ersten Mal bemerkt? *</label>
+        </div>
+        <div>
+          <div class="form-field">
+            <input type="date" id="datum-ende" name="datum_ende">
+            <label for="datum-ende">Wann hat es aufgehört?</label>
+          </div>
+          <p class="nw-hint">Falls es schon vorbei ist</p>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="zeitabstand" name="zeitabstand" placeholder=" ">
+        <label for="zeitabstand">Wie lange nach der Gabe hat es angefangen?</label>
+      </div>
+      <p class="nw-hint">Schätzung reicht, z.B. nach 20 Minuten, nach 24 Stunden …</p>
+
+      <!-- ── 2. Das Produkt ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Das Produkt</h3>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="text" id="produktname" name="produktname" placeholder=" " required>
+          <label for="produktname">Name des Produkts *</label>
+        </div>
+        <div>
+          <div class="form-field">
+            <input type="text" id="packungsgroesse" name="packungsgroesse" placeholder=" " required>
+            <label for="packungsgroesse">Packungsgröße *</label>
+          </div>
+          <p class="nw-hint">z.B. 50g, 120 Tabletten</p>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="chargennummer" name="chargennummer" placeholder=" " required>
+        <label for="chargennummer">Chargennummer *</label>
+      </div>
+      <p class="nw-hint">Die findest du auf der Umverpackung oder der Unterseite des Produkts.</p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="date" id="datum-seit" name="datum_seit" required>
+          <label for="datum-seit">Seit wann gibst du das Produkt? *</label>
+        </div>
+        <div class="form-field">
+          <input type="text" id="haeufigkeit" name="haeufigkeit" placeholder=" " required>
+          <label for="haeufigkeit">Wie oft täglich? *</label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="menge" name="menge" placeholder=" " required>
+        <label for="menge">Wie viel hast du gegeben? *</label>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="verabreichung" name="verabreichung" placeholder=" " required>
+        <label for="verabreichung">Wie hast du das Produkt verabreicht? *</label>
+      </div>
+      <p class="nw-hint">z.B. über das Futter, direkt ins Maul …</p>
+
+      <!-- ── 3. Das Tier ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Über dein Tier</h3>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <input type="text" id="tiername" name="tiername" placeholder=" " required>
+          <label for="tiername">Name des Tieres *</label>
+        </div>
+        <div class="form-field">
+          <input type="text" id="alter" name="alter" placeholder=" " required>
+          <label for="alter">Alter *</label>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <div class="form-field">
+            <input type="text" id="tierart" name="tierart" placeholder=" ">
+            <label for="tierart">Tierart / Rasse</label>
+          </div>
+          <p class="nw-hint">z.B. Hund, Labrador</p>
+        </div>
+        <div class="form-field">
+          <input type="number" id="gewicht" name="gewicht" placeholder=" " min="0" step="0.1">
+          <label for="gewicht">Gewicht in kg</label>
+        </div>
+      </div>
+
+      <p class="nw-group-label">Geschlecht des Tiers</p>
+      <div class="nw-radio-grid">
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="weiblich">
+          <span>Weiblich</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="maennlich">
+          <span>Männlich</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="weiblich-kastriert">
+          <span>Weiblich kastriert</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="geschlecht" value="maennlich-kastriert">
+          <span>Männlich kastriert</span>
+        </label>
+      </div>
+
+      <div class="form-field">
+        <textarea id="vorerkrankungen" name="vorerkrankungen" placeholder=" " rows="4"></textarea>
+        <label for="vorerkrankungen">Hat dein Tier Vorerkrankungen oder Allergien?</label>
+      </div>
+
+      <div class="form-field">
+        <textarea id="medikamente" name="medikamente" placeholder=" " rows="4"></textarea>
+        <label for="medikamente">Bekommt das Tier Medikamente oder andere Zusätze?</label>
+      </div>
+
+      <!-- ── 4. Du ── -->
+      <h3 class="section-label --sub --in-view" data-animate="">Über Dich</h3>
+
+      <div class="form-field">
+        <input type="text" id="praxis" name="praxis" placeholder=" ">
+        <label for="praxis">Über welche Tierarztpraxis hast du das Produkt bekommen?</label>
+      </div>
+      <p class="nw-hint">Name der Praxis und Ort, z.B. Tierarztpraxis Müller, Hamburg</p>
+
+      <div class="form-field">
+        <input type="text" id="name" name="name" placeholder=" ">
+        <label for="name">Dein Vor- und Nachname</label>
+      </div>
+
+      <div class="form-field">
+        <input type="email" id="email" name="email" placeholder=" " required>
+        <label for="email">E-Mail-Adresse *</label>
+      </div>
+
+      <div class="form-field">
+        <input type="tel" id="telefon" name="telefon" placeholder=" ">
+        <label for="telefon">Telefonnummer</label>
+      </div>
+
+      <p class="nw-group-label">Dürfen wir dich bei Rückfragen kontaktieren?</p>
+      <div class="nw-radio-row">
+        <label class="form-check">
+          <input type="radio" name="rueckfragen" value="ja">
+          <span>Ja</span>
+        </label>
+        <label class="form-check">
+          <input type="radio" name="rueckfragen" value="nein">
+          <span>Nein</span>
+        </label>
+      </div>
+
+      <!-- reCAPTCHA Platzhalter -->
+      <div class="form-captcha" aria-label="reCAPTCHA Sicherheitsabfrage (Platzhalter)">
+        <div class="form-captcha__checkbox" role="presentation"></div>
+        <span class="form-captcha__label">Ich bin kein Roboter.</span>
+        <div class="form-captcha__brand">
+          <span class="form-captcha__brand-logo" aria-hidden="true">🔒</span>
+          <span class="form-captcha__brand-name">reCAPTCHA</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn --primary --full">Absenden</button>
+
+    </form>
+
+    <p class="form-page__privacy">
+      Für Informationen über unsere Datenschutzpraktiken besuche bitte <a href="https://inuvet.com/policies/privacy-policy" target="_blank" rel="noopener">unsere Website</a>.
+    </p>
+
+  </div><!-- /.form-page__card -->
+
+</div><!-- /.form-page -->
+
+<script src="../inuvet.js"></script>
+
+
+<script src="formular-nebenwirkungen-tb.js"></script>
+</body>
+</html>
