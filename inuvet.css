@@ -2096,6 +2096,8 @@
   .btn.--icon .material-icons { font-size: calc(var(--base) * 1.25); }
   .btn.--with-icon { display: inline-flex; align-items: center; gap: 0.5rem; }
   .btn.--with-icon .material-icons { font-size: 1em; }
+  /* Vollbreiter Icon-Button: --full setzt text-align:center, das bei inline-flex nicht greift */
+  .btn.--full.--with-icon { justify-content: center; }
   .cart-drawer__items { flex: 1; overflow-y: auto; padding: var(--module) var(--module) 0;
     /* mb=0: cart-item hat eigenes padding-top → kein Doppelabstand unter der Linie
        mt=half-module: Atemraum zwischen letztem Item und nächster Gruppe */
@@ -2379,7 +2381,7 @@
   .login-forgot { font-size: var(--text-xs); color: var(--fg-muted); text-decoration: none; margin-top: calc(var(--base) * -0.25); }
   .login-forgot:hover { color: var(--fg); }
   .login-cta { width: 100%; text-align: center; }
-  .login-divider { display: flex; align-items: center; gap: var(--half-module); font-size: var(--text-xs); color: var(--fg-muted); }
+  .login-divider { display: flex; align-items: center; gap: var(--half-module); margin: var(--half-module) 0; font-size: var(--text-xs); color: var(--fg-muted); }
   .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .login-social { width: 100%; display: flex; align-items: center; justify-content: center; gap: calc(var(--base) * 0.5); border: 1px solid var(--border); background: var(--bg); font-size: var(--text-base); font-weight: 500; padding: calc(var(--base) * 0.55) var(--half-module); cursor: pointer; transition: border-color var(--anim-fast), background var(--anim-fast); }
   .login-social:hover { border-color: var(--fg); background: var(--accent-bg); }

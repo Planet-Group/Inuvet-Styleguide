@@ -714,110 +714,71 @@ function setCartStep(step) {
 
 function vetItemHTML(v) {
   return `<div class="vet-dropdown__item" onclick="selectVet(${v.id})">
-    <strong>${v.hasRecommended ? '<span class="vet-recommended-dot">●</span> ' : '<span class="vet-recommended-dot --empty">●</span> '}${v.name}</strong><br>
+    <strong><span class="vet-recommended-dot">●</span> ${v.name}</strong><br>
     <span class="vet-dropdown__meta">${v.doctor} · ${v.city}</span>
   </div>`;
+}
+
+// Nur Praxen anzeigen/erlauben, die bereits am Empfehlungsprogramm teilnehmen
+function recommendedVets() {
+  return VETS.filter(v => v.hasRecommended);
 }
 
 function filterVets(query) {
   const dropdown = document.getElementById('vetDropdown');
   const q = (query || '').toLowerCase().trim();
   const matches = q
-    ? VETS.filter(v => v.name.toLowerCase().includes(q) || v.doctor.toLowerCase().includes(q) || v.city.toLowerCase().includes(q))
-    : VETS;
+    ? recommendedVets().filter(v => v.name.toLowerCase().includes(q) || v.doctor.toLowerCase().includes(q) || v.city.toLowerCase().includes(q))
+    : recommendedVets();
 
-  let html = matches.map(vetItemHTML).join('');
-
-  // Freie Eingabe anbieten, wenn kein exakter Treffer
-  if (q && !matches.find(v => v.name.toLowerCase() === q)) {
-    const escaped = query.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    html += `<div class="vet-dropdown__item vet-dropdown__custom" onclick="selectCustomVet('${escaped}')">
-      <span class="material-icons vet-dropdown__add-icon">add_circle_outline</span>
-      <strong>„${query}" verwenden</strong>
-    </div>`;
-  }
-
-  if (!html) { dropdown.style.display = 'none'; return; }
-  dropdown.innerHTML = html;
+  if (!matches.length) { dropdown.style.display = 'none'; return; }
+  dropdown.innerHTML = matches.map(vetItemHTML).join('');
   dropdown.style.display = '';
 }
 
 
 function showVetDropdown() {
-  // Bei Fokus immer alle Praxen zeigen — unabhängig vom aktuellen Input-Wert
+  // Bei Fokus alle teilnehmenden Praxen zeigen — unabhängig vom Input-Wert
   const dropdown = document.getElementById('vetDropdown');
-  dropdown.innerHTML = VETS.map(vetItemHTML).join('');
+  dropdown.innerHTML = recommendedVets().map(vetItemHTML).join('');
   dropdown.style.display = '';
-}
-
-function updateVetHint() {
-  const el = document.getElementById('vetHint');
-  if (!el) return;
-  if (selectedVet && selectedVet.hasRecommended) {
-    el.innerHTML = '<span class="vet-recommended-dot">●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung';
-  } else if (selectedVet && selectedVet.custom) {
-    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Wir werden diese Praxis für Sie kontaktieren. Diese Praxis ist bisher noch nicht im Empfehlungsprogramm von Inuvet. Bitte geben Sie uns noch ein paar Details:';
-  } else {
-    el.innerHTML = '<span class="vet-recommended-dot --empty">●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit';
-  }
 }
 
 function handleVetInputKeydown(e) {
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const val = e.target.value.trim();
+  const val = e.target.value.trim().toLowerCase();
   if (!val) return;
-  // Exakter Treffer in der Liste → Praxis auswählen
-  const match = VETS.find(v => v.name.toLowerCase() === val.toLowerCase());
-  if (match) {
-    selectVet(match.id);
-  } else {
-    // Kein Treffer → freie Eingabe bestätigen (wie „Verwenden"-Klick)
-    selectCustomVet(val);
-  }
+  // Nur exakter Treffer unter den teilnehmenden Praxen wird übernommen
+  const match = recommendedVets().find(v => v.name.toLowerCase() === val);
+  if (match) selectVet(match.id);
 }
 
 function selectVet(id) {
   selectedVet = VETS.find(v => v.id === id);
   const input = document.getElementById('vetSearchInput');
-  if (input) input.value = selectedVet.name;
+  if (input) {
+    input.value = selectedVet.name;
+    input.closest('.form-field')?.classList.remove('--error');
+  }
   document.getElementById('vetDropdown').style.display = 'none';
-  // Zusatzfelder ausblenden (falls vorher freie Eingabe gewählt)
-  const extra = document.getElementById('customVetExtra');
-  if (extra) extra.style.display = 'none';
-  updateVetHint();
 }
 
-function selectCustomVet(name) {
-  selectedVet = { id: null, name, doctor: '', city: '', hasRecommended: false, custom: true };
-  const input = document.getElementById('vetSearchInput');
-  if (input) input.value = name;
-  document.getElementById('vetDropdown').style.display = 'none';
-
-  updateVetHint();
-  // Zusatzfelder für unbekannte Praxis einblenden
-  const extra = document.getElementById('customVetExtra');
-  if (extra) {
-    extra.style.display = '';
-    const plzInput = document.getElementById('customVetPlz');
-    if (plzInput) setTimeout(() => plzInput.focus(), 80);
-  }
+/* ── Praxis-Finder (Karten-Platzhalter) ── */
+function openVetMap() {
+  document.getElementById('vetMapOverlay').classList.add('--open');
+}
+function closeVetMap() {
+  document.getElementById('vetMapOverlay').classList.remove('--open');
 }
 
 function submitVetRequest() {
-  // Freie Praxis: PLZ + Ort prüfen
-  if (selectedVet && selectedVet.custom) {
-    const plzField  = document.getElementById('customVetPlz');
-    const cityField = document.getElementById('customVetCity');
-    const plz  = plzField  ? plzField.value.trim()  : '';
-    const city = cityField ? cityField.value.trim() : '';
-    let hasError = false;
-    if (!plz)  { plzField.closest('.form-field').classList.add('--error');  plzField.focus();  hasError = true; }
-    if (!city) { cityField.closest('.form-field').classList.add('--error'); if (!hasError) cityField.focus(); hasError = true; }
-    if (hasError) return;
-    plzField.closest('.form-field').classList.remove('--error');
-    cityField.closest('.form-field').classList.remove('--error');
-    selectedVet.city = `${plz} ${city}`;
+  // Es muss eine teilnehmende Praxis gewählt sein
+  if (!selectedVet) {
+    const input = document.getElementById('vetSearchInput');
+    if (input) input.closest('.form-field')?.classList.add('--error');
+    showToast('Bitte wähle eine teilnehmende Praxis aus.', 'error');
+    return;
   }
   setCartStep(3);
 }
@@ -828,7 +789,7 @@ let emailOverlayData = {};
 function openEmailsOverlay(keys) {
   // Alle Nachrichten auf einmal im Panel zeigen
   const count = keys.length;
-  document.getElementById('emailPanelCounter').textContent = `${count} Nachrichten ausgelöst`;
+  document.getElementById('emailPanelCounter').textContent = `${count} Aktionen ausgelöst`;
 
   // Body: alle E-Mails untereinander
   document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
@@ -838,8 +799,8 @@ function openEmailsOverlay(keys) {
       <div class="mockup-email-inline${d.internal ? ' --internal' : ''}">
         <div class="mockup-email-inline__header">
           <span class="mockup-email__tag${d.internal ? ' --internal' : ''}">${d.tag}</span>
-          <span class="mockup-email-inline__to">an: ${d.recipient}</span>
-          <span class="mockup-email-inline__subject">Betreff: ${d.subject}</span>
+          <span class="mockup-email-inline__to">${d.internal ? '' : 'an: '}${d.recipient}</span>
+          <span class="mockup-email-inline__subject">${d.internal ? '' : 'Betreff: '}${d.subject}</span>
         </div>
         <div class="mockup-email-inline__body">${d.body}</div>
       </div>`;
@@ -873,42 +834,21 @@ function renderRequestStep() {
     </div>
     <div class="cart-drawer__items">
       <p class="vet-search__intro">An welche Praxis möchtest du deine Freigabe-Anfrage stellen?</p>
-      <!-- Vet search field -->
+      <!-- Primärer Weg: Karten-Finder für teilnehmende Praxen -->
+      <button type="button" class="btn --primary --full --with-icon" onclick="openVetMap()">
+        <span class="material-icons">place</span>Praxis in der Nähe finden
+      </button>
+      <div class="login-divider"><span>oder</span></div>
+      <!-- Vet search field — füllt sich bei Auswahl auf der Karte automatisch -->
       <div class="vet-search">
         <div class="form-field">
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder=" "
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
             oninput="filterVets(this.value)" onfocus="showVetDropdown()" onkeydown="handleVetInputKeydown(event)">
-          <label for="vetSearchInput">Tierarztpraxis</label>
+          <label for="vetSearchInput">Praxisname eingeben</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
-        <p id="vetHint" class="vet-legend">${
-          selectedVet && selectedVet.hasRecommended
-            ? '<span class=\'vet-recommended-dot\'>●</span> Praxis ist bereits im Empfehlungsprogramm – in der Regel schnellere Bearbeitung'
-            : selectedVet && selectedVet.custom
-              ? '<span class=\'vet-recommended-dot --empty\'>●</span> Wir werden diese Praxis für Sie kontaktieren. Diese Praxis ist bisher noch nicht im Empfehlungsprogramm von Inuvet. Bitte geben Sie uns noch ein paar Details:'
-              : selectedVet
-                ? '<span class=\'vet-recommended-dot --empty\'>●</span> Praxis noch nicht im Empfehlungsprogramm – in der Regel längere Bearbeitungszeit'
-                : ''
-        }</p>
-      </div>
-      <!-- Zusatzfelder: nur bei freier Praxis-Eingabe sichtbar -->
-      <div id="customVetExtra" style="display:none;">
-        <div class="form-grid">
-          <div class="form-field">
-            <input type="text" id="customVetPlz" placeholder=" " maxlength="5"
-              oninput="this.closest('.form-field').classList.remove('--error')">
-            <label for="customVetPlz">PLZ *</label>
-            <div class="form-field__error">Bitte PLZ angeben</div>
-          </div>
-          <div class="form-field">
-            <input type="text" id="customVetCity" placeholder=" "
-              oninput="this.closest('.form-field').classList.remove('--error')">
-            <label for="customVetCity">Ort *</label>
-            <div class="form-field__error">Bitte Ort angeben</div>
-          </div>
-        </div>
       </div>
       <!-- Notes -->
       <div class="form-field">
@@ -924,11 +864,13 @@ function renderRequestStep() {
 function renderSuccessStep() {
   const hasApproved = cartApproved.length > 0;
   const vetName     = selectedVet ? selectedVet.name : 'der Tierarztpraxis';
-  const vetDoctor   = selectedVet ? selectedVet.doctor : '';
-  const vetKnown    = selectedVet && selectedVet.hasRecommended;
   const vetEmail    = `praxis@${vetName.toLowerCase().replace(/\s+/g,'-')}.de`;
 
   const requestedNames = cartRequested.map(item => item.cartName).join(', ');
+  // Detaillierte Produktzeilen für die interne Übersicht — Variante + Menge
+  const requestedDetailed = cartRequested.map(item =>
+    `<p>· <strong>${item.cartName}</strong>${item.variantLabel ? ' · ' + item.variantLabel : ''} · Menge: ${item.qty || 1}</p>`
+  ).join('');
 
   // E-Mail-Adresse ist nach Login bekannt — Overlay kann sofort nach Submit ausgelöst werden
   emailOverlayData = {
@@ -941,28 +883,30 @@ function renderSuccessStep() {
     }
   };
 
-  if (vetKnown) {
-    emailOverlayData.vet = {
-      tag: 'E-Mail', recipient: vetEmail,
-      subject: 'Neue Anfrage von Max Mustermann', internal: false,
-      body: `
-        <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
-        <p>Angefragt: <strong>${requestedNames}</strong></p>
-        <p>Diese können Sie hier einsehen und freigeben:<br>
-        <a href="Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
-        <p class="mockup-email-panel__note">@Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung einfügen (z.B. Provision, Patientenbindung).</p>`
-    };
-  } else {
-    emailOverlayData.internal = {
-      tag: 'Intern', recipient: 'team@inuvet.com',
-      subject: 'Dringende Freigabe-Anfrage!', internal: true,
-      body: `
-        <p>Tierbesitzer*in <strong>Max Mustermann</strong> möchte bei <strong>${vetName}</strong> (${vetDoctor}) eine Freigabe erhalten.</p>
-        <p>Angefragt: <strong>${requestedNames}</strong></p>
-        <p><strong>Bitte kontaktiere umgehend die Praxis.</strong> Nimm sie in das Empfehlungsprogramm auf und sorge dafür, dass das Rezept für den/die Tierbesitzer*in ausgestellt wird.</p>
-        <p class="mockup-email-panel__note">⚠ An diese Praxis darf noch keine E-Mail gesendet werden – sie ist noch nicht im Empfehlungsprogramm.</p>`
-    };
-  }
+  // Nur teilnehmende Praxen sind wählbar → E-Mail geht immer an die Praxis
+  emailOverlayData.vet = {
+    tag: 'E-Mail', recipient: vetEmail,
+    subject: 'Neue Anfrage von Max Mustermann', internal: false,
+    body: `
+      <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
+      <p>Angefragt: <strong>${requestedNames}</strong></p>
+      <p>Diese können Sie hier einsehen und freigeben:<br>
+      <a href="Tierarzt-Empfehlung-Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
+      <p class="mockup-email-panel__note">@Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung einfügen (z.B. Provision, Patientenbindung).</p>`
+  };
+
+  // Interner Queue-Eintrag — keine E-Mail, sondern Sichtbarkeit für den Innendienst
+  emailOverlayData.internal = {
+    tag: 'Intern', recipient: 'Anfragen-Übersicht · Innendienst',
+    subject: 'Neue offene Anfrage', internal: true,
+    body: `
+      <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · gerade eingegangen.</p>
+      <p><strong>Tierbesitzer*in:</strong> Max Mustermann · kunde@email.com</p>
+      <p><strong>Praxis:</strong> ${vetName}</p>
+      <p><strong>Angefragte Produkte:</strong></p>
+      ${requestedDetailed}
+      <p class="mockup-email-panel__note">Kein Mail-Versand — erscheint als Eintrag in der Innendienst-Liste. Mit diesen Angaben kann der Innendienst die Anfrage konkret zuordnen und bei der Praxis nachhaken, falls sie zu lange offen bleibt.</p>`
+  };
 
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
@@ -987,7 +931,7 @@ function renderSuccessStep() {
     </div>`;
 
   // Login war Pflicht vor diesem Schritt → E-Mail bekannt → Nachrichten sofort auslösen
-  setTimeout(() => openEmailsOverlay(vetKnown ? ['owner', 'vet'] : ['owner', 'internal']), 500);
+  setTimeout(() => openEmailsOverlay(['owner', 'vet', 'internal']), 500);
 }
 
 function renderCartDrawer() {

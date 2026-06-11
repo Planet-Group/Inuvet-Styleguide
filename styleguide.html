@@ -7,7 +7,7 @@
 <meta name="description" content="Design-System für das inuvet Shopify-Theme. Tokens, Komponenten und Patterns nach Atomic Design.">
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="inuvet.css?v=9">
+<link rel="stylesheet" href="inuvet.css?v=10">
 <link rel="stylesheet" href="pages/formulare.css">
 <link rel="stylesheet" href="sg.css?v=2">
 <link rel="stylesheet" href="temp.css?v=3">
@@ -891,7 +891,7 @@
       <tr><th>Zurück<br><code>.btn.--ghost.--back</code></th><td>Modifier für <code>.--ghost</code>: unterdrückt <code>' →'</code>, fügt <code>'←'</code> als <code>::before</code> hinzu · Hover: Pfeil schiebt sich nach links · Für alle Zurück-Navigationen (PDP → Übersicht, Finder, Checkout-Steps)</td></tr>
       <tr><th>Volle Breite<br><code>.btn.--full</code></th><td>Zusatz-Modifier: <code>width: 100%</code> · Kombinierbar mit allen drei Stilvarianten</td></tr>
       <tr><th>Klein<br><code>.btn.--sm</code></th><td>Zusatz-Modifier: <code>font-size: var(--text-sm)</code> · Padding <code>0.5rem × --half-module</code> · Kombinierbar mit <code>--with-icon</code> und <code>--full</code></td></tr>
-      <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code></td></tr>
+      <tr><th>Mit Icon<br><code>.btn.--with-icon</code></th><td>Zusatz-Modifier: wechselt auf <code>inline-flex</code>, <code>align-items: center</code>, <code>gap: 0.5rem</code> · Icon-Größe: <code>1em</code> · Kombiniert mit <code>--full</code>: ergänzt <code>justify-content: center</code> (Icon + Text horizontal zentriert)</td></tr>
       <tr><th>Icon-only<br><code>.btn.--icon</code></th><td>Kein Hintergrund, kein Border, kein Padding · Für Nav-Icons (Suche, Warenkorb, Schließen) · Kombinierbar mit <code>.icon-badged</code></td></tr>
       <tr><th>Disabled<br><code>[disabled]</code> / <code>.--disabled</code></th><td><code>opacity: 0.35</code> · <code>pointer-events: none</code> · Für <code>&lt;button&gt;</code>: HTML-Attribut <code>disabled</code>. Für <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
     </table>
@@ -945,6 +945,13 @@
       <button class="btn --secondary --with-icon"><span class="material-icons">favorite_border</span> Merken</button>
     </div>
     <p class="demo-note">Modifier <code>.--with-icon</code>: wechselt auf <code>inline-flex</code> + vertikale Zentrierung via <code>align-items: center</code> und <code>gap: 0.5rem</code>.</p>
+
+    <!-- Demo: Icon + volle Breite -->
+    <div class="demo-label">Icon + volle Breite — <code>.btn.--full.--with-icon</code></div>
+    <div style="max-width:24rem">
+      <button class="btn --primary --full --with-icon"><span class="material-icons">place</span> Praxis in der Nähe finden</button>
+    </div>
+    <p class="demo-note">Kombination <code>.--full</code> + <code>.--with-icon</code>: ergänzt <code>justify-content: center</code>, weil das <code>text-align: center</code> von <code>.--full</code> bei <code>inline-flex</code> nicht greift. Icon + Text bleiben so horizontal zentriert.</p>
 
     <!-- Demo: Volle Breite -->
     <div class="demo-label">Volle Breite — <code>.btn.--full</code></div>
@@ -2109,7 +2116,7 @@
       <tr><th><code>.cart-item</code></th><td>Reihe im Warenkorb-Drawer und Cart-Page. Kompaktes Grid (Bild + Info + Aktion), kein Border, nur <code>border-bottom</code> als Trennlinie. Dokumentiert in <a href="#C2">C.2 Cart Item</a>.</td></tr>
       <tr><th><code>.summary-card</code></th><td>Highlighted Action Card auf grünem BG (Bestell-Übersicht in Bundle). Sticky/floating CTA, kein Border, weiße Schrift. Page-spezifisch in <code>bundle.css</code>.</td></tr>
       <tr><th><code>.rec-card</code></th><td>Compact Product Tile für horizontalen Scroll (Empfehlungs-Schiene). Fixed-width, Border, Hover-Effekt. Page-spezifisch in <code>bundle.css</code>.</td></tr>
-      <tr><th><code>.approval-product-card</code></th><td>Form Card mit Aktionen + Note-Section (Tierarzt-Freigabe). Bordered, mit innerer Trennlinie zwischen Card-Inhalt und Note-Textarea. Page-spezifisch in <code>freigabe.css</code>.</td></tr>
+      <tr><th><code>.approval-product-card</code></th><td>Form Card mit Aktionen + Note-Section (Tierarzt-Freigabe). Bordered, mit innerer Trennlinie zwischen Card-Inhalt und Note-Textarea. Page-spezifisch in <code>Tierarzt-Empfehlung-Freigabe.css</code>.</td></tr>
     </table>
     <p class="demo-note">Wann gilt was? <code>.tile.--product</code> bei voller Produktdarstellung im Grid. <code>.cart-item</code> wenn der Nutzer Quantity ändert/entfernt. <code>.summary-card</code> für Bestell-Übersichten mit primärem CTA. <code>.rec-card</code> für Mini-Vorschauen in horizontalen Listen. Pages, die ein neues Card-Pattern brauchen: <em>nicht</em> generalisieren, sondern wie die existierenden mit eigener BEM-Familie behandeln.</p>
   </section>

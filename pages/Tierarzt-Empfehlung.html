@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
-  <link rel="stylesheet" href="../temp.css?v=1">
+  <link rel="stylesheet" href="../temp.css?v=4">
   <link rel="stylesheet" href="../mockup-ui.css">
   <link rel="stylesheet" href="Tierarzt-Empfehlung.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -161,6 +161,26 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <!-- Inhalt wird per JS gerendert -->
+</div>
+
+<!-- ════════════════════════════════════════
+     PRAXIS-FINDER (Karten-Platzhalter)
+     Vollflächiges Pop-up — markiert für die IT,
+     wo das bestehende Kartenmodul eingebunden wird.
+     ════════════════════════════════════════ -->
+<div class="vet-map-overlay" id="vetMapOverlay" onclick="if(event.target===this)closeVetMap()">
+  <div class="vet-map-panel">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Teilnehmende Praxis in der Nähe finden</h2>
+      <button class="btn --icon" onclick="closeVetMap()" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="vet-map-placeholder placeholder-bg">
+      <div class="empty-state">
+        <span class="material-icons">map</span>
+        <p><strong>Kartenmodul</strong><br>Hier wird die bestehende Praxis-Karte von inuvet.com eingebunden — sie zeigt alle teilnehmenden Praxen in der Nähe.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ════════════════════════════════════════
@@ -321,7 +341,7 @@
 </div>
 
 <script src="../inuvet.js"></script>
-<script src="tierarzt-empfehlung.js?v=9"></script>
+<script src="tierarzt-empfehlung.js?v=16"></script>
 <div class="toast-container" id="toastContainer"></div>
 </body>
 </html>

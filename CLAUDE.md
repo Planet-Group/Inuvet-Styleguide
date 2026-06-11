@@ -108,7 +108,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | Datei | Page |
 |---|---|
 | `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
-| `pages/freigabe.js` | Freigabe-Portal |
+| `pages/tierarzt-empfehlung-freigabe.js` | Freigabe-Portal |
 | `pages/provision-portal.js` | Provisions-Portal |
 | `pages/provision-portal-start.js` | Provisions-Portal Startseite |
 | `pages/provision-portal-vetalita.js` | Provisions-Portal Vetalita |
@@ -282,7 +282,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### B — Atome
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --danger --loading` |
+| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --danger --loading` (Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content`) |
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
@@ -345,7 +345,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|---|
 | `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
-| `pages/Freigabe.html` | `freigabe.css` | `freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Tierarzt-Empfehlung-Freigabe.html` | `Tierarzt-Empfehlung-Freigabe.css` | `tierarzt-empfehlung-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
 | `pages/Bundle.html` | `bundle.css` | — | Bundle-Builder mit Naturalrabatt |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
 | `pages/Formular-Reklamation.html` | `formulare.css` | `formular-reklamation.js` | Stand-Alone-Formular |

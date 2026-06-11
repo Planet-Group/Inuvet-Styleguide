@@ -1,10 +1,10 @@
 /* ══════════════════════════════════════════════════════════════
-   freigabe.css — Empfehlungsanfrage-Freigabe (Tierarzt-Portal)
+   Tierarzt-Empfehlung-Freigabe.css — Empfehlungsanfrage-Freigabe (Tierarzt-Portal)
    Page-spezifische Styles. Globale Atome via inuvet.css.
    ══════════════════════════════════════════════════════════════ */
 
 /* ─── Seiten-Container ─── */
-.approval-page { padding-bottom: var(--module-3xl); }
+.approval-page { padding-bottom: var(--module); }
 
 /* ─── Intro: 2-spaltig auf Desktop (Headline links, Meta rechts) ─── */
 .approval-intro {
@@ -42,10 +42,10 @@
   gap: var(--module);
   margin-bottom: var(--module);
 }
-@media (max-width: 900px) {
+@media (max-width: 1099px) {
   .approval-product-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .approval-product-grid { grid-template-columns: 1fr; }
 }
 
@@ -55,34 +55,44 @@
   border-bottom: none;
 }
 
-/* ─── Größen-Auswahl (.choice-box.--sm Gruppe) ─── */
-.approval-size-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--base) * 0.4);
-  margin-top: calc(var(--base) * 0.5);
+/* ─── Provision unter dem Produktnamen (Summe über alle Größen der Form) ─── */
+.approval-product-card__commission {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--green);
+  margin-top: calc(var(--base) * 0.25);
 }
+.approval-product-card__commission.--muted { color: var(--fg-muted); font-weight: 400; }
 
-/* ─── Empfehlung-Zeile: Dropdown + Provision nebeneinander ─── */
-.approval-controls {
-  display: flex;
+/* ─── „Angefragt"-Badge neben der Größe — Honey-gelb, fällt ins Auge ─── */
+.approval-badge { background: var(--color-honey); color: var(--fg); }
+
+/* ─── Varianten-Block: je Größe eine Zeile mit eigenem Mengen-Dropdown ───
+   Horizontallinien führen das Auge (bewusste Ausnahme zur „Linien sparsam"-Regel). */
+.approval-variants { margin-top: var(--half-module); }
+.approval-variant-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--half-module);
-  margin-top: var(--half-module);
-  flex-wrap: wrap;
+  padding: calc(var(--base) * 0.6) 0;
+  border-top: 1px solid var(--border-light);
 }
-.approval-controls .form-field.--sm { flex: 0 0 12rem; }
-
-/* ─── Provisions-Zeile ─── */
-.approval-commission {
+.approval-variant-row__label {
   display: flex;
-  align-items: baseline;
-  gap: calc(var(--base) * 0.4);
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
   font-size: var(--text-sm);
 }
-.approval-commission .label-caps { margin-bottom: 0; }
-.approval-commission__value { color: var(--green); font-weight: 700; }
-.approval-commission__value.--muted { color: var(--fg-muted); font-weight: 400; }
+.approval-variant-row .form-field.--sm { margin-bottom: 0; width: 9rem; }
+
+/* ─── Vertrauens-Modus-Schalter über dem Grid ─── */
+.approval-trust { margin-bottom: var(--module); }
+
+/* ─── Direkt-Empfehlung (Zustand 2): E-Mail-Eingabe + Einverständnis ─── */
+.approval-direct__hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--half-module); }
+.approval-consent { align-items: flex-start; font-size: var(--text-sm); }
+.approval-consent input { margin-top: 0.15em; }
 
 /* ─── Notiz-Bereich ─── */
 .approval-product-card__note {
@@ -109,3 +119,24 @@
   gap: var(--half-module);
 }
 .approval-footer .btn.--primary { min-width: calc(var(--base) * 14); }
+
+/* ─── Sticky Submit-Leiste: Counter + CTA bleiben beim Scrollen sichtbar ───
+   Zentriert (nicht rechtsbündig) und sanfter Schatten statt harter Linie. */
+.approval-submit-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--half-module) var(--module);
+  margin-top: var(--module);
+  padding: var(--half-module) 0;
+  background: var(--bg);
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
+}
+.approval-submit-bar .approval-counter { margin-bottom: 0; }
+.approval-submit-bar .btn.--primary { min-width: calc(var(--base) * 14); }
+/* Sichtbare Mockup-Bar (fixed, bottom:0, Höhe 3.25rem) → Submit-Leiste darüber heben */
+body.--mockup-bar-visible .approval-submit-bar { bottom: 3.25rem; }
