@@ -145,9 +145,12 @@
     border-top: 1px dashed var(--border);
     border-bottom: 1px dashed var(--border);
   }
+  /* Kontextsensitives Spacing: Tabelle ist ein eigener Block → größere Zäsur
+     nach den Intro-Absätzen (analog .flow > * + h2). */
+  .flow > * + .spec-table { --flow-space: var(--module); }
   .spec-table th, .spec-table td {
     text-align: left; padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px dashed var(--border);
     font-size: var(--text-base); line-height: var(--lh-base);
     color: var(--fg-muted);
     vertical-align: top;
@@ -167,7 +170,7 @@
     .spec-table th, .spec-table td { display: block; width: auto; }
     .spec-table tr {
       padding: 0.5rem 0;
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px dashed var(--border);
     }
     .spec-table tr:last-child { border-bottom: none; }
     .spec-table th, .spec-table td {
@@ -177,8 +180,23 @@
   }
 
   /* ─── Styleguide Demo Utilities ─── */
-  .sg-logo-demo { width: clamp(3.5rem, 2rem + 5vw, 6rem); height: auto; }
+  .sg-logo-demo { width: var(--sg-logo-size); height: auto; }
   .sg-logo-demo.--invert { filter: brightness(0) invert(1); }
+  /* Negatives margin-top gleicht den eingebauten Leerraum unter der
+     Wortmarke im Logo-SVG aus, damit der Slogan eng anschließt.
+     An --sg-logo-size (= Logobreite) gekoppelt → skaliert beim Resize mit. */
+  .sg-logo-slogan {
+    font-size: var(--text-base); color: var(--fg);
+    margin-top: calc(var(--sg-logo-size) * -0.1);
+  }
+
+  /* Bildunterschrift unter Demo-Flächen/Figures */
+  .sg-caption {
+    font-size: var(--text-sm); font-style: italic;
+    color: var(--fg-muted);
+    margin-top: calc(var(--base) * 0.5);
+  }
+  .sg-demo.--green-solid .sg-logo-slogan { color: var(--bg); }
 
   .sg-h3 { margin-bottom: var(--half-module); }
   .sg-h3.--top { margin-top: var(--module); }
@@ -373,6 +391,7 @@
 
 /* ─── Demo-Flächen ─── */
 .sg-demo {
+  --sg-logo-size: clamp(3.5rem, 2rem + 5vw, 6rem);
   background: var(--accent-bg);
   padding: var(--module);
 }
@@ -385,6 +404,7 @@
 .sg-demo.--green { background: var(--green-light); }
 .sg-demo.--green-solid { background: var(--green); }
 .sg-demo.--center { display: flex; align-items: center; justify-content: center; }
+.sg-demo.--stack { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
 
 /* ─── Code-Blöcke ─── */
 .sg-code {
