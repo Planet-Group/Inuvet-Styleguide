@@ -13,7 +13,7 @@
 ## Goldene Regeln (nie brechen)
 
 1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden.
-2. **Neue Styles immer zuerst in temp.css** — Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → Page-CSS (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`.
+2. **Neue Styles immer zuerst in temp.css** — Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → Page-CSS (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`. **Ausnahme:** Reine Styleguide-UI (`.sg-*`) wird direkt in `sg.css` geschrieben — kein Umweg über `temp.css`, da nicht produktionsrelevant.
 3. **Keine Magic Numbers** — alles via `var(--…)`.
 4. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
 5. **Kein `!important`**. Niemals.
@@ -73,6 +73,8 @@ Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **He
 2. **Komposition** — Lassen sich zwei bestehende Atome kombinieren? → Kein neuer Style nötig
 3. **temp.css** — Erst wenn wirklich etwas Neues gebraucht wird: in `temp.css` testen
 4. **Entscheidung nach Abschluss** — gemeinsam: `inuvet.css` (global) oder `pages/[name].css` (seitenspezifisch)
+
+**Sonderfall Styleguide-UI:** Styles, die ausschließlich der Styleguide-Darstellung dienen (`.sg-*`, z.B. `.sg-demo`-Modifier, `.sg-logo-demo`), gehören direkt in `sg.css` — ohne `temp.css`-Zwischenschritt. Sie sind Doku-UI, kein Produktions-Code.
 
 ### JS-Schichtung (analog zu CSS)
 

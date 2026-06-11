@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="inuvet.css?v=9">
-  <link rel="stylesheet" href="sg.css?v=3">
+  <link rel="stylesheet" href="sg.css?v=7">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -99,8 +99,19 @@
         <p>SVG-Datei, inline eingebettet für volle CSS-Kontrolle. Bildmarke in <code>--green</code>, Wortmarke in <code>--fg</code>. Keine Raster-Fallbacks nötig.</p>
         <p>Mindestgröße: <code>clamp(3.5rem, 2rem + 5vw, 6rem)</code>. Schutzraum rundum mindestens die halbe Logohöhe — kein anderes Element darf in diese Zone eintreten.</p>
       </div>
-      <div class="sg-demo --white">
-        <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo" class="sg-logo-demo">
+      <table class="spec-table">
+        <tr><th>Größe</th><td>Fluid: <code>clamp(3.5rem, 2rem + 5vw, 6rem)</code>. Min ≈ <code>var(--module) × 1.17</code>, Max = <code>var(--module) × 2</code>.</td></tr>
+        <tr><th>Schutzzone</th><td>Mindestens <code>½ Modul</code> Freiraum um das Logo auf allen Seiten.</td></tr>
+        <tr><th>Mindestgröße</th><td><code>3rem</code> = <code>var(--module)</code>. Darunter wird die Wortmarke unleserlich.</td></tr>
+        <tr><th>Hintergrund</th><td>Bevorzugt auf Weiß oder <code>--green-light</code>. Auf Brand-Grün (<code>--green</code>) Logo komplett in Weiß.</td></tr>
+      </table>
+      <div class="col-grid --spaced" data-cols="2">
+        <div class="sg-demo --white --center">
+          <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo auf weißem Hintergrund" class="sg-logo-demo">
+        </div>
+        <div class="sg-demo --green-solid --center">
+          <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo in Weiß auf grünem Hintergrund" class="sg-logo-demo --invert">
+        </div>
       </div>
     </section>
 

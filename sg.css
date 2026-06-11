@@ -140,21 +140,45 @@
   }
 
   /* ─── Spec table ─── */
-  .spec-table { width: 100%; border-collapse: collapse; margin-bottom: var(--section-gap); }
+  .spec-table {
+    width: 100%; border-collapse: collapse; margin-bottom: var(--section-gap);
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+  }
   .spec-table th, .spec-table td {
-    text-align: left; padding: var(--half-module) 0;
+    text-align: left; padding: 0.5rem 0;
     border-bottom: 1px solid var(--border-light);
     font-size: var(--text-base); line-height: var(--lh-base);
+    color: var(--fg-muted);
+    vertical-align: top;
   }
   .spec-table th {
     font-size: var(--text-xs); text-transform: uppercase;
     letter-spacing: 0.1em; color: var(--fg-muted); font-weight: 400;
-    width: 10rem;
+    width: 12rem; padding-right: var(--gutter); white-space: nowrap;
+    padding-top: 0.6rem;
   }
-  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table tr:last-child td,
+  .spec-table tr:last-child th { border-bottom: none; }
+
+  /* Mobil: Label über Wert stapeln statt gequetschtes 2-Spalten-Raster */
+  @media (max-width: 767px) {
+    .spec-table, .spec-table tbody, .spec-table tr,
+    .spec-table th, .spec-table td { display: block; width: auto; }
+    .spec-table tr {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .spec-table tr:last-child { border-bottom: none; }
+    .spec-table th, .spec-table td {
+      padding: 0; border-bottom: none; white-space: normal;
+    }
+    .spec-table th { margin-bottom: 0.15rem; }
+  }
 
   /* ─── Styleguide Demo Utilities ─── */
   .sg-logo-demo { width: clamp(3.5rem, 2rem + 5vw, 6rem); height: auto; }
+  .sg-logo-demo.--invert { filter: brightness(0) invert(1); }
 
   .sg-h3 { margin-bottom: var(--half-module); }
   .sg-h3.--top { margin-top: var(--module); }
@@ -355,9 +379,12 @@
 .sg-demo.--white {
   background: var(--bg);
   outline: 1px solid var(--border-light);
+  outline-offset: -1px;
 }
 .sg-demo.--dark { background: var(--fg); }
 .sg-demo.--green { background: var(--green-light); }
+.sg-demo.--green-solid { background: var(--green); }
+.sg-demo.--center { display: flex; align-items: center; justify-content: center; }
 
 /* ─── Code-Blöcke ─── */
 .sg-code {
