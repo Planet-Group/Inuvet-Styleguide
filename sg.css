@@ -16,12 +16,11 @@
   .logic-chain {
     display: flex; align-items: center; gap: var(--half-module);
     flex-wrap: wrap;
-    padding: var(--module) 0;
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
     margin-bottom: var(--section-gap);
   }
-  .logic-node { border: 1px solid var(--border); padding: var(--half-module); }
+  /* Werte-Nodes = Skalenwerte (grün), Ratio-Nodes = Rechenschritt (grau) */
+  .logic-node { background: var(--green-light); padding: var(--half-module); }
+  .logic-node.--ratio { background: var(--accent-bg); }
   .logic-node strong { display: block; font-size: var(--text-base); }
   .logic-node span { font-size: var(--text-xs); color: var(--fg-muted); }
   .logic-arrow { color: var(--fg-muted); font-size: var(--text-m); }
@@ -148,6 +147,8 @@
   /* Kontextsensitives Spacing: Tabelle ist ein eigener Block → größere Zäsur
      nach den Intro-Absätzen (analog .flow > * + h2). */
   .flow > * + .spec-table { --flow-space: var(--module); }
+  /* …aber direkt nach einer Gruppen-Überschrift eng anbinden. */
+  .flow > .sg-h3 + .spec-table { --flow-space: var(--half-module); }
   .spec-table th, .spec-table td {
     text-align: left; padding: 0.5rem 0;
     border-bottom: 1px dashed var(--border);
@@ -369,8 +370,8 @@
   line-height: 1.5;
   transition: color var(--anim-fast);
 }
-.sg-nav-group a:hover,
-.sg-nav-group a.--active { color: var(--green); }
+.sg-nav-group a:hover { color: var(--green); }
+.sg-nav-group a.--active { color: var(--green); font-weight: 700; }
 
 /* ─── Main Content ─── */
 .sg-main {

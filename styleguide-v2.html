@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="inuvet.css?v=9">
-  <link rel="stylesheet" href="sg.css?v=15">
+  <link rel="stylesheet" href="sg.css?v=18">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -141,7 +141,27 @@
         <p>Ein logisches System auf Basis von <code>1rem</code>, dem Faktor <code>1.5</code> und dem Grundmodul <code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code>. Typografie, Spacing und Grid leiten sich aus denselben Werten ab — kein Wert existiert isoliert.</p>
         <p>Das System ist fluid: alle Abstände und Schriftgrößen skalieren stufenlos zwischen Mobilminimum und Desktop-Maximum. Feste Pixelwerte sind die Ausnahme, nicht die Regel.</p>
       </div>
-      <div class="sg-demo"></div>
+      <table class="spec-table">
+        <tr><th>Grundmodul</th><td><code>3rem</code> (48px) — bewusst <code>2 × 1.5rem</code>, nicht das Kettenende der Typo-Skala (3.375rem). Spacing und Typografie teilen den Faktor, folgen aber eigenen Stufen.</td></tr>
+        <tr><th>Halbes Modul</th><td><code>1.5rem</code> (24px) — Zwischenstufe für Line-Heights und feinere Abstände.</td></tr>
+        <tr><th>Faktor</th><td><code>1.5</code> — Typo-Stufen: 0.667 → 1 → 1.5 → 2.25 → 3.375rem · Spacing-Stufen: 1.5 → 3 → 6 → 9rem.</td></tr>
+        <tr><th>Einheitliche Sprache</th><td>Typografie, Spacing und Grid leiten sich aus demselben Verhältnis ab.</td></tr>
+      </table>
+      <div class="logic-chain">
+        <div class="logic-node"><strong>1rem</strong><span>Basis · 16px</span></div>
+        <div class="logic-arrow">×</div>
+        <div class="logic-node --ratio"><strong>1.5</strong><span>Ratio</span></div>
+        <div class="logic-arrow">=</div>
+        <div class="logic-node"><strong>1.5rem</strong><span>½ Modul · 24px</span></div>
+        <div class="logic-arrow">×</div>
+        <div class="logic-node --ratio"><strong>1.5</strong><span>Ratio</span></div>
+        <div class="logic-arrow">=</div>
+        <div class="logic-node"><strong>2.25rem</strong><span>Stufe 2 · 36px</span></div>
+        <div class="logic-arrow">×</div>
+        <div class="logic-node --ratio"><strong>1.5</strong><span>Ratio</span></div>
+        <div class="logic-arrow">=</div>
+        <div class="logic-node"><strong>3.375rem</strong><span>Stufe 3 · 54px</span></div>
+      </div>
     </section>
 
     <section class="sg-section-v2 flow" id="A3">
@@ -150,32 +170,164 @@
         <p>Alle Werte sind CSS Custom Properties in <code>:root</code>. Kein Hardcoding von Farben, Größen oder Abständen außerhalb dieser Tokens — immer <code>var(--…)</code>.</p>
         <p>Neue Werte müssen hier definiert und dokumentiert werden, bevor sie im System verwendet werden dürfen.</p>
       </div>
+      <p>Diese Sektion ist die technische Referenz — die vollständige Liste aller Custom Properties. Die <em>visuelle</em> Darstellung der Tokens findet sich dort, wo sie eingesetzt werden: <a href="#A4">A.4 Typografie</a>, <a href="#A5">A.5 Farben</a>, <a href="#A7">A.7 Spacing</a>.</p>
+
+      <h3 class="sg-h3 --top">Spacing</h3>
       <table class="spec-table">
         <tr><th><code>--base</code></th><td><code>1rem</code> — Basiseinheit (16px), Grundlage aller Berechnungen</td></tr>
-        <tr><th><code>--half-module</code></th><td><code>clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)</code> — 12–24px</td></tr>
-        <tr><th><code>--module</code></th><td><code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code> — 24–48px, Grundmodul</td></tr>
-        <tr><th><code>--module-2xl</code></th><td><code>calc(var(--module) * 2)</code></td></tr>
-        <tr><th><code>--module-3xl</code></th><td><code>calc(var(--module) * 3)</code></td></tr>
-        <tr><th><code>--text-xs</code></th><td><code>clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)</code> — Labels, Captions</td></tr>
-        <tr><th><code>--text-sm</code></th><td><code>0.8rem</code> — Hilfstext, Formular-Labels</td></tr>
+        <tr><th><code>--half-module</code></th><td><code>clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)</code> — 12–24px, halbes Modul</td></tr>
+        <tr><th><code>--module</code></th><td><code>clamp(1.5rem, 1rem + 2.7vw, 3rem)</code> — 24–48px, Grundmodul (fluid)</td></tr>
+        <tr><th><code>--module-2xl</code></th><td><code>calc(var(--module) * 2)</code> — 2× Modul</td></tr>
+        <tr><th><code>--gutter</code></th><td><code>var(--module)</code> — Grid-Spaltenabstände</td></tr>
+        <tr><th><code>--margin</code></th><td><code>var(--module)</code> — Seitenabstände</td></tr>
+        <tr><th><code>--section-gap</code></th><td><code>var(--module)</code> — Abstand zwischen Sektionen</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Typografie</h3>
+      <table class="spec-table">
+        <tr><th><code>--text-xs</code></th><td><code>clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)</code> — Labels, Captions, Metainfos</td></tr>
+        <tr><th><code>--text-sm</code></th><td><code>0.8rem</code> — Kompakter Hilfstext, Formular-Labels</td></tr>
         <tr><th><code>--text-base</code></th><td><code>clamp(0.875rem, 0.8rem + 0.3vw, 1rem)</code> — Fließtext</td></tr>
-        <tr><th><code>--text-m</code></th><td><code>clamp(1.25rem, 1rem + 0.7vw, 1.5rem)</code> — H3, Intro</td></tr>
+        <tr><th><code>--text-m</code></th><td><code>clamp(1.25rem, 1rem + 0.7vw, 1.5rem)</code> — H3, Intro, hervorgehobene Werte</td></tr>
         <tr><th><code>--text-l</code></th><td><code>clamp(1.5rem, 1rem + 1.7vw, 2.25rem)</code> — H2</td></tr>
         <tr><th><code>--text-xl</code></th><td><code>clamp(2rem, 1rem + 3.2vw, 3.375rem)</code> — H1</td></tr>
-        <tr><th><code>--green</code></th><td><code>#78b41b</code> — Primärfarbe, CTAs</td></tr>
-        <tr><th><code>--green-light</code></th><td><code>#f0fae6</code> — Hintergründe</td></tr>
-        <tr><th><code>--fg · --fg-muted · --bg</code></th><td><code>#000 · #666 · #fff</code></td></tr>
-        <tr><th><code>--border · --border-light · --accent-bg</code></th><td><code>#ccc · #e0e0e0 · #f2f2f2</code></td></tr>
-        <tr><th><code>--z-nav · --z-overlay · --z-drawer · --z-modal</code></th><td><code>100 · 200 · 210 · 220</code></td></tr>
-        <tr><th><code>--anim-fast · --anim-mid · --anim-base · --anim-slow</code></th><td><code>0.2s · 0.3s · 0.4s · 0.6s ease</code></td></tr>
+        <tr><th><code>--lh-base</code></th><td><code>1.5</code> — Fließtext, H4</td></tr>
+        <tr><th><code>--lh-h3</code></th><td><code>1.2</code> — H3 Headlines</td></tr>
+        <tr><th><code>--lh-h2</code></th><td><code>1.17</code> — H2 Headlines</td></tr>
+        <tr><th><code>--lh-h1</code></th><td><code>1.11</code> — H1 Headlines</td></tr>
+        <tr><th><code>--font</code></th><td><code>"schnebel-sans-me", sans-serif</code></td></tr>
       </table>
-      <div class="sg-demo"></div>
+
+      <h3 class="sg-h3 --top">Farben</h3>
+      <table class="spec-table">
+        <tr><th><code>--fg</code></th><td><span class="sg-swatch" style="background:#2E2E2E"></span><code>#2E2E2E</code> — Text, aktive Zustände</td></tr>
+        <tr><th><code>--fg-hover</code></th><td><span class="sg-swatch" style="background:#333"></span><code>#333</code> — Hover-Zustand Text</td></tr>
+        <tr><th><code>--fg-muted</code></th><td><span class="sg-swatch" style="background:#666"></span><code>#666</code> — Sekundärer Text</td></tr>
+        <tr><th><code>--bg</code></th><td><span class="sg-swatch" style="background:#fff"></span><code>#fff</code> — Seitenhintergrund</td></tr>
+        <tr><th><code>--border</code></th><td><span class="sg-swatch" style="background:#cccccc"></span><code>#cccccc</code> — Strukturelle Linien</td></tr>
+        <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#e0e0e0"></span><code>#e0e0e0</code> — Dezente Trennlinien</td></tr>
+        <tr><th><code>--accent-bg</code></th><td><span class="sg-swatch" style="background:#f2f2f2"></span><code>#f2f2f2</code> — Flächenfarbe für Boxen &amp; Placeholder (bewusst ≠ <code>--border-light</code>: Linie ≠ Fläche)</td></tr>
+        <tr><th><code>--green</code></th><td><span class="sg-swatch" style="background:#78b41b"></span><code>#78b41b</code> — Primärfarbe, CTAs, Icons</td></tr>
+        <tr><th><code>--green-hover</code></th><td><span class="sg-swatch" style="background:#58990F"></span><code>#58990F</code> — Hover-Zustand grün</td></tr>
+        <tr><th><code>--green-light</code></th><td><span class="sg-swatch" style="background:#f0fae6"></span><code>#f0fae6</code> — Hintergründe, Announcement Bar</td></tr>
+        <tr><th><code>--border-focus</code></th><td><code>var(--fg)</code> — Fokusring bei Inputs und Selects</td></tr>
+      </table>
+      <p>Semantische Aliases: <code>--color-action</code> / <code>--color-success</code> / <code>--color-link</code> = <code>var(--green)</code> · Akzente <code>--color-amber</code>, <code>--color-honey</code> · Fehler <code>--color-error</code> (<code>#c00</code>). 14 Produkt-Kategoriefarben (<code>--cat-…</code>) → <a href="#A5">A.5 Farben</a>.</p>
+
+      <h3 class="sg-h3 --top">Layout</h3>
+      <table class="spec-table">
+        <tr><th><code>--announcement-height</code></th><td><code>calc(var(--module) * 0.67)</code> — Höhe der Announcement Bar (beim Schließen <code>0px</code>)</td></tr>
+        <tr><th><code>--nav-height</code></th><td><code>calc(var(--module) * 2.5)</code> — Höhe der Navigation</td></tr>
+        <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> — für <code>scroll-padding-top</code></td></tr>
+        <tr><th><code>--page-pt</code></th><td><code>var(--module)</code> — Atemraum unter dem sticky Header zum ersten Content-Element</td></tr>
+        <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lesebreite für <code>.page</code></td></tr>
+        <tr><th><code>--section-max-height</code></th><td><code>51rem</code> — Max-Höhe für Section Types mit Bild</td></tr>
+        <tr><th><code>--section-min-height</code></th><td><code>24rem</code> — Min-Höhe für Section Types mit Bild</td></tr>
+        <tr><th><code>--icon-box-sm · --icon-box-md</code></th><td><code>calc(var(--base) * 2.5)</code> · <code>calc(var(--base) * 2.75)</code> — Icon-Box-Größen</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Container-Modifier (auf <code>.page</code>)</h3>
+      <table class="spec-table">
+        <tr><th><code>.page</code></th><td><code>1536px</code> — voller Satzspiegel, für Listen, Übersichten, Marketing</td></tr>
+        <tr><th><code>.page.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — Lese-Content, Detail-Seiten</td></tr>
+        <tr><th><code>.page.--form</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Eingabe-Formulare</td></tr>
+        <tr><th><code>.page.--no-pt</code></th><td>Hebt <code>--page-pt</code> auf — für Pages direkt nach einer Hero-Section</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Stacking (z-index)</h3>
+      <table class="spec-table">
+        <tr><th><code>--z-default</code></th><td><code>1</code> — Standard-Stacking, Hover-Overlays</td></tr>
+        <tr><th><code>--z-nav</code></th><td><code>100</code> — Site-Navigation (sticky)</td></tr>
+        <tr><th><code>--z-dropdown</code></th><td><code>110</code> — Mega-Menu, Sub-Nav, Dropdown</td></tr>
+        <tr><th><code>--z-overlay</code></th><td><code>200</code> — vollflächige Overlays (Cart, Filter, Cookie-Banner)</td></tr>
+        <tr><th><code>--z-drawer</code></th><td><code>210</code> — Slide-In Panels (Cart-Drawer, Filter-Drawer)</td></tr>
+        <tr><th><code>--z-modal</code></th><td><code>220</code> — modale Dialoge. Toast: <code>calc(var(--z-modal) + 10)</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Animation</h3>
+      <table class="spec-table">
+        <tr><th><code>--anim-fast</code></th><td><code>0.2s ease</code> — Hover, Icons, kleine Zustandswechsel</td></tr>
+        <tr><th><code>--anim-mid</code></th><td><code>0.3s ease</code> — Drawer, Modal, Overlay</td></tr>
+        <tr><th><code>--anim-base</code></th><td><code>0.4s ease</code> — Standard-Transitions</td></tr>
+        <tr><th><code>--anim-slow</code></th><td><code>0.6s ease</code> — Page-Übergänge, große Elemente</td></tr>
+        <tr><th><code>--anim-announcement</code></th><td><code>4s</code> — Anzeigedauer pro Announcement-Bar-Item</td></tr>
+        <tr><th><code>--anim-delay</code></th><td><code>0ms</code> — Per-Element-Verzögerung für gestaffelte Animationen (via JS gesetzt)</td></tr>
+      </table>
     </section>
 
     <section class="sg-section-v2 flow" id="A4">
       <h2 class="section-label">A.4 — Typografie</h2>
-      <p>Fluid Typography via <code>clamp()</code>. Sechs Ebenen: H1–H4, Body, Caption. Schrift: Schnebel Sans via Adobe Typekit.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Schrift: <strong>Schnebel Sans</strong> via Adobe Typekit (Fallback <code>sans-serif</code>). Sechs Ebenen: H1–H4, Body, Caption — plus das Uppercase-Label für Sektions-Titel und Tabellen-Header. Icons: Google Material Icons (CDN).</p>
+        <p>Fluid Typography: alle Größen skalieren stufenlos via <code>clamp()</code> zwischen Mobil-Minimum und Desktop-Maximum. Line-Heights als Faktor, nicht als fester rem-Wert.</p>
+      </div>
+
+      <div class="type-scale">
+        <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.667rem</div></div>
+        <div class="type-scale-step"><div class="glyph --sm">Ag</div><div class="meta"><span class="sg-token">--text-sm</span>0.8rem</div></div>
+        <div class="type-scale-step"><div class="glyph --base">Ag</div><div class="meta"><span class="sg-token">--text-base</span>0.875–1rem</div></div>
+        <div class="type-scale-step"><div class="glyph --m">Ag</div><div class="meta"><span class="sg-token">--text-m</span>1.25–1.5rem</div></div>
+        <div class="type-scale-step"><div class="glyph --l">Ag</div><div class="meta"><span class="sg-token">--text-l</span>1.5–2.25rem</div></div>
+        <div class="type-scale-step"><div class="glyph --xl">Ag</div><div class="meta"><span class="sg-token">--text-xl</span>2–3.375rem</div></div>
+      </div>
+
+      <h3 class="sg-h3 --top">Spezimen</h3>
+      <div class="specimen">
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2–3.375rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.5–2.25rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-m</span><span>1.25–1.5rem</span><span>LH 1.2</span></div><h3>Headline 3</h3></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5</span></div><h4>Headline 4</h4></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5 · Body</span></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Alle Produkte enthalten <a href="#">natürliche Wirkstoffe</a> – ohne unnötige Zusatzstoffe. Mehr dazu in unserem <a href="#">Ratgeber</a>.</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span>ul · ol</span><span>a:not([class])</span></div><div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--module)"><ul><li>Tierärztlich entwickelt</li><li>Ohne künstliche Zusätze</li><li>Nachhaltige Rohstoffe</li></ul><ol><li>Produkt wählen</li><li>Dosierung beachten</li><li>Regelmäßig anwenden</li></ol></div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>LH 1.5</span></div><p style="font-size: var(--text-xs)">Caption · Label · Kleingedrucktes · Metainfo</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>Uppercase · 0.15em</span></div><div style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted);">Section Label · Tabellen-Header · Filter-Label</div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span>0.85em (relativ)</span><span>Monospace</span></div><div style="font-size: var(--text-base); line-height: var(--lh-base); color: var(--fg-muted);">Inline-Code: <code>var(--module)</code>, <code>clamp()</code>, <code>#78b41b</code></div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>700 · uppercase · ls 0.05em</span></div><div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;"><div class="badge" data-cat="herz">Herz</div><div class="badge" data-cat="gelenke">Gelenke</div><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge --sale">Sale</div></div></div>
+      </div>
+      <p>Die vollständige Icon-Galerie ist in <a href="#B3">B.3 — Icons &amp; icon-box</a> dokumentiert.</p>
+
+      <h3 class="sg-h3 --top">Rich Text (CMS Content)</h3>
+      <p>Texte aus dem Shopify-Backend (Seiten, Blogbeiträge, Produktbeschreibungen) haben keine Utility-Klassen. Der Wrapper <code>.rte</code> sorgt dafür, dass Standard-HTML-Tags automatisch den korrekten vertikalen Rhythmus erhalten.</p>
+      <div class="sg-demo --white">
+        <div class="rte">
+          <h2>Warum natürliche Inhaltsstoffe?</h2>
+          <p>Viele handelsübliche Ergänzungsmittel enthalten synthetische Füllstoffe, künstliche Aromen und Konservierungsstoffe. Bei inuvet verzichten wir bewusst darauf – aus Überzeugung und weil es deinem Tier schlicht nicht guttut. Mehr dazu in unserer <a href="#">Philosophie</a>.</p>
+          <blockquote>
+            „Die Gesundheit beginnt im Napf. Natürliche Inhaltsstoffe werden vom tierischen Organismus deutlich besser metabolisiert als synthetische Isolate."
+          </blockquote>
+          <ul>
+            <li>Keine künstlichen Farbstoffe oder Aromen</li>
+            <li>Hergestellt in Deutschland nach HACCP-Standard</li>
+            <li>Entwickelt in Zusammenarbeit mit Tierärztinnen und Tierärzten</li>
+          </ul>
+          <figure>
+            <div class="placeholder-bg" style="width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: var(--fg-muted); border: 1px solid var(--border-light);">BILD-PLATZHALTER (16:9)</div>
+            <figcaption>Unsere Produktion in Deutschland unterliegt strengen Qualitätskontrollen.</figcaption>
+          </figure>
+          <h3>Transparenz in der Herstellung</h3>
+          <p>Jede Charge wird auf Reinheit und Wirkstoffgehalt geprüft. Die Ergebnisse sind auf Anfrage einsehbar. Wir glauben, dass du das Recht hast zu wissen, was dein Tier bekommt.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Inhaltsstoff</th>
+                <th>Menge je Tablette</th>
+                <th>Funktion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Baldrian-Extrakt</td><td>50 mg</td><td>Beruhigung</td></tr>
+              <tr><td>L-Tryptophan</td><td>30 mg</td><td>Stressreduktion</td></tr>
+              <tr><td>Magnesium</td><td>20 mg</td><td>Muskelentspannung</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Abstand nach unten: <code>--half-module</code>.</td></tr>
+        <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px solid var(--border-light)</code>. <code>vertical-align: top</code>.</td></tr>
+        <tr><th><code>th</code></th><td><code>font-weight: 700</code>. Stärkere Trennlinie: <code>var(--border)</code>.</td></tr>
+        <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
+      </table>
     </section>
 
     <section class="sg-section-v2 flow" id="A5">
@@ -456,6 +608,6 @@
 </div>
 
 <script src="inuvet.js?v=2"></script>
-<script src="sg.js"></script>
+<script src="sg.js?v=1"></script>
 </body>
 </html>

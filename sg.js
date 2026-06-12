@@ -377,3 +377,57 @@ function toggleAnnScrollDemo(btn) {
   btn.classList.toggle('--secondary', !on);
   btn.textContent = on ? 'Scroll-Away deaktivieren' : 'Scroll-Away aktivieren';
 }
+
+/* ─── Styleguide v2: Scrollspy — aktuellen Abschnitt in der Sidebar markieren ───
+   Tut nichts im alten Guide (kein .sg-sidebar / .sg-section-v2). */
+(function () {
+  var sidebar = document.querySelector('.sg-sidebar');
+  if (!sidebar) return;
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.sg-section-v2[id]'));
+  if (!sections.length) return;
+
+  var links = {};
+  sidebar.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    links[a.getAttribute('href').slice(1)] = a;
+  });
+
+  var current = null;
+
+  // Aktiven Link in der scrollbaren Sidebar sichtbar halten (ohne das Fenster zu scrollen)
+  function keepVisible(link) {
+    var lr = link.getBoundingClientRect();
+    var cr = sidebar.getBoundingClientRect();
+    if (lr.top < cr.top) sidebar.scrollTop -= (cr.top - lr.top) + 8;
+    else if (lr.bottom > cr.bottom) sidebar.scrollTop += (lr.bottom - cr.bottom) + 8;
+  }
+
+  function setActive(id) {
+    if (id === current) return;
+    current = id;
+    sidebar.querySelectorAll('a.--active').forEach(function (a) { a.classList.remove('--active'); });
+    var link = links[id];
+    if (!link) return;
+    link.classList.add('--active');
+    keepVisible(link);
+  }
+
+  function update() {
+    // Aktiv = letzte Section, deren Oberkante über der Aktivierungslinie liegt
+    var line = 140;
+    var active = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= line) active = sections[i];
+      else break;
+    }
+    setActive(active.id);
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { update(); ticking = false; });
+  }, { passive: true });
+
+  update();
+})();

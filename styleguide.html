@@ -2356,7 +2356,7 @@
       </div>
       <div class="rule">
         <h4>Varianten</h4>
-        <p>Einzeilig (kurzer Hinweistext), mehrzeilig (Titel + Fließtext), mit CTA (Titel + Text + Button/Link).</p>
+        <p>Einzeilig (kurzer Hinweistext), mehrzeilig (Titel + Fließtext), mit CTA (Titel + Text + Button/Link), mit Icon und aufklappbar (<code>&lt;details&gt;</code>).</p>
       </div>
     </div>
 
@@ -2365,6 +2365,10 @@
       <tr><th><code>.notice__title</code></th><td>Optionaler Titel: fett, <code>var(--text-base)</code>.</td></tr>
       <tr><th><code>.notice p</code></th><td>Fließtext innerhalb der Box: <code>var(--text-base)</code>, Zeilenabstand <code>var(--lh-base)</code>.</td></tr>
       <tr><th><code>.notice__actions</code></th><td>Optionaler CTA-Bereich: Flex-Row, <code>gap</code>, oben leichter Zusatzabstand.</td></tr>
+      <tr><th><code>.notice__icon</code></th><td>Optionales Material-Icon (z.B. <code>info</code>): <code>var(--green)</code>, <code>1.25rem</code>, schrumpft nicht.</td></tr>
+      <tr><th><code>details.notice</code></th><td>Aufklappbare Variante. <code>&lt;summary&gt;</code> = klickbare Kopfzeile (Flex-Row, Marker entfernt), Inhalt in <code>.notice__body</code>.</td></tr>
+      <tr><th><code>.notice__chevron</code></th><td>Chevron-Icon (<code>expand_more</code>) rechts. Dreht sich bei <code>[open]</code> um 180°.</td></tr>
+      <tr><th><code>.notice__body</code></th><td>Inhalts-Wrapper der aufklappbaren Variante: Flex-Column mit <code>gap</code>, Abstand nach oben.</td></tr>
     </table>
 
     <div class="demo-label">Einzeilig</div>
@@ -2387,6 +2391,26 @@
         <button class="btn --ghost" type="button">Später</button>
       </div>
     </div>
+
+    <div class="demo-label">Mit Icon</div>
+    <div class="notice">
+      <p class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung</p>
+      <p>Du gibst die angefragten Produkte mit einem Klick frei — Beratung, Versand und Betreuung übernimmt Inuvet.</p>
+    </div>
+
+    <div class="demo-label">Aufklappbar (mit Icon)</div>
+    <details class="notice">
+      <summary>
+        <span class="material-icons notice__icon">info</span>
+        <span class="notice__title">So funktioniert die Empfehlung — und dein persönlicher Kontakt</span>
+        <span class="material-icons notice__chevron">expand_more</span>
+      </summary>
+      <div class="notice__body">
+        <p>Du gibst die angefragten Produkte mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — kein Aufwand mit Lagerung oder Logistik.</p>
+        <p class="notice__title">Persönlicher Kontakt bei Fragen</p>
+        <p>Deine persönliche Ansprechpartnerin hilft dir gern weiter: <strong>Birka Beispiel</strong> · <a href="#">birka@inuvet.com</a></p>
+      </div>
+    </details>
 
   </section>
 </div>
