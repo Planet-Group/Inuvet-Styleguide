@@ -224,7 +224,8 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 
 ### Section-Label Modifier
 - `.section-label` — Top-Level (h2), `--border`
-- `.section-label.--sub` — Sub-Sektion (h3), `--border-light`
+- `.section-label.--sub` — Sub-Sektion (h3), `--border-light` — **nur Produktion** (Formular-/Checkout-Sub-Sektionen, unter einem `form-page__title`/h1)
+- **Styleguide-Doku:** Gruppen-Überschriften im Guide nutzen `.sg-h3` (gemischte Schreibweise, fett, ohne Linie) — **nicht** `.section-label --sub`. Grund: neben der Sektions-`.section-label` (klein, Uppercase, mit Linie) würde `--sub` zu ähnlich aussehen; `.sg-h3` hebt sich klar als untergeordnete Inhalts-Überschrift ab.
 
 ### Spacing: H→p→Button-Stacks
 Überall wo Headline + Fließtext + CTA gestapelt: je `margin-bottom: var(--half-module)`. In `section-type__headline/body` genauso wie in seitenspezifischen Teasern (D.3).
