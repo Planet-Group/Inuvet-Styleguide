@@ -35,6 +35,22 @@
 .approval-meta__item { display: flex; gap: calc(var(--base) * 0.5); align-items: baseline; }
 .approval-meta__val  { color: var(--fg); }
 
+/* ─── Prozess-Erklärung + persönlicher Kontakt ───
+   Basis: globale (aufklappbare) Notice-Komponente mit Icon (C.7).
+   Hier nur das zweispaltige Body-Layout für die zwei Textblöcke. */
+.approval-help { margin-bottom: var(--module); }
+.approval-help__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--module);
+}
+@media (min-width: 768px) {
+  .approval-help__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+.approval-help__block p { margin: 0 0 calc(var(--base) * 0.4); }
+.approval-help__block p:last-child { margin-bottom: 0; }
+.approval-help__contact a { color: var(--green); }
+
 /* ─── Produkt-Grid: 3-spaltig auf Desktop ─── */
 .approval-product-grid {
   display: grid;
@@ -86,9 +102,6 @@
 }
 .approval-variant-row .form-field.--sm { margin-bottom: 0; width: 9rem; }
 
-/* ─── Vertrauens-Modus-Schalter über dem Grid ─── */
-.approval-trust { margin-bottom: var(--module); }
-
 /* ─── Direkt-Empfehlung (Zustand 2): E-Mail-Eingabe + Einverständnis ─── */
 .approval-direct__hint { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: var(--half-module); }
 .approval-consent { align-items: flex-start; font-size: var(--text-sm); }
@@ -98,6 +111,8 @@
 .approval-product-card__note {
   margin-top: var(--half-module);
 }
+/* Kompaktes Notizfeld — globale min-height (8rem) ist hier zu hoch */
+.approval-product-card__note textarea { min-height: 4rem; }
 
 /* ─── Status-Counter ─── */
 .approval-counter {
@@ -126,17 +141,39 @@
   position: sticky;
   bottom: 0;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: var(--half-module) var(--module);
+  /* Full-Bleed: über die ganze Seitenbreite, aus dem zentrierten .page-Container ausbrechen */
   margin-top: var(--module);
-  padding: var(--half-module) 0;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   background: var(--bg);
   box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
 }
+.approval-submit-bar__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--half-module) var(--margin);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--half-module) var(--module);
+}
+.approval-submit-bar__trust { font-size: var(--text-sm); }
+.approval-submit-bar__action {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--half-module) var(--module);
+}
 .approval-submit-bar .approval-counter { margin-bottom: 0; }
 .approval-submit-bar .btn.--primary { min-width: calc(var(--base) * 14); }
+@media (max-width: 767px) {
+  .approval-submit-bar__inner {
+    gap: calc(var(--base) * 0.5) var(--module);
+    padding: calc(var(--base) * 0.6) var(--margin);
+  }
+  .approval-submit-bar__trust { font-size: var(--text-xs); line-height: var(--lh-h3); }
+  .approval-submit-bar__action { width: 100%; justify-content: space-between; }
+}
 /* Sichtbare Mockup-Bar (fixed, bottom:0, Höhe 3.25rem) → Submit-Leiste darüber heben */
 body.--mockup-bar-visible .approval-submit-bar { bottom: 3.25rem; }

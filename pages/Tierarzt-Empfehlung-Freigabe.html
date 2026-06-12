@@ -70,21 +70,46 @@
   <!-- Intro: 2-spaltig auf Desktop — Inhalt je Zustand durch JS (renderIntro) -->
   <div class="approval-intro" id="approvalIntro"></div>
 
-  <!-- Vertrauens-Modus: alle Produkte auf einmal unbegrenzt freigeben -->
-  <div class="approval-trust">
-    <label class="form-check">
-      <input type="checkbox" id="trustToggle" onchange="toggleTrust(this.checked)">
-      <span>Volles Vertrauen: alle Produkte unbegrenzt freigeben</span>
-    </label>
-  </div>
+  <!-- Prozess-Erklärung + persönlicher Kontakt — erinnert teilnehmende Praxen
+       an Ablauf & Ansprechpartner*in (z.B. wenn Teilnahme in Vergessenheit geriet) -->
+  <details class="notice approval-help" id="approvalHelp">
+    <summary>
+      <span class="material-icons notice__icon">info</span>
+      <span class="notice__title">So funktioniert die Inuvet-Empfehlung — und Ihr persönlicher Kontakt</span>
+      <span class="material-icons notice__chevron">expand_more</span>
+    </summary>
+    <div class="notice__body approval-help__body">
+      <div class="approval-help__block">
+        <p>Ihre Praxis nimmt am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben die passenden Größen mit einem Klick frei.</p>
+        <p>Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik. Ihre Freigabe ist die fachliche Empfehlung: Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
+        <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+      </div>
+      <div class="approval-help__block">
+        <p class="notice__title">Persönlicher Kontakt bei Fragen</p>
+        <p>Sie haben Fragen zu dieser Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
+        <p class="approval-help__contact">
+          <strong>Birka Beispiel</strong> · Tierärztlicher Außendienst<br>
+          <a href="tel:+4915112345678">+49 151 123 456 78</a> · <a href="mailto:birka@inuvet.com">birka@inuvet.com</a>
+        </p>
+      </div>
+    </div>
+  </details>
 
   <!-- Produkt-Grid — datengetrieben durch tierarzt-empfehlung-freigabe.js -->
   <div class="approval-product-grid" id="approvalGrid"></div>
 
-  <!-- Sticky Submit-Leiste: Counter + CTA bleiben beim Scrollen sichtbar -->
+  <!-- Sticky Submit-Leiste: Vertrauens-Schalter + Counter + CTA bleiben beim Scrollen sichtbar -->
   <div class="approval-submit-bar">
-    <p class="approval-counter" id="approvalCounter">0 von 5 Produkten freigegeben</p>
-    <button class="btn --primary" onclick="submitApproval()">Freigabe absenden</button>
+    <div class="approval-submit-bar__inner">
+      <label class="form-check approval-submit-bar__trust">
+        <input type="checkbox" id="trustToggle" onchange="toggleTrust(this.checked)">
+        <span>Volles Vertrauen: alle Produkte unbegrenzt freigeben</span>
+      </label>
+      <div class="approval-submit-bar__action">
+        <p class="approval-counter" id="approvalCounter">0 von 5 Produkten freigegeben</p>
+        <button class="btn --primary" onclick="submitApproval()">Freigabe absenden</button>
+      </div>
+    </div>
   </div>
 
 </main>

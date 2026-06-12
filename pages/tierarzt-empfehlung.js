@@ -892,7 +892,18 @@ function renderSuccessStep() {
       <p>Angefragt: <strong>${requestedNames}</strong></p>
       <p>Diese können Sie hier einsehen und freigeben:<br>
       <a href="Tierarzt-Empfehlung-Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
-      <p class="mockup-email-panel__note">@Birka (Marketing): Hier motivierender Text über Vorteile der Empfehlung einfügen (z.B. Provision, Patientenbindung).</p>`
+
+      <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
+      <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
+      <p>Ihre Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
+      <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+
+      <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>Persönlicher Kontakt bei Fragen</strong></p>
+      <p>Sie haben Fragen zur Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
+      <p><strong>Birka Beispiel</strong> · Tierärztlicher Außendienst<br>
+      <a href="tel:+4915112345678" style="color:var(--green);">+49 151 123 456 78</a> · <a href="mailto:birka@inuvet.com" style="color:var(--green);">birka@inuvet.com</a></p>
+
+      <p class="mockup-email-panel__note">@Birka (Marketing): Texte zu Prozess & persönlichem Kontakt final abstimmen (Tonalität, Name/Telefon/Mail der Ansprechpartner*in, ggf. Hinweis auf Provision/Patientenbindung).</p>`
   };
 
   // Interner Queue-Eintrag — keine E-Mail, sondern Sichtbarkeit für den Innendienst

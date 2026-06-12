@@ -1218,8 +1218,29 @@
   gap: calc(var(--base) * 0.35);
 }
 .notice p        { margin: 0; font-size: var(--text-base); line-height: var(--lh-base); }
-.notice__title   { font-weight: 700; font-size: var(--text-base); margin: 0; }
+.notice__title   { font-weight: 700; font-size: var(--text-base); margin: 0; display: flex; align-items: center; gap: calc(var(--base) * 0.4); }
 .notice__actions { margin-top: var(--half-module); display: flex; gap: var(--half-module); flex-wrap: wrap; }
+
+/* Icon-Variante: Material-Icon links neben Titel/Inhalt */
+.notice__icon { color: var(--green); font-size: 1.25rem; flex-shrink: 0; }
+
+/* Aufklappbare Notice (details/summary). Inhalt in .notice__body kapseln. */
+details.notice > summary {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  cursor: pointer;
+  list-style: none;
+}
+details.notice > summary::-webkit-details-marker { display: none; }
+.notice__chevron { margin-left: auto; flex-shrink: 0; transition: transform var(--anim-fast); }
+details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
+.notice__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+  margin-top: var(--half-module);
+}
 
   /* ═══════════════════════════════════════════
      FORMS
