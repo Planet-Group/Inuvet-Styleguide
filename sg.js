@@ -8,11 +8,13 @@ function closeModal(id) {
   document.body.style.overflow = '';
 }
 
-// Escape closes menu + modals
+// Escape closes menu + modals + cart drawers
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeMobile();
     document.querySelectorAll('.modal-overlay.--open').forEach(function(m) { closeModal(m.id); });
+    if (document.getElementById('cartFull')?.classList.contains('--open')) closeCart('cartFull');
+    if (document.getElementById('cartEmpty')?.classList.contains('--open')) closeCart('cartEmpty');
   }
 });
 
@@ -103,15 +105,23 @@ function changeQty(delta) {
 
 // ─── Cart Drawer ───
 function openCart(id) {
+  id = id || 'cartFull';
   var overlayId = id === 'cartFull' ? 'overlayFull' : 'overlayEmpty';
-  document.getElementById(overlayId).classList.add('--open');
-  document.getElementById(id).classList.add('--open');
+  var overlay = document.getElementById(overlayId);
+  var drawer  = document.getElementById(id);
+  if (!overlay || !drawer) return;
+  overlay.classList.add('--open');
+  drawer.classList.add('--open');
   document.body.style.overflow = 'hidden';
 }
 function closeCart(id) {
+  id = id || 'cartFull';
   var overlayId = id === 'cartFull' ? 'overlayFull' : 'overlayEmpty';
-  document.getElementById(overlayId).classList.remove('--open');
-  document.getElementById(id).classList.remove('--open');
+  var overlay = document.getElementById(overlayId);
+  var drawer  = document.getElementById(id);
+  if (!overlay || !drawer) return;
+  overlay.classList.remove('--open');
+  drawer.classList.remove('--open');
   document.body.style.overflow = '';
 }
 

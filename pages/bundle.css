@@ -268,39 +268,6 @@
   color: var(--bg);
 }
 
-/* ─── Cart Drawer — Bundle-spezifische Zusatzzeilen ─── */
-.cart-drawer__free-row,
-.cart-drawer__savings-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: var(--text-base);
-  padding: calc(var(--base) * 0.2) 0;
-}
-
-.cart-drawer__free-row {
-  font-size: var(--text-m);
-  font-weight: 700;
-  color: var(--green);
-  padding-top: calc(var(--base) * 0.5);
-}
-
-.cart-drawer__savings-row {
-  font-weight: 700;
-  padding-bottom: calc(var(--base) * 0.5);
-}
-
-.cart-drawer__continue-wrap {
-  margin-top: calc(var(--base) * 0.5);
-  text-align: center;
-}
-
-.cart-drawer__continue {
-  width: 100%;
-  justify-content: center;
-}
-
-
 /* ─── Empfehlungen Label ─── */
 .rec-section .label-caps { margin-bottom: var(--half-module); }
 
@@ -311,10 +278,6 @@
   width: 100%;
   text-align: center;
 }
-
-/* ─── Cart-Drawer Bundle-Werte ─── */
-.cart-drawer__free-value    { color: var(--green); font-weight: 700; }
-.cart-drawer__savings-value { font-weight: 700; }
 
 /* ─── Empty State ─── */
 .empty-state .material-icons { font-size: 2rem; color: var(--border-light); }

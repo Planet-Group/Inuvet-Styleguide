@@ -392,8 +392,8 @@ function renderCartDrawer() {
   if (cart.length === 0) {
     return `
       <div class="cart-drawer__header">
-        <h2 class="cart-drawer__title">Prämien-Warenkorb</h2>
-        <button class="btn --icon" onclick="closeCart()" aria-label="Schließen">
+        <span class="cart-drawer__title">Prämien-Warenkorb <span class="cart-drawer__count">(0)</span></span>
+        <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen">
           <span class="material-icons">close</span>
         </button>
       </div>
@@ -434,8 +434,8 @@ function renderCartDrawer() {
 
   return `
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title">Prämien-Warenkorb <span class="cart-drawer__count">(${cart.length})</span></h2>
-      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen">
+      <span class="cart-drawer__title">Prämien-Warenkorb <span class="cart-drawer__count">(${cart.length})</span></span>
+      <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen">
         <span class="material-icons">close</span>
       </button>
     </div>

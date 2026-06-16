@@ -7,9 +7,9 @@
 <meta name="description" content="Design-System für das inuvet Shopify-Theme. Tokens, Komponenten und Patterns nach Atomic Design.">
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="inuvet.css?v=10">
+<link rel="stylesheet" href="inuvet.css?v=11">
 <link rel="stylesheet" href="pages/formulare.css">
-<link rel="stylesheet" href="sg.css?v=2">
+<link rel="stylesheet" href="sg.css?v=3">
 <link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
@@ -3922,8 +3922,8 @@
           <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
         </div>
         <div class="accordion">
-          <div class="accordion-item --open">
-            <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Inzym Pulver enthält eine gezielte Kombination aus Verdauungsenzymen und pflanzlichen Wirkstoffen zur Unterstützung der Bauchspeicheldrüse bei Hund und Katze.</p></div></div>
           </div>
           <div class="accordion-item">
@@ -4031,8 +4031,8 @@
         </div>
 
         <div class="accordion">
-          <div class="accordion-item --open">
-            <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion. Geeignet zur kurzfristigen und langfristigen Anwendung.</p></div></div>
           </div>
           <div class="accordion-item">
@@ -4894,6 +4894,130 @@
 
 
 
+<!-- ─── Cart-Drawer (Styleguide-Demo, E.4) ─── -->
+<div class="cart-overlay" id="overlayFull" onclick="closeCart('cartFull')"></div>
+<div class="cart-drawer" id="cartFull">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(3)</span></span>
+    <button type="button" class="btn --icon" onclick="closeCart('cartFull')" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="cart-drawer__items">
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
+        <img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Calmin balance Tabletten</p>
+            <div class="cart-item__variant">60 Stück · 39,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="cart-item__counter">
+            <div class="qty-selector --sm">
+              <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+              <input class="qty-selector__input" type="number" value="8" min="1">
+              <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+            </div>
+            <span class="badge --free">+ 2</span>
+          </div>
+          <span class="cart-item__qty-text">319,20 €</span>
+        </div>
+      </div>
+    </div>
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte Pulver">
+        <img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Hepax forte Pulver</p>
+            <div class="cart-item__variant">75 g · 39,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="1" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+          </div>
+          <span class="cart-item__qty-text">39,90 €</span>
+        </div>
+      </div>
+    </div>
+    <div class="cart-item">
+      <div class="product-thumb placeholder-bg"></div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Inzym Pulver</p>
+            <div class="cart-item__variant">50 g · 24,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="2" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+          </div>
+          <span class="cart-item__qty-text">49,80 €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart-drawer__footer">
+    <div class="cart-drawer__free-row">
+      <span>Gratisprodukte (2×)</span>
+      <span class="cart-drawer__free-value">Kostenlos</span>
+    </div>
+    <div class="cart-drawer__savings-row">
+      <span>Dein Vorteil</span>
+      <span class="cart-drawer__savings-value">+ 79,80 €</span>
+    </div>
+    <div class="summary-total">
+      <span>Zwischensumme</span>
+      <span>408,90 €</span>
+    </div>
+    <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>
+    <button type="button" class="btn --primary cart-drawer__checkout">Zur Kasse</button>
+    <div class="cart-drawer__continue-wrap">
+      <button type="button" class="btn --ghost cart-drawer__continue" onclick="closeCart('cartFull')">Weiter einkaufen</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart-overlay" id="overlayEmpty" onclick="closeCart('cartEmpty')"></div>
+<div class="cart-drawer" id="cartEmpty">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(0)</span></span>
+    <button type="button" class="btn --icon" onclick="closeCart('cartEmpty')" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="cart-drawer__empty">
+    <div class="empty-state">
+      <span class="material-icons">shopping_cart</span>
+      <p>Dein Warenkorb ist leer.</p>
+      <button type="button" class="btn --primary" onclick="closeCart('cartEmpty')">Weiter einkaufen</button>
+    </div>
+  </div>
+</div>
+
 <!-- ─── Options-Drawer (Styleguide-Demo) ─── -->
 <div class="options-overlay" id="sgOptionsOverlay" onclick="closeOptionsDrawer()"></div>
 <div class="options-drawer" id="sgOptionsDrawer">
@@ -4993,6 +5117,6 @@
   </div>
 </div>
 
-<script src="sg.js?v=2"></script>
+<script src="sg.js?v=3"></script>
 </body>
 </html>

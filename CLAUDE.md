@@ -104,6 +104,11 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `initScrollAnimations()` | IntersectionObserver für `.--in-view` |
 | `initSliders()` | Testimonial-Slider (Desktop: prev/next, Mobile: Mehr anzeigen) |
 | `showMoreSlider(btn)` | Mobile: je 3 weitere Slides einblenden |
+| `openCart()` / `closeCart()` | Warenkorb-Drawer |
+| `renderCartDrawer()` | Warenkorb-Inhalt rendern |
+| `addToCart()` / `updateCartBadge()` | Globaler Warenkorb (localStorage) |
+| `showToast()` | Toast-Benachrichtigung |
+| `calcFree()` / `formatHint()` | Naturalrabatt-Logik (Bundle & PDP) |
 
 **Seitenspezifische JS-Dateien:**
 
@@ -321,7 +326,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### E — Seiten-Vorlagen
 | Sek. | Komponente | Klasse(n) |
 |---|---|---|
-| E.2 | PDP | `.pdp`, `.pdp__type-selector` |
+| E.2 | PDP | `.pdp`, `.pdp__type-selector`, `.nr-widget` |
 | E.3 | Collection | `.collection-layout .collection-sidebar .collection-toolbar` |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
@@ -349,7 +354,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
 | `pages/Tierarzt-Empfehlung-Freigabe.html` | `Tierarzt-Empfehlung-Freigabe.css` | `tierarzt-empfehlung-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
-| `pages/Bundle.html` | `bundle.css` | — | Bundle-Builder mit Naturalrabatt |
+| `pages/Bundle.html` | `bundle.css` | — (Inline + `inuvet.js`) | Bundle-Builder mit Naturalrabatt |
+| `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
 | `pages/Formular-Reklamation.html` | `formulare.css` | `formular-reklamation.js` | Stand-Alone-Formular |
 | `pages/Formular-Nebenwirkungen-TB.html` | `formulare.css` | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |

@@ -530,8 +530,8 @@ function renderOptionsDrawer() {
 
   document.getElementById('optionsDrawer').innerHTML = `
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title">Optionen wählen</h2>
-      <button class="btn --icon" onclick="closeOptions()" aria-label="Schließen">
+      <span class="cart-drawer__title">Optionen wählen</span>
+      <button type="button" class="btn --icon" onclick="closeOptions()" aria-label="Schließen">
         <span class="material-icons">close</span>
       </button>
     </div>
@@ -828,9 +828,9 @@ function renderRequestStep() {
   drawer.classList.add('--request-step');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
-      <button class="btn --icon" onclick="setCartStep(1)" aria-label="Zurück"><span class="material-icons">arrow_back</span></button>
-      <h2 class="cart-drawer__title">Deine Anfragen</h2>
-      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+      <button type="button" class="btn --icon" onclick="setCartStep(1)" aria-label="Zurück"><span class="material-icons">arrow_back</span></button>
+      <span class="cart-drawer__title">Deine Anfragen</span>
+      <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">
       <p class="vet-search__intro">An welche Praxis möchtest du deine Freigabe-Anfrage stellen?</p>
@@ -922,8 +922,8 @@ function renderSuccessStep() {
   const drawer = document.getElementById('cartDrawer');
   drawer.innerHTML = `
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title">Anfrage versendet</h2>
-      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+      <span class="cart-drawer__title">Anfrage versendet</span>
+      <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">
       <div class="success-state">
@@ -956,8 +956,8 @@ function renderCartDrawer() {
   if (!hasApproved && !hasRequested) {
     drawer.innerHTML = `
       <div class="cart-drawer__header">
-        <h2 class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(0)</span></h2>
-        <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+        <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(0)</span></span>
+        <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
       </div>
       <div class="cart-drawer__empty">
         <p class="text-muted">Dein Warenkorb ist leer.</p>
@@ -998,8 +998,8 @@ function renderCartDrawer() {
 
   drawer.innerHTML = `
     <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(${cartTotal()})</span></h2>
-      <button class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
+      <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(${cartTotal()})</span></span>
+      <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
     <div class="cart-drawer__items">${items}</div>
     <div class="cart-drawer__footer">

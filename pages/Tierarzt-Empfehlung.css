@@ -344,7 +344,7 @@ body.--page-home .section-type.--v3 .section-type__content {
   --border-light: rgba(0, 0, 0, 0.15);
 }
 .cart-drawer__items > .cart-section--requested:first-child {
-  margin-top: calc(var(--module) * -1);
+  margin-top: 0;
 }
 
 /* ─── Test-Hero: kein margin-top, direkt unter Nav ─── */

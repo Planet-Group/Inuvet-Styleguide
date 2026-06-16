@@ -28,9 +28,6 @@
   /* ─── Type scale ─── */
   .type-scale {
     display: flex; align-items: baseline; gap: var(--module);
-    padding: var(--module) 0;
-    border-top: 1px solid var(--border-light);
-    border-bottom: 1px solid var(--border-light);
     margin-bottom: var(--section-gap);
     overflow-x: auto;
   }
@@ -38,13 +35,17 @@
   .type-scale-step .glyph { font-weight: 700; line-height: 1; }
   .type-scale-step .meta { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 0.5rem; }
 
-  /* ─── Type specimen ─── */
-  .specimen { margin-bottom: var(--section-gap); }
+  /* ─── Type specimen — Linien-Treatment wie .spec-table (gestrichelt, --border, gerahmt) ─── */
+  .specimen {
+    margin-bottom: var(--section-gap);
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+  }
   .specimen-row {
     display: grid; grid-template-columns: 8rem 1fr;
     gap: var(--gutter); align-items: baseline;
     padding: var(--half-module) 0;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px dashed var(--border);
   }
   .specimen-row:last-child { border-bottom: none; }
   .specimen-meta { font-size: var(--text-xs); color: var(--fg-muted); }

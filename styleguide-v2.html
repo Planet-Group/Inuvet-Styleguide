@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=9">
-  <link rel="stylesheet" href="sg.css?v=18">
+  <link rel="stylesheet" href="inuvet.css?v=13">
+  <link rel="stylesheet" href="sg.css?v=20">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -204,13 +204,13 @@
         <tr><th><code>--fg-hover</code></th><td><span class="sg-swatch" style="background:#333"></span><code>#333</code> — Hover-Zustand Text</td></tr>
         <tr><th><code>--fg-muted</code></th><td><span class="sg-swatch" style="background:#666"></span><code>#666</code> — Sekundärer Text</td></tr>
         <tr><th><code>--bg</code></th><td><span class="sg-swatch" style="background:#fff"></span><code>#fff</code> — Seitenhintergrund</td></tr>
-        <tr><th><code>--border</code></th><td><span class="sg-swatch" style="background:#cccccc"></span><code>#cccccc</code> — Strukturelle Linien</td></tr>
+        <tr><th><code>--border</code></th><td><span class="sg-swatch" style="background:#adadad"></span><code>#adadad</code> — Strukturelle Linien</td></tr>
         <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#e0e0e0"></span><code>#e0e0e0</code> — Dezente Trennlinien</td></tr>
         <tr><th><code>--accent-bg</code></th><td><span class="sg-swatch" style="background:#f2f2f2"></span><code>#f2f2f2</code> — Flächenfarbe für Boxen &amp; Placeholder (bewusst ≠ <code>--border-light</code>: Linie ≠ Fläche)</td></tr>
         <tr><th><code>--green</code></th><td><span class="sg-swatch" style="background:#78b41b"></span><code>#78b41b</code> — Primärfarbe, CTAs, Icons</td></tr>
         <tr><th><code>--green-hover</code></th><td><span class="sg-swatch" style="background:#58990F"></span><code>#58990F</code> — Hover-Zustand grün</td></tr>
         <tr><th><code>--green-light</code></th><td><span class="sg-swatch" style="background:#f0fae6"></span><code>#f0fae6</code> — Hintergründe, Announcement Bar</td></tr>
-        <tr><th><code>--border-focus</code></th><td><code>var(--fg)</code> — Fokusring bei Inputs und Selects</td></tr>
+        <tr><th><code>--border-focus</code></th><td><code>var(--fg)</code> — Rahmenfarbe bei Fokus (Inputs, Selects). Der grüne Fokus-Ring nutzt separat <code>--focus-ring-color</code>.</td></tr>
       </table>
       <p>Semantische Aliases: <code>--color-action</code> / <code>--color-success</code> / <code>--color-link</code> = <code>var(--green)</code> · Akzente <code>--color-amber</code>, <code>--color-honey</code> · Fehler <code>--color-error</code> (<code>#c00</code>). 14 Produkt-Kategoriefarben (<code>--cat-…</code>) → <a href="#A5">A.5 Farben</a>.</p>
 
@@ -263,7 +263,7 @@
       </div>
 
       <div class="type-scale">
-        <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.667rem</div></div>
+        <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.667–0.75rem</div></div>
         <div class="type-scale-step"><div class="glyph --sm">Ag</div><div class="meta"><span class="sg-token">--text-sm</span>0.8rem</div></div>
         <div class="type-scale-step"><div class="glyph --base">Ag</div><div class="meta"><span class="sg-token">--text-base</span>0.875–1rem</div></div>
         <div class="type-scale-step"><div class="glyph --m">Ag</div><div class="meta"><span class="sg-token">--text-m</span>1.25–1.5rem</div></div>
@@ -271,7 +271,7 @@
         <div class="type-scale-step"><div class="glyph --xl">Ag</div><div class="meta"><span class="sg-token">--text-xl</span>2–3.375rem</div></div>
       </div>
 
-      <h3 class="sg-h3 --top">Spezimen</h3>
+      <h3 class="sg-h3 --top">Textstile</h3>
       <div class="specimen">
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2–3.375rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.5–2.25rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
@@ -279,16 +279,16 @@
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5</span></div><h4>Headline 4</h4></div>
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5 · Body</span></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Alle Produkte enthalten <a href="#">natürliche Wirkstoffe</a> – ohne unnötige Zusatzstoffe. Mehr dazu in unserem <a href="#">Ratgeber</a>.</p></div>
         <div class="specimen-row"><div class="specimen-meta"><span>ul · ol</span><span>a:not([class])</span></div><div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--module)"><ul><li>Tierärztlich entwickelt</li><li>Ohne künstliche Zusätze</li><li>Nachhaltige Rohstoffe</li></ul><ol><li>Produkt wählen</li><li>Dosierung beachten</li><li>Regelmäßig anwenden</li></ol></div></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>LH 1.5</span></div><p style="font-size: var(--text-xs)">Caption · Label · Kleingedrucktes · Metainfo</p></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>Uppercase · 0.15em</span></div><div style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted);">Section Label · Tabellen-Header · Filter-Label</div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>LH 1.5</span></div><p style="font-size: var(--text-xs)">Caption · Label · Kleingedrucktes · Metainfo</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>Uppercase · 0.15em</span></div><div style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted);">Section Label · Tabellen-Header · Filter-Label</div></div>
         <div class="specimen-row"><div class="specimen-meta"><span>0.85em (relativ)</span><span>Monospace</span></div><div style="font-size: var(--text-base); line-height: var(--lh-base); color: var(--fg-muted);">Inline-Code: <code>var(--module)</code>, <code>clamp()</code>, <code>#78b41b</code></div></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667rem</span><span>700 · uppercase · ls 0.05em</span></div><div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;"><div class="badge" data-cat="herz">Herz</div><div class="badge" data-cat="gelenke">Gelenke</div><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge --sale">Sale</div></div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>700 · uppercase · ls 0.05em</span></div><div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;"><div class="badge" data-cat="herz">Herz</div><div class="badge" data-cat="gelenke">Gelenke</div><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge --sale">Sale</div></div></div>
       </div>
       <p>Die vollständige Icon-Galerie ist in <a href="#B3">B.3 — Icons &amp; icon-box</a> dokumentiert.</p>
 
       <h3 class="sg-h3 --top">Rich Text (CMS Content)</h3>
       <p>Texte aus dem Shopify-Backend (Seiten, Blogbeiträge, Produktbeschreibungen) haben keine Utility-Klassen. Der Wrapper <code>.rte</code> sorgt dafür, dass Standard-HTML-Tags automatisch den korrekten vertikalen Rhythmus erhalten.</p>
-      <div class="sg-demo --white">
+      <div class="sg-demo">
         <div class="rte">
           <h2>Warum natürliche Inhaltsstoffe?</h2>
           <p>Viele handelsübliche Ergänzungsmittel enthalten synthetische Füllstoffe, künstliche Aromen und Konservierungsstoffe. Bei inuvet verzichten wir bewusst darauf – aus Überzeugung und weil es deinem Tier schlicht nicht guttut. Mehr dazu in unserer <a href="#">Philosophie</a>.</p>
@@ -324,22 +324,283 @@
       </div>
       <table class="spec-table">
         <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Abstand nach unten: <code>--half-module</code>.</td></tr>
-        <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px solid var(--border-light)</code>. <code>vertical-align: top</code>.</td></tr>
-        <tr><th><code>th</code></th><td><code>font-weight: 700</code>. Stärkere Trennlinie: <code>var(--border)</code>.</td></tr>
+        <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px dashed var(--border)</code>. <code>vertical-align: top</code>.</td></tr>
+        <tr><th><code>th</code></th><td><code>font-weight: 700</code> — Header-Abgrenzung über Schriftstärke (Linien einheitlich).</td></tr>
         <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
       </table>
     </section>
 
     <section class="sg-section-v2 flow" id="A5">
       <h2 class="section-label">A.5 — Farben</h2>
-      <p>Basis &amp; Primär, 14 Kategoriefarben als <code>--cat-X</code> + <code>--cat-X-light</code>.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Reduzierte Palette: Schwarz/Grau für Text und Linien, Weiß und helles Grau für Flächen, Grün als einzige Markenfarbe. Alle Werte sind Token in <code>:root</code> — kein Hardcoding.</p>
+        <p>Dazu warme Akzente (<code>--color-amber</code>, <code>--color-honey</code>) für Sterne, Testimonials und Hinweise sowie 14 Produkt-Kategoriefarben mit je einer hellen Abstufung.</p>
+      </div>
+
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#2E2E2E"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--fg</span>
+            <span class="color-card__hex">#2E2E2E</span>
+            <span class="color-card__role">Text, Linien, aktive Zustände</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#333"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--fg-hover</span>
+            <span class="color-card__hex">#333</span>
+            <span class="color-card__role">Hover-Zustand Text</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#666"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--fg-muted</span>
+            <span class="color-card__hex">#666</span>
+            <span class="color-card__role">Sekundärer Text, Meta</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#fff; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--bg</span>
+            <span class="color-card__hex">#fff</span>
+            <span class="color-card__role">Seitenhintergrund</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#f2f2f2; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--accent-bg</span>
+            <span class="color-card__hex">#f2f2f2</span>
+            <span class="color-card__role">Flächen, Placeholder</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#adadad"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--border</span>
+            <span class="color-card__hex">#adadad</span>
+            <span class="color-card__role">Strukturelle Linien</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#e0e0e0"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--border-light</span>
+            <span class="color-card__hex">#e0e0e0</span>
+            <span class="color-card__role">Dekorative Trennlinien</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#78b41b"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--green</span>
+            <span class="color-card__hex">#78b41b</span>
+            <span class="color-card__role">Primärfarbe, CTAs, Icons</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#58990F"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--green-hover</span>
+            <span class="color-card__hex">#58990F</span>
+            <span class="color-card__role">Hover-Zustand grün</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#f0fae6; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--green-light</span>
+            <span class="color-card__hex">#f0fae6</span>
+            <span class="color-card__role">Hintergründe, Announcement Bar</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#E8A020"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--color-amber</span>
+            <span class="color-card__hex">#E8A020</span>
+            <span class="color-card__role">Warmer Akzent: Sterne, Testimonials</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#FFD700"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--color-honey</span>
+            <span class="color-card__hex">#FFD700</span>
+            <span class="color-card__role">Honig-Gelb</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#FEFFDA; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--color-notice-bg</span>
+            <span class="color-card__hex">#FEFFDA</span>
+            <span class="color-card__role">Infobox-Hintergrund (Notice)</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#c00"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--color-error</span>
+            <span class="color-card__hex">#c00</span>
+            <span class="color-card__role">Fehler, Validierung</span>
+          </div>
+        </div>
+      </div>
+
+      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Links: <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich.</p>
+
+      <h3 class="sg-h3 --top">Produkt-Kategoriefarben</h3>
+      <p>Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
+
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #C5B4E3 60%, #f2eff9 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-cbd</span>
+            <span class="color-card__hex">#C5B4E3 · #f2eff9</span>
+            <span class="color-card__role">CBD</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #FFB1BB 60%, #ffeff2 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-bauchspeichel</span>
+            <span class="color-card__hex">#FFB1BB · #ffeff2</span>
+            <span class="color-card__role">Bauchspeichel</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #F3DD6D 60%, #fdf8e3 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-blase</span>
+            <span class="color-card__hex">#F3DD6D · #fdf8e3</span>
+            <span class="color-card__role">Blase</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #C3623A 60%, #f8ece8 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-niere</span>
+            <span class="color-card__hex">#C3623A · #f8ece8</span>
+            <span class="color-card__role">Niere</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #FF6D6A 60%, #ffeceb 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-herz</span>
+            <span class="color-card__hex">#FF6D6A · #ffeceb</span>
+            <span class="color-card__role">Herz</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #DDBCB0 60%, #f8f2f0 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-leber</span>
+            <span class="color-card__hex">#DDBCB0 · #f8f2f0</span>
+            <span class="color-card__role">Leber</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #C3D7EE 60%, #ecf2fa 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-beruhigung</span>
+            <span class="color-card__hex">#C3D7EE · #ecf2fa</span>
+            <span class="color-card__role">Beruhigung</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #D0D3D4 60%, #f1f2f2 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-gelenke</span>
+            <span class="color-card__hex">#D0D3D4 · #f1f2f2</span>
+            <span class="color-card__role">Gelenke</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #D4EC8E 60%, #f0fae6 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-magendarm</span>
+            <span class="color-card__hex">#D4EC8E · #f0fae6</span>
+            <span class="color-card__role">Magen/Darm</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #05868E 60%, #e5f0f1 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-fettsaeuren</span>
+            <span class="color-card__hex">#05868E · #e5f0f1</span>
+            <span class="color-card__role">Fettsäuren</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #F1A7DC 60%, #fcedf7 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-haut</span>
+            <span class="color-card__hex">#F1A7DC · #fcedf7</span>
+            <span class="color-card__role">Haut</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #a7e6d7 60%, #e5f7f3 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-immun</span>
+            <span class="color-card__hex">#a7e6d7 · #e5f7f3</span>
+            <span class="color-card__role">Immun</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #FFB990 60%, #fff1e9 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-atemwege</span>
+            <span class="color-card__hex">#FFB990 · #fff1e9</span>
+            <span class="color-card__role">Atemwege</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, #994878 60%, #f4e9ef 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-hormone</span>
+            <span class="color-card__hex">#994878 · #f4e9ef</span>
+            <span class="color-card__role">Hormone</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="sg-section-v2 flow" id="A6">
       <h2 class="section-label">A.6 — Linien &amp; Borders</h2>
-      <p><code>--border</code> für strukturelle Trennlinien, <code>--border-light</code> für dekorative. Kein <code>border-top</code> als Whitespace-Ersatz.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Reduziertes Linien-System mit zwei Graustufen für statische Trennungen: <strong>strukturell</strong> (<code>--border</code>, <code>#adadad</code>) für tragende Gliederung, <strong>dezent</strong> (<code>--border-light</code>, <code>#e0e0e0</code>) für feine Untergliederung. Linien strukturieren — sie ersetzen nie Whitespace (kein <code>border-top</code> als Abstandshilfe).</p>
+        <p>Interaktive Zustände nutzen dunklere Border-Token: <code>--border-focus</code> (Fokus) und <code>--border-active</code> (aktiv/ausgewählt). <code>dashed</code> markiert besondere Flächen — Upload-Zone, Checkout-Summenzeilen und RTE-Tabellen.</p>
+      </div>
+
+      <h3 class="sg-h3 --top">Linien-Ebenen</h3>
+      <table class="spec-table">
+        <tr><th>Strukturell</th><td><code>1px solid var(--border)</code> · <code>#adadad</code> — sichtbare Trennung: Navigation, Karten, Tabellen-Header, Footer</td></tr>
+        <tr><th>Dezent</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — feine Gliederung: Rows, Rules, Formularfelder im Ruhezustand</td></tr>
+        <tr><th>Fokus</th><td><code>var(--border-focus)</code> = <code>var(--fg)</code> · <code>#2E2E2E</code> — Inputs &amp; Selects bei Fokus (subtil → prominent)</td></tr>
+        <tr><th>Aktiv</th><td><code>var(--border-active)</code> = <code>var(--fg-hover)</code> · <code>#333</code> — aktive Tabs, aktuelle Pagination, ausgewählte <code>choice-box</code></td></tr>
+        <tr><th>Dashed</th><td><code>1px dashed</code> — Upload-Zone &amp; Summenzeilen (<code>--border-light</code>), RTE-Tabellen (<code>--border</code>)</td></tr>
+      </table>
+
+      <div class="sg-demo --white">
+        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--border);">Strukturell — <code>1px solid var(--border)</code></div>
+        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--border-light); color: var(--fg-muted);">Dezent — <code>1px solid var(--border-light)</code></div>
+        <div style="padding-bottom: var(--half-module); border-bottom: 1px dashed var(--border); color: var(--fg-muted);">Dashed — <code>1px dashed var(--border)</code></div>
+      </div>
+
+      <h3 class="sg-h3 --top">Border-Radius</h3>
+      <table class="spec-table">
+        <tr><th>Standard</th><td><code>border-radius: 0</code> — alle rechteckigen Elemente: Buttons, Inputs, Karten, Boxen. Scharfe Kanten als Gestaltungsprinzip.</td></tr>
+        <tr><th>Kreis</th><td><code>50%</code> — Ausnahme für runde Formen: Avatare (Testimonials, Autor), Aufzählungspunkte.</td></tr>
+        <tr><th>Pill</th><td><code>.badge.--pill</code> (<code>2em</code>) und Count-Badge — bewusst abgerundet zur Abgrenzung von eckigen Labels.</td></tr>
+      </table>
     </section>
 
     <section class="sg-section-v2 flow" id="A7">
