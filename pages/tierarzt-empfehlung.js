@@ -1501,7 +1501,7 @@ function renderHome() {
     testHero = `
       <div class="section-type --v1 --hero-test">
         <div class="section-type__animation">
-          <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          <lottie-player src="../assets/lotties/inuvet_animation_vet_katze.json" background="transparent" speed="1" loop autoplay></lottie-player>
         </div>
         <div class="section-type__content flow">
           <h2 class="section-type__headline">${headline}</h2>
@@ -1527,7 +1527,7 @@ function renderHome() {
   const topHero = false ? `
     <div class="section-type --v1">
       <div class="section-type__animation">
-        <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        <lottie-player src="../assets/lotties/inuvet_animation_vet_katze.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Weil dein Tier das Beste verdient</h2>
