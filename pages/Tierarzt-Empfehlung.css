@@ -226,6 +226,37 @@ body.--page-home .section-type.--v3 .section-type__content {
 .vet-search { position: relative; margin-bottom: var(--half-module); }
 .vet-search__intro { color: var(--fg-muted); font-size: var(--text-base); margin-bottom: var(--half-module); }
 
+/* ─── Praxis-Finder: vollflächiges Overlay mit Karten-Platzhalter ─── */
+.vet-map-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay-dark);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--anim-base), visibility var(--anim-base);
+}
+.vet-map-overlay.--open { opacity: 1; visibility: visible; }
+.vet-map-panel {
+  width: 100%;
+  max-width: var(--container-max);
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+.vet-map-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+}
+
 /* ─── Tierarzt-Dropdown ─── */
 .vet-dropdown__meta {
   font-size: var(--text-xs);
