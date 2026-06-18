@@ -222,7 +222,7 @@ const setCustomerTypeGlobal = (type) => {
 // ── Produktkatalog ──────────────────────────────────────────────────────
 // pricingModel: 'A' (Default) oder 'B' — pro Produkt im Backend wählbar.
 // isFamily: true → variants[selectedVariantIdx].sizes[selectedSizeIdx].price.
-// past6Months / past18Months: Käufe für die Bundle-Vorauswahl.
+// past18Months: Käufe in den letzten 549 Tagen (18 Monate) für die Bundle-Vorauswahl.
 const allProducts = [
   { id: 1, isFamily: true, title: 'Hypolene', past6Months: 14, past18Months: 38, pricingModel: 'A',
     image: '../assets/images/Calmin_Packshot_01.jpeg',
