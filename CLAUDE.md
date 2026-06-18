@@ -45,6 +45,8 @@
 | Cart, Checkout, Bestellübersicht, Freigabe | `Calmin balance Tabletten`, `Hepax forte Tabletten` |
 | Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
 
+**Naturalrabatt:** Berechnung immer pro **Einzelprodukt-Position** (Darreichungsform + Größe = Order Line Item). Kondition A: Bestellwert = `Menge × Einzelpreis` dieser Position — nicht über eine Produktfamilie summiert. Details in `pages/Bundle-Info.html`.
+
 In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2).
 
 Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).

@@ -86,7 +86,7 @@
         <article class="article">
 
           <header class="article__header">
-            <span class="label-caps">Dokumentation · Stand 13. Mai 2026</span>
+            <span class="label-caps">Dokumentation · Stand 18. Juni 2026</span>
             <h1>Persönliches Angebot — Dokumentation</h1>
           </header>
 
@@ -105,10 +105,18 @@
 
             <p>Beide Tabellen sind <strong>global fix</strong>. Es gibt kein produktspezifisches Override der Werte — die Konfiguration pro Produkt beschränkt sich auf die Wahl A oder B.</p>
 
+            <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
+            <p>Für die Naturalrabatt-Berechnung ist der Begriff <strong>Einzelprodukt</strong> zentral — er ist <em>nicht</em> dasselbe wie „Produktfamilie".</p>
+            <ul>
+              <li><strong>Produktfamilie</strong> — alle Darreichungsformen einer Indikation (z.&nbsp;B. Familie „Hypolene" = Pulver + Tabletten). Dient der Navigation, Kachel-Übersicht und Backend-Konfiguration (Kondition A/B).</li>
+              <li><strong>Einzelprodukt</strong> — eine konkrete Darreichungsform in einer bestimmten Größe (z.&nbsp;B. „Hypolene Pulver 60&nbsp;g", „Calmin balance Tabletten 60&nbsp;Stück"). Entspricht einer <strong>Warenkorb- bzw. Order-Position</strong> in Shopify.</li>
+            </ul>
+            <p>Naturalrabatt wird <strong>pro Einzelprodukt-Position</strong> berechnet — nie über eine Produktfamilie aggregiert. Hypolene Pulver und Hypolene Tabletten sind zwei getrennte Berechnungen; Mengen und Bestellwerte werden <strong>nicht</strong> über Darreichungsformen hinweg summiert.</p>
+
             <h2>Berechnungsregeln (gelten für beide Modelle)</h2>
             <ol>
-              <li>Die Berechnung erfolgt <strong>pro Produktzeile</strong> — jede Position im Warenkorb/Angebot wird unabhängig betrachtet.</li>
-              <li>Als Gratis-Produkt wird <strong>immer das jeweilige Produkt selbst</strong> zusätzlich versendet (kein Cross-Selling, kein anderes Produkt).</li>
+              <li>Die Berechnung erfolgt <strong>pro Einzelprodukt-Position</strong> (konkrete Darreichungsform + Größe) — jede Zeile im Warenkorb/Angebot wird unabhängig betrachtet.</li>
+              <li>Als Gratis-Produkt wird <strong>immer das jeweilige Einzelprodukt selbst</strong> zusätzlich versendet (kein Cross-Selling, kein anderes Produkt).</li>
               <li>Anzahl Gratis-Stück ist <strong>ganzzahlig abgerundet</strong> (<code>Math.floor</code>). Bei Kondition A entstehende Restguthaben verfallen.</li>
               <li>Die gesamte Berechnungslogik gehört <strong>serverseitig</strong> in das Shopify-Backend (App / Function). Das Frontend rendert nur das Ergebnis.</li>
             </ol>
@@ -116,6 +124,8 @@
             <h2>Kondition A — Bestellwert in Guthaben</h2>
 
             <p>Kondition A ordnet einem Bestellwert (in €) ein Naturalrabatt-Guthaben (in €) zu. Die <strong>Anzahl Gratis-Stück</strong> berechnet sich als <code>floor(Guthaben ÷ Einzelpreis)</code>.</p>
+
+            <p>Der <strong>Bestellwert</strong> ist <code>Menge × Einzelpreis</code> der jeweiligen <strong>Einzelprodukt-Position</strong> — nicht der Familie, nicht über mehrere Darreichungsformen summiert. Beispiel: 16× Hypolene Pulver und 8× Hypolene Tabletten ergeben zwei getrennte Bestellwerte; es gibt keinen gemeinsamen „Hypolene"-Bestellwert.</p>
 
             <p>Die Tabelle ist eine <strong>Stufenlookup</strong>: Es gilt das Guthaben der höchsten erreichten Schwelle. Zwei Stufen können denselben Wert haben (Plateau-Bereiche).</p>
 
@@ -158,7 +168,8 @@ function freeItemsA(quantity, unitPrice) {
 }</code></pre>
 
             <h3>Beispiel Kondition A</h3>
-            <p>16× Hypolene Pulver à 39,90 € → Bestellwert 638,40 € → erreichte Schwelle 500 € → Guthaben 60 € → <code>floor(60 / 39,90) = 1</code> → <strong>1 Stück Hypolene Pulver gratis</strong>.</p>
+            <p>16× Hypolene Pulver à 39,90 € → Bestellwert <strong>nur für diese Position</strong> 638,40 € → erreichte Schwelle 500 € → Guthaben 60 € → <code>floor(60 / 39,90) = 1</code> → <strong>1 Stück Hypolene Pulver gratis</strong>.</p>
+            <p>Gegenbeispiel: Zusätzlich 8× Hypolene Tabletten à 35,90 € → separater Bestellwert 287,20 € für die Tabletten-Position — <strong>kein</strong> gemeinsamer Bestellwert mit dem Pulver.</p>
 
             <h2>Kondition B — Stückzahl zu Gratis-Anzahl</h2>
 
@@ -199,11 +210,12 @@ function freeItemsA(quantity, unitPrice) {
 
             <h3>Beispiele Kondition B</h3>
             <ul>
-              <li>30× Calmin (Standard-Kunde) → Schwelle 30 → <strong>6 Stück gratis</strong></li>
-              <li>30× Calmin (Gruppen-Kunde) → Schwelle 30 → <strong>3 Stück gratis</strong></li>
-              <li>27× Calmin (Standard-Kunde) → Schwelle 25 → <strong>5 Stück gratis</strong></li>
-              <li>10× Calmin (Gruppen-Kunde) → unter Schwelle 18 für Gruppen → <strong>0 Stück gratis</strong></li>
+              <li>30× Calmin balance Tabletten (Standard-Kunde) → Schwelle 30 → <strong>6 Stück Calmin balance Tabletten gratis</strong></li>
+              <li>30× Calmin balance Tabletten (Gruppen-Kunde) → Schwelle 30 → <strong>3 Stück gratis</strong></li>
+              <li>27× Calmin balance Tabletten (Standard-Kunde) → Schwelle 25 → <strong>5 Stück gratis</strong></li>
+              <li>10× Calmin balance Tabletten (Gruppen-Kunde) → unter Schwelle 18 für Gruppen → <strong>0 Stück gratis</strong></li>
             </ul>
+            <p>Calmin balance Pulver und Calmin balance Tabletten sind getrennte Einzelprodukt-Positionen — die Stückzahl wird nicht über Darreichungsformen summiert.</p>
 
             <h2>Identifikation des Kunden-Status (für Kondition B)</h2>
             <p>Der „Gruppen"-Status wird in Shopify per <strong>Customer Tag</strong> markiert. Vorschlag für die Konvention:</p>
@@ -213,8 +225,8 @@ function freeItemsA(quantity, unitPrice) {
             </ul>
             <p>Der Tag wird beim Berechnungszeitpunkt abgefragt. Tag-Änderungen wirken bei der nächsten Berechnung — kein Caching pro Kunde.</p>
 
-            <h2>Auswahl des Modells pro Produkt</h2>
-            <p>Pro Produkt wird im Shopify-Backend genau eines der beiden Modelle aktiviert. Vorschlag für die Konfiguration: <strong>Product Metafield</strong>:</p>
+            <h2>Auswahl des Modells (Kondition A / B)</h2>
+            <p>Im Backend wird pro Shopify-Produkt (bzw. pro Indikation in der Familien-Logik) festgelegt, ob Kondition A oder B gilt. Vorschlag für die Konfiguration: <strong>Product Metafield</strong>:</p>
             <ul>
               <li>Namespace: <code>inuvet</code></li>
               <li>Key: <code>pricing_model</code></li>
@@ -222,7 +234,19 @@ function freeItemsA(quantity, unitPrice) {
               <li>Default (wenn Metafield nicht gesetzt): <code>A</code></li>
             </ul>
             <pre><code>// Auflösung
-const model = product.metafields.inuvet.pricing_model || 'A';</code></pre>
+const model = product.metafields.inuvet.pricing_model || 'A';
+
+// Berechnung immer pro Order-Line-Item (Einzelprodukt-Position):
+// orderValue = line.quantity * line.unit_price</code></pre>
+
+            <h2>Bundle-UI (Mockup / Frontend)</h2>
+            <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>inuvet.js</code>.</p>
+            <ul>
+              <li><strong>Initiales Angebot</strong>: maximal <strong>4 Einzelprodukte</strong> aus dem aktiven Historien-Pool (sortiert nach Kauffrequenz).</li>
+              <li><strong>Leerer Zustand</strong>: Wenn der Kunde alle vorgeschlagenen Positionen entfernt → Empty State mit <strong>„Wiederherstellen"</strong> (setzt das initiale Angebot zurück). Keine Empfehlungs-Schiene zum Nachfüllen.</li>
+              <li><strong>Mobile</strong>: Summary-Card als kompakte Fixed-Bar am unteren Rand, sichtbar solange die Bundle-Section im Viewport ist (Titel, Sparzeile, CTA — ohne Produktlisting).</li>
+              <li><strong>Sichtbarkeit der Section</strong>: einmalig beim Page-Load entschieden; bleibt sichtbar auch wenn der Kunde danach alle Rabatt-Positionen entfernt.</li>
+            </ul>
 
             <h2>Live-Vorschau im Frontend („Upsell-Hint")</h2>
             <p>An jeder Produktzeile wird ein Hinweis angezeigt, wie viele Stück bis zur nächsten Schwelle fehlen, die <strong>tatsächlich mehr Gratis-Stück bringt</strong>. Plateau-Schwellen (gleicher Wert in Folgestufe) werden übersprungen — sonst wäre die Hint sinnlos („3 Stück hinzufügen für 0 weitere Gratisprodukte").</p>
@@ -269,7 +293,7 @@ const model = product.metafields.inuvet.pricing_model || 'A';</code></pre>
             <ol>
               <li><strong>180-Tage-Pool</strong> (<code>past_180_days</code>): Erzeugt mindestens ein Produkt Gratis-Stück? → Bundle-Section anzeigen, Zeitraum-Label „letzte 6 Monate".</li>
               <li><strong>549-Tage-Fallback</strong> (<code>past_549_days</code>): Wenn der 180-Tage-Pool keinen Rabatt liefert, werden die letzten 18 Monate herangezogen. Gleiche Prüfung. Zeitraum-Label „letzte 18 Monate".</li>
-              <li>Kein Pool liefert Gratis-Stück → Bundle-Section und Empfehlungs-Schiene werden nicht ausgegeben (ggf. Redirect auf Standard-Account-Page).</li>
+              <li>Kein Pool liefert Gratis-Stück → Bundle-Section nicht ausgeben (ggf. Redirect auf Standard-Account-Page).</li>
             </ol>
 
             <h3>Einmalige Entscheidung — kein Nachjustieren zur Laufzeit</h3>
@@ -293,30 +317,12 @@ function resolveBundle(customer) {
 
 const result = resolveBundle(customer);
 if (!result.show) {
-  // Bundle-Section + Empfehlungs-Schiene nicht ausgeben
+  // Bundle-Section nicht ausgeben
   // → ggf. Redirect auf Standard-Account-Page
 }</code></pre>
 
-            <h2>Empfehlungs-Schiene unter dem Bundle</h2>
-            <p>Unter dem Bundle erscheint eine horizontal scrollbare Reihe mit weiteren Produkten, die der Kunde per Klick zum Angebot hinzufügen kann. Das löst zwei Probleme: Kunden mit kleinerer Historie sehen weitere relevante Produkte, und Kunden, die mehr bestellen wollen, können ohne Umweg ins Sortiment.</p>
-            <p>Eigenschaften:</p>
-            <ul>
-              <li><strong>Layout</strong>: 4 sichtbare Items auf Desktop (≥1200px), 3 auf Tablet, 2 auf Small Tablet, 1 mit Peek-Indicator auf Mobile. Horizontal scrollbar mit Scroll-Snap.</li>
-              <li><strong>Pool</strong>: alle Produkte aus der Kunden-Historie, die <em>nicht</em> bereits im aktiven Bundle sind, plus optionale CMS-kuratierte Empfehlungen.</li>
-              <li><strong>Anzeige-Anzahl</strong>: per Backend-Setting konfigurierbar (Default 4). Der Wert ist eine harte Grenze auf die Anzeige — der Pool kann größer sein, gezeigt wird nur die konfigurierte Anzahl.</li>
-              <li><strong>Hinzufügen-Logik</strong>: Klick auf „+ Hinzufügen" verschiebt das Produkt aus dem Pool in das aktive Bundle. Der Pool wird neu sortiert (nächstes Item rutscht nach), das Bundle re-rendert, Naturalrabatt wird neu berechnet.</li>
-              <li><strong>Sichtbarkeit</strong>: an die Bundle-Section gekoppelt — wenn das Bundle nicht angezeigt wird (siehe Abschnitt oben) oder der Pool leer ist (alle Produkte bereits im Bundle), wird die Schiene komplett ausgeblendet.</li>
-            </ul>
-            <pre><code>// Theme-/App-Setting (empfohlen)
-recommendations_count = 4  // Default
-
-// Pool-Berechnung serverseitig
-recommendationsPool = (customerHistory + curatedSuggestions)
-  .filter(p =&gt; !activeBundle.includes(p))
-  .slice(0, recommendations_count);</code></pre>
-
             <h2>Vorausgefüllte Produktliste</h2>
-            <p>Das initiale Angebot enthält die Produkte aus dem aktiven Pool (180 Tage oder, bei Fallback, 549 Tage), sortiert nach Kauffrequenz (häufigster Kauf oben). Die Vorschlagsmenge pro Produkt ergibt sich aus der Kauffrequenz, sinnvoll aufgerundet (z.B. auf 8er-Schritte). Produkte ohne Bestellhistorie im gewählten Zeitraum erscheinen nicht im Hauptangebot.</p>
+            <p>Das initiale Angebot enthält die <strong>vier häufigst gekauften Einzelprodukte</strong> aus dem aktiven Pool (180 Tage oder, bei Fallback, 549 Tage), sortiert nach Kauffrequenz (häufigster Kauf oben). Die Vorschlagsmenge pro Position ergibt sich aus der Kauffrequenz, sinnvoll aufgerundet (auf 8er-Schritte). Produkte ohne Bestellhistorie im gewählten Zeitraum erscheinen nicht im Hauptangebot.</p>
 
             <p>Erforderliche Datenpunkte pro Kunde:</p>
             <ul>
@@ -348,7 +354,6 @@ discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)
               <li><strong>Order-Erstellung</strong>: <code>free_items</code> als Line-Item-Property setzen, Fulfillment-Hook für die Pickliste anpassen.</li>
               <li><strong>Frontend</strong>: bezieht alle berechneten Werte über eine API-Antwort — keine Geschäftslogik im Theme. Hint-Text und Gratis-Badge werden serverseitig befüllt geliefert.</li>
               <li><strong>Anzeige-Bedingung</strong> serverseitig prüfen: <code>resolveBundle()</code> vor dem Rendering — erst 180-Tage-Pool, dann 549-Tage-Fallback. Kein Rabatt in keinem Pool → Bundle-Section nicht ausgeben. Die Entscheidung ist einmalig beim Load; das Frontend ändert die Sichtbarkeit danach nicht mehr.</li>
-              <li><strong>Empfehlungs-Schiene</strong>: Pool-Berechnung serverseitig, Anzahl als App-/Theme-Setting (<code>recommendations_count</code>, Default 4). Click-Handler im Theme verschiebt Produkt aus Pool ins Bundle und triggert API-Refresh.</li>
             </ol>
 
           </div>

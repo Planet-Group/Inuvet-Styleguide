@@ -399,7 +399,7 @@ const nextHintFor = (price, qty, model = 'A') => {
 };
 
 // Produkt-Wrapper (vom Bundle-Konfigurator genutzt — Signatur unverändert).
-// Jede Darreichungsform wird eigenständig nach der Kondition (A/B) der Familie berechnet.
+// Berechnung pro Einzelprodukt-Position (Darreichungsform + Größe), nicht über Familien summiert.
 const calcFree = (p) => freeCountFor(getActivePrice(p), p.quantity, p.pricingModel || 'A');
 const getHint  = (p) => nextHintFor(getActivePrice(p), p.quantity, p.pricingModel || 'A');
 
