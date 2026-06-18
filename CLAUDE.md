@@ -122,6 +122,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `pages/formular-reklamation.js` | Formular Reklamation |
 | `pages/formular-nebenwirkungen-ta.js` | Formular Nebenwirkungen (Tierarzt) |
 | `pages/formular-nebenwirkungen-tb.js` | Formular Nebenwirkungen (Tierbesitzer) |
+| `pages/bundle.js` | Bundle-Builder (Persönliches Angebot) |
 | `sg.js` | Styleguide |
 
 ---
@@ -354,7 +355,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
 | `pages/Tierarzt-Empfehlung-Freigabe.html` | `Tierarzt-Empfehlung-Freigabe.css` | `tierarzt-empfehlung-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
-| `pages/Bundle.html` | `bundle.css` | — (Inline + `inuvet.js`) | Bundle-Builder mit Naturalrabatt |
+| `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
 | `pages/Formular-Reklamation.html` | `formulare.css` | `formular-reklamation.js` | Stand-Alone-Formular |
