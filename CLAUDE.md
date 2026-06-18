@@ -25,6 +25,7 @@
 11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn nicht eindeutig klar: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
 12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`.
 13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
+14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
 
 ---
 
@@ -392,6 +393,8 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 **Preview-Server:** `python3 -m http.server 3456` aus `~/code/Inuvet-Styleguide/`
 
 **Safari — lokale Dateien:** Safari blockiert standardmäßig `../`-Pfade bei `file://`-URLs. Fix: Safari → Einstellungen → Erweitert → „Funktionen für Webentwickler aktivieren" → Menü „Entwickler" → „Lokale Dateieinschränkungen deaktivieren". Einmalig, bleibt gesetzt.
+
+**Git / Deploy:** GitHub Pages-Quelle = Branch `main`, Pfad `/`. Feature-Branches (`feat/*`, `session/*`) sind **nicht** live. Push-Ziel für alles Sichtbare: `origin main`.
 
 **Commit-Format:** `feat:` / `fix:` / `refactor:` / `docs:`
 
