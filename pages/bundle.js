@@ -27,17 +27,13 @@ window.quickAdd = (id, name) => {
 };
 
 // ── Sichtbarkeits-Logik (einmalige Entscheidung beim Load) ──────────────
-// Schritt 1: 180-Tage-Pool (past6Months) prüfen.
-//   Mindestens ein Produkt mit Gratisartikel? → Section zeigen.
-// Schritt 2: Nein → 549-Tage-Fallback (past18Months) prüfen.
-// Schritt 3: Immer noch nichts → Section bleibt ausgeblendet.
+// Pool: letzte 549 Tage (18 Monate, past18Months).
+// Mindestens ein Produkt mit Gratisartikel? → Section zeigen.
+// Sonst: Section bleibt ausgeblendet.
 //
 // Nach dem initialen Entscheid wird bundleVisible NIE mehr geändert —
 // auch dann nicht, wenn der User alle Produkte mit Rabatt entfernt.
-// Im echten Shop würde der Server den Kunden gar nicht auf diese Page leiten
-// wenn keiner der Pools Gratisartikel erzeugt.
 let bundleVisible         = false;
-let activePeriod          = null;    // '180' | '549' | null
 let activeBundle          = [];
 let initialBundleSnapshot = [];      // { id, quantity } — für Wiederherstellen
 
@@ -45,47 +41,23 @@ const snapshotBundle = () => {
   initialBundleSnapshot = activeBundle.map(p => ({ id: p.id, quantity: p.quantity }));
 };
 
-const initBundle = (forceEmpty180 = false) => {
+const initBundle = () => {
   bundleVisible         = false;
-  activePeriod          = null;
   activeBundle          = [];
   initialBundleSnapshot = [];
 
-  // Hilfsfunktion: Pool für einen Zeitraum aufbauen und prüfen.
-  // Setzt p.quantity direkt auf den Produktobjekten (in-place).
-  const tryPeriod = (periodKey) => {
-    const pool = allProducts
-      .filter(p => (p[periodKey] ?? 0) > 0)
-      .sort((a, b) => (b[periodKey] ?? 0) - (a[periodKey] ?? 0));
-    pool.forEach(p => { p.quantity = Math.ceil(p[periodKey] / 8) * 8; });
-    const bundle      = pool.slice(0, BUNDLE_MAX_PRODUCTS);
-    const hasDiscount = bundle.some(p => calcFree(p) > 0);
-    return { pool, bundle, hasDiscount };
-  };
+  const pool = allProducts
+    .filter(p => (p.past18Months ?? 0) > 0)
+    .sort((a, b) => (b.past18Months ?? 0) - (a.past18Months ?? 0));
+  pool.forEach(p => { p.quantity = Math.ceil(p.past18Months / 8) * 8; });
+  const bundle      = pool.slice(0, BUNDLE_MAX_PRODUCTS);
+  const hasDiscount = bundle.some(p => calcFree(p) > 0);
 
-  // Schritt 1: 180 Tage
-  if (!forceEmpty180) {
-    const r = tryPeriod('past6Months');
-    if (r.hasDiscount) {
-      bundleVisible = true;
-      activePeriod  = '180';
-      activeBundle  = r.bundle;
-      snapshotBundle();
-      return;
-    }
-  }
-
-  // Schritt 2: 549 Tage (Fallback)
-  const r = tryPeriod('past18Months');
-  if (r.hasDiscount) {
+  if (hasDiscount) {
     bundleVisible = true;
-    activePeriod  = '549';
-    activeBundle  = r.bundle;
+    activeBundle  = bundle;
     snapshotBundle();
-    return;
   }
-
-  // Schritt 3: Kein Pool liefert Gratis-Produkte → Section wird nicht gezeigt.
 };
 
 // ── Sticky Summary (Mobile) ─────────────────────────────────────────────
@@ -159,11 +131,9 @@ const applyVisibility = () => {
 
 // ── Render: Bundle ─────────────────────────────────────────────────────
 const renderBundle = () => {
-  // Intro-Text: Zeitraum je nach aktivem Pool dynamisch setzen.
   const introP = document.querySelector('#bundleSection .bundle-intro p');
   if (introP) {
-    const label = activePeriod === '549' ? '18 Monaten' : '6 Monaten';
-    introP.textContent = `Basierend auf deinen Einkäufen der letzten ${label} haben wir dieses Set für dich zusammengestellt.`;
+    introP.textContent = 'Basierend auf deinen Einkäufen der letzten 18 Monate haben wir dieses Set für dich zusammengestellt.';
   }
 
   const list = document.getElementById('productList');
@@ -183,8 +153,8 @@ const renderBundle = () => {
   activeBundle.forEach(p => {
     const freeItems = calcFree(p);
 
-    const historyText = p.past6Months > 0
-      ? ` · <strong>Letzte 6 Monate: ${p.past6Months}× gekauft</strong>` : '';
+    const historyText = p.past18Months > 0
+      ? ` · <strong>Letzte 18 Monate: ${p.past18Months}× gekauft</strong>` : '';
 
     const thumbContentHtml = p.image
       ? `<img src="${p.image}" alt="${p.title}" >`
@@ -332,17 +302,6 @@ const renderModelSelector = () => {
       </div>`;
     container.appendChild(row);
   });
-};
-
-// Mockup-Schalter: Zeitraum neu simulieren und Bundle neu initialisieren.
-// Im echten Shop wäre dies eine serverseitige Entscheidung beim Page-Load.
-window.setHistoryPeriod = (period) => {
-  document.querySelectorAll('#historyPeriodToggle .mockup-toggle-btn').forEach(btn => {
-    btn.classList.toggle('--active', btn.dataset.period === period);
-  });
-  initBundle(period === 'fallback');
-  applyVisibility();
-  if (bundleVisible) renderBundle();
 };
 
 window.setProductModel = (productId, model) => {

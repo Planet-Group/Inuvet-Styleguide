@@ -103,7 +103,7 @@
 
       <div class="bundle-intro">
         <h2>Dein persönliches Angebot</h2>
-        <p>Basierend auf deinen Einkäufen der letzten 6 Monate haben wir dieses Set für dich zusammengestellt.</p>
+        <p>Basierend auf deinen Einkäufen der letzten 18 Monate haben wir dieses Set für dich zusammengestellt.</p>
       </div>
 
       <div class="bundle-grid" id="bundleGrid">
@@ -244,13 +244,6 @@
         <!-- Produkt-Modell-Auswahl -->
         <p class="mockup-modal__desc">Modell pro Produkt / Familie</p>
         <div id="modelSelector"></div>
-
-        <!-- Bestellhistorie simulieren — Mockup-Schalter; im echten Shop serverseitig -->
-        <p class="mockup-modal__desc">Bestellhistorie simulieren <span style="font-weight:400;color:var(--fg-muted)">(im echten Shop serverseitig entschieden)</span></p>
-        <div class="mockup-customer-toggle" id="historyPeriodToggle">
-          <button type="button" class="mockup-toggle-btn --active" data-period="normal"   onclick="setHistoryPeriod('normal')">Normal (180 Tage)</button>
-          <button type="button" class="mockup-toggle-btn"          data-period="fallback" onclick="setHistoryPeriod('fallback')">Nur 18 Monate</button>
-        </div>
 
         <div class="mockup-modal__footer">
           <button type="button" class="mockup-btn --confirm" onclick="closeSettings()">Schließen</button>
