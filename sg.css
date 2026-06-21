@@ -64,35 +64,79 @@
   .spacing-block .box { background: var(--accent-bg); border: 1px solid var(--border-light); }
   .spacing-block .meta { font-size: var(--text-xs); color: var(--fg-muted); margin-top: 0.5rem; }
 
-  .spacing-bars { margin-bottom: var(--section-gap); }
+  .spacing-bars { margin-bottom: var(--section-gap); overflow-x: auto; }
   .spacing-bar-row { display: flex; align-items: center; gap: 1rem; padding: 0.5rem 0; }
   .spacing-bar-label { font-size: var(--text-xs); color: var(--fg-muted); width: 10rem; text-align: right; flex-shrink: 0; }
   .spacing-bar { height: var(--half-module); background: var(--accent-bg); border: 1px solid var(--border-light); }
   .spacing-bar-value { font-size: var(--text-xs); color: var(--fg-muted); flex-shrink: 0; }
 
-  /* ─── Columns ─── */
+  /* ─── Columns (Styleguide-Demo) ─── */
   .col-demo { margin-bottom: var(--half-module); }
   .col-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
-  /* row-gap --base: gestapelte Elemente (Text) bleiben eng wie .flow.
-     column-gap --gutter: Spaltenabstand bleibt großzügig.
-     Für Kacheln/Bilder die vollen Abstände brauchen → .--spaced */
-  .col-grid { display: grid; gap: var(--base) var(--gutter); }
-  .col-grid[data-cols="1"] { grid-template-columns: 1fr; }
-  .col-grid[data-cols="2"] { grid-template-columns: 1fr 1fr; }
-  .col-grid[data-cols="3"] { grid-template-columns: 1fr 1fr 1fr; }
-  .col-grid[data-cols="4"] { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .col-grid.--spaced { gap: var(--gutter); }
-
-@media (max-width: 767px) {
-  .col-grid[data-cols="2"],
-  .col-grid[data-cols="3"],
-  .col-grid[data-cols="4"] { grid-template-columns: 1fr; }
-}
   .col-cell {
     height: var(--module); background: var(--accent-bg);
     border: 1px solid var(--border-light);
     display: flex; align-items: center; justify-content: center;
     font-size: var(--text-xs); color: var(--fg-muted);
+  }
+  /* Demos: beschriftete Spaltenzahl immer sichtbar (Referenz). Live-Kaskade → A.10 / echte Seiten. */
+  .col-demo .col-grid[data-cols="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .col-demo .col-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .col-demo .col-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+  /* ─── Container-Demo (A.8) ─── */
+  .container-demo { margin-bottom: var(--half-module); }
+  .container-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
+  .container-demo__viewport {
+    background: var(--accent-bg);
+    border: 1px solid var(--border-light);
+    padding: var(--half-module);
+  }
+  .container-demo .container {
+    padding: var(--half-module);
+    margin: 0;
+    background: var(--bg);
+    outline: 1px dashed var(--border);
+    outline-offset: -1px;
+  }
+  .container-demo__content {
+    min-height: calc(var(--module) * 1.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--text-xs); color: var(--fg-muted);
+    background: color-mix(in srgb, var(--accent-bg) 70%, var(--bg));
+  }
+  .container-demo__hero {
+    margin: calc(-1 * var(--half-module)) calc(-1 * var(--half-module)) 0;
+    min-height: var(--module);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--text-xs); color: var(--fg-muted);
+    background: var(--green-light);
+    border-bottom: 1px dashed var(--border);
+  }
+
+  /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in pages/formulare.css ─── */
+  .form-page-demo { margin-bottom: var(--half-module); }
+  .form-page-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
+  .form-page-demo__shell {
+    background: var(--accent-bg);
+    border: 1px solid var(--border-light);
+    padding: var(--half-module);
+    display: flex;
+    justify-content: center;
+  }
+  .form-page-demo__shell .form-page__card {
+    width: 100%;
+    max-width: 640px;
+    background: var(--bg);
+    padding: var(--half-module);
+    outline: 1px dashed var(--border);
+    outline-offset: -1px;
+  }
+  .form-page-demo__content {
+    min-height: calc(var(--module) * 1.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--text-xs); color: var(--fg-muted);
+    background: color-mix(in srgb, var(--accent-bg) 70%, var(--bg));
   }
 
   /* ─── Breakpoint table ─── */
@@ -266,7 +310,7 @@
   .nav-hamburger { display: flex; }
 }
 
-/* ─── Section-Type-Demos: eigenes Padding zurücksetzen (bereits in .page) ─── */
+/* ─── Section-Type-Demos: eigenes Padding zurücksetzen (bereits in .container) ─── */
 .sg-section .section-type.--v1,
 .sg-section .section-type.--v2 {
   padding-left: 0;
@@ -335,7 +379,7 @@
 /* ─── Zweispaltiges Layout ─── */
 .sg-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px minmax(0, 1fr);
   align-items: start;
   min-height: calc(100dvh - var(--nav-height));
 }
@@ -376,7 +420,7 @@
 
 /* ─── Main Content ─── */
 .sg-main {
-  padding: var(--module) 0 var(--module-3xl) var(--half-module);
+  padding: var(--module) 0 var(--module-2xl) var(--half-module);
 }
 
 /* ─── Sektionen ─── */

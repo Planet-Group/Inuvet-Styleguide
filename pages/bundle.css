@@ -4,10 +4,10 @@
    ═══════════════════════════════════════════ */
 
 /* ─── Seiten-Abstände ───
-   .page hat Default padding-top: var(--page-pt) (= 6rem).
+   .container hat Default padding-top: var(--container-pt) (= 6rem).
    #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
    dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
-   Andere Sections nutzen den .page-Default und überschreiben nur padding-bottom. */
+   Andere Sections nutzen den .container-Default und überschreiben nur padding-bottom. */
 /* padding-bottom: --module gibt dem .bundle-item__tier-hint ausreichend Platz
    (der mit translateY(50%) halb über die Card-Bottom-Kante hinausragt) und
    trennt das Bundle visuell sauber von der nachfolgenden Section. */
@@ -16,55 +16,25 @@
 #bundleTiles         { padding-bottom: var(--module-2xl); }
 #bundleInfoMain      { padding-bottom: var(--module-2xl); }
 
-/* ─── Intro ─── */
-.bundle-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: calc(var(--base) * 0.5);
+/* ─── Intro (.col-grid --early-2 data-cols="2") ─── */
+#bundleSection > .col-grid:first-child {
   margin-bottom: var(--module);
+  align-items: start;
 }
 
-@media (min-width: 768px) {
-  .bundle-intro {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--gutter);
-    align-items: start;
-  }
-}
-
-.bundle-intro h2 {
+#bundleSection > .col-grid:first-child h2 {
   margin: 0;
 }
 
-.bundle-intro p {
+#bundleSection > .col-grid:first-child p {
   color: var(--fg-muted);
   font-size: var(--text-base);
   line-height: var(--lh-base);
   margin: 0;
 }
 
-/* ─── Two-Column Grid ─── */
-.bundle-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--gutter);
-  align-items: start;
-}
-
-@media (min-width: 768px) {
-  .bundle-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  }
-}
-
-/* ─── Spaltenraster-Basis ─── */
-/* 2-Spalten erst ab 1100px: unterhalb zu wenig Platz in der linken bundle-Spalte */
-.col-grid                { display: grid; }
-.col-grid[data-cols="2"] { grid-template-columns: minmax(0, 1fr); }
-
-@media (min-width: 1100px) {
-  .col-grid[data-cols="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-}
+/* ─── Two-Column Layout (.col-grid --spaced --wide-narrow data-cols="2") ─── */
+#bundleGrid { align-items: start; }
 
 /* ─── Product List ─── */
 .bundle-list {

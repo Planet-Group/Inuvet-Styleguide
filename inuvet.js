@@ -83,7 +83,7 @@ function initTestimonials() {
 }
 
 function showMore(btn) {
-  var section = btn.closest('.testimonial-section') || btn.closest('.page');
+  var section = btn.closest('.testimonial-section') || btn.closest('.container');
   var grid = section.querySelector('.testimonial-grid');
   var hidden = grid.querySelectorAll('.testimonial:not(.--visible)');
   var count = 0;

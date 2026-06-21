@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=13">
-  <link rel="stylesheet" href="sg.css?v=20">
+  <link rel="stylesheet" href="inuvet.css?v=17">
+  <link rel="stylesheet" href="sg.css?v=31">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<div class="sg-layout page --no-pt">
+<div class="sg-layout container --flush-top">
 
   <aside class="sg-sidebar">
     <nav>
@@ -29,9 +29,10 @@
         <a href="#A5">A.5 Farben</a>
         <a href="#A6">A.6 Linien &amp; Borders</a>
         <a href="#A7">A.7 Spacing</a>
-        <a href="#A8">A.8 Spaltenraster</a>
-        <a href="#A9">A.9 Responsive</a>
-        <a href="#A10">A.10 Styleguide UI</a>
+        <a href="#A8">A.8 Container</a>
+        <a href="#A9">A.9 Spaltenraster</a>
+        <a href="#A10">A.10 Responsive</a>
+        <a href="#A11">A.11 Styleguide UI</a>
       </div>
 
       <div class="sg-nav-group">
@@ -219,19 +220,20 @@
         <tr><th><code>--announcement-height</code></th><td><code>calc(var(--module) * 0.67)</code> — Höhe der Announcement Bar (beim Schließen <code>0px</code>)</td></tr>
         <tr><th><code>--nav-height</code></th><td><code>calc(var(--module) * 2.5)</code> — Höhe der Navigation</td></tr>
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> — für <code>scroll-padding-top</code></td></tr>
-        <tr><th><code>--page-pt</code></th><td><code>var(--module)</code> — Atemraum unter dem sticky Header zum ersten Content-Element</td></tr>
-        <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lesebreite für <code>.page</code></td></tr>
+        <tr><th><code>--container-pt</code></th><td><code>var(--module)</code> — Atemraum unter dem sticky Header zum ersten Content-Element</td></tr>
+        <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lesebreite für <code>.container</code></td></tr>
         <tr><th><code>--section-max-height</code></th><td><code>51rem</code> — Max-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--section-min-height</code></th><td><code>24rem</code> — Min-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--icon-box-sm · --icon-box-md</code></th><td><code>calc(var(--base) * 2.5)</code> · <code>calc(var(--base) * 2.75)</code> — Icon-Box-Größen</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Container-Modifier (auf <code>.page</code>)</h3>
+      <h3 class="sg-h3 --top">Container-Modifier (auf <code>.container</code>)</h3>
+      <p>Token-Werte hier — Demos, HTML-Patterns und <code>.form-page</code> → <a href="#A8">A.8 Container</a>.</p>
       <table class="spec-table">
-        <tr><th><code>.page</code></th><td><code>1536px</code> — voller Satzspiegel, für Listen, Übersichten, Marketing</td></tr>
-        <tr><th><code>.page.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — Lese-Content, Detail-Seiten</td></tr>
-        <tr><th><code>.page.--form</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Eingabe-Formulare</td></tr>
-        <tr><th><code>.page.--no-pt</code></th><td>Hebt <code>--page-pt</code> auf — für Pages direkt nach einer Hero-Section</td></tr>
+        <tr><th><code>.container</code></th><td><code>1536px</code> — voller Satzspiegel, für Listen, Übersichten, Marketing</td></tr>
+        <tr><th><code>.container.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — Lese-Content, Detail-Seiten</td></tr>
+        <tr><th><code>.container.--sm</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Formulare <em>im Shop</em> (Nav/Footer). Stand-Alone-Formulare → <code>.form-page</code> (<a href="#C4">C.4</a>)</td></tr>
+        <tr><th><code>.container.--flush-top</code></th><td>Hebt <code>--container-pt</code> auf — für Pages direkt nach einer Hero-Section</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Stacking (z-index)</h3>
@@ -605,24 +607,246 @@
 
     <section class="sg-section-v2 flow" id="A7">
       <h2 class="section-label">A.7 — Spacing</h2>
-      <p>Alle Abstände sind Vielfache von <code>--module</code> oder <code>--half-module</code>. <code>.flow</code> handhabt den vertikalen Rhythmus via Adjacent-Sibling-Kombinator.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Alle Abstände leiten sich von <code>--base</code> (1rem) und dem fluiden Modul <code>--module</code> ab — typischerweise als Vielfaches von <code>--half-module</code> oder <code>--module</code>. Kein willkürliches Pixel-Spacing.</p>
+        <p><code>.flow</code> steuert den vertikalen Rhythmus in gemischten Textblöcken kontextsensitiv via <code>--flow-space</code>. Spacing-Utilities (<code>.mt-half</code>, <code>.mb-1</code> …) für gezielte Einzelabstände.</p>
+      </div>
+
+      <div class="spacing-blocks">
+        <div class="spacing-block"><div class="box" style="--sz: var(--half-module);"></div><div class="meta"><span class="sg-token">--half-module</span>½× · 0.75–1.5rem</div></div>
+        <div class="spacing-block"><div class="box" style="--sz: var(--module);"></div><div class="meta"><span class="sg-token">--module</span>1× · 1.5–3rem</div></div>
+        <div class="spacing-block"><div class="box" style="--sz: var(--module-2xl);"></div><div class="meta"><span class="sg-token">--module-2xl</span>2× · 3–6rem</div></div>
+        <div class="spacing-block"><div class="box" style="--sz: calc(var(--module) * 3);"></div><div class="meta">3× · 4.5–9rem <span style="opacity:0.6;">(kein Token)</span></div></div>
+        <div class="spacing-block"><div class="box" style="--sz: calc(var(--module) * 4);"></div><div class="meta">4× · 6–12rem <span style="opacity:0.6;">(kein Token)</span></div></div>
+        <div class="spacing-block"><div class="box" style="--sz: calc(var(--module) * 5);"></div><div class="meta">5× · 7.5–15rem <span style="opacity:0.6;">(kein Token)</span></div></div>
+      </div>
+
+      <div class="spacing-bars">
+        <div class="spacing-bar-row"><span class="spacing-bar-label"><span class="sg-token">--half-module</span> · ½×</span><div class="spacing-bar" style="--sz: var(--half-module);"></div><span class="spacing-bar-value">0.75–1.5rem</span></div>
+        <div class="spacing-bar-row"><span class="spacing-bar-label"><span class="sg-token">--module</span> · 1×</span><div class="spacing-bar" style="--sz: var(--module);"></div><span class="spacing-bar-value">1.5–3rem</span></div>
+        <div class="spacing-bar-row"><span class="spacing-bar-label"><span class="sg-token">--module-2xl</span> · 2×</span><div class="spacing-bar" style="--sz: var(--module-2xl);"></div><span class="spacing-bar-value">3–6rem</span></div>
+        <div class="spacing-bar-row"><span class="spacing-bar-label">3× <span style="font-weight:400;opacity:0.5;">(kein Token)</span></span><div class="spacing-bar" style="--sz: calc(var(--module) * 3);"></div><span class="spacing-bar-value">4.5–9rem</span></div>
+        <div class="spacing-bar-row"><span class="spacing-bar-label">4× <span style="font-weight:400;opacity:0.5;">(kein Token)</span></span><div class="spacing-bar" style="--sz: calc(var(--module) * 4);"></div><span class="spacing-bar-value">6–12rem</span></div>
+        <div class="spacing-bar-row"><span class="spacing-bar-label">5× <span style="font-weight:400;opacity:0.5;">(kein Token)</span></span><div class="spacing-bar" style="--sz: calc(var(--module) * 5);"></div><span class="spacing-bar-value">7.5–15rem</span></div>
+      </div>
+      <p>3×–5× werden als <code>calc(var(--module) * N)</code> geschrieben — nur <code>--half-module</code>, <code>--module</code> und <code>--module-2xl</code> sind eigene Tokens.</p>
+
+      <h3 class="sg-h3 --top">Spacing Utilities</h3>
+      <p>Kurzform-Klassen für häufige Abstände. Alle Werte leiten sich aus den Spacing-Tokens ab.</p>
+      <table class="spec-table">
+        <tr><th><code>.mt-half</code></th><td><code>margin-top: var(--half-module)</code></td></tr>
+        <tr><th><code>.mt-1</code></th><td><code>margin-top: var(--module)</code></td></tr>
+        <tr><th><code>.mt-2</code></th><td><code>margin-top: var(--module-2xl)</code></td></tr>
+        <tr><th><code>.mb-half</code></th><td><code>margin-bottom: var(--half-module)</code></td></tr>
+        <tr><th><code>.mb-1</code></th><td><code>margin-bottom: var(--module)</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">.flow — Kontextsensitives Spacing</h3>
+      <p>Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Alle direkten Kinder: <code>margin-bottom: 0</code> (Rhythmus läuft ausschließlich über <code>margin-top</code>). Einsatz auf Info-Pages und <code>.section-type__content</code>. Nicht für <code>.rte</code>-Blöcke (eigene Regelung).</p>
+
+      <table class="spec-table">
+        <tr><th><code>&gt; *</code></th><td><code>margin-bottom: 0</code> — Default-Margins der Kinder werden zurückgesetzt</td></tr>
+        <tr><th><code>* + *</code> (Default)</th><td><code>var(--base)</code> · 1rem — Paragraph → Paragraph</td></tr>
+        <tr><th><code>h1 + *</code> / <code>h2 + *</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem — Content bleibt nah unter Headline</td></tr>
+        <tr><th><code>h3 + *</code></th><td><code>calc(var(--base) * 0.75)</code> · 12px — h3 fast body-groß → eng</td></tr>
+        <tr><th><code>h4 + *</code></th><td><code>calc(var(--base) * 0.5)</code> · 8px — Minimalabstand</td></tr>
+        <tr><th><code>* + h2</code></th><td><code>var(--module)</code> · 1.5–3rem — neuer Abschnitt, deutliche Zäsur</td></tr>
+        <tr><th><code>* + h3</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem — Unterabschnitt</td></tr>
+        <tr><th><code>* + h4</code></th><td><code>calc(var(--base) * 1.5)</code> · 24px</td></tr>
+        <tr><th><code>.section-label + *</code></th><td><code>var(--module)</code> — Abstand nach Sektions-Titel</td></tr>
+        <tr><th><code>.section-label.--sub + *</code></th><td><code>var(--half-module)</code> — Abstand nach Formular-Gruppentitel</td></tr>
+        <tr><th><code>* + .btn</code> / <code>* + .btn-row</code></th><td><code>calc(var(--half-module) * 1.5)</code> · 1.125–2.25rem — Body → CTA</td></tr>
+        <tr><th><code>* + .spec-table</code></th><td><code>var(--module)</code> — Styleguide V2 (<code>sg.css</code>): Zäsur vor Tabellenblöcken</td></tr>
+        <tr><th><code>.sg-h3 + .spec-table</code></th><td><code>var(--half-module)</code> — Styleguide V2 (<code>sg.css</code>): Tabelle eng an Gruppen-Überschrift</td></tr>
+      </table>
+
+      <div class="col-grid --spaced" data-cols="2">
+        <div>
+          <div class="col-demo-label">ohne .flow</div>
+          <div class="sg-demo">
+            <h2>Produktgruppe Calmin</h2>
+            <p>Kurze Beschreibung der Indikation und des Einsatzbereichs für Hunde und Katzen mit erhöhtem Stresslevel.</p>
+            <h3>Anwendungshinweise</h3>
+            <p>Täglich zum Futter geben. Dosierung nach Körpergewicht — siehe Tabelle auf der Packung.</p>
+            <h3>Inhaltsstoffe</h3>
+            <p>Baldrian-Extrakt, Hopfen-Extrakt, L-Tryptophan. Frei von synthetischen Wirkstoffen.</p>
+          </div>
+        </div>
+        <div>
+          <div class="col-demo-label">mit .flow</div>
+          <div class="sg-demo flow">
+            <h2>Produktgruppe Calmin</h2>
+            <p>Kurze Beschreibung der Indikation und des Einsatzbereichs für Hunde und Katzen mit erhöhtem Stresslevel.</p>
+            <h3>Anwendungshinweise</h3>
+            <p>Täglich zum Futter geben. Dosierung nach Körpergewicht — siehe Tabelle auf der Packung.</p>
+            <h3>Inhaltsstoffe</h3>
+            <p>Baldrian-Extrakt, Hopfen-Extrakt, L-Tryptophan. Frei von synthetischen Wirkstoffen.</p>
+          </div>
+        </div>
+      </div>
+      <p>Override per Inline-Custom-Property: <code>&lt;p style="--flow-space: var(--module)"&gt;</code></p>
     </section>
 
     <section class="sg-section-v2 flow" id="A8">
-      <h2 class="section-label">A.8 — Spaltenraster</h2>
-      <p><code>.page</code> als Haupt-Container. Modifier: <code>--narrow</code>, <code>--form</code>, <code>--no-pt</code>.</p>
-      <div class="sg-demo"></div>
+      <h2 class="section-label">A.8 — Container</h2>
+      <div class="col-grid" data-cols="2">
+        <p><strong>Shop:</strong> <code>.container</code> — Inhalt unter Navigation/Hero, Satzspiegel + Padding. Token-Tabelle → <a href="#A3">A.3</a>.</p>
+        <p><strong>Stand-Alone:</strong> <code>.form-page</code> — eigenes Formular ohne Shop-Chrome (Reklamation). Details → <a href="#C4">C.4</a>. Nicht mit <code>.container.--sm</code> verwechseln.</p>
+      </div>
+      <p class="sg-p">Äußere Shell — darin liegt das Spaltenraster (<a href="#A9">A.9</a>).</p>
+
+      <p class="sg-p"><code>.container</code> ist der Satzspiegel-Wrapper — pro Inhaltsblock, nicht die ganze HTML-Seite. Mehrfach pro Seite möglich (siehe <code>Bundle.html</code>).</p>
+
+      <h3 class="sg-h3 --top">A — Im Shop (<code>.container</code>)</h3>
+      <table class="spec-table">
+        <tr><th>Basis-CSS</th><td><code>max-width: var(--container-max)</code> · <code>margin: 0 auto</code> · <code>padding: var(--container-pt) var(--margin) var(--margin)</code></td></tr>
+        <tr><th>Standard-Pattern</th><td><code>&lt;main&gt;&lt;div class="container"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Bundle, Tierarzt-Empfehlung</td></tr>
+        <tr><th><code>&lt;main class="container"&gt;</code></th><td>Freigabe-Portal — volle Breite, kein Extra-Modifier</td></tr>
+        <tr><th><code>.container.--narrow</code></th><td>Lesebreite ≈720px</td></tr>
+        <tr><th><code>.container.--sm</code></th><td>Schmal ≈480px — Formular <em>im</em> Shop (Login o. Ä., noch kein Mockup)</td></tr>
+        <tr><th><code>.container.--flush-top</code></th><td>Ohne Abstand oben — erster Block nach Hero (<code>Bundle.html</code>)</td></tr>
+        <tr><th>Hero</th><td><code>.section-type</code> edge-to-edge <em>außerhalb</em> von <code>.container</code></td></tr>
+      </table>
+
+      <div class="container-demo">
+        <div class="container-demo-label"><code>.container</code> — voller Satzspiegel (1536px)</div>
+        <div class="container-demo__viewport">
+          <div class="container">
+            <div class="container-demo__content">Content</div>
+          </div>
+        </div>
+      </div>
+      <div class="container-demo">
+        <div class="container-demo-label"><code>.container.--narrow</code> — Lesebreite (≈720px)</div>
+        <div class="container-demo__viewport">
+          <div class="container --narrow">
+            <div class="container-demo__content">Content</div>
+          </div>
+        </div>
+      </div>
+      <div class="container-demo">
+        <div class="container-demo-label"><code>.container.--sm</code> — schmal im Shop (≈480px)</div>
+        <div class="container-demo__viewport">
+          <div class="container --sm">
+            <div class="container-demo__content">Content</div>
+          </div>
+        </div>
+      </div>
+      <div class="container-demo">
+        <div class="container-demo-label">Hero (edge-to-edge) + <code>.container.--flush-top</code></div>
+        <div class="container-demo__viewport">
+          <div class="container-demo__hero"><code>.section-type</code> — volle Breite</div>
+          <div class="container --flush-top">
+            <div class="container-demo__content">Erster Content-Block ohne <code>--container-pt</code></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-p">Gestrichelte Linie = Container · grauer Rand = Viewport · Werte aus <code>inuvet.css</code>. Mobile-Padding → <a href="#A10">A.10</a>.</p>
+
+      <h3 class="sg-h3 --top">B — Stand-Alone-Formular (<code>.form-page</code>)</h3>
+      <table class="spec-table">
+        <tr><th>Pattern</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code></td></tr>
+        <tr><th>Breite</th><td>Card <code>max-width: 640px</code> — breiter als <code>.container.--sm</code> (480px)</td></tr>
+        <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA</td></tr>
+        <tr><th>CSS</th><td><code>pages/formulare.css</code> — vollständige Spec in <a href="#C4">C.4</a></td></tr>
+      </table>
+      <div class="form-page-demo">
+        <div class="form-page-demo-label"><code>.form-page</code> → <code>.form-page__card</code> (640px)</div>
+        <div class="form-page-demo__shell">
+          <div class="form-page__card">
+            <div class="form-page-demo__content">Formular-Inhalt</div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-p">Grauer Hintergrund = <code>--accent-bg</code> · weiße Card = Formular-Container · Demo kompakt; produktiv <code>min-height: 100vh</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="A9">
-      <h2 class="section-label">A.9 — Responsive</h2>
-      <p>Vereinheitlichte Breakpoints für <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code>.</p>
-      <div class="sg-demo"></div>
+      <h2 class="section-label">A.9 — Spaltenraster</h2>
+      <div class="col-grid" data-cols="2">
+        <p><code>.col-grid</code> ist das flexible Spalten-System in <code>inuvet.css</code>. Spaltenanzahl über <code>data-cols="1–4"</code>. Gutter und Seitenrand leiten sich aus <code>var(--module)</code> ab (1.5–3rem, fluid) — Details in <a href="#A3">A.3 Design Tokens</a>.</p>
+        <p>Standard-Gap: <code>gap: var(--base) var(--gutter)</code> — Zeilen eng (Text stapelt wie <code>.flow</code>), Spalten weit. Für Kacheln und Demos mit vollem Zeilenabstand: <code>.col-grid.--spaced</code> → <code>gap: var(--gutter)</code>.</p>
+        <p>Spaltenzahl per <code>data-cols</code> wählen — die Responsive-Kette ist in <code>inuvet.css</code> fix verdrahtet (<a href="#A10">A.10</a>). Innerhalb von <code>.container</code> → <a href="#A8">A.8</a>.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>data-cols="1"</code></th><td>Immer einspaltig · <code>grid-template-columns: 1fr</code></td></tr>
+        <tr><th><code>data-cols="2"</code></th><td>50/50 ab 1100px · Modifier siehe unten · Kaskade <a href="#A10">A.10</a></td></tr>
+        <tr><th><code>data-cols="3"</code></th><td>Kaskade <a href="#A10">A.10</a></td></tr>
+        <tr><th><code>data-cols="4"</code></th><td>Kaskade <a href="#A10">A.10</a></td></tr>
+        <tr><th><code>.--spaced</code></th><td>Zeilen- und Spaltenabstand einheitlich <code>var(--gutter)</code></td></tr>
+        <tr><th><code>.--wide-narrow</code></th><td>Mit <code>data-cols="2"</code>: ab 768px <code>2fr / 1fr</code> (Hauptinhalt + schmale Sidebar, z. B. Bundle-Builder)</td></tr>
+        <tr><th><code>.--early-2</code></th><td>Mit <code>data-cols="2"</code>: ab 768px 50/50 — Intro-Paare (Headline + Text/Meta), z. B. Bundle- und Freigabe-Intro</td></tr>
+      </table>
+
+      <div class="col-demo"><div class="col-demo-label">1 Spalte</div><div class="col-grid" data-cols="1"><div class="col-cell">1 / 1</div></div></div>
+      <div class="col-demo"><div class="col-demo-label">2 Spalten</div><div class="col-grid" data-cols="2"><div class="col-cell">1 / 2</div><div class="col-cell">2 / 2</div></div></div>
+      <div class="col-demo"><div class="col-demo-label">3 Spalten</div><div class="col-grid" data-cols="3"><div class="col-cell">1 / 3</div><div class="col-cell">2 / 3</div><div class="col-cell">3 / 3</div></div></div>
+      <div class="col-demo"><div class="col-demo-label">4 Spalten</div><div class="col-grid" data-cols="4"><div class="col-cell">1 / 4</div><div class="col-cell">2 / 4</div><div class="col-cell">3 / 4</div><div class="col-cell">4 / 4</div></div></div>
+
+      <p class="sg-p">Demos oben zeigen die beschriftete Spaltenzahl zur Ansicht (<code>sg.css</code>-Chrome). Responsive-Kaskade testen: Browserbreite ändern außerhalb der Demos oder <a href="#A10">A.10</a> / echte Seiten.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="A10">
-      <h2 class="section-label">A.10 — Styleguide UI-Klassen</h2>
+      <h2 class="section-label">A.10 — Responsive</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Spaltenraster (<a href="#A9">A.9</a>, <a href="#D4">D.4 Kachel-Raster</a>) reduzieren die Spaltenanzahl stufenweise — keine eigenen Media Queries pro Seite. Start-Spaltenzahl wählen (<code>data-cols="N"</code> oder <code>--cols-N</code>), die Kette ist fest verdrahtet.</p>
+        <p>Fluid Typography und Spacing (<code>clamp()</code>) skalieren ohne Breakpoints. Die Werte unten gelten für Layout-Raster und komponenten-spezifische Stacks (Navigation, Section Types).</p>
+      </div>
+
+      <h3 class="sg-h3 --top">Globale Layout-Breakpoints</h3>
+      <p>Diese Schwellen steuern <code>.col-grid</code>, <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code> in <code>inuvet.css</code>:</p>
+      <table class="spec-table">
+        <tr><th><code>1100px</code></th><td><code>min-width: 1100px</code>: <code>data-cols="2"</code> wird 50/50 · <code>max-width: 1100px</code>: 3→2, 4→3 (<code>.tile-grid</code> analog)</td></tr>
+        <tr><th><code>900px</code></th><td><code>max-width: 899px</code> — <code>data-cols="4"</code> / <code>--cols-4</code>: 4→2</td></tr>
+        <tr><th><code>768px</code></th><td><code>max-width: 767px</code> — Layout-Raster (<code>.col-grid</code>) → 1 Spalte · Kachel-Raster <code>--cols-2/3</code> → 1 · <code>--cols-4</code> bleibt <strong>2</strong> (Produkt-D) · Section Types einspaltig</td></tr>
+      </table>
+      <p>Modifier für <code>data-cols="2"</code>: <code>.--early-2</code> (50/50 ab 768px, Intro-Paare) · <code>.--wide-narrow</code> (2fr/1fr ab 768px, Sidebar-Layouts) — Details <a href="#A9">A.9</a>.</p>
+
+      <h3 class="sg-h3 --top"><code>.col-grid</code> — Kaskaden</h3>
+      <table class="spec-table">
+        <tr><th><code>data-cols="1"</code></th><td>Immer 1 Spalte</td></tr>
+        <tr><th><code>data-cols="2"</code></th><td>1 → <strong>2</strong> (≥1100px) · mit <code>.--early-2</code>: ab 768px · 1 (≤767px)</td></tr>
+        <tr><th><code>data-cols="3"</code></th><td>3 → <strong>2</strong> (≤1100px) → <strong>1</strong> (≤767px)</td></tr>
+        <tr><th><code>data-cols="4"</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) → <strong>1</strong> (≤767px)</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.tile-grid</code> — Kaskaden (Kachel-Raster, Produkt-D)</h3>
+      <p>Spaltenwahl per Modifier am Container — Kacheln selbst unverändert. Gap: <code>var(--gutter)</code>.</p>
+      <table class="spec-table">
+        <tr><th><code>--cols-2</code></th><td>2 → <strong>1</strong> (≤767px)</td></tr>
+        <tr><th><code>--cols-3</code></th><td>3 → <strong>2</strong> (≤1100px) → <strong>1</strong> (≤767px)</td></tr>
+        <tr><th><code>--cols-4</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) · Mobile: <strong>2</strong> (bewusst — kompakter Shop-Standard für Produkt-D)</td></tr>
+      </table>
+      <p><code>.testimonial-grid</code> und <code>.testimonial-slider</code> nutzen dieselben Breakpoints (<code>--cols-3/4</code>). Testimonial-Grid auf Mobile: progressive Anzeige via „Mehr anzeigen" — Details in <a href="#D5">D.5 Testimonials</a>.</p>
+
+      <h3 class="sg-h3 --top">Produktlisten — Rasterwahl pro Seite</h3>
+      <p>Keine Sonder-CSS pro Collection: Spaltenzahl am Container wählen (<code>.tile-grid --cols-N</code> + <code>.tile.--product</code>). Die Kaskade ist fix — nur <code>N</code> ändern.</p>
+      <table class="spec-table">
+        <tr><th><code>--cols-3</code></th><td><strong>3 → 2 → 1</strong> — z. B. Tierarzt-Empfehlung Collection (<code>renderCollection()</code>): Mobile einspaltig, mehr Luft pro Kachel</td></tr>
+        <tr><th><code>--cols-4</code></th><td><strong>4 → 3 → 2 → 2</strong> — dichte Shop-Listen / andere Collections: Mobile bewusst 2-spaltig (Produkt-D-Standard)</td></tr>
+      </table>
+      <p>Wechsel = eine Klasse im HTML/JS, keine Media Queries.</p>
+
+      <h3 class="sg-h3 --top">Weitere Breakpoints (komponentenspezifisch)</h3>
+      <p>Nicht alle UI-Elemente folgen dem Raster — Beispiele aus <code>inuvet.css</code>:</p>
+      <table class="spec-table">
+        <tr><th><code>480px</code></th><td>Sehr schmale Geräte (z. B. kompakter Cookie-Banner)</td></tr>
+        <tr><th><code>1024px</code></th><td>Article-Sidebar unter Hauptinhalt</td></tr>
+        <tr><th><code>1535px</code></th><td>Footer 4→2 · Collection: Filter-Sidebar → Drawer</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Bewusste Ausnahmen (kein Standard-Raster)</h3>
+      <table class="spec-table">
+        <tr><th><code>.col-grid.--early-2</code></th><td>50/50 ab 768px — Intro Headline + Text/Meta (Bundle, Freigabe)</td></tr>
+        <tr><th><code>.col-grid.--wide-narrow</code></th><td>2fr/1fr ab 768px — Hauptinhalt + Sidebar (Bundle-Builder)</td></tr>
+        <tr><th><code>.hero-split</code></th><td>3-Spalten mit Trennlinie — nur Tierarzt-Empfehlung Hero (<code>Tierarzt-Empfehlung.css</code>)</td></tr>
+        <tr><th><code>.section-type.--has-split</code></th><td>Asymmetrisches Section-Inner 3fr/1fr (768–1199px) — eingeloggter Hero</td></tr>
+      </table>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A11">
+      <h2 class="section-label">A.11 — Styleguide UI-Klassen</h2>
       <p>Klassen ausschließlich für Dokumentationszwecke — nie in Produktion einbinden.</p>
       <div class="sg-demo"></div>
     </section>

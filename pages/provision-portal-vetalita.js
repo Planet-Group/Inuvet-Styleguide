@@ -279,7 +279,7 @@ function renderPortal() {
       </div>
     </section>
 
-    <div class="page --no-pt portal-section">
+    <div class="container --flush-top portal-section">
       <h2 class="portal-section__title">Riscatta il premio</h2>
       <div class="tile-grid --cols-3">
         ${PREMIUMS.map(renderTile).join('')}
@@ -323,7 +323,7 @@ function renderPDP() {
     </svg>`;
 
   return `
-    <div class="page portal-section">
+    <div class="container portal-section">
       <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Tutti i premi</button>
       <div class="pdp">
         <div class="pdp__gallery">
@@ -468,7 +468,7 @@ function renderCheckout() {
   const remaining = provisionAvailable();
 
   return `
-    <div class="page portal-section">
+    <div class="container portal-section">
       <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Selezione premi</button>
       <div class="checkout">
 
@@ -550,7 +550,7 @@ function renderCheckout() {
 function renderSuccess() {
   if (lastOrder.payout) {
     return `
-      <div class="page --narrow portal-section">
+      <div class="container --narrow portal-section">
         <div class="success-state">
           <span class="success-state__icon material-icons">check_circle</span>
           <h1 class="success-state__title">Pagamento richiesto!</h1>
@@ -580,7 +580,7 @@ function renderSuccess() {
     </div>`).join('');
 
   return `
-    <div class="page --narrow portal-section">
+    <div class="container --narrow portal-section">
       <div class="success-state">
         <span class="success-state__icon material-icons">check_circle</span>
         <h1 class="success-state__title">Il tuo premio è in arrivo!</h1>

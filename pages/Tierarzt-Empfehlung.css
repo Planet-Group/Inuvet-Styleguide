@@ -27,56 +27,7 @@ body.--page-home .section-type.--v3 .section-type__content {
   background: color-mix(in srgb, var(--green-light) 80%, transparent);
 }
 
-/* ─── Hero: Höhe um Intro-Strip reduzieren (nur ab 768px) ─── */
-@media (min-width: 768px) {
-  body.--page-home .section-type.--viewport {
-    height: calc(100dvh - var(--header-height) - var(--intro-strip-height, 0px));
-  }
-}
-
-
-/* ─── Testimonial-Strip (direkt unter Header, über Hero) ─── */
-.intro-strip {
-  background: var(--bg);
-  position: relative;
-}
-
-.intro-strip__inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--module) var(--module) var(--half-module);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--module);
-}
-
-.intro-strip .testimonial {
-  border-top: none;
-  padding-top: 0;
-  gap: calc(var(--base) * 0.25);
-}
-.intro-strip .testimonial__text { font-style: italic; }
-.intro-strip .testimonial__name { font-size: var(--text-xs); }
-
 .testimonial-slider.--no-borders .testimonial { border-top: none; padding-top: 0; }
-
-@media (max-width: 1100px) and (min-width: 801px) {
-  .intro-strip__inner { grid-template-columns: repeat(3, 1fr); }
-  .intro-strip .testimonial:last-child { display: none; }
-}
-
-@media (max-width: 800px) {
-  .intro-strip__inner {
-    display: flex;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    gap: var(--half-module);
-    padding: var(--half-module);
-    scrollbar-width: none;
-  }
-  .intro-strip__inner::-webkit-scrollbar { display: none; }
-  .intro-strip .testimonial { flex: 0 0 72vw; }
-}
 
 /* ─── So funktioniert's — Prozess-Pfad ─── */
 .hiw {
@@ -84,7 +35,7 @@ body.--page-home .section-type.--v3 .section-type__content {
   border-bottom: 1px solid var(--border);
   padding: calc(var(--base) * 0.6) 0;
 }
-.hiw .page { padding-top: 0; padding-bottom: 0; }
+.hiw .container { padding-top: 0; padding-bottom: 0; }
 
 .hiw__track {
   display: flex;

@@ -65,10 +65,10 @@
 <!-- ════════════════════════════════════════
      Hauptinhalt
      ════════════════════════════════════════ -->
-<main class="page approval-page" id="approvalMain">
+<main class="container approval-page" id="approvalMain">
 
   <!-- Intro: 2-spaltig auf Desktop — Inhalt je Zustand durch JS (renderIntro) -->
-  <div class="approval-intro" id="approvalIntro"></div>
+  <div class="col-grid --early-2" data-cols="2" id="approvalIntro"></div>
 
   <!-- Prozess-Erklärung + persönlicher Kontakt — erinnert teilnehmende Praxen
        an Ablauf & Ansprechpartner*in (z.B. wenn Teilnahme in Vergessenheit geriet) -->
@@ -78,7 +78,7 @@
       <span class="notice__title">So funktioniert die Inuvet-Empfehlung — und Ihr persönlicher Kontakt</span>
       <span class="material-icons notice__chevron">expand_more</span>
     </summary>
-    <div class="notice__body approval-help__body">
+    <div class="notice__body col-grid --spaced" data-cols="2">
       <div class="approval-help__block">
         <p>Ihre Praxis nimmt am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben die passenden Größen mit einem Klick frei.</p>
         <p>Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik. Ihre Freigabe ist die fachliche Empfehlung: Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
@@ -96,7 +96,7 @@
   </details>
 
   <!-- Produkt-Grid — datengetrieben durch tierarzt-empfehlung-freigabe.js -->
-  <div class="approval-product-grid" id="approvalGrid"></div>
+  <div class="col-grid --spaced" data-cols="3" id="approvalGrid"></div>
 
   <!-- Sticky Submit-Leiste: Vertrauens-Schalter + Counter + CTA bleiben beim Scrollen sichtbar -->
   <div class="approval-submit-bar">

@@ -157,7 +157,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 ### Layout
 ```css
 --header-height: calc(var(--module) * 3.5)
---page-pt: var(--module)
+--container-pt: var(--module)
 --container-max: 1536px
 ```
 
@@ -187,21 +187,23 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 | Klasse | Breite | Verwendung |
 |---|---|---|
-| `.page` | 1536px | Standard, Listen, Übersichten |
-| `.page.--narrow` | ≈ 720px | Lese-Content, Detail-Seiten |
-| `.page.--form` | ≈ 480px | Eingabe-Formulare |
-| `.page.--no-pt` | — | Hebt `--page-pt` auf |
+| `.container` | 1536px | Standard, Listen, Übersichten |
+| `.container.--narrow` | ≈ 720px | Lese-Content, Detail-Seiten |
+| `.container.--sm` | ≈ 480px | Eingabe-Formulare |
+| `.container.--flush-top` | — | Hebt `--container-pt` auf |
 
 ## Responsive Breakpoints (vereinheitlicht)
 
-Gilt für `.tile-grid`, `.testimonial-grid`, `.testimonial-slider`:
+Gilt für `.col-grid`, `.tile-grid`, `.testimonial-grid`, `.testimonial-slider`:
 
-| Viewport | 4-spaltig | 3-spaltig | 2-spaltig |
+| Viewport | `data-cols="4"` / `--cols-4` | `data-cols="3"` / `--cols-3` | `data-cols="2"` / `--cols-2` |
 |---|---|---|---|
 | ≥ 1100px | 4 Sp. | 3 Sp. | 2 Sp. |
-| 900–1099px | 3 Sp. | 2 Sp. | 2 Sp. |
-| 768–899px | 2 Sp. | 2 Sp. | 2 Sp. |
-| < 768px | 1 Sp. | 1 Sp. | 1 Sp. |
+| 900–1099px | 3 Sp. | 2 Sp. | 1 Sp. (`data-cols="2"`) / 2 Sp. (`--cols-2`) |
+| 768–899px | 2 Sp. | 2 Sp. | 1 Sp. / 2 Sp. |
+| < 768px | 2 Sp. (`--cols-4`, bewusst) · 1 Sp. (`.col-grid`) | 1 Sp. | 1 Sp. |
+
+Modifier: `.col-grid.--early-2` → 50/50 ab 768px (Intro-Paare). `.col-grid.--wide-narrow` → 2fr/1fr ab 768px (Bundle-Sidebar). `.hero-split` bleibt seiten-spezifisch.
 
 Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 
@@ -219,7 +221,7 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 `placeholder=" "` (Leerzeichen) triggert `:not(:placeholder-shown)`. Modifier: `.--on-green`, `.--error`, `.--success`.
 
 ### Tile / Produktkachel
-- `.tile-grid.--cols-2/3/4` für Grid-Layouts
+- `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1, z. B. Tierarzt-Empfehlung Collection) · `--cols-4` (4→3→2→2, dichte Shop-Listen, Mobile 2-spaltig)
 - **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
 - `.cart-item__variant`: `60 Stück · 39,90 €` — immer diese Klasse, nie eigene
 
@@ -340,13 +342,13 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### Globale Helfer
 | Klasse | Modifier | Zweck |
 |---|---|---|
-| `.page` | `--narrow --form --no-pt` | Container mit max-width + padding |
+| `.container` | `--narrow --sm --flush-top` | Container mit max-width + padding |
 | `.section-label` | `--sub` | Abschnittsüberschrift |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |
 | `.price-stack` | — | Preis + `--old` für Streichpreise |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
-| `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` | Spaltenraster (in `sg.css`). Standard-Gap: `var(--base) var(--gutter)` — Zeilen eng (Text stapelt wie `.flow`), Spalten weit. Für Kacheln/Bilder mit vollem Zeilenabstand: `.--spaced` → `gap: var(--gutter)`. Mobile < 768px: immer 1-spaltig. |
+| `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
 | `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---

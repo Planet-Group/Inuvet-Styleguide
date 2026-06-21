@@ -1216,7 +1216,7 @@ function testimonialSlideHTML(t) {
 
 function testimonialSectionHTML(extraClass = '') {
   return `
-    <div class="page">
+    <div class="container">
       <div class="testimonial-slider --cols-4${extraClass ? ' ' + extraClass : ''}" id="tSlider${Math.random().toString(36).slice(2,7)}">
         <div class="testimonial-slider__track">
           ${TESTIMONIALS.map(testimonialSlideHTML).join('')}
@@ -1234,7 +1234,7 @@ function testimonialSectionHTML(extraClass = '') {
 
 function newsletterHTML() {
   return `
-    <div class="page">
+    <div class="container">
       <div class="newsletter --on-green">
         <div class="newsletter__content">
           <p class="label">Newsletter</p>
@@ -1338,7 +1338,7 @@ function hiwHTML() {
   }).join('');
   return `
     <div class="hiw">
-      <div class="page">
+      <div class="container">
         <div class="hiw__track">${items}</div>
       </div>
     </div>`;
@@ -1554,7 +1554,7 @@ function renderHome() {
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="container">
       <div class="tile-grid --cols-4">
         <div class="tile">
           <div class="tile__icon">
@@ -1599,7 +1599,7 @@ function renderHome() {
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="container">
       <h3 class="section-label">Beliebte Produkte</h3>
       <div class="tile-grid --cols-3">
         ${PRODUCTS.map(tileHTML).join('')}
@@ -1638,7 +1638,7 @@ function renderAbout() {
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="container">
       <div class="tile-grid --cols-4">
         <div class="tile">
           <div class="tile__icon">
@@ -1683,7 +1683,7 @@ function renderAbout() {
         </div>
       </div>
     </div>
-    <div class="page">
+    <div class="container">
       <h3 class="section-label">Beliebte Produkte</h3>
       <div class="tile-grid --cols-3">
         ${PRODUCTS.map(tileHTML).join('')}
@@ -1710,7 +1710,7 @@ function renderCollection() {
         </div>
       </div>
     </div>
-    <div class="page" id="collectionGrid">
+    <div class="container" id="collectionGrid">
       <div class="tile-grid --cols-3">
         ${PRODUCTS.map(tileHTML).join('')}
       </div>
@@ -1723,7 +1723,7 @@ function renderCollection() {
 function renderRecommended() {
   const approved = PRODUCTS.filter(p => approvedProductIds.has(p.id));
   return `
-    <div class="page">
+    <div class="container">
       <h2 class="shop-page-title">Empfohlene Produkte</h2>
       <div class="collection-toolbar"></div>
       <div class="tile-grid --cols-3">
@@ -1850,7 +1850,7 @@ function renderProduct() {
     </div>`;
 
   return `
-    <div class="page">
+    <div class="container">
       <div class="pdp">
         ${gallerySection}
         <div class="pdp__info">
@@ -1893,7 +1893,7 @@ function renderCheckout() {
   const items   = cartApproved.map(checkoutItemHTML).join('');
 
   return `
-    <div class="page">
+    <div class="container">
       <div class="checkout">
 
         <!-- ── Linke Spalte ── -->
@@ -2011,10 +2011,6 @@ function render() {
   switch (page) {
     case 'home':
       main.innerHTML = renderHome();
-      requestAnimationFrame(() => {
-        const strip = document.querySelector('.intro-strip');
-        if (strip) document.documentElement.style.setProperty('--intro-strip-height', strip.offsetHeight + 'px');
-      });
       break;
     case 'about':       main.innerHTML = renderAbout();       break;
     case 'collection':  main.innerHTML = renderCollection();  break;

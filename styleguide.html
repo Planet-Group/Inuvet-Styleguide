@@ -132,7 +132,7 @@
 </div>
 
 <main>
-<div class="page">
+<div class="container">
 
   <header class="header">
     <h1>Styleguide</h1>
@@ -179,7 +179,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A2">
     <h2 class="section-label">A.2 — System-Logik</h2>
     <div class="logic-chain">
@@ -206,7 +206,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A3">
     <h2 class="section-label">A.3 — Design Tokens</h2>
     <div class="rules">
@@ -269,19 +269,19 @@
       <tr><th><code>--announcement-height</code></th><td><code>calc(var(--module) * 0.67)</code> — Höhe der Announcement Bar (wird beim Schließen auf <code>0px</code> gesetzt)</td></tr>
       <tr><th><code>--nav-height</code></th><td><code>calc(var(--module) * 2.5)</code> — Höhe der Navigation</td></tr>
       <tr><th><code>--header-height</code></th><td><code>calc(var(--module) * 3.5)</code> — Announcement + Nav, für <code>scroll-padding-top</code></td></tr>
-      <tr><th><code>--page-pt</code></th><td><code>var(--module)</code> — Atemraum unterhalb des sticky Headers zum ersten Content-Element. Default für <code>.page</code>. Pages mit Hero-Section (edge-to-edge) liegen außerhalb von <code>.page</code> und brauchen es nicht.</td></tr>
-      <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lese-Breite für <code>.page</code> (Satzspiegel)</td></tr>
+      <tr><th><code>--container-pt</code></th><td><code>var(--module)</code> — Atemraum unterhalb des sticky Headers zum ersten Content-Element. Default für <code>.container</code>. Pages mit Hero-Section (edge-to-edge) liegen außerhalb von <code>.container</code> und brauchen es nicht.</td></tr>
+      <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lese-Breite für <code>.container</code> (Satzspiegel)</td></tr>
       <tr><th><code>--section-max-height</code></th><td><code>51rem</code> — Max-Höhe für Section Types mit Bild</td></tr>
       <tr><th><code>--section-min-height</code></th><td><code>24rem</code> — Min-Höhe für Section Types mit Bild</td></tr>
     </table>
 
-    <h3 class="sg-h3 --top">Container-Modifier (auf <code>.page</code>)</h3>
+    <h3 class="sg-h3 --top">Container-Modifier (auf <code>.container</code>)</h3>
     <p class="sg-p">Statt ad-hoc <code>max-width</code>-Werten in Page-CSS-Dateien drei standardisierte Lese-Breiten:</p>
     <table class="spec-table">
-      <tr><th><code>.page</code></th><td>Standard <code>1536px</code> — volle Satzspiegel-Breite, für Listen, Übersichten, Marketing-Content</td></tr>
-      <tr><th><code>.page.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — fokussierter Lese-Content, Detail-Seiten, Single-Column-Formulare im Layout-Kontext</td></tr>
-      <tr><th><code>.page.--form</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Eingabe-Formulare, Login, Onboarding-Schritte</td></tr>
-      <tr><th><code>.page.--no-pt</code></th><td>Hebt das <code>--page-pt</code> auf — für Pages, die direkt nach einer Hero-Section beginnen und keinen zusätzlichen Atemraum brauchen</td></tr>
+      <tr><th><code>.container</code></th><td>Standard <code>1536px</code> — volle Satzspiegel-Breite, für Listen, Übersichten, Marketing-Content</td></tr>
+      <tr><th><code>.container.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — fokussierter Lese-Content, Detail-Seiten, Single-Column-Formulare im Layout-Kontext</td></tr>
+      <tr><th><code>.container.--sm</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Eingabe-Formulare, Login, Onboarding-Schritte</td></tr>
+      <tr><th><code>.container.--flush-top</code></th><td>Hebt das <code>--container-pt</code> auf — für Pages, die direkt nach einer Hero-Section beginnen und keinen zusätzlichen Atemraum brauchen</td></tr>
     </table>
 
     <h3 class="sg-h3 --top">Stacking (z-index)</h3>
@@ -307,7 +307,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A4">
     <h2 class="section-label">A.4 — Typografie</h2>
     <div class="rules">
@@ -399,7 +399,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A5">
     <h2 class="section-label">A.5 — Farben</h2>
 
@@ -637,7 +637,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A6">
     <h2 class="section-label">A.6 — Linien &amp; Borders</h2>
 
@@ -671,7 +671,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A7">
     <h2 class="section-label">A.7 — Spacing</h2>
     <div class="spacing-blocks">
@@ -747,7 +747,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A8">
     <h2 class="section-label">A.8 — Spaltenraster</h2>
     <div class="rules">
@@ -762,7 +762,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A9">
     <h2 class="section-label">A.9 — Responsive</h2>
     <div class="rules">
@@ -789,7 +789,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="A10">
     <h2 class="section-label">A.10 — Styleguide UI-Klassen</h2>
     <div class="rules">
@@ -869,7 +869,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B1">
     <h2 class="section-label">B.1 — Buttons</h2>
 
@@ -991,7 +991,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B2">
     <h2 class="section-label">B.2 — Badges &amp; Labels</h2>
 
@@ -1094,7 +1094,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B3">
     <h2 class="section-label">B.3 — Icons &amp; icon-box</h2>
 
@@ -1272,7 +1272,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B4">
     <h2 class="section-label">B.4 — Form-Felder</h2>
 
@@ -1638,7 +1638,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B5">
     <h2 class="section-label">B.5 — Product Thumb</h2>
 
@@ -1689,7 +1689,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="B6">
     <h2 class="section-label">B.6 — Breadcrumb</h2>
 
@@ -1752,7 +1752,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C1">
     <h2 class="section-label">C.1 — Produktkarte</h2>
 
@@ -1949,7 +1949,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C2">
     <h2 class="section-label">C.2 — Cart Item</h2>
 
@@ -2106,7 +2106,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C3">
     <h2 class="section-label">C.3 — Card-Pattern-Übersicht</h2>
 
@@ -2122,7 +2122,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C4">
     <h2 class="section-label">C.4 — Stand-Alone-Formular</h2>
 
@@ -2170,7 +2170,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C5">
     <h2 class="section-label">C.5 — Tabs &amp; Akkordeon</h2>
 
@@ -2318,7 +2318,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C6">
     <h2 class="section-label">C.6 — Pagination</h2>
     <div class="rules">
@@ -2345,7 +2345,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C7">
     <h2 class="section-label">C.7 — Notice / Infobox</h2>
 
@@ -2415,7 +2415,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C8">
     <h2 class="section-label">C.8 — Empty / Success State</h2>
     <div class="rules">
@@ -2483,7 +2483,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C9">
     <h2 class="section-label">C.9 — Toast / Notification</h2>
     <div class="rules">
@@ -2509,7 +2509,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="C10">
     <h2 class="section-label">C.10 — Modal / Pop-up</h2>
     <div class="rules">
@@ -2551,7 +2551,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D1">
     <h2 class="section-label">D.1 — Navigation &amp; Announcement</h2>
 
@@ -2698,7 +2698,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D2">
     <h2 class="section-label">D.2 — Footer</h2>
 
@@ -2727,7 +2727,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D3">
     <h2 class="section-label">D.3 — Hero-Sections</h2>
 
@@ -2932,7 +2932,7 @@
   </section>
 </div>
 
-<!-- V3 demos break out of .page for full viewport width -->
+<!-- V3 demos break out of .container for full viewport width -->
 <div class="section-type --v3">
   <div class="section-type__image placeholder-bg"></div>
   <div class="section-type__inner">
@@ -2944,7 +2944,7 @@
   </div>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section">
     <p class="demo-note">Bild über die volle Viewport-Breite. Content-Box auf Höhe des Satzspiegels (max-width 1536px).</p>
 
@@ -2964,7 +2964,7 @@
   </div>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section">
     <p class="demo-note">Viewport-Höhe. Bild edge-to-edge, Content-Box am Satzspiegel ausgerichtet.</p>
 
@@ -2984,7 +2984,7 @@
   </div>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section">
     <p class="demo-note">Content-Box links mit <code>--reverse</code>.</p>
 
@@ -3013,7 +3013,7 @@
   </section>
 </div>
 
-<!-- V4 demo breaks out of .page for full viewport width -->
+<!-- V4 demo breaks out of .container for full viewport width -->
 <div class="section-type --v4">
   <div class="section-type__image placeholder-bg"></div>
   <div class="section-type__content flow">
@@ -3026,7 +3026,7 @@
   </div>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section">
     <p class="demo-note">Text und CTA liegen direkt auf dem Bild. Das Overlay (<code>rgba(0,0,0,0.22)</code>) sorgt für ausreichend Kontrast.</p>
 
@@ -3045,13 +3045,13 @@
   </div>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section">
     <p class="demo-note">Mit <code>--viewport</code>: Desktop <code>100dvh</code>, Mobile immer volle Viewport-Höhe.</p>
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D4">
     <h2 class="section-label">D.4 — Kachel-Raster</h2>
 
@@ -3208,7 +3208,7 @@
     <p class="demo-note">Sonderkachel im 3-Spalter.</p>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D5">
     <h2 class="section-label">D.5 — Testimonials</h2>
 
@@ -3588,7 +3588,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D6">
     <h2 class="section-label">D.6 — Marquee</h2>
 
@@ -3660,7 +3660,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D7">
     <h2 class="section-label">D.7 — Newsletter Signup</h2>
 
@@ -3696,7 +3696,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="D8">
     <h2 class="section-label">D.8 — Cookie-Banner</h2>
     <div class="rules">
@@ -3724,7 +3724,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E1">
     <h2 class="section-label">E.1 — Page-Skeleton</h2>
 
@@ -3817,7 +3817,7 @@
 
 &lt;!-- ── Main-Content ── --&gt;
 &lt;main&gt;
-  &lt;div class="page"&gt;
+  &lt;div class="container"&gt;
     &lt;!-- Standard-Container (1536px max). Modifier siehe unten --&gt;
     &lt;h1&gt;Seitentitel&lt;/h1&gt;
     &lt;!-- Page-Inhalt --&gt;
@@ -3834,10 +3834,10 @@
 
     <h3 class="sg-h3 --top">Container-Varianten für <code>&lt;main&gt;</code></h3>
     <table class="spec-table">
-      <tr><th>Standard</th><td><code>&lt;main&gt;&lt;div class="page"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — volle Lese-Breite (1536px), Lese-Content, Marketing</td></tr>
-      <tr><th>Lese-Content</th><td><code>&lt;main class="page --narrow"&gt;…&lt;/main&gt;</code> — fokussierter Single-Column (≈720px), z.B. Detail-Seiten</td></tr>
-      <tr><th>Formulare</th><td><code>&lt;main class="page --form"&gt;…&lt;/main&gt;</code> — kompakte Eingabe (≈480px)</td></tr>
-      <tr><th>Hero-Pages</th><td><code>&lt;main&gt;&lt;div class="section-type --v4"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Hero edge-to-edge, ohne <code>.page</code>-Container</td></tr>
+      <tr><th>Standard</th><td><code>&lt;main&gt;&lt;div class="container"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — volle Lese-Breite (1536px), Lese-Content, Marketing</td></tr>
+      <tr><th>Lese-Content</th><td><code>&lt;main class="container --narrow"&gt;…&lt;/main&gt;</code> — fokussierter Single-Column (≈720px), z.B. Detail-Seiten</td></tr>
+      <tr><th>Formulare</th><td><code>&lt;main class="container --sm"&gt;…&lt;/main&gt;</code> — kompakte Eingabe (≈480px)</td></tr>
+      <tr><th>Hero-Pages</th><td><code>&lt;main&gt;&lt;div class="section-type --v4"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Hero edge-to-edge, ohne <code>.container</code>-Container</td></tr>
       <tr><th>Stand-Alone-Form</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — siehe C.4</td></tr>
     </table>
 
@@ -3846,7 +3846,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E2">
     <h2 class="section-label">E.2 — Produktdetailseite (PDP)</h2>
 
@@ -4074,7 +4074,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E3">
     <h2 class="section-label">E.3 — Produktübersicht / Collection</h2>
 
@@ -4203,7 +4203,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E4">
     <h2 class="section-label">E.4 — Warenkorb-Drawer</h2>
 
@@ -4239,7 +4239,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E5">
     <h2 class="section-label">E.5 — Checkout</h2>
 
@@ -4410,7 +4410,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E6">
     <h2 class="section-label">E.6 — Account-Seiten</h2>
     <div class="rules">
@@ -4521,7 +4521,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E7">
     <h2 class="section-label">E.7 — Suche</h2>
     <div class="rules">
@@ -4617,7 +4617,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E8">
     <h2 class="section-label">E.8 — Blog</h2>
 
@@ -4732,7 +4732,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E9">
     <h2 class="section-label">E.9 — Out-of-Stock</h2>
     <div class="rules">
@@ -4756,7 +4756,7 @@
   </section>
 </div>
 
-<div class="page">
+<div class="container">
   <section class="sg-section" id="E10">
   <h2 class="section-label">E.10 — Landing-Page-Elemente</h2>
 

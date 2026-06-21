@@ -162,7 +162,7 @@ Diesen Block an den Anfang jeder Web-CSS-Datei setzen:
   --z-modal:   220;
 
   --header-height: calc(var(--module) * 3.5);
-  --page-pt:       var(--module);
+  --container-pt:       var(--module);
   --container-max: 1536px;
 }
 

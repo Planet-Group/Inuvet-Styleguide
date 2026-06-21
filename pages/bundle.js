@@ -131,7 +131,7 @@ const applyVisibility = () => {
 
 // ── Render: Bundle ─────────────────────────────────────────────────────
 const renderBundle = () => {
-  const introP = document.querySelector('#bundleSection .bundle-intro p');
+  const introP = document.querySelector('#bundleSection > .col-grid:first-child p');
   if (introP) {
     introP.textContent = 'Basierend auf deinen Einkäufen der letzten 18 Monate haben wir dieses Set für dich zusammengestellt.';
   }
@@ -348,7 +348,7 @@ const TESTIMONIALS = [
   function getVisible() {
     const w = window.innerWidth;
     if (w <= 767) return slides.length; // Mobile: alle sichtbar (vertikaler Stack via CSS)
-    return w <= 1535 ? 2 : 3;
+    return w <= 1100 ? 2 : 3;
   }
   function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
   function update() {

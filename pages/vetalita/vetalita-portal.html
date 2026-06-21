@@ -634,7 +634,7 @@ function renderCheckoutSummary(total, remaining) {
 
 function renderLogin() {
   return `
-    <div class="page --wide portal-section">
+    <div class="container --wide portal-section">
       <p class="portal-start__greeting">Benvenuto nel portale premi.</p>
       <div class="portal-start__options">
 
@@ -738,7 +738,7 @@ const ANIMAL_FACTS = [
 function renderLoading() {
   const fact = ANIMAL_FACTS[Math.floor(Math.random() * ANIMAL_FACTS.length)];
   return `
-    <div class="page --narrow portal-section" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; gap:var(--module);">
+    <div class="container --narrow portal-section" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; gap:var(--module);">
       <svg viewBox="0 0 200 200" aria-hidden="true" style="width:120px;height:120px;">
         <circle cx="100" cy="100" r="82" fill="none" stroke="var(--border-light)" stroke-width="16"/>
         <circle cx="100" cy="100" r="82" fill="none" stroke="var(--green)" stroke-width="16"
@@ -977,7 +977,7 @@ function renderPortal() {
       </div>
     </section>
 
-    <div class="page --no-pt portal-section">
+    <div class="container --flush-top portal-section">
       <h2 class="portal-section__title">Premi disponibili</h2>
       <div class="tile-grid --cols-3">
         ${PREMIUMS.map(renderTile).join('')}
@@ -1044,7 +1044,7 @@ function renderPDP() {
     </div>` : '';
 
   return `
-    <div class="page portal-section">
+    <div class="container portal-section">
       <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Tutti i premi</button>
       <div class="pdp">
         <div class="pdp__gallery">
@@ -1193,7 +1193,7 @@ function renderCheckout() {
   const remaining = provisionAvailable();
 
   return `
-    <div class="page portal-section">
+    <div class="container portal-section">
       <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Selezione premi</button>
       <div class="checkout">
 
@@ -1280,7 +1280,7 @@ function renderSuccess() {
   }).join('');
 
   return `
-    <div class="page --narrow portal-section">
+    <div class="container --narrow portal-section">
       <div class="success-state">
         <span class="success-state__icon material-icons">check_circle</span>
         <h1 class="success-state__title">Premio in arrivo!</h1>

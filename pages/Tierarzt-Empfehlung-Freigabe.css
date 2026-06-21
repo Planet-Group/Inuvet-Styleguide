@@ -3,24 +3,15 @@
    Page-spezifische Styles. Globale Atome via inuvet.css.
    ══════════════════════════════════════════════════════════════ */
 
-/* ─── Seiten-Container ─── */
+/* ─── Container ─── */
 .approval-page { padding-bottom: var(--module); }
 
-/* ─── Intro: 2-spaltig auf Desktop (Headline links, Meta rechts) ─── */
-.approval-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: calc(var(--base) * 0.5);
+/* ─── Intro (.col-grid --early-2 data-cols="2") ─── */
+#approvalIntro {
   margin-bottom: var(--module);
+  align-items: start;
 }
-@media (min-width: 768px) {
-  .approval-intro {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--gutter);
-    align-items: start;
-  }
-}
-.approval-intro h1 { margin: 0; }
+#approvalIntro h1 { margin: 0; }
 
 /* ─── Patienten-Meta ─── */
 .approval-meta {
@@ -39,31 +30,11 @@
    Basis: globale (aufklappbare) Notice-Komponente mit Icon (C.7).
    Hier nur das zweispaltige Body-Layout für die zwei Textblöcke. */
 .approval-help { margin-bottom: var(--module); }
-.approval-help__body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--module);
-}
-@media (min-width: 768px) {
-  .approval-help__body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-}
 .approval-help__block p { margin: 0 0 calc(var(--base) * 0.4); }
 .approval-help__block p:last-child { margin-bottom: 0; }
 .approval-help__contact a { color: var(--green); }
 
-/* ─── Produkt-Grid: 3-spaltig auf Desktop ─── */
-.approval-product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--module);
-  margin-bottom: var(--module);
-}
-@media (max-width: 1099px) {
-  .approval-product-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 767px) {
-  .approval-product-grid { grid-template-columns: 1fr; }
-}
+#approvalGrid { margin-bottom: var(--module); }
 
 /* ─── Cart-Item innerhalb der Card — nutzt globales .cart-item als Basis ─── */
 .approval-product-card .cart-item {
@@ -141,7 +112,7 @@
   position: sticky;
   bottom: 0;
   z-index: 1;
-  /* Full-Bleed: über die ganze Seitenbreite, aus dem zentrierten .page-Container ausbrechen */
+  /* Full-Bleed: über die ganze Seitenbreite, aus dem zentrierten .container ausbrechen */
   margin-top: var(--module);
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);

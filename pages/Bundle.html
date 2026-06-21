@@ -82,8 +82,8 @@
   </div>
 
   <!-- ARCHITEKTUR-REGEL:
-       <main> OHNE .page — section-type Varianten sind selbst-containerisiert.
-       Bundle-Inhalt liegt in <div class="page">, section-types direkt in <main>. -->
+       <main> OHNE .container — section-type Varianten sind selbst-containerisiert.
+       Bundle-Inhalt liegt in <div class="container">, section-types direkt in <main>. -->
   <main id="bundleMain">
 
     <!-- ─── Hero ─── -->
@@ -99,14 +99,14 @@
     </div>
 
     <!-- ─── Bundle Builder ─── -->
-    <div class="page" id="bundleSection">
+    <div class="container" id="bundleSection">
 
-      <div class="bundle-intro">
+      <div class="col-grid --early-2" data-cols="2">
         <h2>Dein persönliches Angebot</h2>
         <p>Basierend auf deinen Einkäufen der letzten 18 Monate haben wir dieses Set für dich zusammengestellt.</p>
       </div>
 
-      <div class="bundle-grid" id="bundleGrid">
+      <div class="col-grid --spaced --wide-narrow" data-cols="2" id="bundleGrid">
 
         <!-- Linke Spalte: Produktliste -->
         <div>
@@ -150,7 +150,7 @@
     </div>
 
     <!-- ─── Testimonials ─── -->
-    <div class="page" id="bundleTestimonials">
+    <div class="container" id="bundleTestimonials">
 
       <div class="testimonial-slider --cols-3" id="tSlider">
         <div class="testimonial-slider__track" id="tTrack"></div>
@@ -163,7 +163,7 @@
     </div>
 
     <!-- ─── Produkt-Grid mit Sonderkachel ─── -->
-    <div class="page" id="bundleTiles">
+    <div class="container" id="bundleTiles">
       <div class="tile-grid --cols-3">
 
         <!-- Calmin -->
