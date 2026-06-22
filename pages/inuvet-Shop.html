@@ -45,8 +45,28 @@
         <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
       </a>
     </div>
-    <div class="nav-right"></div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" type="button">
+        <span class="material-icons">shopping_cart</span>
+        <span class="badge --count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
   </nav>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
@@ -69,6 +89,7 @@
           <p class="section-type__body">Tierärztlich entwickelte Nahrungsergänzung mit pflanzlichen Inhaltsstoffen — für Hunde, Katzen und Kleintiere. Entdecke Produkte, die auf den Geschmack deines Tieres optimiert sind.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="document.getElementById('shopCollection').scrollIntoView({behavior:'smooth'})">Alle Produkte</button>
+            <button class="btn --ghost" onclick="openSearch()">Produkt suchen</button>
           </div>
         </div>
       </div>
@@ -120,6 +141,8 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Calmin balance</h3>
@@ -136,6 +159,8 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Hepax forte</h3>
@@ -152,6 +177,8 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Calmin balance</h3>
@@ -168,6 +195,8 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Hepax forte</h3>
@@ -199,6 +228,7 @@
         <h4>Shop</h4>
         <ul>
           <li><a href="#shopCollection">Alle Produkte</a></li>
+          <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
           <li><a href="Bundle.html">Persönliches Angebot</a></li>
         </ul>
       </div>

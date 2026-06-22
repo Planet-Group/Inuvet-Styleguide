@@ -1,5 +1,13 @@
 /* inuvet-Shop — seitenspezifische Logik */
 
+// Warenkorb-Drawer ist in diesem Mockup nicht Teil des Flows — Icon/Badge bleiben sichtbar.
+window.openCart = () => {};
+
+window.quickAdd = (id, name) => {
+  addToCart(id, 0, 0, 1);
+  showToast(`${name} in den Warenkorb gelegt`);
+};
+
 function openPracticeOptIn() {
   const overlay = document.getElementById('practiceOptInOverlay');
   if (!overlay) return;
@@ -16,5 +24,6 @@ window.closePracticeOptIn = (accepted) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
   setTimeout(openPracticeOptIn, 400);
 });
