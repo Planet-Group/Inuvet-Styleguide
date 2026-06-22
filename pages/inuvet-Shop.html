@@ -34,71 +34,27 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-item">
-        <a href="#shopCollection" class="nav-item__trigger" aria-current="page">
-          Produkte <span class="material-icons" aria-hidden="true">expand_more</span>
-        </a>
-        <div class="nav-item__dropdown">
-          <a href="#shopCollection">Gelenke &amp; Bewegung</a>
-          <a href="#shopCollection">Beruhigung</a>
-          <a href="#shopCollection">Alle Produkte</a>
-        </div>
+        <a href="inuvet-Shop.html" class="nav-item__trigger" aria-current="page">Mockup</a>
       </div>
       <div class="nav-item">
-        <a href="#" class="nav-item__trigger">
-          Ratgeber <span class="material-icons" aria-hidden="true">expand_more</span>
-        </a>
-        <div class="nav-item__dropdown">
-          <a href="#">Ernährung</a>
-          <a href="#">Gesundheit</a>
-        </div>
+        <a href="inuvet-Shop-Info.html" class="nav-item__trigger">Dokumentation</a>
       </div>
-      <a href="#">Über uns</a>
     </div>
     <div class="nav-center">
       <a href="inuvet-Shop.html" aria-label="Zur Startseite">
         <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
       </a>
     </div>
-    <div class="nav-right">
-      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
-        <span class="material-icons">search</span>
-      </button>
-      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
-        <span class="material-icons">shopping_cart</span>
-        <span class="badge --count" id="cartCount" style="display:none">0</span>
-      </button>
-    </div>
+    <div class="nav-right"></div>
   </nav>
-
-  <!-- Search Overlay -->
-  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
-    <div class="search-panel" id="searchPanel">
-      <div class="search-panel__bar">
-        <span class="material-icons">search</span>
-        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
-        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
-      </div>
-      <div class="search-results" id="searchResults" role="listbox"></div>
-    </div>
-  </div>
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
     <div class="nav-col">
-      <a href="#shopCollection" onclick="closeMobile()">Produkte</a>
-      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Gelenke &amp; Bewegung</a>
-      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Beruhigung</a>
-      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Alle Produkte</a>
-      <a href="#" onclick="closeMobile()">Ratgeber</a>
-      <a href="#" class="--indent" onclick="closeMobile()">Ernährung</a>
-      <a href="#" class="--indent" onclick="closeMobile()">Gesundheit</a>
-      <a href="#" onclick="closeMobile()">Über uns</a>
+      <a href="inuvet-Shop.html" onclick="closeMobile()">Mockup</a>
+      <a href="inuvet-Shop-Info.html" onclick="closeMobile()">Dokumentation</a>
     </div>
   </div>
-
-  <!-- Warenkorb-Drawer -->
-  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-  <div class="cart-drawer" id="cartDrawer"></div>
 
   <main>
 
@@ -113,7 +69,6 @@
           <p class="section-type__body">Tierärztlich entwickelte Nahrungsergänzung mit pflanzlichen Inhaltsstoffen — für Hunde, Katzen und Kleintiere. Entdecke Produkte, die auf den Geschmack deines Tieres optimiert sind.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="document.getElementById('shopCollection').scrollIntoView({behavior:'smooth'})">Alle Produkte</button>
-            <button class="btn --ghost" onclick="openSearch()">Produkt suchen</button>
           </div>
         </div>
       </div>
@@ -165,8 +120,6 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
-            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Calmin balance</h3>
@@ -183,8 +136,6 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
-            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Hepax forte</h3>
@@ -201,8 +152,6 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
-            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Calmin balance</h3>
@@ -219,8 +168,6 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
-            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
             <h3 class="tile__headline">Hepax forte</h3>
@@ -252,7 +199,6 @@
         <h4>Shop</h4>
         <ul>
           <li><a href="#shopCollection">Alle Produkte</a></li>
-          <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
           <li><a href="Bundle.html">Persönliches Angebot</a></li>
         </ul>
       </div>
@@ -267,13 +213,31 @@
     </div>
   </footer>
 
+  <!-- Praxis-Opt-in Pop-up -->
+  <div class="shop-modal-overlay" id="practiceOptInOverlay" aria-modal="true" role="dialog" aria-labelledby="practiceOptInTitle">
+    <div class="shop-modal" onclick="event.stopPropagation()">
+      <div class="shop-modal__icon">
+        <span class="material-icons" aria-hidden="true">medication</span>
+      </div>
+      <h2 class="shop-modal__title" id="practiceOptInTitle">Neu: Wie ein Rezept!</h2>
+      <div class="shop-modal__body">
+        <p>Jetzt könnt ihr mit der »Tierarzt-Empfehlung« Produkte für Patienten freischalten. Die werden dann direkt zu ihnen nach Hause geschickt.</p>
+        <p>Dürfen wir euch kontaktieren, wenn jemand eine Empfehlung möchte?</p>
+      </div>
+      <div class="shop-modal__actions">
+        <button class="btn --primary --full" type="button" onclick="closePracticeOptIn(true)">Ja, gerne!</button>
+        <button class="btn --ghost --full" type="button" onclick="closePracticeOptIn(false)">Nein</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Mockup FAB -->
   <button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
     ⚙ Mockup-Kontext
   </button>
   <div class="mockup-fab-panel" id="mockupFabPanel">
     <div class="mockup-fab-panel__title">inuvet Shop — Mockup</div>
-    <p>Startseite des regulären inuvet-Shops: Hauptnavigation, Hero mit Lottie-Animation, USP-Kacheln, vierspaltige Produkt-Collection und Footer.</p>
+    <p>Startseite des regulären inuvet-Shops: Hauptnavigation, Hero mit Lottie-Animation, USP-Kacheln, vierspaltige Produkt-Collection, Praxis-Opt-in-Pop-up und Footer.</p>
   </div>
 
   <div class="toast-container" id="toastContainer"></div>
