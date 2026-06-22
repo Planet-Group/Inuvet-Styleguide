@@ -159,6 +159,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 --header-height: calc(var(--module) * 3.5)
 --container-pt: var(--module)
 --container-max: 1536px
+--form-page-max: 640px
 ```
 
 ### Z-Index

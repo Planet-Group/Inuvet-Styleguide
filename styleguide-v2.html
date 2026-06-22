@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=18">
-  <link rel="stylesheet" href="sg.css?v=31">
+  <link rel="stylesheet" href="inuvet.css?v=19">
+  <link rel="stylesheet" href="sg.css?v=34">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -222,6 +222,7 @@
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> — für <code>scroll-padding-top</code></td></tr>
         <tr><th><code>--container-pt</code></th><td><code>var(--module)</code> — Atemraum unter dem sticky Header zum ersten Content-Element</td></tr>
         <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lesebreite für <code>.container</code></td></tr>
+        <tr><th><code>--form-page-max</code></th><td><code>640px</code> — Card-Breite für <code>.form-page__card</code> (<a href="#A8">A.8</a>, <a href="#C4">C.4</a>)</td></tr>
         <tr><th><code>--section-max-height</code></th><td><code>51rem</code> — Max-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--section-min-height</code></th><td><code>24rem</code> — Min-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--icon-box-sm · --icon-box-md</code></th><td><code>calc(var(--base) * 2.5)</code> · <code>calc(var(--base) * 2.75)</code> — Icon-Box-Größen</td></tr>
@@ -717,49 +718,34 @@
       </table>
 
       <div class="container-demo">
-        <div class="container-demo-label"><code>.container</code> — voller Satzspiegel (1536px)</div>
+        <div class="container-demo-label">Eine Seite — mehrere <code>.container</code>-Blöcke</div>
         <div class="container-demo__viewport">
-          <div class="container">
-            <div class="container-demo__content">Content</div>
-          </div>
-        </div>
-      </div>
-      <div class="container-demo">
-        <div class="container-demo-label"><code>.container.--narrow</code> — Lesebreite (≈720px)</div>
-        <div class="container-demo__viewport">
-          <div class="container --narrow">
-            <div class="container-demo__content">Content</div>
-          </div>
-        </div>
-      </div>
-      <div class="container-demo">
-        <div class="container-demo-label"><code>.container.--sm</code> — schmal im Shop (≈480px)</div>
-        <div class="container-demo__viewport">
-          <div class="container --sm">
-            <div class="container-demo__content">Content</div>
-          </div>
-        </div>
-      </div>
-      <div class="container-demo">
-        <div class="container-demo-label">Hero (edge-to-edge) + <code>.container.--flush-top</code></div>
-        <div class="container-demo__viewport">
-          <div class="container-demo__hero"><code>.section-type</code> — volle Breite</div>
+          <div class="container-demo__hero"><code>.section-type</code> — edge-to-edge</div>
           <div class="container --flush-top">
-            <div class="container-demo__content">Erster Content-Block ohne <code>--container-pt</code></div>
+            <div class="container-demo__content"><code>.container.--flush-top</code></div>
+          </div>
+          <div class="container-demo__band"><code>.section-type</code> — edge-to-edge</div>
+          <div class="container">
+            <div class="container-demo__content"><code>.container</code> — 1536px</div>
+          </div>
+          <div class="container --narrow">
+            <div class="container-demo__content"><code>.container.--narrow</code> — ≈720px</div>
+          </div>
+          <div class="container --sm">
+            <div class="container-demo__content"><code>.container.--sm</code> — ≈480px</div>
           </div>
         </div>
       </div>
-      <p class="sg-p">Gestrichelte Linie = Container · grauer Rand = Viewport · Werte aus <code>inuvet.css</code>. Mobile-Padding → <a href="#A10">A.10</a>.</p>
 
       <h3 class="sg-h3 --top">B — Stand-Alone-Formular (<code>.form-page</code>)</h3>
       <table class="spec-table">
         <tr><th>Pattern</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code></td></tr>
-        <tr><th>Breite</th><td>Card <code>max-width: 640px</code> — breiter als <code>.container.--sm</code> (480px)</td></tr>
+        <tr><th>Breite</th><td>Card <code>max-width: var(--form-page-max)</code> (640px) — breiter als <code>.container.--sm</code> (480px)</td></tr>
         <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA</td></tr>
         <tr><th>CSS</th><td><code>pages/formulare.css</code> — vollständige Spec in <a href="#C4">C.4</a></td></tr>
       </table>
       <div class="form-page-demo">
-        <div class="form-page-demo-label"><code>.form-page</code> → <code>.form-page__card</code> (640px)</div>
+        <div class="form-page-demo-label"><code>.form-page</code> → <code>.form-page__card</code> (<code>--form-page-max</code>)</div>
         <div class="form-page-demo__shell">
           <div class="form-page__card">
             <div class="form-page-demo__content">Formular-Inhalt</div>

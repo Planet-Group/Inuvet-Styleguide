@@ -87,7 +87,7 @@
 .form-page__card {
   background: var(--bg);
   width: 100%;
-  max-width: 640px;
+  max-width: var(--form-page-max);
   padding: var(--half-module) var(--module) calc(var(--module) * 1.5);
 }
 
@@ -131,7 +131,7 @@
 /* ─── Rechtlicher Footer (Impressum) ─── */
 .form-page__footer {
   width: 100%;
-  max-width: 640px;
+  max-width: var(--form-page-max);
   margin-top: var(--half-module);
   font-size: var(--text-xs);
   color: var(--fg-muted);

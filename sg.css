@@ -84,34 +84,48 @@
   .col-demo .col-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .col-demo .col-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-  /* ─── Container-Demo (A.8) ─── */
+  /* ─── Container-Demo (A.8) — gestapelte Blöcke in einem Viewport ─── */
   .container-demo { margin-bottom: var(--half-module); }
   .container-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
   .container-demo__viewport {
+    display: flex;
+    flex-direction: column;
+    gap: var(--half-module);
     background: var(--accent-bg);
     border: 1px solid var(--border-light);
     padding: var(--half-module);
   }
   .container-demo .container {
+    width: 100%;
     padding: var(--half-module);
-    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
     background: var(--bg);
     outline: 1px dashed var(--border);
     outline-offset: -1px;
   }
   .container-demo__content {
-    min-height: calc(var(--module) * 1.25);
+    min-height: calc(var(--module) * 0.85);
     display: flex; align-items: center; justify-content: center;
     font-size: var(--text-xs); color: var(--fg-muted);
     background: color-mix(in srgb, var(--accent-bg) 70%, var(--bg));
+    text-align: center;
   }
-  .container-demo__hero {
-    margin: calc(-1 * var(--half-module)) calc(-1 * var(--half-module)) 0;
-    min-height: var(--module);
+  .container-demo__hero,
+  .container-demo__band {
+    margin-left: calc(-1 * var(--half-module));
+    margin-right: calc(-1 * var(--half-module));
+    min-height: calc(var(--module) * 0.9);
     display: flex; align-items: center; justify-content: center;
     font-size: var(--text-xs); color: var(--fg-muted);
     background: var(--green-light);
     border-bottom: 1px dashed var(--border);
+  }
+  .container-demo__hero {
+    margin-top: calc(-1 * var(--half-module));
+  }
+  .container-demo__hero + .container.--flush-top {
+    margin-top: calc(-1 * var(--half-module));
   }
 
   /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in pages/formulare.css ─── */
@@ -126,7 +140,7 @@
   }
   .form-page-demo__shell .form-page__card {
     width: 100%;
-    max-width: 640px;
+    max-width: var(--form-page-max);
     background: var(--bg);
     padding: var(--half-module);
     outline: 1px dashed var(--border);
