@@ -315,6 +315,23 @@ body.--page-home .section-type.--v3 .section-type__content {
   --field-bg: var(--color-honey);
   --field-bg-active: var(--color-honey);
 }
+.cart-drawer.--request-step .cart-drawer__items {
+  padding: var(--half-module) var(--module) var(--module);
+}
+/* Kompaktes Notizfeld — globale min-height (8rem) ist hier zu hoch */
+.cart-drawer.--request-step .vet-request__notes textarea { min-height: 4rem; }
+.vet-request__hint {
+  font-size: var(--text-base);
+  color: var(--fg-muted);
+  margin: calc(var(--base) * 0.25) 0 0;
+}
+.vet-request__hint a { color: var(--fg); font-weight: 700; text-decoration: underline; }
+/* Submit-Leiste: klar abgesetzter Footer mit Schatten über volle Drawer-Breite */
+.cart-drawer.--request-step .cart-drawer__footer--submit {
+  padding: var(--half-module) var(--module);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+}
 
 /* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
 .cart-section--requested {

@@ -744,22 +744,86 @@ function showVetDropdown() {
   dropdown.style.display = '';
 }
 
+function onVetSearchInput(value) {
+  filterVets(value);
+  if (selectedVet) {
+    const display = `${selectedVet.name} – ${selectedVet.city}`;
+    const trimmed = (value || '').trim();
+    if (trimmed !== selectedVet.name && trimmed !== display) selectedVet = null;
+  }
+  clearVetFieldError();
+}
+
+function parseVetSearchInput(raw) {
+  const val = (raw || '').trim();
+  const name = val.includes(' – ') ? val.split(' – ')[0].trim() : val;
+  return { val, name };
+}
+
+function findRecommendedVetByInput(raw) {
+  const { val, name } = parseVetSearchInput(raw);
+  const q = name.toLowerCase();
+  if (!q) return null;
+  return recommendedVets().find(v =>
+    v.name.toLowerCase() === q ||
+    `${v.name} – ${v.city}`.toLowerCase() === val.toLowerCase()
+  ) || null;
+}
+
+function setVetFieldError(message) {
+  const field = document.getElementById('vetSearchInput')?.closest('.form-field');
+  if (!field) return;
+  field.classList.add('--error');
+  let err = field.querySelector('.form-field__error');
+  if (!err) {
+    err = document.createElement('p');
+    err.className = 'form-field__error';
+    field.appendChild(err);
+  }
+  err.textContent = message;
+}
+
+function clearVetFieldError() {
+  const field = document.getElementById('vetSearchInput')?.closest('.form-field');
+  if (!field) return;
+  field.classList.remove('--error');
+  field.querySelector('.form-field__error')?.remove();
+}
+
+function vetInviteMailtoHref() {
+  const subject = 'Teilnahme am Inuvet-Empfehlungsprogramm';
+  const body = `Sehr geehrte Damen und Herren,
+
+ich würde gerne Inuvet-Produkte für mein Tier über das Tierarzt-Empfehlungsprogramm beziehen – leider ist Ihre Praxis dort noch nicht gelistet.
+
+Das Programm ermöglicht es Ihnen, passende Ergänzungsfuttermittel digital freizugeben. Inuvet übernimmt anschließend Beratung, Versand und Betreuung der Tierbesitzer – für Ihre Praxis entsteht kein Aufwand mit Lagerung oder Logistik. Für jede Empfehlung erhalten Sie zudem eine Provision.
+
+Mehr Informationen: https://inuvet.com/pages/tierarzt-empfehlung-anleitung
+
+Ich würde mich freuen, wenn Sie am Programm teilnehmen – so könnte ich die Produkte künftig direkt über Ihre Empfehlung beziehen.
+
+Mit freundlichen Grüßen`;
+  return 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+
 function handleVetInputKeydown(e) {
   if (e.key !== 'Enter') return;
   e.preventDefault();
-  const val = e.target.value.trim().toLowerCase();
-  if (!val) return;
-  // Nur exakter Treffer unter den teilnehmenden Praxen wird übernommen
-  const match = recommendedVets().find(v => v.name.toLowerCase() === val);
-  if (match) selectVet(match.id);
+  const match = findRecommendedVetByInput(e.target.value);
+  if (match) { selectVet(match.id); return; }
+  const { name } = parseVetSearchInput(e.target.value);
+  if (name) {
+    setVetFieldError('Praxis ist noch nicht im Empfehlungsprogramm.');
+    showToast('Praxis ist noch nicht im Empfehlungsprogramm.', 'error');
+  }
 }
 
 function selectVet(id) {
   selectedVet = VETS.find(v => v.id === id);
   const input = document.getElementById('vetSearchInput');
   if (input) {
-    input.value = selectedVet.name;
-    input.closest('.form-field')?.classList.remove('--error');
+    input.value = `${selectedVet.name} – ${selectedVet.city}`;
+    clearVetFieldError();
   }
   document.getElementById('vetDropdown').style.display = 'none';
 }
@@ -773,14 +837,36 @@ function closeVetMap() {
 }
 
 function submitVetRequest() {
-  // Es muss eine teilnehmende Praxis gewählt sein
-  if (!selectedVet) {
-    const input = document.getElementById('vetSearchInput');
-    if (input) input.closest('.form-field')?.classList.add('--error');
-    showToast('Bitte wähle eine teilnehmende Praxis aus.', 'error');
+  const input = document.getElementById('vetSearchInput');
+  const raw   = input?.value ?? '';
+
+  if (selectedVet) {
+    const display = `${selectedVet.name} – ${selectedVet.city}`;
+    const trimmed = raw.trim();
+    if (trimmed === selectedVet.name || trimmed === display) {
+      clearVetFieldError();
+      setCartStep(3);
+      return;
+    }
+    selectedVet = null;
+  }
+
+  const match = findRecommendedVetByInput(raw);
+  if (match) {
+    selectVet(match.id);
+    setCartStep(3);
     return;
   }
-  setCartStep(3);
+
+  const { name } = parseVetSearchInput(raw);
+  if (name) {
+    setVetFieldError('Praxis ist noch nicht im Empfehlungsprogramm.');
+    showToast('Praxis ist noch nicht im Empfehlungsprogramm.', 'error');
+    return;
+  }
+
+  setVetFieldError('Bitte wähle eine teilnehmende Praxis aus.');
+  showToast('Bitte wähle eine teilnehmende Praxis aus.', 'error');
 }
 
 /* ── E-Mail-Overlay ──────────────────────────────────────────────── */
@@ -845,19 +931,20 @@ function renderRequestStep() {
           <input type="text" id="vetSearchInput" autocomplete="off"
             placeholder=" "
             value="${selectedVet ? selectedVet.name + ' – ' + selectedVet.city : ''}"
-            oninput="filterVets(this.value)" onfocus="showVetDropdown()" onkeydown="handleVetInputKeydown(event)">
-          <label for="vetSearchInput">Praxisname eingeben</label>
+            oninput="onVetSearchInput(this.value)" onfocus="showVetDropdown()" onkeydown="handleVetInputKeydown(event)">
+          <label for="vetSearchInput">Praxis auswählen</label>
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
       </div>
       <!-- Notes -->
-      <div class="form-field">
-        <textarea id="vetNotes" rows="4" placeholder=""></textarea>
+      <div class="form-field vet-request__notes">
+        <textarea id="vetNotes" rows="2" placeholder=" "></textarea>
         <label for="vetNotes">Notizen an die Tierarztpraxis (optional)</label>
       </div>
+      <p class="vet-request__hint">Du findest deine Praxis nicht? Dann <a href="${vetInviteMailtoHref()}">sende ihr hier eine E-Mail</a>.</p>
     </div>
-    <div class="cart-drawer__footer">
-      <button class="btn --honey cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
+    <div class="cart-drawer__footer cart-drawer__footer--submit">
+      <button class="btn --ghost cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
     </div>`;
 }
 
