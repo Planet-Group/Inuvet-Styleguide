@@ -146,6 +146,7 @@ Diesen Block an den Anfang jeder Web-CSS-Datei setzen:
   --cat-atemwege:       #FFB990; --cat-atemwege-light:       #fff1e9;
   --cat-fettsaeuren:    #05868E; --cat-fettsaeuren-light:    #e5f0f1;
   --cat-hormone:        #994878; --cat-hormone-light:        #f4e9ef;
+  --cat-ohren:          #62519d; --cat-ohren-light:          #eceaf4;
   --cat-cbd:            #C5B4E3; --cat-cbd-light:            #f2eff9;
 
   --font: "schnebel-sans-me", sans-serif;
@@ -209,6 +210,7 @@ body {
 [data-cat="atemwege"]     { background: var(--cat-atemwege-light); }
 [data-cat="fettsaeuren"]  { background: var(--cat-fettsaeuren-light); }
 [data-cat="hormone"]      { background: var(--cat-hormone-light); }
+[data-cat="ohren"]        { background: var(--cat-ohren-light); }
 [data-cat="cbd"]          { background: var(--cat-cbd-light); }
 ```
 
@@ -290,6 +292,7 @@ body {
       --cat-atemwege:       #FFB990; --cat-atemwege-light:       #fff1e9;
       --cat-fettsaeuren:    #05868E; --cat-fettsaeuren-light:    #e5f0f1;
       --cat-hormone:        #994878; --cat-hormone-light:        #f4e9ef;
+      --cat-ohren:          #62519d; --cat-ohren-light:          #eceaf4;
       --cat-cbd:            #C5B4E3; --cat-cbd-light:            #f2eff9;
     }
 
@@ -312,6 +315,7 @@ body {
     [data-cat="atemwege"]     { background: var(--cat-atemwege-light); }
     [data-cat="fettsaeuren"]  { background: var(--cat-fettsaeuren-light); }
     [data-cat="hormone"]      { background: var(--cat-hormone-light); }
+    [data-cat="ohren"]        { background: var(--cat-ohren-light); }
     [data-cat="cbd"]          { background: var(--cat-cbd-light); }
 
     .floating-meta {

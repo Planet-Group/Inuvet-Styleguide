@@ -179,7 +179,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 --border: #cccccc  --border-light: #e0e0e0  --accent-bg: #f2f2f2
 ```
 
-14 Kategorie-Farben als `--cat-X` + `--cat-X-light`: beruhigung, leber, gelenke, immun, herz, magendarm, haut-fell, atemwege, niere, krebs, augen, alter, bewegung, cbd.
+15 Kategorie-Farben als `--cat-X` + `--cat-X-light`: beruhigung, leber, gelenke, immun, herz, magendarm, haut, atemwege, niere, blase, bauchspeichel, fettsaeuren, hormone, ohren, cbd.
 
 ---
 

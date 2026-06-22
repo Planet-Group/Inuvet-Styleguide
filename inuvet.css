@@ -86,6 +86,8 @@
     --cat-atemwege-light: #fff1e9;
     --cat-hormone: #994878;
     --cat-hormone-light: #f4e9ef;
+    --cat-ohren: #62519d;
+    --cat-ohren-light: #eceaf4;
 
     --module-2xl: calc(var(--module) * 2);
 
@@ -2096,6 +2098,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   [data-cat="immun"]        { background: var(--cat-immun-light); }
   [data-cat="atemwege"]     { background: var(--cat-atemwege-light); }
   [data-cat="hormone"]      { background: var(--cat-hormone-light); }
+  [data-cat="ohren"]        { background: var(--cat-ohren-light); }
   .pdp__title { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h2); margin-bottom: var(--half-module); }
   .pdp__price { display: flex; align-items: center; gap: var(--half-module); margin-bottom: var(--half-module); }
   .pdp__price .price-stack { font-size: var(--text-m); }
