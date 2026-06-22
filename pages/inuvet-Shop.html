@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inuvet Shop — Mockup</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=12">
+  <link rel="stylesheet" href="inuvet-shop.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="#shopCollection" class="nav-item__trigger" aria-current="page">
+          Produkte <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown">
+          <a href="#shopCollection">Gelenke &amp; Bewegung</a>
+          <a href="#shopCollection">Beruhigung</a>
+          <a href="#shopCollection">Alle Produkte</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-item__trigger">
+          Ratgeber <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown">
+          <a href="#">Ernährung</a>
+          <a href="#">Gesundheit</a>
+        </div>
+      </div>
+      <a href="#">Über uns</a>
+    </div>
+    <div class="nav-center">
+      <a href="inuvet-Shop.html" aria-label="Zur Startseite">
+        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
+        <span class="material-icons">shopping_cart</span>
+        <span class="badge --count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="#shopCollection" onclick="closeMobile()">Produkte</a>
+      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Gelenke &amp; Bewegung</a>
+      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Beruhigung</a>
+      <a href="#shopCollection" class="--indent" onclick="closeMobile()">Alle Produkte</a>
+      <a href="#" onclick="closeMobile()">Ratgeber</a>
+      <a href="#" class="--indent" onclick="closeMobile()">Ernährung</a>
+      <a href="#" class="--indent" onclick="closeMobile()">Gesundheit</a>
+      <a href="#" onclick="closeMobile()">Über uns</a>
+    </div>
+  </div>
+
+  <!-- Warenkorb-Drawer -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer"></div>
+
+  <main>
+
+    <!-- Hero: Lottie JSON -->
+    <div class="section-type --v1">
+      <div class="section-type__animation">
+        <lottie-player src="../assets/lotties/Hero_Animation_01.json" background="transparent" speed="1" loop autoplay></lottie-player>
+      </div>
+      <div class="section-type__content flow">
+        <h1 class="section-type__headline">Natürlich gesunde Tiere</h1>
+        <div class="section-type__bottom">
+          <p class="section-type__body">Tierärztlich entwickelte Nahrungsergänzung mit pflanzlichen Inhaltsstoffen — für Hunde, Katzen und Kleintiere. Entdecke Produkte, die auf den Geschmack deines Tieres optimiert sind.</p>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="document.getElementById('shopCollection').scrollIntoView({behavior:'smooth'})">Alle Produkte</button>
+            <button class="btn --ghost" onclick="openSearch()">Produkt suchen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USP-Kacheln -->
+    <div class="container">
+      <div class="tile-grid --cols-4">
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Beste Expertise</p>
+          <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Für die Langzeitgabe</p>
+          <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Immer gut unterstützt</p>
+          <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
+          </div>
+          <p class="tile__headline">Schnell bei dir</p>
+          <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produkt-Collection (4 Spalten) -->
+    <div class="container --flush-top" id="shopCollection">
+      <h2 class="section-label">Alle Produkte</h2>
+      <div class="tile-grid --cols-4">
+
+        <!-- Calmin balance -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=12" aria-label="Calmin balance ansehen">
+              <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Calmin balance</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div>
+          </div>
+          <div class="tile__description">Für Entspannung und innere Balance bei Hunden und Katzen.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+        </div>
+
+        <!-- Hepax forte -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=13" aria-label="Hepax forte ansehen">
+              <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
+              <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Hepax forte</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div>
+          </div>
+          <div class="tile__description">Unterstützt Leber und Stoffwechsel — hochdosiert und tierärztlich geprüft.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+        </div>
+
+        <!-- Calmin balance (2) -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=12" aria-label="Calmin balance ansehen">
+              <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Calmin balance</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div>
+          </div>
+          <div class="tile__description">Für Entspannung und innere Balance bei Hunden und Katzen.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+        </div>
+
+        <!-- Hepax forte (2) -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=13" aria-label="Hepax forte ansehen">
+              <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
+              <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Hepax forte</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div>
+          </div>
+          <div class="tile__description">Unterstützt Leber und Stoffwechsel — hochdosiert und tierärztlich geprüft.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" id="shopFooter">
+    <div class="footer-main">
+      <div class="footer-col --newsletter --on-green">
+        <h3>Bleib auf dem Laufenden</h3>
+        <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
+        <form class="footer-nl-form" onsubmit="return false;">
+          <div class="form-field">
+            <input type="email" id="nl-email" placeholder="">
+            <label for="nl-email">E-Mail-Adresse</label>
+          </div>
+          <button class="btn --primary" type="submit">Anmelden</button>
+        </form>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shopCollection">Alle Produkte</a></li>
+          <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
+          <li><a href="Bundle.html">Persönliches Angebot</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">AGB</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mockup FAB -->
+  <button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+    ⚙ Mockup-Kontext
+  </button>
+  <div class="mockup-fab-panel" id="mockupFabPanel">
+    <div class="mockup-fab-panel__title">inuvet Shop — Mockup</div>
+    <p>Startseite des regulären inuvet-Shops: Hauptnavigation, Hero mit Lottie-Animation, USP-Kacheln, vierspaltige Produkt-Collection und Footer.</p>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="../inuvet.js?v=3"></script>
+  <script src="inuvet-shop.js"></script>
+
+</body>
+</html>
