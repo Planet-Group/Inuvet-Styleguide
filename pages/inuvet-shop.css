@@ -19,5 +19,5 @@
   display: block;
 }
 #shopPraxisVorteile .tile__animation.--ratio-1 lottie-player { aspect-ratio: 1080 / 1080; }
-#shopPraxisVorteile .tile__animation.--ratio-weltweit lottie-player { aspect-ratio: 911 / 717; }
+#shopPraxisVorteile .tile__animation.--ratio-weltweit lottie-player { aspect-ratio: 1080 / 1080; }
 #shopPraxisVorteile .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 907 / 833; }
