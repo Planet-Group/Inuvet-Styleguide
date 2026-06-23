@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Mail-Signatur — inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=2">
+  <link rel="stylesheet" href="formulare.css">
+  <link rel="stylesheet" href="signature-generator.css">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-page__card sig-card">
+
+    <header class="form-page__header">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </header>
+
+    <div class="sig-page-header">
+      <h1 class="form-page__title">E-Mail-Signatur</h1>
+      <p class="sig-intro">Daten eingeben, Vorschau prüfen, kopieren — fertig.</p>
+    </div>
+
+    <div class="col-grid sig-layout" data-cols="2">
+
+      <!-- Formular -->
+      <div>
+        <h3 class="section-label --sub">Bild oben (optional)</h3>
+
+        <form id="sig-form">
+          <div class="sig-top-image-options">
+            <label class="form-check">
+              <input type="radio" name="f-top-image" id="f-top-none" value="none">
+              <span>Keins</span>
+            </label>
+            <label class="form-check">
+              <input type="radio" name="f-top-image" id="f-top-header" value="header">
+              <span>Header-Bild</span>
+            </label>
+            <label class="form-check">
+              <input type="radio" name="f-top-image" id="f-top-portrait" value="portrait" checked>
+              <span>Portrait</span>
+            </label>
+          </div>
+
+          <div class="form-field sig-header-wrap --hidden" id="header-wrap">
+            <input id="f-header" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/4b93c500-f74d-4880-b9bf-0215130f5064.gif" inputmode="url" autocomplete="off">
+            <label for="f-header">Header-Bild-URL</label>
+          </div>
+
+          <div class="form-field sig-photo-wrap" id="photo-wrap">
+            <input id="f-photo" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/94ec4747-3a90-410e-b6f1-143a0e651845.jpg" inputmode="url" autocomplete="off">
+            <label for="f-photo">Portrait-URL</label>
+          </div>
+
+          <h3 class="section-label --sub">Deine Angaben</h3>
+
+          <label class="form-check">
+            <input type="checkbox" id="f-personal-on" checked>
+            <span>In Signatur anzeigen</span>
+          </label>
+
+          <div id="personal-wrap">
+          <div class="form-field">
+            <input id="f-name" type="text" placeholder=" " value="Max Mustermann" autocomplete="name">
+            <label for="f-name">Name</label>
+          </div>
+          <div class="form-field">
+            <input id="f-position" type="text" placeholder=" " value="Marketing Manager">
+            <label for="f-position">Position</label>
+          </div>
+          <div class="form-field">
+            <input id="f-email" type="email" placeholder=" " value="max.mustermann@inuvet.com" autocomplete="email">
+            <label for="f-email">E-Mail</label>
+          </div>
+          <div class="form-field">
+            <input id="f-phone" type="tel" placeholder=" " value="+49 831 123456" autocomplete="tel">
+            <label for="f-phone">Telefon (optional)</label>
+          </div>
+          <div class="form-field">
+            <input id="f-fax" type="tel" placeholder=" " value="" autocomplete="off">
+            <label for="f-fax">Fax (optional)</label>
+          </div>
+          <div class="form-field">
+            <input id="f-quote" type="text" placeholder=" " value="Natürlich gesunde Tiere">
+            <label for="f-quote">Persönliche Worte (optional)</label>
+          </div>
+          </div>
+
+          <h3 class="section-label --sub">Unternehmen</h3>
+
+          <div class="form-field">
+            <input id="f-company" type="text" placeholder=" " value="Inuvet GmbH">
+            <label for="f-company">Firma</label>
+          </div>
+          <div class="form-field">
+            <input id="f-street" type="text" placeholder=" " value="Berner Weg 7–25">
+            <label for="f-street">Straße &amp; Hausnummer</label>
+          </div>
+          <div class="form-field">
+            <input id="f-city" type="text" placeholder=" " value="79539 Lörrach">
+            <label for="f-city">PLZ &amp; Ort</label>
+          </div>
+          <div class="form-field">
+            <input id="f-country" type="text" placeholder=" " value="Deutschland">
+            <label for="f-country">Land</label>
+          </div>
+
+          <h3 class="section-label --sub">Social Media (optional)</h3>
+
+          <div class="sig-social-checks">
+            <div class="sig-social-item">
+              <label class="form-check">
+                <input type="checkbox" id="f-social-facebook" checked>
+                <span>Facebook</span>
+              </label>
+              <div class="form-field sig-social-url" id="social-facebook-wrap">
+                <input id="f-social-facebook-url" type="text" placeholder=" " value="https://www.facebook.com/inuvet.de" inputmode="url" autocomplete="off">
+                <label for="f-social-facebook-url">Facebook-Link</label>
+              </div>
+            </div>
+            <div class="sig-social-item">
+              <label class="form-check">
+                <input type="checkbox" id="f-social-instagram" checked>
+                <span>Instagram</span>
+              </label>
+              <div class="form-field sig-social-url" id="social-instagram-wrap">
+                <input id="f-social-instagram-url" type="text" placeholder=" " value="https://www.instagram.com/inuvet_tiergesundheit/" inputmode="url" autocomplete="off">
+                <label for="f-social-instagram-url">Instagram-Link</label>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="section-label --sub">Optionaler Text</h3>
+
+          <label class="form-check">
+            <input type="checkbox" id="f-disclaimer-on" checked>
+            <span>In Signatur anzeigen</span>
+          </label>
+
+          <div class="form-field sig-disclaimer-wrap" id="disclaimer-wrap">
+            <textarea id="f-disclaimer" placeholder=" " rows="5">Nur in eurer Praxis
+
+Googelt doch mal: Ihr findet im Internet alles – außer Inuvet-Produkte zum Kauf. Der Vertrieb läuft ausschließlich über eure Tierarztpraxis.</textarea>
+            <label for="f-disclaimer">Text</label>
+          </div>
+
+          <label class="form-check sig-contact-hint-check">
+            <input type="checkbox" id="f-contact-hint-on">
+            <span>Kontakthinweis anzeigen</span>
+          </label>
+
+          <div class="sig-contact-hint-fields --hidden" id="contact-hint-wrap">
+            <div class="form-field">
+              <textarea id="f-contact-hint" placeholder=" " rows="4">Fragen?
+
+Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter +49 7621 57915-10.</textarea>
+              <label for="f-contact-hint">Kontakthinweis</label>
+            </div>
+            <div class="form-field">
+              <input id="f-contact-hint-email" type="email" placeholder=" " value="info@inuvet.com" autocomplete="email">
+              <label for="f-contact-hint-email">E-Mail (wird verlinkt)</label>
+            </div>
+            <div class="form-field">
+              <input id="f-contact-hint-phone" type="tel" placeholder=" " value="+49 7621 57915-10" autocomplete="tel">
+              <label for="f-contact-hint-phone">Telefon (wird verlinkt)</label>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Vorschau -->
+      <div>
+        <h3 class="section-label --sub">Vorschau</h3>
+
+        <div class="sig-preview">
+          <div id="signature-preview"></div>
+        </div>
+
+        <div class="btn-row sig-actions">
+          <button type="button" class="btn --primary --full --with-icon" id="copy-btn">
+            <span class="material-icons" aria-hidden="true">content_copy</span>
+            Signatur kopieren
+          </button>
+          <button type="button" class="btn --secondary --full --with-icon" id="html-btn">
+            <span class="material-icons" aria-hidden="true">code</span>
+            HTML-Code herunterladen
+          </button>
+          <button type="button" class="btn --secondary --full --with-icon" id="thunderbird-btn">
+            <span class="material-icons" aria-hidden="true">download</span>
+            Für Thunderbird herunterladen
+          </button>
+        </div>
+
+        <div class="sig-instructions">
+          <h3 class="section-label --sub">Einrichtung</h3>
+
+          <div class="sig-instr">
+            <p class="sig-instr__title">Gmail — Google Workspace <span class="badge --pill">Empfohlen</span></p>
+            <p class="sig-instr__lead">Mit Google Workspace stehen die <strong>KI-Funktionen von Gemini</strong> direkt im Posteingang zur Verfügung.</p>
+            <ol class="sig-instr__steps">
+              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
+              <li><a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Gmail</a> öffnen → Einstellungen → Tab <strong>„Allgemein"</strong> → Abschnitt <strong>„Signatur"</strong>.</li>
+              <li><strong>„Neu erstellen"</strong> → Namen vergeben → einfügen (<strong>Cmd+V / Strg+V</strong>).</li>
+              <li>Unter <strong>„Standardwerte"</strong> die neue Signatur auswählen.</li>
+              <li>Ganz unten auf <strong>„Änderungen speichern"</strong> klicken.</li>
+            </ol>
+          </div>
+
+          <div class="notice">
+            <p class="notice__title"><span class="material-icons notice__icon" aria-hidden="true">info</span> Mobile Apps</p>
+            <p>Die <strong>Gmail-App</strong> unterstützt keine HTML-Signaturen. Die Signatur funktioniert zuverlässig im Browser und in Desktop-Clients.</p>
+          </div>
+
+          <div class="sig-instr">
+            <p class="sig-instr__title">Outlook (Desktop)</p>
+            <ol class="sig-instr__steps">
+              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
+              <li>Neue E-Mail → <strong>„Signatur" → „Signaturen…"</strong>.</li>
+              <li><strong>„Neu"</strong> → Namen vergeben → einfügen (<strong>Strg+V</strong>).</li>
+              <li>Als <strong>Standardsignatur</strong> für neue und weitergeleitete Mails auswählen.</li>
+              <li><strong>„OK"</strong> klicken.</li>
+            </ol>
+          </div>
+
+          <div class="sig-instr">
+            <p class="sig-instr__title">Apple Mail (macOS)</p>
+            <ol class="sig-instr__steps">
+              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
+              <li>Mail → <strong>„Einstellungen…"</strong> → Tab <strong>„Signaturen"</strong>.</li>
+              <li>E-Mail-Konto → <strong>+</strong> → Signatur einfügen (<strong>Cmd+V</strong>).</li>
+              <li><strong>Wichtig:</strong> Haken bei <strong>„Immer meine Standardschrift verwenden"</strong> entfernen.</li>
+            </ol>
+          </div>
+
+          <div class="sig-instr">
+            <p class="sig-instr__title">Thunderbird</p>
+            <ol class="sig-instr__steps">
+              <li>Auf <strong>„Für Thunderbird herunterladen"</strong> klicken — es wird <strong>inuvet-signatur-thunderbird.html</strong> gespeichert.</li>
+              <li>Datei an einen festen Ort ablegen (z. B. <strong>Dokumente/Inuvet-Signatur/</strong>).</li>
+              <li>Thunderbird → <strong>„Konten-Einstellungen"</strong> → Haken bei <strong>„Eine Signatur-Datei anhängen"</strong>.</li>
+              <li>Die gespeicherte HTML-Datei auswählen → <strong>„OK"</strong>.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="sig-copy-target" aria-hidden="true"></div>
+
+<script src="../inuvet.js?v=2"></script>
+<script src="signature-generator.js"></script>
+
+</body>
+</html>
