@@ -22,18 +22,55 @@
   var BRAND_GREEN = '#78b41b';
   var FG = '#2E2E2E';
   var FG_MUTED = '#666666';
-  /* Gmail „Normal“ ≈ 13px — ohne explizite Größe fällt Gmail oft auf 16px zurück */
-  var SIG_FONT = '13px';
-  var SIG_FONT_SM = '11px';
+  /* Gmail „Normal“ = font-size:small — gleicher Schlüssel wie Fließtext (Desktop + App) */
+  var SIG_FONT = 'small';
+  var SIG_FONT_SM = '85%';
   var SIG_FONT_FACE = 'Arial,Helvetica,sans-serif';
-  var SIG_MAX_WIDTH = 480;
+  var HEADER_WIDTH = 240;
+
+  function sigRootStyle() {
+    return 'font-size:' + SIG_FONT + ';font-family:' + SIG_FONT_FACE + ';color:' + FG + ';line-height:1.35;';
+  }
+
+  function sigTextStyle(color, size) {
+    var fontPart = size ? ('font-size:' + size + ';') : '';
+    return 'color:' + color + ';' + fontPart + 'font-family:' + SIG_FONT_FACE + ';line-height:1.35;mso-line-height-rule:exactly;';
+  }
+
+  function sigLinkStyle(size) {
+    var fontPart = size ? ('font-size:' + size + ';') : '';
+    return 'color:' + BRAND_GREEN + ';text-decoration:none;' + fontPart + 'font-family:' + SIG_FONT_FACE + ';';
+  }
+
+  function sigSpan(text, color, size, wrap) {
+    var html = escapeHtml(text);
+    if (wrap === 'strong') html = '<strong>' + html + '</strong>';
+    if (wrap === 'em') html = '<em>' + html + '</em>';
+    return '<span style="' + sigTextStyle(color, size) + '">' + html + '</span>';
+  }
+
+  /* Gmail/iOS erkennen Adressen und färben sie blau — ZWNJ + eigener Link verhindern das */
+  function breakAutoLink(str) {
+    return escapeHtml(String(str)).replace(/(\d)/g, '$1&#8204;');
+  }
+
+  function sigAddressStyle() {
+    return 'color:' + FG_MUTED + ';text-decoration:none;font-size:inherit;font-family:' + SIG_FONT_FACE + ';';
+  }
+
+  function sigAddressLine(text) {
+    var ls = sigAddressStyle();
+    return '<a href="" style="' + ls + '">'
+      + '<span style="' + sigTextStyle(FG_MUTED) + '">' + breakAutoLink(text) + '</span></a>';
+  }
 
   function sigCell(extra) {
     return 'style="margin:0;padding:0;line-height:1.35;font-size:' + SIG_FONT + ';font-family:' + SIG_FONT_FACE + ';' + (extra || '') + '"';
   }
 
-  function sigFont(color, size) {
-    return 'face="Arial" color="' + color + '" style="font-family:' + SIG_FONT_FACE + ';font-size:' + (size || SIG_FONT) + ';"';
+  function sigTableStyle() {
+    return 'border-collapse:collapse;background-color:#ffffff;font-size:' + SIG_FONT + ';font-family:' + SIG_FONT_FACE + ';'
+      + 'width:100%;max-width:100%;table-layout:fixed;';
   }
 
   var fields = {
@@ -91,13 +128,21 @@
   }
 
   function sigEmailLink(email, label) {
-    return '<a href="mailto:' + escapeAttr(email) + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-      + '<font ' + sigFont(BRAND_GREEN) + '>' + escapeHtml(label || email) + '</font></a>';
+    var ls = sigLinkStyle();
+    return '<a href="mailto:' + escapeAttr(email) + '" style="' + ls + '">'
+      + '<span style="' + ls + '">' + escapeHtml(label || email) + '</span></a>';
   }
 
   function sigPhoneLink(phone) {
-    return '<a href="tel:' + phone.replace(/\s/g, '') + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-      + '<font ' + sigFont(BRAND_GREEN) + '>' + escapeHtml(phone) + '</font></a>';
+    var ls = sigLinkStyle();
+    return '<a href="tel:' + phone.replace(/\s/g, '') + '" style="' + ls + '">'
+      + '<span style="' + ls + '">' + escapeHtml(phone) + '</span></a>';
+  }
+
+  function sigWebLink(url, label) {
+    var ls = sigLinkStyle();
+    return '<a href="' + escapeAttr(url) + '" style="' + ls + '">'
+      + '<span style="' + ls + '">' + escapeHtml(label) + '</span></a>';
   }
 
   function phonePattern(phone) {
@@ -185,11 +230,11 @@
     var rows = skipLeadingGap ? '' : '<tr><td ' + gap + '>&nbsp;</td></tr>';
     paragraphs.forEach(function (p, i) {
       if (i === 0) {
-        rows += '<tr><td ' + sigCell() + '><strong><font ' + sigFont(FG) + '>'
-          + escapeHtmlWithBreaks(p) + '</font></strong></td></tr>';
+        rows += '<tr><td ' + sigCell() + '><span style="' + sigTextStyle(FG) + '"><strong>'
+          + escapeHtmlWithBreaks(p) + '</strong></span></td></tr>';
       } else {
-        rows += '<tr><td ' + sigCell() + '><font ' + sigFont(FG_MUTED) + '>'
-          + escapeHtmlWithBreaks(p) + '</font></td></tr>';
+        rows += '<tr><td ' + sigCell() + '><span style="' + sigTextStyle(FG_MUTED) + '">'
+          + escapeHtmlWithBreaks(p) + '</span></td></tr>';
       }
       if (i < paragraphs.length - 1) {
         rows += '<tr><td ' + gap + '>&nbsp;</td></tr>';
@@ -212,11 +257,11 @@
         ? escapeHtmlWithBreaks(p)
         : linkifyContactHintWithBreaks(p, email, phone);
       if (i === 0) {
-        rows += '<tr><td ' + sigCell() + '><strong><font ' + sigFont(FG) + '>'
-          + content + '</font></strong></td></tr>';
+        rows += '<tr><td ' + sigCell() + '><span style="' + sigTextStyle(FG) + '"><strong>'
+          + content + '</strong></span></td></tr>';
       } else {
-        rows += '<tr><td ' + sigCell() + '><font ' + sigFont(FG_MUTED) + '>'
-          + content + '</font></td></tr>';
+        rows += '<tr><td ' + sigCell() + '><span style="' + sigTextStyle(FG_MUTED) + '">'
+          + content + '</span></td></tr>';
       }
       if (i < paragraphs.length - 1) {
         rows += '<tr><td ' + gap + '>&nbsp;</td></tr>';
@@ -257,10 +302,10 @@
     if (!url) return '';
     var gapAfter = 'style="margin:0;padding:0;font-size:12px;line-height:12px;mso-line-height-rule:exactly;"';
     return '<table cellpadding="0" cellspacing="0" border="0" '
-      + 'style="border-collapse:collapse;width:100%;max-width:' + SIG_MAX_WIDTH + 'px;background-color:#ffffff;">'
+      + 'style="border-collapse:collapse;width:100%;max-width:100%;background-color:#ffffff;">'
       + '<tbody><tr><td style="margin:0;padding:0;line-height:0;font-size:0;">'
-        + '<img src="' + escapeAttr(url) + '" alt="" width="' + SIG_MAX_WIDTH + '" decoding="async" '
-      + 'style="display:block;width:100%;max-width:' + SIG_MAX_WIDTH + 'px;height:auto;border:0;">'
+      + '<img src="' + escapeAttr(url) + '" alt="" width="' + HEADER_WIDTH + '" decoding="async" '
+      + 'style="display:block;width:' + HEADER_WIDTH + 'px;max-width:100%;height:auto;border:0;">'
       + '</td></tr>'
       + '<tr><td ' + gapAfter + '>&nbsp;</td></tr>'
       + '</tbody></table>';
@@ -270,36 +315,28 @@
     var gap = 'style="margin:0;padding:0;font-size:6px;line-height:6px;mso-line-height-rule:exactly;"';
     var gapHeadline = 'style="margin:0;padding:0;font-size:8px;line-height:8px;mso-line-height-rule:exactly;"';
     var gapBlock = 'style="margin:0;padding:0;font-size:10px;line-height:10px;mso-line-height-rule:exactly;"';
-    var tableBase = 'border-collapse:collapse;background-color:#ffffff;font-size:' + SIG_FONT + ';font-family:' + SIG_FONT_FACE + ';';
+    var tableBase = sigTableStyle();
 
     var quoteRow = d.quote
       ? '<tr><td ' + sigCell() + '>'
-        + '<em><font ' + sigFont(FG_MUTED) + '">»' + escapeHtml(d.quote) + '«</font></em>'
+        + sigSpan('»' + d.quote + '«', FG_MUTED, null, 'em')
         + '</td></tr>'
         + '<tr><td ' + gap + '>&nbsp;</td></tr>'
       : '';
 
     var phoneRow = d.phone
       ? '<tr><td ' + sigCell() + '>'
-        + (d.fax ? '<font ' + sigFont(FG_MUTED) + '>Tel </font>' : '')
-        + '<a href="tel:' + d.phone.replace(/\s/g, '') + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-        + '<font ' + sigFont(BRAND_GREEN) + '>' + escapeHtml(d.phone) + '</font></a>'
+        + (d.fax ? sigSpan('Tel ', FG_MUTED) : '')
+        + sigPhoneLink(d.phone)
         + '</td></tr>'
       : '';
 
     var faxRow = d.fax
       ? '<tr><td ' + sigCell() + '>'
-        + '<font ' + sigFont(FG_MUTED) + '>Fax </font>'
-        + '<a href="tel:' + d.fax.replace(/\s/g, '') + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-        + '<font ' + sigFont(BRAND_GREEN) + '>' + escapeHtml(d.fax) + '</font></a>'
+        + sigSpan('Fax ', FG_MUTED)
+        + sigPhoneLink(d.fax)
         + '</td></tr>'
       : '';
-
-    function greenLineRow() {
-      return '<tr><td ' + sigCell() + '>'
-        + '<font ' + sigFont(BRAND_GREEN, SIG_FONT) + '>—</font>'
-        + '</td></tr>';
-    }
 
     function blockSpacer() {
       return '<tr><td ' + gapBlock + '>&nbsp;</td></tr>'
@@ -307,10 +344,11 @@
     }
 
     function impressumRow() {
+      var ls = sigLinkStyle(SIG_FONT_SM);
       return '<tr><td ' + gap + '>&nbsp;</td></tr>'
-        + '<tr><td ' + sigCell('font-size:' + SIG_FONT_SM + ';') + '>'
-        + '<a href="' + escapeAttr(IMPRESSUM_URL) + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT_SM + ';">'
-        + '<font ' + sigFont(BRAND_GREEN, SIG_FONT_SM) + '>' + IMPRESSUM_LABEL + '</font></a>'
+        + '<tr><td ' + sigCell() + '>'
+        + '<a href="' + escapeAttr(IMPRESSUM_URL) + '" style="' + ls + '">'
+        + '<span style="' + ls + '">' + IMPRESSUM_LABEL + '</span></a>'
         + '</td></tr>';
     }
 
@@ -347,22 +385,19 @@
 
     var topBlock = d.topImage === 'portrait' && d.photo
       ? photoRow(d.photo, d.name)
-      : d.topImage === 'none'
-        ? greenLineRow() + '<tr><td ' + gap + '>&nbsp;</td></tr>'
-        : '';
+      : '';
 
     var personalBlock = d.personalOn
       ? quoteRow
         + '<tr><td ' + sigCell() + '>'
-        + '<strong><font ' + sigFont(FG) + '>' + escapeHtml(d.name) + '</font></strong>'
+        + sigSpan(d.name, FG, null, 'strong')
         + '</td></tr>'
         + '<tr><td ' + gapHeadline + '>&nbsp;</td></tr>'
         + '<tr><td ' + sigCell() + '>'
-        + '<font ' + sigFont(FG_MUTED) + '>' + escapeHtml(d.position) + '</font>'
+        + sigSpan(d.position, FG_MUTED)
         + '</td></tr>'
         + '<tr><td ' + sigCell() + '>'
-        + '<a href="mailto:' + escapeHtml(d.email) + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-        + '<font ' + sigFont(BRAND_GREEN) + '>' + escapeHtml(d.email) + '</font></a>'
+        + sigEmailLink(d.email, d.email)
         + '</td></tr>'
         + phoneRow
         + faxRow
@@ -374,21 +409,20 @@
       + personalBlock
       + logoRow(LOGO_URL, 'inuvet', LOGO_WIDTH)
       + '<tr><td ' + sigCell() + '>'
-      + '<strong><font ' + sigFont(FG) + '>' + escapeHtml(d.company) + '</font></strong>'
+      + sigSpan(d.company, FG, null, 'strong')
       + '</td></tr>'
       + '<tr><td ' + gapHeadline + '>&nbsp;</td></tr>'
       + '<tr><td ' + sigCell() + '>'
-      + '<font ' + sigFont(FG_MUTED) + '>' + escapeHtml(d.street) + '</font>'
+      + sigAddressLine(d.street)
       + '</td></tr>'
       + '<tr><td ' + sigCell() + '>'
-      + '<font ' + sigFont(FG_MUTED) + '>' + escapeHtml(d.city) + '</font>'
+      + sigAddressLine(d.city)
       + '</td></tr>'
       + '<tr><td ' + sigCell() + '>'
-      + '<font ' + sigFont(FG_MUTED) + '>' + escapeHtml(d.country) + '</font>'
+      + sigAddressLine(d.country)
       + '</td></tr>'
       + '<tr><td ' + sigCell() + '>'
-      + '<a href="' + WEBSITE + '" style="color:' + BRAND_GREEN + ';text-decoration:none;font-size:' + SIG_FONT + ';">'
-      + '<font ' + sigFont(BRAND_GREEN) + '>' + WEBSITE_LABEL + '</font></a>'
+      + sigWebLink(WEBSITE, WEBSITE_LABEL)
       + '</td></tr>'
       + disclaimerRows
       + contactHintRows
@@ -396,10 +430,12 @@
       + impressumRow();
 
     return (
-      (d.topImage === 'header' && d.header ? buildHeaderBlock(d.header) : '')
-      + '<table cellpadding="0" cellspacing="0" border="0" '
-      + 'style="' + tableBase + 'width:100%;max-width:' + SIG_MAX_WIDTH + 'px;">'
+      '<div style="' + sigRootStyle() + '">'
+      + (d.topImage === 'header' && d.header ? buildHeaderBlock(d.header) : '')
+      + '<table cellpadding="0" cellspacing="0" border="0" width="100%" '
+      + 'style="' + tableBase + '">'
       + '<tbody>' + contactBlock + '</tbody></table>'
+      + '</div>'
     );
   }
 

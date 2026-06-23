@@ -65,6 +65,12 @@
   margin-top: var(--half-module);
 }
 
+.sig-field-hint {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  margin: calc(var(--half-module) * 0.35) 0 0;
+}
+
 .sig-social-checks .form-check:last-child {
   margin-bottom: var(--half-module);
 }
@@ -88,9 +94,21 @@
   min-height: calc(var(--module) * 7);
 }
 
-#signature-preview,
+#signature-preview {
+  font-size: small;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.35;
+  color: #2E2E2E;
+}
+
 #signature-preview * {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+#signature-preview a[href=""] {
+  color: #666666;
+  text-decoration: none;
+  pointer-events: none;
 }
 
 #signature-preview p {
