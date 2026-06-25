@@ -79,6 +79,7 @@
     position: document.getElementById('f-position'),
     email: document.getElementById('f-email'),
     phone: document.getElementById('f-phone'),
+    mobile: document.getElementById('f-mobile'),
     fax: document.getElementById('f-fax'),
     quote: document.getElementById('f-quote'),
     photo: document.getElementById('f-photo'),
@@ -143,6 +144,13 @@
     var ls = sigLinkStyle();
     return '<a href="' + escapeAttr(url) + '" style="' + ls + '">'
       + '<span style="' + ls + '">' + escapeHtml(label) + '</span></a>';
+  }
+
+  function phoneContactRow(label, number) {
+    return '<tr><td ' + sigCell() + '>'
+      + (label ? sigSpan(label + ' ', FG_MUTED) : '')
+      + sigPhoneLink(number)
+      + '</td></tr>';
   }
 
   function phonePattern(phone) {
@@ -325,17 +333,15 @@
       : '';
 
     var phoneRow = d.phone
-      ? '<tr><td ' + sigCell() + '>'
-        + (d.fax ? sigSpan('Tel ', FG_MUTED) : '')
-        + sigPhoneLink(d.phone)
-        + '</td></tr>'
+      ? phoneContactRow((d.mobile || d.fax) ? 'Tel' : '', d.phone)
+      : '';
+
+    var mobileRow = d.mobile
+      ? phoneContactRow('Mobil', d.mobile)
       : '';
 
     var faxRow = d.fax
-      ? '<tr><td ' + sigCell() + '>'
-        + sigSpan('Fax ', FG_MUTED)
-        + sigPhoneLink(d.fax)
-        + '</td></tr>'
+      ? phoneContactRow('Fax', d.fax)
       : '';
 
     function blockSpacer() {
@@ -400,6 +406,7 @@
         + sigEmailLink(d.email, d.email)
         + '</td></tr>'
         + phoneRow
+        + mobileRow
         + faxRow
         + blockSpacer()
       : '';
@@ -458,8 +465,9 @@
       name: fields.name.value || '',
       position: fields.position.value || '',
       email: fields.email.value || '',
-      phone: fields.phone.value || '',
-      fax: fields.fax.value || '',
+      phone: fields.phone.value.trim(),
+      mobile: fields.mobile.value.trim(),
+      fax: fields.fax.value.trim(),
       quote: fields.quote.value || '',
       personalOn: fields.personalOn.checked,
       topImage: topImage,
