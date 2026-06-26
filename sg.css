@@ -313,8 +313,8 @@
   .sg-row.--end { align-items: flex-end; }
   .sg-row.--tight { gap: 0.5rem; }
   .sg-btn-row.--end { align-items: flex-end; }
-  .sg-w-sm { max-width: 16rem; }
-  .sg-w-md { max-width: 28rem; }
+  .sg-w-sm { max-width: 16rem; width: 100%; }
+  .sg-w-md { max-width: 28rem; width: 100%; }
   .sg-gap-half { gap: var(--half-module); }
   .sg-link-fg { color: var(--fg); }
 

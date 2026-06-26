@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=19">
-  <link rel="stylesheet" href="sg.css?v=34">
+  <link rel="stylesheet" href="inuvet.css?v=22">
+  <link rel="stylesheet" href="sg.css?v=36">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -840,8 +840,40 @@
 
     <section class="sg-section-v2 flow" id="A11">
       <h2 class="section-label">A.11 — Styleguide UI-Klassen</h2>
-      <p>Klassen ausschließlich für Dokumentationszwecke — nie in Produktion einbinden.</p>
-      <div class="sg-demo"></div>
+      <p>Klassen in <code>sg.css</code> / <code>sg.js</code> — nur für den Styleguide und abgeleitete Docs. <strong>Nie</strong> in Shopify-Produktion. Zuerst immer <code>inuvet.css</code> wiederverwenden; <code>sg.css</code> nur für Doku-Chrome, das produktiv nicht existiert.</p>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Scope</h4>
+          <p>Mockups laden <code>inuvet.css</code> (+ page-CSS) — kein <code>sg.css</code>. Weitere Doc-Seiten übernehmen diese Klassen 1:1.</p>
+        </div>
+        <div class="rule">
+          <h4>Details</h4>
+          <p>Spezifische Doku-Helfer (<code>.col-demo</code>, <code>.specimen</code>, <code>.logic-chain</code> …) stehen in den jeweiligen Kapiteln A.2–A.10. Vollständige Liste → <code>sg.css</code>.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top">Layout &amp; Struktur</h3>
+      <table class="spec-table">
+        <tr><th><code>.sg-layout</code></th><td>Sidebar + Main — auf dieser Seite mit <code>.container</code></td></tr>
+        <tr><th><code>.sg-sidebar</code></th><td>Sticky Nav · Scrollspy (<code>sg.js</code>) markiert <code>a.--active</code></td></tr>
+        <tr><th><code>.sg-section-v2</code></th><td>Sektions-Wrapper · oft mit <code>.flow</code></td></tr>
+        <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) · <code>.sg-h3</code> = Untergruppe im Guide</td></tr>
+        <tr><th><code>.spec-table</code></th><td>Spec-Tabellen · <code>.rules</code> / <code>.rule</code> = 2-spaltige Regel-Blöcke</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Demo-Flächen</h3>
+      <p class="sg-p">Standard: <code>.sg-demo</code> ohne Modifier — grau (<code>--accent-bg</code>). <code>.--white</code> und <code>.--green*</code> nur bei Bedarf (Kontrast, Marken-Kontext).</p>
+      <div class="col-grid --spaced" data-cols="2">
+        <figure>
+          <div class="sg-demo --center" style="min-height: calc(var(--module) * 2);">Demo</div>
+          <figcaption class="sg-caption"><code>.sg-demo</code> — Standard</figcaption>
+        </figure>
+        <figure>
+          <div class="sg-demo --white --center" style="min-height: calc(var(--module) * 2);">Demo</div>
+          <figcaption class="sg-caption"><code>.sg-demo.--white</code></figcaption>
+        </figure>
+      </div>
     </section>
 
 
@@ -853,26 +885,221 @@
       <h2 class="section-label">B.1 — Buttons</h2>
       <div class="col-grid" data-cols="2">
         <p>Einheitliche Basisklasse <code>.btn</code> mit Modifier. Drei Hierarchie-Stufen: Primary, Secondary, Ghost.</p>
-        <p>Buttons lösen Aktionen aus — nie als Link missbrauchen. Ghost-Buttons sind die Ausnahme: sie verhalten sich visuell wie Links, behalten aber das Touch-Target von 44px.</p>
+        <p>Buttons lösen Aktionen aus — nie als Link missbrauchen. Ghost-Buttons sind die Ausnahme: sie verhalten sich visuell wie Links, behalten aber das Touch-Target von 44&nbsp;px.</p>
       </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Hierarchie</h4>
+          <p><strong>Primary</strong> (Hauptaktion, gefüllt) · <strong>Secondary</strong> (Nebenaktion, Outline) · <strong>Ghost</strong> (minimal, Text + Pfeil).</p>
+        </div>
+        <div class="rule">
+          <h4>Basis</h4>
+          <p><code>.btn</code> · Schnebel Sans, bold, <code>var(--text-base)</code> · Padding <code>1.125rem</code> × <code>--half-module</code> · Border <code>1px solid</code>.</p>
+        </div>
+      </div>
+
       <table class="spec-table">
-        <tr><th><code>.btn.--primary</code></th><td>Hauptaktion · BG <code>--fg</code> · Schrift <code>--bg</code> · Hover: Box-Shadow</td></tr>
-        <tr><th><code>.btn.--secondary</code></th><td>Nebenaktionen · transparent · Rand + Schrift <code>--fg</code> · Hover: invertiert</td></tr>
-        <tr><th><code>.btn.--ghost</code></th><td>Minimal · kein Rand · Text + animierter Pfeil →</td></tr>
-        <tr><th><code>.btn.--ghost.--back</code></th><td>Wie Ghost, aber mit ← Pfeil. Für alle Zurück-Navigationen.</td></tr>
-        <tr><th><code>.btn.--sm</code></th><td>Gleiche Höhe wie <code>.qty-selector.--sm</code> und <code>.choice-box.--sm</code></td></tr>
+        <tr><th><code>.btn.--primary</code></th><td>Hauptaktion · BG <code>--fg</code> · Schrift <code>--bg</code> · Hover: Box-Shadow <code>0 0 0 2px --fg</code></td></tr>
+        <tr><th><code>.btn.--secondary</code></th><td>Nebenaktion · BG <code>rgba(255,255,255,.7)</code> · Rand + Schrift <code>--fg</code> · Hover: invertiert</td></tr>
+        <tr><th><code>.btn.--ghost</code></th><td>Kein Rand · Text + Pfeil <code>→</code> · Hover: Pfeil verschiebt sich · Mobile: Padding + negativer <code>margin-left</code> (Touch ≥ 44&nbsp;px, Text bündig)</td></tr>
+        <tr><th><code>.btn.--ghost.--back</code></th><td>Ghost mit <code>←</code> statt <code>→</code> · Hover nach links · Zurück-Navigation</td></tr>
+        <tr><th><code>.btn.--sm</code></th><td><code>height: calc(var(--base) * 2)</code> — gleiche Höhe wie <code>.qty-selector.--sm</code> / <code>.choice-box.--sm</code></td></tr>
         <tr><th><code>.btn.--full</code></th><td><code>width: 100%</code> · kombinierbar mit allen Varianten</td></tr>
-        <tr><th><code>.btn.--with-icon</code></th><td>Inline-Flex · <code>gap: 0.5rem</code></td></tr>
-        <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer mit <code>aria-label</code></td></tr>
-        <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion</td></tr>
+        <tr><th><code>.btn.--with-icon</code></th><td><code>inline-flex</code> · <code>gap: 0.5rem</code> · mit <code>.--full</code>: <code>justify-content: center</code></td></tr>
+        <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion · <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
+        <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
       </table>
-      <div class="sg-demo"></div>
+
+      <h3 class="sg-h3 --top">Default</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <a class="btn --primary">Primary</a>
+          <a class="btn --secondary">Secondary</a>
+          <a class="btn --ghost">Mehr erfahren</a>
+        </div>
+      </div>
+      <p class="sg-caption">Alle drei Stufen — Hover zum Testen.</p>
+
+      <h3 class="sg-h3 --top">Auf farbigem Hintergrund</h3>
+      <div class="sg-demo --green">
+        <div class="sg-btn-row">
+          <a class="btn --primary">Primary</a>
+          <a class="btn --secondary">Secondary</a>
+          <a class="btn --ghost">Mehr erfahren</a>
+        </div>
+      </div>
+      <p class="sg-caption">Kontrast-Check auf <code>--green-light</code>.</p>
+
+      <h3 class="sg-h3 --top">Kombinationen</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row --sm">
+          <a class="btn --primary">Jetzt kaufen</a>
+          <a class="btn --ghost">Mehr erfahren</a>
+        </div>
+        <div class="sg-btn-row --sm" style="margin-top: var(--half-module);">
+          <a class="btn --primary">Zum Warenkorb</a>
+          <a class="btn --secondary">Weiter einkaufen</a>
+        </div>
+      </div>
+      <p class="sg-caption">Primary + Ghost · Primary + Secondary.</p>
+
+      <h3 class="sg-h3 --top">Klein &amp; mit Icon</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --primary --sm">Primary klein</button>
+          <button class="btn --secondary --sm">Secondary klein</button>
+          <button class="btn --secondary --sm --with-icon"><span class="material-icons">add</span> Hinzufügen</button>
+        </div>
+        <div class="sg-btn-row" style="margin-top: var(--half-module);">
+          <button class="btn --primary --with-icon"><span class="material-icons">shopping_cart</span> In den Warenkorb</button>
+          <button class="btn --secondary --with-icon"><span class="material-icons">favorite_border</span> Merken</button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--sm</code> · <code>.--with-icon</code> (<code>inline-flex</code>, Icon <code>1em</code>).</p>
+
+      <h3 class="sg-h3 --top">Volle Breite</h3>
+      <div class="sg-demo">
+        <div class="sg-w-md flow">
+          <button class="btn --primary --full --with-icon"><span class="material-icons">place</span> Praxis in der Nähe finden</button>
+          <button class="btn --primary --full">Primary volle Breite</button>
+          <button class="btn --secondary --full">Secondary volle Breite</button>
+          <button class="btn --ghost --full">Mehr erfahren</button>
+          <button class="btn --ghost --back --full">Zurück zur Übersicht</button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--full</code> = 100&nbsp;% des Eltern-Containers (hier <code>.sg-w-md</code>, max. 28&nbsp;rem) — nicht die gesamte Demo-Fläche. Gestapelt in <code>.flow</code>; Abstand via <code>* + .btn</code>. Modal-Paar Primary + Ghost → <code>.shop-modal__actions</code>.</p>
+
+      <h3 class="sg-h3 --top">Disabled</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --primary" disabled>Primary</button>
+          <button class="btn --secondary" disabled>Secondary</button>
+          <button class="btn --ghost" disabled>Mehr erfahren</button>
+        </div>
+      </div>
+      <p class="sg-caption">Attribut <code>disabled</code> auf <code>&lt;button&gt;</code> · Klasse <code>.--disabled</code> auf <code>&lt;a&gt;</code> · Opacity 35&nbsp;%, keine Interaktion.</p>
+
+      <h3 class="sg-h3 --top">Ghost Zurück</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --ghost --back">Alle Prämien</button>
+          <button class="btn --ghost --back --sm">Zurück</button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--back</code>: Pfeil als <code>::before</code>, kein Material-Icon nötig.</p>
+
+      <h3 class="sg-h3 --top">Icon-only</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+          <button class="btn --icon" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+          <button class="btn --icon" aria-label="Schließen"><span class="material-icons">close</span></button>
+          <button class="btn --icon" aria-label="Favorit"><span class="material-icons">favorite_border</span></button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--icon</code> immer mit <code>aria-label</code> · Hover: Zoom auf dem Icon (<code>scale(1.15)</code>).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B2">
       <h2 class="section-label">B.2 — Badges &amp; Labels</h2>
-      <p><code>.badge</code>, <code>.rating</code>, <code>.label-caps</code>, <code>.circle-badge</code>, Kategorie-Badges via <code>[data-cat]</code>.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Kleine Status- und Kategorie-Marker: <code>.badge</code>, <code>.rating</code>, <code>.circle-badge</code>, <code>.label-caps</code>.</p>
+        <p>Kategorie-Farben über <code>data-cat</code> auf dem Badge — Tokens → <a href="#A5">A.5</a>. Count-Badges sitzen in <code>.icon-badged</code> → <a href="#B3">B.3</a>.</p>
+      </div>
+
+      <h3 class="sg-h3 --top">Rating</h3>
+      <table class="spec-table">
+        <tr><th><code>.rating</code></th><td>Flex · <code>gap: 0.25rem</code> · <code>var(--text-sm)</code></td></tr>
+        <tr><th><code>.rating .material-icons</code></th><td><code>1rem</code> · <code>--color-amber</code></td></tr>
+        <tr><th><code>.material-icons.--empty</code></th><td>Leerer Stern · <code>star_border</code> · <code>--border-light</code></td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-demo-stack">
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+            <span>5,0</span>
+          </div>
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+            <span>4,0</span>
+          </div>
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+            <span>4,2 · 128 Bewertungen</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top">Badge</h3>
+      <table class="spec-table">
+        <tr><th><code>.badge</code> + <code>data-cat</code></th><td>Kategorie-Label · Hintergrund aus <code>--cat-*-light</code> · Schrift <code>--fg</code></td></tr>
+        <tr><th><code>.badge.--dark</code></th><td>Schwarz · weiße Schrift — „Neu"</td></tr>
+        <tr><th><code>.badge.--sale</code></th><td>Grün · weiße Schrift — Sale</td></tr>
+        <tr><th><code>.badge.--count</code></th><td>Runder Zähler · in <code>.icon-badged</code> absolut oben rechts</td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-btn-row --sm">
+          <div class="badge" data-cat="gelenke">Gelenke</div>
+          <div class="badge" data-cat="beruhigung">Beruhigung</div>
+          <div class="badge" data-cat="herz">Herz</div>
+          <div class="badge" data-cat="haut">Haut</div>
+          <div class="badge" data-cat="cbd">CBD</div>
+          <div class="badge" data-cat="immun">Immun</div>
+          <div class="badge" data-cat="magendarm">Magendarm</div>
+        </div>
+        <div class="sg-btn-row --sm" style="margin-top: var(--half-module);">
+          <div class="badge --dark">Neu</div>
+          <div class="badge --sale">Sale</div>
+        </div>
+        <div class="sg-btn-row" style="margin-top: var(--module);">
+          <button class="btn --icon icon-badged" aria-label="Warenkorb 3 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">3</span></button>
+          <button class="btn --icon icon-badged" aria-label="Warenkorb 12 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">12</span></button>
+          <button class="btn --icon icon-badged" aria-label="Warenkorb 99 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">99</span></button>
+        </div>
+      </div>
+      <p class="sg-caption">Kategorie · Status · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
+
+      <h3 class="sg-h3 --top">circle-badge</h3>
+      <table class="spec-table">
+        <tr><th><code>.circle-badge</code></th><td>22 × 22 px · grün · <code>border-radius: 50%</code></td></tr>
+        <tr><th><code>.circle-badge.--num</code></th><td>Schrittzahl · <code>var(--text-xs)</code> · fett</td></tr>
+        <tr><th><code>.circle-badge.--check</code></th><td>Icon <code>check</code> — Freigabe-Indikator</td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-row">
+          <span class="circle-badge --num">1</span>
+          <span class="circle-badge --num">2</span>
+          <span class="circle-badge --num">3</span>
+          <span class="circle-badge --check"><span class="material-icons">check</span></span>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top">label-caps</h3>
+      <table class="spec-table">
+        <tr><th><code>.label-caps</code></th><td>Uppercase-Label ohne Border · <code>var(--text-xs)</code> · fett · <code>--fg-muted</code> · Filter, Varianten, Meta</td></tr>
+      </table>
+      <div class="sg-demo">
+        <p class="label-caps">Darreichungsform</p>
+        <p class="label-caps" style="margin-top: var(--half-module);">12. April 2026 · Ernährung</p>
+      </div>
+
+      <h3 class="sg-h3 --top">Wishlist-Button</h3>
+      <table class="spec-table">
+        <tr><th><code>.pdp__wishlist</code></th><td>Nutzt <code>.icon-box.--md</code> · Border <code>--border-light</code></td></tr>
+        <tr><th><code>.pdp__wishlist.--active</code></th><td>Border + Icon <code>--color-error</code> · gefülltes Herz</td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste">
+            <span class="material-icons">favorite_border</span>
+          </button>
+          <button class="pdp__wishlist icon-box --md --active" type="button" aria-label="Von Wunschliste entfernen">
+            <span class="material-icons">favorite</span>
+          </button>
+        </div>
+      </div>
+      <p class="sg-caption">Toggle via JS — Klasse <code>.--active</code> am Button.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B3">
