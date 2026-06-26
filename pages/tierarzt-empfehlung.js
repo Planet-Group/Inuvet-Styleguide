@@ -1563,84 +1563,63 @@ function renderFinderResult(matches) {
 
 /* ── Startseite ── */
 function renderHome() {
-  let headline     = '';
-  let body         = '';
-  let cta          = '';
-  let heroModifier = '';
-  let testHero     = '';
+  let heroHtml = '';
 
   if (state === 'guest') {
-    headline     = 'Weil dein Tier das Beste verdient';
-    body         = '';
-    heroModifier = '--has-split';
-    cta          = `
-      <div class="hero-split">
-        <div class="hero-split__col flow">
-          <p class="hero-split__text"><strong>Du hast eine Produkt-Freigabe von deiner Praxis?</strong> Dann kannst du sie hier einlösen</p>
-          <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe einlösen</button>
-        </div>
-        <div class="hero-split__divider"></div>
-        <div class="hero-split__col flow">
-          <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Sende deine Produkt-Anfrage online an eine Praxis deiner Wahl</p>
-          <button class="btn --honey" onclick="setPage('collection')">Produkte finden</button>
-        </div>
-      </div>`;
-    testHero = `
-      <div class="section-type --v1 --hero-test">
-        <div class="section-type__animation">
-          <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
-        </div>
-        <div class="section-type__content flow">
-          <h2 class="section-type__headline">${headline}</h2>
-          ${cta}
-        </div>
-      </div>`;
-  } else if (state === 'no-release') {
-    headline   = 'Dein Tierarzt weiß, was dein Tier wirklich braucht.';
-    body       = 'Finde das Richtige für dein Tier und lass es von deinem Tierarzt persönlich freigeben — weil Gesundheit mit dem richtigen Rat beginnt.';
-    cta        = `<div class="btn-row">
-      <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
-    </div>`;
-  } else {
-    headline   = 'Deine Praxis hat entschieden — für dein Tier.';
-    const approvedCount = approvedProductIds.size;
-    body       = `${approvedCount} ${approvedCount === 1 ? 'Produkt wurde' : 'Produkte wurden'} von deinem Tierarzt freigegeben. Jetzt einlösen und direkt bestellen.`;
-    cta        = `<div class="btn-row">
-      <button class="btn --primary" onclick="setPage('recommended')">Freigabe einlösen</button>
-      <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
-    </div>`;
-  }
-
-  const topHero = false ? `
-    <div class="section-type --v1">
+    heroHtml = `
+    <div class="section-type --v1 --hero-test">
       <div class="section-type__animation">
         <lottie-player src="../assets/lotties/Animation_About_Inuvet.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Weil dein Tier das Beste verdient</h2>
-        <div class="section-type__bottom">
-          <p class="section-type__body">Produkt-Freigaben von deiner Praxis kannst du hier direkt einlösen. Falls du noch keine Produkt-Freigabe hast, suche <a href="#" onclick="setPage('collection');return false;">hier</a> das passende Produkt und sende deine Produkt-Anfrage an eine Praxis deiner Wahl.</p>
-          <div class="btn-row">
+        <div class="hero-split">
+          <div class="hero-split__col flow">
+            <p class="hero-split__text"><strong>Du hast eine Produkt-Freigabe von deiner Praxis?</strong> Dann kannst du sie hier einlösen</p>
             <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe einlösen</button>
-            <button class="btn --ghost" onclick="setPage('collection')">Produkte finden</button>
+          </div>
+          <div class="hero-split__divider"></div>
+          <div class="hero-split__col flow">
+            <p class="hero-split__text"><strong>Du hast noch keine Produkt-Freigabe?</strong> Sende deine Produkt-Anfrage online an eine Praxis deiner Wahl</p>
+            <button class="btn --honey" onclick="setPage('collection')">Produkte finden</button>
           </div>
         </div>
       </div>
-    </div>` : '';
-
-  return `
-    ${topHero}
-    ${testHero}
-    <div class="section-type --v3 --viewport --reverse ${heroModifier}" ${state === 'guest' ? 'style="display:none"' : ''}>
+    </div>`;
+  } else if (state === 'no-release') {
+    heroHtml = `
+    <div class="section-type --v3 --viewport --reverse">
       <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
       <div class="section-type__inner">
         <div class="section-type__content flow">
-          <h2 class="section-type__headline">${headline}</h2>
-          ${body ? `<p class="section-type__body">${body}</p>` : ''}
-          ${cta}
+          <h2 class="section-type__headline">Dein Tierarzt weiß, was dein Tier wirklich braucht.</h2>
+          <p class="section-type__body">Finde das Richtige für dein Tier und lass es von deinem Tierarzt persönlich freigeben — weil Gesundheit mit dem richtigen Rat beginnt.</p>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
+          </div>
         </div>
       </div>
-    </div>
+    </div>`;
+  } else {
+    const approvedCount = approvedProductIds.size;
+    heroHtml = `
+    <div class="section-type --v3 --viewport --reverse">
+      <div class="section-type__image" style="background-image:url('${HERO_IMG}');"></div>
+      <div class="section-type__inner">
+        <div class="section-type__content flow">
+          <h2 class="section-type__headline">Deine Praxis hat entschieden — für dein Tier.</h2>
+          <p class="section-type__body">${approvedCount} ${approvedCount === 1 ? 'Produkt wurde' : 'Produkte wurden'} von deinem Tierarzt freigegeben. Jetzt einlösen und direkt bestellen.</p>
+          <div class="btn-row">
+            <button class="btn --primary" onclick="setPage('recommended')">Freigabe einlösen</button>
+            <button class="btn --ghost"   onclick="setPage('collection')">Alle Produkte</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return `
+    ${heroHtml}
     <div class="container">
       <div class="tile-grid --cols-4">
         <div class="tile">
