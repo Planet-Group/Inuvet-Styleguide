@@ -2185,6 +2185,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     --section-label-mb: 0;
     --section-label-mt: var(--half-module);
   }
+  /* Erstes Section-Label: * + .section-label greift nicht (kein preceding sibling) */
+  .cart-drawer__items > .section-label:first-child {
+    margin-top: var(--section-label-mt, var(--half-module));
+  }
   .cart-item { display: grid; grid-template-columns: calc(var(--base) * 5) 1fr; gap: var(--half-module); padding: var(--half-module) 0; border-bottom: 1px solid var(--border-light); }
   .cart-item.--clickable { cursor: pointer; }
   /* ─── Product Thumb — geteiltes Atom für Produkt-Vorschaubilder (Cart, Search) ─── */
