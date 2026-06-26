@@ -209,6 +209,24 @@
   background: var(--fg);
   color: var(--bg);
 }
+.summary-card__cta:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Angebot im Warenkorb — keine Bearbeitung bis Warenkorb geleert */
+#bundleSection.--locked .qty-selector.--disabled,
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__btn,
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__input,
+#bundleSection.--locked .cart-item__remove:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__btn:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
 
 /* ─── Empty State ─── */
 .empty-state .material-icons { font-size: 2rem; color: var(--border-light); }

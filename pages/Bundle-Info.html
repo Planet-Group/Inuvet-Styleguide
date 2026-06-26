@@ -294,7 +294,14 @@ const model = product.metafields.inuvet.pricing_model || 'A';
             <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>inuvet.js</code>.</p>
             <ul>
               <li><strong>Initiales Angebot</strong>: maximal <strong>4 Einzelprodukte</strong> aus dem aktiven Historien-Pool (sortiert nach Kauffrequenz).</li>
-              <li><strong>Leerer Zustand</strong>: Wenn der Kunde alle vorgeschlagenen Positionen entfernt → Empty State mit <strong>„Wiederherstellen"</strong> (setzt das initiale Angebot zurück). Keine Empfehlungs-Schiene zum Nachfüllen.</li>
+              <li><strong>Leerer Zustand</strong>: Wenn der Kunde alle vorgeschlagenen Positionen entfernt → Empty State mit <strong>„Wiederherstellen"</strong> (setzt das initiale Angebot zurück). Keine Empfehlungs-Schiene zum Nachfüllen. Nur im <strong>ungesperrten</strong> Zustand verfügbar.</li>
+              <li><strong>Angebot im Warenkorb (gesperrter Zustand)</strong>: Nach Klick auf <strong>„In den Warenkorb"</strong> wird die Bundle-Section gesperrt — der Kunde soll das Angebot nicht erneut bearbeiten oder doppelt hinzufügen.
+                <ul>
+                  <li>CTA-Button deaktiviert, Beschriftung: <strong>„Bereits zum Warenkorb hinzugefügt"</strong></li>
+                  <li>Mengen-Counter (+/−, Input) und Entfernen-Buttons pro Zeile deaktiviert</li>
+                  <li><strong>Freigabe</strong> erst, wenn der Warenkorb <strong>vollständig geleert</strong> ist — nicht bei Teilentfernung einzelner Positionen</li>
+                </ul>
+                Im Mockup: Flag <code>sessionStorage</code> (<code>inuvet:bundleAdded</code>) + Abgleich mit <code>cartLineCount()</code>; Entsperrung über Hooks auf <code>cartRemove</code>, <code>cartChangeQty</code>, <code>cartSetQty</code>. CSS-Klasse <code>#bundleSection.--locked</code>.</li>
               <li><strong>Mobile</strong>: Summary-Card als kompakte Fixed-Bar am unteren Rand, sichtbar solange die Bundle-Section im Viewport ist (Titel, Sparzeile, CTA — ohne Produktlisting).</li>
               <li><strong>Sichtbarkeit der Section</strong>: einmalig beim Page-Load entschieden; bleibt sichtbar auch wenn der Kunde danach alle Rabatt-Positionen entfernt.</li>
             </ul>

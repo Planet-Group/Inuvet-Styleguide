@@ -4,18 +4,42 @@
    ═══════════════════════════════════════════ */
 
 const BUNDLE_MAX_PRODUCTS = 4;
+const BUNDLE_ADDED_KEY    = 'inuvet:bundleAdded';
+
+// Angebot im Warenkorb → Section gesperrt, bis der Warenkorb komplett geleert wird.
+const isBundleLocked = () => cartLineCount() > 0 && sessionStorage.getItem(BUNDLE_ADDED_KEY) === '1';
+
+const applyBundleLockUI = () => {
+  const locked = isBundleLocked();
+  bundleSection?.classList.toggle('--locked', locked);
+  const cta = document.querySelector('.summary-card__cta');
+  if (cta) {
+    cta.disabled = locked;
+    cta.textContent = locked ? 'Bereits zum Warenkorb hinzugefügt' : 'In den Warenkorb';
+  }
+};
+
+const syncBundleLockState = () => {
+  if (cartLineCount() === 0) sessionStorage.removeItem(BUNDLE_ADDED_KEY);
+  applyBundleLockUI();
+  if (bundleVisible && activeBundle.length) renderBundle();
+};
 
 // ── In den Warenkorb ────────────────────────────────────────────────────
 // Jedes Bundle-Produkt wird als EIGENE Warenkorb-Position übernommen
 // (kein Sammel-Paket mehr). Der Naturalrabatt gilt danach global pro Position.
 window.addBundleToCart = () => {
+  if (isBundleLocked()) return;
   if (activeBundle.length === 0) { openCart(); return; }
   activeBundle.forEach(p => {
     const formIdx = p.isFamily ? p.selectedVariantIdx : 0;
     const sizeIdx = p.isFamily ? p.selectedSizeIdx : 0;
     addToCart(p.id, formIdx, sizeIdx, p.quantity);
   });
+  sessionStorage.setItem(BUNDLE_ADDED_KEY, '1');
   showToast(`${activeBundle.length} Produkte in den Warenkorb gelegt`);
+  applyBundleLockUI();
+  renderBundle();
   openCart();
 };
 
@@ -150,6 +174,8 @@ const renderBundle = () => {
     return;
   }
 
+  const locked = isBundleLocked();
+
   activeBundle.forEach(p => {
     const freeItems = calcFree(p);
 
@@ -180,22 +206,22 @@ const renderBundle = () => {
             <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.${historyText}</div>
           </div>
           <button type="button" class="btn --icon cart-item__remove"
-            onclick="removeProduct(${p.id})" title="Entfernen">
+            onclick="removeProduct(${p.id})" title="Entfernen"${locked ? ' disabled' : ''}>
             <span class="material-icons">close</span>
           </button>
         </div>
         <div class="cart-item__bottom">
           <div class="cart-item__counter">
-            <div class="qty-selector --sm">
+            <div class="qty-selector --sm${locked ? ' --disabled' : ''}">
               <button type="button" class="qty-selector__btn"
-                onclick="updateQuantity(${p.id}, -1)">
+                onclick="updateQuantity(${p.id}, -1)"${locked ? ' disabled' : ''}>
                 <span class="material-icons">remove</span>
               </button>
               <input class="qty-selector__input" type="number"
-                value="${p.quantity}" min="1"
+                value="${p.quantity}" min="1"${locked ? ' readonly disabled' : ''}
                 onchange="setQuantity(${p.id}, parseInt(this.value)||1)">
               <button type="button" class="qty-selector__btn"
-                onclick="updateQuantity(${p.id}, 1)">
+                onclick="updateQuantity(${p.id}, 1)"${locked ? ' disabled' : ''}>
                 <span class="material-icons">add</span>
               </button>
             </div>
@@ -208,20 +234,24 @@ const renderBundle = () => {
   });
 
   updateSummary();
+  applyBundleLockUI();
 };
 
 // ── Aktionen ────────────────────────────────────────────────────────────
 window.updateQuantity = (id, delta) => {
+  if (isBundleLocked()) return;
   const p = activeBundle.find(p => p.id === id);
   if (p && p.quantity + delta >= 1) { p.quantity += delta; renderBundle(); }
 };
 
 window.setQuantity = (id, val) => {
+  if (isBundleLocked()) return;
   const p = activeBundle.find(p => p.id === id);
   if (p && val >= 1) { p.quantity = val; renderBundle(); }
 };
 
 window.removeProduct = (id) => {
+  if (isBundleLocked()) return;
   const i = activeBundle.findIndex(p => p.id === id);
   if (i === -1) return;
   activeBundle.splice(i, 1);
@@ -229,6 +259,7 @@ window.removeProduct = (id) => {
 };
 
 window.restoreBundle = () => {
+  if (isBundleLocked()) return;
   if (!initialBundleSnapshot.length) return;
   activeBundle = initialBundleSnapshot.map(snap => {
     const p = allProducts.find(p => p.id === snap.id);
@@ -391,11 +422,19 @@ const TESTIMONIALS = [
   update();
 })();
 
+// Warenkorb geleert → Bundle-Section wieder freigeben.
+['cartRemove', 'cartChangeQty', 'cartSetQty'].forEach((name) => {
+  const orig = window[name];
+  if (!orig) return;
+  window[name] = (...args) => { orig(...args); syncBundleLockState(); };
+});
+
 // ── Init ────────────────────────────────────────────────────────────────
 // Sichtbarkeit einmalig beim Load bestimmen — danach nicht mehr ändern.
 initBundle();
 applyVisibility();
 if (bundleVisible) renderBundle();
+syncBundleLockState();
 requestAnimationFrame(() => {
   updateStickySummary();
   requestAnimationFrame(updateStickySummary);
