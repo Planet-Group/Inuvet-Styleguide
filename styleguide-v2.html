@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=22">
-  <link rel="stylesheet" href="sg.css?v=36">
+  <link rel="stylesheet" href="inuvet.css?v=23">
+  <link rel="stylesheet" href="sg.css?v=39">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -173,7 +173,7 @@
       </div>
       <p>Diese Sektion ist die technische Referenz — die vollständige Liste aller Custom Properties. Die <em>visuelle</em> Darstellung der Tokens findet sich dort, wo sie eingesetzt werden: <a href="#A4">A.4 Typografie</a>, <a href="#A5">A.5 Farben</a>, <a href="#A7">A.7 Spacing</a>.</p>
 
-      <h3 class="sg-h3 --top">Spacing</h3>
+      <h3 class="sg-h3 --top"><code>--module</code></h3>
       <table class="spec-table">
         <tr><th><code>--base</code></th><td><code>1rem</code> — Basiseinheit (16px), Grundlage aller Berechnungen</td></tr>
         <tr><th><code>--half-module</code></th><td><code>clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)</code> — 12–24px, halbes Modul</td></tr>
@@ -184,7 +184,7 @@
         <tr><th><code>--section-gap</code></th><td><code>var(--module)</code> — Abstand zwischen Sektionen</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Typografie</h3>
+      <h3 class="sg-h3 --top"><code>--text-base</code></h3>
       <table class="spec-table">
         <tr><th><code>--text-xs</code></th><td><code>clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)</code> — Labels, Captions, Metainfos</td></tr>
         <tr><th><code>--text-sm</code></th><td><code>0.8rem</code> — Kompakter Hilfstext, Formular-Labels</td></tr>
@@ -199,7 +199,7 @@
         <tr><th><code>--font</code></th><td><code>"schnebel-sans-me", sans-serif</code></td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Farben</h3>
+      <h3 class="sg-h3 --top"><code>--fg</code></h3>
       <table class="spec-table">
         <tr><th><code>--fg</code></th><td><span class="sg-swatch" style="background:#2E2E2E"></span><code>#2E2E2E</code> — Text, aktive Zustände</td></tr>
         <tr><th><code>--fg-hover</code></th><td><span class="sg-swatch" style="background:#333"></span><code>#333</code> — Hover-Zustand Text</td></tr>
@@ -215,7 +215,7 @@
       </table>
       <p>Semantische Aliases: <code>--color-action</code> / <code>--color-success</code> / <code>--color-link</code> = <code>var(--green)</code> · Akzente <code>--color-amber</code>, <code>--color-honey</code> · Fehler <code>--color-error</code> (<code>#c00</code>). 15 Produkt-Kategoriefarben (<code>--cat-…</code>) → <a href="#A5">A.5 Farben</a>.</p>
 
-      <h3 class="sg-h3 --top">Layout</h3>
+      <h3 class="sg-h3 --top"><code>--container-max</code></h3>
       <table class="spec-table">
         <tr><th><code>--announcement-height</code></th><td><code>calc(var(--module) * 0.67)</code> — Höhe der Announcement Bar (beim Schließen <code>0px</code>)</td></tr>
         <tr><th><code>--nav-height</code></th><td><code>calc(var(--module) * 2.5)</code> — Höhe der Navigation</td></tr>
@@ -228,7 +228,7 @@
         <tr><th><code>--icon-box-sm · --icon-box-md</code></th><td><code>calc(var(--base) * 2.5)</code> · <code>calc(var(--base) * 2.75)</code> — Icon-Box-Größen</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Container-Modifier (auf <code>.container</code>)</h3>
+      <h3 class="sg-h3 --top"><code>.container</code></h3>
       <p>Token-Werte hier — Demos, HTML-Patterns und <code>.form-page</code> → <a href="#A8">A.8 Container</a>.</p>
       <table class="spec-table">
         <tr><th><code>.container</code></th><td><code>1536px</code> — voller Satzspiegel, für Listen, Übersichten, Marketing</td></tr>
@@ -237,7 +237,7 @@
         <tr><th><code>.container.--flush-top</code></th><td>Hebt <code>--container-pt</code> auf — für Pages direkt nach einer Hero-Section</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Stacking (z-index)</h3>
+      <h3 class="sg-h3 --top"><code>--z-default</code></h3>
       <table class="spec-table">
         <tr><th><code>--z-default</code></th><td><code>1</code> — Standard-Stacking, Hover-Overlays</td></tr>
         <tr><th><code>--z-nav</code></th><td><code>100</code> — Site-Navigation (sticky)</td></tr>
@@ -247,7 +247,7 @@
         <tr><th><code>--z-modal</code></th><td><code>220</code> — modale Dialoge. Toast: <code>calc(var(--z-modal) + 10)</code></td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Animation</h3>
+      <h3 class="sg-h3 --top"><code>--anim-fast</code></h3>
       <table class="spec-table">
         <tr><th><code>--anim-fast</code></th><td><code>0.2s ease</code> — Hover, Icons, kleine Zustandswechsel</td></tr>
         <tr><th><code>--anim-mid</code></th><td><code>0.3s ease</code> — Drawer, Modal, Overlay</td></tr>
@@ -274,7 +274,7 @@
         <div class="type-scale-step"><div class="glyph --xl">Ag</div><div class="meta"><span class="sg-token">--text-xl</span>2–3.375rem</div></div>
       </div>
 
-      <h3 class="sg-h3 --top">Textstile</h3>
+      <h3 class="sg-h3 --top"><code>h1</code>–<code>h4</code></h3>
       <div class="specimen">
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2–3.375rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
         <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.5–2.25rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
@@ -289,7 +289,7 @@
       </div>
       <p>Die vollständige Icon-Galerie ist in <a href="#B3">B.3 — Icons &amp; icon-box</a> dokumentiert.</p>
 
-      <h3 class="sg-h3 --top">Rich Text (CMS Content)</h3>
+      <h3 class="sg-h3 --top"><code>.rte</code></h3>
       <p>Texte aus dem Shopify-Backend (Seiten, Blogbeiträge, Produktbeschreibungen) haben keine Utility-Klassen. Der Wrapper <code>.rte</code> sorgt dafür, dass Standard-HTML-Tags automatisch den korrekten vertikalen Rhythmus erhalten.</p>
       <div class="sg-demo">
         <div class="rte">
@@ -457,7 +457,7 @@
 
       <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Links: <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich.</p>
 
-      <h3 class="sg-h3 --top">Produkt-Kategoriefarben</h3>
+      <h3 class="sg-h3 --top"><code>--cat-*</code></h3>
       <p>Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
 
       <div class="color-grid">
@@ -591,7 +591,7 @@
         <p>Interaktive Zustände nutzen dunklere Border-Token: <code>--border-focus</code> (Fokus) und <code>--border-active</code> (aktiv/ausgewählt). <code>dashed</code> markiert besondere Flächen — Upload-Zone, Checkout-Summenzeilen und RTE-Tabellen.</p>
       </div>
 
-      <h3 class="sg-h3 --top">Linien-Ebenen</h3>
+      <h3 class="sg-h3 --top"><code>--border</code></h3>
       <table class="spec-table">
         <tr><th>Strukturell</th><td><code>1px solid var(--border)</code> · <code>#adadad</code> — sichtbare Trennung: Navigation, Karten, Tabellen-Header, Footer</td></tr>
         <tr><th>Dezent</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — feine Gliederung: Rows, Rules, Formularfelder im Ruhezustand</td></tr>
@@ -606,7 +606,7 @@
         <div style="padding-bottom: var(--half-module); border-bottom: 1px dashed var(--border); color: var(--fg-muted);">Dashed — <code>1px dashed var(--border)</code></div>
       </div>
 
-      <h3 class="sg-h3 --top">Border-Radius</h3>
+      <h3 class="sg-h3 --top"><code>border-radius</code></h3>
       <table class="spec-table">
         <tr><th>Standard</th><td><code>border-radius: 0</code> — alle rechteckigen Elemente: Buttons, Inputs, Karten, Boxen. Scharfe Kanten als Gestaltungsprinzip.</td></tr>
         <tr><th>Kreis</th><td><code>50%</code> — Ausnahme für runde Formen: Avatare (Testimonials, Autor), Aufzählungspunkte.</td></tr>
@@ -640,7 +640,7 @@
       </div>
       <p>3×–5× werden als <code>calc(var(--module) * N)</code> geschrieben — nur <code>--half-module</code>, <code>--module</code> und <code>--module-2xl</code> sind eigene Tokens.</p>
 
-      <h3 class="sg-h3 --top">Spacing Utilities</h3>
+      <h3 class="sg-h3 --top"><code>.mt-half</code></h3>
       <p>Kurzform-Klassen für häufige Abstände. Alle Werte leiten sich aus den Spacing-Tokens ab.</p>
       <table class="spec-table">
         <tr><th><code>.mt-half</code></th><td><code>margin-top: var(--half-module)</code></td></tr>
@@ -650,7 +650,7 @@
         <tr><th><code>.mb-1</code></th><td><code>margin-bottom: var(--module)</code></td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">.flow — Kontextsensitives Spacing</h3>
+      <h3 class="sg-h3 --top"><code>.flow</code></h3>
       <p>Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Alle direkten Kinder: <code>margin-bottom: 0</code> (Rhythmus läuft ausschließlich über <code>margin-top</code>). Einsatz auf Info-Pages und <code>.section-type__content</code>. Nicht für <code>.rte</code>-Blöcke (eigene Regelung).</p>
 
       <table class="spec-table">
@@ -706,7 +706,7 @@
 
       <p class="sg-p"><code>.container</code> ist der Satzspiegel-Wrapper — pro Inhaltsblock, nicht die ganze HTML-Seite. Mehrfach pro Seite möglich (siehe <code>Bundle.html</code>).</p>
 
-      <h3 class="sg-h3 --top">A — Im Shop (<code>.container</code>)</h3>
+      <h3 class="sg-h3 --top"><code>.container</code></h3>
       <table class="spec-table">
         <tr><th>Basis-CSS</th><td><code>max-width: var(--container-max)</code> · <code>margin: 0 auto</code> · <code>padding: var(--container-pt) var(--margin) var(--margin)</code></td></tr>
         <tr><th>Standard-Pattern</th><td><code>&lt;main&gt;&lt;div class="container"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Bundle, Tierarzt-Empfehlung</td></tr>
@@ -737,7 +737,7 @@
         </div>
       </div>
 
-      <h3 class="sg-h3 --top">B — Stand-Alone-Formular (<code>.form-page</code>)</h3>
+      <h3 class="sg-h3 --top"><code>.form-page</code></h3>
       <table class="spec-table">
         <tr><th>Pattern</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code></td></tr>
         <tr><th>Breite</th><td>Card <code>max-width: var(--form-page-max)</code> (640px) — breiter als <code>.container.--sm</code> (480px)</td></tr>
@@ -788,7 +788,7 @@
         <p>Fluid Typography und Spacing (<code>clamp()</code>) skalieren ohne Breakpoints. Die Werte unten gelten für Layout-Raster und komponenten-spezifische Stacks (Navigation, Section Types).</p>
       </div>
 
-      <h3 class="sg-h3 --top">Globale Layout-Breakpoints</h3>
+      <h3 class="sg-h3 --top"><code>.col-grid</code> — Breakpoints</h3>
       <p>Diese Schwellen steuern <code>.col-grid</code>, <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code> in <code>inuvet.css</code>:</p>
       <table class="spec-table">
         <tr><th><code>1100px</code></th><td><code>min-width: 1100px</code>: <code>data-cols="2"</code> wird 50/50 · <code>max-width: 1100px</code>: 3→2, 4→3 (<code>.tile-grid</code> analog)</td></tr>
@@ -805,7 +805,7 @@
         <tr><th><code>data-cols="4"</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) → <strong>1</strong> (≤767px)</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top"><code>.tile-grid</code> — Kaskaden (Kachel-Raster, Produkt-D)</h3>
+      <h3 class="sg-h3 --top"><code>.tile-grid</code></h3>
       <p>Spaltenwahl per Modifier am Container — Kacheln selbst unverändert. Gap: <code>var(--gutter)</code>.</p>
       <table class="spec-table">
         <tr><th><code>--cols-2</code></th><td>2 → <strong>1</strong> (≤767px)</td></tr>
@@ -814,7 +814,7 @@
       </table>
       <p><code>.testimonial-grid</code> und <code>.testimonial-slider</code> nutzen dieselben Breakpoints (<code>--cols-3/4</code>). Testimonial-Grid auf Mobile: progressive Anzeige via „Mehr anzeigen" — Details in <a href="#D5">D.5 Testimonials</a>.</p>
 
-      <h3 class="sg-h3 --top">Produktlisten — Rasterwahl pro Seite</h3>
+      <h3 class="sg-h3 --top"><code>.tile-grid.--cols-4</code></h3>
       <p>Keine Sonder-CSS pro Collection: Spaltenzahl am Container wählen (<code>.tile-grid --cols-N</code> + <code>.tile.--product</code>). Die Kaskade ist fix — nur <code>N</code> ändern.</p>
       <table class="spec-table">
         <tr><th><code>--cols-3</code></th><td><strong>3 → 2 → 1</strong> — z. B. Tierarzt-Empfehlung Collection (<code>renderCollection()</code>): Mobile einspaltig, mehr Luft pro Kachel</td></tr>
@@ -822,7 +822,7 @@
       </table>
       <p>Wechsel = eine Klasse im HTML/JS, keine Media Queries.</p>
 
-      <h3 class="sg-h3 --top">Weitere Breakpoints (komponentenspezifisch)</h3>
+      <h3 class="sg-h3 --top"><code>@media</code> — komponentenspezifisch</h3>
       <p>Nicht alle UI-Elemente folgen dem Raster — Beispiele aus <code>inuvet.css</code>:</p>
       <table class="spec-table">
         <tr><th><code>480px</code></th><td>Sehr schmale Geräte (z. B. kompakter Cookie-Banner)</td></tr>
@@ -830,7 +830,7 @@
         <tr><th><code>1535px</code></th><td>Footer 4→2 · Collection: Filter-Sidebar → Drawer</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Bewusste Ausnahmen (kein Standard-Raster)</h3>
+      <h3 class="sg-h3 --top"><code>.col-grid.--early-2</code></h3>
       <table class="spec-table">
         <tr><th><code>.col-grid.--early-2</code></th><td>50/50 ab 768px — Intro Headline + Text/Meta (Bundle, Freigabe)</td></tr>
         <tr><th><code>.col-grid.--wide-narrow</code></th><td>2fr/1fr ab 768px — Hauptinhalt + Sidebar (Bundle-Builder)</td></tr>
@@ -853,17 +853,18 @@
         </div>
       </div>
 
-      <h3 class="sg-h3 --top">Layout &amp; Struktur</h3>
+      <h3 class="sg-h3 --top"><code>.sg-layout</code></h3>
       <table class="spec-table">
         <tr><th><code>.sg-layout</code></th><td>Sidebar + Main — auf dieser Seite mit <code>.container</code></td></tr>
         <tr><th><code>.sg-sidebar</code></th><td>Sticky Nav · Scrollspy (<code>sg.js</code>) markiert <code>a.--active</code></td></tr>
         <tr><th><code>.sg-section-v2</code></th><td>Sektions-Wrapper · oft mit <code>.flow</code></td></tr>
-        <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) · <code>.sg-h3</code> = Untergruppe im Guide</td></tr>
+        <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) — menschenlesbarer Titel</td></tr>
+        <tr><th><code>.sg-h3</code></th><td>Untergruppe: primärer Selektor in <code>&lt;code&gt;</code> (Klasse, Token, Attribut). Varianten-Demo: <code>.btn.--full</code> oder <code>.btn</code> — Kurzinfo</td></tr>
         <tr><th><code>.spec-table</code></th><td>Spec-Tabellen · <code>.rules</code> / <code>.rule</code> = 2-spaltige Regel-Blöcke</td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Demo-Flächen</h3>
-      <p class="sg-p">Standard: <code>.sg-demo</code> ohne Modifier — grau (<code>--accent-bg</code>). <code>.--white</code> und <code>.--green*</code> nur bei Bedarf (Kontrast, Marken-Kontext).</p>
+      <h3 class="sg-h3 --top"><code>.sg-demo</code></h3>
+      <p class="sg-p">Standard: <code>.sg-demo</code> ohne Modifier — grau (<code>--accent-bg</code>). <code>.--white</code> und <code>.--green*</code> bei Bedarf (Kontrast, Marken-Kontext). <strong>Formulare (B.4):</strong> immer <code>.sg-demo.--white</code> oder <code>.sg-demo.--green</code> — Formulare dürfen nur auf Weiß oder Grün gezeigt werden.</p>
       <div class="col-grid --spaced" data-cols="2">
         <figure>
           <div class="sg-demo --center" style="min-height: calc(var(--module) * 2);">Demo</div>
@@ -911,7 +912,7 @@
         <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
       </table>
 
-      <h3 class="sg-h3 --top">Default</h3>
+      <h3 class="sg-h3 --top"><code>.btn</code> — Hierarchie</h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <a class="btn --primary">Primary</a>
@@ -921,7 +922,7 @@
       </div>
       <p class="sg-caption">Alle drei Stufen — Hover zum Testen.</p>
 
-      <h3 class="sg-h3 --top">Auf farbigem Hintergrund</h3>
+      <h3 class="sg-h3 --top"><code>.btn</code> — Kontrast</h3>
       <div class="sg-demo --green">
         <div class="sg-btn-row">
           <a class="btn --primary">Primary</a>
@@ -931,7 +932,7 @@
       </div>
       <p class="sg-caption">Kontrast-Check auf <code>--green-light</code>.</p>
 
-      <h3 class="sg-h3 --top">Kombinationen</h3>
+      <h3 class="sg-h3 --top"><code>.btn</code> — Paare</h3>
       <div class="sg-demo">
         <div class="sg-btn-row --sm">
           <a class="btn --primary">Jetzt kaufen</a>
@@ -944,7 +945,7 @@
       </div>
       <p class="sg-caption">Primary + Ghost · Primary + Secondary.</p>
 
-      <h3 class="sg-h3 --top">Klein &amp; mit Icon</h3>
+      <h3 class="sg-h3 --top"><code>.btn.--sm</code> · <code>.btn.--with-icon</code></h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <button class="btn --primary --sm">Primary klein</button>
@@ -958,7 +959,7 @@
       </div>
       <p class="sg-caption"><code>.--sm</code> · <code>.--with-icon</code> (<code>inline-flex</code>, Icon <code>1em</code>).</p>
 
-      <h3 class="sg-h3 --top">Volle Breite</h3>
+      <h3 class="sg-h3 --top"><code>.btn.--full</code></h3>
       <div class="sg-demo">
         <div class="sg-w-md flow">
           <button class="btn --primary --full --with-icon"><span class="material-icons">place</span> Praxis in der Nähe finden</button>
@@ -970,7 +971,7 @@
       </div>
       <p class="sg-caption"><code>.--full</code> = 100&nbsp;% des Eltern-Containers (hier <code>.sg-w-md</code>, max. 28&nbsp;rem) — nicht die gesamte Demo-Fläche. Gestapelt in <code>.flow</code>; Abstand via <code>* + .btn</code>. Modal-Paar Primary + Ghost → <code>.shop-modal__actions</code>.</p>
 
-      <h3 class="sg-h3 --top">Disabled</h3>
+      <h3 class="sg-h3 --top"><code>.btn</code> — Disabled</h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <button class="btn --primary" disabled>Primary</button>
@@ -980,7 +981,7 @@
       </div>
       <p class="sg-caption">Attribut <code>disabled</code> auf <code>&lt;button&gt;</code> · Klasse <code>.--disabled</code> auf <code>&lt;a&gt;</code> · Opacity 35&nbsp;%, keine Interaktion.</p>
 
-      <h3 class="sg-h3 --top">Ghost Zurück</h3>
+      <h3 class="sg-h3 --top"><code>.btn.--ghost.--back</code></h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <button class="btn --ghost --back">Alle Prämien</button>
@@ -989,7 +990,7 @@
       </div>
       <p class="sg-caption"><code>.--back</code>: Pfeil als <code>::before</code>, kein Material-Icon nötig.</p>
 
-      <h3 class="sg-h3 --top">Icon-only</h3>
+      <h3 class="sg-h3 --top"><code>.btn.--icon</code></h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
@@ -1008,7 +1009,7 @@
         <p>Kategorie-Farben über <code>data-cat</code> auf dem Badge — Tokens → <a href="#A5">A.5</a>. Count-Badges sitzen in <code>.icon-badged</code> → <a href="#B3">B.3</a>.</p>
       </div>
 
-      <h3 class="sg-h3 --top">Rating</h3>
+      <h3 class="sg-h3 --top"><code>.rating</code></h3>
       <table class="spec-table">
         <tr><th><code>.rating</code></th><td>Flex · <code>gap: 0.25rem</code> · <code>var(--text-sm)</code></td></tr>
         <tr><th><code>.rating .material-icons</code></th><td><code>1rem</code> · <code>--color-amber</code></td></tr>
@@ -1031,7 +1032,7 @@
         </div>
       </div>
 
-      <h3 class="sg-h3 --top">Badge</h3>
+      <h3 class="sg-h3 --top"><code>.badge</code></h3>
       <table class="spec-table">
         <tr><th><code>.badge</code> + <code>data-cat</code></th><td>Kategorie-Label · Hintergrund aus <code>--cat-*-light</code> · Schrift <code>--fg</code></td></tr>
         <tr><th><code>.badge.--dark</code></th><td>Schwarz · weiße Schrift — „Neu"</td></tr>
@@ -1060,7 +1061,7 @@
       </div>
       <p class="sg-caption">Kategorie · Status · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
 
-      <h3 class="sg-h3 --top">circle-badge</h3>
+      <h3 class="sg-h3 --top"><code>.circle-badge</code></h3>
       <table class="spec-table">
         <tr><th><code>.circle-badge</code></th><td>22 × 22 px · grün · <code>border-radius: 50%</code></td></tr>
         <tr><th><code>.circle-badge.--num</code></th><td>Schrittzahl · <code>var(--text-xs)</code> · fett</td></tr>
@@ -1075,7 +1076,7 @@
         </div>
       </div>
 
-      <h3 class="sg-h3 --top">label-caps</h3>
+      <h3 class="sg-h3 --top"><code>.label-caps</code></h3>
       <table class="spec-table">
         <tr><th><code>.label-caps</code></th><td>Uppercase-Label ohne Border · <code>var(--text-xs)</code> · fett · <code>--fg-muted</code> · Filter, Varianten, Meta</td></tr>
       </table>
@@ -1083,11 +1084,121 @@
         <p class="label-caps">Darreichungsform</p>
         <p class="label-caps" style="margin-top: var(--half-module);">12. April 2026 · Ernährung</p>
       </div>
+    </section>
 
-      <h3 class="sg-h3 --top">Wishlist-Button</h3>
+    <section class="sg-section-v2 flow" id="B3">
+      <h2 class="section-label">B.3 — Icons &amp; icon-box</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Google Material Icons (Filled) als Standard — Einbindung via Google Fonts CDN. Größe richtet sich nach Kontext.</p>
+        <p><code>.icon-box</code> = quadratischer Flex-Container in vier Stufen. Count-Badges über <code>.icon-badged</code> → auch <a href="#B2">B.2</a>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Icon-Set</h4>
+          <p>Google Material Icons (Filled) als Standard. Größe nach Kontext: <code>1rem</code> inline, <code>1.25rem</code> in Buttons/Navigation, <code>2.25rem</code> als Feature-Icon.</p>
+        </div>
+        <div class="rule">
+          <h4>icon-box</h4>
+          <p>Quadratischer Flex-Container <code>.icon-box</code> in vier Stufen: <code>--sm</code> (2.5rem), <code>--md</code> (2.75rem), Basis (3rem), <code>--lg</code> (5rem). Für Badge-Zähler: Wrapper <code>.icon-badged</code> positioniert <code>.badge.--count</code> automatisch oben rechts.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top"><code>.material-icons</code></h3>
       <table class="spec-table">
-        <tr><th><code>.pdp__wishlist</code></th><td>Nutzt <code>.icon-box.--md</code> · Border <code>--border-light</code></td></tr>
-        <tr><th><code>.pdp__wishlist.--active</code></th><td>Border + Icon <code>--color-error</code> · gefülltes Herz</td></tr>
+        <tr><th>Set</th><td>Google Material Icons · <code>font-family: 'Material Icons'</code></td></tr>
+        <tr><th>Größen</th><td><code>1rem</code> (inline/Sterne) · <code>1.25rem</code> (Nav/Buttons/Accordion) · <code>2.25rem</code> (Upload/Feature)</td></tr>
+        <tr><th>Farbe</th><td>Erbt <code>color</code> vom Elternelement. Standard: <code>--fg</code>. Sekundär: <code>--fg-muted</code>.</td></tr>
+        <tr><th>Ausrichtung</th><td>Vertikal zentriert zum Text via <code>vertical-align: middle</code> oder Flex-Alignment.</td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="icon-gallery">
+          <div class="icon-gallery__group">
+            <p class="label-caps">Navigation &amp; UI</p>
+            <div class="icon-grid">
+              <div class="icon-demo"><span class="material-icons">menu</span><div>menu</div></div>
+              <div class="icon-demo"><span class="material-icons">close</span><div>close</div></div>
+              <div class="icon-demo"><span class="material-icons">search</span><div>search</div></div>
+              <div class="icon-demo"><span class="material-icons">person</span><div>person</div></div>
+              <div class="icon-demo"><span class="material-icons">expand_more</span><div>expand_more</div></div>
+              <div class="icon-demo"><span class="material-icons">arrow_back</span><div>arrow_back</div></div>
+              <div class="icon-demo"><span class="material-icons">arrow_forward</span><div>arrow_forward</div></div>
+              <div class="icon-demo"><span class="material-icons">chevron_right</span><div>chevron_right</div></div>
+            </div>
+          </div>
+          <div class="icon-gallery__group">
+            <p class="label-caps">Shop</p>
+            <div class="icon-grid">
+              <div class="icon-demo"><span class="material-icons">shopping_cart</span><div>shopping_cart</div></div>
+              <div class="icon-demo"><span class="material-icons">favorite_border</span><div>favorite_border</div></div>
+              <div class="icon-demo"><span class="material-icons" aria-hidden="true">star</span><div>star</div></div>
+              <div class="icon-demo"><span class="material-icons">star_border</span><div>star_border</div></div>
+              <div class="icon-demo"><span class="material-icons">local_shipping</span><div>local_shipping</div></div>
+              <div class="icon-demo"><span class="material-icons">inventory_2</span><div>inventory_2</div></div>
+              <div class="icon-demo"><span class="material-icons">percent</span><div>percent</div></div>
+              <div class="icon-demo"><span class="material-icons">storefront</span><div>storefront</div></div>
+            </div>
+          </div>
+          <div class="icon-gallery__group">
+            <p class="label-caps">Formular &amp; Feedback</p>
+            <div class="icon-grid">
+              <div class="icon-demo"><span class="material-icons">cloud_upload</span><div>cloud_upload</div></div>
+              <div class="icon-demo"><span class="material-icons">check_circle</span><div>check_circle</div></div>
+              <div class="icon-demo"><span class="material-icons">error_outline</span><div>error_outline</div></div>
+              <div class="icon-demo"><span class="material-icons">info</span><div>info</div></div>
+              <div class="icon-demo"><span class="material-icons">visibility</span><div>visibility</div></div>
+              <div class="icon-demo"><span class="material-icons">visibility_off</span><div>visibility_off</div></div>
+              <div class="icon-demo"><span class="material-icons">add</span><div>add</div></div>
+              <div class="icon-demo"><span class="material-icons">remove</span><div>remove</div></div>
+            </div>
+          </div>
+          <div class="icon-gallery__group">
+            <p class="label-caps">Social &amp; Kontakt</p>
+            <div class="icon-grid">
+              <div class="icon-demo"><span class="material-icons">email</span><div>email</div></div>
+              <div class="icon-demo"><span class="material-icons">phone</span><div>phone</div></div>
+              <div class="icon-demo"><span class="material-icons">place</span><div>place</div></div>
+              <div class="icon-demo"><span class="material-icons">share</span><div>share</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Kuratierter Satz für den Shop · Weitere Icons: <a href="https://fonts.google.com/icons" target="_blank">fonts.google.com/icons</a> · nur <code>Material Icons</code> (Filled).</p>
+
+      <h3 class="sg-h3 --top"><code>.icon-box</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.icon-box</code></th><td>Quadratischer Flex-Container, zentriert · Basisgröße <code>var(--module)</code> (3rem)</td></tr>
+        <tr><th><code>.icon-box.--sm</code></th><td><code>var(--icon-box-sm)</code> — z.&nbsp;B. Quick-Add auf Produkt-Tiles</td></tr>
+        <tr><th><code>.icon-box.--md</code></th><td><code>var(--icon-box-md)</code> — z.&nbsp;B. Wishlist auf PDP → unten</td></tr>
+        <tr><th><code>.icon-box.--lg</code></th><td><code>calc(var(--base) * 5)</code> — z.&nbsp;B. Query-Icon in Suchergebnissen</td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-btn-row --end">
+          <figure>
+            <div class="icon-box --sm sg-outline"><span class="material-icons">favorite</span></div>
+            <figcaption class="sg-caption"><code>--sm</code> · 2.5rem</figcaption>
+          </figure>
+          <figure>
+            <div class="icon-box --md sg-outline"><span class="material-icons">favorite</span></div>
+            <figcaption class="sg-caption"><code>--md</code> · 2.75rem</figcaption>
+          </figure>
+          <figure>
+            <div class="icon-box sg-outline"><span class="material-icons">favorite</span></div>
+            <figcaption class="sg-caption">Basis · 3rem</figcaption>
+          </figure>
+          <figure>
+            <div class="icon-box --lg sg-outline"><span class="material-icons">favorite</span></div>
+            <figcaption class="sg-caption"><code>--lg</code> · 5rem</figcaption>
+          </figure>
+        </div>
+      </div>
+      <p class="sg-caption">Border via <code>.sg-outline</code> nur zur Visualisierung der Fläche (Styleguide-UI).</p>
+
+      <h3 class="sg-h3 --top"><code>.pdp__wishlist</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.pdp__wishlist</code></th><td><code>.icon-box.--md</code> + Border <code>--border-light</code> · kein Hintergrund · Icon <code>1.25rem</code></td></tr>
+        <tr><th><code>.pdp__wishlist:hover</code></th><td>Border <code>--border-active</code></td></tr>
+        <tr><th><code>.pdp__wishlist.--active</code></th><td>Border + Icon <code>--color-error</code> · Icon wechselt auf <code>favorite</code></td></tr>
       </table>
       <div class="sg-demo">
         <div class="sg-btn-row">
@@ -1099,19 +1210,401 @@
           </button>
         </div>
       </div>
-      <p class="sg-caption">Toggle via JS — Klasse <code>.--active</code> am Button.</p>
-    </section>
+      <p class="sg-caption">Konkretes <code>icon-box</code>-Pattern mit Border und Toggle — kein <code>.btn</code>. Klasse ist PDP-spezifisch, Aufbau aber generisch wiederverwendbar.</p>
 
-    <section class="sg-section-v2 flow" id="B3">
-      <h2 class="section-label">B.3 — Icons &amp; icon-box</h2>
-      <p>Material Icons via Google Fonts CDN. <code>.icon-box</code> als strukturierter Container für Icon + Beschriftung.</p>
-      <div class="sg-demo"></div>
+      <h3 class="sg-h3 --top"><code>.icon-badged</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.icon-badged</code></th><td>Wrapper mit <code>position: relative</code> — Badge-Anker für <code>.badge.--count</code></td></tr>
+        <tr><th><code>.badge.--count</code></th><td>Runder Zähler · grün · absolut oben rechts · Hover: <code>scale(1.2)</code> → <a href="#B2">B.2</a></td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="sg-btn-row --end">
+          <figure>
+            <div class="icon-badged">
+              <span class="material-icons">shopping_cart</span>
+              <span class="badge --count">3</span>
+            </div>
+            <figcaption class="sg-caption">Einstellig</figcaption>
+          </figure>
+          <figure>
+            <div class="icon-badged">
+              <span class="material-icons">shopping_cart</span>
+              <span class="badge --count">12</span>
+            </div>
+            <figcaption class="sg-caption">Zweistellig</figcaption>
+          </figure>
+          <figure>
+            <div class="icon-badged">
+              <span class="material-icons">shopping_cart</span>
+              <span class="badge --count">128</span>
+            </div>
+            <figcaption class="sg-caption">Dreistellig</figcaption>
+          </figure>
+        </div>
+      </div>
+      <p class="sg-caption">Kombinierbar mit <code>.btn.--icon</code> (Nav-Warenkorb) · Hover über Icon — Badge skaliert auf 1.2×.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B4">
       <h2 class="section-label">B.4 — Form-Felder</h2>
-      <p>Floating-Label-Pattern: <code>placeholder=" "</code> triggert <code>:not(:placeholder-shown)</code>. Felder erben den Kontext-Hintergrund via <code>--field-bg</code> und <code>--field-bg-active</code>.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Floating-Label-Pattern: <code>placeholder=" "</code> triggert <code>:not(:placeholder-shown)</code>. Label-Hintergrund muss zum Container passen — deshalb gelten strikte Hintergrund-Regeln (siehe unten).</p>
+        <p><strong>Formulare nur auf Weiß oder Grün:</strong> <code>--bg</code> (Standard) oder <code>--green-light</code> mit <code>.--on-green</code> am Container. Keine weiteren Flächenfarben (Honey, Grau, Cards …). Stand-Alone → <a href="#C4">C.4</a> · <code>.form-page</code>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Floating Labels</h4>
+          <p>Labels stehen initial im Eingabefeld. Bei Fokus oder Eingabe gleiten sie animiert in die obere Feldlinie. Der Label-Hintergrund muss immer mit dem Container-Hintergrund übereinstimmen — sonst ist die Feldlinie nicht verdeckt.</p>
+        </div>
+        <div class="rule">
+          <h4>Basis</h4>
+          <p>Border: <code>var(--border-light)</code>. Fokus: <code>var(--border-focus)</code>. Padding: <code>1.25rem</code> oben, <code>0.5rem</code> unten, <code>0.75rem</code> seitlich. Kein Border-Radius.</p>
+        </div>
+        <div class="rule">
+          <h4>Formular-Hintergrund (Pflicht)</h4>
+          <p>Formulare dürfen <strong>nur</strong> auf <strong>Weiß</strong> (<code>--bg</code>) oder <strong>Grün</strong> (<code>--green-light</code>) platziert werden. Auf Grün: Container-Klasse <code>.--on-green</code> setzt <code>--field-bg</code> / <code>--field-bg-active</code> automatisch. Andere Hintergrundfarben sind für Formularbereiche <strong>nicht</strong> zulässig — Floating Labels brechen sonst optisch und technisch.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.form-field</code></th><td>Wrapper · Floating Label · <code>input</code>, <code>textarea</code>, <code>select</code></td></tr>
+        <tr><th><code>.form-field.--error</code></th><td>Border + Label <code>--color-error</code> · Meldung via <code>.form-field__error</code></td></tr>
+        <tr><th><code>.form-field.--success</code></th><td>Border + Label <code>--green</code> · Bestätigung via <code>.form-field__success</code></td></tr>
+        <tr><th><code>.form-field.--sm</code></th><td>Statisches Label oben · <code>height: calc(var(--base) * 2)</code> — bündig mit <code>.btn.--sm</code></td></tr>
+        <tr><th><code>.form-field.--full</code></th><td>In <code>.form-grid</code>: spannt beide Spalten (<code>grid-column: 1 / -1</code>)</td></tr>
+        <tr><th><code>.form-grid</code></th><td>2-Spalten-Grid · Mobile: 1 Spalte · Felder ohne eigenen <code>margin-bottom</code></td></tr>
+        <tr><th><code>.form-check</code></th><td>Native Checkbox/Radio · <code>accent-color: var(--fg)</code> · Label rechts</td></tr>
+        <tr><th><code>.form-upload</code></th><td>Dashed Border · Drag-and-Drop · Dateiliste <code>.form-upload__files</code></td></tr>
+        <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
+        <tr><th>Hintergrund</th><td>Nur <code>--bg</code> (weiß) oder <code>--green-light</code> + <code>.--on-green</code> · Styleguide-Demos: <code>.sg-demo.--white</code> / <code>.sg-demo.--green</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.form-field</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="form-field">
+            <input type="text" id="b4-name" placeholder=" ">
+            <label for="b4-name">Vollständiger Name</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Klick ins Feld: Label gleitet nach oben · bei Eingabe bleibt es dort · auch <code>type="email"</code>, <code>tel</code> etc.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field.--error</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md flow">
+          <div class="form-field --error">
+            <input type="email" id="b4-error-email" placeholder=" " value="keine-gültige@">
+            <label for="b4-error-email">Email</label>
+            <p class="form-field__error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+          </div>
+          <div class="form-field --error">
+            <input type="text" id="b4-error-name" placeholder=" ">
+            <label for="b4-error-name">Vollständiger Name</label>
+            <p class="form-field__error">Dieses Feld ist erforderlich.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Modifier auf <code>.form-field</code> · Fehlermeldung als <code>.form-field__error</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field.--success</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="form-field --success">
+            <input type="email" id="b4-success-email" placeholder=" " value="max@muster.de">
+            <label for="b4-success-email">Email</label>
+            <p class="form-field__success"><span class="material-icons">check_circle</span> E-Mail-Adresse wurde bestätigt.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Border + Label grün · Bestätigung via <code>.form-field__success</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-grid</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide">
+          <div class="form-grid">
+            <div class="form-field">
+              <input type="text" id="b4-vorname" placeholder=" ">
+              <label for="b4-vorname">Vorname</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="b4-nachname" placeholder=" ">
+              <label for="b4-nachname">Nachname</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="b4-email" placeholder=" ">
+              <label for="b4-email">Email</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="b4-tel" placeholder=" ">
+              <label for="b4-tel">Telefon</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Zwei Spalten nebeneinander · ≤767px automatisch einspaltig.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field textarea</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="form-field">
+            <textarea id="b4-msg" placeholder=" "></textarea>
+            <label for="b4-msg">Nachricht</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>min-height: 8rem</code> · <code>resize: vertical</code> · gleiches Floating-Label-Verhalten.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field select</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="form-field">
+            <select id="b4-select" required>
+              <option value="" disabled selected hidden></option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            <label for="b4-select">Kategorie wählen</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Custom-Pfeil · Label schwebt bei Auswahl (<code>:valid</code>).</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field.--sm</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-btn-row --sm">
+          <div class="form-field --sm" style="width:12rem;">
+            <label for="b4-select-sm">Empfehlung</label>
+            <select id="b4-select-sm">
+              <option value="" disabled selected>Bitte entscheiden …</option>
+              <option value="reject">Ablehnen</option>
+              <option value="max1">max. 1×</option>
+              <option value="max2">max. 2×</option>
+              <option value="max5">max. 5×</option>
+              <option value="unlimited">Unbegrenzt</option>
+            </select>
+          </div>
+          <div class="form-field --sm" style="width:12rem;">
+            <label for="b4-input-sm">Suchfeld</label>
+            <input type="text" id="b4-input-sm" placeholder="Suchen …">
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Kein Floating Label · Label statisch darüber · Höhe = <code>.btn.--sm</code> / <code>.qty-selector.--sm</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-check</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo">
+          <label class="form-check">
+            <input type="checkbox">
+            <span>Ich akzeptiere die AGB</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" checked>
+            <span>Newsletter abonnieren</span>
+          </label>
+          <label class="form-check">
+            <input type="radio" name="b4-radio">
+            <span>Standardversand</span>
+          </label>
+          <label class="form-check">
+            <input type="radio" name="b4-radio" checked>
+            <span>Expressversand</span>
+          </label>
+        </div>
+      </div>
+      <p class="sg-caption">Native Elemente · schwarze Akzentfarbe · Label als umschließendes <code>&lt;label&gt;</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-upload</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo">
+          <div class="form-upload" id="uploadZone">
+            <input type="file" id="fileInput" multiple onchange="handleFiles(this.files)">
+            <div class="form-upload__icon"><span class="material-icons">cloud_upload</span></div>
+            <div class="form-upload__text"><strong>Datei wählen</strong> oder hierher ziehen</div>
+            <div class="form-upload__hint">PDF, JPG, PNG — max. 10 MB</div>
+            <div class="form-upload__files" id="fileList"></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Dashed Border · Hover/Drag-over hebt hervor · ausgewählte Dateien in <code>.form-upload__files</code> (Drag-and-Drop via <code>sg.js</code>).</p>
+
+      <h3 class="sg-h3 --top"><code>.choice-box</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide">
+          <div class="sg-demo-stack">
+            <div class="sg-btn-row --sm">
+              <div>
+                <p class="label-caps">Standard</p>
+                <div class="sg-btn-row --sm">
+                  <button class="choice-box --active" type="button" onclick="selectVariant(this)">120g</button>
+                  <button class="choice-box" type="button" onclick="selectVariant(this)">250g</button>
+                </div>
+              </div>
+              <div>
+                <p class="label-caps"><code>.--sm</code></p>
+                <div class="sg-btn-row --sm">
+                  <button class="choice-box --sm" type="button" onclick="selectVariant(this)">Ablehnen</button>
+                  <button class="choice-box --sm --active" type="button" onclick="selectVariant(this)">max. 1×</button>
+                  <button class="choice-box --sm" type="button" onclick="selectVariant(this)">max. 2×</button>
+                  <button class="choice-box --sm" type="button" onclick="selectVariant(this)">Unbegrenzt</button>
+                </div>
+              </div>
+            </div>
+            <div class="tile-grid sg-gap-half">
+              <button class="choice-box --block --active" type="button" onclick="selectVariant(this)">
+                <span class="material-icons">local_shipping</span>
+                <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
+              </button>
+              <button class="choice-box --block" type="button" onclick="selectVariant(this)">
+                <span class="material-icons">rocket_launch</span>
+                <span><strong>Expressversand</strong> — DHL Express · 1–2 Werktage · <strong>4,99&nbsp;€</strong></span>
+              </button>
+            </div>
+            <div class="col-grid --spaced" data-cols="2">
+              <div class="flow">
+                <p class="label-caps"><code>.--detail</code></p>
+                <button class="choice-box --detail --active" type="button" onclick="selectVariant(this)">
+                  <span class="choice-box__content">
+                    <span class="choice-box__label">Nervosität &amp; Stress</span>
+                    <span class="choice-box__desc">Mein Tier ist ängstlich, unruhig oder gestresst.</span>
+                  </span>
+                </button>
+                <button class="choice-box --detail" type="button" onclick="selectVariant(this)">
+                  <span class="choice-box__content">
+                    <span class="choice-box__label">Leber &amp; Stoffwechsel</span>
+                    <span class="choice-box__desc">Unterstützung bei Leberproblemen oder Verdauungsschwäche.</span>
+                  </span>
+                </button>
+              </div>
+              <div class="flow">
+                <p class="label-caps"><code>.--detail</code> + Icon</p>
+                <button class="choice-box --detail --active" type="button" onclick="selectVariant(this)">
+                  <span class="material-icons">psychology</span>
+                  <span class="choice-box__content">
+                    <span class="choice-box__label">Nervosität &amp; Stress</span>
+                    <span class="choice-box__desc">Mein Tier ist ängstlich, unruhig oder gestresst.</span>
+                  </span>
+                </button>
+                <button class="choice-box --detail" type="button" onclick="selectVariant(this)">
+                  <span class="material-icons">biotech</span>
+                  <span class="choice-box__content">
+                    <span class="choice-box__label">Leber &amp; Stoffwechsel</span>
+                    <span class="choice-box__desc">Unterstützung bei Leberproblemen.</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Auswahl: <code>--border-active</code> + <code>--green-light</code> (wie Tabs/Pagination) · kein grüner Stroke. <code>.--sm</code> kompakt · <code>.--block</code> Icon + Text · <code>.--detail</code> Label + Beschreibung · Toggle via <code>.--active</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-field</code> — Kontaktformular</h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide flow">
+          <div class="form-grid">
+            <div class="form-field">
+              <input type="text" id="b4-k-vorname" placeholder=" ">
+              <label for="b4-k-vorname">Vorname</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="b4-k-nachname" placeholder=" ">
+              <label for="b4-k-nachname">Nachname</label>
+            </div>
+          </div>
+          <div class="form-field">
+            <input type="email" id="b4-k-email" placeholder=" ">
+            <label for="b4-k-email">Email</label>
+          </div>
+          <div class="form-field">
+            <select id="b4-k-betreff" required>
+              <option value="" disabled selected hidden></option>
+              <option value="1">Allgemeine Anfrage</option>
+              <option value="2">Bestellung</option>
+              <option value="3">Reklamation</option>
+            </select>
+            <label for="b4-k-betreff">Betreff</label>
+          </div>
+          <div class="form-field">
+            <textarea id="b4-k-msg" placeholder=" "></textarea>
+            <label for="b4-k-msg">Nachricht</label>
+          </div>
+          <label class="form-check">
+            <input type="checkbox">
+            <span>Ich akzeptiere die Datenschutzerklärung</span>
+          </label>
+          <a class="btn --primary">Absenden</a>
+        </div>
+      </div>
+      <p class="sg-caption">Zusammenspiel: Grid, Floating Labels, Select, Textarea, Checkbox, Primary-Button.</p>
+
+      <h3 class="sg-h3 --top"><code>.--on-green</code></h3>
+      <div class="sg-demo --green">
+        <div class="--on-green sg-form-demo --wide flow">
+          <div class="form-grid">
+            <div class="form-field">
+              <input type="text" id="b4-g-vorname" placeholder=" ">
+              <label for="b4-g-vorname">Vorname</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="b4-g-nachname" placeholder=" ">
+              <label for="b4-g-nachname">Nachname</label>
+            </div>
+          </div>
+          <div class="form-field">
+            <input type="email" id="b4-g-email" placeholder=" ">
+            <label for="b4-g-email">Email</label>
+          </div>
+          <div class="form-field">
+            <textarea id="b4-g-msg" placeholder=" "></textarea>
+            <label for="b4-g-msg">Nachricht</label>
+          </div>
+          <div class="form-upload">
+            <input type="file" multiple>
+            <div class="form-upload__icon"><span class="material-icons">cloud_upload</span></div>
+            <div class="form-upload__text"><strong>Datei wählen</strong> oder hierher ziehen</div>
+            <div class="form-upload__hint">PDF, JPG, PNG — max. 10 MB</div>
+          </div>
+          <label class="form-check">
+            <input type="checkbox">
+            <span>Ich akzeptiere die Datenschutzerklärung</span>
+          </label>
+          <a class="btn --primary">Absenden</a>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--on-green</code> setzt <code>--bg</code> und passt Label-/Input-Hintergründe an — Floating-Label-Animation bleibt sauber.</p>
+
+      <h3 class="sg-h3 --top"><code>.section-label.--sub</code> — Checkout</h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide flow">
+          <div>
+            <h3 class="section-label --sub">Persönliche Daten</h3>
+            <div class="form-grid">
+              <div class="form-field"><input type="text" id="b4-c-vorname" placeholder=" "><label for="b4-c-vorname">Vorname</label></div>
+              <div class="form-field"><input type="text" id="b4-c-nachname" placeholder=" "><label for="b4-c-nachname">Nachname</label></div>
+              <div class="form-field --full"><input type="email" id="b4-c-email" placeholder=" "><label for="b4-c-email">E-Mail-Adresse</label></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="section-label --sub">Versandart</h3>
+            <div class="tile-grid sg-gap-half">
+              <button class="choice-box --block --active" type="button" onclick="selectVariant(this)">
+                <span class="material-icons">local_shipping</span>
+                <span><strong>Standardversand</strong> — DHL · 3–5 Werktage</span>
+              </button>
+              <button class="choice-box --block" type="button" onclick="selectVariant(this)">
+                <span class="material-icons">storefront</span>
+                <span><strong>Abholung vor Ort</strong> — In unserer Filiale</span>
+              </button>
+            </div>
+          </div>
+          <a class="btn --primary --full">Weiter zur Zahlung</a>
+        </div>
+      </div>
+      <p class="sg-caption">Formular mit Zwischenrubriken · <code>.form-field.--full</code> über beide Grid-Spalten · Choice-Boxen für Versand.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B5">

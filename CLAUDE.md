@@ -221,6 +221,8 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 ```
 `placeholder=" "` (Leerzeichen) triggert `:not(:placeholder-shown)`. Modifier: `.--on-green`, `.--error`, `.--success`.
 
+**Formular-Hintergrund (Pflicht):** Formulare dürfen **nur** auf **Weiß** (`--bg`) oder **Grün** (`--green-light`) platziert werden. Auf grünen Flächen Container-Klasse `.--on-green` setzen — sie überschreibt `--field-bg` / `--field-bg-active` automatisch. **Keine weiteren Flächenfarben** (Honey, Grau, Cards …): Floating-Label-Hintergrund muss exakt zum Container passen; andere Farben brechen die Feldlinie optisch und technisch. Styleguide-Demos: `.sg-demo.--white` (Standard) bzw. `.sg-demo.--green` (`.--on-green`-Demo).
+
 ### Tile / Produktkachel
 - `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1, z. B. Tierarzt-Empfehlung Collection) · `--cols-4` (4→3→2→2, dichte Shop-Listen, Mobile 2-spaltig)
 - **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
@@ -272,19 +274,19 @@ Kein `<hr>`, kein `.login-divider` (nur für „oder"-Trennungen).
 
 **Zustände:** `.form-field.--error` → roter Border + `.form-field__error`; `.form-field.--success` → grüner Border + `.form-field__success`.
 
-**Hintergrundfarbe:** Inputs erben den Kontext-Hintergrund über zwei Tokens:
+**Hintergrundfarbe — nur Weiß oder Grün:**
+| Kontext | Hintergrund | Setup |
+|---|---|---|
+| Standard | `var(--bg)` (weiß) | nichts tun — Defaults passen |
+| Grüne Fläche | `var(--green-light)` | `.--on-green` am Formular-Container |
+
+Zwei Tokens steuern den Floating-Label-Hintergrund (nur relevant auf Grün; auf Weiß = Defaults):
 | Token | Default | Beschreibung |
 |---|---|---|
 | `--field-bg` | `var(--green-light)` | Hintergrund im leeren/unfokussierten Zustand |
 | `--field-bg-active` | `var(--bg)` | Hintergrund im fokussierten / ausgefüllten Zustand |
 
-Faustregel: **Inputs brauchen immer die Farbe des Hintergrunds, auf dem sie platziert sind.** Bei farbigem Kontext (z.B. Honey-Section) beide Tokens im Elternelement überschreiben:
-```css
-.mein-kontext {
-  --field-bg: var(--color-honey);
-  --field-bg-active: var(--color-honey);
-}
-```
+**Nicht zulässig:** Formularbereiche auf Honey, Grau, Card-Hintergründen o. Ä. — stattdessen weiße oder grüne Sektion wählen.
 
 ---
 
@@ -301,7 +303,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
-| B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` |
+| B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
 | B.5 | Product Thumb | `.product-thumb` | — |
 | B.6 | Breadcrumb | `.breadcrumb` | `.--current` (letzter Eintrag) |
 

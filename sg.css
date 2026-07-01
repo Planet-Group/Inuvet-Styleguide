@@ -284,6 +284,8 @@
   .color-card__hex { font-size: var(--text-xs); color: var(--fg-muted); display: block; }
   .color-card__role { font-size: var(--text-xs); color: var(--fg-muted); display: block; margin-top: 0.2rem; }
   .icon-grid { display: flex; flex-wrap: wrap; gap: var(--module); }
+  .icon-gallery { display: flex; flex-direction: column; gap: var(--module); }
+  .icon-gallery__group { display: flex; flex-direction: column; gap: var(--half-module); }
   .sg-demo-stack { display: flex; flex-direction: column; gap: var(--module); }
   .sg-demo-stack.--inset { margin: 0 calc(-1 * var(--margin)); }
   .glyph.--xs { font-size: var(--text-xs); }
@@ -455,6 +457,10 @@
   background: var(--accent-bg);
   padding: var(--module);
 }
+/* Einzelnes Feld/Grid in Demo: produktives margin-bottom entfällt — sonst optisch mehr Luft unten */
+.sg-demo .form-field:only-child,
+.sg-demo .form-grid:only-child,
+.sg-demo .form-upload:only-child { margin-bottom: 0; }
 .sg-demo.--white {
   background: var(--bg);
   outline: 1px solid var(--border-light);
