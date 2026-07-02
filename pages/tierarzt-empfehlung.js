@@ -1656,7 +1656,7 @@ function renderHome() {
       <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Ich habe keine Produktfreigabe. Was tun?</h2>
-        <div class="section-type__bottom">
+        <div class="section-type__bottom flow">
           <p class="section-type__body">Kein Problem — stöbere einfach durch unser Sortiment und wähle ein Produkt aus, das zu deinem Tier passt. Mit einem Klick sendest du eine Anfrage an eine Tierarztpraxis deiner Wahl. Dein Tierarzt prüft die Anfrage und gibt das Produkt persönlich für dich frei. So bestellst du nur das, was wirklich Sinn macht — direkt nach Hause.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="setPage('collection')">Produkte finden</button>
@@ -1678,7 +1678,7 @@ function renderHome() {
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Nur über deine Tierarztpraxis</h2>
-        <div class="section-type__bottom">
+        <div class="section-type__bottom flow">
           <p class="section-type__body">Weil deine Tierärzt*in dein Tier besser kennt als Google und weiß, welches Produkt für dein Tier am besten ist. Du interessierst dich für ein Produkt von Inuvet? Dann kannst du direkt hier eine Freigabeanfrage senden.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="setPage('collection')">Produkte finden und anfragen</button>
@@ -1698,7 +1698,7 @@ function renderAbout() {
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Pflanzlich. Hoch dosiert. Nur über die Praxis.</h2>
-        <div class="section-type__bottom">
+        <div class="section-type__bottom flow">
           <p class="section-type__body">Du möchtest dein Tier pflanzlich unterstützen? Dann bist du hier genau richtig. Produkte von Inuvet sind pflanzlich, hoch dosiert und seit mehr als 15 Jahren in der Tiermedizin im Einsatz — stetig weiterentwickelt, nah an der Forschung.</p>
           <button class="btn --ghost" onclick="document.getElementById('aboutPraxis').scrollIntoView({behavior:'smooth'})">Warum nur in der Praxis?</button>
         </div>
@@ -1740,7 +1740,7 @@ function renderAbout() {
       <div class="section-type__image" style="background-image:url('../assets/images/Partner_Mia_01.png');"></div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Warum gibt es Inuvet-Produkte nur über deine Tierarztpraxis?</h2>
-        <div class="section-type__bottom">
+        <div class="section-type__bottom flow">
           <p class="section-type__body">Weil deine Tierärztin oder dein Tierarzt dein Tier besser kennt als Google — und weiß, wann welches Produkt Sinn macht und wann nicht. Damit du nicht für jede Nachbestellung in die Praxis musst, gibt es die Tierarzt-Empfehlung. Damit bestellst du das empfohlene Produkt direkt nach Hause — solange deine Praxis es dir empfohlen hat.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openLoginModal('login','with-release')">Freigabe jetzt einlösen</button>
@@ -1767,7 +1767,7 @@ function renderCollection() {
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Produkte finden und von deinem Tierarzt freigeben lassen</h2>
-        <div class="section-type__bottom">
+        <div class="section-type__bottom flow">
           <p class="section-type__body">Inuvet Produkte sind pflanzlich und hoch dosiert — in enger Zusammenarbeit mit Tierärzten. Hast du bereits eine Empfehlung? Dann kannst du sie hier direkt einlösen. Noch keine? Kein Problem — stöbere durch unser Sortiment und frage ein Produkt bei deiner Praxis an.</p>
           <div class="btn-row">
             <button class="btn --primary" onclick="openFinder()">Produktfinder starten</button>

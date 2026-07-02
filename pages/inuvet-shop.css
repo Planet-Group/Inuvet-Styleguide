@@ -1,15 +1,5 @@
 /* inuvet-Shop.css — seitenspezifische Overrides */
 
-/* Footer-Layout wie Tierarzt-Empfehlung.html */
-#shopFooter .footer-main { grid-template-columns: repeat(4, 1fr); }
-.footer-col.--newsletter { grid-column: span 2; }
-.footer-nl-form {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--base) * 0.5);
-  margin-top: var(--half-module);
-}
-
 /* Praxis-Vorteile — Lottie braucht aspect-ratio (width:100% allein → 0px Höhe) */
 #shopPraxisVorteile .tile__animation {
   width: 100%;

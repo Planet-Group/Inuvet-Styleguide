@@ -474,6 +474,13 @@
 .sg-demo.--center { display: flex; align-items: center; justify-content: center; }
 .sg-demo.--stack { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
 .sg-demo.--flush { padding: 0; overflow: visible; }
+.sg-demo .site-footer { margin-top: 0; }
+.sg-demo.--flush .section-type.--v1,
+.sg-demo.--flush .section-type.--v2 {
+  max-width: none;
+  padding-left: var(--margin);
+  padding-right: var(--margin);
+}
 
 /* ─── Code-Blöcke ─── */
 .sg-code {

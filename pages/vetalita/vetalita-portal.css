@@ -696,13 +696,12 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 /* ── Shop Modal (registration success) ───────────────────── */
 .shop-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: var(--z-overlay); display: flex; align-items: center; justify-content: center; padding: var(--module); opacity: 0; visibility: hidden; transition: opacity var(--anim-base, 200ms), visibility var(--anim-base, 200ms); }
 .shop-modal-overlay.--open { opacity: 1; visibility: visible; }
-.shop-modal { background: var(--bg); width: min(24rem, 100%); padding: var(--module); display: flex; flex-direction: column; gap: var(--half-module); transform: translateY(1rem); opacity: 0; transition: transform var(--anim-base, 200ms), opacity var(--anim-base, 200ms); }
+.shop-modal { background: var(--bg); width: min(24rem, 100%); padding: var(--module); display: flex; flex-direction: column; align-items: center; gap: var(--half-module); text-align: center; transform: translateY(1rem); opacity: 0; transition: transform var(--anim-base, 200ms), opacity var(--anim-base, 200ms); }
 .shop-modal-overlay.--open .shop-modal { transform: translateY(0); opacity: 1; }
-.shop-modal__icon { text-align: center; }
 .shop-modal__icon .material-icons { font-size: 3rem; color: var(--green); }
-.shop-modal__title { font-size: var(--text-m); font-weight: 700; text-align: center; margin: 0; }
-.shop-modal__body { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); }
-.shop-modal__actions { display: flex; flex-direction: column; gap: .4rem; padding-top: .4rem; }
+.shop-modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
+.shop-modal__body { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); margin: 0; max-width: 28rem; }
+.shop-modal__actions { display: flex; flex-direction: column; align-items: center; gap: calc(var(--half-module) / 2); width: 100%; margin-top: calc(var(--base) * 0.4); }
 
 /* ── Registration Badge ───────────────────────────────────── */
 .reg-badge {

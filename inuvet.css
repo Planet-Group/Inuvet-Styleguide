@@ -591,14 +591,12 @@
   .section-type__animation { align-self: center; }
   .section-type__animation lottie-player { width: 100%; display: block; }
 
-  /* Wenn Animation statt Bild: Content vertikal zentriert, volle Spaltenbreite */
+  /* Wenn Animation statt Bild: Content vertikal zentriert, Zeilenlänge begrenzt.
+     Abstände nur via .flow (vgl. A.7) — kein flex-gap, sonst doppelt zu Headline→Body. */
   .section-type:has(.section-type__animation) .section-type__content {
     justify-content: center;
-    gap: var(--half-module);
-    margin-block: auto;  /* vertikal zentriert, kein horizontales Einrücken */
-  }
-  .section-type:has(.section-type__animation) .section-type__bottom {
-    margin-top: 0;
+    gap: 0;
+    margin-block: auto;
   }
 
   /* ─── Section Content ─── */
@@ -619,6 +617,9 @@
     max-width: 36rem;
     margin-inline: auto;
   }
+  .section-type.--v1:has(.section-type__animation) .section-type__content {
+    max-width: calc(var(--module) * 8);
+  }
   .section-type.--v1 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
@@ -634,7 +635,6 @@
   .section-type.--v1 .section-type__body {
     color: var(--fg);
     line-height: var(--lh-base);
-    margin-bottom: calc(var(--half-module) * 1.5);
   }
 
   /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding 3rem, Inhalt vertikal zentriert */
@@ -663,7 +663,6 @@
   .section-type.--v2 .section-type__body {
     color: var(--fg);
     line-height: var(--lh-base);
-    margin-bottom: calc(var(--half-module) * 1.5);
   }
 
   /* ─── Hero-Animations ─── */
@@ -727,9 +726,8 @@
   .section-type.--v3 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v3 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v3 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
-  /* Headline → Body: Override für .flow in section-type__content.
-     margin-top direkt gesetzt (nicht nur --flow-space) damit :has(.section-type__animation)
-     .section-type__bottom { margin-top: 0 } (Spez. 0,3,0) nicht gewinnt. */
+  /* Headline → .section-type__bottom: .flow-Override (A.7 h1/h2 + *).
+     margin-top direkt gesetzt, damit --flow-space zuverlässig greift. */
   .section-type.--v1 .section-type__content > .section-type__headline + *,
   .section-type.--v2 .section-type__content > .section-type__headline + *,
   .section-type.--v3 .section-type__content > .section-type__headline + * {
@@ -1908,8 +1906,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      Basiert auf dem Every-Layout-Flow-Pattern (Andy Bell / heydonworks.com).
      Setzt margin-top kontextsensitiv via --flow-space CSS Custom Property.
 
-     Einsatz:      Info-Pages, section-type__content, Formular-Container
-                   mit Fließtext + Feldern (vgl. B.4).
+     Einsatz:      Info-Pages, section-type__content, section-type__bottom,
+                   Formular-Container mit Fließtext + Feldern (vgl. B.4).
      Nicht für:    .rte-Blöcke (eigene Regelung) + Komponenten-Interna.
      Override:     --flow-space direkt am Element setzen für Sonderfälle.
      ──────────────────────────────────────────────────────────────────────── */
@@ -2040,6 +2038,18 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     gap: var(--gutter);
   }
   .footer-col h4 { margin-bottom: var(--half-module); }
+  .footer-col h3 {
+    font-size: var(--text-m);
+    font-weight: 700;
+    line-height: var(--lh-h3);
+    margin: 0 0 var(--half-module);
+  }
+  .footer-nl-form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) * 0.5);
+    margin-top: var(--half-module);
+  }
   .footer-col p,
   .footer-col li {
     font-size: var(--text-base);
@@ -2054,6 +2064,32 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .footer-col li a { color: var(--fg-muted); }
   .footer-col li a:hover { color: var(--fg); }
+
+  .footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--base) * 0.5);
+  }
+  .footer-social__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-box-sm);
+    height: var(--icon-box-sm);
+    color: var(--fg);
+    flex-shrink: 0;
+    transition: color var(--anim-fast);
+  }
+  .footer-social__icon {
+    width: calc(var(--base) * 1.125);
+    height: calc(var(--base) * 1.125);
+    display: block;
+    fill: currentColor;
+    transition: transform var(--anim-fast);
+  }
+  .footer-social__link:hover .footer-social__icon {
+    transform: scale(1.15);
+  }
 
   .footer-bar {
     max-width: var(--container-max);
@@ -2594,15 +2630,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     .section-type.--v1 .section-type__content,
     .section-type.--v2 .section-type__content {
       justify-content: flex-start;
-      gap: var(--half-module);
+      gap: 0;
     }
     .section-type:has(.section-type__animation) .section-type__content {
       max-width: none;
       margin: 0;
-    }
-    .section-type.--v1 .section-type__bottom,
-    .section-type.--v2 .section-type__bottom {
-      margin-top: 0;
     }
     .section-type.--v3 {
       width: 100%;
@@ -2704,13 +2736,12 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* ─── Shop-Modal (Bestätigungs-/Feedback-Dialog) ─── */
   .shop-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: var(--module); opacity: 0; visibility: hidden; transition: opacity var(--anim-base), visibility var(--anim-base); }
   .shop-modal-overlay.--open { opacity: 1; visibility: visible; }
-  .shop-modal { background: var(--bg); width: min(24rem, 100%); padding: var(--module); display: flex; flex-direction: column; gap: var(--half-module); transform: translateY(1rem); opacity: 0; transition: transform var(--anim-base), opacity var(--anim-base); }
+  .shop-modal { background: var(--bg); width: min(24rem, 100%); padding: var(--module); display: flex; flex-direction: column; align-items: center; gap: var(--half-module); text-align: center; transform: translateY(1rem); opacity: 0; transition: transform var(--anim-base), opacity var(--anim-base); }
   .shop-modal-overlay.--open .shop-modal { transform: translateY(0); opacity: 1; }
-  .shop-modal__icon { text-align: center; }
   .shop-modal__icon .material-icons { font-size: 3rem; color: var(--green); }
-  .shop-modal__title { font-size: var(--text-m); font-weight: 700; text-align: center; margin: 0; }
-  .shop-modal__body  { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); }
-  .shop-modal__actions { display: flex; flex-direction: column; gap: calc(var(--base) * 0.4); padding-top: calc(var(--base) * 0.4); }
+  .shop-modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
+  .shop-modal__body  { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); margin: 0; max-width: 28rem; }
+  .shop-modal__actions { display: flex; flex-direction: column; align-items: center; gap: calc(var(--half-module) / 2); width: 100%; margin-top: calc(var(--base) * 0.4); }
 
   /* ─── Login-Modal (zweispaltig: Brand-Panel + Formular-Panel) ─── */
   .login-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: var(--module); opacity: 0; visibility: hidden; transition: opacity var(--anim-base), visibility var(--anim-base); }
