@@ -48,7 +48,7 @@
 
 **Naturalrabatt:** Berechnung immer pro **Einzelprodukt-Position** (Darreichungsform + Größe = Order Line Item). Kondition A: Bestellwert = `Menge × Einzelpreis` dieser Position — nicht über eine Produktfamilie summiert. Details in `pages/Bundle-Info.html`.
 
-In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom` (Demo 5 in C.2).
+In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom`. **Naturalrabatt Gratis-Badge:** Warenkorb auf dem Thumb (`product-thumb-wrap` + `floating-meta`), Bundle Builder im Counter (`cart-item__counter`) — nie beides. **`.cart-item__tier-hint`** pro berechtigter Zeile (Text via `formatHint()`), nur auf weißem Hintergrund (`--bg`).
 
 Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).
 
@@ -232,9 +232,11 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 | Klasse | Verwendung |
 |---|---|
 | `.tile.--product` | Produkt-Übersicht im Grid |
-| `.cart-item` | Reihe im Cart-Drawer |
-| `.summary-card` | Highlighted Action Card (grüner BG) |
-| `.rec-card` | Compact Product Tile (horizontaler Scroll) |
+| `.cart-item` | Produktzeile (Warenkorb, Suche, Checkout, Bundle) |
+| `.summary-card` | Highlighted Action Card auf grünem BG (Bundle) |
+| `.approval-product-card` | Freigabe-Card mit Notizfeld (Tierarzt-Empfehlung) · page-spezifisch |
+
+Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben in ihrer Seiten-Doku — kein generisches `.card`-Atom.
 
 ### Section-Label Modifier
 - `.section-label` — Top-Level (h2), `--border`
@@ -272,7 +274,7 @@ Standard: Announcement Bar **und** Nav bleiben sticky. Optional via Klasse `--an
 ```
 Kein `<hr>`, kein `.login-divider` (nur für „oder"-Trennungen).
 
-**Zustände:** `.form-field.--error` → roter Border + `.form-field__error`; `.form-field.--success` → grüner Border + `.form-field__success`.
+**Zustände:** `.form-field.--error` → roter Border + `.form-field__error` · Feld und Label-Hintergrund auf `--field-bg-active` (weiß), damit Floating Label zur Feldlinie passt. `.form-field.--success` → grüner Border + `.form-field__success`.
 
 **Hintergrundfarbe — nur Weiß oder Grün:**
 | Kontext | Hintergrund | Setup |
@@ -304,16 +306,13 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
 | B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
-| B.5 | Product Thumb | `.product-thumb` | — |
-| B.6 | Breadcrumb | `.breadcrumb` | `.--current` (letzter Eintrag) |
+| B.5 | Stand-Alone-Formular | `.form-page` | — |
 
 #### C — Moleküle
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
 | C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` |
-| C.2 | Cart Item | `.cart-item` | — |
-| C.3 | Card-Pattern-Übersicht | (Referenztabelle, keine eigene Klasse) | — |
-| C.4 | Stand-Alone-Formular | `.form-page` | — |
+| C.2 | Cart Item | `.cart-item` | `.product-thumb` / `.product-thumb-wrap` · `.cart-item__variant` · `.cart-item__counter` · `.cart-item__tier-hint`
 | C.5 | Tabs & Akkordeon | `.tabs .tab-panel .accordion` | — |
 | C.6 | Pagination | `.pagination` | `.--current` |
 | C.7 | Notice / Infobox | `.notice` | — |
@@ -366,9 +365,9 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
-| `pages/Formular-Reklamation.html` | `formulare.css` | `formular-reklamation.js` | Stand-Alone-Formular |
-| `pages/Formular-Nebenwirkungen-TB.html` | `formulare.css` | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
-| `pages/Formular-Nebenwirkungen-TA.html` | `formulare.css` | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
+| `pages/Formular-Reklamation.html` | — | `formular-reklamation.js` | Stand-Alone-Formular |
+| `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
+| `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
 | `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
 | `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provisions-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |

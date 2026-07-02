@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="inuvet.css?v=11">
-<link rel="stylesheet" href="pages/formulare.css">
 <link rel="stylesheet" href="sg.css?v=3">
 <link rel="stylesheet" href="temp.css?v=3">
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -1708,7 +1707,7 @@
       </div>
       <div class="rule">
         <h4>Wann sinnvoll</h4>
-        <p>Bei mehrstufiger Hierarchie (Shop → Tierart → Symptom → Produkt) oder tiefen Verschachtelungen, in denen der Nutzer „verloren" gehen kann. Shopify zwingt nicht zu Breadcrumbs — sie sind Theme-Entscheidung.</p>
+        <p>Bei mehrstufiger Hierarchie (Shop → Tierart → Symptom → Produkt) oder tiefen Verschachtelungen, in denen der Nutzer „verloren" gehen kann.</p>
       </div>
     </div>
 
@@ -2409,8 +2408,7 @@
     <div class="demo-label">Aufklappbar (mit Icon)</div>
     <details class="notice">
       <summary>
-        <span class="material-icons notice__icon">info</span>
-        <span class="notice__title">So funktioniert die Empfehlung — und dein persönlicher Kontakt</span>
+        <span class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung — und dein persönlicher Kontakt</span>
         <span class="material-icons notice__chevron">expand_more</span>
       </summary>
       <div class="notice__body">
@@ -2532,7 +2530,7 @@
           <h2 class="modal__title">Willkommen im Rudel!</h2>
           <button class="btn --icon" onclick="closeModal('demoModal')" aria-label="Schließen"><span class="material-icons">close</span></button>
         </div>
-        <div class="modal__body">
+        <div class="modal__body flow">
           <p class="sg-p">Abonniere unseren Newsletter und erhalte 10% Rabatt auf deine erste Bestellung sowie wertvolle Tipps zur Tiergesundheit.</p>
           <form class="actionable-input" onsubmit="return false;">
             <div class="form-field"><input type="email" id="modal-email" placeholder=" "><label for="modal-email">E-Mail-Adresse</label></div>
@@ -3974,7 +3972,7 @@
         <div class="pdp__main-image">
           <img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt">
           <div class="pdp__caption --hidden" aria-live="polite"></div>
-          <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
+          <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
         </div>
         <div class="pdp__thumbs">
           <div class="pdp__thumb --active"
@@ -4913,9 +4911,14 @@
   </div>
   <div class="cart-drawer__items">
     <div class="cart-item">
-      <div class="product-thumb">
-        <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
-        <img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+      <div class="product-thumb-wrap">
+        <div class="product-thumb">
+          <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
+          <img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+        </div>
+        <div class="floating-meta">
+          <span class="badge --free">+ 2</span>
+        </div>
       </div>
       <div class="cart-item__info">
         <div class="cart-item__top">
@@ -4928,13 +4931,10 @@
           </button>
         </div>
         <div class="cart-item__bottom">
-          <div class="cart-item__counter">
-            <div class="qty-selector --sm">
-              <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
-              <input class="qty-selector__input" type="number" value="8" min="1">
-              <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
-            </div>
-            <span class="badge --free">+ 2</span>
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="8" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
           </div>
           <span class="cart-item__qty-text">319,20 €</span>
         </div>

@@ -229,7 +229,7 @@ const renderBundle = () => {
           </div>
         </div>
       </div>
-      ${tierHint ? `<span class="bundle-item__tier-hint" aria-hidden="true">${tierHint}</span>` : ''}`;
+      ${tierHint ? `<span class="cart-item__tier-hint" aria-hidden="true">${tierHint}</span>` : ''}`;
     list.appendChild(card);
   });
 

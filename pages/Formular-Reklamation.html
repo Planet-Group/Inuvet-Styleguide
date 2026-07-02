@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
-  <link rel="stylesheet" href="formulare.css">
 </head>
 <body>
 
@@ -30,7 +29,7 @@
     <!-- Title -->
     <h1 class="form-page__title">Reklamationsformular</h1>
 
-    <form id="reklamationForm" novalidate>
+    <form id="reklamationForm" class="flow" novalidate>
 
       <!-- ── 1. Kontaktdaten ── -->
       <div class="form-field">
@@ -62,7 +61,7 @@
       <!-- ── 2. Liefer-/Fehlerdetails ── -->
       <h3 class="section-label --sub --in-view" data-animate="">Liefer- / Fehlerdetails</h3>
 
-      <div class="rk-check-group">
+      <div class="form-check-group">
         <label class="form-check">
           <input type="checkbox" name="fehler" value="falschlieferung">
           <span>Falschlieferung</span>
@@ -142,12 +141,11 @@
 
     </form>
 
-    <!-- Datenschutz -->
-    <p class="form-page__privacy">
-      Für Informationen über unsere Datenschutzpraktiken besuche bitte <a href="https://www.inuvet.com/datenschutz" target="_blank" rel="noopener">unsere Website</a>.
-    </p>
-
   </div><!-- /.form-page__card -->
+
+  <footer class="form-page__footer">
+    <p><a href="https://www.inuvet.com/impressum" target="_blank" rel="noopener">Impressum</a> · <a href="https://www.inuvet.com/datenschutz" target="_blank" rel="noopener">Datenschutz</a></p>
+  </footer>
 
 </div><!-- /.form-page -->
 

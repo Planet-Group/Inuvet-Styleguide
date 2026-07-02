@@ -44,6 +44,7 @@
 .portal-start__option > p { color: var(--fg-muted); line-height: var(--lh-base); }
 .portal-start__option > .btn { margin-top: 0; }
 .portal-start__option .tabs { margin-bottom: var(--half-module); }
+.portal-start__option .tab-nav .tab-btn { flex: 1; text-align: left; }
 .portal-start__option form {
   display: flex;
   flex-direction: column;

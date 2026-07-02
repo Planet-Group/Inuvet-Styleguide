@@ -93,9 +93,10 @@
         <h3>Direkt registrieren &amp; 10&nbsp;€ kassieren</h3>
 
         <div class="tabs">
-          <button class="tab-btn --active" type="button" onclick="switchTab(this, 'tab-reg')">Registrieren</button>
-          <button class="tab-btn" type="button" onclick="switchTab(this, 'tab-login')">Anmelden</button>
-        </div>
+          <div class="tab-nav" role="tablist">
+            <button class="tab-btn --active" type="button" onclick="switchTab(this, 'tab-reg')">Registrieren</button>
+            <button class="tab-btn" type="button" onclick="switchTab(this, 'tab-login')">Anmelden</button>
+          </div>
 
         <div class="tab-panel --active" id="tab-reg">
           <form onsubmit="submitRegister(event)" novalidate>
@@ -128,6 +129,8 @@
             <button class="btn --primary --full" type="submit">Einloggen</button>
           </form>
         </div>
+
+        </div><!-- /.tabs -->
 
       </div>
 

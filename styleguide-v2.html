@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=23">
-  <link rel="stylesheet" href="sg.css?v=39">
+  <link rel="stylesheet" href="inuvet.css?v=37">
+  <link rel="stylesheet" href="sg.css?v=42">
   <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
@@ -41,16 +41,13 @@
         <a href="#B2">B.2 Badges &amp; Labels</a>
         <a href="#B3">B.3 Icons &amp; icon-box</a>
         <a href="#B4">B.4 Form-Felder</a>
-        <a href="#B5">B.5 Product Thumb</a>
-        <a href="#B6">B.6 Breadcrumb</a>
+        <a href="#B5">B.5 Stand-Alone-Formular</a>
       </div>
 
       <div class="sg-nav-group">
         <span class="sg-nav-group__title">C — Moleküle</span>
         <a href="#C1">C.1 Produktkarte</a>
         <a href="#C2">C.2 Cart Item</a>
-        <a href="#C3">C.3 Card-Pattern-Übersicht</a>
-        <a href="#C4">C.4 Stand-Alone-Formular</a>
         <a href="#C5">C.5 Tabs &amp; Akkordeon</a>
         <a href="#C6">C.6 Pagination</a>
         <a href="#C7">C.7 Notice / Infobox</a>
@@ -222,7 +219,7 @@
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> — für <code>scroll-padding-top</code></td></tr>
         <tr><th><code>--container-pt</code></th><td><code>var(--module)</code> — Atemraum unter dem sticky Header zum ersten Content-Element</td></tr>
         <tr><th><code>--container-max</code></th><td><code>1536px</code> — Standard-Lesebreite für <code>.container</code></td></tr>
-        <tr><th><code>--form-page-max</code></th><td><code>640px</code> — Card-Breite für <code>.form-page__card</code> (<a href="#A8">A.8</a>, <a href="#C4">C.4</a>)</td></tr>
+        <tr><th><code>--form-page-max</code></th><td><code>640px</code> — Card-Breite für <code>.form-page__card</code> (<a href="#A8">A.8</a>, <a href="#B5">B.5</a>)</td></tr>
         <tr><th><code>--section-max-height</code></th><td><code>51rem</code> — Max-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--section-min-height</code></th><td><code>24rem</code> — Min-Höhe für Section Types mit Bild</td></tr>
         <tr><th><code>--icon-box-sm · --icon-box-md</code></th><td><code>calc(var(--base) * 2.5)</code> · <code>calc(var(--base) * 2.75)</code> — Icon-Box-Größen</td></tr>
@@ -233,7 +230,7 @@
       <table class="spec-table">
         <tr><th><code>.container</code></th><td><code>1536px</code> — voller Satzspiegel, für Listen, Übersichten, Marketing</td></tr>
         <tr><th><code>.container.--narrow</code></th><td><code>calc(var(--module) * 15)</code> ≈ 720px — Lese-Content, Detail-Seiten</td></tr>
-        <tr><th><code>.container.--sm</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Formulare <em>im Shop</em> (Nav/Footer). Stand-Alone-Formulare → <code>.form-page</code> (<a href="#C4">C.4</a>)</td></tr>
+        <tr><th><code>.container.--sm</code></th><td><code>calc(var(--module) * 10)</code> ≈ 480px — kompakte Formulare <em>im Shop</em> (Nav/Footer). Stand-Alone-Formulare → <code>.form-page</code> (<a href="#B5">B.5</a>)</td></tr>
         <tr><th><code>.container.--flush-top</code></th><td>Hebt <code>--container-pt</code> auf — für Pages direkt nach einer Hero-Section</td></tr>
       </table>
 
@@ -596,7 +593,7 @@
         <tr><th>Strukturell</th><td><code>1px solid var(--border)</code> · <code>#adadad</code> — sichtbare Trennung: Navigation, Karten, Tabellen-Header, Footer</td></tr>
         <tr><th>Dezent</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — feine Gliederung: Rows, Rules, Formularfelder im Ruhezustand</td></tr>
         <tr><th>Fokus</th><td><code>var(--border-focus)</code> = <code>var(--fg)</code> · <code>#2E2E2E</code> — Inputs &amp; Selects bei Fokus (subtil → prominent)</td></tr>
-        <tr><th>Aktiv</th><td><code>var(--border-active)</code> = <code>var(--fg-hover)</code> · <code>#333</code> — aktive Tabs, aktuelle Pagination, ausgewählte <code>choice-box</code></td></tr>
+        <tr><th>Aktiv</th><td><code>var(--border-active)</code> = <code>var(--fg-hover)</code> · <code>#333</code> — Pagination, ausgewählte <code>choice-box</code> · Tabs: <code>2px solid var(--fg)</code> (<a href="#C5">C.5</a>)</td></tr>
         <tr><th>Dashed</th><td><code>1px dashed</code> — Upload-Zone &amp; Summenzeilen (<code>--border-light</code>), RTE-Tabellen (<code>--border</code>)</td></tr>
       </table>
 
@@ -665,6 +662,8 @@
         <tr><th><code>.section-label + *</code></th><td><code>var(--module)</code> — Abstand nach Sektions-Titel</td></tr>
         <tr><th><code>.section-label.--sub + *</code></th><td><code>var(--half-module)</code> — Abstand nach Formular-Gruppentitel</td></tr>
         <tr><th><code>* + .btn</code> / <code>* + .btn-row</code></th><td><code>calc(var(--half-module) * 1.5)</code> · 1.125–2.25rem — Body → CTA</td></tr>
+        <tr><th><code>* + .form-field</code> / <code>.form-grid</code> / <code>.actionable-input</code></th><td><code>var(--half-module)</code> — Fließtext → Formular (<a href="#B4">B.4</a>)</td></tr>
+        <tr><th><code>.form-intro + .section-label.--sub</code></th><td><code>var(--module)</code> — Pflichtfeld-Hinweis → erster Abschnitt (<a href="#B4">B.4</a>)</td></tr>
         <tr><th><code>* + .spec-table</code></th><td><code>var(--module)</code> — Styleguide V2 (<code>sg.css</code>): Zäsur vor Tabellenblöcken</td></tr>
         <tr><th><code>.sg-h3 + .spec-table</code></th><td><code>var(--half-module)</code> — Styleguide V2 (<code>sg.css</code>): Tabelle eng an Gruppen-Überschrift</td></tr>
       </table>
@@ -700,7 +699,7 @@
       <h2 class="section-label">A.8 — Container</h2>
       <div class="col-grid" data-cols="2">
         <p><strong>Shop:</strong> <code>.container</code> — Inhalt unter Navigation/Hero, Satzspiegel + Padding. Token-Tabelle → <a href="#A3">A.3</a>.</p>
-        <p><strong>Stand-Alone:</strong> <code>.form-page</code> — eigenes Formular ohne Shop-Chrome (Reklamation). Details → <a href="#C4">C.4</a>. Nicht mit <code>.container.--sm</code> verwechseln.</p>
+        <p><strong>Stand-Alone:</strong> <code>.form-page</code> — eigenes Formular ohne Shop-Chrome (Reklamation). Details → <a href="#B5">B.5</a>. Nicht mit <code>.container.--sm</code> verwechseln.</p>
       </div>
       <p class="sg-p">Äußere Shell — darin liegt das Spaltenraster (<a href="#A9">A.9</a>).</p>
 
@@ -742,7 +741,7 @@
         <tr><th>Pattern</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code></td></tr>
         <tr><th>Breite</th><td>Card <code>max-width: var(--form-page-max)</code> (640px) — breiter als <code>.container.--sm</code> (480px)</td></tr>
         <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA</td></tr>
-        <tr><th>CSS</th><td><code>pages/formulare.css</code> — vollständige Spec in <a href="#C4">C.4</a></td></tr>
+        <tr><th>CSS</th><td><code>inuvet.css</code> — Shell + Felder · Spec <a href="#B5">B.5</a></td></tr>
       </table>
       <div class="form-page-demo">
         <div class="form-page-demo-label"><code>.form-page</code> → <code>.form-page__card</code> (<code>--form-page-max</code>)</div>
@@ -864,7 +863,7 @@
       </table>
 
       <h3 class="sg-h3 --top"><code>.sg-demo</code></h3>
-      <p class="sg-p">Standard: <code>.sg-demo</code> ohne Modifier — grau (<code>--accent-bg</code>). <code>.--white</code> und <code>.--green*</code> bei Bedarf (Kontrast, Marken-Kontext). <strong>Formulare (B.4):</strong> immer <code>.sg-demo.--white</code> oder <code>.sg-demo.--green</code> — Formulare dürfen nur auf Weiß oder Grün gezeigt werden.</p>
+      <p class="sg-p">Standard: <code>.sg-demo</code> ohne Modifier — grau (<code>--accent-bg</code>). <code>.--white</code> und <code>.--green*</code> bei Bedarf. <code>.--flush</code> = kein Padding (Header/Footer edge-to-edge). <strong>Formulare (B.4):</strong> immer <code>.sg-demo.--white</code> oder <code>.sg-demo.--green</code>.</p>
       <div class="col-grid --spaced" data-cols="2">
         <figure>
           <div class="sg-demo --center" style="min-height: calc(var(--module) * 2);">Demo</div>
@@ -1249,7 +1248,7 @@
       <h2 class="section-label">B.4 — Form-Felder</h2>
       <div class="col-grid" data-cols="2">
         <p>Floating-Label-Pattern: <code>placeholder=" "</code> triggert <code>:not(:placeholder-shown)</code>. Label-Hintergrund muss zum Container passen — deshalb gelten strikte Hintergrund-Regeln (siehe unten).</p>
-        <p><strong>Formulare nur auf Weiß oder Grün:</strong> <code>--bg</code> (Standard) oder <code>--green-light</code> mit <code>.--on-green</code> am Container. Keine weiteren Flächenfarben (Honey, Grau, Cards …). Stand-Alone → <a href="#C4">C.4</a> · <code>.form-page</code>.</p>
+        <p><strong>Formulare nur auf Weiß oder Grün:</strong> <code>--bg</code> (Standard) oder <code>--green-light</code> mit <code>.--on-green</code> am Container. Keine weiteren Flächenfarben (Honey, Grau, Cards …). Stand-Alone → <a href="#B5">B.5</a> · <code>.form-page</code>.</p>
       </div>
 
       <div class="rules">
@@ -1265,20 +1264,103 @@
           <h4>Formular-Hintergrund (Pflicht)</h4>
           <p>Formulare dürfen <strong>nur</strong> auf <strong>Weiß</strong> (<code>--bg</code>) oder <strong>Grün</strong> (<code>--green-light</code>) platziert werden. Auf Grün: Container-Klasse <code>.--on-green</code> setzt <code>--field-bg</code> / <code>--field-bg-active</code> automatisch. Andere Hintergrundfarben sind für Formularbereiche <strong>nicht</strong> zulässig — Floating Labels brechen sonst optisch und technisch.</p>
         </div>
+        <div class="rule">
+          <h4>Fließtext + Felder</h4>
+          <p>Einleitungstexte, Hinweise und Formularelemente gemeinsam in <code>.flow</code> kapseln — z.&nbsp;B. <code>&lt;form class="flow"&gt;</code>, <code>.modal__body.flow</code>. <code>.form-intro</code> inkl. <code>.form-required-note</code> als erstes Kind; Abstand zur ersten <code>.section-label.--sub</code> automatisch (<code>var(--module)</code>). Details → <a href="#A6">A.6</a>.</p>
+        </div>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.form-field</code></th><td>Wrapper · Floating Label · <code>input</code>, <code>textarea</code>, <code>select</code></td></tr>
-        <tr><th><code>.form-field.--error</code></th><td>Border + Label <code>--color-error</code> · Meldung via <code>.form-field__error</code></td></tr>
+        <tr><th><code>.form-field.--error</code></th><td>Border + Label <code>--color-error</code> · Feld-Hintergrund <code>--field-bg-active</code> (weiß) · Meldung via <code>.form-field__error</code></td></tr>
         <tr><th><code>.form-field.--success</code></th><td>Border + Label <code>--green</code> · Bestätigung via <code>.form-field__success</code></td></tr>
         <tr><th><code>.form-field.--sm</code></th><td>Statisches Label oben · <code>height: calc(var(--base) * 2)</code> — bündig mit <code>.btn.--sm</code></td></tr>
         <tr><th><code>.form-field.--full</code></th><td>In <code>.form-grid</code>: spannt beide Spalten (<code>grid-column: 1 / -1</code>)</td></tr>
         <tr><th><code>.form-grid</code></th><td>2-Spalten-Grid · Mobile: 1 Spalte · Felder ohne eigenen <code>margin-bottom</code></td></tr>
         <tr><th><code>.form-check</code></th><td>Native Checkbox/Radio · <code>accent-color: var(--fg)</code> · Label rechts</td></tr>
         <tr><th><code>.form-upload</code></th><td>Dashed Border · Drag-and-Drop · Dateiliste <code>.form-upload__files</code></td></tr>
+        <tr><th><code>.form-hint</code></th><td>Hilfetext · <code>var(--text-xs)</code> · <code>var(--fg-muted)</code> · eng unter Feld via <code>:has(+ .form-hint)</code></td></tr>
+        <tr><th><code>.form-intro</code></th><td>Einleitungstext · erstes Kind in <code>.flow</code> · Abschluss oft <code>.form-required-note</code></td></tr>
+        <tr><th><code>.form-required-note</code></th><td>Pflichtfeld-Legende · <code>var(--text-xs)</code> · Abstand zur ersten <code>.section-label.--sub</code>: <code>var(--module)</code></td></tr>
+        <tr><th><code>.form-check.--with-input</code></th><td>Radio/Checkbox + Inline-Text · <code>.form-check__inline-input</code> · siehe Demo</td></tr>
+        <tr><th><code>.form-group-label</code></th><td>Gruppen-Titel für Radio/Checkbox (kein Floating Label)</td></tr>
+        <tr><th><code>.form-check-group</code></th><td>Checkbox-Spalte · <code>.form-radio-grid</code> / <code>.form-radio-row</code> / <code>.form-radio-col</code> für Radio-Layouts</td></tr>
+        <tr><th><code>.form-captcha</code></th><td>reCAPTCHA-Platzhalter · Stand-Alone-Formulare</td></tr>
+        <tr><th><code>.form-page*</code></th><td>Stand-Alone-Shell · siehe <a href="#B5">B.5</a></td></tr>
         <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
+        <tr><th><code>.actionable-input</code></th><td>Input + Submit · mobil gestapelt · ab 768&nbsp;px nebeneinander · Inhalt in <code>.flow</code></td></tr>
+        <tr><th><code>.flow</code></th><td>Pflicht bei Fließtext + Feldern · <code>--flow-space</code> vor <code>.form-field</code>, <code>.form-grid</code>, <code>.actionable-input</code> etc. → <a href="#A6">A.6</a></td></tr>
         <tr><th>Hintergrund</th><td>Nur <code>--bg</code> (weiß) oder <code>--green-light</code> + <code>.--on-green</code> · Styleguide-Demos: <code>.sg-demo.--white</code> / <code>.sg-demo.--green</code></td></tr>
       </table>
+
+      <h3 class="sg-h3 --top"><code>.flow</code> — Fließtext + Formular</h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md flow">
+          <p>Abonniere unseren Newsletter und erhalte 10&nbsp;% Rabatt auf deine erste Bestellung.</p>
+          <form class="actionable-input" onsubmit="return false;">
+            <div class="form-field">
+              <input type="email" id="b4-flow-email" placeholder=" ">
+              <label for="b4-flow-email">E-Mail-Adresse</label>
+            </div>
+            <button type="button" class="btn --primary">Anmelden</button>
+          </form>
+        </div>
+      </div>
+      <p class="sg-caption">Container mit <code>.flow</code> — Abstand Fließtext → <code>.actionable-input</code> via <code>--flow-space: var(--half-module)</code>.</p>
+
+      <div class="sg-demo --white">
+        <div class="sg-w-md flow">
+          <p>Bitte gib deine Kontaktdaten an — wir melden uns innerhalb von 2 Werktagen.</p>
+          <div class="form-field">
+            <input type="text" id="b4-flow-name" placeholder=" ">
+            <label for="b4-flow-name">Vollständiger Name</label>
+          </div>
+          <div class="form-field">
+            <input type="email" id="b4-flow-mail" placeholder=" ">
+            <label for="b4-flow-mail">E-Mail-Adresse</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Gleiches Pattern für Fließtext → einzelne <code>.form-field</code>-Zeilen.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-intro</code> + <code>.form-required-note</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide flow">
+          <div class="form-intro">
+            <p>Kurzer Einleitungstext zum Formular — Kontext, Hinweise, Ansprechpartner.</p>
+            <p class="form-required-note">Sternchen (*) = Pflichtfelder</p>
+          </div>
+          <h3 class="section-label --sub">Erster Abschnitt</h3>
+          <div class="form-field">
+            <input type="text" id="b4-intro-field" placeholder=" ">
+            <label for="b4-intro-field">Beispielfeld *</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.form-intro</code> als erstes Kind in <code>.flow</code> · Pflichtfeld-Hinweis via <code>.form-required-note</code> · Abstand zur ersten <code>.section-label.--sub</code>: <code>var(--module)</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-check.--with-input</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-form-demo --wide flow">
+          <p class="form-group-label">Ich bin * …</p>
+          <div class="form-radio-col">
+            <label class="form-check">
+              <input type="radio" name="b4-rolle" value="a">
+              <span>Option A</span>
+            </label>
+            <label class="form-check">
+              <input type="radio" name="b4-rolle" value="b">
+              <span>Option B</span>
+            </label>
+            <label class="form-check --with-input">
+              <input type="radio" name="b4-rolle" value="sonstige">
+              <span>Sonstige:</span>
+              <input type="text" class="form-check__inline-input" placeholder=" " aria-label="Sonstige Bezeichnung">
+            </label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Radio mit Inline-Textfeld — <code>.form-check.--with-input</code> + <code>.form-check__inline-input</code> · Gruppe in <code>.form-radio-col</code>.</p>
 
       <h3 class="sg-h3 --top"><code>.form-field</code></h3>
       <div class="sg-demo --white">
@@ -1608,15 +1690,54 @@
     </section>
 
     <section class="sg-section-v2 flow" id="B5">
-      <h2 class="section-label">B.5 — Product Thumb</h2>
-      <p><code>.product-thumb</code> für Cart, Suche und Mini-Listen.</p>
-      <div class="sg-demo"></div>
-    </section>
+      <h2 class="section-label">B.5 — Stand-Alone-Formular</h2>
 
-    <section class="sg-section-v2 flow" id="B6">
-      <h2 class="section-label">B.6 — Breadcrumb</h2>
-      <p><code>.breadcrumb</code>, letzter Eintrag mit <code>.--current</code> — kein Link.</p>
-      <div class="sg-demo"></div>
+      <div class="col-grid" data-cols="2">
+        <p>Eigenständige Formularseiten außerhalb der Shop-Navigation — Reklamation, Nebenwirkungen, Registrierung. Kein Site-Nav, kein Footer-Menü: Logo, Formular, Impressum.</p>
+        <p>Alle Formular-Komponenten in <code>inuvet.css</code> — Felder und Rhythmus aus <a href="#B4">B.4</a> · Shell <code>.form-page*</code> hier · Form-Inhalt in <code>&lt;form class="flow"&gt;</code>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Aufbau</h4>
+          <p><code>.form-page</code> = Seitenhintergrund (<code>--accent-bg</code>) · <code>.form-page__card</code> = weißer Container (<code>max-width: var(--form-page-max)</code>) · <code>.form-page__header</code> mit Logo · <code>.form-page__title</code> als H1 · <code>.form-page__footer</code> für Impressum/Datenschutz außerhalb der Card.</p>
+        </div>
+        <div class="rule">
+          <h4>Sub-Sektionen</h4>
+          <p>Abschnitte innerhalb der Card: <code>.section-label.--sub</code> (Produktion) — nicht mit Shop-<code>.section-label</code> verwechseln.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.form-page</code></th><td>Vollbild-Hintergrund <code>var(--accent-bg)</code> · zentriert · produktiv <code>min-height: 100vh</code></td></tr>
+        <tr><th><code>.form-page__card</code></th><td>Weißer Container · <code>max-width: var(--form-page-max)</code> (640px) · Padding <code>var(--module)</code></td></tr>
+        <tr><th><code>.form-page__header</code></th><td>Logo zentriert · <code>border-bottom</code> · Abstand <code>var(--module)</code></td></tr>
+        <tr><th><code>.form-page__title</code></th><td>H1 · <code>var(--text-l)</code> · <code>var(--fg)</code> · linksbündig</td></tr>
+        <tr><th><code>.form-page__footer</code></th><td>Legal-Links außerhalb der Card · zentriert · <code>Impressum · Datenschutz</code></td></tr>
+        <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA, Signature Generator</td></tr>
+        <tr><th>CSS</th><td><code>inuvet.css</code> — Shell <code>.form-page*</code> + alle Formular-Atome aus <a href="#B4">B.4</a></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.form-page</code></h3>
+      <div class="form-page" style="min-height:auto;padding:var(--half-module) var(--base);">
+        <div class="form-page__card">
+          <header class="form-page__header">
+            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+          </header>
+          <h1 class="form-page__title">Seitentitel</h1>
+          <h3 class="section-label --sub">Abschnittsname</h3>
+          <div class="form-grid" style="margin-bottom:var(--half-module);">
+            <div class="form-field"><input type="text" placeholder=" "><label>Vorname</label></div>
+            <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          </div>
+          <div class="form-field"><textarea placeholder=" " rows="3"></textarea><label>Nachricht</label></div>
+          <button type="button" class="btn --primary --full">Absenden</button>
+        </div>
+        <footer class="form-page__footer">
+          <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+        </footer>
+      </div>
+      <p class="sg-caption">Shell-Demo — Felder aus B.4 auf weißer Card · <code>Impressum · Datenschutz</code> in <code>.form-page__footer</code>.</p>
     </section>
 
 
@@ -1626,62 +1747,725 @@
 
     <section class="sg-section-v2 flow" id="C1">
       <h2 class="section-label">C.1 — Produktkarte</h2>
-      <p><code>.tile.--product</code> in <code>.tile-grid.--cols-2/3/4</code>. Preis immer mit „ab" in der Übersicht.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Bild, Name, Bewertung, Preis, optionale Badges und Warenkorb-Button. Entspricht Variante D in <a href="#D4">D.4 Kachel-Raster</a> — Spaltenzahl am Container (<code>.tile-grid.--cols-N</code>) → <a href="#A8">A.8</a>.</p>
+        <p>Kanonischer Aufbau: <code>.tile.--product</code> → <code>.tile__image-wrap</code> (<code>.floating-meta</code>, <code>.tile__image</code>, <code>.tile__cart-icon</code>, <code>.tile__cart</code>) → <code>.tile__headline-row</code> → <code>.tile__description</code> → <code>.tile__price</code>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Preis in der Übersicht</h4>
+          <p>Immer <strong>ab X,XX €</strong> — noch keine Darreichungsform/Füllmenge gewählt. Sale: neuer Preis + <code>&lt;span class="--old"&gt;</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Produktfamilien</h4>
+          <p>Mehrere Darreichungsformen unter einem Namen → Badge „Produktfamilie" (Pflicht auf Kachel und PDP-Galerie) · zweistufiger Options-Drawer. → <a href="pages/Produkt-Modell.html">Produkt- und Familienstruktur</a> · PDP → <a href="#E2">E.2</a></p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.tile__image</code></th><td>1. <code>img</code>: beschreibendes <code>alt</code> · 2. <code>video</code> (Standard): Rollover, <code>aria-hidden="true"</code> · <code>muted loop playsinline</code> · Shopify → <a href="#shopify-pdp">E.2</a></td></tr>
+        <tr><th>Badges</th><td><code>.floating-meta</code> · Reihenfolge: Kategorie (<code>.badge[data-cat]</code>), Status (<code>.--dark</code> / <code>.--sale</code>), bei Produktfamilien „Produktfamilie" (Pflicht)</td></tr>
+        <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Button gleitet bei Hover ins Bild · <code>.tile__cart-icon</code>: permanent auf Mobile · beide <code>aria-label="In den Warenkorb"</code></td></tr>
+        <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
+        <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
+        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> · immer mit „ab"</td></tr>
+        <tr><th><code>.tile.--featured</code></th><td>Sonderkachel (Content-Box) — mischbar ins Grid · Details → <a href="#D4">D.4</a></td></tr>
+        <tr><th>Container</th><td><code>.tile-grid.--cols-2/3/4</code> — Breakpoints · <a href="#A8">A.8</a></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.tile.--product</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="beruhigung">Beruhigung</div>
+                <div class="badge --dark">Neu</div>
+                <div class="badge">Produktfamilie</div>
+              </div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+            <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">DOM-Referenz · Hover: Warenkorb-Button + Video-Rollover (<code>Calmin_Video-Test.mp4</code>) · Cart-Klick erst mit Drawer in <a href="#E4">E.4</a>.</p>
+
+      <h3 class="sg-h3 --top"><code>.tile.--product</code> — Varianten im Grid</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="beruhigung">Beruhigung</div>
+                <div class="badge --dark">Neu</div>
+                <div class="badge">Produktfamilie</div>
+              </div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+            <div class="tile__description">Kurze Produktbeschreibung.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="leber">Leber</div>
+                <div class="badge --sale">Sale</div>
+                <div class="badge">Produktfamilie</div>
+              </div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.1</div></div>
+            <div class="tile__description">Mehrzeilige Beschreibung ist erlaubt — Text bricht natürlich um.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span><span class="--old">49,90 €</span></div></div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="bauchspeichel">Bauchspeicheldrüse</div>
+              </div>
+              <div class="tile__image placeholder-bg"></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
+            <div class="tile__description">Placeholder-Bild ohne Packshot.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile-grid.--cols-3</code> — Badges, Video-Rollover (Calmin/Hepax), Sale mit <code>.--old</code>, Placeholder · 4-spaltig → <a href="#A8">A.8</a>.</p>
+
+      <h3 class="sg-h3 --top"><code>.tile.--featured</code> — Mix im Grid</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="beruhigung">Beruhigung</div>
+                <div class="badge">Produktfamilie</div>
+              </div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
+            <div class="tile__description">Kurze Beschreibung.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 49,90 €</span></div></div>
+          </div>
+          <div class="tile --featured">
+            <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
+            <div class="tile__bottom">
+              <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+              <div class="btn --primary">Alle Produkte</div>
+            </div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">
+                <div class="badge" data-cat="leber">Leber</div>
+                <div class="badge --sale">Sale</div>
+                <div class="badge">Produktfamilie</div>
+              </div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
+            <div class="tile__description">Kurze Beschreibung.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 14,90 €</span><span class="--old">29,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Produktkarten gemischt mit Sonderkachel in <code>.tile-grid.--cols-3</code> — Aufbau der Featured-Kachel → <a href="#D4">D.4</a>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C2">
       <h2 class="section-label">C.2 — Cart Item</h2>
-      <p><code>.cart-item</code> — Reihe im Cart-Drawer. Varianten-Zeile immer via <code>.cart-item__variant</code>.</p>
-      <div class="sg-demo"></div>
-    </section>
 
-    <section class="sg-section-v2 flow" id="C3">
-      <h2 class="section-label">C.3 — Card-Pattern-Übersicht</h2>
-      <p>Vier bewusst getrennte Patterns: <code>.tile.--product</code>, <code>.cart-item</code>, <code>.summary-card</code>, <code>.rec-card</code>.</p>
-      <div class="sg-demo"></div>
-    </section>
+      <div class="col-grid" data-cols="2">
+        <p>Wiederverwendbares Muster für Produktzeilen — Warenkorb-Drawer, Suche, Checkout, Bundle Builder. Basis: <code>.cart-item</code> (Grid <code>5rem + 1fr</code>) · Bildspalte via <code>.product-thumb</code> (auch <code>.cart-item__image</code>, <code>.search-result__image</code>).</p>
+        <p>Variantenzeile immer via <code>.cart-item__variant</code> (Stückpreis oben) · Zeilensumme unten rechts in <code>.cart-item__qty-text</code> — nie vermischen.</p>
+      </div>
 
-    <section class="sg-section-v2 flow" id="C4">
-      <h2 class="section-label">C.4 — Stand-Alone-Formular</h2>
-      <p><code>.form-page</code> — für Formulare außerhalb des Shops (Reklamation, Nebenwirkungen).</p>
-      <div class="sg-demo"></div>
+      <div class="rules">
+        <div class="rule">
+          <h4>Product-Thumb</h4>
+          <p><code>5rem × 5rem</code> · <code>object-fit: contain</code> · optionales 2. Bild = Rollover auf Hover. Badge-Overlay: <code>.product-thumb-wrap</code> + <code>.floating-meta</code> (bündig <code>top/left: 0</code>, nicht Tile-Offset).</p>
+        </div>
+        <div class="rule">
+          <h4>Preis-Platzierung</h4>
+          <p><strong>Stückpreis</strong> in <code>.cart-item__variant</code>: <code>60 Stück · 39,90 €</code>. <strong>Zeilensumme</strong> unten rechts: <code>359,20 €</code> (nicht „8 × 44,90 € = …" im Markup — nur Endbetrag).</p>
+        </div>
+        <div class="rule">
+          <h4>Naturalrabatt</h4>
+          <p>Gratis-Badge <strong>entweder</strong> auf dem Thumb (Warenkorb: <code>.product-thumb-wrap</code> + <code>.floating-meta</code>) <strong>oder</strong> im Counter (Bundle Builder: <code>.cart-item__counter</code>) — nie beides. Upsell-Hinweis <code>.cart-item__tier-hint</code> auf der unteren Trennlinie jeder berechtigten Zeile (<code>aria-hidden</code>, Text via <code>formatHint()</code> pro Produkt) — <strong>nur auf weißem Hintergrund</strong> (<code>--bg</code>).</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.product-thumb</code></th><td><code>5rem × 5rem</code> · <code>border: 1px solid var(--border-light)</code> · <code>object-fit: contain</code> · 2. <code>img</code>: Rollover</td></tr>
+        <tr><th><code>.product-thumb-wrap</code></th><td>Wrapper für <code>.floating-meta</code> auf dem Thumb · <code>top/left: 0</code></td></tr>
+        <tr><th>Basis</th><td><code>.cart-item</code> + <code>.product-thumb</code> + <code>.cart-item__info</code> + <code>.cart-item__top</code></td></tr>
+        <tr><th>Mit Menge</th><td><code>.cart-item__bottom</code> + <code>.qty-selector.--sm</code> + <code>.cart-item__qty-text</code></td></tr>
+        <tr><th>Mit Button</th><td><code>.cart-item__bottom</code> + <code>.btn.--sm</code> — z. B. Finder-Ergebnis</td></tr>
+        <tr><th>Gratis Warenkorb</th><td><code>.product-thumb-wrap</code> + <code>.floating-meta</code> + <code>.badge.--free</code> — nicht zusätzlich im Counter</td></tr>
+        <tr><th>Gratis Bundle</th><td><code>.cart-item__counter</code> + <code>.badge.--free</code> — nicht auf dem Thumb</td></tr>
+        <tr><th>Tier-Hint</th><td><code>.cart-item__tier-hint</code> — pro Zeile mit nächster Stufe, auf <code>--bg</code> (weiß) · zentriert auf unterer Trennlinie</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.cart-item</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 39,90 €</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Basis — Name, Variante, Entfernen-Button.</p>
+
+      <h3 class="sg-h3 --top"><code>.cart-item__bottom</code> + <code>.qty-selector.--sm</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Hepax forte Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 44,90 €</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+              <div class="cart-item__bottom">
+                <div class="qty-selector --sm">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="8" min="1">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+                </div>
+                <span class="cart-item__qty-text">359,20 €</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mengenauswahl + Zeilensumme unten rechts (8 × 44,90 €) · Thumb mit Rollover auf Hover.</p>
+
+      <h3 class="sg-h3 --top"><code>.cart-item__bottom</code> + <code>.btn.--sm</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 39,90 €</div>
+                </div>
+              </div>
+              <div class="cart-item__bottom">
+                <button type="button" class="btn --primary --sm">Zum Produkt</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Ohne Entfernen-Button — z. B. Finder-Ergebnis oder Empfehlungs-Vorschau.</p>
+
+      <h3 class="sg-h3 --top"><code>.product-thumb-wrap</code> + <code>.cart-item__tier-hint</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="cart-item">
+            <div class="product-thumb-wrap">
+              <div class="product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
+              <div class="floating-meta">
+                <span class="badge --free">+ 4</span>
+              </div>
+            </div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Hepax forte Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 44,90 € / Stk.</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+              <div class="cart-item__bottom">
+                <div class="qty-selector --sm">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="16" min="1">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+                </div>
+                <span class="cart-item__qty-text">626,40 €</span>
+              </div>
+            </div>
+            <span class="cart-item__tier-hint" aria-hidden="true">11 Stück hinzufügen für 4 weitere Gratisprodukte</span>
+          </div>
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 39,90 € / Stk.</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+              <div class="cart-item__bottom">
+                <div class="qty-selector --sm">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="2" min="1">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+                </div>
+                <span class="cart-item__qty-text">79,80 €</span>
+              </div>
+            </div>
+            <span class="cart-item__tier-hint" aria-hidden="true">11 Stück hinzufügen für 4 weitere Gratisprodukte</span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Warenkorb — Gratis-Badge auf dem Thumb, Tier-Hint auf jeder Zeile mit Upsell-Potenzial.</p>
+
+      <h3 class="sg-h3 --top"><code>.cart-item__counter</code> + <code>.cart-item__tier-hint</code></h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Hepax forte Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 44,90 €</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+              <div class="cart-item__bottom">
+                <div class="cart-item__counter">
+                  <div class="qty-selector --sm">
+                    <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+                    <input class="qty-selector__input" type="number" value="16" min="1">
+                    <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+                  </div>
+                  <span class="badge --free">+ 4 Gratis</span>
+                </div>
+                <span class="cart-item__qty-text">626,40 €</span>
+              </div>
+            </div>
+            <span class="cart-item__tier-hint" aria-hidden="true">11 Stück hinzufügen für 4 weitere Gratisprodukte</span>
+          </div>
+          <div class="cart-item">
+            <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+            <div class="cart-item__info">
+              <div class="cart-item__top">
+                <div>
+                  <p class="cart-item__name">Calmin balance Tabletten</p>
+                  <div class="cart-item__variant">60 Stück · 39,90 €</div>
+                </div>
+                <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen">
+                  <span class="material-icons">close</span>
+                </button>
+              </div>
+              <div class="cart-item__bottom">
+                <div class="qty-selector --sm">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="2" min="1">
+                  <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+                </div>
+                <span class="cart-item__qty-text">79,80 €</span>
+              </div>
+            </div>
+            <span class="cart-item__tier-hint" aria-hidden="true">11 Stück hinzufügen für 4 weitere Gratisprodukte</span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Bundle Builder — Gratis-Badge im Counter, Tier-Hint auf jeder Zeile mit Upsell-Potenzial.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C5">
       <h2 class="section-label">C.5 — Tabs &amp; Akkordeon</h2>
-      <p><code>.tabs</code>, <code>.tab-panel</code>, <code>.accordion</code>. Toggle via <code>toggleAccordion(trigger)</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Struktur</h4>
+          <p>Trigger (Frage/Titel) + Content (Antwort). Trigger <code>font-weight: 700</code>, Content <code>color: --fg-muted</code>. Tabs: <code>.tab-nav</code> + <code>.tab-panel</code>, Umschalten via <code>switchTab(btn, index)</code> in <code>sg.js</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Animation</h4>
+          <p>Akkordeon-Content via <code>grid-template-rows</code> (0fr → 1fr) · Icon <code>expand_more</code> rotiert 180° bei <code>.accordion-item.--open</code>. Mehrere Items können gleichzeitig offen sein.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top"><code>.accordion</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.accordion</code></th><td>Container · obere Strukturlinie (<code>border-top: 1px solid var(--border-light)</code>)</td></tr>
+        <tr><th><code>.accordion-item</code></th><td>Einzelnes Item · <code>border-bottom: 1px solid var(--border-light)</code></td></tr>
+        <tr><th><code>.accordion-trigger</code></th><td>Klickbarer Header · volle Breite · Padding <code>var(--half-module)</code> vertikal · Toggle via <code>toggleAccordion(trigger)</code></td></tr>
+        <tr><th><code>.accordion-icon</code></th><td>Material Icon <code>expand_more</code> · rotiert bei <code>.--open</code></td></tr>
+        <tr><th><code>.accordion-content</code></th><td>Slide-Container · <code>grid-template-rows: 0fr</code> default · <code>1fr</code> bei <code>.--open</code></td></tr>
+        <tr><th><code>.accordion-content__inner</code></th><td>Overflow-Wrapper · Padding unten bei <code>.--open</code></td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="accordion">
+          <div class="accordion-item --open">
+            <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">
+              Was ist der Styleguide?
+              <span class="accordion-icon material-icons">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content__inner">
+                <p>Design-System auf Basis von 1rem, Faktor 1.5 und Grundmodul 3rem — Typografie, Farben, Spacing, Komponenten und Layout-Patterns.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+              Wie funktioniert das fluide System?
+              <span class="accordion-icon material-icons">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content__inner">
+                <p>Größen nutzen <code>clamp()</code> — stufenlos zwischen Mobile-Minimum und Desktop-Maximum, ohne feste Breakpoints für Typografie und Spacing.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+              Kann ich den Styleguide als Shopify Theme nutzen?
+              <span class="accordion-icon material-icons">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content__inner">
+                <p>Section Types, Kachel-Raster und Komponenten sind so aufgebaut, dass sie sich in Shopify Liquid Templates übersetzen lassen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Standard auf Weiß — erstes Item optional mit <code>.--open</code>.</p>
+
+      <div class="sg-demo --green">
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+              Versand &amp; Lieferung
+              <span class="accordion-icon material-icons">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content__inner">
+                <p>Standardversand: 3–5 Werktage. Ab 50 € Bestellwert versandkostenfrei.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+              Rückgabe &amp; Umtausch
+              <span class="accordion-icon material-icons">expand_more</span>
+            </button>
+            <div class="accordion-content">
+              <div class="accordion-content__inner">
+                <p>14 Tage Rückgaberecht ab Erhalt der Ware.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Auf <code>--green-light</code> — typisch PDP/FAQ.</p>
+
+      <h3 class="sg-h3 --top"><code>.tabs</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.tabs</code></th><td>Container · <code>margin-bottom: var(--module)</code></td></tr>
+        <tr><th><code>.tab-nav</code></th><td>Tab-Leiste · horizontal scrollbar bei Overflow · untere Trennlinie via <code>box-shadow</code></td></tr>
+        <tr><th><code>.tab-btn</code></th><td>Inaktiv: <code>--fg-muted</code> · Hover: <code>--fg</code> + <code>border-bottom: var(--border)</code> · Aktiv (<code>.--active</code>): <code>--fg</code> + <code>border-bottom: 2px solid var(--fg)</code></td></tr>
+        <tr><th><code>.tab-panel</code></th><td>Content-Panel · sichtbar nur mit <code>.--active</code> · Abstand zur Nav: <code>margin-top: var(--half-module)</code> · Fließtext mit <code>.flow</code></td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="tabs">
+          <div class="tab-nav" role="tablist">
+            <button class="tab-btn --active" type="button" role="tab" aria-selected="true" onclick="switchTab(this, 0)">Beschreibung</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" onclick="switchTab(this, 1)">Inhaltsstoffe</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" onclick="switchTab(this, 2)">Anwendung</button>
+          </div>
+          <div class="tab-panel flow --active" role="tabpanel">
+            <p>Calmin balance unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Die Rezeptur verbindet ausgewählte Pflanzenextrakte mit B-Vitaminen und Magnesium.</p>
+            <p>Die Tabletten lassen sich unkompliziert über das Futter geben und eignen sich für die tägliche Ergänzung über mehrere Wochen. Bei Bedarf kann die Menge schrittweise angepasst werden — ideal für sensible Tiere, die langfristig Ruhe und Ausgeglichenheit brauchen.</p>
+          </div>
+          <div class="tab-panel flow" role="tabpanel">
+            <p>Glucosamin (500 mg), Chondroitin (400 mg), MSM (200 mg), Teufelskralle (150 mg), Vitamin C (80 mg), Zink (5 mg).</p>
+          </div>
+          <div class="tab-panel flow" role="tabpanel">
+            <p>Täglich 1 Messlöffel (5 g) über das Futter geben. Für Hunde ab 10 kg.</p>
+            <p>Kühl und trocken lagern. Außerhalb der Reichweite von Kindern aufbewahren.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">PDP-Kontext — drei Panels, aktives Panel via <code>.--active</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C6">
       <h2 class="section-label">C.6 — Pagination</h2>
-      <p><code>.pagination</code>, aktive Seite via <code>.--current</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Aufbau</h4>
+          <p>Flex-Zeile <code>.pagination</code> mit <code>.pagination__btn</code> (Prev/Next), <code>.pagination__page</code> (Seitenzahl) und <code>.pagination__dots</code> (Ellipsis). Aktive Seite via <code>.--current</code>.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.pagination</code></th><td>Flex-Zeile, zentriert · <code>gap: calc(var(--base) * 0.25)</code> · produktiv <code>margin-top: var(--module-2xl)</code></td></tr>
+        <tr><th><code>.pagination__page</code></th><td>Seitenzahl · <code>min-width: 2.5rem</code> · Hover: <code>border-color: var(--border-light)</code></td></tr>
+        <tr><th><code>.pagination__page.--current</code></th><td>Aktiv: <code>font-weight: 700</code> + <code>border-color: var(--border-active)</code></td></tr>
+        <tr><th><code>.pagination__btn</code></th><td>Prev/Next · gleiche Maße wie <code>.pagination__page</code></td></tr>
+        <tr><th><code>.pagination__dots</code></th><td>Ellipsis · <code>color: var(--fg-muted)</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.pagination</code></h3>
+      <div class="sg-demo --white">
+        <nav class="pagination" aria-label="Seitennavigation">
+          <button type="button" class="pagination__btn" aria-label="Vorherige Seite"><span class="material-icons">arrow_back</span></button>
+          <a class="pagination__page" href="#">1</a>
+          <a class="pagination__page" href="#">2</a>
+          <a class="pagination__page --current" href="#" aria-current="page">3</a>
+          <a class="pagination__page" href="#">4</a>
+          <span class="pagination__dots">…</span>
+          <a class="pagination__page" href="#">12</a>
+          <button type="button" class="pagination__btn" aria-label="Nächste Seite"><span class="material-icons">arrow_forward</span></button>
+        </nav>
+      </div>
+      <p class="sg-caption">Collection, Blog — Seite 3 aktiv.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C7">
       <h2 class="section-label">C.7 — Notice / Infobox</h2>
-      <p><code>.notice</code> — für Hinweise, Warnungen und kontextuelle Informationen.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Kontextuell eingebetteter Hinweis — kein Overlay. Inline auf PDP, in Formularen oder Checkout.</p>
+        <p>Varianten: einzeilig, Titel + Text, mit CTA, mit Icon, aufklappbar via <code>&lt;details class="notice"&gt;</code>.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.notice</code></th><td>Hintergrund <code>var(--color-notice-bg)</code> · kein Border · Padding <code>var(--half-module)</code> · Flex-Spalte mit <code>gap</code></td></tr>
+        <tr><th><code>.notice__title</code></th><td>Optionaler Titel · fett · <code>var(--text-base)</code></td></tr>
+        <tr><th><code>.notice__actions</code></th><td>CTA-Zeile · Flex · <code>gap: var(--half-module)</code></td></tr>
+        <tr><th><code>.notice__icon</code></th><td>Material Icon · <code>var(--green)</code> · <code>1.25rem</code></td></tr>
+        <tr><th><code>details.notice</code></th><td>Aufklappbar · <code>&lt;summary&gt;</code>: <code>.notice__title</code> (Icon darin) + <code>.notice__chevron</code> · Inhalt in <code>.notice__body</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.notice</code></h3>
+      <div class="sg-demo --white">
+        <div class="notice">
+          <p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+        </div>
+      </div>
+      <p class="sg-caption">Einzeilig — kurzer Hinweis.</p>
+
+      <h3 class="sg-h3 --top"><code>.notice__title</code></h3>
+      <div class="sg-demo --white">
+        <div class="notice">
+          <p class="notice__title">Wichtiger Hinweis zur Dosierung</p>
+          <p>Die empfohlene Tagesdosis richtet sich nach dem Körpergewicht deines Tieres. Bei Unsicherheiten empfehlen wir die Rücksprache mit deinem Tierarzt.</p>
+        </div>
+      </div>
+      <p class="sg-caption">Mehrzeilig — Titel + Fließtext.</p>
+
+      <h3 class="sg-h3 --top"><code>.notice__actions</code></h3>
+      <div class="sg-demo --white">
+        <div class="notice">
+          <p class="notice__title">Tierärztliche Empfehlung verfügbar</p>
+          <p>Dein Tierarzt hat bereits Produkte für dein Tier freigegeben. Diese sind in deinem persönlichen Angebot hinterlegt.</p>
+          <div class="notice__actions">
+            <a class="btn --primary" href="#">Zum Angebot</a>
+            <button type="button" class="btn --ghost">Später</button>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit CTA-Buttons.</p>
+
+      <h3 class="sg-h3 --top"><code>.notice__icon</code></h3>
+      <div class="sg-demo --white">
+        <div class="notice">
+          <p class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung</p>
+          <p>Du gibst die angefragten Produkte mit einem Klick frei — Beratung, Versand und Betreuung übernimmt Inuvet.</p>
+        </div>
+      </div>
+      <p class="sg-caption">Icon im Titel.</p>
+
+      <h3 class="sg-h3 --top"><code>details.notice</code></h3>
+      <div class="sg-demo --white">
+        <details class="notice">
+          <summary>
+            <span class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung — und dein persönlicher Kontakt</span>
+            <span class="material-icons notice__chevron">expand_more</span>
+          </summary>
+          <div class="notice__body">
+            <p>Du gibst die angefragten Produkte mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — kein Aufwand mit Lagerung oder Logistik.</p>
+            <p class="notice__title">Persönlicher Kontakt bei Fragen</p>
+            <p>Deine persönliche Ansprechpartnerin hilft dir gern weiter: <strong>Birka Beispiel</strong> · <a href="#">birka@inuvet.com</a></p>
+          </div>
+        </details>
+      </div>
+      <p class="sg-caption">Aufklappbar — Chevron rotiert bei <code>[open]</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C8">
       <h2 class="section-label">C.8 — Empty / Success State</h2>
-      <p><code>.empty-state</code>, <code>.success-state</code> — für leere Listen und abgeschlossene Aktionen.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Empty State</h4>
+          <p>Leere Listen, Warenkorb, Suche, 404 — ohne Rahmen oder Hintergrund; der Kontext liefert den Container.</p>
+        </div>
+        <div class="rule">
+          <h4>Success State</h4>
+          <p>Schwester-Komponente für „erledigt"-Zustände — inline auf Page, in Modal oder Drawer.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top"><code>.empty-state</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.empty-state</code></th><td>Flex-Spalte, zentriert · <code>max-width: 28rem</code> · <code>padding: var(--module)</code></td></tr>
+        <tr><th>Icon</th><td><code>.material-icons</code> · <code>font-size: var(--module)</code> · <code>color: var(--border-light)</code></td></tr>
+        <tr><th><code>.empty-state__title</code></th><td><code>var(--text-m)</code> · fett · <code>var(--fg)</code></td></tr>
+        <tr><th><code>.empty-state__sub</code></th><td><code>var(--text-base)</code> · <code>var(--fg-muted)</code></td></tr>
+      </table>
+      <div class="sg-demo --center">
+        <div class="empty-state">
+          <span class="material-icons">shopping_cart</span>
+          <p class="empty-state__title">Dein Warenkorb ist leer</p>
+          <p class="empty-state__sub">Entdecke unsere Produkte und füge sie hinzu.</p>
+          <a class="btn --primary" href="#">Zum Shop</a>
+        </div>
+      </div>
+      <p class="sg-caption">Warenkorb leer — optional mit CTA.</p>
+
+      <div class="sg-demo --center">
+        <div class="empty-state">
+          <span class="material-icons">search_off</span>
+          <p class="empty-state__title">Keine Ergebnisse</p>
+          <p class="empty-state__sub">Versuche einen anderen Suchbegriff oder stöbere in unseren Kategorien.</p>
+        </div>
+      </div>
+      <p class="sg-caption">Suche ohne Treffer.</p>
+
+      <h3 class="sg-h3 --top"><code>.success-state</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.success-state</code></th><td>Flex-Spalte, zentriert · <code>gap: var(--half-module)</code> · <code>padding: var(--module) 0</code></td></tr>
+        <tr><th><code>.success-state__icon</code></th><td><code>check_circle</code> · <code>calc(var(--base) * 2.5)</code> · <code>var(--green)</code></td></tr>
+        <tr><th><code>.success-state__title</code></th><td><code>var(--text-m)</code> · fett</td></tr>
+        <tr><th><code>.success-state__body</code></th><td><code>var(--fg-muted)</code> · <code>max-width: 28rem</code></td></tr>
+        <tr><th><code>.success-state__actions</code></th><td>CTA-Spalte · zentriert · <code>gap: calc(var(--half-module) / 2)</code></td></tr>
+      </table>
+      <div class="sg-demo --center">
+        <div class="success-state">
+          <span class="material-icons success-state__icon">check_circle</span>
+          <h3 class="success-state__title">Anfrage versendet</h3>
+          <p class="success-state__body">Du erhältst eine E-Mail, sobald die Empfehlung freigegeben wurde.</p>
+          <div class="success-state__actions">
+            <a class="btn --primary" href="#">Zum Bestellverlauf</a>
+            <a class="btn --ghost" href="#">Weiter einkaufen</a>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Bestätigung nach abgeschlossener Aktion.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C9">
       <h2 class="section-label">C.9 — Toast / Notification</h2>
-      <p><code>.toast</code> mit <code>--success --error --info --out</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Kurzes Feedback nach Aktionen — fixiert unten rechts, über Modals.</p>
+        <p>Varianten <code>.--success</code>, <code>.--error</code>, <code>.--info</code>. Aufruf via <code>showToast(message, type)</code> in <code>sg.js</code> / <code>inuvet.js</code>.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.toast-container</code></th><td>Fix unten rechts · <code>z-index: calc(var(--z-modal) + 10)</code> · stapelbar</td></tr>
+        <tr><th><code>.toast</code></th><td>Icon + Text · Slide-in · Auto-Dismiss nach 3,5&nbsp;s · Fade-out <code>.--out</code></td></tr>
+        <tr><th><code>.toast.--success</code></th><td>Hintergrund <code>var(--green)</code></td></tr>
+        <tr><th><code>.toast.--error</code></th><td>Hintergrund <code>var(--color-error-bg)</code></td></tr>
+        <tr><th><code>.toast.--info</code></th><td>Hintergrund <code>var(--fg-muted)</code></td></tr>
+        <tr><th><code>showToast(msg, type)</code></th><td>Erzeugt Toast dynamisch · Icons: <code>check_circle</code> / <code>error</code> / <code>info</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Varianten</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row --sm">
+          <button type="button" class="btn --secondary" onclick="showToast('Produkt wurde zum Warenkorb hinzugefügt.', 'success')">Success</button>
+          <button type="button" class="btn --secondary" onclick="showToast('Etwas ist schiefgelaufen. Bitte versuche es erneut.', 'error')">Error</button>
+          <button type="button" class="btn --secondary" onclick="showToast('Deine Änderungen wurden gespeichert.', 'info')">Info</button>
+        </div>
+      </div>
+      <p class="sg-caption">Toasts erscheinen unten rechts — mehrfach klicken zum Stapel-Test.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C10">
       <h2 class="section-label">C.10 — Modal / Pop-up</h2>
-      <p><code>.modal</code>, <code>.modal-overlay</code>. Toggle via <code>.--open</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Standard-Modal</h4>
+          <p>Overlay (60&nbsp;% Schwarz) zentriert die Box · max. <code>32rem</code> · Header fix, Body scrollbar · Schließen via X, Overlay-Klick oder Escape.</p>
+        </div>
+        <div class="rule">
+          <h4>Shop-Modal</h4>
+          <p>Kompakter Bestätigungs-Dialog · <code>min(24rem, 100%)</code> · zentriertes Icon, Titel, Text, gestapelte Actions.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top"><code>.modal</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.modal-overlay</code></th><td>Backdrop · <code>z-index: var(--z-modal)</code> · Toggle <code>.--open</code></td></tr>
+        <tr><th><code>.modal</code></th><td>Box · <code>max-width: 32rem</code> · Slide-up bei Open</td></tr>
+        <tr><th><code>.modal__header</code></th><td>Titel + Close-Button · <code>border-bottom</code></td></tr>
+        <tr><th><code>.modal__body</code></th><td>Padding <code>var(--module)</code> · <code>overflow-y: auto</code> · bei Fließtext + Formular <code>.flow</code></td></tr>
+        <tr><th><code>openModal(id)</code></th><td>Öffnet Overlay · setzt <code>body overflow: hidden</code></td></tr>
+      </table>
+      <div class="sg-demo">
+        <button type="button" class="btn --secondary" onclick="openModal('demoModal')">Beispiel-Modal öffnen</button>
+      </div>
+      <p class="sg-caption">Formular- oder Info-Dialog mit Header und scrollbarem Inhalt.</p>
+
+      <h3 class="sg-h3 --top"><code>.shop-modal</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.shop-modal-overlay</code></th><td>Backdrop · Toggle <code>.--open</code> · Fade-Transition</td></tr>
+        <tr><th><code>.shop-modal</code></th><td>Kompakte Box · Padding <code>var(--module)</code> · Flex-Spalte</td></tr>
+        <tr><th><code>.shop-modal__icon</code></th><td>Material Icon · <code>3rem</code> · <code>var(--green)</code></td></tr>
+        <tr><th><code>.shop-modal__actions</code></th><td>CTA-Spalte · Primary + Ghost</td></tr>
+        <tr><th><code>openShopModal(id)</code></th><td>Öffnet Shop-Modal · sperrt Scroll</td></tr>
+      </table>
+      <div class="sg-demo">
+        <button type="button" class="btn --secondary" onclick="openShopModal('demoShopModal')">Bestellung bestätigen</button>
+      </div>
+      <p class="sg-caption">Feedback nach abgeschlossener Aktion — z.&nbsp;B. Checkout, Registrierung.</p>
     </section>
 
 
@@ -1691,8 +2475,120 @@
 
     <section class="sg-section-v2 flow" id="D1">
       <h2 class="section-label">D.1 — Navigation &amp; Announcement</h2>
-      <p><code>.site-nav</code>, <code>.announcement-bar</code>, Mobile Menu, Sticky-Verhalten, Scroll-Away-Modus.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Page-Header aus Announcement Bar + Site-Nav — sticky, volle Breite, Token <code>--header-height</code>.</p>
+        <p>Varianten: Marquee-Bar, Fade-Rotation, Scroll-Away-Modus · Desktop-Dropdowns via <code>.nav-item</code> · Mobil über <code>.mobile-menu</code>.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.announcement-bar</code></th><td>Höhe <code>var(--announcement-height)</code> · scrollt mit (Default) · Items <code>.announcement-bar__item</code></td></tr>
+        <tr><th><code>.announcement-bar.--marquee</code></th><td>Endlos-Scroll · Track <code>.announcement-bar__track</code> · Init via <code>sg.js</code></td></tr>
+        <tr><th>Fade-Rotation</th><td><code>@keyframes annBarFade</code> · Dauer <code>var(--anim-announcement) × n</code> · Delays per <code>:nth-child</code></td></tr>
+        <tr><th><code>.site-nav</code></th><td>Sticky · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code></td></tr>
+        <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> · <code>scroll-padding-top</code></td></tr>
+        <tr><th><code>body.--ann-scroll</code></th><td>Bar scrollt weg · nur Nav sticky · <code>scroll-padding-top: var(--nav-height)</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.announcement-bar.--marquee</code></h3>
+      <div class="sg-demo --flush">
+        <div class="announcement-bar --marquee">
+          <div class="announcement-bar__track">
+            <span class="announcement-bar__item">Kostenloser Versand ab 49&nbsp;€</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">Über 10.000 zufriedene Kunden</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__sentinel" aria-hidden="true"></span>
+            <span class="announcement-bar__item">Kostenloser Versand ab 49&nbsp;€</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+            <span class="announcement-bar__item">Über 10.000 zufriedene Kunden</span><span class="announcement-bar__sep"></span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Items + Separators im HTML verdoppeln · Schleife via <code>--marquee-shift</code> (<code>sg.js</code>).</p>
+
+      <h3 class="sg-h3 --top"><code>body.--ann-scroll</code></h3>
+      <div class="rules">
+        <div class="rule">
+          <h4>Scroll-Away</h4>
+          <p>Default: Bar und Nav sticky. Mit <code>body.--ann-scroll</code> scrollt die Bar im Fluss weg, nur die Nav bleibt oben. <code>scroll-padding-top</code> reduziert sich auf <code>--nav-height</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Mobile Menu</h4>
+          <p><code>positionMobileMenu()</code> setzt <code>.mobile-menu</code> dynamisch unter die Nav-Unterkante — in beiden Modi bündig.</p>
+        </div>
+      </div>
+      <div class="sg-demo">
+        <button type="button" class="btn --secondary" onclick="toggleAnnScrollDemo(this)">Scroll-Away aktivieren</button>
+      </div>
+      <p class="sg-caption">Toggle auf <code>body</code> — sinnvoll auf Seiten mit echtem Header (v1-Styleguide, Shop-Pages). v2 nutzt Sidebar-Layout ohne Top-Chrome.</p>
+
+      <h3 class="sg-h3 --top"><code>.nav-item</code></h3>
+      <div class="rules">
+        <div class="rule">
+          <h4>Pattern</h4>
+          <p>Sub-Navigation: <code>.nav-item</code> → <code>.nav-item__trigger</code> + <code>.nav-item__dropdown</code>. Einfache Links bleiben direkte <code>&lt;a&gt;</code> in <code>.nav-left</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Verhalten</h4>
+          <p>Öffnet per CSS (<code>:hover</code>, <code>:focus-within</code>) — kein JS. Chevron rotiert 180°. Mobil: Dropdown ausgeblendet, Inhalte im <code>.mobile-menu</code> als <code>.--indent</code>.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.nav-item</code></th><td><code>position: relative</code></td></tr>
+        <tr><th><code>.nav-item__trigger</code></th><td>Link + <code>expand_more</code> · gleiche Stile wie <code>.nav-left &gt; a</code></td></tr>
+        <tr><th><code>.nav-item__dropdown</code></th><td>Absolute · <code>min-width: 14rem</code> · Border-Top <code>2px solid var(--fg)</code></td></tr>
+        <tr><th>Öffnen</th><td><code>opacity/visibility/transform</code> bei <code>:hover</code> / <code>:focus-within</code></td></tr>
+        <tr><th>Z-Index</th><td><code>var(--z-dropdown)</code> (110)</td></tr>
+        <tr><th>Mobil</th><td><code>display: none</code> ab <code>max-width: 767px</code></td></tr>
+      </table>
+
+      <pre class="sg-code"><code>&lt;div class="nav-item"&gt;
+  &lt;a href="#" class="nav-item__trigger"&gt;
+    Produkte &lt;span class="material-icons" aria-hidden="true"&gt;expand_more&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;div class="nav-item__dropdown"&gt;
+    &lt;a href="#"&gt;Gelenke &amp;amp; Bewegung&lt;/a&gt;
+    &lt;a href="#"&gt;Beruhigung&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <div class="sg-demo --white --flush">
+        <div style="padding: 0 var(--margin); display: flex; align-items: center; height: var(--nav-height); position: relative;">
+          <div class="nav-left">
+            <a href="#">Ratgeber</a>
+            <div class="nav-item">
+              <a href="#" class="nav-item__trigger">
+                Produkte <span class="material-icons" aria-hidden="true">expand_more</span>
+              </a>
+              <div class="nav-item__dropdown">
+                <a href="#">Gelenke &amp; Bewegung</a>
+                <a href="#">Beruhigung</a>
+                <a href="#">Alle Produkte</a>
+              </div>
+            </div>
+            <div class="nav-item">
+              <a href="#" class="nav-item__trigger">
+                Ratgeber <span class="material-icons" aria-hidden="true">expand_more</span>
+              </a>
+              <div class="nav-item__dropdown">
+                <a href="#">Ernährung</a>
+                <a href="#">Gesundheit</a>
+              </div>
+            </div>
+            <a href="#">Über uns</a>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Hover-Demo — Dropdown öffnet per CSS.</p>
+
+      <pre class="sg-code"><code>&lt;!-- Mobile: gleiche Links, eingerückt --&gt;
+&lt;a href="#" onclick="closeMobile()"&gt;Produkte&lt;/a&gt;
+&lt;a href="#" class="--indent" onclick="closeMobile()"&gt;Gelenke &amp;amp; Bewegung&lt;/a&gt;</code></pre>
     </section>
 
     <section class="sg-section-v2 flow" id="D2">
@@ -1750,8 +2646,279 @@
 
     <section class="sg-section-v2 flow" id="E2">
       <h2 class="section-label">E.2 — Produktdetailseite (PDP)</h2>
-      <p><code>.pdp</code>, <code>.pdp__type-selector</code>. Einzelprodukt und Produktfamilie.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>2-Spalten-Layout: Galerie links, Produktinfo rechts · Mobile: 1-spaltig.</p>
+        <p>Einzelprodukt vs. Produktfamilie (<code>.pdp__type-selector</code>) · Referenz: <a href="pages/Produkt.html">Produkt</a>, <a href="pages/Produkt-Modell.html">Produkt-Modell</a>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Layout</h4>
+          <p>Grid <code>1fr 1fr</code>, Gap <code>var(--gutter)</code>. Galerie: Hauptbild 1:1 + 5 Thumbnails. Info-Spalte: Titel, Rating, Beschreibung, Varianten, Menge + CTA, Akkordeon.</p>
+        </div>
+        <div class="rule">
+          <h4>Interaktion</h4>
+          <p>Varianten via <code>.choice-box</code> (<code>selectVariant</code>) · Menge via <code>.qty-selector</code> (<code>changeQty</code>) · Galerie: Packshot + Video (<code>pdpSwitch</code>) · Warenkorb-Drawer → <a href="#E4">E.4</a>.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
+        <tr><th><code>.pdp__gallery</code></th><td>Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild</td></tr>
+        <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
+        <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
+        <tr><th><code>.pdp__caption</code></th><td>Overlay auf Hauptbild · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code></td></tr>
+        <tr><th><code>.pdp__title</code></th><td><code>--text-xl</code> · bold</td></tr>
+        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code></td></tr>
+        <tr><th><code>.pdp__variants</code></th><td>Label <code>.pdp__variant-label.label-caps</code> + <code>.pdp__variant-options</code> mit <code>.choice-box</code></td></tr>
+        <tr><th><code>.pdp__actions</code></th><td>Menge + Primary-CTA + Wishlist · CTA <code>flex: 1</code></td></tr>
+        <tr><th><code>.pdp__recommendations</code></th><td>Border-top · Überschrift + <code>.tile-grid.--cols-4</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="shopify-pdp">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Markup und CSS aus diesem Abschnitt gehen 1:1 ins Theme (<code>inuvet.css</code> + Section-Snippet). Daten kommen aus <strong>Product Media</strong>, Varianten und Metafields — kein Hardcoding im Liquid.</p>
+        <p>Video-Rollover auf Karten ist <strong>kein Shopify-Standard</strong> — dafür Theme-JS (<code>initProductMediaRollover()</code> in <code>inuvet.js</code>). PDP-Galerie mit Video dagegen nativ über <code>product.media</code>.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>PDP-Galerie</th><td><code>product.media</code> · 1. Eintrag (<code>media_type == 'image'</code>) → Packshot in <code>.pdp__main-image</code> + 1. Thumb · 2. Eintrag (<code>media_type == 'video'</code>) → <code>&lt;video&gt;</code> + 2. Thumb · Wechsel im Theme via <code>pdpSwitch()</code> (analog <code>sg.js</code>)</td></tr>
+        <tr><th>Video-Attribute</th><td><code>muted loop playsinline</code> · <code>preload="none"</code> auf Karten · komprimierte Clips (&lt; 10&nbsp;MB) über Product Media / Shopify Files</td></tr>
+        <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
+        <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
+        <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · rendert in <code>.pdp__type-animals</code></td></tr>
+        <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
+        <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
+      </table>
+      <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
+      <div class="sg-demo --white">
+        <div class="pdp">
+          <div class="pdp__gallery">
+            <div class="pdp__main-image">
+              <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <video class="--hidden" src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
+              <div class="pdp__caption --hidden" aria-live="polite"></div>
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+            </div>
+            <div class="pdp__thumbs">
+              <div class="pdp__thumb --active" onclick="pdpSwitch(this,'assets/images/Calmin_Packshot_01.jpeg','','')">
+                <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Packshot">
+              </div>
+              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Calmin_Video-Test.mp4','','')">
+                <video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
+              </div>
+              <div class="pdp__thumb placeholder-bg"></div>
+              <div class="pdp__thumb placeholder-bg"></div>
+              <div class="pdp__thumb placeholder-bg"></div>
+            </div>
+          </div>
+          <div class="pdp__info">
+            <h3 class="pdp__title">Calmin balance</h3>
+            <div class="rating">
+              <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+              <span class="text-muted">4.8 (214 Bewertungen)</span>
+            </div>
+            <p class="pdp__description">Unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Mit Pflanzenextrakten, B-Vitaminen und Magnesium.</p>
+            <div class="pdp__price"><div class="price-stack"><span>29,90 €</span></div></div>
+            <div class="pdp__variants">
+              <div class="pdp__variant-label label-caps">Größe</div>
+              <div class="pdp__variant-options">
+                <button class="choice-box --active" type="button" onclick="selectVariant(this)">60 Tabletten</button>
+                <button class="choice-box" type="button" onclick="selectVariant(this)">120 Tabletten</button>
+              </div>
+            </div>
+            <div class="pdp__actions">
+              <div>
+                <div class="pdp__variant-label label-caps">Menge</div>
+                <div class="qty-selector">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="1" min="1" id="qtyInput">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+                </div>
+              </div>
+              <button class="btn --primary" type="button" onclick="showToast('Produkt wurde zum Warenkorb hinzugefügt.', 'success')">In den Warenkorb</button>
+              <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
+            </div>
+            <div class="accordion">
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Calmin balance unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Die Rezeptur verbindet ausgewählte Pflanzenextrakte mit B-Vitaminen und Magnesium.</p></div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>L-Tryptophan, Magnesium, Vitamin B1, Vitamin B6, Passionsblumenextrakt, Baldrianextrakt. Ohne künstliche Zusatzstoffe.</p></div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Expressversand: 1–2 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pdp__recommendations">
+          <h3>Das könnte Ihnen auch gefallen</h3>
+          <div class="tile-grid --cols-4">
+            <div class="tile --product">
+              <div class="tile__image-wrap">
+                <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div>
+                <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+              </div>
+              <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div>
+            </div>
+            <div class="tile --product">
+              <div class="tile__image-wrap">
+                <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+                <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+              </div>
+              <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div>
+            </div>
+            <div class="tile --product">
+              <div class="tile__image-wrap">
+                <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div>
+                <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+              </div>
+              <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="tile__price"><div class="price-stack"><span>19,90 €</span><span class="--old">39,90 €</span></div></div>
+            </div>
+            <div class="tile --product">
+              <div class="tile__image-wrap">
+                <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+                <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
+                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
+              </div>
+              <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo · Warenkorb-CTA als Toast bis <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
+      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen. Abweichende Inhaltsstoffe → <code>.notice</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
+      <table class="spec-table">
+        <tr><th><code>.pdp__type-selector</code></th><td>Radio-Tabelle in <code>.pdp__variants</code></td></tr>
+        <tr><th><code>.pdp__type-selector-header</code></th><td>Spaltenköpfe · <code>label-caps</code>-Stil</td></tr>
+        <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart · gestrichelte Trennlinie</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="pdp" id="pdp-family-demo">
+          <div class="pdp__gallery">
+            <div class="pdp__main-image">
+              <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax">
+              <video class="--hidden" src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
+              <div class="pdp__caption --hidden" aria-live="polite"></div>
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+            </div>
+            <div class="pdp__thumbs">
+              <div class="pdp__thumb --active" onclick="pdpSwitch(this,'assets/images/Hepax_Packshot_01.jpeg','','')">
+                <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Packshot">
+              </div>
+              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Hepax_Video-Test.mp4','','')">
+                <video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
+              </div>
+              <div class="pdp__thumb placeholder-bg"></div>
+              <div class="pdp__thumb placeholder-bg"></div>
+              <div class="pdp__thumb placeholder-bg"></div>
+            </div>
+          </div>
+          <div class="pdp__info">
+            <h3 class="pdp__title">Hepax</h3>
+            <div class="rating">
+              <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+              <span class="text-muted">4.6 (312 Bewertungen)</span>
+            </div>
+            <p class="pdp__description">Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
+            <div class="pdp__variants">
+              <div class="pdp__type-selector">
+                <div class="pdp__type-selector-header">
+                  <span>Darreichungsform</span>
+                  <span>Geeignet für</span>
+                </div>
+                <label class="pdp__type-row">
+                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">Hund</span>
+                </label>
+                <label class="pdp__type-row">
+                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">Katze, Hund</span>
+                </label>
+              </div>
+              <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
+            </div>
+            <div class="pdp__price"><div class="price-stack"><span>7,60 €</span></div></div>
+            <div class="pdp__variants">
+              <div class="pdp__variant-label label-caps">Produktgröße</div>
+              <div class="pdp__variant-options">
+                <button class="choice-box --active" type="button" onclick="selectVariant(this)">30 Stück</button>
+                <button class="choice-box" type="button" onclick="selectVariant(this)">60 Stück</button>
+              </div>
+            </div>
+            <div class="pdp__actions">
+              <div>
+                <div class="pdp__variant-label label-caps">Menge</div>
+                <div class="qty-selector">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="1" min="1">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+                </div>
+              </div>
+              <button class="btn --primary" type="button" onclick="showToast('Produkt wurde zum Warenkorb hinzugefügt.', 'success')">In den Warenkorb</button>
+              <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
+            </div>
+            <div class="accordion">
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Variiert je nach gewähltem Produkttyp. Bitte die jeweilige Packungsbeilage beachten.</p></div></div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">2. Thumbnail = Produktvideo (<code>Hepax_Video-Test.mp4</code>) · Wechsel Packshot/Video via <code>pdpSwitch()</code>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-oos">Out-of-Stock</h3>
+      <div class="rules">
+        <div class="rule">
+          <h4>Einsatz</h4>
+          <p>Ersetzt den Kauf-Bereich wenn <code>available: false</code> — kein Preis, kein Warenkorb-Button.</p>
+        </div>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.pdp__oos-badge</code></th><td>Uppercase-Label · Border <code>--border-light</code> · <code>--fg-muted</code></td></tr>
+        <tr><th><code>.pdp__oos-cta</code></th><td>Flex-Spalte · Hinweistext + <code>.btn.--secondary</code> volle Breite</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="pdp__oos-badge">Nicht verfügbar</div>
+          <div class="pdp__oos-cta">
+            <p class="pdp__oos-cta__label">Dieses Produkt ist aktuell nicht auf Lager. Trage dich ein und wir benachrichtigen dich sobald es wieder verfügbar ist.</p>
+            <button class="btn --secondary" type="button">Benachrichtige mich</button>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">OOS-Block sitzt in der Info-Spalte an Stelle von <code>.pdp__actions</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E3">
@@ -1792,8 +2959,7 @@
 
     <section class="sg-section-v2 flow" id="E9">
       <h2 class="section-label">E.9 — Out-of-Stock</h2>
-      <p>Darstellung nicht verfügbarer Produkte.</p>
-      <div class="sg-demo"></div>
+      <p>PDP-Zustand für nicht verfügbare Produkte — dokumentiert unter <a href="#pdp-oos">E.2 — Out-of-Stock</a>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E10">
@@ -1805,7 +2971,37 @@
   </main>
 </div>
 
-<script src="inuvet.js?v=2"></script>
-<script src="sg.js?v=1"></script>
+<div class="modal-overlay" id="demoModal" onclick="closeModal('demoModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <h2 class="modal__title">Willkommen im Rudel!</h2>
+      <button type="button" class="btn --icon" onclick="closeModal('demoModal')" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="modal__body flow">
+      <p>Abonniere unseren Newsletter und erhalte 10&nbsp;% Rabatt auf deine erste Bestellung sowie wertvolle Tipps zur Tiergesundheit.</p>
+      <form class="actionable-input" onsubmit="return false;">
+        <div class="form-field"><input type="email" id="modal-email" placeholder=" "><label for="modal-email">E-Mail-Adresse</label></div>
+        <button class="btn --primary" type="submit">Anmelden</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="shop-modal-overlay" id="demoShopModal" onclick="closeShopModal('demoShopModal')">
+  <div class="shop-modal" onclick="event.stopPropagation()">
+    <div class="shop-modal__icon"><span class="material-icons">check_circle</span></div>
+    <h2 class="shop-modal__title">Bestellung eingegangen!</h2>
+    <p class="shop-modal__body">Deine Bestellung wird bearbeitet. Du erhältst in Kürze eine Bestätigung per E-Mail.</p>
+    <div class="shop-modal__actions">
+      <button type="button" class="btn --primary" onclick="closeShopModal('demoShopModal')">Verstanden</button>
+      <button type="button" class="btn --ghost" onclick="closeShopModal('demoShopModal')">Zur Bestellübersicht</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<script src="inuvet.js?v=3"></script>
+<script src="sg.js?v=3"></script>
 </body>
 </html>

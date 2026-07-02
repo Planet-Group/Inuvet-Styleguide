@@ -169,7 +169,8 @@
 
       // Floating-Meta: Kategorie-Badge (eingefärbt via data-cat) + Familien-/Einzelprodukt-Badge.
       const catBadge = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
-      const meta = `<div class="floating-meta">${catBadge}<div class="badge">${p.isFamily ? 'Produktfamilie' : 'Einzelprodukt'}</div></div>`;
+      const familyBadge = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+      const meta = `<div class="floating-meta">${catBadge}${familyBadge}</div>`;
       const gallery = p.image
         ? `<div class="pdp__main-image"><img src="${p.image}" alt="${p.title}">${meta}</div>`
         : `<div class="pdp__main-image placeholder-bg">${meta}</div>`;

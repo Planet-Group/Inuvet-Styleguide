@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
-  <link rel="stylesheet" href="formulare.css">
 </head>
 <body>
 
@@ -30,15 +29,15 @@
     <!-- Titel -->
     <h1 class="form-page__title">Meldeformular für unerwünschte Wirkungen bei Futtermitteln und&nbsp;-zusatzstoffen</h1>
 
-    <!-- Intro -->
-    <div class="nw-intro">
-      <p><strong>Liebe*r Tierbesitzer*in,</strong></p>
-      <p>du beobachtest dein Tier jeden Tag — und diese Beobachtung zählt. Wenn dein Tier nach der Anwendung eines Inuvet-Produktes etwas gezeigt hat, das dir aufgefallen ist, freuen wir uns über deine Rückmeldung. Sie hilft uns, Auffälligkeiten zu erkennen. Wenn du Fragen hast, melde dich einfach bei uns.</p>
-      <p>Wenn dein Tier akute Beschwerden hat, ruf bitte zuerst deine Tierarztpraxis an. Dieses Formular dient nur unserer Dokumentation. Danke!</p>
-      <p class="nw-pflicht">Sternchen (*) = Pflichtfelder</p>
-    </div>
+    <!-- Intro + Formular -->
+    <form id="nebenwirkungenForm" class="flow" novalidate>
 
-    <form id="nebenwirkungenForm" novalidate>
+      <div class="form-intro">
+        <p><strong>Liebe*r Tierbesitzer*in,</strong></p>
+        <p>du beobachtest dein Tier jeden Tag — und diese Beobachtung zählt. Wenn dein Tier nach der Anwendung eines Inuvet-Produktes etwas gezeigt hat, das dir aufgefallen ist, freuen wir uns über deine Rückmeldung. Sie hilft uns, Auffälligkeiten zu erkennen. Wenn du Fragen hast, melde dich einfach bei uns.</p>
+        <p>Wenn dein Tier akute Beschwerden hat, ruf bitte zuerst deine Tierarztpraxis an. Dieses Formular dient nur unserer Dokumentation. Danke!</p>
+        <p class="form-required-note">Sternchen (*) = Pflichtfelder</p>
+      </div>
 
       <!-- ── 1. Was hast du beobachtet? ── -->
       <h3 class="section-label --sub --in-view" data-animate="">Was hast du bei deinem Tier beobachtet?</h3>
@@ -58,7 +57,7 @@
             <input type="date" id="datum-ende" name="datum_ende">
             <label for="datum-ende">Wann hat es aufgehört?</label>
           </div>
-          <p class="nw-hint">Falls es schon vorbei ist</p>
+          <p class="form-hint">Falls es schon vorbei ist</p>
         </div>
       </div>
 
@@ -66,7 +65,7 @@
         <input type="text" id="zeitabstand" name="zeitabstand" placeholder=" ">
         <label for="zeitabstand">Wie lange nach der Gabe hat es angefangen?</label>
       </div>
-      <p class="nw-hint">Schätzung reicht, z.B. nach 20 Minuten, nach 24 Stunden …</p>
+      <p class="form-hint">Schätzung reicht, z.B. nach 20 Minuten, nach 24 Stunden …</p>
 
       <!-- ── 2. Das Produkt ── -->
       <h3 class="section-label --sub --in-view" data-animate="">Das Produkt</h3>
@@ -81,7 +80,7 @@
             <input type="text" id="packungsgroesse" name="packungsgroesse" placeholder=" " required>
             <label for="packungsgroesse">Packungsgröße *</label>
           </div>
-          <p class="nw-hint">z.B. 50g, 120 Tabletten</p>
+          <p class="form-hint">z.B. 50g, 120 Tabletten</p>
         </div>
       </div>
 
@@ -89,7 +88,7 @@
         <input type="text" id="chargennummer" name="chargennummer" placeholder=" " required>
         <label for="chargennummer">Chargennummer *</label>
       </div>
-      <p class="nw-hint">Die findest du auf der Umverpackung oder der Unterseite des Produkts.</p>
+      <p class="form-hint">Die findest du auf der Umverpackung oder der Unterseite des Produkts.</p>
 
       <div class="form-grid">
         <div class="form-field">
@@ -111,7 +110,7 @@
         <input type="text" id="verabreichung" name="verabreichung" placeholder=" " required>
         <label for="verabreichung">Wie hast du das Produkt verabreicht? *</label>
       </div>
-      <p class="nw-hint">z.B. über das Futter, direkt ins Maul …</p>
+      <p class="form-hint">z.B. über das Futter, direkt ins Maul …</p>
 
       <!-- ── 3. Das Tier ── -->
       <h3 class="section-label --sub --in-view" data-animate="">Über dein Tier</h3>
@@ -133,7 +132,7 @@
             <input type="text" id="tierart" name="tierart" placeholder=" ">
             <label for="tierart">Tierart / Rasse</label>
           </div>
-          <p class="nw-hint">z.B. Hund, Labrador</p>
+          <p class="form-hint">z.B. Hund, Labrador</p>
         </div>
         <div class="form-field">
           <input type="number" id="gewicht" name="gewicht" placeholder=" " min="0" step="0.1">
@@ -141,8 +140,8 @@
         </div>
       </div>
 
-      <p class="nw-group-label">Geschlecht des Tiers</p>
-      <div class="nw-radio-grid">
+      <p class="form-group-label">Geschlecht des Tiers</p>
+      <div class="form-radio-grid">
         <label class="form-check">
           <input type="radio" name="geschlecht" value="weiblich">
           <span>Weiblich</span>
@@ -178,7 +177,7 @@
         <input type="text" id="praxis" name="praxis" placeholder=" ">
         <label for="praxis">Über welche Tierarztpraxis hast du das Produkt bekommen?</label>
       </div>
-      <p class="nw-hint">Name der Praxis und Ort, z.B. Tierarztpraxis Müller, Hamburg</p>
+      <p class="form-hint">Name der Praxis und Ort, z.B. Tierarztpraxis Müller, Hamburg</p>
 
       <div class="form-field">
         <input type="text" id="name" name="name" placeholder=" ">
@@ -195,8 +194,8 @@
         <label for="telefon">Telefonnummer</label>
       </div>
 
-      <p class="nw-group-label">Dürfen wir dich bei Rückfragen kontaktieren?</p>
-      <div class="nw-radio-row">
+      <p class="form-group-label">Dürfen wir dich bei Rückfragen kontaktieren?</p>
+      <div class="form-radio-row">
         <label class="form-check">
           <input type="radio" name="rueckfragen" value="ja">
           <span>Ja</span>
@@ -221,11 +220,11 @@
 
     </form>
 
-    <p class="form-page__privacy">
-      Für Informationen über unsere Datenschutzpraktiken besuche bitte <a href="https://inuvet.com/policies/privacy-policy" target="_blank" rel="noopener">unsere Website</a>.
-    </p>
-
   </div><!-- /.form-page__card -->
+
+  <footer class="form-page__footer">
+    <p><a href="https://inuvet.com/policies/legal-notice" target="_blank" rel="noopener">Impressum</a> · <a href="https://inuvet.com/policies/privacy-policy" target="_blank" rel="noopener">Datenschutz</a></p>
+  </footer>
 
 </div><!-- /.form-page -->
 

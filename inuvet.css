@@ -897,16 +897,23 @@
   .tile__image:hover img:nth-child(1) { transform: scale(1.05); }
 
   /* ─── Produkt-Rollover ─── */
-  /* Zweites img = Rollover-Bild, absolut überlagert, auf Hover sichtbar */
+  /* Zweites Medium (img oder video) = Rollover, absolut überlagert, auf Hover sichtbar */
   .tile__image img:nth-child(2),
-  .product-thumb img:nth-child(2) {
+  .tile__image > video,
+  .product-thumb img:nth-child(2),
+  .product-thumb > video {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
     transition: opacity var(--anim-base);
   }
   .tile__image:hover img:nth-child(2),
-  .product-thumb:hover img:nth-child(2) {
+  .tile__image:hover > video,
+  .product-thumb:hover img:nth-child(2),
+  .product-thumb:hover > video {
     opacity: 1;
   }
 
@@ -1072,13 +1079,13 @@
      TABS
      ═══════════════════════════════════════════ */
 
-  .tabs { display: flex; gap: var(--module); border-bottom: 1px solid var(--border); padding-bottom: 0; margin-bottom: var(--module); }
-  .tab-nav { display: flex; gap: var(--module); box-shadow: inset 0 -1px 0 var(--border-light); margin-bottom: var(--module); overflow-x: auto; scrollbar-width: none; }
+  .tabs { display: flex; flex-wrap: wrap; column-gap: var(--module); row-gap: 0; margin-bottom: var(--module); }
+  .tab-nav { display: flex; flex-basis: 100%; gap: var(--module); box-shadow: inset 0 -1px 0 var(--border-light); overflow-x: auto; scrollbar-width: none; }
   .tab-nav::-webkit-scrollbar { display: none; }
-  .tab-btn { font-family: var(--font); font-size: var(--text-base); font-weight: 700; color: var(--fg-muted); background: none; border: none; border-bottom: 1px solid transparent; padding: 0 0 var(--half-module) 0; margin-bottom: -1px; cursor: pointer; transition: color var(--anim-fast), border-color var(--anim-fast); white-space: nowrap; }
-  .tab-btn:hover { color: var(--fg); border-color: var(--border); }
-  .tab-btn.--active { color: var(--fg); border-color: var(--border-active); }
-  .tab-panel { display: none; }
+  .tab-btn { font-family: var(--font); font-size: var(--text-base); font-weight: 700; color: var(--fg-muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 0 0 calc(var(--half-module) - 1px) 0; margin-bottom: -1px; cursor: pointer; transition: color var(--anim-fast), border-color var(--anim-fast); white-space: nowrap; }
+  .tab-btn:hover { color: var(--fg); border-bottom-color: var(--border); }
+  .tab-btn.--active { color: var(--fg); border-bottom-color: var(--fg); }
+  .tab-panel { display: none; flex-basis: 100%; margin-top: var(--half-module); }
   .tab-panel.--active { display: block; animation: fadeIn var(--anim-base); }
 
   /* ═══════════════════════════════════════════
@@ -1242,13 +1249,18 @@
 /* Icon-Variante: Material-Icon links neben Titel/Inhalt */
 .notice__icon { color: var(--green); font-size: 1.25rem; flex-shrink: 0; }
 
-/* Aufklappbare Notice (details/summary). Inhalt in .notice__body kapseln. */
+/* Aufklappbare Notice (details/summary). Inhalt in .notice__body kapseln.
+   Icon wie bei der statischen Variante in .notice__title kapseln. */
 details.notice > summary {
   display: flex;
   align-items: center;
   gap: calc(var(--base) * 0.5);
   cursor: pointer;
   list-style: none;
+}
+details.notice > summary .notice__title {
+  flex: 1;
+  min-width: 0;
 }
 details.notice > summary::-webkit-details-marker { display: none; }
 .notice__chevron { margin-left: auto; flex-shrink: 0; transition: transform var(--anim-fast); }
@@ -1385,10 +1397,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .form-field.--error textarea,
   .form-field.--error select {
     border-color: var(--color-error);
+    background-color: var(--field-bg-active, var(--bg));
   }
   .form-field.--error label {
     color: var(--color-error);
-    background: var(--bg); /* fehlt → Border scheint durch Label-Text */
+    background: var(--field-bg-active, var(--bg)); /* muss zum Feld-Hintergrund passen */
     top: 0;
     transform: translateY(-50%);
     font-size: var(--text-xs);
@@ -1460,8 +1473,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  gap: var(--half-module);
-  margin-bottom: var(--half-module);
+    gap: var(--half-module);
+    margin-bottom: var(--half-module);
+    align-items: start;
   }
 /* WICHTIG: Felder im Grid dürfen keinen eigenen Margin haben */
 .form-grid > .form-field { margin-bottom: 0; }
@@ -1586,6 +1600,202 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .form-upload__remove:hover { color: var(--fg); }
 
+  /* ─── Hilfetext (unter Feld oder zwischen Sektionen) ─── */
+  .form-hint {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    line-height: var(--lh-base);
+    margin: 0;
+  }
+  .form-field:has(+ .form-hint) { margin-bottom: calc(var(--base) * 0.35); }
+
+  /* ─── Intro-Block (Fließtext vor Formularinhalt) ─── */
+  .form-intro {
+    font-size: var(--text-base);
+    color: var(--fg);
+    line-height: var(--lh-base);
+  }
+  .form-intro p { margin-bottom: calc(var(--base) * 0.75); }
+  .form-intro p:last-child { margin-bottom: 0; }
+
+  .form-required-note {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    margin-top: calc(var(--base) * 0.75);
+  }
+
+  /* Intro endet oft mit Pflichtfeld-Hinweis — Abstand zur ersten Sektion via .flow */
+  .flow > .form-intro + .section-label.--sub {
+    --flow-space: var(--module);
+  }
+
+  /* ─── Gruppen-Label (Radio/Checkbox, kein Floating Label) ─── */
+  .form-group-label {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    margin-bottom: calc(var(--base) * 0.5);
+    display: block;
+  }
+
+  /* ─── Checkbox-/Radio-Gruppen ─── */
+  .form-check-group {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) * 0.5);
+  }
+  .form-radio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--base) * 0.5);
+  }
+  .form-radio-row {
+    display: flex;
+    gap: var(--module);
+  }
+  .form-radio-col {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base) * 0.5);
+  }
+
+  /* ─── Checkbox mit Inline-Textfeld (z. B. „Sonstige“) ─── */
+  .form-check.--with-input {
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .form-check__inline-input {
+    flex: 1;
+    min-width: 0;
+    height: 1.5rem;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    font-family: var(--font);
+    font-size: var(--text-sm);
+    color: var(--fg);
+    padding: 0 calc(var(--base) * 0.25);
+    transition: border-color var(--anim-fast);
+  }
+  .form-check__inline-input:focus {
+    outline: none;
+    border-bottom-color: var(--fg);
+  }
+
+  /* ─── reCAPTCHA-Platzhalter ─── */
+  .form-captcha {
+    border: 1px solid var(--border-light);
+    padding: calc(var(--base) * 0.75) var(--base);
+    display: flex;
+    align-items: center;
+    gap: var(--base);
+    max-width: calc(var(--module) * 10);
+  }
+  .form-captcha__checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+  .form-captcha__label {
+    font-size: var(--text-base);
+    color: var(--fg);
+    flex: 1;
+  }
+  .form-captcha__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+  .form-captcha__brand-logo {
+    font-size: var(--text-m);
+    line-height: 1;
+  }
+  .form-captcha__brand-name {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── Stand-Alone-Formular: Sprachwahl ─── */
+  .form-lang-switch {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font);
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .form-lang-switch:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* ─── Stand-Alone-Formular: Seiten-Shell (.form-page) ─── */
+  .form-page {
+    min-height: 100vh;
+    background: var(--accent-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--half-module) var(--base) var(--module);
+  }
+  .form-page__card {
+    background: var(--bg);
+    width: 100%;
+    max-width: var(--form-page-max);
+    padding: var(--half-module) var(--module) calc(var(--module) * 1.5);
+  }
+  @media (max-width: 480px) {
+    .form-page__card { padding: var(--half-module) var(--half-module) var(--module); }
+  }
+  .form-page__header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-bottom: var(--half-module);
+    margin-bottom: var(--module);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .form-page__header svg,
+  .form-page__header img {
+    height: calc(var(--module) * 1.75);
+    width: auto;
+    display: block;
+  }
+  .form-page__title {
+    font-size: var(--text-l);
+    font-weight: 700;
+    color: var(--fg);
+    line-height: var(--lh-h2);
+    margin-bottom: var(--module);
+  }
+  .form-page__footer {
+    width: 100%;
+    max-width: var(--form-page-max);
+    margin-top: var(--half-module);
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    line-height: var(--lh-base);
+    text-align: center;
+  }
+  .form-page__footer p + p {
+    margin-top: calc(var(--base) * 0.25);
+  }
+  /* Legacy — bevorzugt in .form-page__footer gebündelt */
+  .form-page__privacy {
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    margin-top: var(--half-module);
+    line-height: var(--lh-base);
+  }
+
 /* ─── Icon Box (quadratisches Atom, zentriert Inhalt) ─── */
   .icon-box {
     width: var(--module);
@@ -1698,8 +1908,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      Basiert auf dem Every-Layout-Flow-Pattern (Andy Bell / heydonworks.com).
      Setzt margin-top kontextsensitiv via --flow-space CSS Custom Property.
 
-     Einsatz:      Info-Pages, section-type__content, überall wo Headings
-                   und Fließtext gemischt auftreten.
+     Einsatz:      Info-Pages, section-type__content, Formular-Container
+                   mit Fließtext + Feldern (vgl. B.4).
      Nicht für:    .rte-Blöcke (eigene Regelung) + Komponenten-Interna.
      Override:     --flow-space direkt am Element setzen für Sonderfälle.
      ──────────────────────────────────────────────────────────────────────── */
@@ -1729,6 +1939,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* * → CTA: Abstand vor Button/Button-Row etwas großzügiger */
   .flow > * + .btn,
   .flow > * + .btn-row { --flow-space: calc(var(--half-module) * 1.5); }
+
+  /* Fließtext → Formular: Abstand vor Feldern, Grids, Molekülen (B.4) */
+  .flow > * + .form-field,
+  .flow > * + .form-grid,
+  .flow > * + .actionable-input,
+  .flow > * + .form-check,
+  .flow > * + .form-upload,
+  .flow > * + .form-hint,
+  .flow > * + .form-intro,
+  .flow > * + .form-check-group,
+  .flow > * + .form-radio-grid,
+  .flow > * + .form-radio-row,
+  .flow > * + .form-radio-col,
+  .flow > * + .form-group-label,
+  .flow > * + .form-captcha {
+    --flow-space: var(--half-module);
+  }
   .label.--inset { margin: 0 var(--margin) var(--half-module); }
 
   /* ═══════════════════════════════════════════
@@ -2054,11 +2281,15 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__gallery { display: flex; flex-direction: column; gap: var(--half-module); }
   /* .pdp__main-image — nutzt .placeholder-bg */
   .pdp__main-image { aspect-ratio: 1/1; border: 1px solid var(--border-light); overflow: hidden; position: relative; }
-  .pdp__main-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pdp__main-image img,
+  .pdp__main-image video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pdp__main-image img.--hidden,
+  .pdp__main-image video.--hidden { display: none; }
   .pdp__thumbs { display: flex; gap: var(--half-module); }
   /* .pdp__thumb — nutzt .placeholder-bg */
   .pdp__thumb { width: calc((100% - var(--half-module) * 4) / 5); aspect-ratio: 1/1; border: 1px solid var(--border-light); cursor: pointer; transition: border-color var(--anim-fast); overflow: hidden; }
-  .pdp__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pdp__thumb img,
+  .pdp__thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pdp__thumb.--active, .pdp__thumb:hover { border-color: var(--border-active); }
 
   /* ─── PDP Caption (Text-Layer über Hauptbild) ─── */
@@ -2244,8 +2475,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* ─── Produktlisten-Karte — geteilte Erweiterungen für .cart-item ─── */
   /* Thumb-Wrapper: ermöglicht .floating-meta Overlay auf .product-thumb  */
   .product-thumb-wrap { position: relative; width: calc(var(--base) * 5); flex-shrink: 0; }
+  .product-thumb-wrap .floating-meta { top: 0; left: 0; }
   /* Counter-Zeile: .qty-selector --sm + optionaler Inline-Badge          */
   .cart-item__counter { display: flex; align-items: center; gap: calc(var(--base) * 0.5); }
+  /* Naturalrabatt-Upsell — zentriert auf unterer Trennlinie der Zeile     */
+  .cart-item:has(.cart-item__tier-hint) { position: relative; }
+  .cart-item__tier-hint {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background: var(--bg);
+    padding: 0 calc(var(--base) * 0.5);
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+    white-space: nowrap;
+    z-index: 1;
+  }
 
   /* ═══════════════════════════════════════════
      OPTIONS-DRAWER (Varianten wählen)
@@ -2452,7 +2698,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .modal { background: var(--bg); width: 100%; max-width: 32rem; max-height: calc(100vh - var(--module-2xl)); display: flex; flex-direction: column; transform: translateY(1.5rem); transition: transform var(--anim-base); border: 1px solid var(--border); }
   .modal-overlay.--open .modal { transform: translateY(0); }
   .modal__header { display: flex; align-items: center; justify-content: space-between; padding: var(--half-module) var(--module); border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
-  .modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); }
+  .modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
   .modal__body { padding: var(--module); overflow-y: auto; }
 
   /* ─── Shop-Modal (Bestätigungs-/Feedback-Dialog) ─── */

@@ -653,9 +653,10 @@ function renderLogin() {
         <div class="portal-start__option">
           <h3>Registrati e ottieni 10&nbsp;€</h3>
           <div class="tabs">
-            <button class="tab-btn --active" type="button" onclick="switchLoginTab(this, 'tab-register')">Registrati</button>
-            <button class="tab-btn" type="button" onclick="switchLoginTab(this, 'tab-login')">Accedi</button>
-          </div>
+            <div class="tab-nav" role="tablist">
+              <button class="tab-btn --active" type="button" onclick="switchLoginTab(this, 'tab-register')">Registrati</button>
+              <button class="tab-btn" type="button" onclick="switchLoginTab(this, 'tab-login')">Accedi</button>
+            </div>
 
           <div class="tab-panel --active" id="tab-register">
             <div class="form-field">

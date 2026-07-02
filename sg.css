@@ -128,7 +128,7 @@
     margin-top: calc(-1 * var(--half-module));
   }
 
-  /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in pages/formulare.css ─── */
+  /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in inuvet.css ─── */
   .form-page-demo { margin-bottom: var(--half-module); }
   .form-page-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
   .form-page-demo__shell {
@@ -458,6 +458,8 @@
   padding: var(--module);
 }
 /* Einzelnes Feld/Grid in Demo: produktives margin-bottom entfällt — sonst optisch mehr Luft unten */
+.sg-demo .pagination { margin-top: 0; }
+.sg-demo .tabs { margin-bottom: 0; }
 .sg-demo .form-field:only-child,
 .sg-demo .form-grid:only-child,
 .sg-demo .form-upload:only-child { margin-bottom: 0; }
@@ -471,6 +473,7 @@
 .sg-demo.--green-solid { background: var(--green); }
 .sg-demo.--center { display: flex; align-items: center; justify-content: center; }
 .sg-demo.--stack { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+.sg-demo.--flush { padding: 0; overflow: visible; }
 
 /* ─── Code-Blöcke ─── */
 .sg-code {

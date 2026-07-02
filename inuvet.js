@@ -483,8 +483,7 @@ window.closeCart = () => {
   document.getElementById('cartDrawer')?.classList.remove('--open');
 };
 
-// Warenkorb-Zeile im selben Layout wie das persönliche Angebot:
-// Thumb · Name/Variante · Mengen-Selector · Gratis-Badge · Tier-Hint.
+// Warenkorb-Zeile: Gratis-Badge auf dem Thumb · Mengen-Selector · Tier-Hint.
 function renderCartDrawer() {
   const drawer = document.getElementById('cartDrawer');
   if (!drawer) return;
@@ -510,10 +509,14 @@ function renderCartDrawer() {
   const itemsHTML = views.map(v => {
     const thumb = v.image ? `<img src="${v.image}" alt="${v.name}">` : '';
     const hint  = formatHint(v.hint, v.model);
+    const freeBadge = v.free > 0
+      ? `<div class="floating-meta"><span class="badge --free">+ ${v.free}</span></div>`
+      : '';
     return `
       <div class="cart-item bundle-item">
         <div class="product-thumb-wrap">
           <div class="product-thumb placeholder-bg">${thumb}</div>
+          ${freeBadge}
         </div>
         <div class="cart-item__info">
           <div class="cart-item__top">
@@ -526,18 +529,15 @@ function renderCartDrawer() {
             </button>
           </div>
           <div class="cart-item__bottom">
-            <div class="cart-item__counter">
-              <div class="qty-selector --sm">
-                <button type="button" class="qty-selector__btn" onclick="cartChangeQty('${v.key}', -1)"><span class="material-icons">remove</span></button>
-                <input class="qty-selector__input" type="number" value="${v.qty}" min="1" onchange="cartSetQty('${v.key}', parseInt(this.value)||1)">
-                <button type="button" class="qty-selector__btn" onclick="cartChangeQty('${v.key}', 1)"><span class="material-icons">add</span></button>
-              </div>
-              ${v.free > 0 ? `<span class="badge --free">+ ${v.free}</span>` : ''}
+            <div class="qty-selector --sm">
+              <button type="button" class="qty-selector__btn" onclick="cartChangeQty('${v.key}', -1)"><span class="material-icons">remove</span></button>
+              <input class="qty-selector__input" type="number" value="${v.qty}" min="1" onchange="cartSetQty('${v.key}', parseInt(this.value)||1)">
+              <button type="button" class="qty-selector__btn" onclick="cartChangeQty('${v.key}', 1)"><span class="material-icons">add</span></button>
             </div>
             <span class="cart-item__qty-text">${fmt(v.price * v.qty)}</span>
           </div>
         </div>
-        ${hint ? `<span class="bundle-item__tier-hint" aria-hidden="true">${hint}</span>` : ''}
+        ${hint ? `<span class="cart-item__tier-hint" aria-hidden="true">${hint}</span>` : ''}
       </div>`;
   }).join('');
 
@@ -604,6 +604,23 @@ function showToast(message, variant = 'success') {
     setTimeout(() => toast.remove(), 250);
   }, 2600);
 }
+
+// Produkt-Rollover: Video bei Hover abspielen (2. Medium in .tile__image / .product-thumb).
+function initProductMediaRollover() {
+  document.querySelectorAll('.tile__image, .product-thumb').forEach(function(wrap) {
+    var video = wrap.querySelector(':scope > video');
+    if (!video) return;
+    wrap.addEventListener('mouseenter', function() {
+      video.play().catch(function() {});
+    });
+    wrap.addEventListener('mouseleave', function() {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initProductMediaRollover);
 
 // Badge beim Laden initialisieren.
 document.addEventListener('DOMContentLoaded', updateCartBadge);

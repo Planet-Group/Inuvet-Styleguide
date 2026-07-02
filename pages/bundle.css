@@ -8,7 +8,7 @@
    #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
    dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
    Andere Sections nutzen den .container-Default und überschreiben nur padding-bottom. */
-/* padding-bottom: --module gibt dem .bundle-item__tier-hint ausreichend Platz
+/* padding-bottom: --module gibt dem .cart-item__tier-hint ausreichend Platz
    (der mit translateY(50%) halb über die Card-Bottom-Kante hinausragt) und
    trennt das Bundle visuell sauber von der nachfolgenden Section. */
 #bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
@@ -43,21 +43,6 @@
 }
 
 /* ─── Bundle Item ─── */
-.bundle-item { position: relative; }
-
-.bundle-item__tier-hint {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  background: var(--bg);
-  padding: 0 calc(var(--base) * 0.5);
-  font-size: var(--text-xs);
-  color: var(--fg-muted);
-  white-space: nowrap;
-  z-index: 1;
-}
-
 .bundle-item.is-entering {
   animation: bundleSlideIn var(--anim-mid) forwards;
 }

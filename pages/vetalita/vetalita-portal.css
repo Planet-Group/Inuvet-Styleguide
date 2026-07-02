@@ -588,7 +588,7 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 .modal { background: var(--bg); width: 100%; max-width: 32rem; max-height: calc(100vh - var(--module-2xl)); display: flex; flex-direction: column; transform: translateY(1.5rem); transition: transform var(--anim-base); border: 1px solid var(--border); }
 .modal-overlay.--open .modal { transform: translateY(0); }
 .modal__header { display: flex; align-items: center; justify-content: space-between; padding: var(--half-module) var(--module); border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
-.modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); }
+.modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
 .modal__body { padding: var(--module); overflow-y: auto; }
 
 /* ── Checkout ─────────────────────────────────────────────── */
@@ -688,12 +688,9 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 }
 
 /* ── Tabs ─────────────────────────────────────────────────── */
-.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); padding-bottom: 0; margin-bottom: var(--module); }
-.tab-btn { flex: 1; text-align: left; font-family: var(--font-body, inherit); font-size: var(--text-base); font-weight: 700; color: var(--fg-muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 0 0 var(--half-module) 0; margin-bottom: -1px; cursor: pointer; transition: color var(--anim-fast), border-color var(--anim-fast); white-space: nowrap; }
-.tab-btn:hover { color: var(--fg); border-color: var(--border); }
-.tab-btn.--active { color: var(--fg); border-color: var(--border-active, var(--green)); }
-.tab-panel { display: none; }
-.tab-panel.--active { display: block; animation: fadeIn 200ms ease; }
+.tabs { margin-bottom: var(--module); }
+.tab-nav .tab-btn { flex: 1; text-align: left; font-family: var(--font-body, inherit); }
+.tab-panel.--active { animation: fadeIn 200ms ease; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── Shop Modal (registration success) ───────────────────── */

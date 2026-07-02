@@ -7,12 +7,21 @@ function closeModal(id) {
   document.getElementById(id).classList.remove('--open');
   document.body.style.overflow = '';
 }
+function openShopModal(id) {
+  document.getElementById(id).classList.add('--open');
+  document.body.style.overflow = 'hidden';
+}
+function closeShopModal(id) {
+  document.getElementById(id).classList.remove('--open');
+  document.body.style.overflow = '';
+}
 
 // Escape closes menu + modals + cart drawers
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeMobile();
     document.querySelectorAll('.modal-overlay.--open').forEach(function(m) { closeModal(m.id); });
+    document.querySelectorAll('.shop-modal-overlay.--open').forEach(function(m) { closeShopModal(m.id); });
     if (document.getElementById('cartFull')?.classList.contains('--open')) closeCart('cartFull');
     if (document.getElementById('cartEmpty')?.classList.contains('--open')) closeCart('cartEmpty');
   }
@@ -23,6 +32,7 @@ function showToast(message, type) {
   type = type || 'info';
   var icons = { success: 'check_circle', error: 'error', info: 'info' };
   var container = document.getElementById('toastContainer');
+  if (!container) return;
   var toast = document.createElement('div');
   toast.className = 'toast --' + type;
   toast.innerHTML = '<span class="material-icons">' + (icons[type] || 'info') + '</span><span>' + message + '</span>';
@@ -363,12 +373,34 @@ function switchLoginTab(btn, panelId) {
 }
 
 function pdpSwitch(el, src, captionText, authorText) {
-  document.querySelectorAll('.pdp__thumbs .pdp__thumb').forEach(function(t) {
+  var pdp = el.closest('.pdp');
+  if (!pdp) return;
+  var main = pdp.querySelector('.pdp__main-image');
+  var img = main.querySelector('img');
+  var video = main.querySelector('video');
+  var isVideo = /\.mp4(\?|$)/i.test(src);
+
+  pdp.querySelectorAll('.pdp__thumbs .pdp__thumb').forEach(function(t) {
     t.classList.remove('--active');
   });
   el.classList.add('--active');
-  document.querySelector('.pdp__main-image > img').src = src;
-  var cap = document.querySelector('.pdp__caption');
+
+  if (isVideo && video) {
+    if (img) img.classList.add('--hidden');
+    video.classList.remove('--hidden');
+    if (video.getAttribute('src') !== src) video.setAttribute('src', src);
+    video.play().catch(function() {});
+  } else if (img) {
+    if (video) {
+      video.pause();
+      video.classList.add('--hidden');
+    }
+    img.classList.remove('--hidden');
+    img.src = src;
+  }
+
+  var cap = main.querySelector('.pdp__caption');
+  if (!cap) return;
   var show = captionText || authorText;
   if (show) {
     cap.innerHTML = captionText
