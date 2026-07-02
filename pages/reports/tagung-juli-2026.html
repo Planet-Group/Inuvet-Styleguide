@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15 Jahre Inuvet — Tagung Juli 2026</title>
+<link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<style>
+:root {
+  --inuvet-fg:          #2E2E2E;
+  --inuvet-white:       #FFFFFF;
+  --inuvet-green:       #78b41b;
+  --inuvet-green-hover: #58990F;
+  --inuvet-green-light: #f0fae6;
+  --inuvet-muted:       #666666;
+  --inuvet-rule:        #adadad;
+  --inuvet-rule-light:  #e0e0e0;
+  --inuvet-fill:        #f2f2f2;
+
+  --inuvet-font:    "schnebel-sans-me", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight-body:    400;
+  --weight-display: 700;
+
+  --doc-cover-title: 52pt;
+  --doc-cover-sub:   16pt;
+  --doc-h1:          30pt;
+  --doc-h2:          21pt;
+  --doc-h3:          14pt;
+  --doc-h4:          11pt;
+  --doc-lead:        13pt;
+  --doc-body:        10.5pt;
+  --doc-small:       9pt;
+  --doc-meta:        8pt;
+  --doc-stat:        40pt;
+  --doc-stat-xl:     110pt;
+  --doc-quote:       18pt;
+
+  --s1: 4pt; --s2: 8pt;  --s3: 12pt; --s4: 16pt;
+  --s5: 20pt; --s6: 24pt; --s8: 32pt; --s10: 40pt; --s12: 48pt;
+
+  --page-w: 210mm;
+  --page-h: 297mm;
+  --margin-x: 22mm;
+  --margin-top: 36mm;
+  --margin-bot: 22mm;
+  --header-y: 13mm;
+  --footer-y: 13mm;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--inuvet-rule-light);
+  color: var(--inuvet-fg);
+  font-family: var(--inuvet-font);
+  font-weight: var(--weight-body);
+  font-size: var(--doc-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+img { display: block; max-width: 100%; }
+svg { display: block; }
+
+.page {
+  position: relative;
+  width: var(--page-w);
+  height: var(--page-h);
+  background: var(--inuvet-white);
+  overflow: hidden;
+  padding: var(--margin-top) var(--margin-x) var(--margin-bot);
+}
+
+@media screen {
+  body { display: flex; flex-direction: column; align-items: center; gap: 12mm; padding: 16mm 0; }
+  .page { box-shadow: 0 4mm 16mm rgba(0,0,0,0.18); }
+}
+
+.page-header {
+  position: absolute; top: var(--header-y); left: var(--margin-x); right: var(--margin-x);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: var(--doc-meta); font-weight: var(--weight-body); color: var(--inuvet-fg);
+}
+
+/* Logo / Brandmark */
+.brandmark { display: block; height: 16mm; width: 16mm; --logo-a: var(--inuvet-green); --logo-b: var(--inuvet-fg); }
+.brandmark--lg { height: 20mm; width: 20mm; }
+.ivl-sym  { fill: var(--logo-a, #78b41b); }
+.ivl-word { fill: var(--logo-b, #2E2E2E); }
+
+.page-footer {
+  position: absolute; bottom: var(--footer-y); left: var(--margin-x); right: var(--margin-x);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: var(--doc-meta); font-weight: var(--weight-body); color: var(--inuvet-fg);
+}
+.page-footer .page-num { font-weight: var(--weight-display); font-variant-numeric: tabular-nums; }
+
+.page-header::after, .page-footer::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 0.6pt; background: var(--inuvet-rule);
+}
+.page-header::after  { bottom: -3mm; }
+.page-footer::before { top: -3mm; }
+
+h1, h2, h3, h4 { font-family: var(--inuvet-font); font-weight: var(--weight-display); color: var(--inuvet-fg); }
+.page-body h1 { font-size: var(--doc-h1); line-height: 1.0; letter-spacing: -0.015em; }
+.page-body h2 { font-size: var(--doc-h2); line-height: 1.05; }
+.page-body h3 { font-size: var(--doc-h3); line-height: 1.2; }
+.page-body h4 { font-size: var(--doc-h4); line-height: 1.3; }
+
+.kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-green); }
+
+p { font-size: var(--doc-body); line-height: 1.5; }
+.lead { font-size: var(--doc-lead); line-height: 1.4; font-weight: var(--weight-body); }
+.small { font-size: var(--doc-small); }
+ul, ol { font-size: var(--doc-body); line-height: 1.5; padding-left: var(--s4); }
+li { margin-bottom: var(--s1); }
+li::marker { color: var(--inuvet-green); }
+strong, b { font-weight: var(--weight-display); }
+a { color: var(--inuvet-green); text-decoration: none; }
+
+h1, h2, h3, h4 { break-after: avoid; }
+p, li { orphans: 2; widows: 2; }
+
+.flow > * + *  { margin-top: var(--s3); }
+.flow > h1 + * { margin-top: var(--s4); }
+.flow > h2 + * { margin-top: var(--s3); }
+.flow > h3 + * { margin-top: var(--s2); }
+.flow > h4 + * { margin-top: var(--s1); }
+.flow > * + h2 { margin-top: var(--s8); }
+.flow > * + h3 { margin-top: var(--s6); }
+.flow > * + h4 { margin-top: var(--s4); }
+
+.section-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding-bottom: var(--s2); border-bottom: 1pt solid var(--inuvet-fg); break-after: avoid;
+}
+.section-head .sh-num { font-size: var(--doc-h2); font-weight: var(--weight-display); color: var(--inuvet-green); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--doc-body); }
+.table caption { text-align: left; font-size: var(--doc-h4); font-weight: var(--weight-display); margin-bottom: var(--s2); }
+.table th { text-align: left; font-weight: var(--weight-display); line-height: 1.35; padding: var(--s2) var(--s3) var(--s2) 0; border-bottom: 1pt solid var(--inuvet-fg); }
+.table td { padding: var(--s2) var(--s3) var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); line-height: 1.35; vertical-align: top; }
+.table th:last-child, .table td:last-child { padding-right: 0; }
+.table tr:last-child td { border-bottom: none; }
+.table thead { display: table-header-group; }
+.table tr { break-inside: avoid; }
+
+.callout { padding: var(--s4); border-radius: 0; background: var(--inuvet-fill); break-inside: avoid; }
+.callout--soft { background: var(--inuvet-green-light); }
+.callout h4 { margin-bottom: var(--s1); }
+
+.quote { break-inside: avoid; }
+.quote .quote-text { font-size: var(--doc-quote); font-weight: var(--weight-display); line-height: 1.25; letter-spacing: -0.01em; }
+.quote .quote-attr { margin-top: var(--s3); font-size: var(--doc-small); font-weight: var(--weight-display); }
+.quote .quote-attr .role { font-weight: var(--weight-body); }
+
+.figure { break-inside: avoid; }
+.figure img, .figure .fig-placeholder { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0; background: var(--inuvet-fill); }
+.figure .fig-placeholder { display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 var(--s5); font-size: var(--doc-small); }
+.fig-ph-screen { color: var(--inuvet-green); font-weight: var(--weight-display); }
+.fig-ph-print  { display: none; color: var(--inuvet-muted); }
+@media print { .fig-ph-screen { display: none; } .fig-ph-print { display: inline; } }
+.figure figcaption { font-size: var(--doc-meta); line-height: 1.4; margin-top: var(--s2); }
+
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: start; }
+
+.stat-hero { margin-top: var(--s6); }
+.stat-hero .sh-figure { font-size: var(--doc-stat-xl); font-weight: var(--weight-display); line-height: 0.85; letter-spacing: -0.03em; color: var(--inuvet-green); }
+.stat-hero .sh-caption { font-size: var(--doc-lead); line-height: 1.4; margin-top: var(--s5); max-width: 120mm; }
+
+.break-before { break-before: page; }
+.avoid-break  { break-inside: avoid; }
+.page-body { height: 100%; }
+
+/* ============================================================
+   COVER / TRENNER / RÜCKSEITE — WEISS (Ink-Sparmodus, Grün nur Akzent)
+   Keine vollflächig grünen Seiten.
+   ============================================================ */
+.page--cover, .page--divider, .page--back {
+  display: flex; flex-direction: column; justify-content: space-between;
+  background: var(--inuvet-white);
+}
+.accent-bar { width: 54mm; height: 3mm; background: var(--inuvet-green); margin-bottom: var(--s5); }
+
+/* Cover */
+.page--cover .cover-main { margin-top: auto; }
+.page--cover .cover-kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-green); margin-bottom: var(--s4); }
+.page--cover h1 { font-weight: var(--weight-display); font-size: var(--doc-cover-title); line-height: 0.95; letter-spacing: -0.02em; color: var(--inuvet-fg); max-width: 150mm; }
+.page--cover .cover-sub { font-size: var(--doc-cover-sub); font-weight: var(--weight-body); line-height: 1.35; color: var(--inuvet-fg); max-width: 130mm; margin-top: var(--s5); }
+.cover-meta { display: flex; gap: var(--s10); margin-top: var(--s10); padding-top: var(--s4); border-top: 0.5pt solid var(--inuvet-rule); }
+.cover-meta .cm-label { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-green); margin-bottom: var(--s1); }
+.cover-meta .cm-value { font-size: var(--doc-body); font-weight: var(--weight-body); color: var(--inuvet-fg); }
+
+/* Kapitel-Trenner */
+.page--divider .divider-main { margin-top: auto; }
+.page--divider .divider-kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-green); margin-bottom: var(--s2); }
+.page--divider .divider-num { font-size: 96pt; font-weight: var(--weight-display); line-height: 0.9; letter-spacing: -0.03em; color: var(--inuvet-green); }
+.page--divider h2 { font-size: var(--doc-cover-title); line-height: 0.95; letter-spacing: -0.02em; color: var(--inuvet-fg); max-width: 150mm; margin-top: var(--s3); }
+
+/* Rückseite */
+.page--back .back-main { margin-top: auto; }
+.page--back h2 { font-size: var(--doc-h2); color: var(--inuvet-fg); max-width: 140mm; }
+.page--back .back-contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); margin-top: var(--s8); }
+.page--back .bc-label2 { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-green); margin-bottom: var(--s1); }
+.page--back .bc-val { font-size: var(--doc-body); color: var(--inuvet-fg); line-height: 1.4; }
+.page--back .back-legal { font-size: var(--doc-small); line-height: 1.4; color: var(--inuvet-fg); margin-top: var(--s6); padding-top: var(--s3); border-top: 0.5pt solid var(--inuvet-rule); }
+
+/* ============================================================
+   DOKUMENT-SPEZIFISCH: Zeitplan & Ausfüll-Linien
+   ============================================================ */
+.sched { width: 100%; }
+.sched-row { display: grid; grid-template-columns: 22mm 1fr; gap: var(--s3); padding: var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); break-inside: avoid; }
+.sched-row:last-child { border-bottom: none; }
+.sched-row .t { font-weight: var(--weight-display); color: var(--inuvet-green); font-variant-numeric: tabular-nums; }
+
+.lines { margin-top: var(--s4); }
+.lines .line { border-bottom: 0.6pt solid var(--inuvet-rule); margin-top: var(--s8); }
+
+.choices { list-style: none; padding-left: 0; font-size: var(--doc-small); }
+.choices li { display: flex; justify-content: space-between; max-width: 70mm; padding: var(--s1) 0; border-bottom: 0.6pt solid var(--inuvet-rule-light); }
+.choices li .key { font-weight: var(--weight-display); color: var(--inuvet-green); }
+.answer { font-size: var(--doc-small); }
+.answer .blank { display: inline-block; min-width: 30mm; border-bottom: 0.6pt solid var(--inuvet-rule); }
+
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: var(--inuvet-white); }
+  .page { box-shadow: none; margin: 0; break-after: page; }
+  .page:last-child { break-after: auto; }
+  .ui-bar { display: none !important; }
+  [contenteditable] { outline: none !important; }
+}
+
+/* UI: Bearbeiten + Drucken (nur Bildschirm) + Edit-Modus */
+@media screen {
+  .ui-bar { position: fixed; bottom: 8mm; right: 8mm; z-index: 100; display: inline-flex; align-items: center; gap: 8px; }
+  .ui-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--inuvet-font); font-weight: var(--weight-display); font-size: 11pt;
+    height: 48px; padding: 0 20px; border-radius: 0; border: 0; cursor: pointer;
+  }
+  .ui-btn--print { background: var(--inuvet-green); color: var(--inuvet-white); }
+  .ui-btn--print:hover { background: var(--inuvet-green-hover); }
+  .ui-btn--edit { background: var(--inuvet-white); color: var(--inuvet-fg); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .ui-btn--edit:hover, .ui-btn--edit.active { background: var(--inuvet-green-light); }
+  .ui-btn .material-icons-outlined { font-size: 20px; }
+  body.edit-mode [contenteditable="true"] {
+    outline: 1.5px dashed rgba(120,180,27,0.5); outline-offset: 2px; cursor: text;
+  }
+  body.edit-mode [contenteditable="true"]:focus {
+    outline: 1.5px solid var(--inuvet-green); background: rgba(120,180,27,0.05);
+  }
+  body.edit-mode .figure { cursor: pointer; outline: 1.5px dashed rgba(120,180,27,0.5); outline-offset: 2px; }
+  body.edit-mode .figure.drop-hover { outline: 2px solid var(--inuvet-green); }
+}
+</style>
+</head>
+<body>
+
+<!-- Inuvet Brandmark: einmal definiert, überall per <use href="#inuvet-mark"> referenziert. NICHT verändern. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="inuvet-mark" viewBox="0 0 113.4 113.4">
+    <path class="ivl-word" d="M19.4,74.3c0,1.4-1.1,2.6-2.6,2.6s-2.6-1.2-2.6-2.6,1.1-2.5,2.6-2.5,2.5,1.2,2.5,2.5ZM14.7,78.9h4.3v15.4h-4.3s0-15.4,0-15.4Z"/>
+    <path class="ivl-word" d="M23.1,78.9h3.8l.2,2.1c1.5-1.8,3.1-2.5,5.1-2.5s3.5.7,4.2,2.1c.5.9.7,2,.7,4.1v9.7h-4.3v-8.9c0-1.3,0-1.8-.3-2.3-.3-.6-.8-.9-1.6-.9-1.2,0-2.6,1.1-3.5,2.8v9.3h-4.3v-15.4h0Z"/>
+    <path class="ivl-word" d="M50.5,92.6c-1.4,1.5-2.8,2.1-4.7,2.1s-3.4-.8-4.2-2.2c-.5-.9-.7-2.1-.7-4.2v-9.5h4.3v8.7c0,2.6.5,3.4,1.9,3.4s2.3-.6,3.1-1.9v-10.2h4.3v15.4h-3.8l-.3-1.7h0Z"/>
+    <path class="ivl-word" d="M56.8,78.9h4.8l3.6,10.3,3.6-10.3h4.3l-6.3,15.4h-3.9l-6.1-15.4h0Z"/>
+    <path class="ivl-word" d="M78.1,87.9c.2,2.6,1.5,3.7,4.4,3.7s2.7-.3,4.4-1.2l1,2.8c-1.8,1.1-3.8,1.6-6.4,1.6-5.2,0-7.8-2.5-7.8-7.7s2.8-8.6,7.5-8.6,6.8,2.6,6.8,7.6,0,.9,0,1.8h-9.9,0ZM84.2,85.1c-.2-2.4-1.1-3.5-2.9-3.5s-2.9,1.1-3.2,3.5h6.1Z"/>
+    <path class="ivl-word" d="M89.7,82.4l.3-3.4h2.5l.2-3.7,4-1.4v5.1h3.8l-.3,3.4h-3.5v5.6c0,2.8.2,3.3,1.6,3.3s1.3-.2,2.1-.5l.8,2.7c-1.5.9-3,1.3-4.5,1.3s-3-.6-3.7-1.8c-.4-.8-.6-2-.6-4.2v-6.5h-2.7,0Z"/>
+    <path class="ivl-word" d="M81.4,32h-.3v1h.2c.5,0,.7-.3.7-.6s-.1-.5-.6-.5M82,35.1l-.8-1.5h0v1.5h-.8v-3.7h1.3c.9,0,1.2.4,1.2,1s-.3,1-.8,1c0,0,.2.3.3.5l.7,1.2h-1ZM78.9,33.3c0,1.4,1.1,2.6,2.6,2.6s2.6-1.2,2.6-2.6-1.1-2.6-2.6-2.6-2.6,1.2-2.6,2.6M85,33.3c0,1.9-1.6,3.5-3.5,3.5s-3.6-1.5-3.6-3.5,1.6-3.5,3.6-3.5,3.5,1.5,3.5,3.5"/>
+    <path class="ivl-sym" d="M28.7,54.5c1.3,5.2,5.6,9,11.1,10.7,4.1-4.1,6.1-9.5,4.8-14.7-1.3-5.2-5.6-9-11.1-10.7-4.1,4.1-6.1,9.5-4.8,14.7Z"/>
+    <path class="ivl-sym" d="M38.6,32.3c.7,5.3,4.4,9.7,9.7,12,4.6-3.6,7.2-8.6,6.6-14-.6-5.3-4.4-9.7-9.7-12-4.6,3.6-7.2,8.7-6.5,14Z"/>
+    <path class="ivl-sym" d="M84.6,54.5c-1.3,5.2-5.6,9-11.1,10.7-4.1-4.1-6.1-9.5-4.8-14.7,1.3-5.2,5.6-9,11.1-10.7,4.1,4.1,6.1,9.5,4.8,14.7h0Z"/>
+    <path class="ivl-sym" d="M74.8,32.3c-.7,5.3-4.4,9.7-9.7,12-4.6-3.6-7.2-8.6-6.6-14,.6-5.3,4.4-9.7,9.7-12,4.6,3.6,7.2,8.7,6.6,14h0Z"/>
+  </symbol>
+</svg>
+
+<!-- 1 — COVER (weiß) -->
+<section class="page page--cover">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="cover-main">
+    <div class="accent-bar"></div>
+    <div class="cover-kicker">Team-Tagung · 08.–10. Juli 2026 · Lörrach</div>
+    <h1>15 Jahre Inuvet.</h1>
+    <p class="cover-sub">Ablauf, Teilnehmer und Handouts zur Sommertagung von Sales &amp; Marketing.</p>
+    <div class="cover-meta">
+      <div><div class="cm-label">Stand</div><div class="cm-value">12.06.2026</div></div>
+      <div><div class="cm-label">Bereich</div><div class="cm-value">Sales &amp; Marketing</div></div>
+      <div><div class="cm-label">Vertraulichkeit</div><div class="cm-value">Intern</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 — ABLAUF: Mittwoch + Donnerstag -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">15 Jahre Inuvet · Tagung Juli 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Ablauf</h2><span class="sh-num">01</span></div>
+    <p class="lead">Drei Tage in Lörrach — Auftakt, Handout-Arbeit und Team-Event.</p>
+
+    <h3>Mittwoch · 08.07.</h3>
+    <div class="sched">
+      <div class="sched-row"><span class="t">19:00</span><span>DACH Sales &amp; MKT — Trattoria Pizzeria da Carmelo, Steinenstraße 7, 79618 Rheinfelden (Baden)</span></div>
+    </div>
+
+    <h3>Donnerstag · 09.07.</h3>
+    <div class="sched">
+      <div class="sched-row"><span class="t">09:00</span><span>Start / Begrüßung — alle zusammen</span></div>
+      <div class="sched-row"><span class="t">09:30</span><span>Rede / Treffen mit C&amp;P</span></div>
+      <div class="sched-row"><span class="t">10:00</span><span>Identität: Teilnehmer lesen Handout Teil 1</span></div>
+      <div class="sched-row"><span class="t">10:20</span><span>Teilnehmer definieren im Handout Teil 2: „Ich bin eine Umsatzmaschine"</span></div>
+      <div class="sched-row"><span class="t">10:35</span><span>Standards / Gewohnheiten: Teilnehmer lesen Handout Teil 3</span></div>
+      <div class="sched-row"><span class="t">10:45</span><span>Pause</span></div>
+      <div class="sched-row"><span class="t">11:00</span><span>Teilnehmer definieren jeder für sich: Handout Teil 3</span></div>
+      <div class="sched-row"><span class="t">11:30</span><span>Sammeln von Standards, Gewohnheiten &amp; Entscheidungen</span></div>
+      <div class="sched-row"><span class="t">12:15</span><span>Austeilen Handout Teil 4</span></div>
+      <div class="sched-row"><span class="t">12:30</span><span>Mittagessen</span></div>
+      <div class="sched-row"><span class="t">13:15</span><span>Weg zum Grütt</span></div>
+      <div class="sched-row"><span class="t">14:00</span><span>Event</span></div>
+      <div class="sched-row"><span class="t">17:30</span><span>Zurück zum Büro</span></div>
+      <div class="sched-row"><span class="t">18:00</span><span>Abendessen / Beisammensein</span></div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 3 — ABLAUF Freitag + Salesbooster -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">15 Jahre Inuvet · Tagung Juli 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Freitag · 10.07.</h2></div>
+    <div class="sched">
+      <div class="sched-row"><span class="t">09:00</span><span>Start / Begrüßung — alle zusammen</span></div>
+      <div class="sched-row"><span class="t">09:30</span><span>Operation Tiergesundheit — Lörrach Safari</span></div>
+      <div class="sched-row"><span class="t">11:30</span><span>Alle wieder zusammen</span></div>
+      <div class="sched-row"><span class="t">12:00</span><span>Mittagessen</span></div>
+      <div class="sched-row"><span class="t">13:00</span><span>Prime Club — alle anderen machen Umsatz</span></div>
+      <div class="sched-row"><span class="t">15:00</span><span>Ende Tagung</span></div>
+      <div class="sched-row"><span class="t">18:00</span><span>Beginn Party</span></div>
+    </div>
+
+    <div class="section-head"><h2>Salesbooster im September</h2><span class="sh-num">02</span></div>
+    <p>Je ein Tag pro Region, 9–16 Uhr. Wer mehr als 2,5 Stunden anfährt, kann übernachten. Benötigt wird nur ein gemütlicher, gut erreichbarer Raum mit Parkmöglichkeit — Hunde erlaubt, Beamer optional.</p>
+    <h4>Nord · bei Hannover — 09.10.2026</h4>
+    <p>Michele, Laura, Krissi, Maurice, Diana, Stephi M., Ersatz für Angelina, Ersatz für Laura</p>
+    <h4>Mitte · bei Frankfurt — 25.09.2026</h4>
+    <p>Steffi N., Marion, Tina, Sabrina, Claudia, Sabine A., Sabine L., Theresa</p>
+    <h4>Süd &amp; AT · Salzburg, direkt vor der Messe — 17.09.2026</h4>
+    <p>Barbara, Monika, Silvia, Sofie, Chris (voraussichtlich alle für die Messe eingeplant), Angie</p>
+    <p class="small">* Zu August stellen wir eine Elternzeitvertretung für Angelina ein und einen Ersatz für Laura (geht zurück ins SC-Team). Namen folgen.</p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 4 — TEILNEHMER -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">15 Jahre Inuvet · Tagung Juli 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Teilnehmer</h2><span class="sh-num">03</span></div>
+    <p class="lead">40 Personen aus Sales DACH, Sales Concierge, Marketing und Byox.</p>
+    <div class="cols-2">
+      <div class="flow">
+        <h4>CH (5)</h4>
+        <ul>
+          <li>Remo Laisa</li><li>Nadja Lehmann (SC)</li><li>Nabila</li><li>Stefanie Kappler</li><li>Vanessa Schindler (nur digital)</li>
+        </ul>
+        <h4>Sales Concierge (7)</h4>
+        <ul>
+          <li>Johanna</li><li>Michele</li><li>Sofie</li><li>Claudia</li><li>Angie</li><li>Anna Heimann</li><li>Merle</li>
+        </ul>
+        <h4>AT (2)</h4>
+        <ul><li>Barbara Wimmer</li><li>Monika Habisch</li></ul>
+        <h4>Byox (2)</h4>
+        <ul><li>Leon</li><li>Tamara</li></ul>
+      </div>
+      <div class="flow">
+        <h4>DE (15)</h4>
+        <ul>
+          <li>Martina Gieske</li><li>Stefanie Nabholz</li><li>Angelina Südfeld</li><li>Chris Korn</li><li>Sabrina Michel</li><li>Marion Wolf</li><li>Theresa Rekittke</li><li>Sabine Armborst</li><li>Stephi Müller</li><li>Sabine Labendsch</li><li>Silvia Wittmann</li><li>Laura Cordes</li><li>Kristina Dettmann</li><li>Maurice Büngel</li><li>Diana Komoss</li>
+        </ul>
+        <h4>Marketing (9)</h4>
+        <ul>
+          <li>Nele</li><li>Birka</li><li>Lisa</li><li>Feli</li><li>Alice</li><li>Saskia</li><li>Tanja</li><li>Marvin</li><li>Jolina</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 5 — TRENNER: Inhalte Donnerstag (weiß) -->
+<section class="page page--divider">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="divider-main">
+    <div class="accent-bar"></div>
+    <div class="divider-kicker">Handouts · Donnerstag 09.07.</div>
+    <h2>Identität, Mission, Standards &amp; Gewohnheiten.</h2>
+  </div>
+</section>
+
+<!-- 6 — MISSION -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Unsere Mission</h2><span class="sh-num">04</span></div>
+    <p class="lead">Unsere Tiere lieben uns. Bedingungslos. Und weil wir bei Inuvet alle Tiere lieben, machen wir sie auf der ganzen Welt natürlich gesund.</p>
+    <p>Das tun wir, indem wir</p>
+    <ul>
+      <li>nur die besten pflanzlichen Inhaltsstoffe verwenden.</li>
+      <li>Produkte anbieten, die so gut wie keine Nebenwirkungen haben.</li>
+      <li>auf Chemie verzichten.</li>
+      <li>unseren Planeten und den Lebensraum aller Lebewesen achten und respektvoll behandeln.</li>
+      <li>partnerschaftlich mit denen zusammenarbeiten, die sich am besten mit der Gesundheit unserer Vierbeiner auskennen: den Menschen in Tierkliniken und Tierarztpraxen.</li>
+    </ul>
+    <div class="callout callout--soft">
+      <h4>Vision</h4>
+      <p>Groß und langfristig: <strong>1 Milliarde natürlich gesunde Tiere weltweit.</strong></p>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 7 — VISION & ZIEL -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Vision &amp; Ziel</h2><span class="sh-num">05</span></div>
+    <p class="lead">Ein Ziel ohne System ist ein Wunsch. Die Mathematik zeigt, an welchen Hebeln du drehst.</p>
+    <div class="callout callout--soft">
+      <h4>Die Mathematik dahinter</h4>
+      <p><strong>Umsatz = Anzahl aktiver Praxen × Bestellwert × Bestellfrequenz</strong></p>
+    </div>
+    <h4>Hebel 1 — Mehr aktive Praxen</h4>
+    <p>Neuakquise und Reaktivierung.</p>
+    <h4>Hebel 2 — Höherer Bestellwert</h4>
+    <p>Upselling, Cross-Selling, Big Six vollständig platzieren.</p>
+    <h4>Hebel 3 — Höhere Frequenz</h4>
+    <p>Bindung, Follow-up, regelmäßiger Kontakt — und mehr Menschen in der Praxis, die mit Inuvet-Produkten arbeiten.</p>
+    <h4>Dein Ziel für dieses Jahr</h4>
+    <div class="lines"><div class="line"></div></div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 8 — DIE 100.000 € IDENTITÄT -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Die 100.000 € Identität</h2><span class="sh-num">06</span></div>
+    <p class="lead"><strong>Ich bin eine Umsatzmaschine.</strong> Ich bin der Grund, warum Tierärzte Inuvet empfehlen.</p>
+    <ul>
+      <li>Ich liebe es, meine Kunden zu besuchen. Jeden Tag, so viele wie möglich.</li>
+      <li>Ich bringe mich vor jedem Gespräch in den Peak State. Kopf frei, ich resette mich.</li>
+      <li>Ich bereite mich auf jedes Gespräch vor und nutze es zu 100 %.</li>
+      <li>Ich höre zu und finde durch offene Fragen Bedürfnisse heraus. Ich kenne die Big Six und platziere sie in jedem Gespräch.</li>
+      <li>Ich mache Kunden zu Fans. Ich übertreffe ihre Erwartungen. Jedes Mal.</li>
+      <li>Ich nutze jede Reklamation als Chance — wer mit einem Problem kommt, wird zum Fan.</li>
+      <li>Ich bin kein Opfer meiner Umstände. Ich entscheide und fokussiere mich auf die Lösung.</li>
+      <li>Ich pflege meine Daten nach jedem Gespräch. Salesforce ist mein Booster für Fans und Umsatz.</li>
+      <li>Ich ziehe mit dem Marketing-Team an einem Strang und multipliziere meine Wirkung.</li>
+      <li>Ich wachse bewusst: mehr von dem, was funktioniert — Schluss mit dem, was nicht funktioniert.</li>
+      <li>Ich setze meine Vision um, egal wie unmöglich sie klingt. 100.000 € sind nicht mein Limit — sie sind mein Startpunkt.</li>
+    </ul>
+    <div class="callout callout--soft">
+      <p><strong>Sales Concierge:</strong> wortgleich — nur „besuchen" wird zu „anrufen", und die 100.000-€-Zeile am Ende entfällt.</p>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 9 — STANDARDS (1) -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Standards</h2><span class="sh-num">07</span></div>
+    <p class="lead">Was ist nicht verhandelbar?</p>
+    <div class="callout callout--soft">
+      <p>Beispiel: „Jeder Besuch wird noch am selben Tag in Salesforce eingetragen." Immer. Nicht, wenn du Zeit hast. Nicht, wenn der Tag gut war. <strong>Immer.</strong></p>
+    </div>
+    <div class="cols-2">
+      <div class="flow">
+        <h4>Vor dem Gespräch</h4>
+        <ul>
+          <li>Wächst der Kunde? Kaufzyklus prüfen.</li>
+          <li>Rechnungsmail, Kontakte, Newsletter — alles eingetragen?</li>
+          <li>Offene MSC? Aktuelle Verkaufsinfos?</li>
+          <li>Wird die TA-Empfehlung genutzt?</li>
+          <li>Über welchen Kanal und in welcher Höhe bestellt der Kunde?</li>
+          <li>Welche Produkte verkaufe ich heute?</li>
+        </ul>
+      </div>
+      <div class="flow">
+        <h4>Im Gespräch</h4>
+        <ul>
+          <li>Rapport herstellen.</li>
+          <li>Was brauchen Sie?</li>
+          <li>Big Six verkaufen, restliche Bestandsprodukte platzieren.</li>
+          <li>Einwände ausräumen, Indikationen ergänzen.</li>
+          <li>Fokusprodukte verkaufen.</li>
+          <li>Fehlende Stammdaten ergänzen.</li>
+          <li>Ich labere nicht — ich höre zu und nutze Fragen und Materialien zielgerichtet.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 10 — STANDARDS (2) -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Standards — Fortsetzung</h2></div>
+    <div class="cols-2">
+      <div class="flow">
+        <h4>Nach dem Gespräch</h4>
+        <ul>
+          <li>Bestellchance als Auftrag abschließen oder nachfassen.</li>
+          <li>Wichtige Infos notieren (Tipps, Persönliches).</li>
+          <li>Nächsten Termin oder Schulungstermin eintragen.</li>
+          <li>Stammdaten von Kunde &amp; Kontakt vollständig?</li>
+        </ul>
+        <h4>Umsatzrakete (Inbound)</h4>
+        <ul>
+          <li>Jede eingehende Bestellung aktiv hochtelefonieren (Upselling).</li>
+          <li>Offene MSC direkt im Termin oder Anruf erledigen.</li>
+          <li>Jeder Kontakt ist ein Verkaufskontakt.</li>
+        </ul>
+      </div>
+      <div class="flow">
+        <h4>Wochenplanung</h4>
+        <ul>
+          <li>25 Termine fix im Kalender.</li>
+          <li>SF Maps &amp; Kundenliste als wöchentlicher Ausgangspunkt.</li>
+          <li>Wer wächst, wer verliert, wer braucht mich dringend?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 11 — GEWOHNHEITEN -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Gewohnheiten</h2><span class="sh-num">08</span></div>
+    <p class="lead">Was tue ich täglich, automatisch?</p>
+    <div class="callout callout--soft">
+      <p>„Jeden Morgen öffne ich zuerst mein Dashboard — bevor ich eine E-Mail lese." 5 Minuten: Wer wächst, wer hat nicht bestellt, wo liegt eine offene Chance. Der Tag beginnt mit Fokus, nicht mit Reaktion.</p>
+    </div>
+    <div class="cols-2">
+      <div class="flow">
+        <h4>Täglich</h4>
+        <ul><li>Dashboard</li><li>Bestellchancen</li><li>Kundenvorgänge</li><li>MSC</li><li>Mails</li></ul>
+      </div>
+      <div class="flow">
+        <h4>Wöchentlich</h4>
+        <ul>
+          <li>25 Termine fix planen.</li>
+          <li>Offene MSC vollständig abarbeiten.</li>
+          <li>Dashboard &amp; Kundenlisten analysieren.</li>
+          <li>Nachfassen bei allen offenen Bestellchancen.</li>
+          <li>SF Maps: Routen &amp; dringende Besuche.</li>
+        </ul>
+      </div>
+    </div>
+    <p><strong>Das System schlägt das Ziel.</strong> Ziele zeigen die Richtung, Gewohnheiten bringen uns dorthin. Wer jeden Tag 1 % besser wird, ist nach einem Jahr 37× besser.</p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 12 — ICH BIN … (Ausfüllseite) -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Handout · Donnerstag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Ich bin …</h2><span class="sh-num">09</span></div>
+    <p class="lead">Notiere für dich: Wer bist du als Verkäufer:in? Definiere deine Identität in eigenen Worten.</p>
+    <div class="lines">
+      <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+      <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 13 — TRENNER: Inhalte Freitag (weiß) -->
+<section class="page page--divider">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="divider-main">
+    <div class="accent-bar"></div>
+    <div class="divider-kicker">Team-Event · Freitag 10.07.</div>
+    <h2>Operation Tiergesundheit — Lörrach Safari.</h2>
+  </div>
+</section>
+
+<!-- 14 — SAFARI: Überblick, Teams, Route -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Team-Event · Freitag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Lörrach Safari</h2><span class="sh-num">10</span></div>
+    <p class="lead">Ein mysteriöser Tierarzt hat in Lörrach 5 Hinweise versteckt. Sammelt alle, löst das finale Rätsel und findet heraus, welches Produkt er für seinen wichtigsten Patienten empfohlen hat — jede Station liefert einen Buchstaben, am Ende ergibt sich ein Lösungswort.</p>
+    <h4>Teams</h4>
+    <ul>
+      <li><strong>Angie</strong> — Barbara · Monika · Merle · Anna H.</li>
+      <li><strong>Michele</strong> — Diana · Stephi M. · Krissi · Maurice · Laura · Angelina</li>
+      <li><strong>Claudia</strong> — Marion · Steffi · Tina · Sabine A. · Theresa · Sabine L.</li>
+      <li><strong>Sofie &amp; Nadja</strong> — Chris · Stefanie · Nabila</li>
+    </ul>
+    <h4>Route (Beispiel Team Angie)</h4>
+    <p>Büro → Station 1 Hirschenbrunnen → Station 2 Hebeldenkmal → Station 3 Heiner &amp; Müller → Station 4 Marktplatz → Station 5 Hotel Drei König → zurück zum Büro.</p>
+    <p class="small">Jede Gruppe startet an einem anderen Punkt — alle machen die gleichen Aufgaben.</p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 15 — STATIONEN 1–3 -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Team-Event · Freitag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Die Stationen 1–3</h2><span class="sh-num">11</span></div>
+
+    <h4>Station 1 — Hirschenbrunnen (Turmstraße / Tumringer Straße)</h4>
+    <p>Der Brunnen zeigt das Lörracher Stadtwappen mit einem Adler. Einigt euch: Wie viele Federn hat ein ausgewachsener Adler insgesamt am Körper? Foto: Alle imitieren den Adler.</p>
+    <ul class="choices">
+      <li><span>2.000 Federn</span><span class="key">X</span></li>
+      <li><span>7.000 Federn</span><span class="key">F</span></li>
+      <li><span>15.000 Federn</span><span class="key">K</span></li>
+    </ul>
+    <p class="answer">Euer Buchstabe Nr. 1: <span class="blank"></span></p>
+
+    <h4>Station 2 — Hebeldenkmal (Hebelpark, Turmstraße 22)</h4>
+    <p>Am Sockel des Denkmals steht eine Jahreszahl. Welches Jahr ist es?</p>
+    <ul class="choices">
+      <li><span>1860</span><span class="key">K</span></li>
+      <li><span>1910</span><span class="key">L</span></li>
+      <li><span>1960</span><span class="key">M</span></li>
+    </ul>
+    <p class="answer">Euer Buchstabe Nr. 2: <span class="blank"></span></p>
+
+    <h4>Station 3 — Heiner &amp; Brassenheimer Müller (Bahnhofsplatz)</h4>
+    <p>Das Tier in der Skulptur ist ein Pferd. Ohne Google: Wie hoch ist der Ruhepuls eines gesunden Pferdes pro Minute? Foto: Einer sitzt auf dem Pferd, alle anderen schauen verdutzt zu.</p>
+    <ul class="choices">
+      <li><span>20 bpm</span><span class="key">X</span></li>
+      <li><span>40 bpm</span><span class="key">O</span></li>
+      <li><span>80 bpm</span><span class="key">A</span></li>
+    </ul>
+    <p class="answer">Euer Buchstabe Nr. 3: <span class="blank"></span></p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 16 — STATIONEN 4–5 + FINALE -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Team-Event · Freitag</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Stationen 4–5 &amp; Finale</h2><span class="sh-num">12</span></div>
+
+    <h4>Station 4 — Marktplatz (Fußgängerzone Mitte)</h4>
+    <p>Findet eine Person mit Tier oder Tiermotiv (Shirt, Tasche, Schmuck) und führt ein 30-Sekunden-Video-Interview: „Was tun Sie für die Gesundheit Ihres Tieres?"</p>
+    <p class="answer">Dafür bekommt ihr Buchstabe Nr. 4: <span class="key" style="font-weight:700;color:var(--inuvet-green)">R</span></p>
+
+    <h4>Station 5 — Hotel Drei König (Basler Straße 169, am Marktplatz)</h4>
+    <p>Schaut auf die Uhr an der Fassade: Wie viele Stunden sind seit Mitternacht vergangen? Hundetrainer empfehlen Hunden täglich 16 Stunden Ruhe. Braucht der Hund mehr oder weniger Ruhestunden als Stunden seit Mitternacht vergangen sind?</p>
+    <ul class="choices">
+      <li><span>Mehr</span><span class="key">A</span></li>
+      <li><span>Weniger</span><span class="key">I</span></li>
+      <li><span>Genauso viel</span><span class="key">X</span></li>
+    </ul>
+    <p class="answer">Euer Buchstabe Nr. 5: <span class="blank"></span></p>
+
+    <div class="callout callout--soft">
+      <h4>Finale — zurück am Büro</h4>
+      <p>Bringt alle 5 Buchstaben mit. Zusammengesetzt ergeben sie das Lösungswort — ein Inuvet-Produkt.</p>
+    </div>
+    <p class="answer">Lösungswort: <span class="blank" style="min-width:60mm"></span></p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 17 — RÜCKSEITE (weiß) -->
+<section class="page page--back">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="back-main">
+    <div class="accent-bar"></div>
+    <h2>Auf 15 Jahre Inuvet — und die nächsten.</h2>
+    <div class="back-contact">
+      <div><div class="bc-label2">Termin</div><div class="bc-val">08.–10. Juli 2026<br>Lörrach</div></div>
+      <div><div class="bc-label2">Organisation</div><div class="bc-val">Sales &amp; Marketing<br>[Ansprechpartner:in]</div></div>
+      <div><div class="bc-label2">Rückfragen</div><div class="bc-val">[E-Mail]</div></div>
+    </div>
+    <p class="back-legal">© 2026 Inuvet GmbH · Intern. Dieses Dokument enthält personenbezogene Daten (Teilnehmer- und Team-Namen) — bitte vertraulich behandeln und nicht extern weitergeben.</p>
+  </div>
+</section>
+
+<div class="ui-bar">
+  <button class="ui-btn ui-btn--edit" id="editBtn" onclick="toggleEdit()">
+    <span class="material-icons-outlined">edit</span><span id="editLabel">Bearbeiten</span>
+  </button>
+  <button class="ui-btn ui-btn--print" onclick="window.print()">
+    <span class="material-icons-outlined">print</span> Als PDF drucken
+  </button>
+</div>
+
+<script>
+// Seitenzahlen automatisch (Cover/Trenner/Rückseite haben kein .page-num, zählen aber korrekt mit)
+document.querySelectorAll('.page').forEach((page, i) => {
+  const num = page.querySelector('.page-num');
+  if (num) num.textContent = i + 1;
+});
+
+const EDIT_SEL = [
+  '.page-body h1', '.page-body h2', '.page-body h3', '.page-body h4',
+  '.page-body p', '.page-body li', '.page-body td', '.page-body figcaption', '.page-body caption',
+  '.sched-row span', '.answer', '.choices li span',
+  '.cover-kicker', '.page--cover h1', '.cover-sub', '.cm-value',
+  '.divider-kicker', '.divider-num', '.page--divider h2',
+  '.page--back h2', '.bc-val', '.back-legal',
+  '.header-doc', '.footer-meta'
+].join(',');
+function toggleEdit() {
+  const on = document.body.classList.toggle('edit-mode');
+  document.querySelectorAll(EDIT_SEL).forEach(el => { el.contentEditable = on; });
+  document.getElementById('editBtn').classList.toggle('active', on);
+  document.getElementById('editLabel').textContent = on ? 'Fertig' : 'Bearbeiten';
+}
+
+function setFigureImage(fig, dataUrl) {
+  let img = fig.querySelector('img');
+  if (!img) {
+    img = document.createElement('img');
+    const ph = fig.querySelector('.fig-placeholder');
+    if (ph) ph.replaceWith(img); else fig.insertBefore(img, fig.firstChild);
+  }
+  img.src = dataUrl;
+}
+function readImage(file, fig) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = e => setFigureImage(fig, e.target.result);
+  r.readAsDataURL(file);
+}
+let lastFigure = null;
+document.querySelectorAll('.figure').forEach(fig => {
+  fig.addEventListener('click', e => {
+    if (!document.body.classList.contains('edit-mode')) return;
+    if (e.target.closest('figcaption, [contenteditable="true"]')) return;
+    lastFigure = fig;
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => readImage(inp.files[0], fig);
+    inp.click();
+  });
+  fig.addEventListener('dragover', e => { if (document.body.classList.contains('edit-mode')) { e.preventDefault(); fig.classList.add('drop-hover'); } });
+  fig.addEventListener('dragleave', () => fig.classList.remove('drop-hover'));
+  fig.addEventListener('drop', e => {
+    if (!document.body.classList.contains('edit-mode')) return;
+    e.preventDefault(); fig.classList.remove('drop-hover');
+    readImage(e.dataTransfer.files[0], fig);
+  });
+});
+document.addEventListener('paste', e => {
+  if (!document.body.classList.contains('edit-mode') || !lastFigure) return;
+  const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+  if (item) { e.preventDefault(); readImage(item.getAsFile(), lastFigure); }
+});
+</script>
+</body>
+</html>
