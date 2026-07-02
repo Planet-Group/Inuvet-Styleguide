@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inuvet Shop — Dokumentation – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=12">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="inuvet-Shop.html" class="nav-item__trigger">Mockup</a>
+      </div>
+      <div class="nav-item">
+        <a href="inuvet-Shop-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center">
+      <a href="inuvet-Shop.html" aria-label="Zur Startseite">
+        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="inuvet-Shop.html" onclick="closeMobile()">Mockup</a>
+      <a href="inuvet-Shop-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="container" id="shopInfoMain">
+
+      <div class="article-layout">
+
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Michael Hoppe</p>
+              <p class="article__author-role">Technische Dokumentation</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Shopify</span>
+            <span class="filter-tag">Marketing</span>
+            <span class="filter-tag">Tierarzt-Empfehlung</span>
+            <span class="filter-tag">Pop-up</span>
+            <span class="filter-tag">Frontend</span>
+            <span class="filter-tag">IT-Spezifikation</span>
+          </div>
+        </aside>
+
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Dokumentation · Stand 22. Juni 2026</span>
+            <h1>inuvet Shop — Dokumentation</h1>
+          </header>
+
+          <div class="article__body rte">
+
+            <p>Dieses Dokument beschreibt das Mockup der <strong>regulären inuvet-Shop-Startseite</strong> und insbesondere das <strong>Praxis-Opt-in-Pop-up</strong>. Zielgruppe sind IT und Marketing. Das Mockup ist unter <a href="inuvet-Shop.html">inuvet-Shop.html</a> einsehbar.</p>
+
+            <h2>Überblick — Startseite</h2>
+            <p>Die Startseite zeigt den regulären inuvet-Shop ohne Tierarzt-Empfehlungs-Branding. Aufgebaut ist sie aus folgenden Sektionen:</p>
+            <ol>
+              <li><strong>Hauptnavigation</strong> — Announcement Bar, Mockup/Dokumentation-Links, Logo, Suche und Warenkorb-Icon (ohne Drawer)</li>
+              <li><strong>Hero-Section</strong> — Variante 1 mit Lottie-Animation (<code>Hero_Animation_01.json</code>); Höhe ergibt sich aus dem nativen Seitenverhältnis der JSON</li>
+              <li><strong>USP-Kacheln</strong> — vierspaltiges Raster mit Lottie-Icons (Beste Expertise, Langzeitgabe, Unterstützung, Lieferzeit)</li>
+              <li><strong>Produkt-Collection</strong> — vierspaltiges Produktraster (<code>.tile-grid --cols-4</code>)</li>
+              <li><strong>Footer</strong> — Newsletter, Shop-Links, Rechtliches (Layout wie Tierarzt-Empfehlung)</li>
+            </ol>
+            <p>Zusätzlich erscheint beim Seitenaufruf das <strong>Praxis-Opt-in-Pop-up</strong> (siehe unten).</p>
+
+            <h2>Praxis-Opt-in-Pop-up</h2>
+            <p>Das Pop-up informiert Tierarztpraxen über die neue Funktion »Tierarzt-Empfehlung« und fragt, ob Inuvet die Praxis kontaktieren darf, wenn ein Tierbesitzer eine Empfehlung wünscht.</p>
+
+            <h3>Zielgruppe</h3>
+            <p>Die Ansprache richtet sich an <strong>Tierarztpraxen</strong> (Plural „ihr“, „euch“) — nicht an Endkunden/Tierbesitzer.</p>
+
+            <h3>Wann erscheint das Pop-up?</h3>
+            <ul>
+              <li>Bei <strong>jedem Aufruf</strong> der Startseite (<a href="inuvet-Shop.html">inuvet-Shop.html</a>)</li>
+              <li>Automatisch ca. <strong>400 ms</strong> nach dem Laden der Seite (kurze Verzögerung, damit Hero und Seite zuerst sichtbar sind)</li>
+              <li>Es gibt <strong>keine Speicherung</strong> der Entscheidung — beim nächsten Seitenaufruf erscheint das Pop-up erneut</li>
+            </ul>
+
+            <h3>Verhalten</h3>
+            <ul>
+              <li>Das Pop-up blockiert die Seite (Hintergrund abgedunkelt, Scrollen der Seite gesperrt)</li>
+              <li>Es kann <strong>nicht</strong> per X, Klick auf den Hintergrund oder Escape geschlossen werden</li>
+              <li>Der Nutzer muss eine der beiden Optionen wählen</li>
+            </ul>
+
+            <h3>Inhalt</h3>
+            <table>
+              <thead>
+                <tr><th>Element</th><th>Inhalt</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Icon</td><td>Medikament-Symbol (<code>medication</code>, grün)</td></tr>
+                <tr><td>Überschrift</td><td>Neu: Wie ein Rezept!</td></tr>
+                <tr><td>Text 1</td><td>Jetzt könnt ihr mit der »Tierarzt-Empfehlung« Produkte für Patienten freischalten. Die werden dann direkt zu ihnen nach Hause geschickt.</td></tr>
+                <tr><td>Text 2</td><td>Dürfen wir euch kontaktieren, wenn jemand eine Empfehlung möchte?</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Buttons</h3>
+            <table>
+              <thead>
+                <tr><th>Button</th><th>Style</th><th>Reaktion</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ja, gerne!</strong></td>
+                  <td>Primary (<code>.btn --primary --full</code>)</td>
+                  <td>Pop-up schließt sich. Grüne Toast-Meldung unten rechts: <em>„Danke — wir melden uns bei euch!"</em></td>
+                </tr>
+                <tr>
+                  <td><strong>Nein</strong></td>
+                  <td>Ghost (<code>.btn --ghost --full</code>)</td>
+                  <td>Pop-up schließt sich. Keine weitere Meldung.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Design-Pattern</h3>
+            <p>Das Pop-up nutzt die globale Komponente <strong><code>.shop-modal</code></strong> aus dem Styleguide (C.10 — Bestätigungs-Dialog). Gleiches Pattern wie das Freigabe-Willkommen-Pop-up auf der Tierarzt-Empfehlung-Startseite.</p>
+
+            <h2>Technische Umsetzung (Mockup)</h2>
+            <p>Aktuell ist das Pop-up ein reines Frontend-Mockup — <strong>keine Daten werden gespeichert oder an ein Backend übermittelt</strong>. Die Auswahl (Ja/Nein) hat keine Auswirkung auf CRM, E-Mail oder Praxis-Stammdaten.</p>
+
+            <h3>Dateien</h3>
+            <table>
+              <thead>
+                <tr><th>Datei</th><th>Zweck</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>pages/inuvet-Shop.html</code></td><td>HTML des Pop-ups (<code>#practiceOptInOverlay</code>)</td></tr>
+                <tr><td><code>pages/inuvet-shop.js</code></td><td>Öffnen nach 400 ms, Schließen, Toast bei „Ja"</td></tr>
+                <tr><td><code>pages/inuvet-shop.css</code></td><td>Footer-Layout der Startseite</td></tr>
+                <tr><td><code>inuvet.css</code></td><td>Global: <code>.shop-modal</code>, Toast, Buttons</td></tr>
+              </tbody>
+            </table>
+
+            <h3>JavaScript (vereinfacht)</h3>
+            <pre><code>// Beim Laden: Pop-up nach 400 ms öffnen
+document.addEventListener('DOMContentLoaded', () =&gt; {
+  setTimeout(openPracticeOptIn, 400);
+});
+
+// Schließen nur über Button-Klick
+function closePracticeOptIn(accepted) {
+  overlay.classList.remove('--open');
+  document.body.style.overflow = '';
+  if (accepted) showToast('Danke — wir melden uns bei euch!');
+}</code></pre>
+
+            <h2>Offene Fragen für Produktion</h2>
+            <p>Für die Live-Umsetzung in Shopify sollten IT und Marketing gemeinsam klären:</p>
+            <ul>
+              <li><strong>Wann anzeigen?</strong> Nur für erkannte Praxen? Nur einmal pro Praxis? Nur wenn noch kein Opt-in vorliegt?</li>
+              <li><strong>Speicherung</strong> — Wo wird die Antwort (Ja/Nein) persistiert? Praxis-Stammdaten, CRM, Shopify Metafields?</li>
+              <li><strong>Backend-Anbindung</strong> — Was passiert bei „Ja"? Automatische E-Mail an Innendienst? CRM-Task? Update im Praxis-Portal?</li>
+              <li><strong>Opt-out</strong> — Kann eine Praxis die Entscheigung später widerrufen? Wo im Portal?</li>
+              <li><strong>Seiten-Scope</strong> — Nur Startseite oder auch andere Shop-Seiten für eingeloggte Praxis-Accounts?</li>
+            </ul>
+
+            <div class="notice">
+              <p><strong>Mockup-Hinweis:</strong> Im Styleguide-Mockup erscheint das Pop-up bei jedem Reload absichtlich immer wieder — damit IT und Marketing den Flow jederzeit testen können. In Produktion wird typischerweise nach der ersten Entscheidung nicht erneut gefragt.</p>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../inuvet.js?v=3"></script>
+
+</body>
+</html>

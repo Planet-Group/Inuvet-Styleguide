@@ -1,0 +1,217 @@
+/* ═══════════════════════════════════════════
+   Bundle Builder — Seiten-spezifische Styles
+   Basiert auf inuvet.css Tokens & Komponenten
+   ═══════════════════════════════════════════ */
+
+/* ─── Seiten-Abstände ───
+   .container hat Default padding-top: var(--container-pt) (= 6rem).
+   #bundleSection reduziert auf var(--module) (3rem), weil direkt nach dem
+   dominanten Vollbild-Hero kein zusätzlicher Atemraum nötig ist.
+   Andere Sections nutzen den .container-Default und überschreiben nur padding-bottom. */
+/* padding-bottom: --module gibt dem .cart-item__tier-hint ausreichend Platz
+   (der mit translateY(50%) halb über die Card-Bottom-Kante hinausragt) und
+   trennt das Bundle visuell sauber von der nachfolgenden Section. */
+#bundleSection       { padding-top: var(--module); padding-bottom: var(--module); }
+#bundleTestimonials  { padding-bottom: var(--module-2xl); }
+#bundleTiles         { padding-bottom: var(--module-2xl); }
+#bundleInfoMain      { padding-bottom: var(--module-2xl); }
+
+/* ─── Intro (.col-grid --early-2 data-cols="2") ─── */
+#bundleSection > .col-grid:first-child {
+  margin-bottom: var(--module);
+  align-items: start;
+}
+
+#bundleSection > .col-grid:first-child h2 {
+  margin: 0;
+}
+
+#bundleSection > .col-grid:first-child p {
+  color: var(--fg-muted);
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  margin: 0;
+}
+
+/* ─── Two-Column Layout (.col-grid --spaced --wide-narrow data-cols="2") ─── */
+#bundleGrid { align-items: start; }
+
+/* ─── Product List ─── */
+.bundle-list {
+  row-gap: 0;
+  column-gap: var(--gutter);
+}
+
+/* ─── Bundle Item ─── */
+.bundle-item.is-entering {
+  animation: bundleSlideIn var(--anim-mid) forwards;
+}
+
+@keyframes bundleSlideIn {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.product-thumb-wrap .floating-meta {
+  top: 0;
+  left: 0;
+}
+
+
+.badge.--free {
+  letter-spacing: 0.04em;
+  padding: 2px calc(var(--base) * 0.375);
+  animation: popIn var(--anim-fast) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Summary Card ─── */
+.summary-card {
+  background: var(--green);
+  color: var(--bg);
+  padding: var(--half-module);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+}
+
+/* Mobile: Fixed-Bar via Body-Portal (iOS-sicher), Sichtbarkeit per Opacity */
+@media (max-width: 767px) {
+  #summaryCardSlot:empty {
+    display: none;
+  }
+
+  .summary-card.--mobile-portal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav);
+    box-shadow: 0 -4px 2rem rgba(0, 0, 0, 0.12);
+    padding: var(--half-module);
+    padding-bottom: calc(var(--half-module) + env(safe-area-inset-bottom, 0px));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--anim-mid), visibility var(--anim-mid);
+    /* Kompakt: Titel + Sparzeile in einer Reihe, CTA darunter — kein Produktlisting */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    gap: calc(var(--base) * 0.375) var(--half-module);
+    align-items: center;
+  }
+
+  .summary-card.--mobile-portal.--sticky-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .summary-card.--mobile-portal .summary-card__products {
+    display: none;
+  }
+
+  .summary-card.--mobile-portal .summary-card__title {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: var(--text-base);
+    line-height: var(--lh-base);
+    color: var(--bg);
+    margin: 0;
+  }
+
+  .summary-card.--mobile-portal .summary-card__line.--free {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: var(--text-sm);
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .summary-card.--mobile-portal .summary-card__cta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-shrink: 0;
+    display: flex;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .summary-card {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+.summary-card__title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  color: rgba(255,255,255,0.6);
+}
+
+/* Kommaseparierte Produktliste */
+.summary-card__products {
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.7);
+  line-height: var(--lh-base);
+  margin-top: calc(var(--base) * -0.25);
+}
+
+.summary-card__line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-base);
+}
+
+/* Gratisprodukte im Wert von */
+.summary-card__line.--free {
+  color: var(--bg);
+  font-size: var(--text-base);
+  font-weight: 700;
+  align-items: baseline;
+}
+
+/* CTA auf grünem Hintergrund — schwarzer Button */
+.summary-card__cta {
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  font-weight: 700;
+  justify-content: center;
+  transition: background var(--anim-fast), color var(--anim-fast);
+}
+.summary-card__cta:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+.summary-card__cta:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Angebot im Warenkorb — keine Bearbeitung bis Warenkorb geleert */
+#bundleSection.--locked .qty-selector.--disabled,
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__btn,
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__input,
+#bundleSection.--locked .cart-item__remove:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+#bundleSection.--locked .qty-selector.--disabled .qty-selector__btn:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* ─── Empty State ─── */
+.empty-state .material-icons { font-size: 2rem; color: var(--border-light); }

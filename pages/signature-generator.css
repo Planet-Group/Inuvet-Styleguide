@@ -1,0 +1,193 @@
+/* ══════════════════════════════════════════════════════════════
+   signature-generator.css — E-Mail-Signatur Generator
+   Shell via .form-page* (inuvet.css); hier nur Seiten-Spezifika
+   ══════════════════════════════════════════════════════════════ */
+
+.sig-card {
+  max-width: calc(var(--form-page-max) * 1.5);
+}
+
+.sig-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--half-module) var(--module);
+  margin-bottom: var(--module);
+}
+
+.sig-page-header .form-page__title {
+  margin-bottom: 0;
+}
+
+.sig-intro {
+  color: var(--fg-muted);
+  margin-bottom: 0;
+}
+
+.sig-disclaimer-wrap,
+.sig-contact-hint-fields {
+  margin-top: var(--half-module);
+}
+
+.sig-contact-hint-check {
+  margin-top: var(--half-module);
+}
+
+.sig-contact-hint-fields .form-field:last-child {
+  margin-bottom: 0;
+}
+
+#personal-wrap {
+  margin-top: var(--half-module);
+}
+
+.sig-disclaimer-wrap.--hidden,
+.sig-contact-hint-fields.--hidden,
+#personal-wrap.--hidden,
+.sig-header-wrap.--hidden,
+.sig-photo-wrap.--hidden {
+  display: none;
+}
+
+.sig-top-image-options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+  margin-bottom: var(--half-module);
+}
+
+.sig-top-image-options .form-check {
+  margin-bottom: 0;
+}
+
+.sig-header-wrap,
+.sig-photo-wrap {
+  margin-top: var(--half-module);
+}
+
+.sig-field-hint {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  margin: calc(var(--half-module) * 0.35) 0 0;
+}
+
+.sig-social-checks .form-check:last-child {
+  margin-bottom: var(--half-module);
+}
+
+.sig-social-item .form-check {
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.sig-social-url.--hidden {
+  display: none;
+}
+
+.sig-social-item:last-child .form-field:last-child {
+  margin-bottom: 0;
+}
+
+.sig-preview {
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  padding: var(--module);
+  min-height: calc(var(--module) * 7);
+}
+
+#signature-preview {
+  font-size: small;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.35;
+  color: #2E2E2E;
+}
+
+#signature-preview * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#signature-preview a[href=""] {
+  color: #666666;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+#signature-preview p {
+  margin: 0;
+  padding: 0;
+}
+
+#signature-preview table {
+  border-collapse: collapse;
+}
+
+#signature-preview td {
+  padding: 0;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.sig-actions {
+  flex-direction: column;
+  margin-top: var(--half-module);
+}
+
+.sig-actions .btn.--copied {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--bg);
+}
+
+.sig-instructions {
+  margin-top: var(--module);
+}
+
+.sig-instructions > .section-label {
+  margin-bottom: var(--half-module);
+}
+
+.sig-instr {
+  margin-bottom: var(--module);
+}
+
+.sig-instr:last-child {
+  margin-bottom: 0;
+}
+
+.sig-instr__title {
+  font-weight: 700;
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.sig-instr__lead {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.sig-instr__lead strong {
+  color: var(--fg);
+}
+
+.sig-instr__steps {
+  padding-left: var(--base);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+}
+
+.sig-instr__steps strong {
+  color: var(--fg);
+}
+
+.sig-instructions .notice {
+  margin-bottom: var(--module);
+}
+
+#sig-copy-target {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  background-color: var(--bg);
+}

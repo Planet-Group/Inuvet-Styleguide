@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provision-Portal — Dokumentation – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="provision-portal.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Provision-Portal.html" class="nav-item__trigger">Mockup</a>
+      </div>
+      <div class="nav-item">
+        <a href="Provision-Portal-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center">
+      <a href="#" aria-label="Zur Startseite">
+        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Provision-Portal.html" onclick="closeMobile()">Mockup</a>
+    </div>
+    <div class="nav-col">
+      <a href="Provision-Portal-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="container">
+
+      <div class="article-layout">
+
+        <!-- Sidebar: Autor + Tags -->
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Michael Hoppe</p>
+              <p class="article__author-role">Technische Dokumentation</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Provision</span>
+            <span class="filter-tag">Tierarzt-Portal</span>
+            <span class="filter-tag">Prämien</span>
+            <span class="filter-tag">Frontend</span>
+            <span class="filter-tag">SPA</span>
+            <span class="filter-tag">Auszahlung</span>
+          </div>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Dokumentation · Stand 17. Mai 2026</span>
+            <h1>Provision-Portal — Dokumentation</h1>
+          </header>
+
+          <div class="article__body rte">
+
+            <p>Dieses Dokument beschreibt das <strong>Provision-Portal für Tierärzte</strong> im inuvet-Partnerprogramm. Es richtet sich an Entwickler, die das Portal implementieren oder erweitern möchten. Im Mittelpunkt steht die Frage: Wie löst ein Tierarzt angesammelte Provisionen ein — als Barauszahlung oder als Sachprämie?</p>
+
+            <h2>Grundidee</h2>
+            <p>Tierärzte, die Produkte von inuvet empfehlen, erhalten pro vermittelter Bestellung eine Provision. Diese Provisionen sammeln sich im Portal an und können auf zwei Wegen eingelöst werden:</p>
+            <ol>
+              <li><strong>Sofortauszahlung</strong> — Die verfügbare Provision wird direkt auf das hinterlegte Bankkonto überwiesen.</li>
+              <li><strong>Prämie wählen</strong> — Die Provision wird gegen eine physische Prämie oder einen Gutschein eingetauscht, sofern der Wert ausreicht.</li>
+            </ol>
+            <p>Das Portal ist keine Shop-Seite — der Tierarzt kauft nichts, er <em>löst</em> ein. Der Provisionsbetrag ist die „Währung", Prämien haben einen definierten Provisionswert.</p>
+
+            <h2>Die vier Views</h2>
+            <p>Das Portal ist als <strong>Single-Page Application</strong> (SPA) umgesetzt. Die Seite lädt einmalig, alle Inhalte werden clientseitig über eine zentrale <code>render()</code>-Funktion gerendert. Es gibt vier Views:</p>
+
+            <table>
+              <thead>
+                <tr><th>View</th><th>Zustand (<code>currentPage</code>)</th><th>Beschreibung</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Portal</strong></td>
+                  <td><code>'portal'</code></td>
+                  <td>Übersicht: Hero mit Provisionsbetrag + Ring, Prämien-Kachelraster</td>
+                </tr>
+                <tr>
+                  <td><strong>PDP</strong></td>
+                  <td><code>'pdp'</code></td>
+                  <td>Detailansicht einer Prämie — Galerie, Beschreibung, Akkordeon, Warenkorb-Aktion</td>
+                </tr>
+                <tr>
+                  <td><strong>Checkout</strong></td>
+                  <td><code>'checkout'</code></td>
+                  <td>Lieferadresse, Versandart, Bestellübersicht — Einlösung bestätigen</td>
+                </tr>
+                <tr>
+                  <td><strong>Erfolg</strong></td>
+                  <td><code>'success'</code></td>
+                  <td>Bestätigungsseite nach Einlösung (Prämie) oder Auszahlung (Sofortauszahlung)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>Navigation zwischen Views erfolgt ausschließlich über die JS-Funktionen <code>openPDP(id)</code>, <code>backToPortal()</code>, <code>goToCheckout()</code> und <code>completeCheckout()</code>. Jede Navigation scrollt automatisch zum Seitenanfang (<code>window.scrollTo(0, 0)</code>).</p>
+
+            <h2>Hero-Bereich</h2>
+            <p>Die Portal-Ansicht öffnet mit einem dreiteiligen Hero:</p>
+            <ul>
+              <li><strong>Links:</strong> Beschriftung „Deine aktuelle Provision" (auf Desktop, auf Mobilgeräten als eigener Block)</li>
+              <li><strong>Mitte:</strong> Animierter Provisionsbetrag (<code>countUp()</code>) + Button „Sofort auszahlen"</li>
+              <li><strong>Rechts:</strong> SVG-Fortschrittsring mit Prozentzahl — zeigt, wie weit die Provision zur nächstgünstigsten noch nicht einlösbaren Prämie reicht</li>
+            </ul>
+            <p>Darunter erscheint eine dreispaltige Metazeile: Basis der Berechnung links, <em>„oder"</em> in der Mitte, rechts ein dynamischer Hinweis — entweder <em>„Noch X,XX € bis [Prämienname]"</em> als Link zur PDP oder <em>„Alle Prämien einlösbar"</em>.</p>
+
+            <h3>Fortschrittsring im Hero</h3>
+            <p>Der Hero-Ring verwendet einen SVG-Kreis mit <code>stroke-dasharray</code> / <code>stroke-dashoffset</code>. Der Ziel-Offset wird serverseitig in das <code>data-offset</code>-Attribut geschrieben und via <code>animateHeroRing()</code> nach dem Render per CSS-Transition animiert:</p>
+            <pre><code>// Transition auf .--in-view (nicht auf [data-animate]) —
+// damit opacity:0 sofort greift und die Animation nur einmal vorwärts läuft
+[data-animate].--in-view {
+  opacity: 1; transform: none;
+  transition: opacity 1s …, transform 1s …;
+}</code></pre>
+
+            <h2>Prämien-Modell</h2>
+            <p>Jede Prämie ist ein Objekt im Array <code>PREMIUMS</code> mit diesen Pflichtfeldern:</p>
+            <pre><code>{
+  id:       Number,    // eindeutige ID
+  name:     String,    // Anzeigename (Kachel + PDP + Warenkorb)
+  price:    Number,    // Provisionswert in Euro
+  desc:     String,    // Kurzbeschreibung (Tile)
+  longDesc: String,    // Ausführliche Beschreibung (PDP-Akkordeon)
+  image:    String,    // optional — Pfad zum Produktbild
+  voucher:  Object,    // optional — { brand: String, value: String }
+}</code></pre>
+            <p>Das Feld <code>voucher</code> ist optional und exklusiv zu <code>image</code>: Hat eine Prämie ein <code>voucher</code>-Objekt, wird statt eines Fotos eine <strong>Gutscheinkarte</strong> (<code>.voucher-card</code>) gerendert — sowohl auf der Kachel als auch auf der PDP. Gutscheinkarten sind eine bewusste Ausnahme zur globalen <code>border-radius: 0</code>-Regel (Wert: <code>1.25rem</code>).</p>
+
+            <p>Die Prämien werden <strong>von teuer nach günstig</strong> sortiert. Die Sortierung liegt im <code>PREMIUMS</code>-Array selbst — keine dynamische Sortierung zur Laufzeit. Für den Hinweis im Hero wird das Array jedoch aufsteigend (günstig → teuer) durchsucht, um die nächste noch nicht einlösbare Prämie zu finden (<code>nextNonAffordable()</code>).</p>
+
+            <h2>Einlösbarkeit — Logik</h2>
+            <p>Eine Prämie gilt als einlösbar, wenn die <strong>verfügbare Provision</strong> (= <code>provisionTotal</code> minus Gesamtbetrag der Prämien im Warenkorb) mindestens dem Preiswert der Prämie entspricht.</p>
+            <pre><code>provisionAvailable() = provisionTotal - cartTotal()
+canAfford(p)         = provisionAvailable() >= p.price</code></pre>
+            <p>Eine Prämie im Warenkorb „reserviert" die Provision bereits — andere teurere Prämien können dadurch unerschwinglich werden. Der Ring und alle Badges aktualisieren sich bei jeder Warenkorb-Änderung neu (<code>render()</code> wird immer vollständig aufgerufen).</p>
+
+            <p>Drei Zustände pro Kachel und PDP:</p>
+            <table>
+              <thead>
+                <tr><th>Zustand</th><th>Badge</th><th>Warenkorb-Button</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Einlösbar</td>
+                  <td><code>.badge --sale</code> „Einlösbar"</td>
+                  <td>„In den Warenkorb" (<code>.btn --primary</code>)</td>
+                </tr>
+                <tr>
+                  <td>Nicht genug Provision</td>
+                  <td><code>.badge --dark</code> „Noch X,XX €"</td>
+                  <td>Deaktiviert „Noch X,XX € fehlend"</td>
+                </tr>
+                <tr>
+                  <td>Im Warenkorb</td>
+                  <td>— (kein Badge)</td>
+                  <td>„Entfernen" / „Aus Warenkorb entfernen" (<code>.btn --secondary</code>)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Warenkorb</h2>
+            <p>Der Warenkorb (<code>cart</code>) ist ein einfaches Array von Prämien-IDs. Da Provisionen eine endliche Ressource sind, wird beim Hinzufügen einer Prämie geprüft, ob sie erschwinglich ist — es gibt keine Mengenauswahl. Jede Prämie kann nur einmal eingelöst werden (kein Duplikat-Check nötig, da der Button nach dem Hinzufügen auf „Entfernen" wechselt).</p>
+            <p>Der Cart-Drawer rendert sich bei jedem <code>render()</code>-Aufruf vollständig neu. Bei leerem Warenkorb erscheint ein <code>.empty-state</code>. Der Drawer zeigt die verbleibende Provision nach Einlösung transparent unter dem Gesamt-Betrag.</p>
+
+            <h2>Sofortauszahlung</h2>
+            <p>Der Button „Sofort auszahlen" öffnet ein Modal (<code>#auszahlungModal</code>) mit IBAN und Umsatzsteuer-ID. Nach Bestätigung:</p>
+            <ol>
+              <li><code>provisionTotal</code> wird auf <code>0</code> gesetzt</li>
+              <li><code>cart</code> wird geleert</li>
+              <li><code>lastOrder</code> erhält das Flag <code>payout: true</code> und den ausgezahlten Betrag</li>
+              <li>View wechselt zu <code>'success'</code></li>
+            </ol>
+            <p>Die Erfolgsseite unterscheidet über <code>lastOrder.payout</code>, ob sie eine Prämien-Einlösung oder eine Auszahlung bestätigt — der Inhalt ist jeweils verschieden.</p>
+
+            <h2>Animationen</h2>
+            <p>Das Portal nutzt drei separate Animationssysteme, die alle nach dem Render in <code>requestAnimationFrame</code> gestartet werden:</p>
+            <table>
+              <thead>
+                <tr><th>Funktion</th><th>Ziel</th><th>Beschreibung</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>countUp(target)</code></td>
+                  <td><code>#provisionAmount</code></td>
+                  <td>Zählt den Euro-Betrag von 0 auf den Zielwert hoch (cubic-ease-out, 1,8 s)</td>
+                </tr>
+                <tr>
+                  <td><code>animateHeroRing()</code></td>
+                  <td><code>.provision-hero__ring-fill</code></td>
+                  <td>Setzt <code>strokeDashoffset</code> auf den Zielwert — CSS-Transition übernimmt die Animation (1,6 s)</td>
+                </tr>
+                <tr>
+                  <td><code>initRings()</code></td>
+                  <td><code>.tile__ring-fill</code> je Kachel</td>
+                  <td>IntersectionObserver (threshold 0,4) — animiert Ring sobald Kachel sichtbar ist; einmalig pro Element</td>
+                </tr>
+                <tr>
+                  <td><code>initScrollAnimations()</code></td>
+                  <td><code>[data-animate]</code></td>
+                  <td>Globaler Observer aus <code>inuvet.js</code> — fügt <code>.--in-view</code> hinzu, wodurch opacity + translateY animiert werden</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>Wichtig:</strong> Die CSS-Transition für <code>[data-animate]</code> liegt ausschließlich auf dem <code>.--in-view</code>-Zustand — nicht auf dem Ausgangszustand. Würde die Transition auf <code>[data-animate]</code> stehen, wäre die opacity-Rückkehr von 1 auf 0 beim Render sichtbar, bevor der Observer greift.</p>
+
+            <h2>Mockup-FAB</h2>
+            <p>Der Floating-Action-Button (⚙ Mockup-Kontext) ermöglicht zwei Simulationen ohne Code-Eingriff:</p>
+            <ul>
+              <li><strong>Provision simulieren</strong> — setzt <code>provisionTotal</code> auf einen beliebigen Wert und rendert neu</li>
+              <li><strong>Gutschein-Karte anpassen</strong> — ändert <code>voucher.brand</code> und <code>voucher.value</code> der Amazon-Prämie live (nützlich für Demo-Zwecke mit anderen Marken)</li>
+            </ul>
+            <p>Der FAB-Panel nutzt ausschließlich <code>mockup-ui.css</code>-Klassen (<code>.mockup-fab-panel</code>, <code>.mockup-btn</code>, <code>.mockup-fab-panel__field</code>) — keine <code>inuvet.css</code>-Klassen, gemäß Goldener Regel 12.</p>
+
+            <h2>CSS-Struktur</h2>
+            <p>Alle seitenspezifischen Styles liegen in <code>provision-portal.css</code>. Globale Design-System-Klassen kommen ausnahmslos aus <code>inuvet.css</code> — keine Überschreibungen. Wichtige seitenspezifische Klassen:</p>
+            <table>
+              <thead>
+                <tr><th>Klasse</th><th>Zweck</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>.provision-hero</code></td><td>Wrapper für den dreispaltigen Hero-Bereich</td></tr>
+                <tr><td><code>.provision-hero__grid</code></td><td>3-Spalten-Grid (Label / Betrag+CTA / Ring) mit responsive Fallback</td></tr>
+                <tr><td><code>.provision-hero__ring-svg</code></td><td>Responsiver SVG-Ring (<code>clamp</code>-Größe)</td></tr>
+                <tr><td><code>.provision-hero__sub</code></td><td>Metazeile darunter — Modifier <code>--label</code>, <code>--oder</code>, <code>--hint</code></td></tr>
+                <tr><td><code>.provision-hero__amount</code></td><td>Großer Provisionsbetrag (<code>clamp</code>-Schriftgröße, 900 weight)</td></tr>
+                <tr><td><code>.portal-section</code></td><td>Vertikaler Inhaltsabschnitt mit Abstand</td></tr>
+                <tr><td><code>.portal-section__title</code></td><td>Zentrierte Sektionsüberschrift</td></tr>
+                <tr><td><code>.portal-back-btn</code></td><td>Abstand unter dem Zurück-Button in PDP und Checkout</td></tr>
+                <tr><td><code>.voucher-frame</code></td><td>Zentrierung der Gutscheinkarte im Bild-Slot</td></tr>
+                <tr><td><code>.voucher-card</code></td><td>Gutschein-Visualisierung mit Kreditkarten-Seitenverhältnis (1.586) und Farbverlauf</td></tr>
+              </tbody>
+            </table>
+
+            <h2>Technische Implementierung — Übersicht</h2>
+
+            <h3>Datenmodell (Backend)</h3>
+            <ol>
+              <li><strong>Provisions-Konto:</strong> Pro Tierarzt-Account wird der aktuelle Provisionssaldo gespeichert. Jede erfolgreiche Empfehlung erhöht ihn.</li>
+              <li><strong>Prämien-Katalog:</strong> Prämien werden serverseitig verwaltet (Preis, Verfügbarkeit, Bild-URL, ggf. Gutschein-Daten). Das Frontend erhält die Liste beim Laden der Seite.</li>
+              <li><strong>Einlösung:</strong> Eine Prämien-Einlösung erstellt einen Einlösungsauftrag (Lieferadresse, Prämien-IDs, Zeitstempel) und bucht den Provisionswert vom Konto ab.</li>
+              <li><strong>Auszahlung:</strong> Eine Auszahlungsanfrage erstellt einen Buchungssatz (IBAN, Betrag, Uststatus) und setzt das Konto auf 0. Auszahlung erfolgt manuell oder via SEPA-Batch.</li>
+            </ol>
+
+            <h3>Frontend-Integration</h3>
+            <ol>
+              <li><strong>Seitenload:</strong> Portal fragt Provisions-Saldo und Prämien-Katalog ab — beides wird in <code>provisionTotal</code> und <code>PREMIUMS</code> geschrieben, dann <code>render()</code>.</li>
+              <li><strong>Warenkorb-Persistenz:</strong> Im Prototyp ist der Warenkorb flüchtig. In Produktion sollte er zumindest session-basiert zwischengespeichert werden (kein Verlust bei Tab-Schließen).</li>
+              <li><strong>Checkout-Submit:</strong> Lieferadresse + Prämien-IDs werden an eine <code>POST /einloesungen</code>-Route gesendet. Das Backend prüft erneut, ob die Provision noch ausreicht (Race Condition: mehrere Tabs, Admin-Korrekturen).</li>
+              <li><strong>Auszahlung-Submit:</strong> IBAN + Betrag an eine <code>POST /auszahlungen</code>-Route. Backend validiert IBAN und erstellt Buchungsauftrag.</li>
+              <li><strong>E-Mail-Bestätigung:</strong> Nach Einlösung oder Auszahlung erhält der Tierarzt eine Bestätigungs-E-Mail an die hinterlegte Praxis-Adresse.</li>
+            </ol>
+
+            <h3>Responsive Verhalten</h3>
+            <p>Unterhalb von 700px Viewport-Breite blendet der Hero-Ring und die linke Label-Spalte aus. Der Provisionsbetrag rückt in die Bildschirmmitte, der Titel erscheint als <code>.provision-hero__mobile-title</code> darüber. Die Metazeile (<code>.provision-hero__sub</code>) ist auf Mobilgeräten ausgeblendet.</p>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../inuvet.js"></script>
+
+</body>
+</html>
