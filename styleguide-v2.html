@@ -6,7 +6,7 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=47">
+  <link rel="stylesheet" href="inuvet.css?v=48">
   <link rel="stylesheet" href="sg.css?v=44">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -1876,7 +1876,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile-grid.--cols-3</code> — Badges, Video-Rollover (Calmin/Hepax), Sale mit <code>.--old</code>, Placeholder · 4-spaltig → <a href="#A8">A.8</a>.</p>
+      <p class="sg-caption"><code>.tile-grid.--cols-3</code> — Badges, Video-Rollover (Calmin/Hepax forte), Sale mit <code>.--old</code>, Placeholder · 4-spaltig → <a href="#A8">A.8</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.tile.--featured</code> — Mix im Grid</h3>
       <div class="sg-demo --white">
@@ -2828,7 +2828,7 @@
       <table class="spec-table">
         <tr><th>Animation</th><td><code>&lt;lottie-player&gt;</code> in <code>.section-type__animation</code> · CDN <code>@lottiefiles/lottie-player</code></td></tr>
         <tr><th>Höhe</th><td>Automatisch aus JSON · <code>width: 100%</code> am Player</td></tr>
-        <tr><th>Content</th><td>Desktop: <code>max-width: calc(var(--module) * 8)</code> (24rem) · zentriert · Mobile: volle Breite</td></tr>
+        <tr><th>Content</th><td>Volle Grid-Spaltenbreite — kein <code>max-width</code> wie bei V1 Bild + Text</td></tr>
       </table>
 
       <p class="sg-caption">Default · Animation links</p>
@@ -3209,7 +3209,7 @@
         <div class="pdp" id="pdp-family-demo">
           <div class="pdp__gallery">
             <div class="pdp__main-image">
-              <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax">
+              <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <video class="--hidden" src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
               <div class="pdp__caption --hidden" aria-live="polite"></div>
               <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
@@ -3218,10 +3218,10 @@
               <div class="pdp__thumb --active" onclick="pdpSwitch(this,'assets/images/Hepax_Packshot_01.jpeg','','')">
                 <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Packshot">
               </div>
-              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Hepax_Video-Test.mp4','Tabletten und Pulver für Hund und Katze — tägliche Unterstützung der Leberfunktion.','Produktvideo Hepax')">
+              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Hepax_Video-Test.mp4','Tabletten und Pulver für Hund und Katze — tägliche Unterstützung der Leberfunktion.','Produktvideo Hepax forte')">
                 <video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video>
               </div>
-              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Hepax_Foto-Test.png','„Hepax forte hat meiner Katze nach der OP wirklich geholfen. Schnelle Lieferung, unkompliziert.“','Klaus W. · Tierhalter, Frankfurt')">
+              <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Hepax_Foto-Test.png','„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“','Klaus W. · Tierärztin, Frankfurt')">
                 <img src="assets/images/Hepax_Foto-Test.png" alt="Tierhalter mit Hund">
               </div>
               <div class="pdp__thumb placeholder-bg"></div>
@@ -3229,7 +3229,7 @@
             </div>
           </div>
           <div class="pdp__info">
-            <h3 class="pdp__title">Hepax</h3>
+            <h3 class="pdp__title">Hepax forte</h3>
             <div class="rating">
               <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
               <span class="text-muted">4.6 (312 Bewertungen)</span>
@@ -3273,7 +3273,7 @@
             <div class="accordion">
               <div class="accordion-item">
                 <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
               </div>
               <div class="accordion-item">
                 <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>

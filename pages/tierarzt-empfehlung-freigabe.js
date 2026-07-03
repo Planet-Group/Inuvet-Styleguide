@@ -10,7 +10,7 @@ const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
 const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
 
 /* Katalog — alle Darreichungsformen (gespiegelt aus tierarzt-empfehlung.js PRODUCTS).
-   Nur Calmin- und Hepax-Packshots existieren; Inzym → Platzhalter (img:null).
+   Nur Calmin- und Hepax-forte-Packshots existieren (Dateipräfix Hepax_); Inzym → Platzhalter (img:null).
    commission = Provision pro tatsächlicher Bestellung. */
 const CATALOG = [
   { id: 1, cartName: 'Calmin balance Tabletten', img: CALMIN_1, imgHover: CALMIN_2,

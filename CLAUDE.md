@@ -42,7 +42,7 @@
 
 | Kontext | Anzeige |
 |---|---|
-| Tiles, Collection, Suche | `Calmin balance`, `Hepax forte` |
+| Tiles, Collection, Suche | `Calmin balance`, `Hepax forte` — nie nur „Hepax“ |
 | Cart, Checkout, Bestellübersicht, Freigabe | `Calmin balance Tabletten`, `Hepax forte Tabletten` |
 | Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
 
@@ -402,7 +402,7 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 **Commit-Format:** `feat:` / `fix:` / `refactor:` / `docs:`
 
-**Bildpfade:** `assets/images/Calmin_Packshot_01.jpeg` etc. Nur Calmin- und Hepax-Packshots existieren — alle anderen Produkte: `placeholder-bg`.
+**Bildpfade:** `assets/images/Calmin_Packshot_01.jpeg` etc. Nur Calmin- und Hepax-forte-Packshots existieren (Dateipräfix `Hepax_`) — alle anderen Produkte: `placeholder-bg`.
 
 **CSS Cache-Busting:** `inuvet.css?v=N` — N hochzählen nach Änderungen.
 

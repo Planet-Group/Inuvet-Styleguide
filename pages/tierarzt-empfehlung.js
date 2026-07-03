@@ -1398,7 +1398,7 @@ function tileHTML(p) {
 const STRIP_TESTIMONIALS = [
   { text: 'Schon nach wenigen Wochen war mein Golden Retriever viel entspannter — ich bin so dankbar für die Empfehlung.',  name: 'Sandra M.',         role: 'Tierbesitzerin, München', img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
   { text: 'Gut verträglich, transparente Inhaltsstoffe — ich empfehle Inuvet-Produkte regelmäßig in meiner Praxis.',       name: 'Dr. Thomas Berger', role: 'Tierarzt, Hamburg',       img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
-  { text: 'Hepax forte hat meiner Katze nach der OP wirklich geholfen. Schnelle Lieferung, unkompliziert.',                name: 'Klaus W.',          role: 'Tierhalter, Frankfurt' },
+  { text: 'Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.',                          name: 'Klaus W.',          role: 'Tierärztin, Frankfurt' },
   { text: 'Als Tierärztin schätze ich fundierte Formeln — und meine Klientinnen fragen regelmäßig gezielt danach.',        name: 'Dr. Sarah Koch',    role: 'Tierärztin, Berlin' },
 ];
 

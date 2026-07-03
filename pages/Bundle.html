@@ -6,8 +6,8 @@
   <title>Inuvet – Dein persönliches Angebot</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=12">
-  <link rel="stylesheet" href="bundle.css?v=2">
+  <link rel="stylesheet" href="../inuvet.css?v=13">
+  <link rel="stylesheet" href="bundle.css?v=4">
   <link rel="stylesheet" href="../mockup-ui.css">
 </head>
 <body>
@@ -119,9 +119,16 @@
             <p class="summary-card__title">Dein Angebot (<span id="paidCount">0</span> Produkte)</p>
             <p class="summary-card__products" id="summaryProducts">—</p>
 
-            <div class="summary-card__line --free">
-              <span>Du sparst</span>
-              <span id="savingsAmount">0,00 €</span>
+            <div class="summary-card__amounts">
+              <div class="summary-card__line --total">
+                <span>Summe</span>
+                <span id="totalAmount">0,00 €</span>
+              </div>
+
+              <div class="summary-card__line --free">
+                <span>Du sparst</span>
+                <span id="savingsAmount">0,00 €</span>
+              </div>
             </div>
 
             <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
@@ -184,7 +191,7 @@
           <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
         </div>
 
-        <!-- Hepax -->
+        <!-- Hepax forte -->
         <div class="tile --product">
           <div class="tile__image-wrap">
             <a class="tile__image" href="Produkt.html?id=13" aria-label="Hepax forte ansehen">
@@ -252,7 +259,7 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=3"></script>
+  <script src="../inuvet.js?v=4"></script>
   <script src="bundle.js?v=2"></script>
   <div class="toast-container" id="toastContainer"></div>
 </body>

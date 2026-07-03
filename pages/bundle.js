@@ -271,19 +271,22 @@ window.restoreBundle = () => {
 
 // ── Summary ─────────────────────────────────────────────────────────────
 const updateSummary = () => {
-  let paidItems = 0, freeItems = 0, savings = 0;
+  let paidItems = 0, freeItems = 0, savings = 0, subtotal = 0;
 
   activeBundle.forEach(p => {
+    const price = getActivePrice(p);
     paidItems += p.quantity;
+    subtotal  += price * p.quantity;
     const free = calcFree(p);
     freeItems += free;
-    savings   += free * getActivePrice(p);
+    savings   += free * price;
   });
 
   const names = activeBundle.map(p => p.title).join(', ');
   document.getElementById('summaryProducts').textContent = names || '—';
-  document.getElementById('paidCount').textContent  = paidItems;
-  document.getElementById('savingsAmount').textContent = `+ ${fmt(savings)}`;
+  document.getElementById('paidCount').textContent       = paidItems;
+  document.getElementById('totalAmount').textContent       = fmt(subtotal);
+  document.getElementById('savingsAmount').textContent   = `+ ${fmt(savings)}`;
   document.querySelector('.summary-card__line.--free').style.display = freeItems > 0 ? '' : 'none';
 
   updateStickySummary();

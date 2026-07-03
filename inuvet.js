@@ -549,13 +549,15 @@ function renderCartDrawer() {
     <div class="cart-drawer__items">${itemsHTML}</div>
     <div class="cart-drawer__footer">
       ${totalFree > 0 ? `
-      <div class="cart-drawer__free-row">
-        <span>Gratisprodukte (${totalFree}×)</span>
-        <span class="cart-drawer__free-value">Kostenlos</span>
-      </div>
-      <div class="cart-drawer__savings-row">
-        <span>Dein Vorteil</span>
-        <span class="cart-drawer__savings-value">+ ${fmt(totalSavings)}</span>
+      <div class="cart-drawer__amounts">
+        <div class="cart-drawer__free-row">
+          <span>Gratisprodukte (${totalFree}×)</span>
+          <span class="cart-drawer__free-value">Kostenlos</span>
+        </div>
+        <div class="cart-drawer__savings-row">
+          <span>Du sparst</span>
+          <span class="cart-drawer__savings-value">+ ${fmt(totalSavings)}</span>
+        </div>
       </div>` : ''}
       <div class="summary-total">
         <span>Zwischensumme</span>

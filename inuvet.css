@@ -618,7 +618,8 @@
     margin-inline: auto;
   }
   .section-type.--v1:has(.section-type__animation) .section-type__content {
-    max-width: calc(var(--module) * 8);
+    max-width: none;
+    margin-inline: 0;
   }
   .section-type.--v1 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -2481,32 +2482,37 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .cart-drawer__shipping { margin-bottom: var(--half-module); }
   .cart-drawer__footer .summary-total { border-top: none; padding-top: 0; margin-top: 0; }
   .cart-item__qty-text { font-size: var(--text-base); color: var(--fg-muted); }
-  .cart-drawer__tax { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: calc(var(--base) * 0.75); }
+  .cart-drawer__tax { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: calc(var(--base) * 0.375); }
   .cart-drawer__checkout { width: 100%; text-align: center; }
-  .cart-drawer__continue-wrap { padding-top: calc(var(--base) * 0.75); }
-  .cart-drawer__continue { width: 100%; text-align: center; padding-top: calc(var(--base) * 0.75); padding-bottom: calc(var(--base) * 0.75); }
+  .cart-drawer__continue-wrap { padding-top: calc(var(--base) * 0.375); }
+  .cart-drawer__continue { width: 100%; text-align: center; padding-top: calc(var(--base) * 0.5); padding-bottom: calc(var(--base) * 0.5); }
   .cart-drawer__empty { flex: 1; display: flex; align-items: center; justify-content: center; padding: var(--module); }
 
-  /* Naturalrabatt-Zeilen im Footer — visuell als Gruppe (grün) */
+  /* Naturalrabatt-Zeilen im Footer — kompakt gruppiert */
+  .cart-drawer__amounts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: calc(var(--base) * 0.375);
+  }
   .cart-drawer__free-row,
   .cart-drawer__savings-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     font-size: var(--text-base);
-    font-weight: 700;
     color: var(--green);
-    padding: calc(var(--base) * 0.2) 0;
+    padding: 0;
   }
   .cart-drawer__free-row {
     font-size: var(--text-m);
-    padding-top: calc(var(--base) * 0.5);
+    font-weight: 700;
   }
   .cart-drawer__savings-row {
-    padding-bottom: calc(var(--base) * 0.5);
+    font-weight: 400;
   }
   .cart-drawer__free-value,
-  .cart-drawer__savings-value { color: var(--green); font-weight: 700; }
+  .cart-drawer__savings-value { color: var(--green); font-weight: inherit; }
 
   /* ─── Produktlisten-Karte — geteilte Erweiterungen für .cart-item ─── */
   /* Thumb-Wrapper: ermöglicht .floating-meta Overlay auf .product-thumb  */
