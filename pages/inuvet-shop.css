@@ -23,10 +23,6 @@
   text-align: left;
   position: relative;
 }
-.shop-modal:not(.--form) .flow {
-  width: 100%;
-  max-width: 28rem;
-}
 .shop-modal__close {
   position: absolute;
   top: calc(var(--base) * 0.5);
