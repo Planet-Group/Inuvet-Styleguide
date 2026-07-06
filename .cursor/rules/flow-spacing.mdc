@@ -1,0 +1,52 @@
+---
+description: Überschrift↔Absatz-Abstände gehören immer .flow — nie Komponenten-gap
+alwaysApply: true
+---
+
+# Text-Rhythmus gehört immer `.flow`
+
+Vertikale Abstände zwischen **Überschriften und Absätzen** (und Text↔Text)
+werden **ausschließlich** vom `.flow`-System bestimmt (Definition: `inuvet.css`,
+Doku: `styleguide-v2.html#A7`). Die Flow-Regeln sind kontextunabhängig gültig —
+egal ob Info-Page, Modal, Card, Hero oder Formular.
+
+## Das Gesetz
+
+> Jeder Block mit Fließtext (Heading + Paragraph) bekommt `.flow`.
+> Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke**
+> (Medien / Textblock / Actions) — **niemals** Heading zu Paragraph.
+
+## Verboten
+
+- Heading→Paragraph-Abstand über Flex-/Grid-`gap` einer Komponente steuern.
+- Ad-hoc-Margins (`margin-top`, `margin-bottom`) an Headings/Paragraphen setzen.
+- Einen Abstandswert „nach Gefühl" wählen — der Wert kommt immer aus `.flow`.
+
+## So geht's
+
+```html
+<!-- ❌ FALSCH: Modal-gap bestimmt Titel→Text -->
+<div class="shop-modal">        <!-- gap: half-module -->
+  <h2 class="shop-modal__title">…</h2>
+  <p class="shop-modal__body">…</p>
+</div>
+
+<!-- ✅ RICHTIG: Text in .flow, gap trennt nur Icon/Text/Actions -->
+<div class="shop-modal">
+  <div class="shop-modal__icon">…</div>
+  <div class="flow">
+    <h2 class="shop-modal__title">…</h2>
+    <p class="shop-modal__body">…</p>
+    <p class="shop-modal__body">…</p>
+  </div>
+  <div class="shop-modal__actions">…</div>
+</div>
+```
+
+## Sonderfälle
+
+- Braucht ein Einzelfall einen anderen Abstand: `--flow-space` am betroffenen
+  Element überschreiben (`<p style="--flow-space: var(--module)">`), nicht über
+  neue Margins.
+- Fehlt eine Flow-Regel für eine Element-Kombination: Regel im zentralen
+  `.flow`-Block in `inuvet.css` ergänzen — nicht lokal umgehen.

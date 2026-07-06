@@ -23,6 +23,11 @@
   text-align: left;
   position: relative;
 }
+/* Textblock spannt die Modalbreite — .flow trägt den Titel→Body-Rhythmus (Regel #15) */
+.shop-modal:not(.--form) .flow {
+  width: 100%;
+  max-width: 28rem;
+}
 .shop-modal__close {
   position: absolute;
   top: calc(var(--base) * 0.5);
