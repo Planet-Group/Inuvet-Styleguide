@@ -651,6 +651,17 @@
       <h3 class="sg-h3 --top"><code>.flow</code></h3>
       <p>Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Alle direkten Kinder: <code>margin-bottom: 0</code> (Rhythmus läuft ausschließlich über <code>margin-top</code>). Einsatz auf Info-Pages, <code>.section-type__content</code> und <code>.section-type__bottom</code> (Hero Body + CTA). Nicht für <code>.rte</code>-Blöcke (eigene Regelung).</p>
 
+      <div class="rules">
+        <div class="rule">
+          <h4>Grundregel — Text-Rhythmus gehört immer <code>.flow</code></h4>
+          <p>Abstände zwischen <strong>Überschriften und Absätzen</strong> (Text↔Text) kommen <strong>ausschließlich</strong> aus <code>.flow</code> — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt <code>.flow</code>. Kein Heading→Paragraph-Abstand über Flex-/Grid-<code>gap</code> oder Ad-hoc-Margins.</p>
+        </div>
+        <div class="rule">
+          <h4>Komponenten-<code>gap</code> trennt nur Blöcke</h4>
+          <p>Das <code>gap</code>/Margin einer Komponente (z.&nbsp;B. <code>.shop-modal</code>) trennt <strong>nur strukturelle Blöcke</strong> — Medien&nbsp;/ Textblock&nbsp;/ Actions. Der Textblock selbst kapselt Titel + Absätze in <code>.flow</code>. So bleibt der Rhythmus in jeder Komponente identisch.</p>
+        </div>
+      </div>
+
       <table class="spec-table">
         <tr><th><code>&gt; *</code></th><td><code>margin-bottom: 0</code> — Default-Margins der Kinder werden zurückgesetzt</td></tr>
         <tr><th><code>* + *</code> (Default)</th><td><code>var(--base)</code> · 1rem — Paragraph → Paragraph</td></tr>
