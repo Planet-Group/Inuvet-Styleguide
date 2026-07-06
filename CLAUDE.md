@@ -372,7 +372,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provisions-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |
 | `pages/Provision-Portal-Info.html` | — | — | Technische Doku Provisions-Portal |
-| `pages/_template.html` | — | — | Boilerplate neue Mockup-Pages |
+| `pages/_template.html` | — | — | Produktions-Skelett für neue Pages (kein `mockup-ui.css`) · spiegelt E.1 Page-Skeleton |
 
 ---
 

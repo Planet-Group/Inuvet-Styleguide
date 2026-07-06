@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=48">
-  <link rel="stylesheet" href="sg.css?v=44">
+  <link rel="stylesheet" href="inuvet.css?v=54">
+  <link rel="stylesheet" href="sg.css?v=45">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
   <style>
@@ -1037,6 +1037,8 @@
         <tr><th><code>.badge</code> + <code>data-cat</code></th><td>Kategorie-Label · Hintergrund aus <code>--cat-*-light</code> · Schrift <code>--fg</code></td></tr>
         <tr><th><code>.badge.--dark</code></th><td>Schwarz · weiße Schrift — „Neu"</td></tr>
         <tr><th><code>.badge.--sale</code></th><td>Grün · weiße Schrift — Sale</td></tr>
+        <tr><th><code>.badge.--free</code></th><td>Tone-on-Tone Grün — Gratis-Hinweis (<code>--green-light</code> / <code>--green</code>)</td></tr>
+        <tr><th><code>.badge.--info</code></th><td>Tone-on-Tone Info — Hinweis/Status (<code>--color-notice-bg</code> / <code>--color-amber</code>) · Palette wie <a href="#C7">C.7 Notice</a></td></tr>
         <tr><th><code>.badge.--count</code></th><td>Runder Zähler · in <code>.icon-badged</code> absolut oben rechts</td></tr>
       </table>
       <div class="sg-demo">
@@ -1052,6 +1054,8 @@
         <div class="sg-btn-row --sm" style="margin-top: var(--half-module);">
           <div class="badge --dark">Neu</div>
           <div class="badge --sale">Sale</div>
+          <div class="badge --free">+ 4 Gratis</div>
+          <div class="badge --info">Nicht verfügbar</div>
         </div>
         <div class="sg-btn-row" style="margin-top: var(--module);">
           <button class="btn --icon icon-badged" aria-label="Warenkorb 3 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">3</span></button>
@@ -1059,7 +1063,7 @@
           <button class="btn --icon icon-badged" aria-label="Warenkorb 99 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">99</span></button>
         </div>
       </div>
-      <p class="sg-caption">Kategorie · Status · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
+      <p class="sg-caption">Kategorie · Status (<code>--dark</code>, <code>--sale</code>, <code>--free</code>, <code>--info</code>) · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
 
       <h3 class="sg-h3 --top"><code>.circle-badge</code></h3>
       <table class="spec-table">
@@ -1937,7 +1941,7 @@
         </div>
         <div class="rule">
           <h4>Preis-Platzierung</h4>
-          <p><strong>Stückpreis</strong> in <code>.cart-item__variant</code>: <code>60 Stück · 39,90 €</code>. <strong>Zeilensumme</strong> unten rechts: <code>359,20 €</code> (nicht „8 × 44,90 € = …" im Markup — nur Endbetrag).</p>
+          <p><strong>Stückpreis</strong> in <code>.cart-item__variant</code>: <code>60 Stück · 39,90 €</code>. <strong>Zeilensumme</strong> unten rechts in <code>.cart-item__qty-text</code>: <code>359,20 €</code> (nicht „8 × 44,90 € = …" im Markup — nur Endbetrag). <strong>Nicht bold</strong> (<code>--fg-muted</code>) — <code>.price-stack</code> (bold) ist nur für Aktions-/Gesamtpreise (Produktkarte, PDP, Zwischensumme).</p>
         </div>
         <div class="rule">
           <h4>Naturalrabatt</h4>
@@ -1950,6 +1954,7 @@
         <tr><th><code>.product-thumb-wrap</code></th><td>Wrapper für <code>.floating-meta</code> auf dem Thumb · <code>top/left: 0</code></td></tr>
         <tr><th>Basis</th><td><code>.cart-item</code> + <code>.product-thumb</code> + <code>.cart-item__info</code> + <code>.cart-item__top</code></td></tr>
         <tr><th>Mit Menge</th><td><code>.cart-item__bottom</code> + <code>.qty-selector.--sm</code> + <code>.cart-item__qty-text</code></td></tr>
+        <tr><th><code>.cart-item__qty-text</code></th><td>Zeilensumme unten rechts · <code>--text-base</code>, <code>--fg-muted</code>, <strong>nicht bold</strong> · read-only Kontext (Checkout): links <code>.cart-item__variant</code> mit Stückzahl, rechts Summe</td></tr>
         <tr><th>Mit Button</th><td><code>.cart-item__bottom</code> + <code>.btn.--sm</code> — z. B. Finder-Ergebnis</td></tr>
         <tr><th>Gratis Warenkorb</th><td><code>.product-thumb-wrap</code> + <code>.floating-meta</code> + <code>.badge.--free</code> — nicht zusätzlich im Counter</td></tr>
         <tr><th>Gratis Bundle</th><td><code>.cart-item__counter</code> + <code>.badge.--free</code> — nicht auf dem Thumb</td></tr>
@@ -2284,12 +2289,12 @@
       <div class="sg-demo --white">
         <nav class="pagination" aria-label="Seitennavigation">
           <button type="button" class="pagination__btn" aria-label="Vorherige Seite"><span class="material-icons">arrow_back</span></button>
-          <a class="pagination__page" href="#">1</a>
-          <a class="pagination__page" href="#">2</a>
-          <a class="pagination__page --current" href="#" aria-current="page">3</a>
-          <a class="pagination__page" href="#">4</a>
+          <button type="button" class="pagination__page">1</button>
+          <button type="button" class="pagination__page">2</button>
+          <span class="pagination__page --current" aria-current="page">3</span>
+          <button type="button" class="pagination__page">4</button>
           <span class="pagination__dots">…</span>
-          <a class="pagination__page" href="#">12</a>
+          <button type="button" class="pagination__page">12</button>
           <button type="button" class="pagination__btn" aria-label="Nächste Seite"><span class="material-icons">arrow_forward</span></button>
         </nav>
       </div>
@@ -2778,7 +2783,7 @@
       <div class="rules">
         <div class="rule">
           <h4>Basis-Struktur</h4>
-          <p>Alle Varianten: Medien-Spalte (<code>.section-type__image</code>, <code>.section-type__animation</code>) + Content. <code>--reverse</code> tauscht die Seiten per <code>direction: rtl</code>.</p>
+          <p>Alle Varianten: Medien-Spalte + Content. <code>--reverse</code>: V1/V2 tauschen Spalten per <code>direction: rtl</code> · V3 verschiebt die Box per <code>grid-column</code>.</p>
         </div>
         <div class="rule">
           <h4>Varianten</h4>
@@ -2808,7 +2813,6 @@
         <tr><th>Breite</th><td><code>max-width: var(--container-max)</code></td></tr>
       </table>
 
-      <p class="sg-caption">Default (Content-Höhe)</p>
       <div class="sg-demo --flush">
         <div class="section-type --v1">
           <div class="section-type__image placeholder-bg"></div>
@@ -2821,7 +2825,21 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Mindesthöhe <code>24rem</code> · Höhe folgt dem Inhalt.</p>
+      <p class="sg-caption">Default · Mindesthöhe <code>24rem</code> · Höhe folgt dem Inhalt.</p>
+
+      <div class="sg-demo --flush">
+        <div class="section-type --v1 --reverse">
+          <div class="section-type__image placeholder-bg"></div>
+          <div class="section-type__content flow">
+            <h1 class="section-type__headline">Headline 1</h1>
+            <div class="section-type__bottom flow">
+              <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <div class="btn --primary">Call to Action</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit <code>--reverse</code> · Text links, Bild rechts.</p>
 
       <h3 class="sg-h3 --top" id="hero-v1-lottie">Variante 1 — Animation + Text</h3>
       <p>Gleiches Layout wie V1 · Lottie-JSON statt Bild · Höhe aus nativen JSON-Proportionen.</p>
@@ -2829,9 +2847,9 @@
         <tr><th>Animation</th><td><code>&lt;lottie-player&gt;</code> in <code>.section-type__animation</code> · CDN <code>@lottiefiles/lottie-player</code></td></tr>
         <tr><th>Höhe</th><td>Automatisch aus JSON · <code>width: 100%</code> am Player</td></tr>
         <tr><th>Content</th><td>Volle Grid-Spaltenbreite — kein <code>max-width</code> wie bei V1 Bild + Text</td></tr>
+        <tr><th><code>--reverse</code></th><td>Text links, Animation rechts — gleicher Mechanismus wie V1 Bild + Text</td></tr>
       </table>
 
-      <p class="sg-caption">Default · Animation links</p>
       <div class="sg-demo --flush">
         <div class="section-type --v1">
           <div class="section-type__animation">
@@ -2846,6 +2864,23 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Default · Höhe aus JSON-Proportionen · Content vertikal zentriert.</p>
+
+      <div class="sg-demo --flush">
+        <div class="section-type --v1 --reverse">
+          <div class="section-type__animation">
+            <lottie-player src="assets/lotties/Hero_Animation_01.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="section-type__content flow">
+            <h1 class="section-type__headline">Natürlich gesunde Tiere</h1>
+            <div class="section-type__bottom flow">
+              <p class="section-type__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <div class="btn --primary">Call to Action</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit <code>--reverse</code> · Text links, Animation rechts.</p>
 
       <h3 class="sg-h3 --top" id="hero-v2">Variante 2 — Bild + Content-Box</h3>
       <p>Content-Box mit Hintergrund · H2 · kein Gap — Bild reicht bis an die Box · Padding <code>var(--module)</code> in der Box.</p>
@@ -2856,7 +2891,6 @@
         <tr><th>Padding</th><td>Content-Box: <code>var(--module)</code> allseitig</td></tr>
       </table>
 
-      <p class="sg-caption">Default</p>
       <div class="sg-demo --flush">
         <div class="section-type --v2">
           <div class="section-type__image placeholder-bg"></div>
@@ -2869,8 +2903,8 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Default · kein Gap, Padding in der Content-Box.</p>
 
-      <p class="sg-caption">Mit <code>--viewport</code></p>
       <div class="sg-demo --flush">
         <div class="section-type --v2 --viewport">
           <div class="section-type__image placeholder-bg"></div>
@@ -2883,8 +2917,8 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Mit <code>--viewport</code> · Viewport-Höhe · Bild und Content-Box nahtlos.</p>
 
-      <p class="sg-caption">Mit <code>--reverse</code></p>
       <div class="sg-demo --flush">
         <div class="section-type --v2 --reverse">
           <div class="section-type__image placeholder-bg"></div>
@@ -2897,6 +2931,7 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Mit <code>--reverse</code> · Text links, Bild rechts.</p>
 
       <h3 class="sg-h3 --top" id="hero-v3">Variante 3 — Vollbild + Content-Box</h3>
       <p>Bild edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2.</p>
@@ -2907,7 +2942,6 @@
         <tr><th>Responsive</th><td>Mobile: kein Overlay — Bild oben, Box darunter</td></tr>
       </table>
 
-      <p class="sg-caption">Default</p>
       <div class="sg-demo --flush">
         <div class="section-type --v3">
           <div class="section-type__image placeholder-bg"></div>
@@ -2920,9 +2954,8 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Bild über volle Demo-Breite · Box orientiert sich am Container max-width.</p>
+      <p class="sg-caption">Default · Bild über volle Demo-Breite · Box orientiert sich am Container max-width.</p>
 
-      <p class="sg-caption">Mit <code>--viewport</code></p>
       <div class="sg-demo --flush">
         <div class="section-type --v3 --viewport">
           <div class="section-type__image placeholder-bg"></div>
@@ -2935,8 +2968,8 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Mit <code>--viewport</code> · Viewport-Höhe · Bild edge-to-edge, Content-Box am Satzspiegel.</p>
 
-      <p class="sg-caption">Mit <code>--reverse</code></p>
       <div class="sg-demo --flush">
         <div class="section-type --v3 --reverse">
           <div class="section-type__image placeholder-bg"></div>
@@ -2949,6 +2982,7 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Mit <code>--reverse</code> · Content-Box links.</p>
 
       <h3 class="sg-h3 --top" id="hero-v4">Variante 4 — Text auf Bild</h3>
       <p>Vollflächiges Bild · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>.</p>
@@ -2961,7 +2995,6 @@
         <tr><th>Bild</th><td><code>background-image</code> am <code>.section-type__image</code> setzen · Position/Size aus CSS</td></tr>
       </table>
 
-      <p class="sg-caption">Default (60&nbsp;vh)</p>
       <div class="sg-demo --flush">
         <div class="section-type --v4">
           <div class="section-type__image placeholder-bg"></div>
@@ -2975,8 +3008,8 @@
           </div>
         </div>
       </div>
+      <p class="sg-caption">Default · <code>min-height: 60vh</code>.</p>
 
-      <p class="sg-caption">Mit <code>--viewport</code></p>
       <div class="sg-demo --flush">
         <div class="section-type --v4 --viewport">
           <div class="section-type__image placeholder-bg"></div>
@@ -2989,37 +3022,721 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Mobile: volle Viewport-Höhe · Text oben, Buttons unten (<code>margin-top: auto</code> auf CTA-Block).</p>
+      <p class="sg-caption">Mit <code>--viewport</code> · volle Viewport-Höhe · Text oben, Buttons unten (<code>margin-top: auto</code> auf CTA-Block).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D4">
       <h2 class="section-label">D.4 — Kachel-Raster</h2>
-      <p><code>.tile-grid.--cols-2/3/4</code>. Responsive Breakpoints vereinheitlicht.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Einheitlicher Container <code>.tile-grid</code> mit Spalten-Modifier — Kachel-Typen A–C mischbar · Produktkarte (D) → <a href="#C1">C.1</a>.</p>
+        <p>Responsive Kaskade fix verdrahtet in <code>inuvet.css</code> — Spaltenzahl nur am Container setzen. Details → <a href="#A8">A.8</a>.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Grid-Container</h4>
+          <p><code>.tile-grid.--cols-2/3/4</code> · Gap <code>var(--gutter)</code> · gleichbreite Spalten (<code>1fr</code>).</p>
+        </div>
+        <div class="rule">
+          <h4>Kachel-Varianten</h4>
+          <p><strong>A</strong> Icon + Text · <strong>B</strong> Bild + Text (1:1 oder 4:3) · <strong>C</strong> Sonderkachel (<code>.tile.--featured</code>) · <strong>D</strong> Produktkarte (<code>.tile.--product</code>).</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th>Gap</th><td><code>var(--gutter)</code></td></tr>
+        <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
+        <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
+        <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
+        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline + <code>.tile__bottom</code> (Body + CTA) · space-between</td></tr>
+        <tr><th><code>.--boxed</code></th><td>Rahmen + Padding pro Kachel — Infoboxen auf Landing-Pages</td></tr>
+        <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="tile-4col">4-Spalter — Icon + Text (Variante A)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-4">
+          <div class="tile">
+            <div class="tile__icon icon-box placeholder-bg"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box placeholder-bg"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box placeholder-bg"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box placeholder-bg"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile-grid.--cols-4</code> · Icon via <code>.icon-box</code> · Tablet 2×2 · Mobile 2-spaltig (Shop-Standard) bzw. 1-spaltig bei <code>--cols-3</code>.</p>
+
+      <h3 class="sg-h3 --top" id="tile-featured">4-Spalter mit Sonderkachel (Variante C)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-4">
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile --featured">
+            <h3 class="tile__headline">Headline</h3>
+            <div class="tile__bottom">
+              <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore magna aliqua.</p>
+              <div class="btn --primary">Call to Action</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile.--featured</code> ersetzt eine beliebige Grid-Position · Headline oben, Body + CTA unten.</p>
+
+      <h3 class="sg-h3 --top" id="tile-2col">2-Spalter — Bild + Text (Variante B, 4:3)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-2">
+          <div class="tile">
+            <div class="tile__image placeholder-bg --landscape"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --landscape"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile__image.--landscape</code> · Mobile 1-spaltig.</p>
+
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-2">
+          <div class="tile">
+            <div class="tile__image placeholder-bg --landscape"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile --featured">
+            <h3 class="tile__headline">Headline</h3>
+            <div class="tile__bottom">
+              <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore magna aliqua.</p>
+              <div class="btn --primary">Call to Action</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">2-Spalter mit Sonderkachel (<code>.tile.--featured</code>).</p>
+
+      <h3 class="sg-h3 --top" id="tile-3col">3-Spalter — Bild + Text (Variante B, 1:1)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile__image.--square</code> · Mobile 1-spaltig.</p>
+
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          </div>
+          <div class="tile --featured">
+            <h3 class="tile__headline">Headline</h3>
+            <div class="tile__bottom">
+              <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore.</p>
+              <div class="btn --primary">Call to Action</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="tile__image placeholder-bg --square"></div>
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">3-Spalter mit Sonderkachel (<code>.tile.--featured</code>).</p>
+
+      <h3 class="sg-h3 --top" id="tile-boxed">Infoboxen — <code>.tile-grid.--boxed</code></h3>
+      <p>Variante A mit Rahmen und Innenabstand — z.&nbsp;B. USP-Zeilen auf Landing-Pages.</p>
+      <table class="spec-table">
+        <tr><th><code>.tile-grid.--boxed &gt; .tile</code></th><td>Border <code>1px solid var(--border-light)</code> · Padding <code>var(--half-module)</code></td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-4 --boxed">
+          <div class="tile">
+            <div class="tile__icon icon-box"><span class="material-icons">verified</span></div>
+            <h3 class="tile__headline">Qualität</h3>
+            <p class="tile__body">Alle Produkte werden nach höchsten Standards produziert und regelmäßig geprüft.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box"><span class="material-icons">science</span></div>
+            <h3 class="tile__headline">Forschung</h3>
+            <p class="tile__body">Entwickelt in enger Zusammenarbeit mit Tierärzten und Ernährungsexperten.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box"><span class="material-icons">favorite</span></div>
+            <h3 class="tile__headline">Fürsorge</h3>
+            <p class="tile__body">Wir denken an das Wohlbefinden jedes Tieres — von der Formel bis zur Verpackung.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box"><span class="material-icons">eco</span></div>
+            <h3 class="tile__headline">Nachhaltigkeit</h3>
+            <p class="tile__body">Verantwortungsvoller Umgang mit Ressourcen und umweltfreundliche Materialien.</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Material Icons in <code>.icon-box</code> · gleiche Breakpoints wie <code>.tile-grid.--cols-4</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D5">
-      <h2 class="section-label">D.5 — Testimonials</h2>
-      <p><code>.testimonial-grid</code>, <code>.testimonial-slider</code>.</p>
-      <div class="sg-demo"></div>
+    <h2 class="section-label">D.5 — Testimonials</h2>
+
+      <div class="col-grid" data-cols="2">
+        <p>Grid (<code>.testimonial-grid</code>) oder Slider (<code>.testimonial-slider</code>) · Breakpoints wie <a href="#A8">A.8</a>.</p>
+        <p>Mobile: progressive Anzeige via „Mehr anzeigen" (<code>showMore</code> / <code>showMoreSlider</code> in <code>inuvet.js</code>) · Slider-Init via <code>initSliders()</code> (<code>sg.js</code>).</p>
+      </div>
+    <div class="rules">
+      <div class="rule">
+        <h4>Grid-Variante</h4>
+        <p>Alle Testimonials sichtbar im Grid (<code>--cols-3</code>, <code>--cols-4</code>). Mobile: 3 sichtbar, „Mehr anzeigen" lädt jeweils 3 weitere.</p>
+      </div>
+      <div class="rule">
+        <h4>Slider-Variante</h4>
+        <p>Desktop: 1 Reihe sichtbar, Prev/Next-Buttons zum Blättern. Mobile: identisch zur Grid-Variante (1-spaltig, „Mehr anzeigen"). Touch-Swipe auf mobilen Geräten.</p>
+      </div>
+    </div>
+
+    <table class="spec-table">
+      <tr><th>Grid</th><td>3 oder 4 Spalten (<code>1fr</code>). Gap: 1 Modul. Tablet: 4-Spalter → 2×2. Mobile: alles 1-spaltig.</td></tr>
+      <tr><th>Kachel</th><td>Border-top: <code>1px solid #ccc</code> (dekorativ). Padding-top: halbes Modul. Inhalt vertikal mit <code>margin-top: auto</code> am Autor.</td></tr>
+      <tr><th>Quote-Zeichen</th><td>Typografisches <code>„</code> in <code>--text-l</code> (1.5–2.25rem), bold. Dekorativ.</td></tr>
+      <tr><th>Zitat-Text</th><td><code>--text-base</code> · LH 1.5</td></tr>
+      <tr><th>Sterne</th><td>Material Icons <code>star</code> / <code>star_border</code>. Gefüllt: <code>--fg</code>. Leer: <code>--border-light</code>. Größe: <code>1rem</code>.</td></tr>
+      <tr><th>Avatar</th><td><code>1 Modul × 1 Modul</code> (3rem). Kreuz-Platzhalter wie im System.</td></tr>
+      <tr><th>Name</th><td><code>--text-base</code>, bold.</td></tr>
+      <tr><th>Rolle</th><td><code>--text-xs</code>, <code>--fg-muted</code>.</td></tr>
+      <tr><th>Mobile</th><td>3 sichtbar. Button „Mehr anzeigen" (Secondary) lädt jeweils 3 weitere. Verschwindet, wenn alle gezeigt.</td></tr>
+      <tr><th>Hintergrund</th><td>Standard: weiß. Modifier <code>.--on-green</code> auf <code>.testimonial-section</code> / <code>.testimonial-slider</code> für <code>--green-light</code>.</td></tr>
+      <tr><th>Slider</th><td>Container <code>.testimonial-slider</code> mit <code>--cols-3</code> / <code>--cols-4</code>. Grid-Track, <code>transform: translateX()</code>, <code>0.4s ease</code>.</td></tr>
+      <tr><th>Slider Nav</th><td>Prev/Next-Buttons: <code>1 Modul × 1 Modul</code>. Border: <code>1px solid #000</code>. Hover: invertiert. Disabled: <code>#ccc</code>. Counter dazwischen.</td></tr>
+      <tr><th>Slider Mobile</th><td>Kein Slider — identisches Verhalten wie Grid-Variante: 1-spaltig, „Mehr anzeigen".</td></tr>
+    </table>
+
+      <h3 class="sg-h3 --top">Grid — 3-Spalter, weißer Hintergrund</h3>
+      <div class="sg-demo --white">
+        <div class="testimonial-section" id="tSection1">
+              <div class="testimonial-grid --cols-3">
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Das Design-System hat unsere Entwicklungszeit halbiert. Alles leitet sich logisch aus dem Grundmodul ab — kein Rätselraten mehr bei Abständen und Schriftgrößen.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Maria Schneider</p><div class="testimonial__role">Creative Director, Studio Klare Linie</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Endlich ein Styleguide, der nicht nur schön aussieht, sondern auch in Shopify funktioniert. Die Section Types lassen sich 1:1 als Liquid Templates umsetzen.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Jonas Bergmann</p><div class="testimonial__role">Lead Developer, Nordlicht Commerce</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Die konsequente Modular-Logik überzeugt. Wir nutzen das System jetzt als Basis für drei verschiedene Shop-Projekte — und es skaliert perfekt.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Laura Weiß</p><div class="testimonial__role">Product Owner, Echt Digital GmbH</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Kein Border-Radius, scharfe Kanten, klare Regeln. Genau das, was wir für unsere Marke gebraucht haben.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Felix Hartmann</p><div class="testimonial__role">Brand Strategist, Formwerk</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Wir haben den Styleguide als Grundlage für unser Shopify-Theme genommen. Die Dokumentation ist so klar, dass auch Nicht-Designer sofort loslegen können.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Anna Richter</p><div class="testimonial__role">UX Designerin, Pixelwerk</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Besonders die Fluid Typography hat uns überzeugt. Keine Breakpoints für Schriftgrößen mehr — das spart enorm viel CSS.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Tobias Keller</p><div class="testimonial__role">Frontend Architect, Codefreunde</div></div>
+                  </div>
+                </div>
+        
+              </div>
+              <div class="testimonial-more">
+                <button class="btn --secondary" type="button" onclick="showMore(this)">Mehr anzeigen</button>
+              </div>
+            </div>
+      </div>
+      <p class="sg-caption">Desktop: alle 6 in 3 Spalten. Mobile: 3 sichtbar, „Mehr anzeigen" für je 3 weitere.</p>
+
+      <h3 class="sg-h3 --top">Grid — 4-Spalter, <code>--green-light</code> Hintergrund</h3>
+      <div class="sg-demo --green">
+        <div class="testimonial-section --on-green" id="tSection2">
+              <div class="testimonial-grid --cols-4">
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Das Design-System hat unsere Entwicklungszeit halbiert. Alles leitet sich logisch aus dem Grundmodul ab.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Maria Schneider</p><div class="testimonial__role">Creative Director</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Die Section Types lassen sich 1:1 als Liquid Templates umsetzen. Genau das, was wir gebraucht haben.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Jonas Bergmann</p><div class="testimonial__role">Lead Developer</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Wir nutzen das System als Basis für drei Shop-Projekte — und es skaliert perfekt.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Laura Weiß</p><div class="testimonial__role">Product Owner</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Scharfe Kanten, klare Regeln. Genau das, was wir für unsere Marke gebraucht haben.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Felix Hartmann</p><div class="testimonial__role">Brand Strategist</div></div>
+                  </div>
+                </div>
+        
+              </div>
+              <div class="testimonial-more">
+                <button class="btn --secondary" type="button" onclick="showMore(this)">Mehr anzeigen</button>
+              </div>
+            </div>
+      </div>
+      <p class="sg-caption">4 Spalten auf grünem Hintergrund. Tablet: 2×2.</p>
+
+      <h3 class="sg-h3 --top">Slider — 4-Spalter, weißer Hintergrund</h3>
+      <div class="sg-demo --white">
+        <div class="testimonial-slider --cols-4" id="tSlider1">
+              <div class="testimonial-slider__track">
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Das Design-System hat unsere Entwicklungszeit halbiert. Alles leitet sich logisch aus dem Grundmodul ab — kein Rätselraten mehr.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Maria Schneider</p><div class="testimonial__role">Creative Director, Studio Klare Linie</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Die Section Types lassen sich 1:1 als Liquid Templates umsetzen. Genau das, was wir gebraucht haben.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Jonas Bergmann</p><div class="testimonial__role">Lead Developer, Nordlicht Commerce</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Wir nutzen das System als Basis für drei Shop-Projekte — und es skaliert perfekt.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Laura Weiß</p><div class="testimonial__role">Product Owner, Echt Digital GmbH</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Scharfe Kanten, klare Regeln. Die Dokumentation ist vorbildlich.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Felix Hartmann</p><div class="testimonial__role">Brand Strategist, Formwerk</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Auch Nicht-Designer können sofort loslegen. Das System erklärt sich selbst.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Anna Richter</p><div class="testimonial__role">UX Designerin, Pixelwerk</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Keine Breakpoints für Schriftgrößen mehr — das spart enorm viel CSS.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Tobias Keller</p><div class="testimonial__role">Frontend Architect, Codefreunde</div></div>
+                  </div>
+                </div>
+        
+              </div>
+              <div class="slider-nav">
+                <button class="slider-btn icon-box" type="button" aria-label="Zurück" data-dir="prev" disabled><span class="material-icons">arrow_back</span></button>
+                <span class="slider-counter"></span>
+                <button class="slider-btn icon-box" type="button" aria-label="Weiter" data-dir="next"><span class="material-icons">arrow_forward</span></button>
+              </div>
+            </div>
+            <div class="testimonial-more"><button class="btn --secondary" type="button" onclick="showMoreSlider(this)">Mehr anzeigen</button></div>
+      </div>
+      <p class="sg-caption">Desktop: 3 sichtbar, Prev/Next zum Blättern. Mobile: 1-spaltig, „Mehr anzeigen".</p>
+
+      <h3 class="sg-h3 --top">Slider — 4-Spalter, <code>--green-light</code> Hintergrund</h3>
+      <div class="sg-demo --green">
+        <div class="testimonial-slider --cols-4 --on-green" id="tSlider2">
+              <div class="testimonial-slider__track">
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Das Design-System hat unsere Entwicklungszeit halbiert. Alles leitet sich logisch aus dem Grundmodul ab.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Maria Schneider</p><div class="testimonial__role">Creative Director</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Die Section Types lassen sich 1:1 als Liquid Templates umsetzen.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Jonas Bergmann</p><div class="testimonial__role">Lead Developer</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Wir nutzen das System als Basis für drei Shop-Projekte — skaliert perfekt.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Laura Weiß</p><div class="testimonial__role">Product Owner</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Scharfe Kanten, klare Regeln. Genau das, was wir gebraucht haben.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Felix Hartmann</p><div class="testimonial__role">Brand Strategist</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Vorbildlich dokumentiert und sofort einsetzbar. So wünscht man sich ein Design-System.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Sophie Braun</p><div class="testimonial__role">Art Director</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Die modulare Skala macht jede Design-Entscheidung nachvollziehbar. Kein Zufall, nur Logik.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Marco Vogt</p><div class="testimonial__role">Design Engineer</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Fluid Typography ohne Breakpoints — endlich ein System, das einfach funktioniert.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Tobias Keller</p><div class="testimonial__role">Frontend Architect</div></div>
+                  </div>
+                </div>
+        
+                <div class="testimonial-slider__slide testimonial">
+                  <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+                  <p class="testimonial__text">Das Spacing-System hat unsere Diskussionen über Abstände komplett beendet. Alles ist logisch begründet.</p>
+                  <div class="rating">
+                    <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                  </div>
+                  <div class="testimonial__author">
+                    <div class="testimonial__avatar icon-box placeholder-bg"></div>
+                    <div><p class="testimonial__name">Lena Fischer</p><div class="testimonial__role">Head of Design</div></div>
+                  </div>
+                </div>
+        
+              </div>
+              <div class="slider-nav">
+                <button class="slider-btn icon-box" type="button" aria-label="Zurück" data-dir="prev" disabled><span class="material-icons">arrow_back</span></button>
+                <span class="slider-counter"></span>
+                <button class="slider-btn icon-box" type="button" aria-label="Weiter" data-dir="next"><span class="material-icons">arrow_forward</span></button>
+              </div>
+            </div>
+            <div class="testimonial-more"><button class="btn --secondary" type="button" onclick="showMoreSlider(this)">Mehr anzeigen</button></div>
+      </div>
+      <p class="sg-caption">Desktop: 4 sichtbar, durchblätterbar. Tablet: 2 sichtbar. Mobile: 1-spaltig, „Mehr anzeigen".</p>
+
     </section>
 
     <section class="sg-section-v2 flow" id="D6">
       <h2 class="section-label">D.6 — Marquee</h2>
-      <p><code>.marquee</code> — endlos scrollende Zeile, initialisiert via <code>initMarquees()</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Endlos-Laufband für Vertrauenssignale · Items im HTML verdoppeln für nahtlose Schleife.</p>
+        <p>Init via <code>initMarquees()</code> in <code>inuvet.js</code> · Pausiert bei Hover.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Funktion</h4>
+          <p>Endlos-Laufband für Vertrauenssignale, Versandinfos oder Aktionshinweise. Pausiert bei Hover. Items werden doppelt gerendert für nahtlose Schleife.</p>
+        </div>
+        <div class="rule">
+          <h4>Varianten</h4>
+          <p>Standard (weiß), Grün (<code>--green</code>), Dark (<code>--fg</code>). Trennzeichen: gefüllter Kreis (<code>4px</code>). Geschwindigkeit via <code>animation-duration</code> anpassbar.</p>
+        </div>
+      </div>
+
+      <div class="sg-demo --flush">
+        <div class="marquee">
+          <div class="marquee__track">
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Standard · weißer Hintergrund.</p>
+
+      <div class="sg-demo --flush">
+        <div class="marquee --green">
+          <div class="marquee__track">
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit <code>--green</code> · grüner Hintergrund.</p>
+
+      <div class="sg-demo --flush">
+        <div class="marquee --dark">
+          <div class="marquee__track">
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Kostenloser Versand ab 49 €</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Tierärztlich entwickelt</div><span class="marquee__sep"></span>
+            <div class="marquee__item">30 Tage Rückgabe</div><span class="marquee__sep"></span>
+            <div class="marquee__item">Über 10.000 zufriedene Kunden</div><span class="marquee__sep"></span>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit <code>--dark</code> · dunkler Hintergrund.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D7">
       <h2 class="section-label">D.7 — Newsletter Signup</h2>
-      <p><code>.newsletter</code>.</p>
-      <div class="sg-demo"></div>
+
+      <p><code>.newsletter</code> · Hintergrund <code>--green-light</code> · Formular via <code>.actionable-input</code> → <a href="#B4">B.4</a>.</p>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Variante</h4>
+          <p>2-spaltig: Text links, Formular rechts. Hintergrund immer <code>--green-light</code>. Auf Mobil 1-spaltig gestapelt.</p>
+        </div>
+        <div class="rule">
+          <h4>Formular — <code>.actionable-input</code></h4>
+          <p>Wiederverwendbares Molekül: Input + Button als Flex-Reihe. Mobil gestapelt (<code>flex-direction: column</code>), ab 768 px nebeneinander (<code>flex-direction: row</code>). Input nimmt mit <code>flex: 1</code> den verfügbaren Platz. Einsetzbar überall wo ein Inline-Submit-Formular benötigt wird.</p>
+        </div>
+      </div>
+
+      <div class="sg-demo">
+        <div class="newsletter --on-green">
+          <div class="newsletter__content">
+            <p class="label">Newsletter</p>
+            <h3>Bleib auf dem Laufenden</h3>
+            <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
+          </div>
+          <form class="actionable-input" onsubmit="return false;">
+            <div class="form-field">
+              <input type="email" id="newsletter-email" placeholder=" ">
+              <label for="newsletter-email">E-Mail-Adresse</label>
+            </div>
+            <button class="btn --primary" type="submit">Anmelden</button>
+          </form>
+        </div>
+      </div>
+      <p class="sg-caption">2-spaltig · Text links, Formular rechts · Mobile: 1-spaltig gestapelt.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D8">
       <h2 class="section-label">D.8 — Cookie-Banner</h2>
-      <p><code>.cookie-banner</code>.</p>
-      <div class="sg-demo"></div>
+
+      <p><code>.cookie-banner</code> · fixed am unteren Viewport-Rand · nach Auswahl per JS ausblenden.</p>
+
+      <div class="rules">
+        <div class="rule"><h4>Aufbau</h4><p><code>.cookie-banner</code> ist <code>position: fixed; bottom: 0</code>, volle Breite. Text links, Buttons rechts. <code>z-index: var(--z-overlay)</code>.</p></div>
+        <div class="rule"><h4>Buttons</h4><p>"Ablehnen" als <code>.btn.--secondary</code>, "Akzeptieren" als <code>.btn.--primary</code>. Im Demo via JS ausblendbar.</p></div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.cookie-banner</code></th><td>Fixed, Bottom, BG <code>var(--green-light)</code> zum Abheben vom Content, <code>border-top: 1px solid var(--border-light)</code>, <code>z-index: var(--z-overlay)</code></td></tr>
+        <tr><th><code>.cookie-banner__text</code></th><td><code>font-size: var(--text-xs)</code>, <code>color: var(--fg-muted)</code>, <code>flex: 1</code></td></tr>
+        <tr><th><code>.cookie-banner__actions</code></th><td>Flex-Zeile, <code>gap: var(--half-module)</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Demo (im Seitenfluss)</h3>
+      <div class="sg-outline">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--module);padding:var(--half-module) var(--module);background:var(--green-light);">
+          <p class="cookie-banner__text" style="position:static;border:none;padding:0;">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" class="sg-link-fg">Datenschutzerklärung</a>.</p>
+          <div class="cookie-banner__actions">
+            <button class="btn --secondary">Ablehnen</button>
+            <button class="btn --primary">Akzeptieren</button>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Im Seitenfluss dargestellt — im echten Einsatz <code>position: fixed</code>. Ausblenden via JS (<code>display: none</code>).</p>
+
+      <h3 class="sg-h3 --top">Live-Demo (öffnet fixed Banner)</h3>
+      <button class="btn --secondary" onclick="document.getElementById('cookieBannerDemo').style.display='flex';">Cookie-Banner öffnen</button>
     </section>
 
 
@@ -3029,8 +3746,44 @@
 
     <section class="sg-section-v2 flow" id="E1">
       <h2 class="section-label">E.1 — Page-Skeleton</h2>
-      <p>Grundstruktur einer Seite: Announcement Bar, Nav, Content, Footer. Boilerplate in <code>pages/_template.html</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="col-grid" data-cols="2">
+        <p>Grundaufbau jeder Seite: <strong>Announcement Bar → Navigation → Mobile-Menu → Main-Content → Footer</strong>. Detail-Sektionen: <a href="#D1">D.1 Navigation &amp; Announcement</a>, <a href="#D2">D.2 Footer</a>, <a href="#A8">A.8 Container</a>.</p>
+        <p>Snippet kopieren, Platzhalter durch Page-Inhalt ersetzen. Lauffähige Vorlage: <a href="pages/_template.html">pages/_template.html</a>. Für neue Pages ggf. den ähnlichsten Mockup aus <code>pages/</code> als Startpunkt nehmen — die sind immer aktuell.</p>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Struktur</h4>
+          <p>Kanonisches Skelett in <a href="pages/_template.html">pages/_template.html</a> (spiegelt dieses Kapitel) — kopieren statt neu bauen. Block-Details: <a href="#D1">D.1</a> Nav/Announcement, <a href="#D2">D.2</a> Footer.</p>
+        </div>
+        <div class="rule">
+          <h4>Stylesheet-Reihenfolge</h4>
+          <p>Verbindlich: Typekit → Material Icons → <code>inuvet.css</code> → optional <code>pages/[name].css</code>. <code>mockup-ui.css</code> nur in Mockup-Pages — niemals in Produktion.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th>1.</th><td><code>https://use.typekit.net/vhh5bbc.css</code> — Schrift (schnebel-sans-me)</td></tr>
+        <tr><th>2.</th><td><code>https://fonts.googleapis.com/icon?family=Material+Icons</code> — Icons</td></tr>
+        <tr><th>3.</th><td><code>inuvet.css</code> — Design-System (Tokens + Komponenten)</td></tr>
+        <tr><th>4. <em>(optional)</em></th><td><code>pages/[name].css</code> — Page-spezifische Klassen / Overrides</td></tr>
+        <tr><th>nur Mockup</th><td><code>mockup-ui.css</code> — Dev-UI-Chrome (Mockup-Bar, FAB, Mockup-Modal). Niemals in Produktion.</td></tr>
+      </table>
+
+      <table class="spec-table">
+        <tr><th>Aufbau</th><td>Announcement Bar (<a href="#D1">D.1</a>) → Nav (<a href="#D1">D.1</a>) → Mobile-Menu → <code>&lt;main&gt;</code> → Footer (<a href="#D2">D.2</a>)</td></tr>
+        <tr><th>JS</th><td><code>inuvet.js</code>: nur Basis-Helper (<code>toggleMobile</code>/<code>closeMobile</code> + <code>initMarquees</code>). <code>openSearch</code>/<code>openCart</code> aus <a href="#E7">E.7</a>/<a href="#E4">E.4</a> bzw. Page-JS ergänzen.</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Container-Varianten für <code>&lt;main&gt;</code></h3>
+      <table class="spec-table">
+        <tr><th>Standard</th><td><code>&lt;main&gt;&lt;div class="container"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — volle Lese-Breite (1536px), Lese-Content, Marketing</td></tr>
+        <tr><th>Lese-Content</th><td><code>&lt;main class="container --narrow"&gt;…&lt;/main&gt;</code> — fokussierter Single-Column (≈720px), z.&nbsp;B. Detail-Seiten</td></tr>
+        <tr><th>Formulare</th><td><code>&lt;main class="container --sm"&gt;…&lt;/main&gt;</code> — kompakte Eingabe (≈480px)</td></tr>
+        <tr><th>Hero-Pages</th><td><code>&lt;main&gt;&lt;div class="section-type --v4"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Hero edge-to-edge, ohne <code>.container</code></td></tr>
+        <tr><th>Stand-Alone-Form</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — siehe <a href="#B5">B.5</a></td></tr>
+      </table>
     </section>
 
     <section class="sg-section-v2 flow" id="E2">
@@ -3127,7 +3880,7 @@
                   <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
                 </div>
               </div>
-              <button class="btn --primary" type="button" onclick="showToast('Produkt wurde zum Warenkorb hinzugefügt.', 'success')">In den Warenkorb</button>
+              <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
               <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
             </div>
             <div class="accordion">
@@ -3196,7 +3949,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo inkl. <code>.pdp__caption</code>-Overlay · Warenkorb-CTA als Toast bis <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
+      <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo inkl. <code>.pdp__caption</code>-Overlay · Warenkorb-CTA öffnet Drawer → <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
       <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen. Abweichende Inhaltsstoffe → <code>.notice</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
@@ -3267,7 +4020,7 @@
                   <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
                 </div>
               </div>
-              <button class="btn --primary" type="button" onclick="showToast('Produkt wurde zum Warenkorb hinzugefügt.', 'success')">In den Warenkorb</button>
+              <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
               <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
             </div>
             <div class="accordion">
@@ -3297,12 +4050,12 @@
         </div>
       </div>
       <table class="spec-table">
-        <tr><th><code>.pdp__oos-badge</code></th><td>Uppercase-Label · Border <code>--border-light</code> · <code>--fg-muted</code></td></tr>
+        <tr><th><code>.pdp__oos-badge</code></th><td><code>.badge.--info</code> + <code>margin-bottom</code> in der PDP-Info-Spalte · Atom → <a href="#B2">B.2</a></td></tr>
         <tr><th><code>.pdp__oos-cta</code></th><td>Flex-Spalte · Hinweistext + <code>.btn.--secondary</code> volle Breite</td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="sg-w-md">
-          <div class="pdp__oos-badge">Nicht verfügbar</div>
+          <div class="pdp__oos-badge badge --info">Nicht verfügbar</div>
           <div class="pdp__oos-cta">
             <p class="pdp__oos-cta__label">Dieses Produkt ist aktuell nicht auf Lager. Trage dich ein und wir benachrichtigen dich sobald es wieder verfügbar ist.</p>
             <button class="btn --secondary" type="button">Benachrichtige mich</button>
@@ -3314,38 +4067,553 @@
 
     <section class="sg-section-v2 flow" id="E3">
       <h2 class="section-label">E.3 — Produktübersicht / Collection</h2>
-      <p><code>.collection-layout</code>, <code>.collection-sidebar</code>, <code>.collection-toolbar</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Layout</h4>
+          <p>Schmale Sidebar (<code>12rem</code>) links + Produktgrid rechts. Mobile: Sidebar als Drawer von links.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Kategorie-Filter (Checkboxen). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code> (<code>sg.js</code>).</td></tr>
+        <tr><th>Filter-Tags</th><td>Aktive Filter als Tags. „Alle löschen"-Link.</td></tr>
+        <tr><th>Toolbar</th><td>Anzahl links, Sortierung rechts (Custom Select).</td></tr>
+        <tr><th>Grid</th><td>3-Spalter Produktkarten (<a href="#C1">C.1</a>). Mobile: 2-spaltig.</td></tr>
+        <tr><th>Badges (Kacheln)</th><td>Nur Kategorie (<code>.badge[data-cat]</code>) auf dem Bild — Status und „Produktfamilie" per CSS in <code>.collection-main</code> ausgeblendet (enge Spalten). Volle Badge-Reihe → <a href="#C1">C.1</a>.</td></tr>
+        <tr><th><code>.filter-active-bar</code></th><td>Flex, wrap, <code>gap: 0.5rem</code> — aktive Filter unter der Toolbar</td></tr>
+        <tr><th><code>.filter-tag__remove</code></th><td>Close-Button in <code>.filter-tag</code>, <code>color: var(--fg-muted)</code></td></tr>
+        <tr><th><code>.filter-count</code></th><td><code>color: var(--fg-muted)</code>, <code>font-weight: 400</code> — Anzahl in Klammern</td></tr>
+        <tr><th><code>.filter-reset</code></th><td>Text-Button, <code>margin-left: auto</code>, underline, rechts in <code>.filter-active-bar</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Produktübersicht</h3>
+      <div class="sg-demo --white">
+        <div class="filter-overlay" id="filterOverlay" onclick="closeFilter()"></div>
+        <div class="collection-layout">
+          <aside class="collection-sidebar" id="filterSidebar">
+            <div class="collection-sidebar__header">
+              <h3 class="collection-sidebar__title">Filter</h3>
+              <button class="btn --icon collection-sidebar__close" type="button" onclick="closeFilter()"><span class="material-icons">close</span></button>
+            </div>
+            <div class="filter-tags">
+              <button class="filter-tag" type="button">Pulver <span class="material-icons">close</span></button>
+              <button class="filter-clear" type="button">Alle löschen</button>
+            </div>
+            <div class="filter-group">
+              <h4 class="filter-group__title label-caps">Darreichungsform</h4>
+              <label class="form-check"><input type="checkbox" checked><span>Pulver</span></label>
+              <label class="form-check"><input type="checkbox"><span>Tabletten</span></label>
+              <label class="form-check"><input type="checkbox"><span>Flüssig</span></label>
+            </div>
+            <div class="filter-group">
+              <h4 class="filter-group__title label-caps">Besonderheiten</h4>
+              <label class="form-check"><input type="checkbox"><span>Getreidefrei</span></label>
+              <label class="form-check"><input type="checkbox"><span>Vegan</span></label>
+            </div>
+          </aside>
+          <main class="collection-main">
+            <div class="collection-toolbar">
+              <button class="collection-filter-toggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
+              <div class="collection-toolbar__count">Zeige 1–9 von 12 Produkten</div>
+              <div class="collection-toolbar__sort">
+                <span class="collection-toolbar__sort-label">Sortieren:</span>
+                <select class="collection-toolbar__sort-select">
+                  <option>Empfohlen</option>
+                  <option>Bestseller</option>
+                  <option>Preis aufsteigend</option>
+                  <option>Preis absteigend</option>
+                </select>
+              </div>
+            </div>
+            <div class="tile-grid --cols-3">
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">39,90 €</span></div></div></div>
+            </div>
+            <nav class="pagination" aria-label="Pagination">
+              <button type="button" class="pagination__btn" aria-label="Vorherige Seite"><span class="material-icons">chevron_left</span></button>
+              <button type="button" class="pagination__page">1</button>
+              <span class="pagination__page --current" aria-current="page">2</span>
+              <button type="button" class="pagination__page">3</button>
+              <span class="pagination__dots">...</span>
+              <button type="button" class="pagination__page">8</button>
+              <button type="button" class="pagination__btn" aria-label="Nächste Seite"><span class="material-icons">chevron_right</span></button>
+            </nav>
+          </main>
+        </div>
+      </div>
+      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Kacheln: nur Kategorie-Badge auf dem Bild · Pagination ohne Demo-Links · Warenkorb → <a href="#E4">E.4</a>.</p>
+
+      <h3 class="sg-h3 --top">Filter-Zustände</h3>
+      <div class="sg-demo --white">
+        <div class="filter-active-bar">
+          <span class="filter-tag">Gelenke <button class="filter-tag__remove" type="button" aria-label="Filter „Gelenke“ entfernen"><span class="material-icons">close</span></button></span>
+          <span class="filter-tag">Hund <button class="filter-tag__remove" type="button" aria-label="Filter „Hund“ entfernen"><span class="material-icons">close</span></button></span>
+          <span class="filter-tag">Neu <button class="filter-tag__remove" type="button" aria-label="Filter „Neu“ entfernen"><span class="material-icons">close</span></button></span>
+          <button class="filter-reset" type="button">Alle Filter zurücksetzen</button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.filter-active-bar</code> unter der Toolbar — aktive Filter als entfernbare Tags.</p>
+
+      <div class="sg-demo --white">
+        <div class="sg-w-sm">
+          <div class="filter-group">
+            <h4 class="filter-group__title label-caps">Kategorie</h4>
+            <label class="form-check"><input type="checkbox" checked><span>Gelenke <span class="filter-count">(12)</span></span></label>
+            <label class="form-check"><input type="checkbox"><span>Haut &amp; Fell <span class="filter-count">(5)</span></span></label>
+            <label class="form-check"><input type="checkbox"><span>Verdauung &amp; Darm <span class="filter-count">(8)</span></span></label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.filter-count</code> — Ergebnis-Anzahl pro Option in Klammern.</p>
+
+      <div class="sg-demo --white">
+        <div class="sg-w-sm">
+          <div class="accordion">
+            <div class="accordion-item --open">
+              <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Darreichungsform <span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner">
+                <label class="form-check"><input type="checkbox" checked><span>Pulver</span></label>
+                <label class="form-check"><input type="checkbox"><span>Tabletten</span></label>
+                <label class="form-check"><input type="checkbox"><span>Flüssig</span></label>
+              </div></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Besonderheiten <span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner">
+                <label class="form-check"><input type="checkbox"><span>Getreidefrei</span></label>
+                <label class="form-check"><input type="checkbox"><span>Vegan</span></label>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Filtergruppen als Akkordeon — offen/eingeklappt via <code>.accordion-item.--open</code> (<a href="#C5">C.5</a>).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E4">
       <h2 class="section-label">E.4 — Warenkorb-Drawer</h2>
-      <p><code>.cart-drawer</code>, <code>.cart-overlay</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Typ</h4>
+          <p>Slide-in von rechts. Halbtransparentes Overlay dahinter. Breite: <code>min(28rem, 100vw)</code>. Transition: <code>0.3s ease</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Struktur</h4>
+          <p>Header (Titel + Schließen), scrollbare Produktliste (Mitte), Footer mit Summe und CTA (sticky unten).</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th>Overlay</th><td><code>rgba(0,0,0,0.4)</code>. Klick schließt den Drawer.</td></tr>
+        <tr><th>Drawer</th><td>Breite <code>min(28rem, 100vw)</code>. Border-left: <code>1px solid #000</code>.</td></tr>
+        <tr><th>Item</th><td><code>.cart-item</code> (<a href="#C2">C.2</a>) · Grid: <code>5rem</code> Bild + <code>1fr</code> Info · kompakte ±Buttons (<code>--sm</code>)</td></tr>
+        <tr><th>Footer</th><td>Versandhinweis, Zwischensumme (<code>--text-m</code>), Checkout (Primary), Weiter einkaufen (Ghost).</td></tr>
+        <tr><th>Leer</th><td>Zentriertes Icon + Text + Button (<a href="#C8">C.8</a>).</td></tr>
+        <tr><th>JS</th><td><code>openCart(id)</code> / <code>closeCart(id)</code> in <code>sg.js</code> — IDs <code>cartFull</code> / <code>cartEmpty</code></td></tr>
+        <tr><th><code>.options-drawer</code></th><td>Varianten-Auswahl — gleicher Overlay-Typ, Breite und Z-Index wie Cart-Drawer · Overlay <code>var(--z-overlay)</code>, Drawer <code>var(--z-drawer)</code></td></tr>
+        <tr><th><code>.options-drawer__price</code></th><td>Preiszeile im Footer über dem CTA · <code>--text-m</code>, bold · zeigt Preis der aktuellen Auswahl (produktiv per JS aktualisiert)</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Drawer öffnen</h3>
+      <div class="sg-btn-row --sm">
+        <button class="btn --primary" type="button" onclick="openCart('cartFull')">Mit Produkten</button>
+        <button class="btn --secondary" type="button" onclick="openCart('cartEmpty')">Leerer Warenkorb</button>
+      </div>
+      <p class="sg-caption">Drawer-Markup am Seitenende (fixed) · Overlay-Klick und Close-Button schließen.</p>
+
+      <h3 class="sg-h3 --top">Options-Drawer</h3>
+      <p>Slide-in zur Varianten-Auswahl (Darreichungsform, Größe, Menge) — strukturell identisch mit Warenkorb-Drawer.</p>
+      <button class="btn --secondary" type="button" onclick="openOptionsDrawer()">Varianten wählen</button>
+      <p class="sg-caption">Inhalt: optionales <code>__product</code> (Cart-Item), <code>__section</code> mit <code>__section-label</code>, Varianten via <code>.options-variants</code> (Choice-Boxes), Menge via <code>.qty-selector</code> (frei wählbar) · Footer: <code>.options-drawer__price</code> (aktualisiert sich produktiv je Auswahl) + CTA in <code>.options-drawer__footer</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E5">
       <h2 class="section-label">E.5 — Checkout</h2>
-      <p><code>.checkout</code>, <code>.summary-line</code>, <code>.summary-total</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Layout</h4>
+          <p>50/50-Grid: <code>1fr 1fr</code>. Sidebar läuft im Fluss mit (kein sticky). Sektionen getrennt durch <code>.line.--structural</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>Atome</h4>
+          <p>Ausschließlich bestehende Steine: <code>.form-grid</code>, <code>.form-field</code>, <code>.choice-box</code>, <code>.cart-item</code>, <code>.summary-line</code>, <code>.summary-total</code>, <code>.btn</code>.</p>
+        </div>
+        <div class="rule">
+          <h4><code>.summary-line</code> / <code>.summary-total</code></h4>
+          <p>Globale Atome für Preiszeilen. <code>.summary-line</code>: gestrichelte Trennlinie, letzte Zeile ohne. <code>.summary-total</code>: starke Trennlinie oben, Gesamtbetrag typografisch hervorgehoben. Einsetzbar in Checkout, Cart-Drawer und überall wo Preiszusammenfassungen benötigt werden.</p>
+        </div>
+        <div class="rule">
+          <h4>CTA</h4>
+          <p>Einziger Kauf-Button am Ende der Bestellübersicht. Keine „Weiter"-Buttons.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.checkout</code></th><td>2-Spalten-Grid · Mobile: 1 Spalte</td></tr>
+        <tr><th><code>.checkout__sidebar</code></th><td>Bestellübersicht rechts · Cart-Items + Summary + CTA</td></tr>
+        <tr><th><code>.summary-line</code></th><td>Flex-Zeile mit gestrichelter Unterline</td></tr>
+        <tr><th><code>.summary-total</code></th><td>Gesamtzeile mit starker Oberline · <code>--text-m</code>, bold</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Checkout-Layout</h3>
+      <div class="sg-demo --white">
+        <div class="checkout">
+          <div>
+            <div>
+              <h3 class="section-label --sub">Lieferadresse</h3>
+              <div class="form-grid">
+                <div class="form-field"><input type="text" id="co-vorname" placeholder=" "><label for="co-vorname">Vorname</label></div>
+                <div class="form-field"><input type="text" id="co-nachname" placeholder=" "><label for="co-nachname">Nachname</label></div>
+                <div class="form-field"><input type="text" id="co-strasse" placeholder=" "><label for="co-strasse">Straße</label></div>
+                <div class="form-field"><input type="text" id="co-hausnr" placeholder=" "><label for="co-hausnr">Nr.</label></div>
+                <div class="form-field"><input type="text" id="co-plz" placeholder=" "><label for="co-plz">PLZ</label></div>
+                <div class="form-field"><input type="text" id="co-ort" placeholder=" "><label for="co-ort">Ort</label></div>
+                <div class="form-field --full"><input type="email" id="co-email" placeholder=" "><label for="co-email">E-Mail-Adresse</label></div>
+                <div class="form-field --full"><input type="tel" id="co-tel" placeholder=" "><label for="co-tel">Telefon (optional)</label></div>
+              </div>
+            </div>
+            <div>
+              <h3 class="section-label --sub">Versandart</h3>
+              <div class="tile-grid sg-gap-half">
+                <button class="choice-box --block --active" type="button" onclick="selectCheckout(this)">
+                  <span class="material-icons">local_shipping</span>
+                  <span><strong>Standardversand</strong> — DHL · 3–5 Werktage · <strong>kostenlos</strong></span>
+                </button>
+                <button class="choice-box --block" type="button" onclick="selectCheckout(this)">
+                  <span class="material-icons">rocket_launch</span>
+                  <span><strong>Expressversand</strong> — DHL Express · 1–2 Werktage · <strong>4,99 €</strong></span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <h3 class="section-label --sub">Zahlung</h3>
+              <div class="tile-grid sg-gap-half">
+                <button class="choice-box --block --active" type="button" onclick="selectCheckout(this)">
+                  <span class="material-icons">credit_card</span>
+                  <span>Kreditkarte</span>
+                </button>
+                <button class="choice-box --block" type="button" onclick="selectCheckout(this)">
+                  <span class="material-icons">account_balance_wallet</span>
+                  <span>PayPal</span>
+                </button>
+                <button class="choice-box --block" type="button" onclick="selectCheckout(this)">
+                  <span class="material-icons">receipt_long</span>
+                  <span>Rechnung</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <aside class="checkout__sidebar">
+            <h3 class="section-label --sub">Bestellübersicht</h3>
+            <div class="cart-item">
+              <div class="cart-item__image product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+              <div class="cart-item__info">
+                <div class="cart-item__top"><div><p class="cart-item__name">Calmin balance Tabletten</p><div class="cart-item__variant">60 Stück</div></div></div>
+                <div class="cart-item__bottom"><div class="cart-item__variant">2 Stück</div><span class="cart-item__qty-text">59,80 €</span></div>
+              </div>
+            </div>
+            <div class="cart-item">
+              <div class="cart-item__image product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div>
+              <div class="cart-item__info">
+                <div class="cart-item__top"><div><p class="cart-item__name">Hepax forte Tabletten</p><div class="cart-item__variant">30 Stück</div></div></div>
+                <div class="cart-item__bottom"><div class="cart-item__variant">1 Stück</div><span class="cart-item__qty-text">34,90 €</span></div>
+              </div>
+            </div>
+            <div class="cart-item">
+              <div class="cart-item__image product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div>
+              <div class="cart-item__info">
+                <div class="cart-item__top"><div><p class="cart-item__name">Calmin balance Tabletten</p><div class="cart-item__variant">90 Stück · Sale</div></div></div>
+                <div class="cart-item__bottom"><div class="cart-item__variant">1 Stück</div><span class="cart-item__qty-text">49,90 €</span></div>
+              </div>
+            </div>
+            <div class="summary-line"><span>Zwischensumme</span><span>144,60 €</span></div>
+            <div class="summary-line"><span>Versand</span><span>kostenlos</span></div>
+            <div class="summary-line"><span>MwSt. (19 %)</span><span>23,12 €</span></div>
+            <div class="summary-total"><span>Gesamt</span><span>144,60 €</span></div>
+            <div style="margin-top:var(--module)">
+              <button class="btn --primary --full" type="button">Jetzt kaufen</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <p class="sg-caption">Choice-Boxen für Versand/Zahlung interaktiv · Cart-Items read-only (<code>.cart-item__qty-text</code> statt ±) · Formular → <a href="#B4">B.4</a>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E6">
       <h2 class="section-label">E.6 — Account-Seiten</h2>
-      <p><code>.login-overlay</code>, <code>.login-modal</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule"><h4>Formulare</h4><p><code>.form-field</code> (Floating Label), <code>.form-grid</code> (2-Spalten), <code>.btn.--primary.--full</code>. Login, Registrierung und Passwort vergessen in einem <code>.tab-nav</code>.</p></div>
+        <div class="rule"><h4>Bestellhistorie</h4><p><code>.order-item</code> mit Bestellnummer, Datum, Status-Badge, Betrag und Link.</p></div>
+        <div class="rule"><h4>Login-Modal</h4><p>Zweispaltiges Overlay: linkes Brand-Panel (ab 640 px, Dark Background), rechtes Formular-Panel mit Tab-Navigation.</p></div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.order-item</code></th><td>5-Spalten-Grid: Info · Datum · Badge · Betrag · Link</td></tr>
+        <tr><th><code>.login-overlay</code></th><td>Backdrop mit Fade · aktiviert via <code>.--open</code></td></tr>
+        <tr><th><code>.login-brand</code></th><td>Dark-Panel mit Logo, Headline, Feature-Liste</td></tr>
+        <tr><th><code>.login-form-panel</code></th><td>Flex-Column · <code>.login-tabs</code> / <code>.login-tab.--active</code> · Panels via <code>.login-panel</code> / <code>.login-panel.--hidden</code></td></tr>
+        <tr><th>JS</th><td><code>switchAccTab()</code>, <code>openLoginModal()</code> / <code>closeLoginModal()</code> in <code>sg.js</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Login · Registrierung · Passwort vergessen</h3>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="tab-nav" role="tablist">
+            <button class="tab-btn --active" role="tab" type="button" onclick="switchAccTab(this,'acc-login')" aria-selected="true">Login</button>
+            <button class="tab-btn" role="tab" type="button" onclick="switchAccTab(this,'acc-register')" aria-selected="false">Registrierung</button>
+            <button class="tab-btn" role="tab" type="button" onclick="switchAccTab(this,'acc-forgot')" aria-selected="false">Passwort vergessen</button>
+          </div>
+          <div class="tab-panel --active" id="acc-login" role="tabpanel">
+            <form onsubmit="return false;">
+              <div class="form-field"><input type="email" id="acc-email" placeholder=" "><label for="acc-email">E-Mail-Adresse</label></div>
+              <div class="sg-mt">
+                <div class="form-field" style="margin-bottom:0;"><input type="password" id="acc-password" placeholder=" "><label for="acc-password">Passwort</label></div>
+                <a href="#" class="login-forgot sg-link-fg">Passwort vergessen?</a>
+              </div>
+              <button class="btn --primary --full sg-mt" type="submit">Anmelden</button>
+            </form>
+          </div>
+          <div class="tab-panel" id="acc-register" role="tabpanel">
+            <form onsubmit="return false;">
+              <div class="form-grid">
+                <div class="form-field"><input type="text" id="acc-vorname" placeholder=" "><label for="acc-vorname">Vorname</label></div>
+                <div class="form-field"><input type="text" id="acc-nachname" placeholder=" "><label for="acc-nachname">Nachname</label></div>
+              </div>
+              <div class="form-field sg-mt"><input type="email" id="acc-reg-email" placeholder=" "><label for="acc-reg-email">E-Mail-Adresse</label></div>
+              <div class="form-field sg-mt"><input type="password" id="acc-reg-pw" placeholder=" "><label for="acc-reg-pw">Passwort</label></div>
+              <div class="form-field sg-mt"><input type="password" id="acc-reg-pw2" placeholder=" "><label for="acc-reg-pw2">Passwort wiederholen</label></div>
+              <button class="btn --primary --full sg-mt" type="submit">Konto erstellen</button>
+            </form>
+          </div>
+          <div class="tab-panel" id="acc-forgot" role="tabpanel">
+            <form onsubmit="return false;">
+              <p style="font-size:var(--text-base);color:var(--fg-muted);margin-bottom:var(--half-module);">Gib deine E-Mail-Adresse ein — wir senden dir einen Link zum Zurücksetzen.</p>
+              <div class="form-field"><input type="email" id="acc-forgot-email" placeholder=" "><label for="acc-forgot-email">E-Mail-Adresse</label></div>
+              <button class="btn --primary --full sg-mt" type="submit">Link senden</button>
+              <p style="margin-top:var(--half-module);font-size:var(--text-xs);color:var(--fg-muted);"><a href="#" class="sg-link-fg">Zurück zum Login</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Inline-Account-Formulare auf der Account-Seite · Tabs → <a href="#C5">C.5</a>.</p>
+
+      <h3 class="sg-h3 --top">Bestellhistorie</h3>
+      <div class="sg-demo --white">
+        <div style="max-width:48rem;">
+          <div class="order-item">
+            <div><div class="order-item__number">#10042</div><div class="order-item__date">12. März 2025</div></div>
+            <span class="badge --dark">Versandt</span>
+            <span class="order-item__amount">89,70 €</span>
+            <a class="order-item__link" href="#">Details</a>
+          </div>
+          <div class="order-item">
+            <div><div class="order-item__number">#10039</div><div class="order-item__date">3. Februar 2025</div></div>
+            <span class="badge" data-cat="beruhigung">In Bearbeitung</span>
+            <span class="order-item__amount">34,90 €</span>
+            <a class="order-item__link" href="#">Details</a>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Status via <code>.badge</code> (<a href="#B2">B.2</a>) · Kategorie-Badge für „In Bearbeitung".</p>
+
+      <h3 class="sg-h3 --top">Login-Modal</h3>
+      <button class="btn --secondary" type="button" onclick="openLoginModal()">Login-Modal öffnen</button>
+      <p class="sg-caption">Zweispaltiges Overlay mit Brand-Panel und Social Login · Markup am Seitenende (fixed).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E7">
       <h2 class="section-label">E.7 — Suche</h2>
-      <p><code>.search-overlay</code>, <code>.search-panel</code>.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule"><h4>Aufbau</h4><p><code>.search-overlay</code> = Fullscreen-Backdrop (<code>position:fixed</code>). <code>.search-panel</code> gleitet von oben (<code>translateY(-100%)</code> → <code>0</code>). <code>.--open</code> am Overlay aktiviert beides. Statische Demos unten: <code>position:fixed</code> aufgehoben, damit der Block im Seitenfluss sichtbar bleibt.</p></div>
+        <div class="rule"><h4>Interaktion</h4><p>Öffnen via <code>openSearch()</code> (Lupen-Icon in der Nav). Schließen via Close-Button, Escape oder Backdrop-Klick. Debounced Input filtert <code>SEARCH_DATA</code> clientseitig.</p></div>
+        <div class="rule"><h4>Ergebnis-Typen</h4><p><strong>Query-Vorschlag:</strong> <code>.icon-box.--lg</code> + Name. <strong>Produkt:</strong> <code>.search-result__image</code> + Name + Meta + Preis. <strong>Empty State:</strong> <code>.empty-state</code> (<a href="#C8">C.8</a>).</p></div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.search-overlay</code></th><td>Fullscreen-Backdrop, <code>position:fixed</code>, aktiviert via <code>.--open</code></td></tr>
+        <tr><th><code>.search-panel</code></th><td>Header-Panel, slide-in von oben, <code>max-height:80vh</code></td></tr>
+        <tr><th><code>.search-panel__bar</code></th><td>Eingabezeile: Icon + Input + Close-Button</td></tr>
+        <tr><th><code>.search-panel__input</code></th><td>Texteingabe, <code>font-weight:700</code>, kein Border/Outline</td></tr>
+        <tr><th><code>.search-results</code></th><td>Scrollbarer Ergebnis-Container</td></tr>
+        <tr><th><code>.search-result</code></th><td>Einzelne Trefferzeile, hover/focus via <code>.--active</code></td></tr>
+        <tr><th><code>.icon-box.--lg</code></th><td>Lupen-Icon-Box für Query-Vorschläge — <code>5rem × 5rem</code></td></tr>
+        <tr><th>JS</th><td><code>openSearch()</code>, <code>closeSearch()</code>, <code>renderSearchResults(query)</code> in <code>sg.js</code></td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Suchleiste</h3>
+      <div class="sg-demo --white">
+        <div class="sg-outline --solid">
+          <div class="search-panel__bar">
+            <span class="material-icons">search</span>
+            <input class="search-panel__input" type="search" placeholder="Produkt oder Kategorie suchen …" readonly>
+            <button class="btn --icon" type="button" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Im Einsatz: <code>position:fixed</code> am oberen Viewport-Rand · hier statisch im Fluss.</p>
+
+      <h3 class="sg-h3 --top">Ergebnisse — Vorschläge &amp; Produkte</h3>
+      <div class="sg-demo --white">
+        <div class="sg-outline --solid">
+          <div class="search-results" style="max-height:none;overflow:visible;">
+            <div class="search-results__section">
+              <div class="section-label">Vorschläge</div>
+              <div class="search-result">
+                <div class="icon-box --lg"><span class="material-icons">search</span></div>
+                <div class="search-result__info"><p class="search-result__name">Gelenke &amp; Bewegung</p></div>
+              </div>
+              <div class="search-result --active">
+                <div class="icon-box --lg"><span class="material-icons">search</span></div>
+                <div class="search-result__info"><p class="search-result__name">Verdauung &amp; Darm</p></div>
+              </div>
+            </div>
+            <div class="search-results__section">
+              <div class="section-label">Produkte</div>
+              <div class="search-result">
+                <div class="search-result__image product-thumb"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"><img src="assets/images/Hepax_Packshot_02.png" alt=""></div>
+                <div class="search-result__info"><p class="search-result__name">Hepax forte</p><div class="search-result__meta">Leber</div></div>
+                <div class="search-result__price">44,90 €</div>
+              </div>
+              <div class="search-result">
+                <div class="search-result__image product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance"><img src="assets/images/Calmin_Packshot_02.png" alt=""></div>
+                <div class="search-result__info"><p class="search-result__name">Calmin balance</p><div class="search-result__meta">Beruhigung</div></div>
+                <div class="search-result__price">39,90 €</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Keyboard-Navigation mit Pfeiltasten · aktive Zeile via <code>.--active</code>.</p>
+
+      <h3 class="sg-h3 --top">Empty State</h3>
+      <div class="sg-demo --white">
+        <div class="sg-outline --solid">
+          <div class="empty-state">
+            <span class="material-icons">search_off</span>
+            <p>Keine Ergebnisse für „Mustersuche"</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Globale <code>.empty-state</code>-Klasse (<a href="#C8">C.8</a>).</p>
+
+      <h3 class="sg-h3 --top">Live-Demo</h3>
+      <button class="btn --primary --with-icon" type="button" onclick="openSearch()">
+        <span class="material-icons">search</span>
+        Suche öffnen
+      </button>
+      <p class="sg-caption">Nach dem Öffnen „Gelenk", „Darm" oder „Haut" eintippen · Pfeiltasten zur Navigation · Escape zum Schließen.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E8">
       <h2 class="section-label">E.8 — Blog</h2>
-      <p>Blog-Übersicht und Artikel-Template.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Blog-Übersicht</h4>
+          <p>3-Spalter-Grid auf Desktop (<code>.blog-grid</code>), 1-spaltig auf Mobile. Jede Karte: Bild (16:9), Meta, Titel, Excerpt (line-clamp 3) und CTA-Link.</p>
+        </div>
+        <div class="rule">
+          <h4>Artikel-Detailseite</h4>
+          <p>Max-Width 48rem, zentriert. Hero-Bild, Fließtext via <code>.rte</code>. Abschluss: Autor-Card + Tags via <code>.filter-tag</code> (<a href="#E3">E.3</a>).</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.blog-grid</code></th><td>CSS Grid, 3 Spalten, <code>gap: var(--module)</code>. Mobile: 1-spaltig.</td></tr>
+        <tr><th><code>.blog-card</code></th><td>Flex column. Bild oben, Content unten mit <code>flex: 1</code>.</td></tr>
+        <tr><th><code>.blog-card__image</code></th><td>Aspect-Ratio 16:9, nutzt <code>.placeholder-bg</code></td></tr>
+        <tr><th><code>.blog-card__meta</code></th><td>Datum + Kategorie, nutzt <code>.label-caps</code></td></tr>
+        <tr><th><code>.blog-card__title</code></th><td><code>var(--text-m)</code>, <code>font-weight: 700</code>, h3-Element</td></tr>
+        <tr><th><code>.blog-card__excerpt</code></th><td><code>var(--fg-muted)</code>, line-clamp 3 Zeilen</td></tr>
+        <tr><th><code>.blog-card__cta</code></th><td>„Weiterlesen"-Link · <code>var(--green)</code> · underline · <code>margin-top: auto</code></td></tr>
+        <tr><th><code>.article__header</code></th><td>Meta (<code>.label-caps</code>) + h1-Titel</td></tr>
+        <tr><th><code>.article__hero</code></th><td>16:9, <code>.placeholder-bg</code></td></tr>
+        <tr><th><code>.article__body</code></th><td>Bestehende <code>.rte</code>-Klasse (<a href="#A4">A.4</a>)</td></tr>
+        <tr><th><code>.article__author</code></th><td>Flex, rundes Avatar-Bild, Name + Rolle</td></tr>
+        <tr><th><code>.article__tags</code></th><td>Flex-wrap · <code>.filter-tag</code> Atom</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Blog-Übersicht</h3>
+      <div class="sg-demo --white">
+        <div class="blog-grid">
+          <article class="blog-card">
+            <div class="blog-card__image placeholder-bg"></div>
+            <div class="blog-card__content">
+              <span class="blog-card__meta label-caps">12. April 2026 · Ernährung</span>
+              <h3 class="blog-card__title">5 Wege wie Omega-3 die Gelenkgesundheit deines Hundes verbessert</h3>
+              <p class="blog-card__excerpt">Omega-3-Fettsäuren spielen eine entscheidende Rolle bei der Unterstützung gesunder Gelenke. Erfahre, warum regelmäßige Supplementierung besonders bei älteren Hunden sinnvoll ist und welche Quellen wirklich helfen.</p>
+              <a href="#" class="blog-card__cta">Weiterlesen</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <div class="blog-card__image placeholder-bg"></div>
+            <div class="blog-card__content">
+              <span class="blog-card__meta label-caps">8. April 2026 · Verdauung</span>
+              <h3 class="blog-card__title">Probiotika für Hunde: Was steckt dahinter und wann helfen sie wirklich?</h3>
+              <p class="blog-card__excerpt">Immer mehr Tierbesitzer greifen zu Probiotika. Doch wie funktionieren sie, wann sind sie sinnvoll – und was solltest du beim Kauf beachten? Wir klären auf.</p>
+              <a href="#" class="blog-card__cta">Weiterlesen</a>
+            </div>
+          </article>
+          <article class="blog-card">
+            <div class="blog-card__image placeholder-bg"></div>
+            <div class="blog-card__content">
+              <span class="blog-card__meta label-caps">3. April 2026 · Haut &amp; Fell</span>
+              <h3 class="blog-card__title">Glänzendes Fell – was Ernährung und Pflegesupplemente leisten können</h3>
+              <p class="blog-card__excerpt">Ein strahlendes Fell ist nicht nur Schönheit – es ist ein Zeichen innerer Gesundheit. Welche Nährstoffe wirklich helfen und wie du Mangelerscheinungen erkennst.</p>
+              <a href="#" class="blog-card__cta">Weiterlesen</a>
+            </div>
+          </article>
+        </div>
+      </div>
+      <p class="sg-caption">3-Spalter · Mobile 1-spaltig · CTA klebt unten via <code>margin-top: auto</code>.</p>
+
+      <h3 class="sg-h3 --top">Artikel-Detailseite</h3>
+      <div class="sg-demo --white">
+        <div class="article-layout">
+          <aside class="article-sidebar">
+            <div class="article__author">
+              <div class="article__author-avatar placeholder-bg"></div>
+              <div>
+                <p class="article__author-name">Dr. Mara Hofer</p>
+                <p class="article__author-role">Tierärztin &amp; Ernährungsberaterin</p>
+              </div>
+            </div>
+            <div class="article__tags">
+              <span class="filter-tag">Gelenke</span>
+              <span class="filter-tag">Omega-3</span>
+              <span class="filter-tag">Ernährung</span>
+              <span class="filter-tag">Hund</span>
+            </div>
+          </aside>
+          <article class="article">
+            <header class="article__header">
+              <span class="label-caps">Ernährung · 12. April 2026</span>
+              <h1>5 Wege wie Omega-3 die Gelenkgesundheit deines Hundes verbessert</h1>
+            </header>
+            <div class="article__hero placeholder-bg"></div>
+            <div class="article__body rte">
+              <p>Omega-3-Fettsäuren sind essenzielle Nährstoffe, die der Körper nicht selbst herstellen kann. Für Hunde – besonders solche mit Gelenkbeschwerden oder hohem Aktivitätsniveau – kann eine gezielte Supplementierung einen spürbaren Unterschied machen.</p>
+              <h2>Entzündungshemmende Wirkung</h2>
+              <p>EPA und DHA, zwei langkettige Omega-3-Fettsäuren, hemmen entzündungsfördernde Prostaglandine und können so Schwellungen und Steifheit in den Gelenken reduzieren.</p>
+              <h2>Schmerzlinderung ohne Nebenwirkungen</h2>
+              <p>Im Gegensatz zu NSAIDs haben Omega-3-Präparate bei empfohlener Dosierung kaum Nebenwirkungen. Sie eignen sich daher auch für Langzeittherapie bei chronisch erkrankten Tieren.</p>
+              <blockquote>„Gerade bei älteren Hunden mit Osteoarthritis sehen wir signifikante Verbesserungen, wenn Omega-3 konsequent eingesetzt wird." — Dr. Mara Hofer, Tierärztin</blockquote>
+              <h2>Dosierung und Quellen</h2>
+              <p>Empfohlen werden 50–75 mg EPA+DHA pro kg Körpergewicht täglich. Gute Quellen sind Fischöl, Krillöl oder spezielle Ergänzungsfuttermittel.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <p class="sg-caption">Sidebar sticky (Desktop) · Autor + Tags links · Fließtext via <code>.rte</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E9">
@@ -3355,8 +4623,32 @@
 
     <section class="sg-section-v2 flow" id="E10">
       <h2 class="section-label">E.10 — Landing-Page-Elemente</h2>
-      <p>Wiederkehrende Bausteine für Marketing-Landing-Pages.</p>
-      <div class="sg-demo"></div>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Verwendung</h4>
+          <p>Komponenten für Marketing- und Landing-Pages: Vorteils-Listen mit Häkchen und gerahmte Infoboxen für Feature-Übersichten.</p>
+        </div>
+      </div>
+
+      <h3 class="sg-h3 --top"><code>.check-list</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.check-list</code></th><td>Liste ohne Standard-Bullets · Flex-Layout pro Item · Icon links</td></tr>
+        <tr><th><code>.check-list li</code></th><td>Flex-Row · Gap <code>calc(var(--base) * 0.5)</code></td></tr>
+        <tr><th>Icon</th><td>Material Icon <code>check</code> · <code>var(--green)</code> · <code>var(--base)</code></td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <ul class="check-list">
+          <li><span class="material-icons">check</span><span>Tierärztlich entwickelt und klinisch getestet</span></li>
+          <li><span class="material-icons">check</span><span>Hochwertige Inhaltsstoffe ohne künstliche Zusätze</span></li>
+          <li><span class="material-icons">check</span><span>Einfache Dosierung für alle Tiergrößen</span></li>
+          <li><span class="material-icons">check</span><span>Kostenloser Versand ab 49 €</span></li>
+        </ul>
+      </div>
+      <p class="sg-caption">Typische USP-Liste auf Landing-Pages — kein Bullet, grünes Häkchen links.</p>
+
+      <h3 class="sg-h3 --top">Infoboxen</h3>
+      <p>Gerahmte Feature-Kacheln: <code>.tile-grid.--boxed</code> — dokumentiert unter <a href="#tile-boxed">D.4 Infoboxen</a>.</p>
     </section>
 
   </main>
@@ -3391,6 +4683,236 @@
 </div>
 
 <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Cookie-Banner Demo (fixed) -->
+<div class="cookie-banner" id="cookieBannerDemo" style="display:none;">
+  <p class="cookie-banner__text">Wir nutzen Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen findest du in unserer <a href="#" class="sg-link-fg">Datenschutzerklärung</a>.</p>
+  <div class="cookie-banner__actions">
+    <button class="btn --secondary" onclick="document.getElementById('cookieBannerDemo').style.display='none';">Ablehnen</button>
+    <button class="btn --primary" onclick="document.getElementById('cookieBannerDemo').style.display='none';">Akzeptieren</button>
+  </div>
+</div>
+
+<!-- ═══ SEARCH OVERLAY (E.7) ═══ -->
+<div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+  <div class="search-panel" id="searchPanel">
+    <div class="search-panel__bar">
+      <span class="material-icons">search</span>
+      <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+      <button class="btn --icon" type="button" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="search-results" id="searchResults" role="listbox"></div>
+  </div>
+</div>
+
+<!-- ═══ Cart-Drawer (E.4) ═══ -->
+<div class="cart-overlay" id="overlayFull" onclick="closeCart('cartFull')"></div>
+<div class="cart-drawer" id="cartFull">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(3)</span></span>
+    <button type="button" class="btn --icon" onclick="closeCart('cartFull')" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="cart-drawer__items">
+    <div class="cart-item">
+      <div class="product-thumb-wrap">
+        <div class="product-thumb">
+          <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
+          <img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+        </div>
+        <div class="floating-meta"><span class="badge --free">+ 2</span></div>
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Calmin balance Tabletten</p>
+            <div class="cart-item__variant">60 Stück · 39,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="8" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+          </div>
+          <span class="cart-item__qty-text">319,20 €</span>
+        </div>
+      </div>
+    </div>
+    <div class="cart-item">
+      <div class="product-thumb">
+        <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte Pulver">
+        <img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Hepax forte Pulver</p>
+            <div class="cart-item__variant">75 g · 39,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="1" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+          </div>
+          <span class="cart-item__qty-text">39,90 €</span>
+        </div>
+      </div>
+    </div>
+    <div class="cart-item">
+      <div class="product-thumb placeholder-bg"></div>
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">Inzym Pulver</p>
+            <div class="cart-item__variant">50 g · 24,90 € / Stk.</div>
+          </div>
+          <button type="button" class="btn --icon cart-item__remove" aria-label="Entfernen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="qty-selector --sm">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="2" min="1">
+            <button type="button" class="qty-selector__btn"><span class="material-icons">add</span></button>
+          </div>
+          <span class="cart-item__qty-text">49,80 €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart-drawer__footer">
+    <div class="cart-drawer__amounts">
+      <div class="cart-drawer__free-row"><span>Gratisprodukte (2×)</span><span class="cart-drawer__free-value">Kostenlos</span></div>
+      <div class="cart-drawer__savings-row"><span>Du sparst</span><span class="cart-drawer__savings-value">+ 79,80 €</span></div>
+    </div>
+    <div class="summary-total"><span>Zwischensumme</span><span>408,90 €</span></div>
+    <div class="cart-drawer__tax">inkl. MwSt., zzgl. Versandkosten</div>
+    <button type="button" class="btn --primary cart-drawer__checkout">Zur Kasse</button>
+    <div class="cart-drawer__continue-wrap">
+      <button type="button" class="btn --ghost cart-drawer__continue" onclick="closeCart('cartFull')">Weiter einkaufen</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart-overlay" id="overlayEmpty" onclick="closeCart('cartEmpty')"></div>
+<div class="cart-drawer" id="cartEmpty">
+  <div class="cart-drawer__header">
+    <span class="cart-drawer__title">Warenkorb <span class="cart-drawer__count">(0)</span></span>
+    <button type="button" class="btn --icon" onclick="closeCart('cartEmpty')" aria-label="Schließen"><span class="material-icons">close</span></button>
+  </div>
+  <div class="cart-drawer__empty">
+    <div class="empty-state">
+      <span class="material-icons">shopping_cart</span>
+      <p>Dein Warenkorb ist leer.</p>
+      <button type="button" class="btn --primary" onclick="closeCart('cartEmpty')">Weiter einkaufen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Options-Drawer (E.4) ═══ -->
+<div class="options-overlay" id="sgOptionsOverlay" onclick="closeOptionsDrawer()"></div>
+<div class="options-drawer" id="sgOptionsDrawer">
+  <div class="options-drawer__header">
+    <span class="options-drawer__title">Variante wählen</span>
+    <button class="btn --icon" type="button" onclick="closeOptionsDrawer()"><span class="material-icons">close</span></button>
+  </div>
+  <div class="options-drawer__items">
+    <div class="cart-item options-drawer__product">
+      <div class="product-thumb"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
+      <div class="cart-item__info">
+        <div class="cart-item__top"><div><p class="cart-item__name">Calmin balance Tabletten</p></div></div>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Darreichungsform</div>
+      <div class="options-variants">
+        <button class="choice-box --active" type="button" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Tabletten</button>
+        <button class="choice-box" type="button" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">Pulver</button>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Größe</div>
+      <div class="options-variants">
+        <button class="choice-box --active" type="button" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">30 Stück</button>
+        <button class="choice-box" type="button" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">60 Stück</button>
+        <button class="choice-box" type="button" onclick="this.closest('.options-variants').querySelectorAll('.choice-box').forEach(b=>b.classList.remove('--active'));this.classList.add('--active')">90 Stück</button>
+      </div>
+    </div>
+    <div class="options-drawer__section">
+      <div class="label-caps options-drawer__section-label">Menge</div>
+      <div class="qty-selector">
+        <button type="button" class="qty-selector__btn" aria-label="Menge verringern"><span class="material-icons">remove</span></button>
+        <input class="qty-selector__input" type="number" value="1" min="1">
+        <button type="button" class="qty-selector__btn" aria-label="Menge erhöhen"><span class="material-icons">add</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="options-drawer__footer">
+    <div class="options-drawer__price"><span>Preis</span><span>29,90 €</span></div>
+    <button class="btn --primary" type="button" style="width:100%;text-align:center" onclick="closeOptionsDrawer()">In den Warenkorb</button>
+  </div>
+</div>
+
+<!-- ═══ Login-Modal (E.6) ═══ -->
+<div class="login-overlay" id="sgLoginOverlay" onclick="handleLoginOverlayClickSg(event)">
+  <div class="login-modal">
+    <div class="login-brand">
+      <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet" class="login-brand__logo">
+      <div class="login-brand__content">
+        <p class="login-brand__headline">Dein Konto. Deine Gesundheitsprodukte.</p>
+        <ul class="login-brand__features">
+          <li>Bestellungen im Blick</li>
+          <li>Tierärztliche Empfehlungen speichern</li>
+          <li>Schneller nachbestellen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="login-form-panel">
+      <button class="btn --icon login-modal__close" type="button" onclick="closeLoginModal()"><span class="material-icons">close</span></button>
+      <div class="login-tabs">
+        <button class="login-tab --active" type="button" onclick="switchLoginTab(this,'sg-panel-login')">Anmelden</button>
+        <button class="login-tab" type="button" onclick="switchLoginTab(this,'sg-panel-register')">Registrieren</button>
+      </div>
+      <div class="login-panel" id="sg-panel-login">
+        <div class="login-panel__header">
+          <p class="login-panel__title">Willkommen zurück</p>
+          <p class="login-panel__sub">Melde dich mit deiner E-Mail-Adresse an.</p>
+        </div>
+        <form class="login-form" onsubmit="return false;">
+          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
+          <a href="#" class="login-forgot">Passwort vergessen?</a>
+          <button class="btn --primary login-cta" type="submit">Anmelden</button>
+        </form>
+        <div class="login-divider">oder</div>
+        <button class="login-social" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          Mit Google fortfahren
+        </button>
+      </div>
+      <div class="login-panel --hidden" id="sg-panel-register">
+        <div class="login-panel__header">
+          <p class="login-panel__title">Konto erstellen</p>
+          <p class="login-panel__sub">Kostenlos und unverbindlich registrieren.</p>
+        </div>
+        <form class="login-form" onsubmit="return false;">
+          <div class="login-form__row">
+            <div class="form-field"><input type="text" placeholder=" "><label>Vorname</label></div>
+            <div class="form-field"><input type="text" placeholder=" "><label>Nachname</label></div>
+          </div>
+          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
+          <button class="btn --primary login-cta" type="submit">Konto erstellen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="inuvet.js?v=3"></script>
 <script src="sg.js?v=3"></script>

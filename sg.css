@@ -459,6 +459,7 @@
 }
 /* Einzelnes Feld/Grid in Demo: produktives margin-bottom entfällt — sonst optisch mehr Luft unten */
 .sg-demo .pagination { margin-top: 0; }
+.sg-demo .collection-main .pagination { margin-top: var(--module); }
 .sg-demo .tabs { margin-bottom: 0; }
 .sg-demo .form-field:only-child,
 .sg-demo .form-grid:only-child,
