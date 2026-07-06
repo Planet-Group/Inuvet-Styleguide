@@ -1120,6 +1120,27 @@
         <tr><th>Ausrichtung</th><td>Vertikal zentriert zum Text via <code>vertical-align: middle</code> oder Flex-Alignment.</td></tr>
         <tr><th>Hover (interaktiv)</th><td>In <code>.btn.--icon</code>: <code>transform: scale(1.15)</code> auf dem Icon · gleiches Muster für Footer-Brand-Icons → <code>.footer-social</code></td></tr>
       </table>
+
+      <h3 class="sg-h3 --top"><code>.link.--with-icon</code></h3>
+      <table class="spec-table">
+        <tr><th><code>.link</code></th><td>Textlink · <code>--fg-muted</code> · Hover <code>--green-hover</code></td></tr>
+        <tr><th><code>.link.--with-icon</code></th><td><code>inline-flex</code> · Gap <code>0.5rem</code> · Icon <code>1.25rem</code> · <code>var(--green)</code> · Text erbt Link-Farbe · für <code>tel:</code>, <code>mailto:</code> etc.</td></tr>
+        <tr><th><code>.link-stack</code></th><td>Mehrere <code>.link.--with-icon</code> untereinander · Gap <code>calc(var(--base) * 0.35)</code> · ein Kind in <code>.flow</code></td></tr>
+      </table>
+      <div class="sg-demo">
+        <div class="link-stack">
+          <a class="link --with-icon" href="tel:+4930123456">
+            <span class="material-icons" aria-hidden="true">phone</span>
+            030 123 456
+          </a>
+          <a class="link --with-icon" href="mailto:info@inuvet.com">
+            <span class="material-icons" aria-hidden="true">email</span>
+            info@inuvet.com
+          </a>
+        </div>
+      </div>
+      <p class="sg-caption">Kontaktlinks in Fließtext/Modal — nicht in extra <code>&lt;p&gt;</code> pro Zeile (sonst zu großer <code>.flow</code>-Abstand).</p>
+
       <div class="sg-demo">
         <div class="icon-gallery">
           <div class="icon-gallery__group">
@@ -1319,11 +1340,12 @@
         <tr><th><code>.form-required-note</code></th><td>Pflichtfeld-Legende · <code>var(--text-xs)</code> · Abstand zur ersten <code>.section-label.--sub</code>: <code>var(--module)</code></td></tr>
         <tr><th><code>.form-check.--with-input</code></th><td>Radio/Checkbox + Inline-Text · <code>.form-check__inline-input</code> · siehe Demo</td></tr>
         <tr><th><code>.form-group-label</code></th><td>Gruppen-Titel für Radio/Checkbox (kein Floating Label)</td></tr>
-        <tr><th><code>.form-check-group</code></th><td>Checkbox-Spalte · <code>.form-radio-grid</code> / <code>.form-radio-row</code> / <code>.form-radio-col</code> für Radio-Layouts</td></tr>
+        <tr><th><code>.form-check-group</code></th><td>Checkbox-Spalte · <code>.form-radio-grid</code> / <code>.form-radio-row</code> (nur Radio/Checkbox) / <code>.form-radio-col</code> · <code>.choice-box</code>-Reihen → <code>.btn-row</code></td></tr>
         <tr><th><code>.form-captcha</code></th><td>reCAPTCHA-Platzhalter · Stand-Alone-Formulare</td></tr>
         <tr><th><code>.form-page*</code></th><td>Stand-Alone-Shell · siehe <a href="#B5">B.5</a></td></tr>
         <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
         <tr><th><code>.actionable-input</code></th><td>Input + Submit · mobil gestapelt · ab 768&nbsp;px nebeneinander · Inhalt in <code>.flow</code></td></tr>
+        <tr><th><code>.option-divider</code></th><td>Trenner zwischen zwei gleichwertigen Optionen · Linien via <code>::before</code>/<code>::after</code> · Text in <code>&lt;span&gt;</code> (z.&nbsp;B. „oder“, „ou“) · Margin <code>var(--half-module) 0</code> · in <code>.flow</code> · kein <code>&lt;hr&gt;</code></td></tr>
         <tr><th><code>.flow</code></th><td>Pflicht bei Fließtext + Feldern · <code>--flow-space</code> vor <code>.form-field</code>, <code>.form-grid</code>, <code>.actionable-input</code> etc. → <a href="#A6">A.6</a></td></tr>
         <tr><th>Hintergrund</th><td>Nur <code>--bg</code> (weiß) oder <code>--green-light</code> + <code>.--on-green</code> · Styleguide-Demos: <code>.sg-demo.--white</code> / <code>.sg-demo.--green</code></td></tr>
       </table>
@@ -1373,6 +1395,40 @@
         </div>
       </div>
       <p class="sg-caption"><code>.form-intro</code> als erstes Kind in <code>.flow</code> · Pflichtfeld-Hinweis via <code>.form-required-note</code> · Abstand zur ersten <code>.section-label.--sub</code>: <code>var(--module)</code>.</p>
+
+      <h3 class="sg-h3 --top">Lange Abschnittstitel — plain <code>h4</code></h3>
+      <p>Kurze Stichworte → <code>h3.section-label.--sub</code>. Lange Sätze oder Fragen → schlichtes <code>h4</code> in <code>.flow</code> (keine Linie, kein Uppercase). Abstände via <code>.flow</code> (<code>h4 + *</code>: <code>0.5rem</code> · <code>* + h4</code>: <code>1.5rem</code>).</p>
+      <div class="sg-demo --white">
+        <div class="sg-w-md flow">
+          <h4>Préférez être rappelé&nbsp;? Laissez-nous vos coordonnées&nbsp;:</h4>
+          <div class="form-field">
+            <input type="tel" id="b4-fsl-tel" placeholder=" ">
+            <label for="b4-fsl-tel">Téléphone</label>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Referenz: <a href="pages/inuvet-Shop.html">inuvet-Shop</a> (Contact-FR-Pop-up).</p>
+
+      <h3 class="sg-h3 --top"><code>.option-divider</code></h3>
+      <p>Trennt zwei gleichwertige Optionen in Formular- oder Modal-Kontexten — z.&nbsp;B. Gast-Checkout und Login, Direktkontakt und Rückruf. Text sprachlich anpassen (<code>oder</code>, <code>ou</code> …). Immer in <code>.flow</code>; kein <code>&lt;hr&gt;</code>.</p>
+      <div class="sg-demo --white">
+        <div class="sg-w-md flow">
+          <p>Ohne Konto fortfahren — Bestellung als Gast abschließen.</p>
+          <button class="btn --secondary --full" type="button">Als Gast bestellen</button>
+          <div class="option-divider"><span>oder</span></div>
+          <p>Mit Konto anmelden und Bestellhistorie speichern.</p>
+          <div class="form-field">
+            <input type="email" id="b4-div-email" placeholder=" ">
+            <label for="b4-div-email">E-Mail-Adresse</label>
+          </div>
+          <div class="form-field">
+            <input type="password" id="b4-div-pw" placeholder=" ">
+            <label for="b4-div-pw">Passwort</label>
+          </div>
+          <button class="btn --primary --full" type="button">Anmelden</button>
+        </div>
+      </div>
+      <p class="sg-caption">Einsatz u.&nbsp;a. Login-Modal (<a href="#E6">E.6</a>), Shop-Pop-ups (<a href="pages/inuvet-Shop.html">inuvet-Shop</a>) · Schrift <code>var(--text-xs)</code>, Farbe <code>var(--fg-muted)</code>, Linien <code>var(--border)</code>.</p>
 
       <h3 class="sg-h3 --top"><code>.form-check.--with-input</code></h3>
       <div class="sg-demo --white">
@@ -1617,7 +1673,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Auswahl: <code>--border-active</code> + <code>--green-light</code> (wie Tabs/Pagination) · kein grüner Stroke. <code>.--sm</code> kompakt · <code>.--block</code> Icon + Text · <code>.--detail</code> Label + Beschreibung · Toggle via <code>.--active</code>.</p>
+      <p class="sg-caption">Auswahl: <code>--border-active</code> + <code>--green-light</code> (wie Tabs/Pagination) · kein grüner Stroke. <code>.--sm</code> kompakt · <code>.--block</code> Icon + Text · <code>.--detail</code> Label + Beschreibung · Toggle via <code>.--active</code> · horizontale Gruppen in <code>.btn-row</code> (<code>gap: var(--half-module)</code>) — nicht <code>.form-radio-row</code> (nur Radio/Checkbox, <code>gap: var(--module)</code>).</p>
 
       <h3 class="sg-h3 --top"><code>.form-field</code> — Kontaktformular</h3>
       <div class="sg-demo --white">
@@ -4889,7 +4945,7 @@
           <a href="#" class="login-forgot">Passwort vergessen?</a>
           <button class="btn --primary login-cta" type="submit">Anmelden</button>
         </form>
-        <div class="login-divider">oder</div>
+        <div class="option-divider"><span>oder</span></div>
         <button class="login-social" type="button">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
           Mit Google fortfahren

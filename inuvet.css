@@ -552,6 +552,22 @@
   .text-muted { color: var(--fg-muted); }
   .link { color: var(--fg-muted); text-decoration: none; transition: color var(--anim-fast); } /* Sekundärer/gedämpfter Link */
   .link:hover { color: var(--green-hover); }
+  .link.--with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .link.--with-icon .material-icons {
+    font-size: calc(var(--base) * 1.25);
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .link-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--base) * 0.35);
+  }
   /* ═══════════════════════════════════════════
      SECTION TYPES
      ═══════════════════════════════════════════ */
@@ -1625,8 +1641,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
 
   /* Intro endet oft mit Pflichtfeld-Hinweis — Abstand zur ersten Sektion via .flow */
-  .flow > .form-intro + .section-label.--sub {
-    --flow-space: var(--module);
+  .flow > .form-group-label + .btn-row {
+    --flow-space: calc(var(--base) * 0.5);
   }
 
   /* ─── Gruppen-Label (Radio/Checkbox, kein Floating Label) ─── */
@@ -1636,6 +1652,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     margin-bottom: calc(var(--base) * 0.5);
     display: block;
   }
+
+  /* ─── Option-Divider (zwei gleichwertige Wege, z. B. „oder") ─── */
+  .option-divider { display: flex; align-items: center; gap: var(--half-module); margin: var(--half-module) 0; font-size: var(--text-xs); color: var(--fg-muted); }
+  .option-divider::before, .option-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* ─── Checkbox-/Radio-Gruppen ─── */
   .form-check-group {
@@ -1953,6 +1973,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .flow > * + .form-radio-row,
   .flow > * + .form-radio-col,
   .flow > * + .form-group-label,
+  .flow > * + .btn-row,
+  .flow > * + .link-stack,
   .flow > * + .form-captcha {
     --flow-space: var(--half-module);
   }
@@ -2783,8 +2805,6 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .login-forgot { font-size: var(--text-xs); color: var(--fg-muted); text-decoration: none; margin-top: calc(var(--base) * -0.25); }
   .login-forgot:hover { color: var(--fg); }
   .login-cta { width: 100%; text-align: center; }
-  .login-divider { display: flex; align-items: center; gap: var(--half-module); margin: var(--half-module) 0; font-size: var(--text-xs); color: var(--fg-muted); }
-  .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   .login-social { width: 100%; display: flex; align-items: center; justify-content: center; gap: calc(var(--base) * 0.5); border: 1px solid var(--border); background: var(--bg); font-size: var(--text-base); font-weight: 500; padding: calc(var(--base) * 0.55) var(--half-module); cursor: pointer; transition: border-color var(--anim-fast), background var(--anim-fast); }
   .login-social:hover { border-color: var(--fg); background: var(--accent-bg); }
   .login-switch { font-size: var(--text-sm); color: var(--fg-muted); margin: 0; text-align: center; }

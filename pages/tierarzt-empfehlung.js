@@ -924,7 +924,7 @@ function renderRequestStep() {
       <button type="button" class="btn --primary --full --with-icon" onclick="openVetMap()">
         <span class="material-icons">place</span>Praxis in der Nähe finden
       </button>
-      <div class="login-divider"><span>oder</span></div>
+      <div class="option-divider"><span>oder</span></div>
       <!-- Vet search field — füllt sich bei Auswahl auf der Karte automatisch -->
       <div class="vet-search">
         <div class="form-field">

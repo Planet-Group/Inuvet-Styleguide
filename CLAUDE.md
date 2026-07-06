@@ -272,7 +272,7 @@ Standard: Announcement Bar **und** Nav bleiben sticky. Optional via Klasse `--an
 ```html
 <h3 class="section-label --sub">Abschnittsname</h3>
 ```
-Kein `<hr>`, kein `.login-divider` (nur für „oder"-Trennungen).
+Kein `<hr>`, `.option-divider` für Trennungen zwischen gleichwertigen Optionen (z. B. „oder").
 
 **Zustände:** `.form-field.--error` → roter Border + `.form-field__error` · Feld und Label-Hintergrund auf `--field-bg-active` (weiß), damit Floating Label zur Feldlinie passt. `.form-field.--success` → grüner Border + `.form-field__success`.
 

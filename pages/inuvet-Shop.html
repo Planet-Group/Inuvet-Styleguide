@@ -6,12 +6,28 @@
   <title>inuvet Shop — Mockup</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=46">
+  <link rel="stylesheet" href="../inuvet.css?v=47">
   <link rel="stylesheet" href="inuvet-shop.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
+
+  <!-- Mockup-Steuerleiste -->
+  <div class="mockup-bar --hidden" id="mockupBar">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Pop-up:</span>
+      <button class="mockup-btn" type="button" data-popup="rezept" onclick="setShopPopup('rezept', this)">② Rezept · 400 ms</button>
+      <button class="mockup-btn --active" type="button" data-popup="contact-fr" onclick="setShopPopup('contact-fr', this)">① Contact FR · 1 s</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <button class="mockup-btn" type="button" onclick="openShopPopupNow()">Jetzt öffnen</button>
+      <button class="mockup-btn" type="button" onclick="resetShopPopups()">Zurücksetzen</button>
+    </div>
+    <button class="mockup-bar__collapse" type="button" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
+  </div>
+  <button class="mockup-revive --visible" id="mockupRevive" type="button" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
   <!-- Announcement Bar -->
   <div class="announcement-bar --marquee" id="announcementBar">
@@ -293,10 +309,10 @@
       <div class="shop-modal__icon">
         <span class="material-icons" aria-hidden="true">medication</span>
       </div>
-      <h2 class="shop-modal__title" id="practiceOptInTitle">Neu: Wie ein Rezept!</h2>
-      <div class="shop-modal__body">
-        <p>Jetzt könnt ihr mit der »Tierarzt-Empfehlung« Produkte für Patienten freischalten. Die werden dann direkt zu ihnen nach Hause geschickt.</p>
-        <p>Dürfen wir euch kontaktieren, wenn jemand eine Empfehlung möchte?</p>
+      <div class="flow">
+        <h2 class="shop-modal__title" id="practiceOptInTitle">Neu: Wie ein Rezept!</h2>
+        <p class="shop-modal__body">Jetzt könnt ihr mit der »Tierarzt-Empfehlung« Produkte für Patienten freischalten. Die werden dann direkt zu ihnen nach Hause geschickt.</p>
+        <p class="shop-modal__body">Dürfen wir euch kontaktieren, wenn jemand eine Empfehlung möchte?</p>
       </div>
       <div class="shop-modal__actions">
         <button class="btn --primary --full" type="button" onclick="closePracticeOptIn(true)">Ja, gerne!</button>
@@ -305,13 +321,75 @@
     </div>
   </div>
 
-  <!-- Mockup FAB -->
-  <button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
-    ⚙ Mockup-Kontext
-  </button>
-  <div class="mockup-fab-panel" id="mockupFabPanel">
-    <div class="mockup-fab-panel__title">inuvet Shop — Mockup</div>
-    <p>Startseite des regulären inuvet-Shops: Hauptnavigation, Hero mit Lottie-Animation, USP-Kacheln, vierspaltige Produkt-Collection, Praxis-Opt-in-Pop-up und Footer.</p>
+  <!-- Contact FR Pop-up (Rückruf + Direktkontakt) -->
+  <div class="shop-modal-overlay" id="contactFrOverlay" aria-modal="true" role="dialog" aria-labelledby="contactFrTitle" onclick="closeContactFr()">
+    <div class="shop-modal --wide --form" lang="fr" onclick="event.stopPropagation()">
+      <button class="btn --icon shop-modal__close" type="button" aria-label="Fermer" onclick="closeContactFr()"><span class="material-icons">close</span></button>
+
+      <div class="flow" id="contactFrFormView">
+        <h2 class="shop-modal__title" id="contactFrTitle">Votre contact Inuvet</h2>
+        <p>Que vous soyez clinique vétérinaire ou propriétaire d'animaux, notre équipe est là pour vous accompagner&nbsp;: questions produits, commandes, conseils d'utilisation…</p>
+        <h4>Contactez-nous directement&nbsp;:</h4>
+        <div class="shop-modal__contact-row">
+          <div class="shop-modal__contact-person">
+            <img class="shop-modal__avatar" src="../assets/images/Sarah_Inuvet.png" width="96" height="96" alt="Sarah">
+            <p class="shop-modal__contact-name">Sarah</p>
+          </div>
+          <div class="link-stack">
+            <a class="link --with-icon" href="tel:+33977554761">
+              <span class="material-icons" aria-hidden="true">phone</span>
+              00 33 9 77 55 47 61
+            </a>
+            <a class="link --with-icon" href="mailto:commande@inuvet.com">
+              <span class="material-icons" aria-hidden="true">email</span>
+              commande@inuvet.com
+            </a>
+          </div>
+        </div>
+
+        <div class="option-divider"><span>ou</span></div>
+
+        <h4>Préférez être rappelé&nbsp;? Laissez-nous vos coordonnées&nbsp;:</h4>
+        <form class="flow" id="contactFrForm" novalidate onsubmit="submitContactFr(event)">
+          <div class="form-grid">
+            <div class="form-field">
+              <input type="text" id="contactFrPrenom" name="prenom" placeholder=" " required autocomplete="given-name">
+              <label for="contactFrPrenom">Prénom</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="contactFrNom" name="nom" placeholder=" " required autocomplete="family-name">
+              <label for="contactFrNom">Nom</label>
+            </div>
+          </div>
+          <div class="form-field">
+            <input type="tel" id="contactFrTel" name="tel" placeholder=" " required autocomplete="tel">
+            <label for="contactFrTel">Téléphone</label>
+          </div>
+          <div class="form-field">
+            <input type="email" id="contactFrEmail" name="email" placeholder=" " autocomplete="email">
+            <label for="contactFrEmail">E-Mail</label>
+          </div>
+          <p class="form-group-label">Vous êtes…</p>
+          <div class="btn-row" role="group" aria-label="Vous êtes…">
+            <button class="choice-box --sm" type="button" data-role="vet" onclick="selectContactRole(this)">Vétérinaire</button>
+            <button class="choice-box --sm" type="button" data-role="owner" onclick="selectContactRole(this)">Propriétaire d'animal</button>
+          </div>
+          <div class="form-field">
+            <textarea id="contactFrMessage" name="message" placeholder=" " rows="3"></textarea>
+            <label for="contactFrMessage">Décrivez votre demande (facultatif)</label>
+          </div>
+          <button class="btn --primary --full" type="submit">Envoyer ma demande</button>
+        </form>
+      </div>
+
+      <div class="success-state --hidden" id="contactFrSuccessView">
+        <img class="shop-modal__avatar" src="../assets/images/Sarah_Inuvet.png" width="96" height="96" alt="Sarah">
+        <h2 class="success-state__title">Merci&nbsp;! Votre demande a bien été transmis</h2>
+        <div class="success-state__actions">
+          <button class="btn --primary --full" type="button" onclick="closeContactFr()">Fermer</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="toast-container" id="toastContainer"></div>

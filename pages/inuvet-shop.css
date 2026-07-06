@@ -11,3 +11,64 @@
 #shopPraxisVorteile .tile__animation.--ratio-1 lottie-player { aspect-ratio: 1080 / 1080; }
 #shopPraxisVorteile .tile__animation.--ratio-weltweit lottie-player { aspect-ratio: 1080 / 1080; }
 #shopPraxisVorteile .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 907 / 833; }
+
+/* Contact-FR Pop-up — Layout-Ergänzungen (Rhythmus via .flow, Trenner via .option-divider) */
+.shop-modal.--wide {
+  width: min(32rem, 100%);
+  max-height: min(90vh, 52rem);
+  overflow-y: auto;
+}
+.shop-modal.--form {
+  align-items: stretch;
+  text-align: left;
+  position: relative;
+}
+.shop-modal:not(.--form) .flow {
+  width: 100%;
+  max-width: 28rem;
+}
+.shop-modal__close {
+  position: absolute;
+  top: calc(var(--base) * 0.5);
+  right: calc(var(--base) * 0.5);
+}
+.shop-modal.--form .shop-modal__title {
+  padding-right: calc(var(--base) * 2);
+}
+/* Contact-FR: h4-Titel brauchen mehr Luft zum folgenden Block als der .flow-Default (8px) */
+#contactFrFormView.flow > h4 + * { --flow-space: var(--half-module); }
+
+.shop-modal__contact-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--half-module);
+}
+.shop-modal__contact-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--base) * 0.35);
+  flex-shrink: 0;
+}
+.shop-modal__contact-row .link-stack {
+  flex: 1;
+  min-width: 0;
+}
+.shop-modal__contact-name {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: var(--lh-base);
+}
+#contactFrFormView.--hidden,
+.success-state.--hidden {
+  display: none;
+}
+.shop-modal__avatar {
+  width: calc(var(--base) * 6);
+  height: calc(var(--base) * 6);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
