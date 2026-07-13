@@ -354,24 +354,6 @@ function closeOptionsDrawer() {
   document.body.style.overflow = '';
 }
 
-function openLoginModal() {
-  document.getElementById('sgLoginOverlay').classList.add('--open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLoginModal() {
-  document.getElementById('sgLoginOverlay').classList.remove('--open');
-  document.body.style.overflow = '';
-}
-function handleLoginOverlayClickSg(e) {
-  if (e.target === document.getElementById('sgLoginOverlay')) closeLoginModal();
-}
-function switchLoginTab(btn, panelId) {
-  btn.closest('.login-tabs').querySelectorAll('.login-tab').forEach(function(t) { t.classList.remove('--active'); });
-  btn.classList.add('--active');
-  btn.closest('.login-form-panel').querySelectorAll('.login-panel').forEach(function(p) { p.classList.add('--hidden'); });
-  document.getElementById(panelId).classList.remove('--hidden');
-}
-
 function pdpSwitch(el, src, captionText, authorText) {
   var pdp = el.closest('.pdp');
   if (!pdp) return;

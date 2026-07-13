@@ -327,7 +327,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | D.1 | Navigation | `.site-nav .announcement-bar` | — |
 | D.2 | Footer | `.site-footer` | — |
 | D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
-| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4 --boxed` |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
 | D.7 | Newsletter | `.newsletter` | — |

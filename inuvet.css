@@ -870,12 +870,6 @@
   .tile-grid.--cols-3 { grid-template-columns: 1fr 1fr 1fr; }
   .tile-grid.--cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
 
-  /* ─── Tile Grid — Boxed (Infoboxen für Landing-Pages) ─── */
-  .tile-grid.--boxed > .tile {
-    border: 1px solid var(--border-light);
-    padding: var(--half-module);
-  }
-
   /* ─── Tile Base ─── */
   .tile {
     display: flex;

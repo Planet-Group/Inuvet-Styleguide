@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=55">
-  <link rel="stylesheet" href="sg.css?v=46">
+  <link rel="stylesheet" href="inuvet.css?v=56">
+  <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
   <style>
@@ -79,8 +79,7 @@
         <a href="#E6">E.6 Account-Seiten</a>
         <a href="#E7">E.7 Suche</a>
         <a href="#E8">E.8 Blog</a>
-        <a href="#E9">E.9 Out-of-Stock</a>
-        <a href="#E10">E.10 Landing-Page-Elemente</a>
+        <a href="#E9">E.9 Landing-Page-Elemente</a>
       </div>
 
     </nav>
@@ -1439,7 +1438,7 @@
           <button class="btn --primary --full" type="button">Anmelden</button>
         </div>
       </div>
-      <p class="sg-caption">Einsatz u.&nbsp;a. Login-Modal (<a href="#E6">E.6</a>), Shop-Pop-ups (<a href="pages/inuvet-Shop.html">inuvet-Shop</a>) · Schrift <code>var(--text-xs)</code>, Farbe <code>var(--fg-muted)</code>, Linien <code>var(--border)</code>.</p>
+      <p class="sg-caption">Einsatz u.&nbsp;a. Shop-Pop-ups (<a href="pages/inuvet-Shop.html">inuvet-Shop</a>) · Schrift <code>var(--text-xs)</code>, Farbe <code>var(--fg-muted)</code>, Linien <code>var(--border)</code>.</p>
 
       <h3 class="sg-h3 --top"><code>.form-check.--with-input</code></h3>
       <div class="sg-demo --white">
@@ -3132,7 +3131,6 @@
         <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
         <tr><th>Kachel C</th><td><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline + <code>.tile__bottom</code> (Body + CTA) · space-between</td></tr>
-        <tr><th><code>.--boxed</code></th><td>Rahmen + Padding pro Kachel — Infoboxen auf Landing-Pages</td></tr>
         <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
       </table>
 
@@ -3271,37 +3269,6 @@
         </div>
       </div>
       <p class="sg-caption">3-Spalter mit Sonderkachel (<code>.tile.--featured</code>).</p>
-
-      <h3 class="sg-h3 --top" id="tile-boxed">Infoboxen — <code>.tile-grid.--boxed</code></h3>
-      <p>Variante A mit Rahmen und Innenabstand — z.&nbsp;B. USP-Zeilen auf Landing-Pages.</p>
-      <table class="spec-table">
-        <tr><th><code>.tile-grid.--boxed &gt; .tile</code></th><td>Border <code>1px solid var(--border-light)</code> · Padding <code>var(--half-module)</code></td></tr>
-      </table>
-      <div class="sg-demo --white">
-        <div class="tile-grid --cols-4 --boxed">
-          <div class="tile">
-            <div class="tile__icon icon-box"><span class="material-icons">verified</span></div>
-            <h3 class="tile__headline">Qualität</h3>
-            <p class="tile__body">Alle Produkte werden nach höchsten Standards produziert und regelmäßig geprüft.</p>
-          </div>
-          <div class="tile">
-            <div class="tile__icon icon-box"><span class="material-icons">science</span></div>
-            <h3 class="tile__headline">Forschung</h3>
-            <p class="tile__body">Entwickelt in enger Zusammenarbeit mit Tierärzten und Ernährungsexperten.</p>
-          </div>
-          <div class="tile">
-            <div class="tile__icon icon-box"><span class="material-icons">favorite</span></div>
-            <h3 class="tile__headline">Fürsorge</h3>
-            <p class="tile__body">Wir denken an das Wohlbefinden jedes Tieres — von der Formel bis zur Verpackung.</p>
-          </div>
-          <div class="tile">
-            <div class="tile__icon icon-box"><span class="material-icons">eco</span></div>
-            <h3 class="tile__headline">Nachhaltigkeit</h3>
-            <p class="tile__body">Verantwortungsvoller Umgang mit Ressourcen und umweltfreundliche Materialien.</p>
-          </div>
-        </div>
-      </div>
-      <p class="sg-caption">Material Icons in <code>.icon-box</code> · gleiche Breakpoints wie <code>.tile-grid.--cols-4</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D5">
@@ -4310,6 +4277,7 @@
         <tr><th>Overlay</th><td><code>rgba(0,0,0,0.4)</code>. Klick schließt den Drawer.</td></tr>
         <tr><th>Drawer</th><td>Breite <code>min(28rem, 100vw)</code>. Border-left: <code>1px solid #000</code>.</td></tr>
         <tr><th>Item</th><td><code>.cart-item</code> (<a href="#C2">C.2</a>) · Grid: <code>5rem</code> Bild + <code>1fr</code> Info · kompakte ±Buttons (<code>--sm</code>)</td></tr>
+        <tr><th>Tier-Hint</th><td><code>.cart-item__tier-hint</code> (<a href="#C2">C.2</a>) · <strong>standardmäßig sichtbar</strong> auf jeder berechtigten Zeile — Text „X Stück hinzufügen für Y weitere Gratisprodukte" · produktiv via <code>formatHint()</code> pro Produkt</td></tr>
         <tr><th>Footer</th><td>Versandhinweis, Zwischensumme (<code>--text-m</code>), Checkout (Primary), Weiter einkaufen (Ghost).</td></tr>
         <tr><th>Leer</th><td>Zentriertes Icon + Text + Button (<a href="#C8">C.8</a>).</td></tr>
         <tr><th>JS</th><td><code>openCart(id)</code> / <code>closeCart(id)</code> in <code>sg.js</code> — IDs <code>cartFull</code> / <code>cartEmpty</code></td></tr>
@@ -4322,7 +4290,7 @@
         <button class="btn --primary" type="button" onclick="openCart('cartFull')">Mit Produkten</button>
         <button class="btn --secondary" type="button" onclick="openCart('cartEmpty')">Leerer Warenkorb</button>
       </div>
-      <p class="sg-caption">Drawer-Markup am Seitenende (fixed) · Overlay-Klick und Close-Button schließen.</p>
+      <p class="sg-caption">Drawer-Markup am Seitenende (fixed) · Overlay-Klick und Close-Button schließen · Upsell-Hinweis „X Stück hinzufügen für Y weitere Gratisprodukte" (<code>.cart-item__tier-hint</code>) standardmäßig pro berechtigter Zeile — wie im <a href="pages/Bundle.html">Bundle-Drawer</a>.</p>
 
       <h3 class="sg-h3 --top">Options-Drawer</h3>
       <p>Slide-in zur Varianten-Auswahl (Darreichungsform, Größe, Menge) — strukturell identisch mit Warenkorb-Drawer.</p>
@@ -4479,15 +4447,11 @@
       <div class="rules">
         <div class="rule"><h4>Formulare</h4><p><code>.form-field</code> (Floating Label), <code>.form-grid</code> (2-Spalten), <code>.btn.--primary.--full</code>. Login, Registrierung und Passwort vergessen in einem <code>.tab-nav</code>.</p></div>
         <div class="rule"><h4>Bestellhistorie</h4><p><code>.order-item</code> mit Bestellnummer, Datum, Status-Badge, Betrag und Link.</p></div>
-        <div class="rule"><h4>Login-Modal</h4><p>Zweispaltiges Overlay: linkes Brand-Panel (ab 640 px, Dark Background), rechtes Formular-Panel mit Tab-Navigation.</p></div>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.order-item</code></th><td>5-Spalten-Grid: Info · Datum · Badge · Betrag · Link</td></tr>
-        <tr><th><code>.login-overlay</code></th><td>Backdrop mit Fade · aktiviert via <code>.--open</code></td></tr>
-        <tr><th><code>.login-brand</code></th><td>Dark-Panel mit Logo, Headline, Feature-Liste</td></tr>
-        <tr><th><code>.login-form-panel</code></th><td>Flex-Column · <code>.login-tabs</code> / <code>.login-tab.--active</code> · Panels via <code>.login-panel</code> / <code>.login-panel.--hidden</code></td></tr>
-        <tr><th>JS</th><td><code>switchAccTab()</code>, <code>openLoginModal()</code> / <code>closeLoginModal()</code> in <code>sg.js</code></td></tr>
+        <tr><th>JS</th><td><code>switchAccTab()</code> in <code>sg.js</code></td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Login · Registrierung · Passwort vergessen</h3>
@@ -4551,10 +4515,6 @@
       </div>
       <p class="sg-caption">Status via <code>.badge</code> (<a href="#B2">B.2</a>) · Kategorie-Badge für „In Bearbeitung".</p>
 
-      <h3 class="sg-h3 --top">Login-Modal</h3>
-      <button class="btn --secondary" type="button" onclick="openLoginModal()">Login-Modal öffnen</button>
-      <p class="sg-caption">Zweispaltiges Overlay mit Brand-Panel und Social Login · Markup am Seitenende (fixed).</p>
-
       <h3 class="sg-h3 --top" id="shopify-account">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
         <p>Customer Accounts über die Templates unter <code>/account</code> · Formulare via Liquid-Tags <code>{% form 'customer_login' %}</code>, <code>'create_customer'</code>, <code>'recover_customer_password'</code>.</p>
@@ -4564,10 +4524,9 @@
         <tr><th>Login / Registrierung</th><td><code>{% form 'customer_login' %}</code> / <code>'create_customer'</code> → <code>.form-field</code> · Tabs <code>.tab-nav</code> (<code>switchAccTab</code>) rein clientseitig</td></tr>
         <tr><th>Passwort vergessen</th><td><code>{% form 'recover_customer_password' %}</code> → <code>#acc-forgot</code>-Panel</td></tr>
         <tr><th>Bestellhistorie</th><td><code>{% for order in customer.orders %}</code> → <code>.order-item</code> · Status <code>order.fulfillment_status</code> → <code>.badge</code> · Betrag <code>order.total_price | money</code></td></tr>
-        <tr><th>Login-Modal</th><td>Optional als Overlay im Theme (<code>openLoginModal()</code>) statt eigener Seite · Panels = dieselben Liquid-Forms</td></tr>
         <tr><th>Formfehler</th><td><code>form.errors</code> → <code>.form-field.--error</code> + Meldung (→ <a href="#B4">B.4</a>)</td></tr>
       </table>
-      <p class="sg-caption">Alle Account-Formulare über Shopify-<code>{% form %}</code>-Tags · Tab-Umschaltung und Modal rein clientseitig.</p>
+      <p class="sg-caption">Alle Account-Formulare über Shopify-<code>{% form %}</code>-Tags · Tab-Umschaltung rein clientseitig.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E7">
@@ -4786,17 +4745,12 @@
     </section>
 
     <section class="sg-section-v2 flow" id="E9">
-      <h2 class="section-label">E.9 — Out-of-Stock</h2>
-      <p>PDP-Zustand für nicht verfügbare Produkte — dokumentiert unter <a href="#pdp-oos">E.2 — Out-of-Stock</a>.</p>
-    </section>
-
-    <section class="sg-section-v2 flow" id="E10">
-      <h2 class="section-label">E.10 — Landing-Page-Elemente</h2>
+      <h2 class="section-label">E.9 — Landing-Page-Elemente</h2>
 
       <div class="rules">
         <div class="rule">
           <h4>Verwendung</h4>
-          <p>Komponenten für Marketing- und Landing-Pages: Vorteils-Listen mit Häkchen und gerahmte Infoboxen für Feature-Übersichten.</p>
+          <p>Komponenten für Marketing- und Landing-Pages: Vorteils-Listen mit Häkchen.</p>
         </div>
       </div>
 
@@ -4815,9 +4769,6 @@
         </ul>
       </div>
       <p class="sg-caption">Typische USP-Liste auf Landing-Pages — kein Bullet, grünes Häkchen links.</p>
-
-      <h3 class="sg-h3 --top">Infoboxen</h3>
-      <p>Gerahmte Feature-Kacheln: <code>.tile-grid.--boxed</code> — dokumentiert unter <a href="#tile-boxed">D.4 Infoboxen</a>.</p>
     </section>
 
   </main>
@@ -4909,6 +4860,7 @@
           <span class="cart-item__qty-text">319,20 €</span>
         </div>
       </div>
+      <span class="cart-item__tier-hint" aria-hidden="true">3 Stück hinzufügen für 1 weiteres Gratisprodukt</span>
     </div>
     <div class="cart-item">
       <div class="product-thumb">
@@ -4932,6 +4884,7 @@
           <span class="cart-item__qty-text">39,90 €</span>
         </div>
       </div>
+      <span class="cart-item__tier-hint" aria-hidden="true">5 Stück hinzufügen für 1 weiteres Gratisprodukt</span>
     </div>
     <div class="cart-item">
       <div class="product-thumb placeholder-bg"></div>
@@ -4952,6 +4905,7 @@
           <span class="cart-item__qty-text">49,80 €</span>
         </div>
       </div>
+      <span class="cart-item__tier-hint" aria-hidden="true">4 Stück hinzufügen für 2 weitere Gratisprodukte</span>
     </div>
   </div>
   <div class="cart-drawer__footer">
@@ -5027,63 +4981,7 @@
   </div>
 </div>
 
-<!-- ═══ Login-Modal (E.6) ═══ -->
-<div class="login-overlay" id="sgLoginOverlay" onclick="handleLoginOverlayClickSg(event)">
-  <div class="login-modal">
-    <div class="login-brand">
-      <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet" class="login-brand__logo">
-      <div class="login-brand__content">
-        <p class="login-brand__headline">Dein Konto. Deine Gesundheitsprodukte.</p>
-        <ul class="login-brand__features">
-          <li>Bestellungen im Blick</li>
-          <li>Tierärztliche Empfehlungen speichern</li>
-          <li>Schneller nachbestellen</li>
-        </ul>
-      </div>
-    </div>
-    <div class="login-form-panel">
-      <button class="btn --icon login-modal__close" type="button" onclick="closeLoginModal()"><span class="material-icons">close</span></button>
-      <div class="login-tabs">
-        <button class="login-tab --active" type="button" onclick="switchLoginTab(this,'sg-panel-login')">Anmelden</button>
-        <button class="login-tab" type="button" onclick="switchLoginTab(this,'sg-panel-register')">Registrieren</button>
-      </div>
-      <div class="login-panel" id="sg-panel-login">
-        <div class="login-panel__header">
-          <p class="login-panel__title">Willkommen zurück</p>
-          <p class="login-panel__sub">Melde dich mit deiner E-Mail-Adresse an.</p>
-        </div>
-        <form class="login-form" onsubmit="return false;">
-          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
-          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
-          <a href="#" class="login-forgot">Passwort vergessen?</a>
-          <button class="btn --primary login-cta" type="submit">Anmelden</button>
-        </form>
-        <div class="option-divider"><span>oder</span></div>
-        <button class="login-social" type="button">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/><path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
-          Mit Google fortfahren
-        </button>
-      </div>
-      <div class="login-panel --hidden" id="sg-panel-register">
-        <div class="login-panel__header">
-          <p class="login-panel__title">Konto erstellen</p>
-          <p class="login-panel__sub">Kostenlos und unverbindlich registrieren.</p>
-        </div>
-        <form class="login-form" onsubmit="return false;">
-          <div class="login-form__row">
-            <div class="form-field"><input type="text" placeholder=" "><label>Vorname</label></div>
-            <div class="form-field"><input type="text" placeholder=" "><label>Nachname</label></div>
-          </div>
-          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
-          <div class="form-field"><input type="password" placeholder=" "><label>Passwort</label></div>
-          <button class="btn --primary login-cta" type="submit">Konto erstellen</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script src="inuvet.js?v=3"></script>
-<script src="sg.js?v=3"></script>
+<script src="sg.js?v=4"></script>
 </body>
 </html>
