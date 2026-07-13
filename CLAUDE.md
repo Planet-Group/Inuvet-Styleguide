@@ -84,6 +84,8 @@ Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **He
 
 Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js` · Kein Inline-Script.
 
+**Theme-Portabilität:** Die Block-Banner in `inuvet.js` sind mit `[PORTABEL → Theme]` bzw. `[MOCKUP — nicht portieren]` markiert. Portabel = reine UI-Helfer (Nav, Marquee, Accordion, Slider, Toast, Rollover). Mockup = Produktkatalog, Naturalrabatt-Tabellen und localStorage-Warenkorb — im Shopify-Theme werden Cart-Funktionen gegen die Cart AJAX API (`/cart/add.js`, `/cart/change.js`) neu implementiert, Naturalrabatt via Cart Transform / Shopify Function (→ Styleguide E.4/E.9 Shopify-Mapping).
+
 **Ladereihenfolge (zwingend):**
 ```html
 <script src="../inuvet.js?v=2"></script>   <!-- zuerst: global -->
@@ -139,13 +141,12 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 --half-module: clamp(0.75rem, 0.5rem + 1.35vw, 1.5rem)
 --module: clamp(1.5rem, 1rem + 2.7vw, 3rem)
 --module-2xl: calc(var(--module) * 2)
---module-3xl: calc(var(--module) * 3)
 --gutter: var(--module)
 ```
 
 ### Typografie
 ```css
---text-xs: 0.667rem
+--text-xs: clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)
 --text-sm: 0.8rem
 --text-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem)
 --text-m: clamp(1.25rem, 1rem + 0.7vw, 1.5rem)
@@ -157,7 +158,9 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 ### Layout
 ```css
---header-height: calc(var(--module) * 3.5)
+--announcement-height: calc(var(--module) * 0.67)
+--nav-height: calc(var(--module) * 2.5)
+--header-height: calc(var(--announcement-height) + var(--nav-height))
 --container-pt: var(--module)
 --container-max: 1536px
 --form-page-max: 640px
@@ -177,9 +180,11 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 ### Farben
 ```css
 --green: #78b41b  --green-hover: #58990F  --green-light: #f0fae6
---fg: #000  --fg-muted: #666  --bg: #fff
---border: #cccccc  --border-light: #e0e0e0  --accent-bg: #f2f2f2
+--fg: #2E2E2E  --fg-hover: #333  --fg-muted: #666  --bg: #fff
+--border: #adadad  --border-light: #e0e0e0  --accent-bg: #f2f2f2
 ```
+
+Semantische Aliasse (für neuen Code bevorzugen): `--color-action` / `--color-action-hover` / `--color-success` / `--color-link` (= Grün-Tokens) · Akzente: `--color-amber: #E8A020`, `--color-honey: #FFD700`, `--color-notice-bg: #FEFFDA` · Border-Semantik: `--border-focus`, `--border-active`.
 
 15 Kategorie-Farben als `--cat-X` + `--cat-X-light`: beruhigung, leber, gelenke, immun, herz, magendarm, haut, atemwege, niere, blase, bauchspeichel, fettsaeuren, hormone, ohren, cbd.
 
@@ -342,6 +347,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
 | E.7 | Suche | `.search-overlay .search-panel` |
+| E.8 | Blog & Artikel | `.blog-card` · `.article-layout` · `.rte` |
+| E.9 | Utility-Seiten (Shopify) | Nur Spezifikation — komponiert aus `.empty-state`, `.form-page`, `.cart-item`, `.tile-grid` (kein eigenes CSS) |
 
 #### Globale Helfer
 | Klasse | Modifier | Zweck |

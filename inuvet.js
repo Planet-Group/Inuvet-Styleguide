@@ -1,6 +1,16 @@
 /* ═══════════════════════════════════════════════════════
    inuvet.js — Globale UI-Hilfsfunktionen & Shop-Core
    Auf allen Seiten einbinden (analog zu inuvet.css).
+
+   Theme-Portabilität (Shopify): Jeder Block ist markiert.
+   [PORTABEL → Theme]        unverändert ins Theme-Bundle übernehmen
+   [MOCKUP — nicht portieren] Demo-Daten & localStorage-Warenkorb —
+   im Theme neu gegen die Cart AJAX API (siehe CLAUDE.md → JS-Schichtung).
+   ═══════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════
+   BASIS-UI — Nav, Marquee, Accordion, Scroll-Animationen
+   [PORTABEL → Theme]
    ═══════════════════════════════════════════════════════ */
 
 /* Mobile-Menü: top dynamisch an die aktuelle Nav-Unterkante setzen.
@@ -67,6 +77,7 @@ document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 /* ═══════════════════════════════════════════════════════
    TESTIMONIAL GRID (Mobile: erste 3 sichtbar, Rest per Button)
+   [PORTABEL → Theme]
    ═══════════════════════════════════════════════════════ */
 
 function initTestimonials() {
@@ -101,6 +112,7 @@ document.addEventListener('DOMContentLoaded', initTestimonials);
    TESTIMONIAL SLIDER
    Aufruf: initSliders() nach dem Rendern der Slides.
    showMoreSlider(btn) — onclick auf .testimonial-more > button
+   [PORTABEL → Theme]
    ═══════════════════════════════════════════════════════ */
 
 function initSliders() {
@@ -178,6 +190,10 @@ function showMoreSlider(btn) {
 /* ═══════════════════════════════════════════════════════
    SHOP CORE — Katalog, Naturalrabatt, Warenkorb, Cart-UI
    Bundle.html & Produkt.html (global, wie inuvet.css)
+   [MOCKUP — nicht portieren] Katalog/Preise/localStorage-Cart sind
+   Demo-Daten. Im Theme: cart.items + /cart/add.js + /cart/change.js;
+   Naturalrabatt via Cart Transform / Shopify Function (→ E.4/E.9).
+   Ausnahme: Block „GETEILTE UI" weiter unten ist PORTABEL.
    ═══════════════════════════════════════════════════════ */
 
 // ── Naturalrabatt-Tabellen (global, fix) ────────────────────────────────
@@ -587,6 +603,11 @@ window.closeSearch = () => document.getElementById('searchOverlay')?.classList.r
 window.handleSearchOverlayClick = (e) => {
   if (e.target === document.getElementById('searchOverlay')) closeSearch();
 };
+
+/* ═══════════════════════════════════════════════════════
+   GETEILTE UI — Toast & Produkt-Video-Rollover
+   [PORTABEL → Theme]
+   ═══════════════════════════════════════════════════════ */
 
 // ── Geteilte UI: Toast ──────────────────────────────────────────────────
 function showToast(message, variant = 'success') {

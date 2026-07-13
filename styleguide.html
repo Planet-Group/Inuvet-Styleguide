@@ -80,6 +80,7 @@
         <a href="#E6">E.6 Account-Seiten</a>
         <a href="#E7">E.7 Suche</a>
         <a href="#E8">E.8 Blog</a>
+        <a href="#E9">E.9 Utility-Seiten</a>
       </div>
 
     </nav>
@@ -4773,6 +4774,57 @@
         <tr><th>Pagination</th><td><code>{% paginate blog.articles by 9 %}</code> → <code>.pagination</code> (→ <a href="#C6">C.6</a>)</td></tr>
       </table>
       <p class="sg-caption">Blog- und Artikel-Sections über native <code>blog</code>/<code>article</code>-Objekte · Fließtext immer via <code>.rte</code> auf <code>article.content</code>.</p>
+    </section>
+
+    <section class="sg-section-v2 flow" id="E9">
+      <h2 class="section-label">E.9 — Utility-Seiten (Shopify)</h2>
+
+      <div class="col-grid" data-cols="2">
+        <p>Pflicht-Templates des Shopify-Skeletons, für die es keine eigene Demo braucht: Sie werden vollständig aus bestehenden Komponenten komponiert — <strong>kein neues CSS</strong>. Diese Sektion ist die verbindliche Mini-Spezifikation je Template.</p>
+        <p>Grundgerüst überall: Page-Skeleton aus <a href="#E1">E.1</a> (Announcement → Nav → <code>&lt;main&gt;</code> → Footer). Ausnahmen: Password und Gift Card sind Stand-Alone-Layouts ohne Shop-Chrome.</p>
+      </div>
+
+      <h3 class="sg-h3 --top" id="shopify-404">404</h3>
+      <table class="spec-table">
+        <tr><th>Template</th><td><code>sections/404.liquid</code> · <code>&lt;main&gt;&lt;div class="container"&gt;</code></td></tr>
+        <tr><th>Aufbau</th><td><code>.empty-state</code> (→ <a href="#C8">C.8</a>): Icon <code>search_off</code> · Headline „Seite nicht gefunden" · kurzer Text · <code>.btn.--primary</code> → Startseite, <code>.btn.--ghost</code> → Shop</td></tr>
+        <tr><th>Optional</th><td>Darunter <code>.tile-grid.--cols-4</code> mit Bestsellern („Das könnte Ihnen gefallen" — wie <a href="#E2">E.2</a> Recommendations)</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="shopify-password">Password-Page</h3>
+      <table class="spec-table">
+        <tr><th>Template</th><td><code>layout/password.liquid</code> + <code>sections/password.liquid</code> — ohne Nav/Footer</td></tr>
+        <tr><th>Aufbau</th><td><code>.form-page</code> + <code>.form-page__card</code> (→ <a href="#B5">B.5</a>): Logo · Titel · <code>{% form 'storefront_password' %}</code> mit einem <code>.form-field</code> (Passwort) + <code>.btn.--primary.--full</code></td></tr>
+        <tr><th>Fehler</th><td><code>form.errors</code> → <code>.form-field.--error</code> + <code>.form-field__error</code> (→ <a href="#B4">B.4</a>)</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="shopify-giftcard">Gift Card</h3>
+      <table class="spec-table">
+        <tr><th>Template</th><td><code>templates/gift_card.liquid</code> — Stand-Alone (wird verlinkt/gedruckt), ohne Shop-Chrome</td></tr>
+        <tr><th>Aufbau</th><td><code>.form-page</code>-Geometrie: Logo · Betrag als <code>.price-stack</code> in <code>--text-xl</code> · Code in <code>.notice</code> (→ <a href="#C7">C.7</a>) · QR-Code (<code>gift_card.qr_identifier</code>) · <code>.btn.--primary</code> „Im Shop einlösen"</td></tr>
+        <tr><th>Akzent</th><td>Karten-Fläche darf <code>--color-amber</code> als Akzent nutzen (einzige definierte Gutschein-Farbe, → A-Tokens) · <code>border-radius: 0</code> gilt auch hier</td></tr>
+        <tr><th>Status</th><td>Abgelaufen/eingelöst → <code>.badge.--dark</code> am Betrag</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="shopify-list-collections">List-Collections</h3>
+      <table class="spec-table">
+        <tr><th>Template</th><td><code>sections/collections.liquid</code> · <code>{% for collection in collections %}</code></td></tr>
+        <tr><th>Aufbau</th><td><code>.tile-grid.--cols-3</code> · je Collection eine Kachel analog <code>.tile</code> (→ <a href="#C1">C.1</a>) ohne Preis/Cart: Bild <code>collection.featured_image</code>, Titel, Produktanzahl als <code>.text-muted</code> · Kategorie-Badge via <code>[data-cat]</code> wenn Collection = Indikation</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top" id="shopify-cart-page">Cart-Seite (Fallback zum Drawer)</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Primäres Warenkorb-UI ist der Drawer (<a href="#E4">E.4</a>). Die Seite <code>/cart</code> bleibt als Fallback (Deep-Links, JS aus, „Warenkorb anzeigen") und rendert <strong>dieselben Bausteine als Page</strong>.</p>
+        <p><strong>Empfehlung (zur Bestätigung):</strong> kein eigenes Layout — <code>.container.--narrow</code> mit <code>.cart-item</code>-Liste + Summen wie im Drawer-Footer. Kein Redirect-Zwang in den Drawer.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Template</th><td><code>sections/cart.liquid</code> · <code>&lt;main class="container --narrow"&gt;</code></td></tr>
+        <tr><th>Items</th><td><code>{% for item in cart.items %}</code> → <code>.cart-item</code> (→ <a href="#C2">C.2</a>) · Varianten-Zeile <code>.cart-item__variant</code> · Menge <code>.qty-selector.--sm</code> als <code>&lt;form&gt;</code>-Submit (funktioniert ohne JS), progressive Enhancement via <code>/cart/change.js</code></td></tr>
+        <tr><th>Summen</th><td><code>.summary-line</code> + <code>.summary-total</code> (→ <a href="#E5">E.5</a>) aus <code>cart.items_subtotal_price</code> / <code>cart.total_price | money</code></td></tr>
+        <tr><th>CTA</th><td><code>.btn.--primary.--full</code> „Zur Kasse" → <code>/checkout</code> · darunter <code>.btn.--ghost.--full</code> „Weiter einkaufen"</td></tr>
+        <tr><th>Leer</th><td><code>.empty-state</code> (→ <a href="#C8">C.8</a>) — identisch zum leeren Drawer</td></tr>
+      </table>
+      <p class="sg-caption">Alle fünf Templates ausschließlich aus Bestandsklassen · Texte im Theme über Locale-Keys (<code>de.default.json</code>), nicht hardcoden.</p>
     </section>
 
   </main>
