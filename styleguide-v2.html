@@ -4260,6 +4260,21 @@
         </div>
       </div>
       <p class="sg-caption">Filtergruppen als Akkordeon — offen/eingeklappt via <code>.accordion-item.--open</code> (<a href="#C5">C.5</a>).</p>
+
+      <h3 class="sg-h3 --top" id="shopify-collection">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Section <code>main-collection.liquid</code> + Snippet <code>card-product</code> (→ <a href="#C1">C.1</a>). Produkte aus <code>collection.products</code>, Filter aus <code>collection.filters</code> (Storefront Filtering / Search &amp; Discovery).</p>
+        <p>Sortierung und Paginierung nativ über <code>collection.sort_options</code> und <code>paginate</code> — kein Custom-JS für die Grundfunktion.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Grid</th><td><code>{% for product in collection.products %}</code> → <code>.tile.--product</code> je Eintrag (Snippet <code>card-product</code>) · Badges nur Kategorie in <code>.collection-main</code> (CSS)</td></tr>
+        <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
+        <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> mit <code>.filter-tag</code> · Remove-Link = <code>value.url_to_remove</code> · Reset = <code>collection.url</code></td></tr>
+        <tr><th>Toolbar</th><td>Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code></td></tr>
+        <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons)</td></tr>
+        <tr><th>Mobile-Filter</th><td><code>openFilter()</code> / <code>closeFilter()</code> ins Theme-Bundle · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>)</td></tr>
+      </table>
+      <p class="sg-caption">Filter- und Sortier-Logik über Storefront-Parameter (<code>?filter.*</code>, <code>?sort_by=</code>) — Liquid rendert nur Zustände, kein clientseitiges Filtern nötig.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E4">
@@ -4298,6 +4313,22 @@
       <p>Slide-in zur Varianten-Auswahl (Darreichungsform, Größe, Menge) — strukturell identisch mit Warenkorb-Drawer.</p>
       <button class="btn --secondary" type="button" onclick="openOptionsDrawer()">Varianten wählen</button>
       <p class="sg-caption">Inhalt: optionales <code>__product</code> (Cart-Item), <code>__section</code> mit <code>__section-label</code>, Varianten via <code>.options-variants</code> (Choice-Boxes), Menge via <code>.qty-selector</code> (frei wählbar) · Footer: <code>.options-drawer__price</code> (aktualisiert sich produktiv je Auswahl) + CTA in <code>.options-drawer__footer</code>.</p>
+
+      <h3 class="sg-h3 --top" id="shopify-cart">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Snippet <code>cart-drawer</code> rendert aus <code>cart.items</code> · Aktualisierung über die <strong>Cart AJAX API</strong> (<code>/cart/change.js</code>, <code>/cart/add.js</code>) — Drawer öffnet nach <code>add</code>, kein Page-Reload.</p>
+        <p>Zeilenstruktur = <code>.cart-item</code> (→ <a href="#C2">C.2</a>). Preise immer aus Shopify (<code>line.final_line_price</code>) formatiert via <code>money</code>-Filter — nie im Markup hardcoden.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Items</th><td><code>{% for item in cart.items %}</code> → <code>.cart-item</code> · Bild <code>item.image | image_url</code> · Variante <code>item.variant.title</code> → <code>.cart-item__variant</code></td></tr>
+        <tr><th>Menge</th><td><code>.qty-selector.--sm</code> → <code>/cart/change.js</code> mit <code>line</code> + <code>quantity</code> · Zeilensumme <code>item.final_line_price | money</code> → <code>.cart-item__qty-text</code> (nicht bold)</td></tr>
+        <tr><th>Entfernen</th><td><code>.cart-item__remove</code> → <code>quantity: 0</code> auf <code>/cart/change.js</code></td></tr>
+        <tr><th>Gratis / Naturalrabatt</th><td>Cart Transform / Script → Gratiszeile mit <code>.badge.--free</code> auf dem Thumb · Ersparnis aus <code>cart.total_discount</code></td></tr>
+        <tr><th>Footer</th><td>Zwischensumme <code>cart.items_subtotal_price | money</code> → <code>.summary-total</code> · Checkout-Button → <code>/checkout</code></td></tr>
+        <tr><th>Leer</th><td><code>{% if cart.item_count == 0 %}</code> → <code>.cart-drawer__empty</code> mit <code>.empty-state</code> (→ <a href="#C8">C.8</a>)</td></tr>
+        <tr><th>Options-Drawer</th><td>Kein Shopify-Standard — Theme-JS baut Varianten aus <code>product.options_with_values</code>, Add via <code>/cart/add.js</code></td></tr>
+      </table>
+      <p class="sg-caption">Alle Beträge über den <code>money</code>-Filter · Drawer-State über die Cart AJAX API, Markup und Klassen 1:1 aus C.2 / E.4.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E5">
@@ -4411,6 +4442,20 @@
         </div>
       </div>
       <p class="sg-caption">Choice-Boxen für Versand/Zahlung interaktiv · Cart-Items read-only (<code>.cart-item__qty-text</code> statt ±) · Formular → <a href="#B4">B.4</a>.</p>
+
+      <h3 class="sg-h3 --top" id="shopify-checkout">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p><strong>Wichtig:</strong> Der native Shopify-Checkout (<code>/checkout</code>) ist bei Checkout Extensibility <strong>nicht frei überschreibbar</strong> — Anpassung nur über <strong>Checkout UI Extensions</strong> und den Branding-Editor, nicht mit diesem Markup.</p>
+        <p>Dieses Layout dient <strong>Custom-Cart- oder Onepage-Flows</strong> (z.&nbsp;B. eigene App/Headless) — im Standard-Theme endet der Weg mit dem Button „Zur Kasse" → <code>/checkout</code>.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Standard-Theme</th><td>Kein Custom-Checkout · Branding via <strong>Checkout &amp; Accounts Editor</strong> · Logik via <strong>Checkout UI Extensions</strong> (nicht Liquid)</td></tr>
+        <tr><th>Adressfelder</th><td>Nur im Custom-Flow: <code>.form-grid</code> / <code>.form-field</code> → App-State · sonst native Checkout-Felder</td></tr>
+        <tr><th>Versand / Zahlung</th><td><code>.choice-box.--block</code> → Shipping Rates / Payment Methods · nativ vom Checkout verwaltet</td></tr>
+        <tr><th>Bestellübersicht</th><td><code>.cart-item</code> read-only aus <code>cart.items</code> · Summen <code>cart.items_subtotal_price</code>, <code>cart.total_price</code> → <code>.summary-line</code> / <code>.summary-total</code></td></tr>
+        <tr><th>CTA</th><td>Custom-Flow: eigener Kauf-Button · Standard: „Zur Kasse" → <code>/checkout</code></td></tr>
+      </table>
+      <p class="sg-caption">Im Shopify-Standard nur als Cart-/Onepage-Vorstufe verwenden · den finalen Checkout übernimmt Shopify (Extensions + Branding-Editor).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E6">
@@ -4494,6 +4539,20 @@
       <h3 class="sg-h3 --top">Login-Modal</h3>
       <button class="btn --secondary" type="button" onclick="openLoginModal()">Login-Modal öffnen</button>
       <p class="sg-caption">Zweispaltiges Overlay mit Brand-Panel und Social Login · Markup am Seitenende (fixed).</p>
+
+      <h3 class="sg-h3 --top" id="shopify-account">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Customer Accounts über die Templates unter <code>/account</code> · Formulare via Liquid-Tags <code>{% form 'customer_login' %}</code>, <code>'create_customer'</code>, <code>'recover_customer_password'</code>.</p>
+        <p>Neue Kunden nutzen häufig <strong>New Customer Accounts</strong> (passwortloser Login) — dann entfällt das Passwortfeld; Layout bleibt sonst identisch.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Login / Registrierung</th><td><code>{% form 'customer_login' %}</code> / <code>'create_customer'</code> → <code>.form-field</code> · Tabs <code>.tab-nav</code> (<code>switchAccTab</code>) rein clientseitig</td></tr>
+        <tr><th>Passwort vergessen</th><td><code>{% form 'recover_customer_password' %}</code> → <code>#acc-forgot</code>-Panel</td></tr>
+        <tr><th>Bestellhistorie</th><td><code>{% for order in customer.orders %}</code> → <code>.order-item</code> · Status <code>order.fulfillment_status</code> → <code>.badge</code> · Betrag <code>order.total_price | money</code></td></tr>
+        <tr><th>Login-Modal</th><td>Optional als Overlay im Theme (<code>openLoginModal()</code>) statt eigener Seite · Panels = dieselben Liquid-Forms</td></tr>
+        <tr><th>Formfehler</th><td><code>form.errors</code> → <code>.form-field.--error</code> + Meldung (→ <a href="#B4">B.4</a>)</td></tr>
+      </table>
+      <p class="sg-caption">Alle Account-Formulare über Shopify-<code>{% form %}</code>-Tags · Tab-Umschaltung und Modal rein clientseitig.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E7">
@@ -4578,6 +4637,20 @@
         Suche öffnen
       </button>
       <p class="sg-caption">Nach dem Öffnen „Gelenk", „Darm" oder „Haut" eintippen · Pfeiltasten zur Navigation · Escape zum Schließen.</p>
+
+      <h3 class="sg-h3 --top" id="shopify-search">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Vorschläge über die <strong>Predictive Search API</strong> (<code>/search/suggest.json?resources[type]=product,query,collection</code>) — Theme-JS ersetzt die statischen <code>SEARCH_DATA</code>-Demos durch Live-Ergebnisse.</p>
+        <p>Volle Ergebnisseite über <code>/search</code> (Section <code>main-search.liquid</code>) mit <code>search.results</code> · Overlay ist nur die schnelle Vorschau.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Overlay</th><td><code>.search-overlay</code> / <code>.search-panel</code> ins Theme · <code>openSearch()</code> / <code>closeSearch()</code> aus <code>sg.js</code> übernehmen</td></tr>
+        <tr><th>Vorschläge</th><td><code>resources.results.queries</code> / <code>collections</code> → <code>.search-result</code> mit <code>.icon-box.--lg</code></td></tr>
+        <tr><th>Produkte</th><td><code>resources.results.products</code> → <code>.search-result</code> · Bild <code>product.featured_image</code> · Preis <code>product.price | money</code> → <code>.search-result__price</code></td></tr>
+        <tr><th>Empty State</th><td>Keine Treffer → <code>.empty-state</code> (→ <a href="#C8">C.8</a>) · Link auf <code>/search?q=</code> für Volltextsuche</td></tr>
+        <tr><th>Debounce</th><td>Input <code>~200&nbsp;ms</code> debounced → <code>renderSearchResults()</code> · Keyboard-Nav via Pfeiltasten beibehalten</td></tr>
+      </table>
+      <p class="sg-caption">Predictive Search für die Vorschau, <code>/search</code> für die vollständige Trefferliste · Preise über den <code>money</code>-Filter.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E8">
@@ -4681,6 +4754,20 @@
         </div>
       </div>
       <p class="sg-caption">Sidebar sticky (Desktop) · Autor + Tags links · Fließtext via <code>.rte</code>.</p>
+
+      <h3 class="sg-h3 --top" id="shopify-blog">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Übersicht = Section <code>main-blog.liquid</code> über <code>blog.articles</code> · Artikel = <code>main-article.liquid</code> mit <code>article.content</code> (Rich Text) → <code>.rte</code>.</p>
+        <p>Autor, Datum und Kategorie kommen aus <code>article.author</code>, <code>article.published_at</code> und <code>article.tags</code> — kein Hardcoding.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Grid</th><td><code>{% for article in blog.articles %}</code> → <code>.blog-card</code> · Bild <code>article.image | image_url</code> · Excerpt <code>article.excerpt_or_content | strip_html | truncate</code></td></tr>
+        <tr><th>Meta</th><td><code>article.published_at | date</code> + erster Tag → <code>.blog-card__meta.label-caps</code></td></tr>
+        <tr><th>Artikel</th><td><code>article.title</code> → <code>.article__header</code> · <code>article.content</code> → <code>.article__body.rte</code> · Hero <code>article.image</code></td></tr>
+        <tr><th>Autor / Tags</th><td><code>article.author</code> → <code>.article__author</code> · <code>article.tags</code> → <code>.article__tags</code> mit <code>.filter-tag</code></td></tr>
+        <tr><th>Pagination</th><td><code>{% paginate blog.articles by 9 %}</code> → <code>.pagination</code> (→ <a href="#C6">C.6</a>)</td></tr>
+      </table>
+      <p class="sg-caption">Blog- und Artikel-Sections über native <code>blog</code>/<code>article</code>-Objekte · Fließtext immer via <code>.rte</code> auf <code>article.content</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E9">
