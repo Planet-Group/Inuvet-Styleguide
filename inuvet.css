@@ -2096,6 +2096,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .footer-col ul {
     list-style: none;
+    padding-left: 0; /* hebt die Fließtext-Einrückung von ul:not([class]) auf */
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
