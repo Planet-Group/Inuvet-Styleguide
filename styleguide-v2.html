@@ -43,6 +43,7 @@
         <a href="#B3">B.3 Icons &amp; icon-box</a>
         <a href="#B4">B.4 Form-Felder</a>
         <a href="#B5">B.5 Stand-Alone-Formular</a>
+        <a href="#B6">B.6 Check-List</a>
       </div>
 
       <div class="sg-nav-group">
@@ -79,7 +80,6 @@
         <a href="#E6">E.6 Account-Seiten</a>
         <a href="#E7">E.7 Suche</a>
         <a href="#E8">E.8 Blog</a>
-        <a href="#E9">E.9 Landing-Page-Elemente</a>
       </div>
 
     </nav>
@@ -1854,6 +1854,37 @@
         </div>
       </div>
       <p class="sg-caption">Optionales <code>.form-page__banner</code> unter dem Logo — ersetzt die Trennlinie · produktiv <code>&lt;div class="form-page__banner"&gt;&lt;img …&gt;&lt;/div&gt;</code> (hier Platzhalter).</p>
+    </section>
+
+    <section class="sg-section-v2 flow" id="B6">
+      <h2 class="section-label">B.6 — Check-List</h2>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Zweck</h4>
+          <p>Aufzählung mit grünen Häkchen statt Bullets — für Vorteils-/USP-Listen. Wiederverwendbar überall: Landing-Pages, PDP, Info-Seiten.</p>
+        </div>
+        <div class="rule">
+          <h4>Aufbau</h4>
+          <p>Pro Item ein Material-Icon <code>check</code> links + Text. Flex-Row je <code>li</code>, kein Standard-Bullet.</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.check-list</code></th><td>Liste ohne Standard-Bullets · Flex-Layout pro Item · Icon links</td></tr>
+        <tr><th><code>.check-list li</code></th><td>Flex-Row · Gap <code>calc(var(--base) * 0.5)</code></td></tr>
+        <tr><th>Icon</th><td>Material Icon <code>check</code> · <code>var(--green)</code> · <code>var(--base)</code></td></tr>
+      </table>
+
+      <div class="sg-demo --white">
+        <ul class="check-list">
+          <li><span class="material-icons">check</span><span>Tierärztlich entwickelt und klinisch getestet</span></li>
+          <li><span class="material-icons">check</span><span>Hochwertige Inhaltsstoffe ohne künstliche Zusätze</span></li>
+          <li><span class="material-icons">check</span><span>Einfache Dosierung für alle Tiergrößen</span></li>
+          <li><span class="material-icons">check</span><span>Kostenloser Versand ab 49 €</span></li>
+        </ul>
+      </div>
+      <p class="sg-caption">USP-Liste — kein Bullet, grünes Häkchen links.</p>
     </section>
 
 
@@ -4742,33 +4773,6 @@
         <tr><th>Pagination</th><td><code>{% paginate blog.articles by 9 %}</code> → <code>.pagination</code> (→ <a href="#C6">C.6</a>)</td></tr>
       </table>
       <p class="sg-caption">Blog- und Artikel-Sections über native <code>blog</code>/<code>article</code>-Objekte · Fließtext immer via <code>.rte</code> auf <code>article.content</code>.</p>
-    </section>
-
-    <section class="sg-section-v2 flow" id="E9">
-      <h2 class="section-label">E.9 — Landing-Page-Elemente</h2>
-
-      <div class="rules">
-        <div class="rule">
-          <h4>Verwendung</h4>
-          <p>Komponenten für Marketing- und Landing-Pages: Vorteils-Listen mit Häkchen.</p>
-        </div>
-      </div>
-
-      <h3 class="sg-h3 --top"><code>.check-list</code></h3>
-      <table class="spec-table">
-        <tr><th><code>.check-list</code></th><td>Liste ohne Standard-Bullets · Flex-Layout pro Item · Icon links</td></tr>
-        <tr><th><code>.check-list li</code></th><td>Flex-Row · Gap <code>calc(var(--base) * 0.5)</code></td></tr>
-        <tr><th>Icon</th><td>Material Icon <code>check</code> · <code>var(--green)</code> · <code>var(--base)</code></td></tr>
-      </table>
-      <div class="sg-demo --white">
-        <ul class="check-list">
-          <li><span class="material-icons">check</span><span>Tierärztlich entwickelt und klinisch getestet</span></li>
-          <li><span class="material-icons">check</span><span>Hochwertige Inhaltsstoffe ohne künstliche Zusätze</span></li>
-          <li><span class="material-icons">check</span><span>Einfache Dosierung für alle Tiergrößen</span></li>
-          <li><span class="material-icons">check</span><span>Kostenloser Versand ab 49 €</span></li>
-        </ul>
-      </div>
-      <p class="sg-caption">Typische USP-Liste auf Landing-Pages — kein Bullet, grünes Häkchen links.</p>
     </section>
 
   </main>
