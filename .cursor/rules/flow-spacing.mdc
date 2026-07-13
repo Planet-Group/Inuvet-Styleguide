@@ -7,7 +7,7 @@ alwaysApply: true
 
 Vertikale Abstände zwischen **Überschriften und Absätzen** (und Text↔Text)
 werden **ausschließlich** vom `.flow`-System bestimmt (Definition: `inuvet.css`,
-Doku: `styleguide-v2.html#A7`). Die Flow-Regeln sind kontextunabhängig gültig —
+Doku: `styleguide.html#A7`). Die Flow-Regeln sind kontextunabhängig gültig —
 egal ob Info-Page, Modal, Card, Hero oder Formular.
 
 ## Das Gesetz

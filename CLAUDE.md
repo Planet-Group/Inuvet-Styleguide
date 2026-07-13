@@ -308,6 +308,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
 | B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
 | B.5 | Stand-Alone-Formular | `.form-page` | — |
+| B.6 | Check-List | `.check-list` | — |
 
 #### C — Moleküle
 | Sek. | Komponente | Klasse(n) | Modifier |
@@ -339,7 +340,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | E.3 | Collection | `.collection-layout .collection-sidebar .collection-toolbar` |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
-| E.6 | Login-Modal | `.login-overlay .login-modal` |
+| E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
 | E.7 | Suche | `.search-overlay .search-panel` |
 
 #### Globale Helfer
