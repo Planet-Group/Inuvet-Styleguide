@@ -1783,6 +1783,26 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     margin-bottom: var(--module);
     border-bottom: 1px solid var(--border-light);
   }
+  /* Optionales schmales Header-Bild — randlos unter dem Logo, ersetzt die Trennlinie */
+  .form-page__header:has(+ .form-page__banner) {
+    padding-bottom: 0;
+    margin-bottom: var(--half-module);
+    border-bottom: none;
+  }
+  .form-page__banner {
+    margin: 0 calc(var(--module) * -1) var(--module);
+    height: calc(var(--module) * 3);
+    overflow: hidden;
+  }
+  .form-page__banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 480px) {
+    .form-page__banner { margin-right: calc(var(--half-module) * -1); margin-left: calc(var(--half-module) * -1); }
+  }
   .form-page__header svg,
   .form-page__header img {
     height: calc(var(--module) * 1.75);

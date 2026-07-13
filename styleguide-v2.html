@@ -6,8 +6,8 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=54">
-  <link rel="stylesheet" href="sg.css?v=45">
+  <link rel="stylesheet" href="inuvet.css?v=55">
+  <link rel="stylesheet" href="sg.css?v=46">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
   <style>
@@ -1813,6 +1813,7 @@
       <table class="spec-table">
         <tr><th><code>.form-page</code></th><td>Vollbild-Hintergrund <code>var(--accent-bg)</code> · zentriert · produktiv <code>min-height: 100vh</code></td></tr>
         <tr><th><code>.form-page__card</code></th><td>Weißer Container · <code>max-width: var(--form-page-max)</code> (640px) · Padding <code>var(--module)</code></td></tr>
+        <tr><th><code>.form-page__banner</code></th><td>Optional · schmales Header-Bild randlos unter dem Logo · ersetzt die Header-Trennlinie · <code>height: calc(var(--module) * 3)</code> · <code>object-fit: cover</code></td></tr>
         <tr><th><code>.form-page__header</code></th><td>Logo zentriert · <code>border-bottom</code> · Abstand <code>var(--module)</code></td></tr>
         <tr><th><code>.form-page__title</code></th><td>H1 · <code>var(--text-l)</code> · <code>var(--fg)</code> · linksbündig</td></tr>
         <tr><th><code>.form-page__footer</code></th><td>Legal-Links außerhalb der Card · zentriert · <code>Impressum · Datenschutz</code></td></tr>
@@ -1840,6 +1841,20 @@
         </footer>
       </div>
       <p class="sg-caption">Shell-Demo — Felder aus B.4 auf weißer Card · <code>Impressum · Datenschutz</code> in <code>.form-page__footer</code>.</p>
+
+      <h3 class="sg-h3 --top"><code>.form-page__banner</code> — optionales Header-Bild</h3>
+      <div class="form-page" style="min-height:auto;padding:var(--half-module) var(--base);">
+        <div class="form-page__card">
+          <header class="form-page__header">
+            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+          </header>
+          <div class="form-page__banner placeholder-bg"></div>
+          <h1 class="form-page__title">Seitentitel</h1>
+          <div class="form-field"><input type="email" placeholder=" "><label>E-Mail-Adresse</label></div>
+          <button type="button" class="btn --primary --full">Absenden</button>
+        </div>
+      </div>
+      <p class="sg-caption">Optionales <code>.form-page__banner</code> unter dem Logo — ersetzt die Trennlinie · produktiv <code>&lt;div class="form-page__banner"&gt;&lt;img …&gt;&lt;/div&gt;</code> (hier Platzhalter).</p>
     </section>
 
 

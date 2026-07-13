@@ -450,6 +450,20 @@
   line-height: var(--lh-base);
 }
 
+/* Öffnet eine Sektion direkt mit .rules (statt Lede), bekommt die erste
+   Rule-Reihe keine Trennlinie — sonst wirken die ersten Absätze wie mit
+   Linie darüber. Erste Reihe = 1 Rule (1-spaltig) bzw. 2 Rules (2-spaltig). */
+.sg-section-v2 > .section-label + .rules .rule:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+@media (min-width: 1536px) {
+  .sg-section-v2 > .section-label + .rules .rule:nth-child(2) {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
 
 /* ─── Demo-Flächen ─── */
 .sg-demo {
