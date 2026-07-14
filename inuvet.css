@@ -2614,8 +2614,12 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .collection-layout.--no-sidebar { grid-template-columns: 1fr; }
   .collection-sidebar { position: sticky; top: var(--module); align-self: start; }
   .collection-sidebar__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); }
-  .collection-sidebar__title { font-size: var(--text-xs); font-weight: 400; color: var(--fg-muted); }
-  @media (min-width: 768px) { .collection-sidebar__close { display: none !important; } }
+  .collection-sidebar__title { font-size: var(--text-base); font-weight: 700; }
+  @media (min-width: 768px) {
+    .collection-sidebar__close { display: none !important; }
+    /* Desktop: kein „Filter"-Label — Sidebar startet direkt mit Filtergruppen */
+    .collection-sidebar__header { display: none; }
+  }
   .filter-group { margin-bottom: var(--module); }
   /* .filter-group__title — nutzt .label-caps */
   .filter-group__title { margin-bottom: 0.5rem; }
