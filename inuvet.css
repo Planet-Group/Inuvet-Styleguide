@@ -2613,12 +2613,18 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* Volle Breite für Produktgrid, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting) */
   .collection-layout.--no-sidebar { grid-template-columns: 1fr; }
   .collection-sidebar { position: sticky; top: var(--module); align-self: start; }
-  .collection-sidebar__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); }
-  .collection-sidebar__title { font-size: var(--text-base); font-weight: 700; }
+  .collection-sidebar__header { display: flex; align-items: center; justify-content: space-between; gap: var(--half-module); margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border-light); }
+  .collection-sidebar__title { margin: 0; line-height: 1; font-size: var(--text-base); font-weight: 700; }
   @media (min-width: 768px) {
     .collection-sidebar__close { display: none !important; }
     /* Desktop: kein „Filter"-Label — Sidebar startet direkt mit Filtergruppen */
     .collection-sidebar__header { display: none; }
+    /* Filter-Überschriften: gleiche Typo/Abstände/Trennlinie wie .collection-toolbar rechts */
+    .collection-sidebar .filter-group__title {
+      margin-bottom: var(--half-module);
+      padding-bottom: var(--half-module);
+      border-bottom: 1px solid var(--border-light);
+    }
   }
   .filter-group { margin-bottom: var(--module); }
   /* .filter-group__title — nutzt .label-caps */
