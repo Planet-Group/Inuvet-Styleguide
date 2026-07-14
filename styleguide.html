@@ -6,7 +6,7 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=57">
+  <link rel="stylesheet" href="inuvet.css?v=60">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -2774,6 +2774,7 @@
         <tr><th><code>.footer-nl-form</code></th><td>Flex-Spalte · <code>.form-field</code> + Primary-Button · Container <code>.--on-green</code></td></tr>
         <tr><th><code>.footer-social</code></th><td>Icon-Zeile ohne Box · Spec → <a href="#B3">B.3</a> · Brand-SVG via <a href="https://simpleicons.org/" target="_blank">Simple Icons</a> (MIT) · Hover: Icon <code>scale(1.15)</code></td></tr>
         <tr><th><code>.footer-bar</code></th><td>Border-top · Copyright links · Zahlungsarten / Meta rechts · <code>--text-xs</code></td></tr>
+        <tr><th><code>.footer-payment</code></th><td>Flex-Zeile in der <code>.footer-bar</code> · <code>gap: calc(var(--base) * 0.5)</code> · SVG-Höhe <code>1.5rem</code>, Breite auto · Shopify: <code>payment_type_svg_tag</code> — Demo zeigt Platzhalter</td></tr>
         <tr><th>Links</th><td><code>color: var(--fg)</code> · Hover <code>--fg-muted</code> · Listenlinks <code>--fg-muted</code> → Hover <code>--fg</code></td></tr>
       </table>
 
@@ -2828,11 +2829,16 @@
           </div>
           <div class="footer-bar">
             <span>© 2026 inuvet</span>
-            <span>Visa · Mastercard · PayPal · Klarna</span>
+            <div class="footer-payment" aria-label="Zahlungsarten">
+              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
+              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--border)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
+              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">PayPal</text></svg>
+              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">Klarna</text></svg>
+            </div>
           </div>
         </footer>
       </div>
-      <p class="sg-caption">Vier gleich breite Spalten · Formular mit <code>.--on-green</code> · Social → <a href="#B3">B.3</a> · <code>.footer-bar</code> optional (Shop-Mockups teils ohne).</p>
+      <p class="sg-caption">Vier gleich breite Spalten · Formular mit <code>.--on-green</code> · Social → <a href="#B3">B.3</a> · <code>.footer-bar</code> optional (Shop-Mockups teils ohne) · Zahlungsarten als <code>.footer-payment</code> (Icons, im Shop via <code>payment_type_svg_tag</code>) oder als Text-Meta (zweite Demo).</p>
 
       <h3 class="sg-h3 --top" id="footer-social">Ohne Newsletter — Tierarztpraxis</h3>
       <p>Vier gleich breite Spalten · Copy Spalte 1 → Spec · Social → <a href="#B3">B.3</a>.</p>
@@ -4166,6 +4172,8 @@
         <tr><th><code>.filter-tag__remove</code></th><td>Close-Button in <code>.filter-tag</code>, <code>color: var(--fg-muted)</code></td></tr>
         <tr><th><code>.filter-count</code></th><td><code>color: var(--fg-muted)</code>, <code>font-weight: 400</code> — Anzahl in Klammern</td></tr>
         <tr><th><code>.filter-reset</code></th><td>Text-Button, <code>margin-left: auto</code>, underline, rechts in <code>.filter-active-bar</code></td></tr>
+        <tr><th><code>.collection-layout.--no-sidebar</code></th><td>Einspaltig — Produktgrid volle Breite, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting <code>show_filters</code>)</td></tr>
+        <tr><th><code>.collection-toolbar.--no-filters</code></th><td>Toolbar ohne Filter-Button — Sortierung rechts (Desktop) bzw. zentriert (Mobile, 1-spaltiges Grid)</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Produktübersicht</h3>
@@ -4229,6 +4237,32 @@
       </div>
       <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Kacheln: nur Kategorie-Badge auf dem Bild · Pagination ohne Demo-Links · Warenkorb → <a href="#E4">E.4</a>.</p>
 
+      <h3 class="sg-h3 --top">Ohne Filter-Sidebar</h3>
+      <div class="sg-demo --white">
+        <div class="collection-layout --no-sidebar">
+          <main class="collection-main">
+            <div class="collection-toolbar --no-filters">
+              <div class="collection-toolbar__count">Zeige 1–9 von 12 Produkten</div>
+              <div class="collection-toolbar__sort">
+                <span class="collection-toolbar__sort-label">Sortieren:</span>
+                <select class="collection-toolbar__sort-select">
+                  <option>Empfohlen</option>
+                  <option>Bestseller</option>
+                  <option>Preis aufsteigend</option>
+                  <option>Preis absteigend</option>
+                </select>
+              </div>
+            </div>
+            <div class="tile-grid --cols-3">
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.collection-layout.--no-sidebar</code> + <code>.collection-toolbar.--no-filters</code> — volle Grid-Breite, kein Collection-Titel (<code>.section-label</code>) · im Theme per Section-Setting <code>show_filters</code> schaltbar.</p>
+
       <h3 class="sg-h3 --top">Filter-Zustände</h3>
       <div class="sg-demo --white">
         <div class="filter-active-bar">
@@ -4287,6 +4321,8 @@
         <tr><th>Toolbar</th><td>Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code></td></tr>
         <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons)</td></tr>
         <tr><th>Mobile-Filter</th><td><code>openFilter()</code> / <code>closeFilter()</code> ins Theme-Bundle · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>)</td></tr>
+        <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/Filter-Button aus, Layout <code>.collection-layout.--no-sidebar</code>, Toolbar <code>.collection-toolbar.--no-filters</code></td></tr>
+        <tr><th>Seitentitel</th><td>Kein <code>.section-label</code> mit Collection-Titel — Grid startet direkt mit Toolbar (Titel nur im <code>&lt;title&gt;</code> / Breadcrumb)</td></tr>
       </table>
       <p class="sg-caption">Filter- und Sortier-Logik über Storefront-Parameter (<code>?filter.*</code>, <code>?sort_by=</code>) — Liquid rendert nur Zustände, kein clientseitiges Filtern nötig.</p>
     </section>

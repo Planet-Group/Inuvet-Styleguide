@@ -331,7 +331,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
 | D.1 | Navigation | `.site-nav .announcement-bar` | — |
-| D.2 | Footer | `.site-footer` | — |
+| D.2 | Footer | `.site-footer` | `.footer-payment` (Zahlungsarten-Icons in `.footer-bar`) |
 | D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
 | D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
@@ -342,7 +342,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | Sek. | Komponente | Klasse(n) |
 |---|---|---|
 | E.2 | PDP | `.pdp`, `.pdp__type-selector`, `.nr-widget` |
-| E.3 | Collection | `.collection-layout .collection-sidebar .collection-toolbar` |
+| E.3 | Collection | `.collection-layout` · `.collection-sidebar` · `.collection-toolbar` · Modifier `.--no-sidebar` / `.--no-filters` (Filter optional) |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
