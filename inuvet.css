@@ -2142,6 +2142,20 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     color: var(--fg-muted);
   }
 
+  /* Zahlungsarten-Zeile in der .footer-bar — Icons kommen im Shop
+     aus Shopify (payment_type_svg_tag), im Guide als Platzhalter. */
+  .footer-payment {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--base) * 0.5);
+  }
+  .footer-payment svg {
+    display: block;
+    height: calc(var(--base) * 1.5);
+    width: auto;
+  }
+
   @media (max-width: 1535px) {
     .footer-main { grid-template-columns: 1fr 1fr; }
   }
@@ -2596,6 +2610,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      ═══════════════════════════════════════════ */
 
   .collection-layout { display: grid; grid-template-columns: 1fr 3fr; gap: var(--gutter); margin-bottom: var(--module-2xl); }
+  /* Volle Breite für Produktgrid, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting) */
+  .collection-layout.--no-sidebar { grid-template-columns: 1fr; }
   .collection-sidebar { position: sticky; top: var(--module); align-self: start; }
   .collection-sidebar__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border); }
   .collection-sidebar__title { font-size: var(--text-base); font-weight: 700; }
@@ -2622,6 +2638,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .filter-reset { font-family: var(--font); font-size: var(--text-xs); color: var(--fg-muted); background: none; border: none; cursor: pointer; padding: calc(var(--base) * 0.25) 0; margin-left: auto; transition: color var(--anim-fast); text-decoration: underline; }
   .filter-reset:hover { color: var(--fg); }
   .collection-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border-light); }
+  /* Toolbar ohne Filter-Button (mobil: Sortierung zentriert statt 2-Spalten-Grid) */
+  .collection-toolbar.--no-filters .collection-toolbar__sort { margin-left: auto; }
   .collection-toolbar__count { font-size: var(--text-xs); color: var(--fg-muted); }
   .collection-toolbar__sort { display: flex; align-items: center; gap: 0.5rem; }
   .collection-toolbar__sort-label { font-size: var(--text-xs); color: var(--fg-muted); }
@@ -2757,9 +2775,14 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       width: min(20rem, 85vw); background: var(--bg); z-index: var(--z-drawer);
       padding: var(--half-module); overflow-y: auto; transform: translateX(-100%);
       transition: transform var(--anim-base); border-right: 1px solid var(--border);
+      /* hebt align-self: start der Desktop-Regel auf — gilt auch für fixed
+         positionierte Grid-Kinder und verhindert sonst das Strecken auf
+         volle Viewport-Höhe zwischen top: 0 und bottom: 0 */
+      align-self: stretch;
     }
     .collection-sidebar.--open { transform: translateX(0); }
     .collection-toolbar { display: grid; grid-template-columns: 1fr 1fr; padding: 0; border-top: 1px solid var(--border-light); margin-bottom: var(--module); }
+    .collection-toolbar.--no-filters { grid-template-columns: 1fr; }
     .collection-toolbar__count { display: none; }
     .collection-filter-toggle { display: flex; justify-content: center; border-right: 1px solid var(--border-light); padding: var(--half-module) 0; width: 100%; }
     .collection-toolbar__sort { justify-content: center; }
