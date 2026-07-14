@@ -2617,8 +2617,16 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .collection-sidebar__title { margin: 0; line-height: 1; font-size: var(--text-base); font-weight: 700; }
   @media (min-width: 768px) {
     .collection-sidebar__close { display: none !important; }
-    /* Desktop: „Filter" sichtbar, Typo wie .collection-toolbar__count */
-    .collection-sidebar__title { font-size: var(--text-xs); font-weight: 400; color: var(--fg-muted); }
+    /* Desktop: „Filter" sichtbar, Typo + Zeilenhöhe wie .collection-toolbar__count */
+    .collection-sidebar__title { font-size: var(--text-xs); font-weight: 400; color: var(--fg-muted); line-height: var(--lh-base); }
+    /* Gleiche Innenhöhe und Ausrichtung wie Toolbar (Sort-Select bestimmt die Höhe) */
+    .collection-sidebar__header,
+    .collection-toolbar {
+      --collection-row-inner: calc(0.375rem * 2 + var(--text-xs) * var(--lh-base) + 2px);
+      min-height: calc(var(--collection-row-inner) + var(--half-module) + 1px);
+      align-items: flex-end;
+      box-sizing: border-box;
+    }
   }
   .filter-group { margin-bottom: var(--module); }
   /* .filter-group__title — nutzt .label-caps */
