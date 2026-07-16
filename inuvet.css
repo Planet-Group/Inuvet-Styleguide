@@ -190,6 +190,134 @@
   .rte table th { font-weight: 700; }
   .rte table tr:last-child td { border-bottom: none; }
 
+  /* ─── Daten-Listen (.rte.--data-table) — Portal- und Übersichtstabellen ───
+     Wrapper .rte.--data-table: volle Satzspiegelbreite
+     table.--normal | table.--spacious — vertikale Dichte (Desktop)
+     --mobile-stack (Default) | --mobile-grid — Mobil-Layout (A.10)
+     Zellen brauchen data-label für Mobile-Labels (Text = th) */
+  .rte.--data-table {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rte.--data-table table {
+    display: table;
+    width: 100%;
+    table-layout: auto;
+  }
+
+  /* Normal — gleiche Zellen-Dichte wie RTE-Default (Referenz für Daten-Listen) */
+  .rte.--data-table table.--normal th,
+  .rte.--data-table table.--normal td {
+    padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0;
+  }
+
+  /* Großzügig — mehr vertikale Luft (Portal-Posteingänge, Übersichtstabellen) */
+  .rte.--data-table table.--spacious th,
+  .rte.--data-table table.--spacious td {
+    padding-top: calc(var(--base) * 0.85);
+    padding-bottom: calc(var(--base) * 0.85);
+    padding-right: calc(var(--base) * 0.75);
+  }
+
+  /* Aktions-Links — .order-item__link (E.6) in Flex-Zeile */
+  .data-table-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15em 0.35em;
+  }
+  .data-table-actions__sep {
+    color: var(--fg-muted);
+    user-select: none;
+  }
+  button.order-item__link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  /* Desktop: Aktions-Spalte rechtsbündig */
+  @media (min-width: 768px) {
+    .rte.--data-table th:last-child,
+    .rte.--data-table td:last-child {
+      text-align: right;
+      padding-right: 0;
+    }
+    .rte.--data-table .data-table-actions {
+      justify-content: flex-end;
+    }
+  }
+
+  /* Mobil: thead aus, Label-Typo wie th, zwei Layout-Optionen */
+  @media (max-width: 767px) {
+    .rte.--data-table {
+      overflow-x: visible;
+    }
+    .rte.--data-table table {
+      display: block;
+    }
+    .rte.--data-table thead {
+      display: none;
+    }
+    .rte.--data-table tbody {
+      display: block;
+    }
+    .rte.--data-table tbody tr {
+      padding: var(--half-module) 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .rte.--data-table tbody tr:last-child {
+      border-bottom: none;
+    }
+    .rte.--data-table td {
+      border-bottom: none;
+    }
+
+    /* Feld-Label — gleiche Typo wie thead th (.rte table); nur wenn data-label gesetzt */
+    .rte.--data-table td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: calc(var(--base) * 0.25);
+    }
+
+    /* Default: --mobile-stack — ein Feld pro Zeile */
+    .rte.--data-table:not(.--mobile-grid) tbody tr {
+      display: block;
+    }
+    .rte.--data-table:not(.--mobile-grid) td {
+      display: block;
+      padding: calc(var(--base) * 0.5) 0 0;
+    }
+    .rte.--data-table:not(.--mobile-grid) td:first-child {
+      padding-top: 0;
+    }
+    .rte.--data-table:not(.--mobile-grid) td:last-child {
+      padding-top: calc(var(--base) * 0.75);
+    }
+
+    /* Option: --mobile-grid — 2×2-Raster, Aktionen volle Breite */
+    .rte.--data-table.--mobile-grid tbody tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--half-module);
+      row-gap: calc(var(--base) * 0.6);
+    }
+    .rte.--data-table.--mobile-grid td {
+      display: block;
+      padding: 0;
+    }
+    .rte.--data-table.--mobile-grid td:last-child {
+      grid-column: 1 / -1;
+      padding-top: calc(var(--base) * 0.15);
+    }
+  }
+
   /* ═══════════════════════════════════════════
      ANNOUNCEMENT BAR + NAVIGATION
      ═══════════════════════════════════════════ */
@@ -274,6 +402,17 @@
   .nav-item:hover .nav-item__trigger,
   .nav-item:focus-within .nav-item__trigger { color: var(--fg); }
 
+  /* Aktiver Bereich: direkter Link, Trigger oder Dropdown mit aria-current="page" */
+  .nav-left > a[aria-current="page"],
+  .nav-item__trigger[aria-current="page"],
+  .nav-item:has(.nav-item__dropdown [aria-current="page"]) .nav-item__trigger {
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .nav-item:has(.nav-item__dropdown [aria-current="page"]) .nav-item__trigger .material-icons {
+    color: var(--fg);
+  }
+
   .nav-center {
     display: flex;
     align-items: center;
@@ -297,6 +436,7 @@
   .badge {
     display: inline-flex;
     align-items: center;
+    gap: calc(var(--base) * 0.25);
     font-size: var(--text-xs);
     font-weight: 700;
     text-transform: uppercase;
@@ -307,11 +447,16 @@
     background: var(--accent-bg);
     color: var(--fg);
   }
+  .badge .material-icons { font-size: calc(var(--base) * 0.8125); line-height: 1; }
   .badge.--dark  { background: var(--fg);    color: var(--bg); }
   .badge.--sale  { background: var(--green); color: var(--bg); }
   .badge.--pill  { background: var(--green); color: var(--bg); border-radius: 2em; padding: 0.15em 0.6em; }
   .badge.--free  { background: var(--green-light); color: var(--green); }
   .badge.--info  { background: var(--color-notice-bg); color: var(--color-amber); }
+  /* Status-Modifier — Freigabe-/Anfrage-Kontext (analog .btn.--honey) bzw. inaktiv/abgelehnt.
+     Nach .--pill definiert: Kombination .--pill.--honey ergibt Honey-Pill. */
+  .badge.--honey { background: var(--color-honey); color: var(--fg); }
+  .badge.--muted { color: var(--fg-muted); }
   /* Counter-Badge — Positionierung via .icon-badged .badge.--count */
   .badge.--count {
     text-transform: none;
@@ -408,6 +553,27 @@
     transition: color var(--anim-fast), background var(--anim-fast);
   }
   .nav-item__dropdown a:hover { color: var(--fg); background: var(--accent-bg); }
+  .nav-item__dropdown a[aria-current="page"] { color: var(--fg); font-weight: 700; }
+
+  /* Offene-Anfragen-Zähler in Portal-Navigation */
+  [data-nav-open-count] { flex-shrink: 0; }
+  [data-nav-open-count][hidden] { display: none; }
+  .nav-item__trigger:has([data-nav-open-count]) {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--base) * 0.35);
+  }
+  .nav-item__dropdown a:has([data-nav-open-count]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--half-module);
+  }
+  .mobile-menu a:has([data-nav-open-count]) {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--base) * 0.35);
+  }
 
   /* Mobile: dropdown komplett ausblenden — mobile-menu übernimmt */
   @media (max-width: 767px) {
@@ -427,16 +593,26 @@
     flex-direction: column;
     gap: calc(var(--base) * 0.25);
   }
-  .nav-hamburger span {
+  .nav-hamburger span:not(.badge) {
     display: block;
     width: 1rem;
     height: 1px;
     background: var(--fg);
     transition: transform var(--anim-fast), opacity var(--anim-fast);
   }
-  .nav-hamburger.--open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-  .nav-hamburger.--open span:nth-child(2) { opacity: 0; }
-  .nav-hamburger.--open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+  .nav-hamburger.--open span:not(.badge):nth-child(1) { transform: translateY(5px) rotate(45deg); }
+  .nav-hamburger.--open span:not(.badge):nth-child(2) { opacity: 0; }
+  .nav-hamburger.--open span:not(.badge):nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+  .nav-hamburger.icon-badged {
+    position: relative;
+    overflow: visible;
+  }
+  .nav-hamburger.icon-badged .badge.--count {
+    position: absolute;
+    top: calc(var(--base) * -0.15);
+    right: calc(var(--base) * -0.35);
+  }
 
   /* ─── Fullscreen Nav Menu ─── */
   .mobile-menu {
@@ -453,7 +629,8 @@
   /* Mobile: einspaltig */
   @media (max-width: 767px) {
     .site-nav { padding: 0 var(--half-module); }
-    .nav-left a { display: none; }          /* Links weg, nur Hamburger */
+    .nav-left > a,
+    .nav-left .nav-item { display: none; } /* Direkte Links + Dropdowns weg, nur Hamburger */
     .mobile-menu.--open { display: flex; flex-direction: column; padding: var(--module); gap: 0.5rem; }
     .mobile-menu .nav-col { display: contents; }
     .mobile-menu a {
@@ -507,6 +684,17 @@
 
   /* Direkt nach Hero: kein zusätzliches padding-top */
   .container.--flush-top { padding-top: 0; }
+
+  /* ─── Page-Header — Seitenkopf für Portal- und Listen-Seiten ───
+     H1 mit optionalem Zähler (.circle-badge.--num) inline daneben.
+     Abstand zum Seiteninhalt: --module. */
+  .page-header { margin-bottom: var(--module); }
+  .page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--base) * 0.75);
+    margin: 0;
+  }
 
   /* ─── col-grid — Spaltenraster ───
      row-gap --base: Text stapelt eng wie .flow. column-gap --gutter: Spalten weit.
@@ -1175,6 +1363,18 @@
   .btn:disabled, .btn[disabled], .btn.--disabled { opacity: 0.35; pointer-events: none; cursor: not-allowed; }
   .btn.--danger { color: var(--color-error); }
 
+  /* Honey — Freigabe-/Anfrage-Kontext (z. B. Cart-Drawer „Freigabe anfragen") */
+  .btn.--honey {
+    background: var(--color-honey);
+    color: var(--fg);
+    border-color: var(--color-honey);
+  }
+  .btn.--honey:hover {
+    background: var(--color-honey);
+    border-color: var(--color-honey);
+    box-shadow: 0 0 0 2px var(--color-honey);
+  }
+
   /* Ghost-Button: Mobile Touch-Target
      Auf Desktop ist padding 0 gewollt (Text bündig mit Layout).
      Auf Mobile würde das die Tap-Fläche auf Textbreite reduzieren — zu schmal.
@@ -1203,6 +1403,8 @@
 
   /* ─── Empty State ─── */
   .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--half-module); padding: var(--module); color: var(--fg-muted); text-align: center; max-width: 28rem; margin-left: auto; margin-right: auto; }
+  /* display:flex schlägt [hidden] — Attribut-Selektor stellt es wieder her (höhere Spezifität) */
+  .empty-state[hidden] { display: none; }
   .empty-state .material-icons { font-size: var(--module); color: var(--border-light); }
   .empty-state p { font-size: var(--text-base); }
 
@@ -2609,7 +2811,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      PRODUKTÜBERSICHT
      ═══════════════════════════════════════════ */
 
-  .collection-layout { display: grid; grid-template-columns: 1fr 3fr; gap: var(--gutter); margin-bottom: var(--module-2xl); }
+  .collection-layout { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--gutter); margin-bottom: var(--module-2xl); }
   /* Volle Breite für Produktgrid, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting) */
   .collection-layout.--no-sidebar { grid-template-columns: 1fr; }
   .collection-sidebar { position: sticky; top: var(--module); align-self: start; }
@@ -2815,6 +3017,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .modal__header { display: flex; align-items: center; justify-content: space-between; padding: var(--half-module) var(--module); border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
   .modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
   .modal__body { padding: var(--module); overflow-y: auto; }
+  .modal__footer { display: flex; align-items: center; gap: var(--half-module); padding: var(--half-module) var(--module); border-top: 1px solid var(--border-light); flex-shrink: 0; }
 
   /* ─── Shop-Modal (Bestätigungs-/Feedback-Dialog) ─── */
   .shop-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; padding: var(--module); opacity: 0; visibility: hidden; transition: opacity var(--anim-base), visibility var(--anim-base); }

@@ -6,7 +6,7 @@
   <title>Design System — inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=65">
+  <link rel="stylesheet" href="inuvet.css?v=69">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -239,7 +239,7 @@
       <table class="spec-table">
         <tr><th><code>--z-default</code></th><td><code>1</code> — Standard-Stacking, Hover-Overlays</td></tr>
         <tr><th><code>--z-nav</code></th><td><code>100</code> — Site-Navigation (sticky)</td></tr>
-        <tr><th><code>--z-dropdown</code></th><td><code>110</code> — Mega-Menu, Sub-Nav, Dropdown</td></tr>
+        <tr><th><code>--z-dropdown</code></th><td><code>110</code> — Mega-Menu, Dropdown</td></tr>
         <tr><th><code>--z-overlay</code></th><td><code>200</code> — vollflächige Overlays (Cart, Filter, Cookie-Banner)</td></tr>
         <tr><th><code>--z-drawer</code></th><td><code>210</code> — Slide-In Panels (Cart-Drawer, Filter-Drawer)</td></tr>
         <tr><th><code>--z-modal</code></th><td><code>220</code> — modale Dialoge. Toast: <code>calc(var(--z-modal) + 10)</code></td></tr>
@@ -329,6 +329,94 @@
         <tr><th><code>th</code></th><td><code>font-weight: 700</code> — Header-Abgrenzung über Schriftstärke (Linien einheitlich).</td></tr>
         <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
       </table>
+
+      <h3 class="sg-h3 --top" id="A4-data-table"><code>.rte.--data-table</code> — Daten-Listen</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>inuvet.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Aktions-Links: <code>.order-item__link</code> (<a href="#E6">E.6</a>) in <code>.data-table-actions</code>.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.rte.--data-table</code></th><td>Volle Satzspiegelbreite · Desktop: <code>display: table</code> · Mobil: <code>thead</code> aus</td></tr>
+        <tr><th><code>table.--normal</code></th><td>Vertikale Dichte wie <code>.rte table</code> (Padding <code>0.4 × --base</code>)</td></tr>
+        <tr><th><code>table.--spacious</code></th><td>Mehr vertikale Luft (<code>0.85 × --base</code> oben/unten) — Posteingänge, Portal-Listen</td></tr>
+        <tr><th>Mobil (Default)</th><td>Ohne Zusatz-Klasse: <code>--mobile-stack</code> — Felder untereinander, Label-Typo wie <code>th</code></td></tr>
+        <tr><th><code>.--mobile-grid</code></th><td>Am Wrapper · 2×2-Raster (Name/Datum, Produkt/Preis) · letzte Spalte (Aktion) volle Breite</td></tr>
+        <tr><th><code>data-label</code></th><td>Pflicht auf jeder Datenzelle · Mobile-Label via <code>::before</code> · gleiche Typo wie Desktop-<code>th</code></td></tr>
+        <tr><th>Desktop Aktionen</th><td>Letzte Spalte rechtsbündig · <code>.data-table-actions</code> mit <code>justify-content: flex-end</code></td></tr>
+      </table>
+
+      <pre class="sg-code"><code>&lt;div class="rte --data-table --mobile-grid"&gt;
+  &lt;table class="--spacious"&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope="col"&gt;Name&lt;/th&gt;
+        &lt;th scope="col"&gt;Datum&lt;/th&gt;
+        &lt;th scope="col"&gt;Produkt&lt;/th&gt;
+        &lt;th scope="col"&gt;Einzelpreis&lt;/th&gt;
+        &lt;th scope="col"&gt;Aktion&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td data-label="Name"&gt;Testkunde XY&lt;/td&gt;
+        &lt;td data-label="Datum"&gt;2026-07-02&lt;/td&gt;
+        &lt;td data-label="Produkt"&gt;Calmin balance Tabletten / 60 Stück&lt;/td&gt;
+        &lt;td data-label="Einzelpreis"&gt;39,90 €&lt;/td&gt;
+        &lt;td&gt;
+          &lt;div class="data-table-actions"&gt;
+            &lt;a href="#" class="order-item__link"&gt;Detailsansicht&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+
+      <div class="sg-demo --white --flush">
+        <div class="rte --data-table --mobile-grid" style="padding: 0 var(--margin);">
+          <table class="--spacious">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Produkt</th>
+                <th scope="col">Einzelpreis</th>
+                <th scope="col">Aktion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Name">Testkunde XY</td>
+                <td data-label="Datum">2026-07-02</td>
+                <td data-label="Produkt">Calmin balance Tabletten / 60 Stück</td>
+                <td data-label="Einzelpreis">39,90 €</td>
+                <td>
+                  <div class="data-table-actions">
+                    <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
+                    <span class="data-table-actions__sep" aria-hidden="true">·</span>
+                    <a href="#" class="order-item__link" onclick="return false;">Detailsansicht</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="Name">Test Customer</td>
+                <td data-label="Datum">2026-06-30</td>
+                <td data-label="Produkt">Hepax forte Tabletten / 30 Stück</td>
+                <td data-label="Einzelpreis">34,90 €</td>
+                <td>
+                  <div class="data-table-actions">
+                    <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
+                    <span class="data-table-actions__sep" aria-hidden="true">·</span>
+                    <a href="#" class="order-item__link" onclick="return false;">Detailsansicht</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="sg-caption">Demo: <code>--spacious</code> + <code>--mobile-grid</code> · Desktop: Tabelle · Mobil (≤767px): 2×2-Raster. Ohne <code>--mobile-grid</code> stapeln sich alle Felder untereinander.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="A5">
@@ -921,6 +1009,7 @@
         <tr><th><code>.btn.--with-icon</code></th><td><code>inline-flex</code> · <code>gap: 0.5rem</code> · mit <code>.--full</code>: <code>justify-content: center</code></td></tr>
         <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion · <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
         <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
+        <tr><th><code>.btn.--honey</code></th><td>Freigabe-/Anfrage-Kontext · BG + Rand <code>--color-honey</code> · Schrift <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --color-honey</code></td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.btn</code> — Hierarchie</h3>
@@ -1011,6 +1100,15 @@
         </div>
       </div>
       <p class="sg-caption"><code>.--icon</code> immer mit <code>aria-label</code> · Hover: Zoom auf dem Icon (<code>scale(1.15)</code>).</p>
+
+      <h3 class="sg-h3 --top"><code>.btn.--honey</code></h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --honey">Freigabe anfragen</button>
+          <button class="btn --honey --sm">Anfragen</button>
+        </div>
+      </div>
+      <p class="sg-caption">Honey-Variante für den Freigabe-/Anfrage-Kontext (<code>--color-honey</code>) — z.&nbsp;B. Cart-Drawer „Freigabe anfragen" (Tierarzt-Empfehlung).</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B2">
@@ -1050,7 +1148,10 @@
         <tr><th><code>.badge.--sale</code></th><td>Grün · weiße Schrift — Sale</td></tr>
         <tr><th><code>.badge.--free</code></th><td>Tone-on-Tone Grün — Gratis-Hinweis (<code>--green-light</code> / <code>--green</code>)</td></tr>
         <tr><th><code>.badge.--info</code></th><td>Tone-on-Tone Info — Hinweis/Status (<code>--color-notice-bg</code> / <code>--color-amber</code>) · Palette wie <a href="#C7">C.7 Notice</a></td></tr>
+        <tr><th><code>.badge.--honey</code></th><td>Freigabe-/Anfrage-Status (<code>--color-honey</code> / <code>--fg</code>, analog <code>.btn.--honey</code>) — „Angefragt", „Freigabe benötigt"</td></tr>
+        <tr><th><code>.badge.--muted</code></th><td>Inaktiv/abgelehnt — Schrift <code>--fg-muted</code> auf Standard-Grau</td></tr>
         <tr><th><code>.badge.--count</code></th><td>Runder Zähler · in <code>.icon-badged</code> absolut oben rechts</td></tr>
+        <tr><th>Icon im Badge</th><td><code>.material-icons</code> als Kind · <code>calc(var(--base) * 0.8125)</code>, Gap eingebaut — z.&nbsp;B. <code>check</code> in „freigegeben"</td></tr>
       </table>
       <div class="sg-demo">
         <div class="sg-btn-row --sm">
@@ -1067,6 +1168,12 @@
           <div class="badge --sale">Sale</div>
           <div class="badge --free">+ 4 Gratis</div>
           <div class="badge --info">Nicht verfügbar</div>
+          <div class="badge --honey">Angefragt</div>
+          <div class="badge --muted">Nicht freigegeben</div>
+        </div>
+        <div class="sg-btn-row --sm" style="margin-top: var(--half-module);">
+          <div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>
+          <div class="badge --pill --honey">Freigabe benötigt</div>
         </div>
         <div class="sg-btn-row" style="margin-top: var(--module);">
           <button class="btn --icon icon-badged" aria-label="Warenkorb 3 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">3</span></button>
@@ -1074,7 +1181,7 @@
           <button class="btn --icon icon-badged" aria-label="Warenkorb 99 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">99</span></button>
         </div>
       </div>
-      <p class="sg-caption">Kategorie · Status (<code>--dark</code>, <code>--sale</code>, <code>--free</code>, <code>--info</code>) · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
+      <p class="sg-caption">Kategorie · Status (<code>--dark</code>, <code>--sale</code>, <code>--free</code>, <code>--info</code>, <code>--honey</code>, <code>--muted</code>) · Pill-Kombis <code>.--pill</code> / <code>.--pill.--honey</code> (Freigabe auf Produktbild) · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
 
       <h3 class="sg-h3 --top"><code>.circle-badge</code></h3>
       <table class="spec-table">
@@ -2596,6 +2703,7 @@
         <tr><th><code>.modal</code></th><td>Box · <code>max-width: 32rem</code> · Slide-up bei Open</td></tr>
         <tr><th><code>.modal__header</code></th><td>Titel + Close-Button · <code>border-bottom</code></td></tr>
         <tr><th><code>.modal__body</code></th><td>Padding <code>var(--module)</code> · <code>overflow-y: auto</code> · bei Fließtext + Formular <code>.flow</code></td></tr>
+        <tr><th><code>.modal__footer</code></th><td>Aktions-Leiste unten · Flex + <code>gap: var(--half-module)</code> · <code>border-top</code> · optional (z.&nbsp;B. Zurück-Button, Sekundär-Aktionen) — Referenz: Produktfinder (Tierarzt-Empfehlung)</td></tr>
         <tr><th><code>openModal(id)</code></th><td>Öffnet Overlay · setzt <code>body overflow: hidden</code></td></tr>
       </table>
       <div class="sg-demo">
@@ -2638,6 +2746,9 @@
         <tr><th><code>.site-nav</code></th><td>Sticky · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code></td></tr>
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> · <code>scroll-padding-top</code></td></tr>
         <tr><th><code>body.--ann-scroll</code></th><td>Bar scrollt weg · nur Nav sticky · <code>scroll-padding-top: var(--nav-height)</code></td></tr>
+        <tr><th><code>aria-current="page"</code></th><td>Aktiver Bereich: direkter Link, Trigger oder Dropdown-Link · <code>--fg</code>, bold · Dropdown-Treffer heben den Eltern-Trigger via <code>:has()</code> hervor</td></tr>
+        <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
+        <tr><th><code>.nav-hamburger.icon-badged</code></th><td>Hamburger mit <code>.badge.--count</code> oben rechts — Mobile-Ersatz für den Zähler in der Desktop-Nav</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.announcement-bar.--marquee</code></h3>
@@ -2680,7 +2791,7 @@
       <div class="rules">
         <div class="rule">
           <h4>Pattern</h4>
-          <p>Sub-Navigation: <code>.nav-item</code> → <code>.nav-item__trigger</code> + <code>.nav-item__dropdown</code>. Einfache Links bleiben direkte <code>&lt;a&gt;</code> in <code>.nav-left</code>.</p>
+          <p>Dropdown in der Hauptnavigation: <code>.nav-item</code> → <code>.nav-item__trigger</code> + <code>.nav-item__dropdown</code>. Einfache Links bleiben direkte <code>&lt;a&gt;</code> in <code>.nav-left</code>. Portal-Bereiche (z.&nbsp;B. Tierarzt-Empfehlung) als <code>.nav-item</code> mit Unterseiten — Referenz: <a href="pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe-Mockup</a>.</p>
         </div>
         <div class="rule">
           <h4>Verhalten</h4>
@@ -2692,6 +2803,7 @@
         <tr><th><code>.nav-item</code></th><td><code>position: relative</code></td></tr>
         <tr><th><code>.nav-item__trigger</code></th><td>Link + <code>expand_more</code> · gleiche Stile wie <code>.nav-left &gt; a</code></td></tr>
         <tr><th><code>.nav-item__dropdown</code></th><td>Absolute · <code>min-width: 14rem</code> · Border-Top <code>2px solid var(--fg)</code></td></tr>
+        <tr><th>Aktiv</th><td><code>aria-current="page"</code> auf Link · Trigger wird per <code>:has()</code> fett/dunkel · Dropdown-Eintrag ebenfalls fett</td></tr>
         <tr><th>Öffnen</th><td><code>opacity/visibility/transform</code> bei <code>:hover</code> / <code>:focus-within</code></td></tr>
         <tr><th>Z-Index</th><td><code>var(--z-dropdown)</code> (110)</td></tr>
         <tr><th>Mobil</th><td><code>display: none</code> ab <code>max-width: 767px</code></td></tr>
@@ -2736,9 +2848,66 @@
       </div>
       <p class="sg-caption">Hover-Demo — Dropdown öffnet per CSS.</p>
 
-      <pre class="sg-code"><code>&lt;!-- Mobile: gleiche Links, eingerückt --&gt;
-&lt;a href="#" onclick="closeMobile()"&gt;Produkte&lt;/a&gt;
-&lt;a href="#" class="--indent" onclick="closeMobile()"&gt;Gelenke &amp;amp; Bewegung&lt;/a&gt;</code></pre>
+      <h3 class="sg-h3 --top"><code>.mobile-menu</code></h3>
+      <div class="rules">
+        <div class="rule">
+          <h4>Pattern</h4>
+          <p>Ab <code>max-width: 767px</code> sind <code>.nav-item__dropdown</code> ausgeblendet — dieselben Links leben im Hamburger. Sektions-Titel <strong>fett</strong> (ohne <code>.--indent</code>), Unterpunkte mit <code>.--indent</code> und <code>--fg-muted</code>. Nach jedem Tap <code>closeMobile()</code>. Aktiver Unterpunkt: <code>aria-current="page"</code>.</p>
+        </div>
+        <div class="rule">
+          <h4>JS</h4>
+          <p>Hamburger: <code>toggleMobile()</code> · Schließen: <code>closeMobile()</code> · Position: <code>positionMobileMenu()</code> in <code>inuvet.js</code> (dynamisch unter Nav-Unterkante).</p>
+        </div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.mobile-menu</code></th><td>Fixed Overlay unter <code>.site-nav</code> · nur sichtbar mit <code>.--open</code> · Padding <code>var(--module)</code></td></tr>
+        <tr><th>Sektion</th><td><code>a</code> ohne Modifier · <code>font-weight: 700</code> · Trennlinie unten</td></tr>
+        <tr><th>Unterpunkt</th><td><code>a.--indent</code> · <code>padding-left: var(--half-module)</code> · <code>color: --fg-muted</code></td></tr>
+        <tr><th>Portal-Bereich</th><td>Gleiches Pattern — z.&nbsp;B. „Empfehlung" + vier Unterseiten · Referenz: <a href="pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe-Mockup</a></td></tr>
+      </table>
+
+      <pre class="sg-code"><code>&lt;!-- Hamburger in .site-nav (siehe _template.html) --&gt;
+&lt;button class="nav-hamburger" id="hamburger" onclick="toggleMobile()"
+  aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation"&gt;
+  &lt;div class="nav-col"&gt;
+    &lt;a href="#" onclick="closeMobile(); return false;"&gt;Produkte&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Gelenke &amp;amp; Bewegung&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Beruhigung&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Verdauung&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Alle Produkte&lt;/a&gt;
+    &lt;a href="#" onclick="closeMobile(); return false;"&gt;Ratgeber&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Ernährung&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Gesundheit&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Hund&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Katze&lt;/a&gt;
+    &lt;a href="#" onclick="closeMobile(); return false;"&gt;Empfehlung&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;"&gt;Empfehlung ausstellen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;"&gt;Offene Anfragen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;"&gt;Freigegeben&lt;/a&gt;
+    &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Meine Provisionen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;"&gt;So funktioniert's&lt;/a&gt;
+    &lt;a href="#" onclick="closeMobile(); return false;"&gt;Über uns&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <pre class="sg-code"><code>&lt;!-- Desktop: Portal-Bereich als .nav-item (Empfehlung) --&gt;
+&lt;div class="nav-item"&gt;
+  &lt;a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger"&gt;
+    Empfehlung &lt;span class="material-icons" aria-hidden="true"&gt;expand_more&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;div class="nav-item__dropdown"&gt;
+    &lt;a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" aria-current="page"&gt;Empfehlung ausstellen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Offene-Anfragen.html"&gt;Offene Anfragen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html"&gt;Freigegeben&lt;/a&gt;
+    &lt;a href="#"&gt;Meine Provisionen&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Programm.html"&gt;So funktioniert's&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
     </section>
 
     <section class="sg-section-v2 flow" id="D2">
@@ -3871,6 +4040,18 @@
         <tr><th>Hero-Pages</th><td><code>&lt;main&gt;&lt;div class="section-type --v4"&gt;…&lt;/div&gt;&lt;/main&gt;</code> — Hero edge-to-edge, ohne <code>.container</code></td></tr>
         <tr><th>Stand-Alone-Form</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code> — siehe <a href="#B5">B.5</a></td></tr>
       </table>
+
+      <h3 class="sg-h3 --top"><code>.page-header</code> — Seitenkopf</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Seitenkopf für Portal- und Listen-Seiten: <code>&lt;header class="page-header"&gt;</code> mit H1, optional ein Zähler als <code>.circle-badge.--num</code> inline daneben. Abstand zum Seiteninhalt: <code>--module</code>.</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>. Im Shopify-Theme für Account-, Bestell- und Portal-Übersichten.</p>
+      </div>
+      <div class="sg-demo --white">
+        <header class="page-header" style="margin-bottom: 0;">
+          <h1>Offene Anfragen <span class="circle-badge --num">6</span></h1>
+        </header>
+      </div>
+      <p class="sg-caption"><code>.page-header</code> — H1 als Flex-Zeile (<code>gap: calc(var(--base) * 0.75)</code>), Zähler vertikal zentriert.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E2">

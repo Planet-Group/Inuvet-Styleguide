@@ -68,7 +68,7 @@ Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **He
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`temp.css`-Inhalt: leer (Stand 2026-06-07).
+`temp.css`-Inhalt: leer (Stand 2026-07-15).
 `temp.js`-Inhalt: leer (Stand 2026-06-07).
 
 ### CSS-Workflow: Neue Styles
@@ -121,7 +121,9 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | Datei | Page |
 |---|---|
 | `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
-| `pages/tierarzt-empfehlung-freigabe.js` | Freigabe-Portal |
+| `pages/tierarzt-empfehlung-anfrage-freigabe.js` | Freigabe-Portal |
+| `pages/empfehlung-anfragen-mock.js` | Gemeinsame Demo-Daten Offene Anfragen ↔ Freigabe |
+| `pages/tierarzt-empfehlung-offene-anfragen.js` | Posteingang offener Produktanfragen |
 | `pages/provision-portal.js` | Provisions-Portal |
 | `pages/provision-portal-start.js` | Provisions-Portal Startseite |
 | `pages/provision-portal-vetalita.js` | Provisions-Portal Vetalita |
@@ -240,7 +242,7 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 | `.tile.--product` | Produkt-Übersicht im Grid |
 | `.cart-item` | Produktzeile (Warenkorb, Suche, Checkout, Bundle) |
 | `.summary-card` | Highlighted Action Card auf grünem BG (Bundle) |
-| `.approval-product-card` | Freigabe-Card mit Notizfeld (Tierarzt-Empfehlung) · page-spezifisch |
+| `.approval-product-card` | Freigabe-Card mit Varianten-Zeilen (Tierarzt-Empfehlung) · page-spezifisch |
 
 Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben in ihrer Seiten-Doku — kein generisches `.card`-Atom.
 
@@ -307,8 +309,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### B — Atome
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --danger --loading` (Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content`) |
-| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --dot`; `[data-cat]` |
+| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --danger --honey --loading` (Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content`) |
+| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --free --info --honey --muted --count`; `[data-cat]` · Status-Pills: `.--pill` („freigegeben", mit `check`-Icon) / `.--pill.--honey` („Freigabe benötigt") · Icon im Badge global (Größe + Gap eingebaut) |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
 | B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
@@ -325,12 +327,12 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | C.7 | Notice / Infobox | `.notice` | — |
 | C.8 | Empty / Success | `.empty-state` `.success-state` | — |
 | C.9 | Toast | `.toast` | `--success --error --info --out` |
-| C.10 | Modal | `.modal .modal-overlay` | `--open` |
+| C.10 | Modal | `.modal .modal-overlay` | `--open` · Elemente: `.modal__header / __title / __body / __footer` |
 
 #### D — Organismen
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| D.1 | Navigation | `.site-nav .announcement-bar` | — |
+| D.1 | Navigation | `.site-nav .announcement-bar` | Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` (Trigger/Dropdown/Mobile) · `.nav-hamburger.icon-badged` + `.badge.--count` |
 | D.2 | Footer | `.site-footer` | `.footer-payment` (Zahlungsarten-Icons in `.footer-bar`) |
 | D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
 | D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` |
@@ -355,11 +357,13 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|
 | `.container` | `--narrow --sm --flush-top` | Container mit max-width + padding |
 | `.section-label` | `--sub` | Abschnittsüberschrift |
+| `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |
 | `.price-stack` | — | Preis + `--old` für Streichpreise |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
 | `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
+| `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Aktions-Spalte: `.data-table-actions` mit `.order-item__link` |
 | `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---
@@ -370,7 +374,10 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|---|
 | `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
-| `pages/Tierarzt-Empfehlung-Freigabe.html` | `Tierarzt-Empfehlung-Freigabe.css` | `tierarzt-empfehlung-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `Tierarzt-Empfehlung-Anfrage-Freigabe.css` | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
+| `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
+| `pages/Tierarzt-Empfehlung-Programm.html` | — | `empfehlung-anfragen-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
