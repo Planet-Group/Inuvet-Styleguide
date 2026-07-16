@@ -4,11 +4,6 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
-/* ─── Seitenweite Tokens ─── */
-:root {
-  --check-icon-size: 13px; /* einheitlich für alle drei Freigabe-Badge-Kontexte */
-}
-
 /* ─── Logo-Override (nur diese Seite) ─── */
 .nav-center img { transform: scale(1.5); }
 
@@ -86,23 +81,11 @@ body.--page-home .section-type.--v3 .section-type__content {
   .hiw__connector { display: none; }
 }
 
-/* ─── Produktfinder-Modal ─── */
+/* ─── Produktfinder-Modal — Gerüst global (.modal__header/__body/__footer, C.10),
+   hier nur Finder-Inhalt ─── */
 .finder__modal {
   max-width: 28rem;
   width: 100%;
-}
-.finder__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--half-module);
-  border-bottom: 1px solid var(--border);
-}
-.finder__body {
-  padding: var(--half-module);
-  display: flex;
-  flex-direction: column;
-  gap: var(--half-module);
 }
 .finder__question {
   font-size: var(--text-base);
@@ -121,39 +104,13 @@ body.--page-home .section-type.--v3 .section-type__content {
   flex-direction: column;
   gap: calc(var(--base) * 0.5);
 }
-.finder__footer {
-  display: flex;
-  gap: var(--half-module);
-  padding: calc(var(--base) * 0.5) var(--half-module);
-  border-top: 1px solid var(--border);
-}
 
 /* ─── Seiten-Elemente ─── */
-.shop-notice {
-  background: var(--accent-bg);
-  border-left: 3px solid var(--green);
-  padding: var(--half-module);
-  margin-bottom: var(--module);
-}
-.shop-notice p {
-  font-size: var(--text-base);
-  color: var(--fg);
-  line-height: var(--lh-base);
-  margin-bottom: calc(var(--half-module) / 2);
-}
-.shop-notice p:last-child { margin-bottom: 0; }
-
 .shop-page-title {
   font-size: var(--text-m);
   font-weight: 700;
   line-height: var(--lh-h3);
   margin-bottom: var(--half-module);
-}
-
-.btn-row {
-  display: flex;
-  gap: var(--half-module);
-  flex-wrap: wrap;
 }
 
 /* ─── Login-Panel: Abweichungen für Freigabe-Mockup ─── */
@@ -210,43 +167,24 @@ body.--page-home .section-type.--v3 .section-type__content {
   color: var(--fg-muted);
 }
 
-/* ─── Freigabe-Badges (drei Kontexte — Basis: .circle-badge aus inuvet.css) ─
-   1. Pill-Badge auf Produktbild (top-right)
+/* ─── Freigabe-Badges (drei Kontexte — Visuals global aus inuvet.css) ─
+   1. Pill-Badge auf Produktbild (top-right): .badge.--pill / .--pill.--honey (B.2)
    2. .circle-badge.--check auf choice-box (absolut positioniert)
    3. .circle-badge.--check inline in PDP-Darreichungsform-Zeile
-   ─────────────────────────────────────────────────────────────────────────── */
+   ─────────────────────────────────────────────────────────────────────── */
 
-/* 1 — Pill-Badge: floating-meta top-right + Badge-Styling */
+/* 1 — Pill-Badge: nur Positionierung via floating-meta top-right */
 .floating-meta.--right {
   left: auto;
   right: calc(var(--base) * 0.75);
-}
-.badge--rec {
-  gap: calc(var(--base) * 0.25);
-  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
-  border-radius: 2em; /* Ausnahme: Pill-Badge */
-  background: var(--green);
-  color: #fff;
-  letter-spacing: 0.05em;
-}
-.badge--rec .material-icons {
-  font-size: calc(var(--base) * 0.8125);
-  line-height: 1;
-}
-.badge--needs-release {
-  gap: calc(var(--base) * 0.25);
-  padding: calc(var(--base) * 0.25) calc(var(--base) * 0.5);
-  border-radius: 2em;
-  background: var(--color-honey);
-  color: var(--fg);
-  letter-spacing: 0.05em;
 }
 
 /* 2 — choice-box: nur Positionierung, Visuals via .circle-badge */
 .choice-box.--approved { position: relative; }
 .choice-box__check {
   position: absolute;
-  top: -8px; right: -8px;
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
 }
 
 /* 3 — PDP-Darreichungsform: Label als Flex-Container für inline-Badge */
@@ -281,11 +219,11 @@ body.--page-home .section-type.--v3 .section-type__content {
 
 @media (min-width: 1100px) {
   .hero-split__text {
-    font-size: 1.125rem;
+    font-size: calc(var(--base) * 1.125);
   }
   .hero-split .btn {
-    font-size: 1.125rem;
-    padding: 1.25rem var(--module);
+    font-size: calc(var(--base) * 1.125);
+    padding: calc(var(--base) * 1.25) var(--module);
   }
 }
 
@@ -311,14 +249,14 @@ body.--page-home .section-type.--v3 .section-type__content {
 }
 .vet-request__hint a { color: var(--fg); font-weight: 700; text-decoration: underline; }
 /* Submit-Leiste: klar abgesetzter Footer mit Schatten über volle Drawer-Breite */
-.cart-drawer.--request-step .cart-drawer__footer--submit {
+.cart-drawer.--request-step .cart-drawer__footer.--submit {
   padding: var(--half-module) var(--module);
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
-.cart-section--requested {
+.cart-section.--requested {
   background: var(--color-honey);
   margin: 0 calc(var(--module) * -1) 0;
   padding: var(--half-module) var(--module) var(--module);
@@ -326,21 +264,9 @@ body.--page-home .section-type.--v3 .section-type__content {
   --border: rgba(0, 0, 0, 0.2);
   --border-light: rgba(0, 0, 0, 0.15);
 }
-.cart-drawer__items > .cart-section--requested:first-child {
+.cart-drawer__items > .cart-section.--requested:first-child {
   margin-top: 0;
 }
 
 /* ─── Test-Hero: kein margin-top, direkt unter Nav ─── */
 .section-type.--v1.--hero-test { margin-top: 0; }
-
-/* ─── Honey-Button ─── */
-.btn.--honey {
-  background: var(--color-honey);
-  color: var(--fg);
-  border-color: var(--color-honey);
-}
-.btn.--honey:hover {
-  background: var(--color-honey);
-  border-color: var(--color-honey);
-  box-shadow: 0 0 0 2px var(--color-honey);
-}

@@ -240,6 +240,7 @@ const VETS = [
 let selectedVet    = null;
 let approvedByVet  = null; // Praxis, die zuletzt Produkte freigegeben hat
 let cartDrawerStep = 1;
+let requesterName  = ''; // Name des Tierhalters — Pflicht, für die Zuordnung in der Praxis
 
 /* ════════════════════════════════════════════
    WARENKORB-DRAWER
@@ -770,8 +771,8 @@ function findRecommendedVetByInput(raw) {
   ) || null;
 }
 
-function setVetFieldError(message) {
-  const field = document.getElementById('vetSearchInput')?.closest('.form-field');
+function setFieldError(inputId, message) {
+  const field = document.getElementById(inputId)?.closest('.form-field');
   if (!field) return;
   field.classList.add('--error');
   let err = field.querySelector('.form-field__error');
@@ -783,12 +784,15 @@ function setVetFieldError(message) {
   err.textContent = message;
 }
 
-function clearVetFieldError() {
-  const field = document.getElementById('vetSearchInput')?.closest('.form-field');
+function clearFieldError(inputId) {
+  const field = document.getElementById(inputId)?.closest('.form-field');
   if (!field) return;
   field.classList.remove('--error');
   field.querySelector('.form-field__error')?.remove();
 }
+
+function setVetFieldError(message) { setFieldError('vetSearchInput', message); }
+function clearVetFieldError()      { clearFieldError('vetSearchInput'); }
 
 function vetInviteMailtoHref() {
   const subject = 'Teilnahme am Inuvet-Empfehlungsprogramm';
@@ -837,6 +841,17 @@ function closeVetMap() {
 }
 
 function submitVetRequest() {
+  // Name ist Pflicht — ohne ihn kann die Praxis die Anfrage niemandem zuordnen
+  const nameInput = document.getElementById('requesterNameInput');
+  requesterName = (nameInput?.value ?? requesterName).trim();
+  if (!requesterName) {
+    setFieldError('requesterNameInput', 'Bitte gib deinen Namen an.');
+    showToast('Bitte gib deinen Namen an.', 'error');
+    nameInput?.focus();
+    return;
+  }
+  clearFieldError('requesterNameInput');
+
   const input = document.getElementById('vetSearchInput');
   const raw   = input?.value ?? '';
 
@@ -936,6 +951,13 @@ function renderRequestStep() {
         </div>
         <div id="vetDropdown" class="vet-dropdown" style="display:none;"></div>
       </div>
+      <!-- Name des Tierhalters — Pflicht, damit die Praxis die Anfrage zuordnen kann -->
+      <div class="form-field">
+        <input type="text" id="requesterNameInput" autocomplete="name" placeholder=" "
+          value="${requesterName}"
+          oninput="requesterName = this.value; if (this.value.trim()) clearFieldError('requesterNameInput');">
+        <label for="requesterNameInput">Dein Name – damit dich deine Praxis zuordnen kann</label>
+      </div>
       <!-- Notes -->
       <div class="form-field vet-request__notes">
         <textarea id="vetNotes" rows="2" placeholder=" "></textarea>
@@ -943,7 +965,7 @@ function renderRequestStep() {
       </div>
       <p class="vet-request__hint">Du findest deine Praxis nicht? Dann <a href="${vetInviteMailtoHref()}">sende ihr hier eine E-Mail</a>.</p>
     </div>
-    <div class="cart-drawer__footer cart-drawer__footer--submit">
+    <div class="cart-drawer__footer --submit">
       <button class="btn --ghost cart-drawer__checkout" onclick="submitVetRequest()">Weiter</button>
     </div>`;
 }
@@ -973,12 +995,12 @@ function renderSuccessStep() {
   // Nur teilnehmende Praxen sind wählbar → E-Mail geht immer an die Praxis
   emailOverlayData.vet = {
     tag: 'E-Mail', recipient: vetEmail,
-    subject: 'Neue Anfrage von Max Mustermann', internal: false,
+    subject: `Neue Anfrage von ${requesterName || 'Max Mustermann'}`, internal: false,
     body: `
-      <p>Tierbesitzer*in <strong>Max Mustermann</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
+      <p>Tierbesitzer*in <strong>${requesterName || 'Max Mustermann'}</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
       <p>Angefragt: <strong>${requestedNames}</strong></p>
       <p>Diese können Sie hier einsehen und freigeben:<br>
-      <a href="Tierarzt-Empfehlung-Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
+      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
 
       <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
       <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
@@ -999,7 +1021,7 @@ function renderSuccessStep() {
     subject: 'Neue offene Anfrage', internal: true,
     body: `
       <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · gerade eingegangen.</p>
-      <p><strong>Tierbesitzer*in:</strong> Max Mustermann · kunde@email.com</p>
+      <p><strong>Tierbesitzer*in:</strong> ${requesterName || 'Max Mustermann'} · kunde@email.com</p>
       <p><strong>Praxis:</strong> ${vetName}</p>
       <p><strong>Angefragte Produkte:</strong></p>
       ${requestedDetailed}
@@ -1059,7 +1081,7 @@ function renderCartDrawer() {
     items += cartApproved.map(item => drawerItemHTML(item, 'approved')).join('');
   }
   if (hasRequested) {
-    items += `<div class="cart-section--requested">
+    items += `<div class="cart-section --requested">
       <h3 class="section-label">Freizugebende Produkte</h3>
       ${cartRequested.map(item => drawerItemHTML(item, 'requested')).join('')}
     </div>`;
@@ -1375,7 +1397,7 @@ function tileHTML(p) {
         <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
         ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
       </div>
-      <div class="floating-meta --right">${approved ? '<div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge badge--needs-release">Freigabe benötigt</div>'}</div>
+      <div class="floating-meta --right">${approved ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge --pill --honey">Freigabe benötigt</div>'}</div>
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
     </div>
@@ -1497,15 +1519,15 @@ function renderFinderStep() {
       ).join('');
 
   const back = finderStep > 0
-    ? `<div class="finder__footer"><button class="btn --ghost --back --sm" onclick="finderStep=0;finderAnimal=null;renderFinderStep()">Zurück</button></div>` : '';
+    ? `<div class="modal__footer"><button class="btn --ghost --back --sm" onclick="finderStep=0;finderAnimal=null;renderFinderStep()">Zurück</button></div>` : '';
 
   overlay.innerHTML = `
     <div class="modal finder__modal">
-      <div class="finder__header">
+      <div class="modal__header">
         <span class="label-caps">Schritt ${finderStep + 1} von 2</span>
         <button class="btn --icon" onclick="closeFinder()"><span class="material-icons">close</span></button>
       </div>
-      <div class="finder__body">
+      <div class="modal__body flow">
         <p class="finder__question">${isAnimal ? 'Welches Tier hast du?' : 'Was beschäftigt dich?'}</p>
         <div class="finder__options ${isAnimal ? '--row' : ''}">${options}</div>
       </div>
@@ -1546,15 +1568,15 @@ function renderFinderResult(matches) {
 
   overlay.innerHTML = `
     <div class="modal finder__modal">
-      <div class="finder__header">
+      <div class="modal__header">
         <span class="label-caps">Unser Tipp für dich</span>
         <button class="btn --icon" onclick="closeFinder()"><span class="material-icons">close</span></button>
       </div>
-      <div class="finder__body">
+      <div class="modal__body flow">
         <p class="finder__question">Das könnte passen:</p>
         <div class="finder__results">${items}</div>
       </div>
-      <div class="finder__footer">
+      <div class="modal__footer">
         <button class="btn --ghost --back --sm" onclick="openFinder()">Neu starten</button>
         <button class="btn --ghost --sm" onclick="closeFinder();setPage('collection')">Alle Produkte</button>
       </div>
@@ -1814,7 +1836,7 @@ function renderProduct() {
     <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
     ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
   </div>
-  <div class="floating-meta --right">${approved ? '<div class="badge badge--rec"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge badge--needs-release">Freigabe benötigt</div>'}</div>`;
+  <div class="floating-meta --right">${approved ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge --pill --honey">Freigabe benötigt</div>'}</div>`;
 
 
   // Bewertung — wie im Styleguide: Sterne + Text
