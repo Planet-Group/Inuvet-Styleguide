@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Freigegeben</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../temp.css">
+</head>
+<body class="--ann-scroll">
+
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <a href="#">Home</a>
+    <a href="#">Produkte</a>
+    <a href="#">Service</a>
+    <div class="nav-item">
+      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
+        <a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" aria-current="page">Freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="#" onclick="closeMobile(); return false;">Home</a>
+    <a href="#" onclick="closeMobile(); return false;">Produkte</a>
+    <a href="#" onclick="closeMobile(); return false;">Service</a>
+    <a href="#" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<main class="container">
+  <header class="page-header">
+    <h1>
+      Freigegeben
+      <span class="circle-badge --num" id="redeemedCount" aria-label="Anzahl erteilter Freigaben">0</span>
+    </h1>
+  </header>
+
+  <div class="rte --data-table --mobile-grid" id="redeemedTableWrap">
+    <table class="--spacious">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Datum</th>
+          <th scope="col">Produkt</th>
+          <th scope="col">Einzelpreis</th>
+          <th scope="col">Provision</th>
+        </tr>
+      </thead>
+      <tbody id="redeemedBody"></tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" id="redeemedEmpty" hidden>
+    <span class="material-icons">history</span>
+    <p class="empty-state__title">Noch keine erteilten Freigaben</p>
+  </div>
+</main>
+
+<script src="../inuvet.js"></script>
+<script src="empfehlung-anfragen-mock.js"></script>
+<script src="tierarzt-empfehlung-eingeloeste-empfehlungen.js"></script>
+</body>
+</html>

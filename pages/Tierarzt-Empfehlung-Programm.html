@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – So funktioniert's</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+</head>
+<body class="--ann-scroll">
+
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <a href="#">Home</a>
+    <a href="#">Produkte</a>
+    <a href="#">Service</a>
+    <div class="nav-item">
+      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
+        <a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Tierarzt-Empfehlung-Programm.html" aria-current="page">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="#" onclick="closeMobile(); return false;">Home</a>
+    <a href="#" onclick="closeMobile(); return false;">Produkte</a>
+    <a href="#" onclick="closeMobile(); return false;">Service</a>
+    <a href="#" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="article-layout">
+    <aside class="article-sidebar">
+      <div class="article__author">
+        <div class="article__author-avatar placeholder-bg" aria-hidden="true"></div>
+        <div>
+          <p class="article__author-name">Birka Beispiel</p>
+          <p class="article__author-role">Tierärztlicher Außendienst</p>
+        </div>
+      </div>
+      <div class="link-stack">
+        <a class="link --with-icon" href="tel:+4915112345678">
+          <span class="material-icons" aria-hidden="true">phone</span>
+          +49 151 123 456 78
+        </a>
+        <a class="link --with-icon" href="mailto:birka@inuvet.com">
+          <span class="material-icons" aria-hidden="true">email</span>
+          birka@inuvet.com
+        </a>
+      </div>
+    </aside>
+
+    <article class="article">
+      <header class="article__header">
+        <span class="label-caps">Empfehlungsprogramm</span>
+        <h1>So funktioniert's</h1>
+      </header>
+
+      <div class="article__body rte">
+        <p>Ihre Praxis nimmt am Inuvet-Empfehlungsprogramm teil. Tierbesitzer*innen können Produkte anfragen — Sie prüfen kurz die Eignung und geben passende Größen frei.</p>
+
+        <h2>Ihre Rolle</h2>
+        <p>Ihre Freigabe ist die fachliche Empfehlung: Erst danach kann der*die Tierbesitzer*in das Produkt bestellen. Sie entscheiden pro Produkt und Packungsgröße, ob und in welcher Menge freigegeben wird.</p>
+
+        <h2>Was Inuvet übernimmt</h2>
+        <p>Inuvet kümmert sich um Beratung, Versand und Betreuung der Tierbesitzer*innen. Für Sie entsteht kein Aufwand mit Lagerung oder Logistik — Sie bleiben auf Ihre tierärztliche Empfehlung fokussiert.</p>
+
+        <h2>Provision</h2>
+        <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+      </div>
+    </article>
+    </div>
+  </div>
+</main>
+
+<script src="../inuvet.js"></script>
+<script src="empfehlung-anfragen-mock.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', empfehlungSyncOpenRequestNavBadges);
+window.addEventListener('pageshow', empfehlungSyncOpenRequestNavBadges);
+</script>
+</body>
+</html>
