@@ -310,7 +310,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
 | B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --danger --honey --loading` (Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content`) |
-| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --free --info --honey --muted --count`; `[data-cat]` · Status-Pills: `.--pill` („freigegeben", mit `check`-Icon) / `.--pill.--honey` („Freigabe benötigt") · Icon im Badge global (Größe + Gap eingebaut) |
+| B.2 | Badge / Label | `.badge` | `--dark --sale --pill --free --info --honey --muted --error --count`; `[data-cat]` · Status-Pills: `.--pill` („freigegeben", mit `check`-Icon) / `.--pill.--honey` („Freigabe benötigt") · Icon im Badge global (Größe + Gap eingebaut) |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
 | B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)

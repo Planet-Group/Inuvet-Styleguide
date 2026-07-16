@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Design System — inuvet</title>
+  <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=69">
+  <link rel="stylesheet" href="inuvet.css?v=70">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -537,6 +537,14 @@
             <span class="color-card__token">--color-error</span>
             <span class="color-card__hex">#c00</span>
             <span class="color-card__role">Fehler, Validierung</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background:#fdecec"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--color-error-light</span>
+            <span class="color-card__hex">#FDECEC</span>
+            <span class="color-card__role">Tone-on-Tone Error-Fläche (Badge)</span>
           </div>
         </div>
       </div>
@@ -1150,6 +1158,7 @@
         <tr><th><code>.badge.--info</code></th><td>Tone-on-Tone Info — Hinweis/Status (<code>--color-notice-bg</code> / <code>--color-amber</code>) · Palette wie <a href="#C7">C.7 Notice</a></td></tr>
         <tr><th><code>.badge.--honey</code></th><td>Freigabe-/Anfrage-Status (<code>--color-honey</code> / <code>--fg</code>, analog <code>.btn.--honey</code>) — „Angefragt", „Freigabe benötigt"</td></tr>
         <tr><th><code>.badge.--muted</code></th><td>Inaktiv/abgelehnt — Schrift <code>--fg-muted</code> auf Standard-Grau</td></tr>
+        <tr><th><code>.badge.--error</code></th><td>Tone-on-Tone Rot — abgelehnter Status (<code>--color-error-light</code> / <code>--color-error</code>) — „nicht frei"</td></tr>
         <tr><th><code>.badge.--count</code></th><td>Runder Zähler · in <code>.icon-badged</code> absolut oben rechts</td></tr>
         <tr><th>Icon im Badge</th><td><code>.material-icons</code> als Kind · <code>calc(var(--base) * 0.8125)</code>, Gap eingebaut — z.&nbsp;B. <code>check</code> in „freigegeben"</td></tr>
       </table>
@@ -1169,7 +1178,8 @@
           <div class="badge --free">+ 4 Gratis</div>
           <div class="badge --info">Nicht verfügbar</div>
           <div class="badge --honey">Angefragt</div>
-          <div class="badge --muted">Nicht freigegeben</div>
+          <div class="badge --muted">Ohne Entscheidung</div>
+          <div class="badge --error">Nicht frei</div>
         </div>
         <div class="sg-btn-row --sm" style="margin-top: var(--half-module);">
           <div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>
@@ -1181,7 +1191,7 @@
           <button class="btn --icon icon-badged" aria-label="Warenkorb 99 Artikel"><span class="material-icons">shopping_cart</span><span class="badge --count">99</span></button>
         </div>
       </div>
-      <p class="sg-caption">Kategorie · Status (<code>--dark</code>, <code>--sale</code>, <code>--free</code>, <code>--info</code>, <code>--honey</code>, <code>--muted</code>) · Pill-Kombis <code>.--pill</code> / <code>.--pill.--honey</code> (Freigabe auf Produktbild) · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
+      <p class="sg-caption">Kategorie · Status (<code>--dark</code>, <code>--sale</code>, <code>--free</code>, <code>--info</code>, <code>--honey</code>, <code>--muted</code>, <code>--error</code>) · Pill-Kombis <code>.--pill</code> / <code>.--pill.--honey</code> (Freigabe auf Produktbild) · Count in <code>.icon-badged</code> (Hover: Badge-Zoom).</p>
 
       <h3 class="sg-h3 --top"><code>.circle-badge</code></h3>
       <table class="spec-table">

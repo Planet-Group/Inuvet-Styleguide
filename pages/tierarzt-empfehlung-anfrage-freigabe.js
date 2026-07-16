@@ -203,7 +203,7 @@ function optionsHTML(selected, requestedValue, withSettled) {
 
 /* ── Rendering ── */
 function approvalBadgeClass(content) {
-  if (content.declined) return ' --muted';
+  if (content.declined) return ' --error';
   if (content.approved) return ' --free';
   return ' --honey';
 }
@@ -213,9 +213,8 @@ function requestedQtyNumber(cartName, label) {
   return item ? item.qty : null;
 }
 
-function declinedBadgeText(cartName, label) {
-  const qty = requestedQtyNumber(cartName, label);
-  return qty != null ? `nicht freigeben max. ${qty}×` : 'nicht freigeben';
+function declinedBadgeText() {
+  return 'nicht frei';
 }
 
 function variantStatusBadgeContent(p, v, vi) {
@@ -225,7 +224,7 @@ function variantStatusBadgeContent(p, v, vi) {
     if (value === VARIANT_SETTLED) {
       const approvedQty = empfehlungGetApprovedQty(activeRequest.id, p.cartName, v.label);
       if (approvedQty != null) {
-        return { text: `Freigegeben max. ${approvedQty}×`, approved: true };
+        return { text: `Frei max. ${approvedQty}×`, approved: true };
       }
       if (empfehlungIsVariantDeclined(activeRequest.id, p.cartName, v.label)) {
         return { text: declinedBadgeText(p.cartName, v.label), declined: true };

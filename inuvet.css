@@ -123,6 +123,7 @@
     /* ─── Fehlerfarben ─── */
     --color-error: #c00;
     --color-error-bg: #c0392b;
+    --color-error-light: #fdecec;  /* Tone-on-Tone-Fläche für Error-Status — analog --green-light */
 
     /* ─── Overlay-Farben ─── */
     --color-overlay-dark:  rgba(0, 0, 0, 0.4);
@@ -457,6 +458,7 @@
      Nach .--pill definiert: Kombination .--pill.--honey ergibt Honey-Pill. */
   .badge.--honey { background: var(--color-honey); color: var(--fg); }
   .badge.--muted { color: var(--fg-muted); }
+  .badge.--error { background: var(--color-error-light); color: var(--color-error); }
   /* Counter-Badge — Positionierung via .icon-badged .badge.--count */
   .badge.--count {
     text-transform: none;
@@ -3220,6 +3222,25 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .article__author-name { font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); }
   .article__author-role { font-size: var(--text-xs); color: var(--fg-muted); }
   .article__tags { display: flex; flex-wrap: wrap; gap: calc(var(--base) * 0.5); }
+
+  /* ─── Artikel-Inhaltsverzeichnis — Sidebar-Navigation für lange Doku-Artikel ───
+     Anker-Links auf h2-IDs · aktiver Abschnitt via initArticleToc() (inuvet.js, Scrollspy).
+     Nur Desktop — auf Mobile wird die Sidebar zur Kopfzeile, das TOC entfällt. */
+  .article-toc { display: flex; flex-direction: column; gap: calc(var(--base) * 0.25); }
+  .article-toc .label-caps { margin-bottom: calc(var(--base) * 0.25); }
+  .article-toc a {
+    font-size: var(--text-sm);
+    color: var(--fg-muted);
+    text-decoration: none;
+    line-height: var(--lh-base);
+    padding: calc(var(--base) * 0.1) 0;
+    transition: color var(--anim-fast);
+  }
+  .article-toc a:hover { color: var(--fg); }
+  .article-toc a[aria-current] { color: var(--fg); font-weight: 700; }
+  @media (max-width: 767px) {
+    .article-toc { display: none; }
+  }
 
   /* ─── Keyframes ─── */
   @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
