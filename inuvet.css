@@ -3227,7 +3227,6 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      Anker-Links auf h2-IDs · aktiver Abschnitt via initArticleToc() (inuvet.js, Scrollspy).
      Nur Desktop — auf Mobile wird die Sidebar zur Kopfzeile, das TOC entfällt. */
   .article-toc { display: flex; flex-direction: column; gap: calc(var(--base) * 0.25); }
-  .article-toc .label-caps { margin-bottom: calc(var(--base) * 0.25); }
   .article-toc a {
     font-size: var(--text-sm);
     color: var(--fg-muted);
@@ -3240,6 +3239,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .article-toc a[aria-current] { color: var(--fg); font-weight: 700; }
   @media (max-width: 767px) {
     .article-toc { display: none; }
+    /* Sidebar, die nur aus dem TOC besteht, entfällt auf Mobile komplett */
+    .article-sidebar:has(> .article-toc:only-child) { display: none; }
   }
 
   /* ─── Keyframes ─── */
