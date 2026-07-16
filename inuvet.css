@@ -376,11 +376,20 @@
     background: var(--bg);
   }
 
-  /* ─── Scroll-Away-Modus (optional: body.--ann-scroll) ───
-     Announcement Bar läuft im Fluss mit (scrollt weg), die Nav bleibt sticky
-     und pinnt allein oben. Das Mobile-Menü-top wird per JS (positionMobileMenu
-     in toggleMobile) an die aktuelle Nav-Unterkante gesetzt — funktioniert in
-     beiden Modi. */
+  /* ─── Scroll-Away-Modus ───
+     Theme (Shopify): .announcement-bar.--scroll-away → Section-Wrapper sticky
+     mit negativem top (Bar raus, Nav bleibt). Ohne Wrapper: body.--ann-scroll.
+     Mobile-Menü-top: positionMobileMenu() in toggleMobile(). */
+  .shopify-section--sticky-header:has(.announcement-bar.--scroll-away) {
+    top: calc(var(--announcement-height) * -1);
+  }
+  .shopify-section--sticky-header:has(.announcement-bar.--scroll-away) .announcement-bar,
+  .shopify-section--sticky-header:has(.announcement-bar.--scroll-away) .site-nav {
+    position: relative;
+    top: auto;
+  }
+  html:has(.announcement-bar.--scroll-away) { scroll-padding-top: var(--nav-height); }
+
   body.--ann-scroll .announcement-bar { position: static; }
   body.--ann-scroll .site-nav { top: 0; }
   html:has(body.--ann-scroll) { scroll-padding-top: var(--nav-height); }
@@ -697,6 +706,34 @@
     gap: calc(var(--base) * 0.75);
     margin: 0;
   }
+
+  /* ─── A11y-Utilities ───
+     .visually-hidden: nur für Screenreader (Labels, Live-Regions).
+     .skip-link: erster Fokus-Stopp der Seite — springt zu #MainContent, sichtbar nur bei Tastatur-Fokus. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .skip-link {
+    position: fixed;
+    top: calc(var(--base) * -10);
+    left: var(--half-module);
+    z-index: calc(var(--z-modal) + 10);
+    background: var(--bg);
+    color: var(--fg);
+    font-weight: 700;
+    text-decoration: none;
+    padding: calc(var(--base) * 0.75) var(--half-module);
+    border: 1px solid var(--fg);
+    transition: top var(--anim-fast);
+  }
+  .skip-link:focus { top: var(--half-module); }
 
   /* ─── col-grid — Spaltenraster ───
      row-gap --base: Text stapelt eng wie .flow. column-gap --gutter: Spalten weit.
@@ -1377,6 +1414,21 @@
     box-shadow: 0 0 0 2px var(--color-honey);
   }
 
+  /* Loading — laufende AJAX-Aktion (z. B. „In den Warenkorb"): Spinner vor dem Text, Klicks gesperrt */
+  .btn.--loading { pointer-events: none; }
+  .btn.--loading::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: -0.125em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%; /* Ausnahme: Spinner-Glyph */
+    animation: btnSpin 0.6s linear infinite;
+  }
+
   /* Ghost-Button: Mobile Touch-Target
      Auf Desktop ist padding 0 gewollt (Text bündig mit Layout).
      Auf Mobile würde das die Tap-Fläche auf Textbreite reduzieren — zu schmal.
@@ -1402,6 +1454,12 @@
   /* ─── Price Stack ─── */
   .price-stack { display: flex; align-items: baseline; gap: 0.5rem; font-size: var(--text-base); font-weight: 700; line-height: var(--lh-base); }
   .price-stack .--old { font-weight: 400; color: var(--fg-muted); text-decoration: line-through; }
+  /* Grundpreis (PAngV) — Pflicht bei Futtermitteln überall, wo ein Preis steht: „(299,00 € / kg)" */
+  .price-stack__unit { font-size: var(--text-xs); font-weight: 400; color: var(--fg-muted); }
+
+  /* ─── Preis-Hinweiszeile — unter Preisblöcken (PDP): „inkl. MwSt., zzgl. Versand · Lieferzeit" ─── */
+  .price-note { font-size: var(--text-xs); color: var(--fg-muted); line-height: var(--lh-base); margin: 0; }
+  .price-note a { color: inherit; text-decoration: underline; }
 
   /* ─── Empty State ─── */
   .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--half-module); padding: var(--module); color: var(--fg-muted); text-align: center; max-width: 28rem; margin-left: auto; margin-right: auto; }
@@ -2065,6 +2123,16 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .choice-box.--active,
   .choice-box:has(input:checked) { border-color: var(--border-active); background: var(--green-light); color: var(--fg); }
+  /* Ausverkauft / nicht verfügbar — Shopify: variant.available == false */
+  .choice-box:disabled,
+  .choice-box.--disabled {
+    color: var(--fg-muted);
+    background: var(--accent-bg);
+    border-color: var(--border-light);
+    text-decoration: line-through;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   .choice-box.--sm { font-size: var(--text-sm); font-weight: 400; height: calc(var(--base) * 2); padding-top: 0; padding-bottom: 0; }
   .choice-box.--block { display: grid; grid-template-columns: min-content 1fr; gap: var(--half-module); align-items: center; text-align: left; width: 100%; padding: var(--half-module); }
   .choice-box.--block .material-icons { margin: 0; }
@@ -3115,7 +3183,17 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     outline: none;
     background: transparent;
     color: var(--fg);
+    /* Native Clear (WebKit/Edge) aus — Schließen übernimmt unser .btn.--icon */
+    -webkit-appearance: none;
+    appearance: none;
   }
+  .search-panel__input::-webkit-search-cancel-button,
+  .search-panel__input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+  .search-panel__input::-ms-clear { display: none; width: 0; height: 0; }
   .search-panel__input::placeholder { color: var(--fg-muted); font-weight: 400; }
 
   /* ─── Ergebnisliste ─── */
@@ -3246,6 +3324,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* ─── Keyframes ─── */
   @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
   @keyframes toastIn { from { opacity: 0; transform: translateX(1rem); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes btnSpin { to { transform: rotate(360deg); } }
 
   /* ─── Scroll Animations ─── */
   @media (prefers-reduced-motion: no-preference) {

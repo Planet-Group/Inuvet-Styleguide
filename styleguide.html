@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=72">
+  <link rel="stylesheet" href="inuvet.css?v=73">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -1018,6 +1018,7 @@
         <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion · <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
         <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
         <tr><th><code>.btn.--honey</code></th><td>Freigabe-/Anfrage-Kontext · BG + Rand <code>--color-honey</code> · Schrift <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --color-honey</code></td></tr>
+        <tr><th><code>.btn.--loading</code></th><td>Laufende AJAX-Aktion (z.&nbsp;B. <code>/cart/add.js</code>) · Spinner vor dem Text (<code>::before</code>, <code>currentColor</code>) · <code>pointer-events: none</code> · Klasse per JS setzen/entfernen</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.btn</code> — Hierarchie</h3>
@@ -1117,6 +1118,15 @@
         </div>
       </div>
       <p class="sg-caption">Honey-Variante für den Freigabe-/Anfrage-Kontext (<code>--color-honey</code>) — z.&nbsp;B. Cart-Drawer „Freigabe anfragen" (Tierarzt-Empfehlung).</p>
+
+      <h3 class="sg-h3 --top"><code>.btn.--loading</code></h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --primary --loading">In den Warenkorb</button>
+          <button class="btn --secondary --loading">Wird geladen</button>
+        </div>
+      </div>
+      <p class="sg-caption">Während einer AJAX-Aktion (Cart API): Klasse per JS setzen, nach der Antwort entfernen · Spinner erbt die Textfarbe.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="B2">
@@ -1472,6 +1482,7 @@
         <tr><th><code>.form-captcha</code></th><td>reCAPTCHA-Platzhalter · Stand-Alone-Formulare</td></tr>
         <tr><th><code>.form-page*</code></th><td>Stand-Alone-Shell · siehe <a href="#B5">B.5</a></td></tr>
         <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
+        <tr><th><code>.choice-box[disabled]</code> / <code>.--disabled</code></th><td>Ausverkauft / nicht verfügbar (Shopify: <code>variant.available == false</code>) · durchgestrichen, <code>--fg-muted</code> auf <code>--accent-bg</code>, keine Interaktion</td></tr>
         <tr><th><code>.actionable-input</code></th><td>Input + Submit · mobil gestapelt · ab 768&nbsp;px nebeneinander · Inhalt in <code>.flow</code></td></tr>
         <tr><th><code>.option-divider</code></th><td>Trenner zwischen zwei gleichwertigen Optionen · Linien via <code>::before</code>/<code>::after</code> · Text in <code>&lt;span&gt;</code> (z.&nbsp;B. „oder“, „ou“) · Margin <code>var(--half-module) 0</code> · in <code>.flow</code> · kein <code>&lt;hr&gt;</code></td></tr>
         <tr><th><code>.flow</code></th><td>Pflicht bei Fließtext + Feldern · <code>--flow-space</code> vor <code>.form-field</code>, <code>.form-grid</code>, <code>.actionable-input</code> etc. → <a href="#A6">A.6</a></td></tr>
@@ -1742,6 +1753,7 @@
                 <div class="sg-btn-row --sm">
                   <button class="choice-box --active" type="button" onclick="selectVariant(this)">120g</button>
                   <button class="choice-box" type="button" onclick="selectVariant(this)">250g</button>
+                  <button class="choice-box" type="button" disabled>500g</button>
                 </div>
               </div>
               <div>
@@ -2035,7 +2047,7 @@
         <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Button gleitet bei Hover ins Bild · <code>.tile__cart-icon</code>: permanent auf Mobile · beide <code>aria-label="In den Warenkorb"</code></td></tr>
         <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
         <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
-        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> · immer mit „ab"</td></tr>
+        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht)</td></tr>
         <tr><th><code>.tile.--featured</code></th><td>Sonderkachel (Content-Box) — mischbar ins Grid · Details → <a href="#D4">D.4</a></td></tr>
         <tr><th>Container</th><td><code>.tile-grid.--cols-2/3/4</code> — Breakpoints · <a href="#A8">A.8</a></td></tr>
       </table>
@@ -2056,7 +2068,7 @@
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
             <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span><span class="price-stack__unit">(299,00 € / kg)</span></div></div>
           </div>
         </div>
       </div>
@@ -2498,7 +2510,7 @@
     </section>
 
     <section class="sg-section-v2 flow" id="C6">
-      <h2 class="section-label">C.6 — Pagination</h2>
+      <h2 class="section-label">C.6 — Pagination &amp; Breadcrumb</h2>
 
       <div class="rules">
         <div class="rule">
@@ -2513,6 +2525,7 @@
         <tr><th><code>.pagination__page.--current</code></th><td>Aktiv: <code>font-weight: 700</code> + <code>border-color: var(--border-active)</code></td></tr>
         <tr><th><code>.pagination__btn</code></th><td>Prev/Next · gleiche Maße wie <code>.pagination__page</code></td></tr>
         <tr><th><code>.pagination__dots</code></th><td>Ellipsis · <code>color: var(--fg-muted)</code></td></tr>
+        <tr><th><code>.breadcrumb</code></th><td>Pfad-Navigation (Collection/PDP) · <code>.breadcrumb__item</code> mit Link, letzter ohne · <code>--text-xs</code>, <code>--fg-muted</code> · Trenner als Text („/") · Shopify: aus <code>collection</code>/<code>product</code>-Kontext rendern</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.pagination</code></h3>
@@ -2528,6 +2541,18 @@
           <button type="button" class="pagination__btn" aria-label="Nächste Seite"><span class="material-icons">arrow_forward</span></button>
         </nav>
       </div>
+
+      <h3 class="sg-h3 --top"><code>.breadcrumb</code></h3>
+      <div class="sg-demo --white">
+        <nav class="breadcrumb" aria-label="Pfadnavigation">
+          <span class="breadcrumb__item"><a href="#">Start</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item"><a href="#">Beruhigung</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item" aria-current="page">Calmin balance</span>
+        </nav>
+      </div>
+      <p class="sg-caption">Pfad-Navigation für Collection und PDP · letzter Eintrag ohne Link, mit <code>aria-current="page"</code>.</p>
       <p class="sg-caption">Collection, Blog — Seite 3 aktiv.</p>
     </section>
 
@@ -2952,7 +2977,7 @@
         <tr><th><code>.footer-col.--newsletter</code></th><td>Newsletter-Spalte · <code>h3</code> + Text + <code>.footer-nl-form</code> · Container <code>.--on-green</code></td></tr>
         <tr><th><code>.footer-nl-form</code></th><td>Flex-Spalte · <code>.form-field</code> + Primary-Button · Container <code>.--on-green</code></td></tr>
         <tr><th><code>.footer-social</code></th><td>Icon-Zeile ohne Box · Spec → <a href="#B3">B.3</a> · Brand-SVG via <a href="https://simpleicons.org/" target="_blank">Simple Icons</a> (MIT) · Hover: Icon <code>scale(1.15)</code></td></tr>
-        <tr><th><code>.footer-bar</code></th><td>Border-top · Copyright links · Zahlungsarten / Meta rechts · <code>--text-xs</code></td></tr>
+        <tr><th><code>.footer-bar</code></th><td>Border-top · links Copyright + Rechtslinks (Impressum · Datenschutz · AGB · Widerruf — Pflicht, von jeder Seite erreichbar) · Zahlungsarten / Meta rechts · <code>--text-xs</code></td></tr>
         <tr><th><code>.footer-payment</code></th><td>Flex-Zeile in der <code>.footer-bar</code> · <code>gap: calc(var(--base) * 0.5)</code> · SVG-Höhe <code>1.5rem</code>, Breite auto · Shopify: <code>payment_type_svg_tag</code> — Demo zeigt Platzhalter</td></tr>
         <tr><th>Links</th><td><code>color: var(--fg)</code> · Hover <code>--fg-muted</code> · Listenlinks <code>--fg-muted</code> → Hover <code>--fg</code></td></tr>
       </table>
@@ -3007,7 +3032,7 @@
             </div>
           </div>
           <div class="footer-bar">
-            <span>© 2026 inuvet</span>
+            <span>© 2026 inuvet · <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="#">AGB</a> · <a href="#">Widerruf</a></span>
             <div class="footer-payment" aria-label="Zahlungsarten">
               <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
               <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--border)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
@@ -3063,7 +3088,7 @@
             </div>
           </div>
           <div class="footer-bar">
-            <span>© 2026 inuvet</span>
+            <span>© 2026 inuvet · <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="#">AGB</a> · <a href="#">Widerruf</a></span>
             <span>Visa · Mastercard · PayPal · Klarna</span>
           </div>
         </footer>
@@ -4035,10 +4060,20 @@
         <tr><th>3.</th><td><code>inuvet.css</code> — Design-System (Tokens + Komponenten)</td></tr>
         <tr><th>4. <em>(optional)</em></th><td><code>pages/[name].css</code> — Page-spezifische Klassen / Overrides</td></tr>
         <tr><th>nur Mockup</th><td><code>mockup-ui.css</code> — Dev-UI-Chrome (Mockup-Bar, FAB, Mockup-Modal). Niemals in Produktion.</td></tr>
+        <tr><th>Produktion: Fonts (DSGVO)</th><td>Typekit- und Google-Fonts-CDNs sind nur Mockup-Komfort. <strong>Im Theme selbst hosten:</strong> schnebel-sans-me als WOFF2 in <code>assets/</code> (Adobe-Lizenz klären) · Material Icons durch selbst gehostetes Subset oder Inline-SVGs ersetzen (Google-Fonts-CDN ist in DE abmahnfähig, vgl. LG München 3 O 17493/20)</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Bilder im Theme</h3>
+      <table class="spec-table">
+        <tr><th>Responsive</th><td>Immer <code>image_url</code> + <code>srcset</code>/<code>sizes</code> (Shopify: <code>image_tag</code> mit <code>widths</code>) — nie feste Pfade · Breiten-Sets: Tile <code>360, 540, 720</code> · PDP-Hauptbild <code>720, 1080, 1440</code> · Hero <code>1080, 1600, 2200</code></td></tr>
+        <tr><th>Lazy Loading</th><td><code>loading="lazy"</code> für alles unterhalb des Folds · Hero/erstes PDP-Bild: <code>loading="eager"</code> + <code>fetchpriority="high"</code></td></tr>
+        <tr><th>Aspect-Ratios</th><td>Produktbilder 1:1 · Blog/Hero 16:9 (<code>.article__hero</code>, <code>.blog-card__image</code>) · immer <code>width</code>/<code>height</code>-Attribute gegen Layout-Shift (CLS)</td></tr>
+        <tr><th>Fallback</th><td>Produkte ohne Foto: <code>.placeholder-bg</code> — kein Broken-Image, kein externes Platzhalter-Bild</td></tr>
       </table>
 
       <table class="spec-table">
-        <tr><th>Aufbau</th><td>Announcement Bar (<a href="#D1">D.1</a>) → Nav (<a href="#D1">D.1</a>) → Mobile-Menu → <code>&lt;main&gt;</code> → Footer (<a href="#D2">D.2</a>)</td></tr>
+        <tr><th>Aufbau</th><td>Skip-Link → Announcement Bar (<a href="#D1">D.1</a>) → Nav (<a href="#D1">D.1</a>) → Mobile-Menu → <code>&lt;main id="MainContent"&gt;</code> → Footer (<a href="#D2">D.2</a>)</td></tr>
+        <tr><th>Skip-Link (A11y)</th><td><code>&lt;a class="skip-link" href="#MainContent"&gt;Zum Inhalt springen&lt;/a&gt;</code> als erstes Body-Element · sichtbar nur bei Tastatur-Fokus · Screenreader-Labels via <code>.visually-hidden</code></td></tr>
         <tr><th>JS</th><td><code>inuvet.js</code>: nur Basis-Helper (<code>toggleMobile</code>/<code>closeMobile</code> + <code>initMarquees</code>). <code>openSearch</code>/<code>openCart</code> aus <a href="#E7">E.7</a>/<a href="#E4">E.4</a> bzw. Page-JS ergänzen.</td></tr>
       </table>
 
@@ -4090,7 +4125,7 @@
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Video oder Zitat-Foto</td></tr>
         <tr><th><code>.pdp__title</code></th><td><code>--text-xl</code> · bold</td></tr>
-        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code></td></tr>
+        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · Grundpreis als <code>.price-stack__unit</code> · darunter <code>.price-note</code>: „inkl. MwSt., zzgl. Versandkosten · Lieferzeit x–y Werktage" (PAngV/Fernabsatz-Pflicht)</td></tr>
         <tr><th><code>.pdp__variants</code></th><td>Label <code>.pdp__variant-label.label-caps</code> + <code>.pdp__variant-options</code> mit <code>.choice-box</code></td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Menge + Primary-CTA + Wishlist · CTA <code>flex: 1</code></td></tr>
         <tr><th><code>.pdp__recommendations</code></th><td>Border-top · Überschrift + <code>.tile-grid.--cols-4</code></td></tr>
@@ -4107,6 +4142,8 @@
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
         <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
         <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · rendert in <code>.pdp__type-animals</code></td></tr>
+        <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
+        <tr><th>Preis-Hinweiszeile</th><td><code>.price-note</code> unter dem PDP-Preis: MwSt-/Versand-Text via Locale-Key, Versandkosten-Link auf <code>shop.shipping_policy.url</code> · Lieferzeit aus Metafield oder Locale</td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
       </table>
@@ -4143,7 +4180,10 @@
               <span class="text-muted">4.8 (214 Bewertungen)</span>
             </div>
             <p class="pdp__description">Unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Mit Pflanzenextrakten, B-Vitaminen und Magnesium.</p>
-            <div class="pdp__price"><div class="price-stack"><span>29,90 €</span></div></div>
+            <div class="pdp__price">
+              <div class="price-stack"><span>29,90 €</span><span class="price-stack__unit">(299,00 € / kg)</span></div>
+              <p class="price-note">inkl. MwSt., zzgl. <a href="#">Versandkosten</a> · Lieferzeit 2–3 Werktage</p>
+            </div>
             <div class="pdp__variants">
               <div class="pdp__variant-label label-caps">Größe</div>
               <div class="pdp__variant-options">

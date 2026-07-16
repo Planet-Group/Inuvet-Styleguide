@@ -680,3 +680,25 @@ document.addEventListener('DOMContentLoaded', initProductMediaRollover);
 
 // Badge beim Laden initialisieren.
 document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+/* ═══════════════════════════════════════════════════════
+   THEME-EDITOR — Sections re-initialisieren
+   [PORTABEL → Theme]
+   Der Shopify-Customizer rendert Sections bei jeder Einstellung
+   neu (shopify:section:load) — alle DOM-gebundenen Init-Helfer
+   müssen danach erneut laufen, sonst sind Marquee, Slider & Co.
+   im Editor tot. Im Mockup (kein window.Shopify) ist das ein No-op.
+   ═══════════════════════════════════════════════════════ */
+
+function reinitSection() {
+  initMarquees();
+  initScrollAnimations();
+  initArticleToc();
+  initTestimonials();
+  initProductMediaRollover();
+  updateCartBadge();
+}
+
+if (window.Shopify && Shopify.designMode) {
+  document.addEventListener('shopify:section:load', reinitSection);
+}

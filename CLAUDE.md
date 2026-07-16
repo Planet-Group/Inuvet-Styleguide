@@ -109,6 +109,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `toggleAccordion(trigger)` | Akkordeon-Item umschalten |
 | `initScrollAnimations()` | IntersectionObserver für `.--in-view` |
 | `initArticleToc()` | Artikel-Inhaltsverzeichnis: Scrollspy markiert aktiven Abschnitt (`aria-current`) |
+| `reinitSection()` | Theme-Editor: alle Init-Helfer erneut ausführen — hängt an `shopify:section:load` (nur `Shopify.designMode`) |
 | `initSliders()` | Testimonial-Slider (Desktop: prev/next, Mobile: Mehr anzeigen) |
 | `showMoreSlider(btn)` | Mobile: je 3 weitere Slides einblenden |
 | `openCart()` / `closeCart()` | Warenkorb-Drawer |
@@ -314,7 +315,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --free --info --honey --muted --error --count`; `[data-cat]` · Status-Pills: `.--pill` („freigegeben", mit `check`-Icon) / `.--pill.--honey` („Freigabe benötigt") · Icon im Badge global (Größe + Gap eingebaut) |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
-| B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
+| B.4 | Auswahlbox (Demo in B.4) | `.choice-box` | `--sm --block --detail` · `[disabled]`/`--disabled` = ausverkauft (durchgestrichen, muted) · Auswahl: `--border-active` + `--green-light` (kein grüner Border)
 | B.5 | Stand-Alone-Formular | `.form-page` | — |
 | B.6 | Check-List | `.check-list` | — |
 
@@ -324,7 +325,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` |
 | C.2 | Cart Item | `.cart-item` | `.product-thumb` / `.product-thumb-wrap` · `.cart-item__variant` · `.cart-item__counter` · `.cart-item__tier-hint`
 | C.5 | Tabs & Akkordeon | `.tabs .tab-panel .accordion` | — |
-| C.6 | Pagination | `.pagination` | `.--current` |
+| C.6 | Pagination & Breadcrumb | `.pagination` · `.breadcrumb` | `.--current` |
 | C.7 | Notice / Infobox | `.notice` | — |
 | C.8 | Empty / Success | `.empty-state` `.success-state` | — |
 | C.9 | Toast | `.toast` | `--success --error --info --out` |
@@ -361,7 +362,10 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |
-| `.price-stack` | — | Preis + `--old` für Streichpreise |
+| `.price-stack` | — | Preis + `--old` für Streichpreise + `__unit` für den Grundpreis (PAngV — Pflicht überall, wo ein Preis steht) |
+| `.price-note` | — | Hinweiszeile unter PDP-Preis: „inkl. MwSt., zzgl. Versandkosten · Lieferzeit" |
+| `.breadcrumb` | — | Pfad-Navigation (`__item`), Doku in C.6 |
+| `.skip-link` / `.visually-hidden` | — | A11y: erster Fokus-Stopp zu `#MainContent` / Screenreader-only-Text |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
 | `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
 | `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Aktions-Spalte: `.data-table-actions` mit `.order-item__link` |
