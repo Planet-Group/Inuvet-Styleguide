@@ -149,9 +149,9 @@
         <input type="email" id="directEmail" placeholder=" " autocomplete="off" oninput="onDirectFieldChange()">
         <label for="directEmail">E-Mail-Adresse des Tierbesitzers</label>
       </div>
-      <div class="approval-direct-modal__actions">
-        <button class="btn --primary" type="button" id="directSubmitBtn" onclick="submitDirectApproval()" disabled>Produkte freigeben</button>
-      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn --primary" type="button" id="directSubmitBtn" onclick="submitDirectApproval()" disabled>Produkte freigeben</button>
     </div>
   </div>
 </div>
@@ -169,9 +169,9 @@
     </div>
     <div class="modal__body flow">
       <p id="successModalBody">Der Tierbesitzer wird per E-Mail über Ihre Entscheidung informiert.</p>
-      <div class="approval-direct-modal__actions">
-        <button class="btn --primary" type="button" onclick="closeSuccessModal(true)">Verstanden</button>
-      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn --primary" type="button" onclick="closeSuccessModal(true)">Verstanden</button>
     </div>
   </div>
 </div>

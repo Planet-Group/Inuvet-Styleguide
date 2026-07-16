@@ -129,10 +129,6 @@
   margin: 0;
 }
 .approval-direct-modal__consent input { margin-top: 0.1em; }
-.approval-direct-modal__actions {
-  display: flex;
-  justify-content: flex-end;
-}
 .approval-direct-modal .flow > .form-field { margin-bottom: 0; }
 .approval-direct-modal .flow > .form-check { margin-bottom: 0; }
 
