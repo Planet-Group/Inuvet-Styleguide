@@ -75,6 +75,14 @@
               <p class="article__author-role">Technische Dokumentation</p>
             </div>
           </div>
+          <nav class="article-toc" aria-label="Inhalt">
+            <p class="label-caps">Inhalt</p>
+            <a href="#grundidee">Grundidee</a>
+            <a href="#teil-1">Teil 1 — Sicht Tierhalter</a>
+            <a href="#teil-2">Teil 2 — Sicht Tierarztpraxis</a>
+            <a href="#teil-3">Teil 3 — System-E-Mails</a>
+            <a href="#technik">Technische Umsetzung</a>
+          </nav>
           <div class="article__tags">
             <span class="filter-tag">Shopify</span>
             <span class="filter-tag">IT-Spezifikation</span>
@@ -102,7 +110,7 @@
               <li><strong>Teil 3 — System-E-Mails:</strong> vollständige Übersicht aller Nachrichten mit Texten und Auslösern (für die IT)</li>
             </ul>
 
-            <h2>Grundidee</h2>
+            <h2 id="grundidee">Grundidee</h2>
             <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise mit Freigabe eines Tierarztes eingesetzt. Das System ermöglicht es Tierhaltern, eine <strong>Freigabe-Anfrage</strong> zu stellen — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt es frei. Erst nach dieser Freigabe kann der Tierhalter das Produkt kaufen. Umgekehrt kann die Praxis eine Freigabe auch <strong>direkt ausstellen</strong> — etwa im Anschluss an einen Praxisbesuch, ohne dass vorher eine Anfrage gestellt wurde.</p>
             <div class="notice">
               <p><strong>Nur teilnehmende Praxen:</strong> Freigabe-Anfragen können ausschließlich an Praxen gestellt werden, die bereits am Empfehlungsprogramm teilnehmen. Ist die eigene Praxis nicht dabei, führt ein <strong>Karten-Finder</strong> („Praxis in der Nähe finden") zu teilnehmenden Praxen in der Umgebung — oder der Tierhalter lädt seine Praxis per E-Mail zur Teilnahme ein (E-Mail D1 in Teil 3).</p>
@@ -112,7 +120,7 @@
             </div>
 
             <!-- ══════════════ TEIL 1 ══════════════ -->
-            <h2>Teil 1 — Sicht Tierhalter: Produkte anfragen</h2>
+            <h2 id="teil-1">Teil 1 — Sicht Tierhalter: Produkte anfragen</h2>
 
             <h3>Die drei Nutzerzustände</h3>
             <p>Das System unterscheidet drei Zustände, die das gesamte Shop-UI steuern:</p>
@@ -202,7 +210,7 @@
             <p>Freigaben beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform und Größe</strong> (z. B. „Calmin balance Tabletten, 60 Stück"), nie auf Produktfamilien (z. B. „Calmin balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt.</p>
 
             <!-- ══════════════ TEIL 2 ══════════════ -->
-            <h2>Teil 2 — Sicht Tierarztpraxis: Freigaben erteilen</h2>
+            <h2 id="teil-2">Teil 2 — Sicht Tierarztpraxis: Freigaben erteilen</h2>
 
             <p>Teilnehmende Praxen erhalten Zugang zum <strong>Vet-Portal</strong> auf inuvet.com. Die Navigation dort führt unter dem Menüpunkt <strong>„Freigabe"</strong> (mit Live-Zähler offener Anfragen als Badge) zu vier Bereichen:</p>
             <table>
@@ -264,7 +272,7 @@
             <p>Jede erteilte Freigabe erzeugt einen Eintrag in der Historie: Name, Datum, Produkt mit Größe und Menge, Einzelpreis und die <strong>Provision</strong> der Praxis. Die Provision wird pro Einzelprodukt-Position berechnet (siehe Produkt-Modell) und in Summe im Provisions-Portal abgerechnet.</p>
 
             <!-- ══════════════ TEIL 3 ══════════════ -->
-            <h2>Teil 3 — System-E-Mails im Überblick (für die IT)</h2>
+            <h2 id="teil-3">Teil 3 — System-E-Mails im Überblick (für die IT)</h2>
 
             <p>Das System versendet <strong>sechs automatische Nachrichten</strong> (fünf E-Mails + ein interner Queue-Eintrag), dazu kommt eine vom Tierhalter manuell ausgelöste Einladungs-E-Mail. Die Texte unten entsprechen dem Stand des Mockups — Absender-Daten (Praxisname, Ansprechpartnerin) sind Platzhalter, die finalen Formulierungen sind mit dem Marketing abzustimmen. Variablen stehen in <code>[eckigen Klammern]</code>.</p>
 
@@ -383,7 +391,7 @@
             <p><strong>Auslösung:</strong> Kein Systemversand — der Link „Du findest deine Praxis nicht? Dann sende ihr hier eine E-Mail." im Anfrage-Schritt öffnet das Mail-Programm des Nutzers (<code>mailto:</code> mit vorbefülltem Betreff und Text). Empfängeradresse und Absender trägt der Tierhalter selbst ein; der Text ist frei editierbar.</p>
 
             <!-- ══════════════ TEIL 4 ══════════════ -->
-            <h2>Technische Umsetzung — Übersicht</h2>
+            <h2 id="technik">Technische Umsetzung — Übersicht</h2>
 
             <h3>Nutzerzustände im Frontend</h3>
             <p>Das Frontend unterscheidet drei States (<code>guest</code>, <code>no-release</code>, <code>with-release</code>), die das gesamte UI steuern: CTAs, Nav-Elemente, Announcement Bar, Warenkorb-Inhalt und verfügbare Seiten.</p>

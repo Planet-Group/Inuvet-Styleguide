@@ -76,6 +76,39 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 /* ═══════════════════════════════════════════════════════
+   ARTIKEL-INHALTSVERZEICHNIS (.article-toc) — Scrollspy
+   [PORTABEL → Theme]
+   Markiert den Link zum zuletzt passierten Abschnitt mit
+   aria-current="location". Anker = h2-IDs im Artikel.
+   ═══════════════════════════════════════════════════════ */
+
+function initArticleToc() {
+  const toc = document.querySelector('.article-toc');
+  if (!toc) return;
+  const links = [...toc.querySelectorAll('a[href^="#"]')];
+  const targets = links
+    .map(a => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+    .filter(Boolean);
+  if (!targets.length) return;
+
+  const update = () => {
+    // Referenzlinie im oberen Viewport-Viertel — der zuletzt passierte Abschnitt ist aktiv
+    const line = window.scrollY + window.innerHeight * 0.25;
+    let current = targets[0];
+    targets.forEach(t => { if (t.offsetTop <= line) current = t; });
+    links.forEach(a => {
+      if (a.hash === '#' + current.id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  };
+
+  document.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+document.addEventListener('DOMContentLoaded', initArticleToc);
+
+/* ═══════════════════════════════════════════════════════
    TESTIMONIAL GRID (Mobile: erste 3 sichtbar, Rest per Button)
    [PORTABEL → Theme]
    ═══════════════════════════════════════════════════════ */

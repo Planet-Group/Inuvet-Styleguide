@@ -108,6 +108,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `initMarquees()` | Marquee-Animationen |
 | `toggleAccordion(trigger)` | Akkordeon-Item umschalten |
 | `initScrollAnimations()` | IntersectionObserver für `.--in-view` |
+| `initArticleToc()` | Artikel-Inhaltsverzeichnis: Scrollspy markiert aktiven Abschnitt (`aria-current`) |
 | `initSliders()` | Testimonial-Slider (Desktop: prev/next, Mobile: Mehr anzeigen) |
 | `showMoreSlider(btn)` | Mobile: je 3 weitere Slides einblenden |
 | `openCart()` / `closeCart()` | Warenkorb-Drawer |
@@ -349,7 +350,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
 | E.7 | Suche | `.search-overlay .search-panel` |
-| E.8 | Blog & Artikel | `.blog-card` · `.article-layout` · `.rte` |
+| E.8 | Blog & Artikel | `.blog-card` · `.article-layout` · `.article-toc` (Sidebar-Inhaltsverzeichnis, Desktop) · `.rte` |
 | E.9 | Utility-Seiten (Shopify) | Nur Spezifikation — komponiert aus `.empty-state`, `.form-page`, `.cart-item`, `.tile-grid` (kein eigenes CSS) |
 
 #### Globale Helfer
