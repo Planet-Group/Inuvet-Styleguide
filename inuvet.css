@@ -3872,10 +3872,6 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 .pdp__type-selector {
   border-top: 1px solid var(--border);
 }
-/* Kompakt-Hinweis schließt nahtlos an — kein Padding unter der letzten Zeile */
-.pdp__type-selector:has(+ .notice.--compact) .pdp__type-row:last-child {
-  padding-bottom: 0;
-}
 
 .pdp__type-row {
   display: grid;
