@@ -1876,7 +1876,7 @@ function renderProduct() {
           <div class="pdp__type-selector">
             ${formRows}
           </div>
-          <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
+          <div class="notice --compact"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
         </div>`;
     }
 

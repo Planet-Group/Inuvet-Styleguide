@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=104">
+  <link rel="stylesheet" href="inuvet.css?v=106">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -2557,11 +2557,12 @@
 
       <div class="col-grid" data-cols="2">
         <p>Kontextuell eingebetteter Hinweis — kein Overlay. Inline auf PDP, in Formularen oder Checkout.</p>
-        <p>Varianten: einzeilig, Titel + Text, mit CTA, mit Icon, aufklappbar via <code>&lt;details class="notice"&gt;</code>.</p>
+        <p>Varianten: Standard, <code>.--compact</code>, Titel + Text, mit CTA, mit Icon, aufklappbar via <code>&lt;details class="notice"&gt;</code>.</p>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.notice</code></th><td>Hintergrund <code>var(--color-notice-bg)</code> · kein Border · Padding <code>var(--half-module)</code> · Flex-Spalte mit <code>gap</code></td></tr>
+        <tr><th><code>.notice.--compact</code></th><td>Kompakt für Inline-Hinweise (PDP Typ-Selektor) · Padding vertikal wie <code>.pdp__type-row</code> (<code>calc(var(--base) * 0.5)</code>) · Text <code>--text-sm</code> / <code>--lh-h3</code> · einzeilig, Höhe ≈ Tabellenzeile darüber</td></tr>
         <tr><th><code>.notice__title</code></th><td>Optionaler Titel · fett · <code>var(--text-base)</code></td></tr>
         <tr><th><code>.notice__actions</code></th><td>CTA-Zeile · Flex · <code>gap: var(--half-module)</code></td></tr>
         <tr><th><code>.notice__icon</code></th><td>Material Icon · <code>var(--green)</code> · <code>1.25rem</code></td></tr>
@@ -2571,10 +2572,18 @@
       <h3 class="sg-h3 --top"><code>.notice</code></h3>
       <div class="sg-demo --white">
         <div class="notice">
+          <p>Dein Tierarzt hat bereits Produkte für dein Tier freigegeben. Diese sind in deinem persönlichen Angebot hinterlegt.</p>
+        </div>
+      </div>
+      <p class="sg-caption">Standard — Padding <code>--half-module</code>, Body-Typo.</p>
+
+      <h3 class="sg-h3 --top"><code>.notice.--compact</code></h3>
+      <div class="sg-demo --white">
+        <div class="notice --compact">
           <p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
         </div>
       </div>
-      <p class="sg-caption">Einzeilig — kurzer Hinweis.</p>
+      <p class="sg-caption">Kompakt — PDP unter dem Typ-Selektor · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.notice__title</code></h3>
       <div class="sg-demo --white">
@@ -4373,7 +4382,7 @@
       <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo inkl. <code>.pdp__caption</code>-Overlay · Warenkorb-CTA öffnet Drawer → <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Abweichende Inhaltsstoffe → <code>.notice</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
+      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Abweichende Inhaltsstoffe → <code>.notice.--compact</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
       <table class="spec-table">
         <tr><th><code>.pdp__type-selector</code></th><td>Radio-Zeilen in <code>.pdp__variants</code> · keine Header-Zeile</td></tr>
         <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart · gestrichelte Trennlinie</td></tr>
@@ -4441,7 +4450,7 @@
                   <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
                 </label>
               </div>
-              <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
+              <div class="notice --compact"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
             </div>
             <div class="pdp__price">
               <div class="price-stack">
