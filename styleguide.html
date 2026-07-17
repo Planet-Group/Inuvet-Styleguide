@@ -333,7 +333,7 @@
       <h3 class="sg-h3 --top" id="A4-data-table"><code>.rte.--data-table</code> — Daten-Listen</h3>
       <div class="col-grid" data-cols="2">
         <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>inuvet.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
-        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Aktions-Links: <code>.order-item__link</code> (<a href="#E6">E.6</a>) in <code>.data-table-actions</code>.</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Zeilen-Aktionen: <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select.</p>
       </div>
 
       <table class="spec-table">
@@ -341,35 +341,31 @@
         <tr><th><code>table.--normal</code></th><td>Vertikale Dichte wie <code>.rte table</code> (Padding <code>0.4 × --base</code>)</td></tr>
         <tr><th><code>table.--spacious</code></th><td>Mehr vertikale Luft (<code>0.85 × --base</code> oben/unten) — Posteingänge, Portal-Listen</td></tr>
         <tr><th>Mobil (Default)</th><td>Ohne Zusatz-Klasse: <code>--mobile-stack</code> — Felder untereinander, Label-Typo wie <code>th</code></td></tr>
-        <tr><th><code>.--mobile-grid</code></th><td>Am Wrapper · 2×2-Raster (Name/Datum, Produkt/Preis) · letzte Spalte (Aktion) volle Breite</td></tr>
+        <tr><th><code>.--mobile-grid</code></th><td>Am Wrapper · 2×2-Raster (z.&nbsp;B. Name/E-Mail, Datum/Produkt) · letzte Spalte volle Breite</td></tr>
         <tr><th><code>data-label</code></th><td>Pflicht auf jeder Datenzelle · Mobile-Label via <code>::before</code> · gleiche Typo wie Desktop-<code>th</code></td></tr>
+        <tr><th><code>.data-table-stack</code></th><td>Optional gestapelte Zelle (Primär + Meta) · Meta: <code>.data-table-stack__meta</code> in <code>--text-xs</code> / <code>--fg-muted</code></td></tr>
+        <tr><th><code>td.--sm</code></th><td>Kompakte Datenzelle · <code>--text-sm</code> — E-Mail, Datum, Produkt bei Platzknappheit</td></tr>
         <tr><th>Desktop Aktionen</th><td>Letzte Spalte rechtsbündig · <code>.data-table-actions</code> mit <code>justify-content: flex-end</code></td></tr>
+        <tr><th><code>.--sortable</code></th><td>Sortierbare Spalten: <code>th[data-sort]</code> + Button · Mobil: <code>.data-table-sort</code> Select · JS-Helfer in <code>empfehlung-anfragen-mock.js</code></td></tr>
+        <tr><th><code>.--with-select</code></th><td>Checkbox-Spalte <code>.data-table-select</code> · Bulk-Leiste <code>.data-table-bulk</code> darüber · Referenz: Offene Anfragen</td></tr>
       </table>
 
-      <pre class="sg-code"><code>&lt;div class="rte --data-table --mobile-grid"&gt;
+      <pre class="sg-code"><code>&lt;div class="rte --data-table --mobile-grid --sortable"&gt;
+  &lt;div class="data-table-sort"&gt;
+    &lt;label class="visually-hidden" for="tableSort"&gt;Tabelle sortieren&lt;/label&gt;
+    &lt;select id="tableSort" class="data-table-sort__select"&gt;…&lt;/select&gt;
+  &lt;/div&gt;
   &lt;table class="--spacious"&gt;
     &lt;thead&gt;
       &lt;tr&gt;
-        &lt;th scope="col"&gt;Name&lt;/th&gt;
-        &lt;th scope="col"&gt;Datum&lt;/th&gt;
-        &lt;th scope="col"&gt;Produkt&lt;/th&gt;
-        &lt;th scope="col"&gt;Einzelpreis&lt;/th&gt;
+        &lt;th scope="col" data-sort="customerName" aria-sort="none"&gt;
+          &lt;button type="button"&gt;Name &lt;span class="material-icons" aria-hidden="true"&gt;unfold_more&lt;/span&gt;&lt;/button&gt;
+        &lt;/th&gt;
+        …
         &lt;th scope="col"&gt;Aktion&lt;/th&gt;
       &lt;/tr&gt;
     &lt;/thead&gt;
-    &lt;tbody&gt;
-      &lt;tr&gt;
-        &lt;td data-label="Name"&gt;Testkunde XY&lt;/td&gt;
-        &lt;td data-label="Datum"&gt;2026-07-02&lt;/td&gt;
-        &lt;td data-label="Produkt"&gt;Calmin balance Tabletten / 60 Stück&lt;/td&gt;
-        &lt;td data-label="Einzelpreis"&gt;39,90 €&lt;/td&gt;
-        &lt;td&gt;
-          &lt;div class="data-table-actions"&gt;
-            &lt;a href="#" class="order-item__link"&gt;Detailsansicht&lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/td&gt;
-      &lt;/tr&gt;
-    &lt;/tbody&gt;
+    &lt;tbody&gt;…&lt;/tbody&gt;
   &lt;/table&gt;
 &lt;/div&gt;</code></pre>
 
@@ -379,36 +375,36 @@
             <thead>
               <tr>
                 <th scope="col">Name</th>
+                <th scope="col">E-Mail</th>
                 <th scope="col">Datum</th>
                 <th scope="col">Produkt</th>
-                <th scope="col">Einzelpreis</th>
                 <th scope="col">Aktion</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td data-label="Name">Testkunde XY</td>
-                <td data-label="Datum">2026-07-02</td>
-                <td data-label="Produkt">Calmin balance Tabletten / 60 Stück</td>
-                <td data-label="Einzelpreis">39,90 €</td>
+                <td class="--sm" data-label="E-Mail">testkunde.xy@beispiel.de</td>
+                <td class="--sm" data-label="Datum">2026-07-02</td>
+                <td class="--sm" data-label="Produkt">Calmin balance Tabletten / 60 Stück</td>
                 <td>
                   <div class="data-table-actions">
                     <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
                     <span class="data-table-actions__sep" aria-hidden="true">·</span>
-                    <a href="#" class="order-item__link" onclick="return false;">Detailsansicht</a>
+                    <a href="#" class="order-item__link" onclick="return false;">Nicht freigeben</a>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td data-label="Name">Test Customer</td>
-                <td data-label="Datum">2026-06-30</td>
-                <td data-label="Produkt">Hepax forte Tabletten / 30 Stück</td>
-                <td data-label="Einzelpreis">34,90 €</td>
+                <td class="--sm" data-label="E-Mail">test.customer@beispiel.de</td>
+                <td class="--sm" data-label="Datum">2026-06-30</td>
+                <td class="--sm" data-label="Produkt">Hepax forte Tabletten / 30 Stück</td>
                 <td>
                   <div class="data-table-actions">
                     <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
                     <span class="data-table-actions__sep" aria-hidden="true">·</span>
-                    <a href="#" class="order-item__link" onclick="return false;">Detailsansicht</a>
+                    <a href="#" class="order-item__link" onclick="return false;">Nicht freigeben</a>
                   </div>
                 </td>
               </tr>
@@ -416,7 +412,7 @@
           </table>
         </div>
       </div>
-      <p class="sg-caption">Demo: <code>--spacious</code> + <code>--mobile-grid</code> · Desktop: Tabelle · Mobil (≤767px): 2×2-Raster. Ohne <code>--mobile-grid</code> stapeln sich alle Felder untereinander.</p>
+      <p class="sg-caption">Demo: <code>--spacious</code> + <code>--mobile-grid</code> · E-Mail/Datum/Produkt in <code>td.--sm</code> · Mobil (≤767px): 2×2-Raster.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="A5">
@@ -2727,6 +2723,14 @@
           <p>Overlay (60&nbsp;% Schwarz) zentriert die Box · max. <code>32rem</code> · Header fix, Body scrollbar · Schließen via X, Overlay-Klick oder Escape. <strong>Aktions-Buttons gehören nach unten links in <code>.modal__footer</code></strong> — nie rechtsbündig in den Body. Ausnahme: Formular-Kombis wie <code>.actionable-input</code> bleiben im Body.</p>
         </div>
         <div class="rule">
+          <h4>Keine internen Trennlinien</h4>
+          <p>Header, Body und Footer werden <strong>nur durch Whitespace</strong> gegliedert — keine <code>border-top</code>/<code>border-bottom</code> zwischen den Abschnitten. Linien würden Platz fressen und die Linien-Regel aus <a href="#A5">A.5</a> verletzen (Linien ersetzen nie Abstand). Äußerer Rahmen der Box bleibt (<code>border: 1px solid var(--border)</code>).</p>
+        </div>
+        <div class="rule">
+          <h4>Danger-Variante</h4>
+          <p>Für Ablehnen / destruktive Bestätigung: <code>.modal.--danger</code>. Tone-on-Tone mit <code>--color-error-light</code> und Rahmen/Titel in <code>--color-error</code>. Primary- und Secondary-Buttons folgen der Error-Farbe. Standard-Modal bleibt für neutrale oder positive Aktionen.</p>
+        </div>
+        <div class="rule">
           <h4>Shop-Modal</h4>
           <p>Kompakter Bestätigungs-Dialog · <code>min(24rem, 100%)</code> · zentriertes Icon, Titel, Text, gestapelte Actions.</p>
         </div>
@@ -2735,16 +2739,20 @@
       <h3 class="sg-h3 --top"><code>.modal</code></h3>
       <table class="spec-table">
         <tr><th><code>.modal-overlay</code></th><td>Backdrop · <code>z-index: var(--z-modal)</code> · Toggle <code>.--open</code></td></tr>
-        <tr><th><code>.modal</code></th><td>Box · <code>max-width: 32rem</code> · Slide-up bei Open</td></tr>
-        <tr><th><code>.modal__header</code></th><td>Titel + Close-Button · <code>border-bottom</code></td></tr>
-        <tr><th><code>.modal__body</code></th><td>Padding <code>var(--module)</code> · <code>overflow-y: auto</code> · bei Fließtext + Formular <code>.flow</code></td></tr>
-        <tr><th><code>.modal__footer</code></th><td>Aktions-Leiste unten · Flex + <code>gap: var(--half-module)</code> · <code>border-top</code> · optional (z.&nbsp;B. Zurück-Button, Sekundär-Aktionen) — Referenz: Produktfinder (Tierarzt-Empfehlung)</td></tr>
+        <tr><th><code>.modal</code></th><td>Box · <code>max-width: 32rem</code> · äußerer Rahmen · Slide-up bei Open</td></tr>
+        <tr><th><code>.modal.--danger</code></th><td>Ablehnen / destruktiv · BG <code>--color-error-light</code> · Border + Titel <code>--color-error</code> · Primary/Secondary in Error-Farbe · Formularfelder auf <code>--bg</code></td></tr>
+        <tr><th><code>.modal__header</code></th><td>Titel + Close-Button · Padding <code>var(--module) var(--module) 0</code> · <strong>keine</strong> Trennlinie</td></tr>
+        <tr><th><code>.modal__body</code></th><td>Padding <code>var(--half-module) var(--module)</code> · <code>overflow-y: auto</code> · bei Fließtext + Formular <code>.flow</code></td></tr>
+        <tr><th><code>.modal__footer</code></th><td>Aktions-Leiste · Flex + <code>gap: var(--half-module)</code> · Padding <code>0 var(--module) var(--module)</code> · <strong>keine</strong> Trennlinie · optional (z.&nbsp;B. Abbrechen + Primary)</td></tr>
         <tr><th><code>openModal(id)</code></th><td>Öffnet Overlay · setzt <code>body overflow: hidden</code></td></tr>
       </table>
       <div class="sg-demo">
-        <button type="button" class="btn --secondary" onclick="openModal('demoModal')">Beispiel-Modal öffnen</button>
+        <div class="sg-btn-row --sm">
+          <button type="button" class="btn --secondary" onclick="openModal('demoModal')">Standard-Modal</button>
+          <button type="button" class="btn --secondary" onclick="openModal('demoDangerModal')">Danger-Modal</button>
+        </div>
       </div>
-      <p class="sg-caption">Formular- oder Info-Dialog mit Header und scrollbarem Inhalt.</p>
+      <p class="sg-caption">Standard für neutrale/positive Dialoge · <code>.--danger</code> für Ablehnen o.&nbsp;Ä. — Referenz: Offene Anfragen „Nicht freigeben“.</p>
 
       <h3 class="sg-h3 --top"><code>.shop-modal</code></h3>
       <table class="spec-table">
@@ -5548,6 +5556,26 @@
         <div class="form-field"><input type="email" id="modal-email" placeholder=" "><label for="modal-email">E-Mail-Adresse</label></div>
         <button class="btn --primary" type="submit">Anmelden</button>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="demoDangerModal" onclick="closeModal('demoDangerModal')">
+  <div class="modal --danger" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <h2 class="modal__title">Nicht freigeben</h2>
+      <button type="button" class="btn --icon" onclick="closeModal('demoDangerModal')" aria-label="Schließen"><span class="material-icons">close</span></button>
+    </div>
+    <div class="modal__body flow">
+      <p>„Calmin balance Tabletten / 60 Stück“ für Sabine Sommer nicht freigeben.</p>
+      <div class="form-field">
+        <textarea id="demo-danger-note" rows="3" placeholder=" "></textarea>
+        <label for="demo-danger-note">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button type="button" class="btn --secondary" onclick="closeModal('demoDangerModal')">Abbrechen</button>
+      <button type="button" class="btn --primary" onclick="closeModal('demoDangerModal')">Nicht freigeben</button>
     </div>
   </div>
 </div>

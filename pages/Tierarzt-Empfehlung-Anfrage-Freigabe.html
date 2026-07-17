@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inuvet – Tierarzt-Empfehlung – Freigabe-Anfrage</title>
+  <title>Inuvet – Tierarzt-Empfehlung – Freigabe ausstellen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css">
@@ -11,19 +11,6 @@
   <link rel="stylesheet" href="tierarzt-empfehlung-anfrage-freigabe.css">
 </head>
 <body class="--ann-scroll">
-
-<!-- ════════════════════════════════════════
-     MOCKUP-STEUERLEISTE
-     ════════════════════════════════════════ -->
-<div class="mockup-bar --hidden" id="mockupBar">
-  <div class="mockup-bar__group">
-    <span class="mockup-bar__group-label">Zustand:</span>
-    <button class="mockup-btn --active" data-mode="direct"  onclick="setApprovalMode('direct', this)">① Standard</button>
-    <button class="mockup-btn"          data-mode="request" onclick="setApprovalMode('request', this)">② via Anfrage-Link in der E-Mail</button>
-  </div>
-  <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
-</div>
-<button class="mockup-revive --visible" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
 <!-- ════════════════════════════════════════
      Announcement Bar + Standard-Navigation (inuvet.css)
@@ -97,22 +84,52 @@
      ════════════════════════════════════════ -->
 <main class="container approval-page" id="approvalMain">
 
-  <!-- Intro: 2-spaltig auf Desktop — Inhalt je Zustand durch JS (renderIntro) -->
+  <!-- Intro — Titel durch JS (renderIntro) -->
   <header class="col-grid --early-2 page-header" data-cols="2" id="approvalIntro"></header>
 
-  <!-- Produkt-Grid — datengetrieben durch tierarzt-empfehlung-anfrage-freigabe.js -->
-  <div class="col-grid --spaced" data-cols="3" id="approvalGrid"></div>
-
-  <!-- Allgemeine Notiz — einmalig nach allen Produkten -->
-  <div class="approval-note-section">
-    <div class="form-field">
-      <textarea id="approvalNote" rows="3" placeholder=" "></textarea>
-      <label for="approvalNote">Notiz an Tierbesitzer (optional)</label>
+  <!-- Schritt-Navigation (Tabs-Pattern) -->
+  <div class="tabs" id="approvalSteps">
+    <div class="tab-nav" role="tablist" aria-label="Ablauf Freigabe ausstellen">
+      <button class="tab-btn --active" type="button" role="tab" id="approvalTab1" data-step="1" aria-selected="true" aria-controls="approvalStepRecipient" onclick="goToApprovalStep(1)">Tierbesitzer-Daten</button>
+      <button class="tab-btn" type="button" role="tab" id="approvalTab2" data-step="2" aria-selected="false" aria-controls="approvalStepProducts" onclick="goToApprovalStep(2)">Produkte auswählen</button>
     </div>
   </div>
 
-  <!-- Fixierte Submit-Leiste: Vertrauen · Counter + Auswahl absenden/Weiter -->
-  <div class="approval-submit-bar" id="approvalSubmitBar">
+  <!-- Schritt 1: E-Mail + Consent -->
+  <section class="approval-recipient" id="approvalStepRecipient" role="tabpanel" aria-labelledby="approvalTab1">
+    <div class="approval-recipient__form flow">
+      <p class="approval-recipient__lead">An wen soll die Freigabe ausgestellt werden?</p>
+      <div class="form-field" id="directEmailField">
+        <input type="email" id="directEmail" placeholder=" " autocomplete="off" oninput="onRecipientFieldChange()">
+        <label for="directEmail">E-Mail-Adresse des Tierbesitzers</label>
+      </div>
+      <label class="form-check approval-recipient__consent">
+        <input type="checkbox" id="directConsent" onchange="onRecipientFieldChange()">
+        <span>Ich bestätige, dass der*die Tierbesitzer*in mit der Weitergabe der E-Mail-Adresse an die Inuvet GmbH und verbundene Unternehmen einverstanden ist und dass er auf den werblichen Charakter der Tierarzt-Empfehlung (bezahlte Werbepartnerschaft) hingewiesen wurde.</span>
+      </label>
+      <button class="btn --secondary" type="button" id="continueToProductsBtn" onclick="continueToProducts()" disabled>Weiter</button>
+    </div>
+  </section>
+
+  <!-- Schritt 2: Produkte wählen -->
+  <section id="approvalStepProducts" role="tabpanel" aria-labelledby="approvalTab2" hidden>
+    <p class="approval-recipient-summary">
+      Freigabe für <strong id="recipientEmailDisplay"></strong>
+      <button type="button" class="order-item__link" onclick="backToRecipient()">ändern</button>
+    </p>
+
+    <div class="col-grid --spaced" data-cols="3" id="approvalGrid"></div>
+
+    <div class="approval-note-section">
+      <div class="form-field">
+        <textarea id="approvalNote" rows="3" placeholder=" "></textarea>
+        <label for="approvalNote">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fixierte Submit-Leiste (nur Schritt 2) -->
+  <div class="approval-submit-bar" id="approvalSubmitBar" hidden>
     <div class="approval-submit-bar__inner">
       <div class="approval-submit-bar__compact">
         <label class="form-check approval-submit-bar__trust">
@@ -121,40 +138,13 @@
         </label>
         <div class="approval-submit-bar__action">
           <p class="approval-counter" id="approvalCounter">Noch keine Entscheidung getroffen</p>
-          <button class="btn --primary" id="submitApprovalBtn" type="button" onclick="handlePrimaryAction()" disabled>Auswahl absenden</button>
+          <button class="btn --primary" id="submitApprovalBtn" type="button" onclick="handlePrimaryAction()" disabled>Produkte freigeben</button>
         </div>
       </div>
     </div>
   </div>
 
 </main>
-
-<!-- ════════════════════════════════════════
-     Direkt-Modus Schritt 2: Tierbesitzer-Daten
-     ════════════════════════════════════════ -->
-<div class="modal-overlay" id="directModalOverlay" onclick="closeDirectModal()">
-  <div class="modal approval-direct-modal" onclick="event.stopPropagation()">
-    <div class="modal__header">
-      <h2 class="modal__title">Freigabe ausstellen</h2>
-      <button type="button" class="btn --icon" onclick="closeDirectModal()" aria-label="Schließen">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-    <div class="modal__body flow">
-      <label class="form-check approval-direct-modal__consent">
-        <input type="checkbox" id="directConsent" onchange="onDirectFieldChange()">
-        <span>Ich bestätige, dass der*die Tierbesitzer*in mit der Weitergabe der E-Mail-Adresse an die Inuvet GmbH und verbundene Unternehmen einverstanden ist und dass er auf den werblichen Charakter der Tierarzt-Empfehlung (bezahlte Werbepartnerschaft) hingewiesen wurde.</span>
-      </label>
-      <div class="form-field" id="directEmailField">
-        <input type="email" id="directEmail" placeholder=" " autocomplete="off" oninput="onDirectFieldChange()">
-        <label for="directEmail">E-Mail-Adresse des Tierbesitzers</label>
-      </div>
-    </div>
-    <div class="modal__footer">
-      <button class="btn --primary" type="button" id="directSubmitBtn" onclick="submitDirectApproval()" disabled>Produkte freigeben</button>
-    </div>
-  </div>
-</div>
 
 <!-- ════════════════════════════════════════
      Erfolgs-Modal
@@ -192,6 +182,6 @@
 
 <script src="../inuvet.js"></script>
 <script src="empfehlung-anfragen-mock.js"></script>
-<script src="tierarzt-empfehlung-anfrage-freigabe.js?v=3"></script>
+<script src="tierarzt-empfehlung-anfrage-freigabe.js?v=9"></script>
 </body>
 </html>

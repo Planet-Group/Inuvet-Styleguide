@@ -83,15 +83,40 @@
     </h1>
   </header>
 
-  <div class="rte --data-table --mobile-grid" id="redeemedTableWrap">
+  <div class="rte --data-table --mobile-grid --sortable" id="redeemedTableWrap">
+    <div class="data-table-sort">
+      <label class="visually-hidden" for="redeemedSort">Tabelle sortieren</label>
+      <select id="redeemedSort" class="data-table-sort__select">
+        <option value="customerName:asc">Name A–Z</option>
+        <option value="customerName:desc">Name Z–A</option>
+        <option value="customerEmail:asc">E-Mail A–Z</option>
+        <option value="customerEmail:desc">E-Mail Z–A</option>
+        <option value="date:asc">Datum aufsteigend</option>
+        <option value="date:desc" selected>Datum absteigend</option>
+        <option value="productLabel:asc">Produkt A–Z</option>
+        <option value="productLabel:desc">Produkt Z–A</option>
+        <option value="commission:asc">Provision aufsteigend</option>
+        <option value="commission:desc">Provision absteigend</option>
+      </select>
+    </div>
     <table class="--spacious">
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Datum</th>
-          <th scope="col">Produkt</th>
-          <th scope="col">Einzelpreis</th>
-          <th scope="col">Provision</th>
+          <th scope="col" data-sort="customerName" aria-sort="none">
+            <button type="button">Name <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="customerEmail" aria-sort="none">
+            <button type="button">E-Mail <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="date" aria-sort="descending">
+            <button type="button">Datum <span class="material-icons" aria-hidden="true">arrow_downward</span></button>
+          </th>
+          <th scope="col" data-sort="productLabel" aria-sort="none">
+            <button type="button">Produkt <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="commission" aria-sort="none">
+            <button type="button">Provision <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
         </tr>
       </thead>
       <tbody id="redeemedBody"></tbody>
