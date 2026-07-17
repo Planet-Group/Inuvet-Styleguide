@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=102">
+  <link rel="stylesheet" href="inuvet.css?v=104">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -4139,6 +4139,7 @@
         <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
         <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> unter dem PDP-Kaufblock (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
         <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> nach „Inhaltsstoffe im Detail“ — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
+        <tr><th>FAQ</th><td><code>.pdp__faq.--on-green</code> nach Benefits — H2 „Häufige Fragen“ + <code>.accordion.--cols-2</code> · sichtbar im DOM + <code>FAQPage</code> JSON-LD · Spec → <a href="#pdp-faq">unten</a></td></tr>
         <tr><th><code>.pdp__recommendations</code></th><td>Border-top · Überschrift + <code>.tile-grid.--cols-4</code></td></tr>
         <tr><th>Testimonials</th><td><code>.pdp__testimonials</code> vor den Produktvorschlägen — 4 Brand-Zitate von Tierärzt*innen · <code>.testimonial-grid.--cols-4</code> · Content-Regeln → <a href="#pdp-testimonials">unten</a></td></tr>
         <tr><th>Praxis-Vorteile</th><td><code>.pdp__praxis</code> als letzte Rubrik — <code>.tile-grid.--cols-3</code> mit großen Lotties (<code>.tile__animation</code>) · wie Shop „Nur bei euch“ · Spec → <a href="#pdp-praxis">unten</a></td></tr>
@@ -4161,6 +4162,7 @@
         <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code> aus <code>product.description</code>-Anfang oder Metafield (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste) — pro Produkt pflegbar</td></tr>
         <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
+        <tr><th>FAQ</th><td>Product Metafield <code>custom.faq</code> (Liste Frage/Antwort oder Metaobject-Refs) · Theme rendert <code>.pdp__faq</code> + <code>&lt;script type="application/ld+json"&gt;</code> <code>FAQPage</code> · Spec → <a href="#pdp-faq">FAQ</a></td></tr>
         <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Nächste Gratis-Stufe abhängig von Menge &amp; Variante · Progress-Bar + Hint · Text via <code>formatHint()</code>/<code>nextHintFor()</code> (<code>inuvet.js</code>) · Staffel produktiv aus Cart Transform / Shopify Function (→ <a href="#shopify-cart">E.4</a>) · bei Mengen-/Variantenwechsel neu berechnen</td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Zielgruppen optional als eigene Items · Analytik als <code>.rte.--data-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
         <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
@@ -4652,6 +4654,49 @@
         </div>
       </div>
       <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Referenz → <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-faq">FAQ</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Produktbezogene Fragen <strong>nach</strong> der Benefit-Leiste — Akkordeon auf <code>--green-light</code> (wie C.5 „typisch PDP/FAQ“). Fragen und Antworten stehen <strong>sichtbar im DOM</strong> (nicht nur hinter JS); zusätzlich <code>FAQPage</code>-JSON-LD für Rich Results.</p>
+        <p>Kein Wirkversprechen: Dosierung, Darreichungsform, Bestellweg Praxis, Lagerung, Deklarations-Hinweise — analog Testimonials/Heilmittelwerberecht. Getrennt vom Produkt-Akkordeon (Deklaration).</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.pdp__faq</code></th><td>Wrapper nach <code>.pdp__benefits</code> · <code>margin-top: var(--module-2xl)</code> · Padding <code>var(--module)</code> · Hintergrund <code>--green-light</code> · Modifier <code>.--on-green</code></td></tr>
+        <tr><th>Überschrift</th><td><code>h2</code> „Häufige Fragen“ · <code>--text-m</code> bold · Abstand zum Akkordeon <code>var(--module)</code></td></tr>
+        <tr><th>Akkordeon</th><td>Desktop <code>.accordion.--cols-2</code> mit <code>.accordion__col</code> (gerade/ungerade, wie Produkt-Akkordeon) · Mobile 1 Spalte via <code>display: contents</code> + <code>order</code> · Trigger = Frage, Content = Antwort-Absatz · Atom → <a href="#C5">C.5</a></td></tr>
+        <tr><th>Anzahl</th><td>4–8 Einträge · produktbezogen; shop-weite Fragen (Versand generell) nur wenn sie zur PDP passen</td></tr>
+        <tr><th>JSON-LD</th><td><code>@type: FAQPage</code> · <code>mainEntity</code> = Questions mit <code>acceptedAnswer</code> · Klartext ohne HTML · Theme: Script im Section-Liquid · Mockup: <code>injectFaqJsonLd()</code> in <code>&lt;head&gt;</code></td></tr>
+        <tr><th>Shopify</th><td>Metafield <code>custom.faq</code>: Liste aus Metaobjects (<code>question</code> / <code>answer</code>) oder JSON-Liste · Theme: sichtbares Akkordeon + JSON-LD aus denselben Feldern · Mockup: <code>faq[]</code> in <code>inuvet.js</code> (Hepax)</td></tr>
+        <tr><th>Nicht tun</th><td>Kein FAQ-only hinter Tab/Lazy-Load · keine therapeutischen Heilversprechen · nicht mit Deklarations-Akkordeon vermischen</td></tr>
+      </table>
+      <div class="sg-demo --green">
+        <section class="pdp__faq --on-green" style="margin-top:0;padding:0;background:transparent" aria-labelledby="sgFaqHeading">
+          <h2 id="sgFaqHeading" style="font-size:var(--text-m);font-weight:700;margin:0 0 var(--module)">Häufige Fragen</h2>
+          <div class="accordion --cols-2">
+            <div class="accordion__col">
+              <div class="accordion-item" style="order:0">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Für welche Tiere ist Hepax forte geeignet?<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte ist für Hund und Katze vorgesehen. Dosierung nach Körpergewicht gemäß Fütterungsempfehlung bzw. Packung.</p></div></div>
+              </div>
+              <div class="accordion-item" style="order:2">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Wie bestelle ich als Tierarztpraxis?<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Als Praxis bestellen Sie im Partner-Shop — Lieferung in der Regel innerhalb von 2–3 Werktagen, Versandkostenfrei ab 49&nbsp;€.</p></div></div>
+              </div>
+            </div>
+            <div class="accordion__col">
+              <div class="accordion-item" style="order:1">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Worin unterscheiden sich Tabletten und Pulver?<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Beide Formen gehören zur Produktfamilie. Tabletten eignen sich für Hunde; das Pulver für Katze und Hund und lässt sich unter das Futter mischen.</p></div></div>
+              </div>
+              <div class="accordion-item" style="order:3">
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Enthält Hepax forte Getreide oder Soja?<span class="accordion-icon material-icons">expand_more</span></button>
+                <div class="accordion-content"><div class="accordion-content__inner"><p>Nein. Hepax forte ist frei von Getreide und Soja. Genaues steht in der Deklaration auf der Produktseite bzw. Packung.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Akkordeon-Atom → <a href="#C5">C.5</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-social-proof">Social Proof</h3>
       <div class="col-grid" data-cols="2">
@@ -5697,7 +5742,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=11"></script>
+<script src="inuvet.js?v=12"></script>
 <script src="sg.js?v=4"></script>
 </body>
 </html>

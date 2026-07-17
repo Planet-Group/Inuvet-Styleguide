@@ -2890,6 +2890,18 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__wishlist .material-icons { font-size: calc(var(--base) * 1.25); transition: color var(--anim-fast); }
   /* Benefit-Leiste nach Inhaltsstoffe im Detail — komponiert aus .tile-grid.--cols-4 (D.4 Variante A + Lottie) */
   .pdp__benefits { margin-top: var(--module); }
+  /* FAQ nach Benefits — SEO-Fragen (sichtbar + FAQPage JSON-LD); Fläche --green-light (C.5) */
+  .pdp__faq {
+    margin-top: var(--module-2xl);
+    padding: var(--module);
+    background: var(--green-light);
+  }
+  .pdp__faq > h2 {
+    font-size: var(--text-m);
+    font-weight: 700;
+    line-height: var(--lh-h3);
+    margin: 0 0 var(--module);
+  }
   .pdp__recommendations { margin-top: var(--module-2xl); padding-top: var(--module); border-top: 1px solid var(--border); }
   .pdp__recommendations > h3 { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin-bottom: var(--module); }
   /* Brand-Testimonials von Tierärzt*innen (nicht produktbezogen) — vor Produktvorschlägen */

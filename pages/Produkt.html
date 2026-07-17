@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=46">
+  <link rel="stylesheet" href="../inuvet.css?v=48">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -80,7 +80,7 @@
 
   <main class="container" id="pdpPage">
     <div id="pdpMount"><!-- Kaufblock — bei Variante/Menge neu gerendert --></div>
-    <div id="pdpBelow"><!-- Inhaltsstoffe, Benefits, Recommendations — einmalig --></div>
+    <div id="pdpBelow"><!-- Akkordeon, Inhaltsstoffe, Benefits, FAQ, Testimonials, Recommendations, Praxis — einmalig --></div>
   </main>
   <!-- Sticky ATC (Mobile) — Shopify: Section-Setting sticky_atc → Klasse pdp--sticky-cta -->
   <div class="pdp__sticky-cta" id="pdpStickyCta" aria-hidden="true">
@@ -93,7 +93,7 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=11"></script>
+  <script src="../inuvet.js?v=12"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -369,6 +369,55 @@
         </div>`;
     };
 
+    // FAQ — SEO-Content (sichtbar im DOM); JSON-LD separat via injectFaqJsonLd (innerHTML verwirft <script>).
+    const faqStripText = (html) => String(html)
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/&amp;/gi, '&')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const faqHTML = () => {
+      const items = pdpProduct().faq || [];
+      if (!items.length) return '';
+      /* Wie Produkt-Akkordeon: zwei Spalten (gerade/ungerade), Mobile via order */
+      const accordionItems = items.map(({ q, a }, i) => `
+          <div class="accordion-item" style="order:${i}">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">${q}<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>${a}</p></div></div>
+          </div>`);
+      const left = accordionItems.filter((_, i) => i % 2 === 0).join('');
+      const right = accordionItems.filter((_, i) => i % 2 === 1).join('');
+      return `
+        <section class="pdp__faq --on-green" aria-labelledby="pdpFaqHeading">
+          <h2 id="pdpFaqHeading">Häufige Fragen</h2>
+          <div class="accordion --cols-2">
+            <div class="accordion__col">${left}</div>
+            <div class="accordion__col">${right}</div>
+          </div>
+        </section>`;
+    };
+
+    const injectFaqJsonLd = () => {
+      const items = pdpProduct().faq || [];
+      document.getElementById('pdpFaqJsonLd')?.remove();
+      if (!items.length) return;
+      const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: items.map(({ q, a }) => ({
+          '@type': 'Question',
+          name: faqStripText(q),
+          acceptedAnswer: { '@type': 'Answer', text: faqStripText(a) },
+        })),
+      };
+      const el = document.createElement('script');
+      el.type = 'application/ld+json';
+      el.id = 'pdpFaqJsonLd';
+      el.textContent = JSON.stringify(jsonLd);
+      document.head.appendChild(el);
+    };
+
     // Praxis-Vorteile — wie Inuvet-Shop.html #shopPraxisVorteile (letzte Rubrik).
     const praxisHTML = () => `
       <div class="pdp__praxis">
@@ -454,7 +503,7 @@
         </div>`;
     };
 
-    const pdpBelowHTML = () => `${accordionHTML()}${ingredientsDetailHTML()}${benefitsHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
+    const pdpBelowHTML = () => `${accordionHTML()}${ingredientsDetailHTML()}${benefitsHTML()}${faqHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
 
     const pdpHTML = () => {
       const p     = pdpProduct();
@@ -587,6 +636,7 @@
       initPdpStickyCta();
       if (!pdpState.belowRendered) {
         document.getElementById('pdpBelow').innerHTML = pdpBelowHTML();
+        injectFaqJsonLd();
         pdpState.belowRendered = true;
         initScrollAnimations();
         initTestimonials();

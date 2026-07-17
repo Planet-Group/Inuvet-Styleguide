@@ -449,6 +449,33 @@ const allProducts = [
       'Hohe Akzeptanz — auch bei wählerischen Tieren',
       'Von über 20.000 Tierärzten empfohlen',
     ],
+    /* PDP-FAQ → produktiv: Metafield list / Metaobject; JSON-LD FAQPage mitrendern */
+    faq: [
+      {
+        q: 'Für welche Tiere ist Hepax forte geeignet?',
+        a: 'Hepax forte ist für Hund und Katze vorgesehen. Die passende Darreichungsform und Dosierung richten sich nach Tierart und Körpergewicht — Angaben finden Sie in der Fütterungsempfehlung bzw. auf der Packung.',
+      },
+      {
+        q: 'Worin unterscheiden sich Tabletten und Pulver?',
+        a: 'Beide Formen gehören zur Produktfamilie Hepax forte. Tabletten eignen sich für Hunde; das Pulver (auch für Allergiker geeignet) für Katze und Hund und lässt sich einfach unter das Futter mischen. Inhaltsstoffe können je nach Produkttyp abweichen — bitte die jeweilige Packungsbeilage beachten.',
+      },
+      {
+        q: 'Wie wird Hepax forte dosiert?',
+        a: 'Orientierung: Hund 1 Tablette je 10&nbsp;kg Körpergewicht täglich; Katze ½–1 Tablette täglich bzw. Pulver gemäß Packungsangabe unter das Futter mischen. Bei Unsicherheit die behandelnde Tierarztpraxis ansprechen.',
+      },
+      {
+        q: 'Wie bestelle ich als Tierarztpraxis?',
+        a: 'Inuvet-Produkte sind ausschließlich über die Tierarztpraxis erhältlich. Als Praxis bestellen Sie im Partner-Shop — Lieferung in der Regel innerhalb von 2–3 Werktagen, Versandkostenfrei ab 49&nbsp;€.',
+      },
+      {
+        q: 'Enthält Hepax forte Getreide oder Soja?',
+        a: 'Nein. Hepax forte ist frei von Getreide und Soja. Die genaue Deklaration entnehmen Sie bitte den Angaben zu Zusammensetzung und Zusatzstoffen auf der Produktseite bzw. Packung.',
+      },
+      {
+        q: 'Wie lagere ich das Produkt nach dem Öffnen?',
+        a: 'Mindesthaltbarkeit siehe Aufdruck auf der Packung. Nach Anbruch trocken, verschlossen und vor direkter Sonneneinstrahlung geschützt lagern. Außerhalb der Reichweite von Kindern aufbewahren.',
+      },
+    ],
     contentHalter: 'Die Leber Ihres Tieres leistet täglich Schwerstarbeit — Medikamente, Futterumstellungen oder das Alter können sie zusätzlich belasten. Hepax forte unterstützt Leber und Stoffwechsel mit pflanzlichen Wirkstoffen. Tabletten oder Pulver geben Sie einfach täglich über das Futter.',
     contentPraxis: 'Hepax forte kombiniert hepatoprotektive Phytostoffe (u.&nbsp;a. Silymarin aus der Mariendistel und Artischockenextrakt) zur Unterstützung der Hepatozyten-Regeneration und des Gallenflusses. Indiziert zur adjuvanten Anwendung bei eingeschränkter Leberfunktion; Dosierung nach Körpergewicht, Angaben zu Wirkstoffgehalt und Studienlage auf Anfrage.',
     ingredients: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
