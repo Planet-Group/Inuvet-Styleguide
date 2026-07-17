@@ -1,16 +1,6 @@
 /* inuvet-Shop.css — seitenspezifische Overrides */
 
-/* Praxis-Vorteile — Lottie braucht aspect-ratio (width:100% allein → 0px Höhe) */
-#shopPraxisVorteile .tile__animation {
-  width: 100%;
-}
-#shopPraxisVorteile .tile__animation lottie-player {
-  width: 100%;
-  display: block;
-}
-#shopPraxisVorteile .tile__animation.--ratio-1 lottie-player { aspect-ratio: 1080 / 1080; }
-#shopPraxisVorteile .tile__animation.--ratio-weltweit lottie-player { aspect-ratio: 1080 / 1080; }
-#shopPraxisVorteile .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 907 / 833; }
+/* Praxis-Vorteile: .tile__animation + Ratio-Modifier liegen in inuvet.css (PDP + Shop). */
 
 /* Contact-FR Pop-up — Layout-Ergänzungen (Rhythmus via .flow, Trenner via .option-divider) */
 .shop-modal.--wide {

@@ -1868,16 +1868,12 @@ function renderProduct() {
         return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
           <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
           <span class="pdp__type-label">${f.label}${f.note ? ` (${f.note})` : ''}${badge}</span>
-          <span class="pdp__type-animals">${f.animals || ''}</span>
+          <span class="pdp__type-animals">${f.animals ? `für ${f.animals}` : ''}</span>
         </label>`;
       }).join('');
       typeSection = `
         <div class="pdp__variants">
           <div class="pdp__type-selector">
-            <div class="pdp__type-selector-header">
-              <span>Darreichungsform</span>
-              <span>Geeignet für</span>
-            </div>
             ${formRows}
           </div>
           <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>

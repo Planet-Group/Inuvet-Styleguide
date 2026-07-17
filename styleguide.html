@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=73">
+  <link rel="stylesheet" href="inuvet.css?v=101">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -2068,7 +2068,7 @@
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
             <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
-            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span><span class="price-stack__unit">(299,00 € / kg)</span></div></div>
+            <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span><span class="price-stack__unit">(0,30 € / g)</span></div></div>
           </div>
         </div>
       </div>
@@ -2525,7 +2525,7 @@
         <tr><th><code>.pagination__page.--current</code></th><td>Aktiv: <code>font-weight: 700</code> + <code>border-color: var(--border-active)</code></td></tr>
         <tr><th><code>.pagination__btn</code></th><td>Prev/Next · gleiche Maße wie <code>.pagination__page</code></td></tr>
         <tr><th><code>.pagination__dots</code></th><td>Ellipsis · <code>color: var(--fg-muted)</code></td></tr>
-        <tr><th><code>.breadcrumb</code></th><td>Pfad-Navigation (Collection/PDP) · <code>.breadcrumb__item</code> mit Link, letzter ohne · <code>--text-xs</code>, <code>--fg-muted</code> · Trenner als Text („/") · Shopify: aus <code>collection</code>/<code>product</code>-Kontext rendern</td></tr>
+        <tr><th><code>.breadcrumb</code></th><td>Pfad-Navigation (Collection/PDP) · <code>.breadcrumb__item</code> mit Link, letzter ohne · <code>--text-xs</code>, <code>--fg-muted</code> · Trenner als Text („/") · Shopify: aus <code>collection</code>/<code>product</code>-Kontext rendern · auf PDP zusätzlich <code>.pdp__breadcrumb</code> (<code>margin-bottom: var(--half-module)</code>)</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.pagination</code></h3>
@@ -3541,6 +3541,7 @@
       <tr><th>Name</th><td><code>--text-base</code>, bold.</td></tr>
       <tr><th>Rolle</th><td><code>--text-xs</code>, <code>--fg-muted</code>.</td></tr>
       <tr><th>Mobile</th><td>3 sichtbar. Button „Mehr anzeigen" (Secondary) lädt jeweils 3 weitere. Verschwindet, wenn alle gezeigt.</td></tr>
+      <tr><th>Scroll-In</th><td><code>.testimonial-grid .testimonial</code> via <code>initScrollAnimations()</code> — gleiches <code>data-animate</code> / <code>.--in-view</code> wie Kacheln und Inhaltsstoffe</td></tr>
       <tr><th>Hintergrund</th><td>Standard: weiß. Modifier <code>.--on-green</code> auf <code>.testimonial-section</code> / <code>.testimonial-slider</code> für <code>--green-light</code>.</td></tr>
       <tr><th>Slider</th><td>Container <code>.testimonial-slider</code> mit <code>--cols-3</code> / <code>--cols-4</code>. Grid-Track, <code>transform: translateX()</code>, <code>0.4s ease</code>.</td></tr>
       <tr><th>Slider Nav</th><td>Prev/Next-Buttons: <code>1 Modul × 1 Modul</code>. Border: <code>1px solid #000</code>. Hover: invertiert. Disabled: <code>#ccc</code>. Counter dazwischen.</td></tr>
@@ -4119,16 +4120,27 @@
       </div>
 
       <table class="spec-table">
+        <tr><th>Pfadnavigation</th><td><code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt (aktuell) · Abstand unten <code>--half-module</code> · Atom → <a href="#C6">C.6</a></td></tr>
         <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
         <tr><th><code>.pdp__gallery</code></th><td>Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild</td></tr>
         <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Video oder Zitat-Foto</td></tr>
         <tr><th><code>.pdp__title</code></th><td><code>--text-xl</code> · bold</td></tr>
-        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · Grundpreis als <code>.price-stack__unit</code> · darunter <code>.price-note</code>: „inkl. MwSt., zzgl. Versandkosten · Lieferzeit x–y Werktage" (PAngV/Fernabsatz-Pflicht)</td></tr>
-        <tr><th><code>.pdp__variants</code></th><td>Label <code>.pdp__variant-label.label-caps</code> + <code>.pdp__variant-options</code> mit <code>.choice-box</code></td></tr>
-        <tr><th><code>.pdp__actions</code></th><td>Menge + Primary-CTA + Wishlist · CTA <code>flex: 1</code></td></tr>
+        <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead direkt unter H1 (Titel + Rating) · <strong>2 Sätze</strong>: welches Problem wird gelöst · benefit-first, keine Wirkstoffliste</td></tr>
+        <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente zum Scannen · z.&nbsp;B. „Rein pflanzlich", „Hohe Akzeptanz", „Von über 20.000 Tierärzten empfohlen"</td></tr>
+        <tr><th>Social Proof</th><td><code>.social-proof</code> nach den USPs — überlappende Avatare + Trust-Zeile mit Verified-Icon · shop-weit, nicht produktgebunden · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
+        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · auf gleicher Grundlinie zwei <code>.price-stack__unit</code>: Grundpreis „(0,30 € / g)" (PAngV-Pflicht) + Steuerhinweis „Exkl. USt."</td></tr>
+        <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
+        <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
+        <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: „Erneut übernehmen“ (<code>.pdp__reorder</code>) · NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
+        <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Progress-Bar (<code>.nr-widget__bar</code>) + Hint · optional Gratis-Badge (<code>.badge.--free</code>) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live-Demo → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
+        <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
+        <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> unter dem PDP-Kaufblock (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
+        <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> nach „Inhaltsstoffe im Detail“ — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
         <tr><th><code>.pdp__recommendations</code></th><td>Border-top · Überschrift + <code>.tile-grid.--cols-4</code></td></tr>
+        <tr><th>Testimonials</th><td><code>.pdp__testimonials</code> vor den Produktvorschlägen — 4 Brand-Zitate von Tierärzt*innen · <code>.testimonial-grid.--cols-4</code> · Content-Regeln → <a href="#pdp-testimonials">unten</a></td></tr>
+        <tr><th>Praxis-Vorteile</th><td><code>.pdp__praxis</code> als letzte Rubrik — <code>.tile-grid.--cols-3</code> mit großen Lotties (<code>.tile__animation</code>) · wie Shop „Nur bei euch“ · Spec → <a href="#pdp-praxis">unten</a></td></tr>
       </table>
 
       <h3 class="sg-h3 --top" id="shopify-pdp">Shopify-Mapping</h3>
@@ -4141,9 +4153,15 @@
         <tr><th>Video-Attribute</th><td><code>muted loop playsinline</code> · <code>preload="none"</code> auf Karten · komprimierte Clips (&lt; 10&nbsp;MB) über Product Media / Shopify Files</td></tr>
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
         <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
-        <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · rendert in <code>.pdp__type-animals</code></td></tr>
-        <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
-        <tr><th>Preis-Hinweiszeile</th><td><code>.price-note</code> unter dem PDP-Preis: MwSt-/Versand-Text via Locale-Key, Versandkosten-Link auf <code>shop.shipping_policy.url</code> · Lieferzeit aus Metafield oder Locale</td></tr>
+        <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · in <code>.pdp__type-animals</code> als „für …“ (z.&nbsp;B. „für Hund“)</td></tr>
+        <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
+        <tr><th>Steuerhinweis</th><td>Zweites <code>.price-stack__unit</code> auf derselben Grundlinie · Text via Locale-Key · Versand-/Lieferzeit-Hinweis separat an anderer Stelle (nicht am Preis)</td></tr>
+        <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code> aus <code>product.description</code>-Anfang oder Metafield (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste) — pro Produkt pflegbar</td></tr>
+        <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
+        <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
+        <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Nächste Gratis-Stufe abhängig von Menge &amp; Variante · Progress-Bar + Hint · Text via <code>formatHint()</code>/<code>nextHintFor()</code> (<code>inuvet.js</code>) · Staffel produktiv aus Cart Transform / Shopify Function (→ <a href="#shopify-cart">E.4</a>) · bei Mengen-/Variantenwechsel neu berechnen</td></tr>
+        <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Zielgruppen optional als eigene Items · Analytik als <code>.rte.--data-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
+        <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
       </table>
@@ -4151,6 +4169,13 @@
 
       <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
       <div class="sg-demo --white">
+        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
+          <span class="breadcrumb__item"><a href="#">Start</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item"><a href="#">Beruhigung</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item" aria-current="page">Calmin balance</span>
+        </nav>
         <div class="pdp">
           <div class="pdp__gallery">
             <div class="pdp__main-image">
@@ -4179,13 +4204,27 @@
               <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
               <span class="text-muted">4.8 (214 Bewertungen)</span>
             </div>
-            <p class="pdp__description">Unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Mit Pflanzenextrakten, B-Vitaminen und Magnesium.</p>
+            <p class="pdp__description">Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
+            <ul class="check-list">
+              <li><span class="material-icons">check</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
+              <li><span class="material-icons">check</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
+              <li><span class="material-icons">check</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
+            </ul>
+            <div class="social-proof">
+              <div class="social-proof__avatars" aria-hidden="true">
+                <img class="social-proof__avatar" src="assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+                <img class="social-proof__avatar" src="assets/images/Sarah_Inuvet.png" alt="">
+              </div>
+              <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+            </div>
             <div class="pdp__price">
-              <div class="price-stack"><span>29,90 €</span><span class="price-stack__unit">(299,00 € / kg)</span></div>
-              <p class="price-note">inkl. MwSt., zzgl. <a href="#">Versandkosten</a> · Lieferzeit 2–3 Werktage</p>
+              <div class="price-stack">
+                <span>29,90 €</span>
+                <span class="price-stack__unit">(0,30 € / g)</span>
+                <span class="price-stack__unit">Exkl. USt.</span>
+              </div>
             </div>
             <div class="pdp__variants">
-              <div class="pdp__variant-label label-caps">Größe</div>
               <div class="pdp__variant-options">
                 <button class="choice-box --active" type="button" onclick="selectVariant(this)">60 Tabletten</button>
                 <button class="choice-box" type="button" onclick="selectVariant(this)">120 Tabletten</button>
@@ -4193,7 +4232,6 @@
             </div>
             <div class="pdp__actions">
               <div>
-                <div class="pdp__variant-label label-caps">Menge</div>
                 <div class="qty-selector">
                   <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
                   <input class="qty-selector__input" type="number" value="1" min="1" id="qtyInput">
@@ -4203,20 +4241,69 @@
               <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
               <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
             </div>
-            <div class="accordion">
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Calmin balance unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen. Die Rezeptur verbindet ausgewählte Pflanzenextrakte mit B-Vitaminen und Magnesium.</p></div></div>
-              </div>
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>L-Tryptophan, Magnesium, Vitamin B1, Vitamin B6, Passionsblumenextrakt, Baldrianextrakt. Ohne künstliche Zusatzstoffe.</p></div></div>
-              </div>
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Expressversand: 1–2 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
-              </div>
+            <div class="nr-widget" aria-label="Naturalrabatt">
+              <div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:25%"></div></div>
+              <div class="nr-widget__hint">3 Stück hinzufügen für 1 weiteres Gratisprodukt</div>
             </div>
+          </div>
+        </div>
+        <div class="pdp__accordion accordion --cols-2">
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Calmin balance unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Anwendung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Tabletten unter das Futter mischen — vorbeugend rund zwei Stunden vor dem erwarteten Stress oder täglich über mehrere Wochen.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe (Auszug)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>L-Tryptophan, Magnesium, Vitamin B1, Vitamin B6, Passionsblumenextrakt, Baldrianextrakt.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zusammensetzung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Pflanzliche Nebenerzeugnisse, Hefe, Mineralstoffe.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Analytische Bestandteile<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">Rohprotein</td><td data-label="Wert">22,0 %</td></tr>
+                <tr><td data-label="Angabe">Rohfett</td><td data-label="Wert">5,0 %</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Sensorische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">Passionsblumenextrakt</td><td data-label="Wert">30.000 mg</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Tägliche Fütterungsempfehlung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund: 1 Tablette je 10 kg Körpergewicht. Katze: ½–1 Tablette täglich.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Ernährungsphysiologische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">L-Tryptophan</td><td data-label="Wert">15.000 mg</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Hinweise<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Nur zur Ergänzung der täglichen Ration. Außerhalb der Reichweite von Kindern aufbewahren.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und verschlossen lagern.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zieltierart<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund und Katze</p></div></div>
           </div>
         </div>
         <div class="pdp__recommendations">
@@ -4272,13 +4359,20 @@
       <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo inkl. <code>.pdp__caption</code>-Overlay · Warenkorb-CTA öffnet Drawer → <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen. Abweichende Inhaltsstoffe → <code>.notice</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
+      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Abweichende Inhaltsstoffe → <code>.notice</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
       <table class="spec-table">
-        <tr><th><code>.pdp__type-selector</code></th><td>Radio-Tabelle in <code>.pdp__variants</code></td></tr>
-        <tr><th><code>.pdp__type-selector-header</code></th><td>Spaltenköpfe · <code>label-caps</code>-Stil</td></tr>
+        <tr><th><code>.pdp__type-selector</code></th><td>Radio-Zeilen in <code>.pdp__variants</code> · keine Header-Zeile</td></tr>
         <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart · gestrichelte Trennlinie</td></tr>
+        <tr><th><code>.pdp__type-animals</code></th><td>Präfix „für“ + Tierart(en) · <code>--text-xs</code>, <code>--fg-muted</code>, rechtsbündig</td></tr>
       </table>
       <div class="sg-demo --white">
+        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
+          <span class="breadcrumb__item"><a href="#">Start</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item"><a href="#">Leber</a></span>
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item" aria-current="page">Hepax forte</span>
+        </nav>
         <div class="pdp" id="pdp-family-demo">
           <div class="pdp__gallery">
             <div class="pdp__main-image">
@@ -4312,24 +4406,37 @@
               <span class="text-muted">4.6 (312 Bewertungen)</span>
             </div>
             <p class="pdp__description">Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
+            <ul class="check-list">
+              <li><span class="material-icons">check</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
+              <li><span class="material-icons">check</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
+              <li><span class="material-icons">check</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
+            </ul>
+            <div class="social-proof">
+              <div class="social-proof__avatars" aria-hidden="true">
+                <img class="social-proof__avatar" src="assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+                <img class="social-proof__avatar" src="assets/images/Sarah_Inuvet.png" alt="">
+              </div>
+              <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+            </div>
             <div class="pdp__variants">
               <div class="pdp__type-selector">
-                <div class="pdp__type-selector-header">
-                  <span>Darreichungsform</span>
-                  <span>Geeignet für</span>
-                </div>
                 <label class="pdp__type-row">
-                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">Hund</span>
+                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
                 </label>
                 <label class="pdp__type-row">
-                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">Katze, Hund</span>
+                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">für Katze, Hund</span>
                 </label>
               </div>
               <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
             </div>
-            <div class="pdp__price"><div class="price-stack"><span>7,60 €</span></div></div>
+            <div class="pdp__price">
+              <div class="price-stack">
+                <span>7,60 €</span>
+                <span class="price-stack__unit">(0,25 € / g)</span>
+                <span class="price-stack__unit">Exkl. USt.</span>
+              </div>
+            </div>
             <div class="pdp__variants">
-              <div class="pdp__variant-label label-caps">Produktgröße</div>
               <div class="pdp__variant-options">
                 <button class="choice-box --active" type="button" onclick="selectVariant(this)">30 Stück</button>
                 <button class="choice-box" type="button" onclick="selectVariant(this)">60 Stück</button>
@@ -4337,7 +4444,6 @@
             </div>
             <div class="pdp__actions">
               <div>
-                <div class="pdp__variant-label label-caps">Menge</div>
                 <div class="qty-selector">
                   <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
                   <input class="qty-selector__input" type="number" value="1" min="1">
@@ -4347,24 +4453,301 @@
               <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
               <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
             </div>
-            <div class="accordion">
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
-              </div>
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Variiert je nach gewähltem Produkttyp. Bitte die jeweilige Packungsbeilage beachten.</p></div></div>
-              </div>
-              <div class="accordion-item">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
-                <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
-              </div>
+            <div class="nr-widget" aria-label="Naturalrabatt">
+              <div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:33%"></div></div>
+              <div class="nr-widget__hint">2 Stück hinzufügen für 1 weiteres Gratisprodukt</div>
             </div>
+          </div>
+        </div>
+        <div class="pdp__accordion accordion --cols-2">
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Anwendung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Täglich über das Futter geben. Dosierung nach Körpergewicht gemäß Fütterungsempfehlung.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe (Auszug)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <p>Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.</p>
+              <p>Variiert je nach gewähltem Produkttyp. Bitte die jeweilige Packungsbeilage beachten.</p>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zusammensetzung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Pflanzliche Nebenerzeugnisse, Hefe, Öle und Fette, Mineralstoffe.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Analytische Bestandteile<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">Rohprotein</td><td data-label="Wert">18,0 %</td></tr>
+                <tr><td data-label="Angabe">Rohfett</td><td data-label="Wert">6,5 %</td></tr>
+                <tr><td data-label="Angabe">Rohfaser</td><td data-label="Wert">4,0 %</td></tr>
+                <tr><td data-label="Angabe">Rohasche</td><td data-label="Wert">8,0 %</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Sensorische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">Mariendistel-Extrakt (Silymarin)</td><td data-label="Wert">50.000 mg</td></tr>
+                <tr><td data-label="Angabe">Artischockenextrakt</td><td data-label="Wert">20.000 mg</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Tägliche Fütterungsempfehlung<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund: 1 Tablette je 10 kg Körpergewicht täglich. Katze: ½–1 Tablette täglich bzw. Pulver gemäß Packungsangabe.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Ernährungsphysiologische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">
+              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+                <tr><td data-label="Angabe">Taurin</td><td data-label="Wert">10.000 mg</td></tr>
+                <tr><td data-label="Angabe">Zink (als Zinkchelat)</td><td data-label="Wert">1.200 mg</td></tr>
+              </tbody></table></div>
+            </div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Hinweise<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Nur zur Ergänzung der täglichen Ration. Außerhalb der Reichweite von Kindern aufbewahren.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und gut verschlossen lagern.</p></div></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zieltierart<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund und Katze</p></div></div>
           </div>
         </div>
       </div>
       <p class="sg-caption">2. Thumbnail = Produktvideo · 3. Thumbnail = Lifestyle-Foto mit <code>.pdp__caption</code>-Zitat · Wechsel via <code>pdpSwitch()</code>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-accordion">Produkt-Akkordeon</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Jeder Informationsblock ist ein <strong>eigenes Akkordeon-Item</strong> (Beschreibung, Anwendung, Inhaltsstoffe, …). Keine thematischen Sammelgruppen mit inneren <code>h3</code>.</p>
+        <p><strong>Platzierung:</strong> unter dem Kaufblock auf voller Content-Breite (<code>.pdp__accordion</code>). Desktop: <code>.accordion.--cols-2</code>, ab 899px einspaltig. Inhalt bleibt server-seitig im DOM.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th>Pflicht-Items</th><td>Beschreibung · Anwendung · Inhaltsstoffe (Auszug) · Zusammensetzung · Analytische Bestandteile · Sensorische Zusatzstoffe (je&nbsp;kg) · Tägliche Fütterungsempfehlung · Ernährungsphysiologische Zusatzstoffe (je&nbsp;kg) · Hinweise · Haltbarkeitshinweise · Zieltierart</td></tr>
+        <tr><th>Layout</th><td><code>.pdp__accordion.accordion.--cols-2</code> mit zwei <code>.accordion__col</code> · Items abwechselnd links/rechts (Index gerade/ungerade) · leere Items werden nicht gerendert · ≤899px 1 Spalte via <code>display: contents</code> + <code>order</code></td></tr>
+        <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table</code> + <code>table.--normal</code> im jeweiligen Item</td></tr>
+        <tr><th>Shopify</th><td>Product-Metafields je Item · leere Items nicht rendern · bei Produktfamilie Hinweis im Inhaltsstoff-Auszug</td></tr>
+      </table>
+      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Tabellen-Atom → <a href="#A4-data-table">A.4</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-testimonials">Testimonials</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Vier Stimmen von <strong>Tierärztinnen und Tierärzten</strong> — Platzierung: nach der Benefit-Leiste, <strong>vor</strong> den Produktvorschlägen (<code>.pdp__recommendations</code>). Atom → <a href="#D5">D.5</a>. Keine Rubrik-Überschrift. Auf der PDP gelten strenge Content-Regeln, weil Nahrungsergänzungsmittel keine Wirkversprechen tragen dürfen.</p>
+        <p>Shop-weit pflegbar (Metaobject / Theme settings), nicht an ein Produkt gebunden — dieselben Zitate auf allen PDPs.</p>
+      </div>
+      <div class="rules">
+        <div class="rule">
+          <h4>Content-Regel — was erlaubt ist</h4>
+          <p>Nur positiv über <strong>Inuvet als Marke / Shop / Service</strong>: Beratung, Lieferung, Bestellprozess, Transparenz, Zusammenarbeit mit der Praxis, Vertrauen. Autoren: <strong>ausschließlich Tierärzt*innen</strong> (Name + „Tierarzt/Tierärztin, Ort“).</p>
+        </div>
+        <div class="rule">
+          <h4>Content-Regel — was verboten ist</h4>
+          <p><strong>Keine Tierhalter-Zitate</strong> · <strong>keine Produktnamen</strong> (Hepax, Calmin, …) · <strong>keine Wirkung / Symptome / Indikationen</strong> · keine Heil- oder Gesundheitsversprechen · keine Formulierungen, die das Futtermittel ergänzend „wirken“ lassen. Fokus bleibt Marke und Praxis-Erlebnis.</p>
+        </div>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.pdp__testimonials</code></th><td>Wrapper ohne Überschrift · <code>.testimonial-section</code> / <code>.testimonial-grid.--cols-4</code> · Mobile: 3 sichtbar + „Mehr anzeigen“ · Scroll-In wie Kacheln via <code>initScrollAnimations()</code></td></tr>
+        <tr><th>Anzahl</th><td>Genau 4 Kacheln auf der PDP</td></tr>
+        <tr><th>Shopify</th><td>Globale Metaobjects oder Shop-Metafields (Zitat, Name, Rolle, Avatar) · Theme rendert feste Auswahl von 4 · nicht am Produkt pflegen</td></tr>
+      </table>
+      <p class="sg-caption">Demo → <a href="#D5">D.5</a> · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-praxis">Praxis-Vorteile</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Letzte Rubrik auf der PDP — identisch mit dem Shop-Block <a href="pages/inuvet-Shop.html#shopPraxisVorteile">„Nur bei euch“</a>: drei Kacheln mit großen Lottie-Animationen. Shop-weit, nicht produktgebunden.</p>
+        <p>Markup: <code>.tile-grid.--cols-3</code> + Variante&nbsp;A · Lottie in <code>.tile__icon.tile__animation</code> mit Ratio-Modifier (<code>--ratio-1</code> / <code>--ratio-inhaltsstoffe</code>).</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.pdp__praxis</code></th><td>Wrapper nach Recommendations · <code>margin-top: var(--module-2xl)</code></td></tr>
+        <tr><th><code>.tile__animation</code></th><td>Volle Kachelbreite · <code>lottie-player</code> mit <code>aspect-ratio</code> (sonst Höhe 0)</td></tr>
+        <tr><th>Assets</th><td><code>inuvet_tierarzt_nur_bei_euch.json</code> · <code>Inuvet_animation_Weltweit.json</code> · <code>inuvet_animation_inhaltsstoffe.json</code></td></tr>
+        <tr><th>Shopify</th><td>Gleicher Section-Block wie auf der Collection/Home · Theme settings oder fester Snippet</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="pdp__praxis" style="margin-top:0">
+          <div class="tile-grid --cols-3">
+            <div class="tile">
+              <div class="tile__icon tile__animation --ratio-1">
+                <lottie-player src="assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Nur bei euch</p>
+              <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
+            </div>
+            <div class="tile">
+              <div class="tile__icon tile__animation --ratio-weltweit">
+                <lottie-player src="assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
+              <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
+            </div>
+            <div class="tile">
+              <div class="tile__icon tile__animation --ratio-inhaltsstoffe">
+                <lottie-player src="assets/lotties/inuvet_animation_inhaltsstoffe.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Grüne Pfoten</p>
+              <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Referenz → <a href="pages/inuvet-Shop.html#shopPraxisVorteile">inuvet-Shop</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-benefits">Benefit-Leiste</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Vier Benefits <strong>nach</strong> „Inhaltsstoffe im Detail“ — gleiches Muster wie auf der <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> und im Shop: <code>.tile-grid.--cols-4</code> + Kachel Variante&nbsp;A mit animiertem Lottie in <code>.tile__icon</code>.</p>
+        <p>Shop-weit identische Copy und Icons (nicht produktgebunden). Scroll-In wie Produktkacheln via <code>initScrollAnimations()</code>.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.pdp__benefits</code></th><td>Wrapper nach <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
+        <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
+        <tr><th>Lottie</th><td><code>&lt;lottie-player&gt;</code> in <code>.tile__icon</code> · Größe via CSS <code>calc(var(--base) * 4)</code> · CDN <code>@lottiefiles/lottie-player</code> · Assets: <code>Icon_Tierarztpraxis</code>, <code>Icon_Langzeitgabe</code>, <code>Icon_Schutz</code>, <code>Icon_Auto</code></td></tr>
+        <tr><th>Shopify</th><td>Theme settings / Shop-Metafields (4 Einträge: Icon-File oder Asset-Handle + Headline + Body) · oder fester Section-Block im PDP-Template</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="pdp__benefits" style="margin-top:0">
+          <div class="tile-grid --cols-4">
+            <div class="tile">
+              <div class="tile__icon">
+                <lottie-player src="assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Beste Expertise</p>
+              <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+            </div>
+            <div class="tile">
+              <div class="tile__icon">
+                <lottie-player src="assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Für die Langzeitgabe</p>
+              <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+            </div>
+            <div class="tile">
+              <div class="tile__icon">
+                <lottie-player src="assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Immer gut unterstützt</p>
+              <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+            </div>
+            <div class="tile">
+              <div class="tile__icon">
+                <lottie-player src="assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              </div>
+              <p class="tile__headline">Schnell bei dir</p>
+              <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Referenz → <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-social-proof">Social Proof</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Kompakter Trust-Block in der PDP-Info-Spalte <strong>nach den USPs</strong>: überlappende Avatare + eine Zeile mit hervorgehobenem Namen, Verified-Icon und Community-Zahl. Wie auf der bisherigen Produktseite — shop-weit identisch, nicht pro Produkt.</p>
+        <p>Icon: Material Icons <code>verified</code> (blau). Avatare dekorativ (<code>aria-hidden</code> auf dem Stack); der Sinn steckt im Text.</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.social-proof</code></th><td>Flex-Zeile · Avatare + Text · vertikal zentriert</td></tr>
+        <tr><th><code>.social-proof__avatars</code></th><td>2 kreisförmige Bilder · Überlappung via negativem Margin · weißer Ring (<code>border: 2px solid var(--bg)</code>)</td></tr>
+        <tr><th><code>.social-proof__text</code></th><td><code>--text-sm</code> · <code>--fg-muted</code> · Verified-Icon inline nach dem Namen</td></tr>
+        <tr><th><code>.social-proof__verified</code></th><td>Material Icon <code>verified</code> · Farbe <code>#1d9bf0</code> · <code>aria-label="Verifiziert"</code></td></tr>
+        <tr><th>Shopify</th><td>Shop-Metafields oder Theme settings (nicht Product): z.&nbsp;B. <code>custom.social_proof_name</code>, <code>custom.social_proof_count</code>, Avatar-Files · gleiche Werte auf allen PDPs</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="sg-w-md">
+          <div class="social-proof">
+            <div class="social-proof__avatars" aria-hidden="true">
+              <img class="social-proof__avatar" src="assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+              <img class="social-proof__avatar" src="assets/images/Sarah_Inuvet.png" alt="">
+            </div>
+            <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Live in der PDP → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+
+      <h3 class="sg-h3 --top" id="pdp-ingredients">Inhaltsstoffe im Detail</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Phytotherapie braucht erklärenden Content — nicht nur eine komma-getrennte Liste im Akkordeon. Pro Produkt die wichtigsten <strong>3–4 Inhaltsstoffe</strong> mit Bild und zwei Sätzen Nutzen/Wirkung. Texte und Bilder existieren bereits für das Sortiment; bei neuen Produkten unbedingt fortführen.</p>
+        <p>Die <strong>Deklarationsliste</strong> bleibt im Akkordeon „Inhaltsstoffe". Die Erklär-Blöcke sind SEO-/Vertrauens-Content und stehen <strong>sichtbar im DOM</strong> unter dem Kaufblock (nicht hinter Tab/Lazy-Load).</p>
+      </div>
+
+      <h3 class="sg-h3 --top">Shopify-Modell — globale Inhaltsstoff-Bibliothek</h3>
+      <div class="rules">
+        <div class="rule">
+          <h4>Prinzip</h4>
+          <p><strong>Einmal pflegen, überall referenzieren.</strong> Inhaltsstoffe (Name, Latein, Text, Bild) leben in einer <strong>globalen Metaobject-Definition</strong> <code>ingredient</code>. Am Produkt hängen nur Referenzen — kein Produkt-Hardcoding von Texten oder Bildern in Metafields oder Liquid.</p>
+        </div>
+        <div class="rule">
+          <h4>Warum</h4>
+          <p>Dieselben Inhaltsstoffe (z.&nbsp;B. Mariendistel) kommen in mehreren Produkten vor. Änderung am Metaobject-Eintrag aktualisiert alle PDPs. Keine Text-Duplikate, keine abweichenden Formulierungen pro Produkt.</p>
+        </div>
+      </div>
+      <table class="spec-table">
+        <tr><th>Metaobject-Definition</th><td><code>ingredient</code> (Shop-weit, nicht produktgebunden) · Einträge = einzelne Inhaltsstoffe der Bibliothek</td></tr>
+        <tr><th>Felder pro Eintrag</th><td><code>name</code> (Single line, DE) · <code>latin</code> (Single line, <strong>Pflicht</strong>) · <code>summary</code> (Multi-line, genau 2 Sätze Fließtext) · <code>image</code> (File, 5:4) · Handle für URL/SEO</td></tr>
+        <tr><th>Product-Metafield</th><td><code>custom.key_ingredients</code> · Typ <code>list.metaobject_reference</code> → Definition <code>ingredient</code> · Auswahl/Reihenfolge der 3–4 Schlüssel-Inhaltsstoffe für diese PDP</td></tr>
+        <tr><th>Theme</th><td>Nur die referenzierten Einträge rendern (<code>limit: 4</code>) · Felder aus dem Metaobject lesen · Spalten-Modifier aus Listenlänge (<code>--cols-3</code> / <code>--cols-4</code>)</td></tr>
+        <tr><th>Nicht tun</th><td>Kein Rich-Text-/Bild-Metafield am Produkt für diesen Block · kein Copy-Paste der Texte in Product-Description · keine produkt-spezifischen Override-Felder für Name/Latein/Summary/Image</td></tr>
+        <tr><th>Liquid (Skizze)</th><td><code>{% assign items = product.metafields.custom.key_ingredients.value %}</code> · <code>{% assign n = items.size %}</code> · Klasse <code>--cols-4</code> wenn <code>n &gt;= 4</code>, sonst <code>--cols-3</code> · <code>{% for item in items limit: 4 %}</code> → <code>item.name</code>, <code>item.latin</code>, <code>item.summary</code>, <code>item.image</code></td></tr>
+      </table>
+      <p class="sg-caption">Mockup (<code>inuvet.js</code> <code>keyIngredients</code>) spiegelt nur die gerenderte Struktur — produktiv ausschließlich Metaobject + Produkt-Referenzen.</p>
+
+      <div class="rules">
+        <div class="rule">
+          <h4>Content-Regel</h4>
+          <p>Pro Inhaltsstoff: deutscher Name + <strong>lateinischer Name (Pflicht)</strong> · <strong>genau 2 Sätze in einem Fließtext</strong> (kein manueller Umbruch / kein zweites <code>&lt;p&gt;</code>) · 1 Bild (Pflanze/Rohstoff, 5:4). Keine Dosierung, keine Heilversprechen — Nutzen und Wirkprinzip in Alltagssprache. Content gehört ins Metaobject, nicht ins Produkt.</p>
+        </div>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>.ingredient-list</code></th><td>Section unter <code>.pdp</code> · CSS-Grid · Überschrift <code>h2</code> spannt volle Breite · <strong>kein</strong> Border-top</td></tr>
+        <tr><th><code>.--cols-3</code> / <code>.--cols-4</code></th><td>Desktop: <code>--cols-3</code> = <code>1.4fr 1fr 1fr</code> (erste Spalte breiter) · <code>--cols-4</code> gleichmäßig · Tablet 2 Spalten · Mobile 1 Spalte</td></tr>
+        <tr><th><code>.ingredient</code></th><td>Spaltenzelle · Flex-Spalte · Scroll-In wie Produktkacheln (<code>data-animate</code> via <code>initScrollAnimations()</code>)</td></tr>
+        <tr><th><code>.ingredient__media</code></th><td>Querformat <code>5 / 4</code> · <code>overflow: hidden</code> · Hover: Bild <code>scale(1.05)</code> (wie <code>.tile__image</code>)</td></tr>
+        <tr><th><code>.ingredient__title</code></th><td>Deutscher Name · dahinter Pflicht <code>.ingredient__latin</code> (kursiv, <code>--fg-muted</code>)</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="ingredient-list --cols-3" style="margin-top:0">
+          <h2>Inhaltsstoffe im Detail</h2>
+          <article class="ingredient">
+            <div class="ingredient__media">
+              <img class="ingredient__image" src="assets/images/Inhaltsstoff_Mariendistel.jpg" alt="Mariendistel">
+            </div>
+            <div class="ingredient__body flow">
+              <h3 class="ingredient__title">Mariendistel <span class="ingredient__latin">(Silymarin)</span></h3>
+              <p>Silymarin schützt die Leberzellen und unterstützt ihre Regeneration — besonders hilfreich, wenn die Leber durch Medikamente, Alter oder Stoffwechselbelastung beansprucht wird. In Hepax forte sorgt der standardisierte Extrakt dafür, dass Hund und Katze den Wirkstoff zuverlässig und dosiert aufnehmen.</p>
+            </div>
+          </article>
+          <article class="ingredient">
+            <div class="ingredient__media">
+              <img class="ingredient__image" src="assets/images/Inhaltsstoff_Artischoke.jpg" alt="Artischocke">
+            </div>
+            <div class="ingredient__body flow">
+              <h3 class="ingredient__title">Artischocke <span class="ingredient__latin">(Cynara scolymus)</span></h3>
+              <p>Artischockenextrakt regt den Gallenfluss an und unterstützt so die natürliche Entgiftungsarbeit der Leber. Zusammen mit Mariendistel bildet er das phytotherapeutische Gerüst für die tägliche Leberpflege.</p>
+            </div>
+          </article>
+          <article class="ingredient">
+            <div class="ingredient__media">
+              <img class="ingredient__image" src="assets/images/Hero_Mood_04.jpg" alt="Taurin">
+            </div>
+            <div class="ingredient__body flow">
+              <h3 class="ingredient__title">Taurin <span class="ingredient__latin">(Taurinum)</span></h3>
+              <p>Taurin ist eine Aminosulfonsäure, die den Gallenfluss und die Fettverdauung unterstützt — besonders relevant für Katzen, die Taurin nicht selbst ausreichend synthetisieren. In der Kombination mit Mariendistel und Artischocke ergänzt es die hepatoprotektive Wirkung sinnvoll.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <p class="sg-caption">Demo <code>--cols-3</code> asymmetrisch (Hepax) — bei 4 Einträgen <code>--cols-4</code> gleichmäßig. Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-oos">Out-of-Stock</h3>
       <div class="rules">
@@ -5311,7 +5694,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=3"></script>
+<script src="inuvet.js?v=9"></script>
 <script src="sg.js?v=4"></script>
 </body>
 </html>

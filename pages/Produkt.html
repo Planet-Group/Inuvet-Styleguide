@@ -6,9 +6,10 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=12">
+  <link rel="stylesheet" href="../inuvet.css?v=45">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
 
@@ -77,28 +78,48 @@
   <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
   <div class="cart-drawer" id="cartDrawer"></div>
 
-  <main id="pdpMount"><!-- PDP wird per JS gerendert --></main>
+  <main class="container" id="pdpPage">
+    <div id="pdpMount"><!-- Kaufblock — bei Variante/Menge neu gerendert --></div>
+    <div id="pdpBelow"><!-- Inhaltsstoffe, Benefits, Recommendations — einmalig --></div>
+  </main>
 
-  <script src="../inuvet.js?v=3"></script>
+  <script src="../inuvet.js?v=9"></script>
   <script>
-    // ── PDP — nutzt Katalog, Naturalrabatt & Warenkorb aus inuvet.js ──
+    // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
-    let pdpId = parseInt(params.get('id') || '1', 10);
-    if (!productById(pdpId)) pdpId = 1;
+    let pdpId = parseInt(params.get('id') || '13', 10);
+    if (!productById(pdpId)) pdpId = 13;
 
-    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1 };
-    const pdpProduct = () => productById(pdpId);
-
-    const pdpCurrentPrice = () => {
-      const p = pdpProduct();
-      return priceFor(p, p.isFamily ? pdpState.formIdx : 0, pdpState.sizeIdx);
+    const PDP_LAST_QTY_KEY = 'inuvet:pdp-last-qty';
+    const pdpLastOrderQty = () => {
+      const n = parseInt(localStorage.getItem(PDP_LAST_QTY_KEY) || '12', 10);
+      return Number.isFinite(n) && n > 0 ? n : 12;
     };
 
-    const starsHTML = () =>
-      '<span class="material-icons" aria-hidden="true">star</span>'.repeat(5);
+    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, wishlist: false, belowRendered: false };
+    const pdpProduct = () => productById(pdpId);
 
-    // Naturalrabatt-Anzeige: erhaltene Gratis-Stück + Weg zur nächsten Stufe.
-    // Jede Darreichungsform sammelt eigenständig nach der Kondition (A/B) der Familie.
+    const pdpCurrentSize = () => {
+      const p = pdpProduct();
+      if (p.isFamily) return p.variants[pdpState.formIdx].sizes[pdpState.sizeIdx];
+      if (p.sizes) return p.sizes[pdpState.sizeIdx];
+      return { price: p.price || 0 };
+    };
+
+    const pdpCurrentPrice = () => pdpCurrentSize().price;
+
+    // Sterne: volle Sterne per Abrunden + leerer Rest (E.2 Hepax 4,6 → 4 gefüllt).
+    const starsHTML = (ratingStr) => {
+      const n = Math.min(5, Math.floor(parseFloat(String(ratingStr || '5').replace(',', '.')) || 5));
+      let html = '';
+      for (let i = 1; i <= 5; i++) {
+        html += i <= n
+          ? '<span class="material-icons" aria-hidden="true">star</span>'
+          : '<span class="material-icons --empty" aria-hidden="true">star_border</span>';
+      }
+      return html;
+    };
+
     const nrWidgetHTML = () => {
       const p     = pdpProduct();
       const price = pdpCurrentPrice();
@@ -115,128 +136,441 @@
         const pct = hint.targetValue
           ? Math.max(4, Math.round(hint.currentValue / hint.targetValue * 100))
           : Math.max(4, Math.round(pdpState.qty / (pdpState.qty + hint.moreQty) * 100));
-        barHTML  = `<div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:${pct}%"></div></div>`;
-        hintHTML = `<div class="nr-widget__hint">${formatHint(hint, model)}</div>`;
+        const freeLabel = hint.moreFree === 1 ? 'Gratisprodukt' : 'Gratisprodukte';
+        barHTML = `<div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:${pct}%"></div></div>`;
+        hintHTML = `
+          <div class="nr-widget__hint-row">
+            <div class="nr-widget__hint">Noch ${hint.moreQty} Stück für +${hint.moreFree} ${freeLabel}</div>
+            <button class="btn --secondary --sm nr-widget__fill" type="button" onclick="pdpFillNrTier()">Auffüllen</button>
+          </div>`;
       } else if (free > 0) {
         hintHTML = `<div class="nr-widget__maxed">Höchste Gratis-Stufe für diese Größe erreicht.</div>`;
       }
 
       const body = `${freeLine}${barHTML}${hintHTML}`;
       if (!body) return '';
+      return `<div class="nr-widget" aria-label="Naturalrabatt">${body}</div>`;
+    };
 
+    /* Prototype: Erneut bestellen, Lieferkontext — leicht rückbaubar */
+    const reorderHTML = () => {
+      const last = pdpLastOrderQty();
       return `
-        <div class="nr-widget" aria-label="Naturalrabatt">
-          ${body}
+        <div class="pdp__reorder">
+          <span class="material-icons" aria-hidden="true">history</span>
+          <span class="pdp__reorder-text">Zuletzt <strong>${last} Stück</strong> bestellt</span>
+          <button type="button" class="btn --ghost --sm" onclick="pdpSetQty(${last})">Erneut übernehmen</button>
         </div>`;
     };
 
+    const orderMetaHTML = () => `
+      <ul class="pdp__order-meta">
+        <li><span class="material-icons" aria-hidden="true">local_shipping</span> Lieferung in 2–3 Werktagen</li>
+        <li><span class="material-icons" aria-hidden="true">inventory_2</span> Versandkostenfrei ab 49&nbsp;€</li>
+      </ul>`;
+
+    const galleryHTML = () => {
+      const p = pdpProduct();
+      const media = p.media && p.media.length
+        ? p.media
+        : (p.image ? [{ type: 'image', src: p.image, alt: p.title }] : []);
+      const first = media[0] || { type: 'image', src: '', alt: p.title };
+      const firstVideo = media.find(m => m.type === 'video');
+
+      const catBadge = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
+      const familyBadge = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+      const meta = `<div class="floating-meta">${catBadge}${familyBadge}</div>`;
+
+      const mainImg = first.type === 'image'
+        ? `<img src="${first.src}" alt="${first.alt || p.title}">`
+        : `<img class="--hidden" src="${p.image || ''}" alt="${p.title}">`;
+      const mainVideoSrc = first.type === 'video' ? first.src : (firstVideo ? firstVideo.src : '');
+      const mainVideo = mainVideoSrc
+        ? `<video class="${first.type === 'video' ? '' : '--hidden'}" src="${mainVideoSrc}" muted loop playsinline aria-hidden="true"></video>`
+        : '';
+
+      const thumbs = media.map((m, i) => {
+        const cap = m.caption || '';
+        const author = m.author || '';
+        const active = i === 0 ? ' --active' : '';
+        if (m.type === 'video') {
+          return `<div class="pdp__thumb${active}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
+            <video src="${m.src}" muted loop playsinline aria-hidden="true"></video>
+          </div>`;
+        }
+        return `<div class="pdp__thumb${active}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
+          <img src="${m.src}" alt="${m.alt || ''}">
+        </div>`;
+      }).join('');
+
+      return `
+        <div class="pdp__gallery">
+          <div class="pdp__main-image">
+            ${mainImg}
+            ${mainVideo}
+            <div class="pdp__caption --hidden" aria-live="polite"></div>
+            ${meta}
+          </div>
+          ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
+        </div>`;
+    };
+
+    const recommendationsHTML = () => {
+      const others = allProducts.filter(x => x.id !== pdpId && x.image).slice(0, 4);
+      if (!others.length) return '';
+      const tiles = others.map(o => {
+        const price = o.isFamily
+          ? o.variants[0].sizes[0].price
+          : (o.sizes ? o.sizes[0].price : (o.price || 0));
+        const cat = o.catLabel ? `<div class="badge" data-cat="${o.cat}">${o.catLabel}</div>` : '';
+        const fam = o.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+        return `
+          <a class="tile --product" href="Produkt.html?id=${o.id}" style="text-decoration:none;color:inherit">
+            <div class="tile__image-wrap">
+              <div class="floating-meta">${cat}${fam}</div>
+              <div class="tile__image"><img src="${o.image}" alt="${o.title}"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">${o.title}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating || '—'}</div></div>
+            <div class="tile__description">${o.shortDesc || o.desc || ''}</div>
+            <div class="tile__price"><div class="price-stack"><span>ab ${fmt(price)}</span></div></div>
+          </a>`;
+      }).join('');
+      return `
+        <div class="pdp__recommendations">
+          <h3>Das könnte Ihnen auch gefallen</h3>
+          <div class="tile-grid --cols-4">${tiles}</div>
+        </div>`;
+    };
+
+    // Shop-weite Benefit-Leiste — wie Tierarzt-Empfehlung / Shop (Lottie + Variante A).
+    const benefitsHTML = () => `
+      <div class="pdp__benefits">
+        <div class="tile-grid --cols-4">
+          <div class="tile">
+            <div class="tile__icon">
+              <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Beste Expertise</p>
+            <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon">
+              <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Für die Langzeitgabe</p>
+            <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon">
+              <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Immer gut unterstützt</p>
+            <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon">
+              <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Schnell bei dir</p>
+            <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+          </div>
+        </div>
+      </div>`;
+
+    const ingredientsDetailHTML = () => {
+      const p = pdpProduct();
+      const keyIng = (p.keyIngredients || []).slice(0, 4);
+      if (!keyIng.length) return '';
+      const ingCols = keyIng.length >= 4 ? '--cols-4' : '--cols-3';
+      return `
+        <div class="ingredient-list ${ingCols}">
+          <h2>Inhaltsstoffe im Detail</h2>
+          ${keyIng.map(ing => `
+            <article class="ingredient">
+              <div class="ingredient__media">
+                <img class="ingredient__image" src="${ing.image}" alt="${ing.name}">
+              </div>
+              <div class="ingredient__body flow">
+                <h3 class="ingredient__title">${ing.name} <span class="ingredient__latin">(${ing.latin || '—'})</span></h3>
+                <p>${(ing.summary || []).join(' ')}</p>
+              </div>
+            </article>`).join('')}
+        </div>`;
+    };
+
+    // Brand-Testimonials — Stimmen von Tierärzt*innen; positiv über Inuvet, nicht über Produkte/Wirkung.
+    const testimonialsHTML = () => {
+      const items = [
+        {
+          text: 'Bei Inuvet fühle ich mich als Praxis gut aufgehoben. Die Antworten kommen schnell, und man merkt, dass hinter dem Shop echte fachliche Expertise steckt.',
+          name: 'Dr. Sandra Meier',
+          role: 'Tierärztin, München',
+          img: '../assets/images/Sarah_Inuvet.png',
+        },
+        {
+          text: 'Was mir an Inuvet gefällt: die enge, verlässliche Zusammenarbeit mit uns Tierärztinnen und Tierärzten. Das spüre ich in jedem Kontakt.',
+          name: 'Dr. Thomas Krause',
+          role: 'Tierarzt, Hamburg',
+          img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg',
+        },
+        {
+          text: 'Bestellen bei Inuvet ist unkompliziert — übersichtlich, klar und ohne Schnickschnack. Genau so soll ein Shop für die Praxis funktionieren.',
+          name: 'Dr. Julia Richter',
+          role: 'Tierärztin, Berlin',
+          img: '../assets/images/Partner_Mia_01.png',
+        },
+        {
+          text: 'Zuverlässige Lieferung, freundlicher Kontakt und ein Markenauftritt, dem ich vertraue. Deshalb empfehle ich Inuvet in meiner Praxis weiter.',
+          name: 'Dr. Markus Thal',
+          role: 'Tierarzt, Köln',
+          img: '../assets/images/Tierhalter_Test_Thumbnail.jpg',
+        },
+      ];
+      const cards = items.map(t => `
+        <div class="testimonial">
+          <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+          <p class="testimonial__text">${t.text}</p>
+          <div class="rating">
+            <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+          </div>
+          <div class="testimonial__author">
+            <div class="testimonial__avatar icon-box"><img src="${t.img}" alt=""></div>
+            <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
+          </div>
+        </div>`).join('');
+      return `
+        <div class="pdp__testimonials testimonial-section">
+          <div class="testimonial-grid --cols-4">
+            ${cards}
+          </div>
+          <div class="testimonial-more">
+            <button class="btn --secondary" type="button" onclick="showMore(this)">Mehr anzeigen</button>
+          </div>
+        </div>`;
+    };
+
+    // Praxis-Vorteile — wie inuvet-Shop.html #shopPraxisVorteile (letzte Rubrik).
+    const praxisHTML = () => `
+      <div class="pdp__praxis">
+        <div class="tile-grid --cols-3">
+          <div class="tile">
+            <div class="tile__icon tile__animation --ratio-1">
+              <lottie-player src="../assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Nur bei euch</p>
+            <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon tile__animation --ratio-weltweit">
+              <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
+            <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
+          </div>
+          <div class="tile">
+            <div class="tile__icon tile__animation --ratio-inhaltsstoffe">
+              <lottie-player src="../assets/lotties/inuvet_animation_inhaltsstoffe.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <p class="tile__headline">Grüne Pfoten</p>
+            <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p>
+          </div>
+        </div>
+      </div>`;
+
+    // Produkt-Akkordeon — volle Breite unter dem Kaufblock, Desktop 2 Spalten, ein Punkt pro Thema (E.2).
+    const accordionHTML = () => {
+      const p = pdpProduct();
+      const accPara = (text) => text ? `<p>${text}</p>` : '';
+      const accTable = (rows) => {
+        if (!rows || !rows.length) return '';
+        const body = rows.map(r =>
+          `<tr><td data-label="Angabe">${r.label}</td><td data-label="Wert">${r.value}</td></tr>`
+        ).join('');
+        return `<div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>${body}</tbody></table></div>`;
+      };
+      let accOrder = 0;
+      const accItem = (title, inner) => {
+        if (!inner) return '';
+        const order = accOrder++;
+        return `
+          <div class="accordion-item" style="order:${order}">
+            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">${title}<span class="accordion-icon material-icons">expand_more</span></button>
+            <div class="accordion-content"><div class="accordion-content__inner">${inner}</div></div>
+          </div>`;
+      };
+
+      const ingredientsBody = (() => {
+        const excerpt = p.ingredientsExcerpt || p.ingredients;
+        if (!excerpt && !p.isFamily) return '';
+        let html = accPara(excerpt);
+        if (p.isFamily) {
+          html += accPara('Variiert je nach gewähltem Produkttyp. Bitte die jeweilige Packungsbeilage beachten.');
+        }
+        return html;
+      })();
+
+      /* Zwei unabhängige Spalten — sonst teilen Gegenüber-Items eine Grid-Zeile
+         und grid-template-rows: 0fr/1fr öffnet optisch mit. */
+      const items = [
+        accItem('Beschreibung', accPara(p.desc || p.shortDesc)),
+        accItem('Anwendung', accPara(p.application)),
+        accItem('Inhaltsstoffe (Auszug)', ingredientsBody),
+        accItem('Zusammensetzung', accPara(p.composition)),
+        accItem('Analytische Bestandteile', accTable(p.analyticalConstituents)),
+        accItem('Sensorische Zusatzstoffe (je kg)', accTable(p.sensoryAdditives)),
+        accItem('Tägliche Fütterungsempfehlung', accPara(p.feedingRecommendation)),
+        accItem('Ernährungsphysiologische Zusatzstoffe (je kg)', accTable(p.nutritionalAdditives)),
+        accItem('Hinweise', accPara(p.notes)),
+        accItem('Haltbarkeitshinweise', accPara(p.shelfLife)),
+        accItem('Zieltierart', accPara(p.targetSpecies)),
+      ].filter(Boolean);
+      const left = items.filter((_, i) => i % 2 === 0).join('');
+      const right = items.filter((_, i) => i % 2 === 1).join('');
+
+      return `
+        <div class="pdp__accordion accordion --cols-2">
+          <div class="accordion__col">${left}</div>
+          <div class="accordion__col">${right}</div>
+        </div>`;
+    };
+
+    const pdpBelowHTML = () => `${accordionHTML()}${ingredientsDetailHTML()}${benefitsHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
+
     const pdpHTML = () => {
       const p     = pdpProduct();
-      const price = pdpCurrentPrice();
+      const size  = pdpCurrentSize();
+      const price = size.price;
+      const unit  = size.unitPrice || '';
 
-      // Darreichungsform-Selektor (nur Familien), VOR dem Preis — wie Styleguide E.2.
+      // Darreichungsform — vor Preis (E.2 Familie)
       let typeSection = '';
       if (p.isFamily) {
         const rows = p.variants.map((v, i) => `
           <label class="pdp__type-row">
             <input type="radio" name="pdpType"${i === pdpState.formIdx ? ' checked' : ''} onchange="selectPdpForm(${i})">
             <span class="pdp__type-label">${v.type}${v.note ? ` (${v.note})` : ''}</span>
-            <span class="pdp__type-animals">${v.animals}</span>
+            <span class="pdp__type-animals">${v.animals ? `für ${v.animals}` : ''}</span>
           </label>`).join('');
         typeSection = `
           <div class="pdp__variants">
             <div class="pdp__type-selector">
-              <div class="pdp__type-selector-header"><span>Darreichungsform</span><span>Geeignet für</span></div>
               ${rows}
             </div>
             <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
           </div>`;
       }
 
-      // Größen-Auswahl — Familien (Größen der gewählten Form) ODER Einzelprodukte mit Größen.
+      // Größen — ohne Label wenn Optionen selbsterklärend (E.2)
       const sizes = p.isFamily ? p.variants[pdpState.formIdx].sizes : (p.sizes || null);
       let sizeSection = '';
       if (sizes) {
-        const sizeLabel = p.isFamily ? 'Produktgröße' : 'Größe';
         const btns = sizes.map((s, i) => `
           <button class="choice-box${i === pdpState.sizeIdx ? ' --active' : ''}" type="button" onclick="selectPdpVariant(${i})">${s.label}</button>`).join('');
         sizeSection = `
           <div class="pdp__variants">
-            <div class="pdp__variant-label label-caps">${sizeLabel}</div>
             <div class="pdp__variant-options">${btns}</div>
           </div>`;
       }
 
-      // Floating-Meta: Kategorie-Badge (eingefärbt via data-cat) + Familien-/Einzelprodukt-Badge.
-      const catBadge = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
-      const familyBadge = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
-      const meta = `<div class="floating-meta">${catBadge}${familyBadge}</div>`;
-      const gallery = p.image
-        ? `<div class="pdp__main-image"><img src="${p.image}" alt="${p.title}">${meta}</div>`
-        : `<div class="pdp__main-image placeholder-bg">${meta}</div>`;
+      const usps = (p.usps || []).map(u =>
+        `<li><span class="material-icons">check</span><span>${u}</span></li>`).join('');
+      const uspsBlock = usps ? `<ul class="check-list">${usps}</ul>` : '';
 
-      const ingredientsAcc = p.ingredients ? `
-        <div class="accordion-item">
-          <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
-          <div class="accordion-content"><div class="accordion-content__inner"><p>${p.ingredients}</p></div></div>
-        </div>` : '';
+      // Shop-weiter Trust-Block (nicht produktgebunden) — analog alte PDP / Styleguide E.2.
+      const socialProofHTML = `
+        <div class="social-proof">
+          <div class="social-proof__avatars" aria-hidden="true">
+            <img class="social-proof__avatar" src="../assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+            <img class="social-proof__avatar" src="../assets/images/Sarah_Inuvet.png" alt="">
+          </div>
+          <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+        </div>`;
+
+      const ratingLabel = p.ratingCount
+        ? `${p.rating} (${p.ratingCount} Bewertungen)`
+        : `${p.rating || '4,8'} (Bewertungen)`;
+
+      const wishlistIcon = pdpState.wishlist ? 'favorite' : 'favorite_border';
+      const wishlistClass = pdpState.wishlist ? ' --active' : '';
+      const wishlistLabel = pdpState.wishlist ? 'Von Wunschliste entfernen' : 'Zur Wunschliste';
+
+      const crumbCat = p.catLabel
+        ? `<span aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><a href="Bundle.html">${p.catLabel}</a></span>`
+        : '';
 
       return `
-        <div class="container">
-          <a href="Bundle.html" class="btn --ghost --back --sm pdp__back" onclick="if(history.length>1){history.back();return false;}">Zurück</a>
-          <div class="pdp">
-            <div class="pdp__gallery">${gallery}</div>
-            <div class="pdp__info">
-              <h1 class="pdp__title">${p.title}</h1>
-              <div class="rating">${starsHTML()} <span class="text-muted">${p.rating || '4,8'} (Bewertungen)</span></div>
-              <p class="pdp__description">${p.shortDesc || p.desc || ''}</p>
-              ${typeSection}
-              <div class="pdp__price"><div class="price-stack"><span>${fmt(price)}</span></div></div>
-              ${sizeSection}
-              <div class="pdp__actions">
-                <div>
-                  <div class="pdp__variant-label label-caps">Menge</div>
-                  <div class="qty-selector">
-                    <button class="qty-selector__btn" type="button" aria-label="Weniger" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
-                    <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" id="pdpQty" onchange="pdpSetQty(parseInt(this.value)||1)">
-                    <button class="qty-selector__btn" type="button" aria-label="Mehr" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
-                  </div>
-                </div>
-                <button class="btn --primary" onclick="pdpAddToCart()">In den Warenkorb</button>
-              </div>
-              ${nrWidgetHTML()}
-              <div class="accordion">
-                <div class="accordion-item">
-                  <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
-                  <div class="accordion-content"><div class="accordion-content__inner"><p>${p.desc || p.shortDesc || ''}</p></div></div>
-                </div>
-                ${ingredientsAcc}
-                <div class="accordion-item">
-                  <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Naturalrabatt<span class="accordion-icon material-icons">expand_more</span></button>
-                  <div class="accordion-content"><div class="accordion-content__inner"><p>Je mehr du von der berechtigten Darreichungsform kaufst, desto mehr Gratisartikel erhältst du automatisch — ohne Gutschein. Die Gratis-Stück werden im Warenkorb pro Produkt ausgewiesen.</p></div></div>
-                </div>
-                <div class="accordion-item">
-                  <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
-                  <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Ab 49 € versandkostenfrei.</p></div></div>
-                </div>
+        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
+          <span class="breadcrumb__item"><a href="Bundle.html">Start</a></span>
+          ${crumbCat}
+          <span aria-hidden="true">/</span>
+          <span class="breadcrumb__item" aria-current="page">${p.title}</span>
+        </nav>
+        <div class="pdp">
+          ${galleryHTML()}
+          <div class="pdp__info">
+            <h1 class="pdp__title">${p.title}</h1>
+            <div class="rating">${starsHTML(p.rating)} <span class="text-muted">${ratingLabel}</span></div>
+            <p class="pdp__description">${p.shortDesc || p.desc || ''}</p>
+            ${uspsBlock}
+            ${socialProofHTML}
+            ${typeSection}
+            <div class="pdp__price">
+              <div class="price-stack">
+                <span>${fmt(price)}</span>
+                ${unit ? `<span class="price-stack__unit">${unit}</span>` : ''}
+                <span class="price-stack__unit">Exkl. USt.</span>
               </div>
             </div>
+            ${sizeSection}
+            <div class="pdp__actions">
+              <div>
+                <div class="qty-selector">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
+                  <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" id="pdpQty" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
+                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
+                </div>
+              </div>
+              <button class="btn --primary" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>
+              <button class="pdp__wishlist icon-box --md${wishlistClass}" type="button" aria-label="${wishlistLabel}" onclick="togglePdpWishlist()">
+                <span class="material-icons">${wishlistIcon}</span>
+              </button>
+            </div>
+            ${reorderHTML()}
+            ${nrWidgetHTML()}
+            ${orderMetaHTML()}
           </div>
         </div>`;
     };
 
-    const renderPdp = () => { document.getElementById('pdpMount').innerHTML = pdpHTML(); };
+    const renderPdp = () => {
+      document.getElementById('pdpMount').innerHTML = pdpHTML();
+      if (!pdpState.belowRendered) {
+        document.getElementById('pdpBelow').innerHTML = pdpBelowHTML();
+        pdpState.belowRendered = true;
+        initScrollAnimations();
+        initTestimonials();
+      }
+    };
 
     window.selectPdpForm = (i) => { pdpState.formIdx = i; pdpState.sizeIdx = 0; renderPdp(); };
     window.selectPdpVariant = (i) => { pdpState.sizeIdx = i; renderPdp(); };
     window.pdpQtyChange = (delta) => { pdpState.qty = Math.max(1, pdpState.qty + delta); renderPdp(); };
     window.pdpSetQty = (val) => { pdpState.qty = Math.max(1, val); renderPdp(); };
+    window.togglePdpWishlist = () => { pdpState.wishlist = !pdpState.wishlist; renderPdp(); };
+    window.pdpFillNrTier = () => {
+      const p = pdpProduct();
+      const hint = nextHintFor(pdpCurrentPrice(), pdpState.qty, p.pricingModel || 'A');
+      if (!hint) return;
+      pdpSetQty(hint.targetQty || (pdpState.qty + hint.moreQty));
+    };
 
     window.pdpAddToCart = () => {
       const p = pdpProduct();
       const formIdx = p.isFamily ? pdpState.formIdx : 0;
       const sizeIdx = (p.isFamily || p.sizes) ? pdpState.sizeIdx : 0;
       addToCart(pdpId, formIdx, sizeIdx, pdpState.qty);
+      localStorage.setItem(PDP_LAST_QTY_KEY, String(pdpState.qty));
       showToast(`${p.title} in den Warenkorb gelegt`);
       openCart();
     };

@@ -66,10 +66,19 @@ function initScrollAnimations() {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
 
-  document.querySelectorAll('.tile-grid .tile:not([data-animate])').forEach((tile, i) => {
-    tile.setAttribute('data-animate', '');
-    tile.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
-    observer.observe(tile);
+  /* Pro Gruppe staffeln — sonst bekommen spätere Sections alle denselben Max-Delay */
+  [
+    ['.tile-grid', '.tile'],
+    ['.ingredient-list', '.ingredient'],
+    ['.testimonial-grid', '.testimonial'],
+  ].forEach(([groupSel, itemSel]) => {
+    document.querySelectorAll(groupSel).forEach(group => {
+      group.querySelectorAll(`${itemSel}:not([data-animate])`).forEach((el, i) => {
+        el.setAttribute('data-animate', '');
+        el.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
+        observer.observe(el);
+      });
+    });
   });
 }
 
@@ -348,15 +357,88 @@ const allProducts = [
 
   // Hepax forte — Produktfamilie (Daten aus Tierarzt-Empfehlung).
   // Kondition (A/B) gilt für die Familie; jede Darreichungsform sammelt eigenständig Naturalrabatt.
+  // PDP-Felder (media, usps, content*) → Styleguide E.2 Produktfamilie.
   { id: 13, isFamily: true, title: 'Hepax forte', cat: 'leber', catLabel: 'Leber',
-    rating: '4,6', past6Months: 0, past18Months: 0, pricingModel: 'A',
+    rating: '4,6', ratingCount: 312, past6Months: 0, past18Months: 0, pricingModel: 'A',
     image: '../assets/images/Hepax_Packshot_01.jpeg',
-    shortDesc: 'Unterstützt die Leberfunktion.',
-    desc: 'Spezialformel zur Unterstützung der Leberfunktion bei Hunden und Katzen. Mit natürlichen Pflanzenextrakten, tierärztlich entwickelt.',
+    media: [
+      { type: 'image', src: '../assets/images/Hepax_Packshot_01.jpeg', alt: 'Packshot' },
+      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Pulver_1zu1.mp4', caption: 'Das Pulver lässt sich einfach dosieren und unter das Futter mischen' },
+      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tabletten_1zu1.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
+      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tier_01_Hund_1zu1.mp4', caption: 'Wohlschmeckend und einfach in der Gabe' },
+      { type: 'image', src: '../assets/images/Hepax_Foto-Test.png', alt: 'Tierhalter mit Hund', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
+    ],
+    shortDesc: 'Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.',
+    desc: 'Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.',
+    // PDP-Akkordeon: 4 thematische Gruppen (E.2) — Felder = Deklarations-/Produktinfos.
+    application: 'Täglich über das Futter geben. Dosierung nach Körpergewicht gemäß Fütterungsempfehlung. Bei Umstellung oder Unsicherheit die behandelnde Tierarztpraxis ansprechen.',
+    targetSpecies: 'Hund und Katze',
+    ingredientsExcerpt: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
+    composition: 'Pflanzliche Nebenerzeugnisse, Hefe, Öle und Fette, Mineralstoffe.',
+    analyticalConstituents: [
+      { label: 'Rohprotein', value: '18,0 %' },
+      { label: 'Rohfett', value: '6,5 %' },
+      { label: 'Rohfaser', value: '4,0 %' },
+      { label: 'Rohasche', value: '8,0 %' },
+    ],
+    sensoryAdditives: [
+      { label: 'Mariendistel-Extrakt (Silymarin)', value: '50.000 mg' },
+      { label: 'Artischockenextrakt', value: '20.000 mg' },
+    ],
+    nutritionalAdditives: [
+      { label: 'Taurin', value: '10.000 mg' },
+      { label: 'Zink (als Zinkchelat)', value: '1.200 mg' },
+    ],
+    feedingRecommendation: 'Hund: 1 Tablette je 10 kg Körpergewicht täglich. Katze: ½–1 Tablette täglich bzw. Pulver gemäß Packungsangabe unter das Futter mischen.',
+    notes: 'Nur zur Ergänzung der täglichen Ration. Außerhalb der Reichweite von Kindern aufbewahren. Vor direkter Sonneneinstrahlung schützen.',
+    shelfLife: 'Mindesthaltbarkeit siehe Aufdruck auf der Packung. Nach Anbruch trocken und gut verschlossen lagern.',
+    usps: [
+      'Rein pflanzlich, ohne künstliche Zusatzstoffe',
+      'Hohe Akzeptanz — auch bei wählerischen Tieren',
+      'Von über 20.000 Tierärzten empfohlen',
+    ],
+    contentHalter: 'Die Leber Ihres Tieres leistet täglich Schwerstarbeit — Medikamente, Futterumstellungen oder das Alter können sie zusätzlich belasten. Hepax forte unterstützt Leber und Stoffwechsel mit pflanzlichen Wirkstoffen. Tabletten oder Pulver geben Sie einfach täglich über das Futter.',
+    contentPraxis: 'Hepax forte kombiniert hepatoprotektive Phytostoffe (u.&nbsp;a. Silymarin aus der Mariendistel und Artischockenextrakt) zur Unterstützung der Hepatozyten-Regeneration und des Gallenflusses. Indiziert zur adjuvanten Anwendung bei eingeschränkter Leberfunktion; Dosierung nach Körpergewicht, Angaben zu Wirkstoffgehalt und Studienlage auf Anfrage.',
     ingredients: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
+    // Schlüssel-Inhaltsstoffe → produktiv: Metaobject-Referenzen (custom.key_ingredients)
+    // latin ist Pflicht (kursiv hinter dem Namen).
+    keyIngredients: [
+      {
+        name: 'Mariendistel', latin: 'Silymarin',
+        image: '../assets/images/Inhaltsstoff_Mariendistel.jpg',
+        summary: [
+          'Silymarin schützt die Leberzellen und unterstützt ihre Regeneration — besonders hilfreich, wenn die Leber durch Medikamente, Alter oder Stoffwechselbelastung beansprucht wird.',
+          'In Hepax forte sorgt der standardisierte Extrakt dafür, dass Hund und Katze den Wirkstoff zuverlässig und dosiert aufnehmen.',
+        ],
+      },
+      {
+        name: 'Artischocke', latin: 'Cynara scolymus',
+        image: '../assets/images/Inhaltsstoff_Artischoke.jpg',
+        summary: [
+          'Artischockenextrakt regt den Gallenfluss an und unterstützt so die natürliche Entgiftungsarbeit der Leber.',
+          'Zusammen mit Mariendistel bildet er das phytotherapeutische Gerüst für die tägliche Leberpflege.',
+        ],
+      },
+      {
+        name: 'Taurin', latin: 'Taurinum',
+        image: '../assets/images/Hero_Mood_04.jpg',
+        summary: [
+          'Taurin ist eine Aminosulfonsäure, die den Gallenfluss und die Fettverdauung unterstützt — besonders relevant für Katzen, die Taurin nicht selbst ausreichend synthetisieren.',
+          'In der Kombination mit Mariendistel und Artischocke ergänzt es die hepatoprotektive Wirkung sinnvoll.',
+        ],
+      },
+    ],
     variants: [
-      { type: 'Tabletten', animals: 'Hund',                                          sizes: [{ label: '30 Stück', price: 34.90 }, { label: '60 Stück', price: 64.90 }] },
-      { type: 'Pulver',    animals: 'Katze, Hund', note: 'für Allergiker geeignet', sizes: [{ label: '75 g', price: 39.90 }, { label: '175 g', price: 84.90 }] },
+      { type: 'Tabletten', animals: 'Hund',
+        sizes: [
+          { label: '30 Stück', price: 34.90, unitPrice: '(1,16 € / Stück)' },
+          { label: '60 Stück', price: 64.90, unitPrice: '(1,08 € / Stück)' },
+        ] },
+      { type: 'Pulver', animals: 'Katze, Hund', note: 'für Allergiker geeignet',
+        sizes: [
+          { label: '75 g', price: 39.90, unitPrice: '(0,53 € / g)' },
+          { label: '175 g', price: 84.90, unitPrice: '(0,49 € / g)' },
+        ] },
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 0 },
 
@@ -659,6 +741,46 @@ function showToast(message, variant = 'success') {
     toast.classList.add('--out');
     setTimeout(() => toast.remove(), 250);
   }, 2600);
+}
+
+// PDP-Galerie: Thumb → Hauptbild/Video + Caption (Styleguide E.2 / Theme).
+function pdpSwitch(el, src, captionText, authorText) {
+  var pdp = el.closest('.pdp');
+  if (!pdp) return;
+  var main = pdp.querySelector('.pdp__main-image');
+  if (!main) return;
+  var img = main.querySelector('img');
+  var video = main.querySelector('video');
+  var isVideo = /\.mp4(\?|$)/i.test(src);
+
+  pdp.querySelectorAll('.pdp__thumbs .pdp__thumb').forEach(function(t) {
+    t.classList.remove('--active');
+  });
+  el.classList.add('--active');
+
+  if (isVideo && video) {
+    if (img) img.classList.add('--hidden');
+    video.classList.remove('--hidden');
+    if (video.getAttribute('src') !== src) video.setAttribute('src', src);
+    video.play().catch(function() {});
+  } else if (img) {
+    if (video) {
+      video.pause();
+      video.classList.add('--hidden');
+    }
+    img.classList.remove('--hidden');
+    img.src = src;
+  }
+
+  var cap = main.querySelector('.pdp__caption');
+  if (!cap) return;
+  if (captionText || authorText) {
+    cap.innerHTML = (captionText || '')
+      + (authorText ? '<span class="pdp__caption-author">' + authorText + '</span>' : '');
+    cap.classList.remove('--hidden');
+  } else {
+    cap.classList.add('--hidden');
+  }
 }
 
 // Produkt-Rollover: Video bei Hover abspielen (2. Medium in .tile__image / .product-thumb).

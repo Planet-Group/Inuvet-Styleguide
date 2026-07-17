@@ -345,7 +345,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### E — Seiten-Vorlagen
 | Sek. | Komponente | Klasse(n) |
 |---|---|---|
-| E.2 | PDP | `.pdp`, `.pdp__type-selector`, `.nr-widget` |
+| E.2 | PDP | `.pdp`, `.nr-widget`, `.social-proof`, `.pdp__benefits`, `.pdp__testimonials` (Brand-only, keine Produkt-/Wirkungstexte), `.pdp__praxis`, `.ingredient-list` |
 | E.3 | Collection | `.collection-layout` · `.collection-sidebar` · `.collection-toolbar` · Modifier `.--no-sidebar` / `.--no-filters` (Filter optional) |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
@@ -362,8 +362,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |
-| `.price-stack` | — | Preis + `--old` für Streichpreise + `__unit` für den Grundpreis (PAngV — Pflicht überall, wo ein Preis steht) |
-| `.price-note` | — | Hinweiszeile unter PDP-Preis: „inkl. MwSt., zzgl. Versandkosten · Lieferzeit" |
+| `.price-stack` | — | Preis + `--old` (Streichpreis) + `__unit` für Grundpreis (PAngV, „(0,30 € / g)") und Steuerhinweis („Exkl. USt.") — beide auf der Preis-Grundlinie |
 | `.breadcrumb` | — | Pfad-Navigation (`__item`), Doku in C.6 |
 | `.skip-link` / `.visually-hidden` | — | A11y: erster Fokus-Stopp zu `#MainContent` / Screenreader-only-Text |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
