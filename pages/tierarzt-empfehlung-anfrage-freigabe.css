@@ -1,27 +1,45 @@
 /* ══════════════════════════════════════════════════════════════
-   tierarzt-empfehlung-anfrage-freigabe.css — Empfehlungsanfrage-Freigabe (Tierarzt-Portal)
+   tierarzt-empfehlung-anfrage-freigabe.css — Freigabe ausstellen (Direkt)
    Page-spezifische Styles. Globale Atome via inuvet.css.
    ══════════════════════════════════════════════════════════════ */
 
-/* ─── Container — Platz für fixierte Submit-Leiste unten ─── */
-.approval-page { padding-bottom: calc(var(--module) * 3.25); }
+/* ─── Container — Platz für fixierte Submit-Leiste nur in Schritt 2 ─── */
+.approval-page.--products { padding-bottom: calc(var(--module) * 3.25); }
 
 /* ─── Intro (.col-grid --early-2 page-header data-cols="2") —
    Abstand + H1-Reset global via .page-header ─── */
 #approvalIntro { align-items: start; }
 
-/* ─── Patienten-Meta ─── */
-.approval-meta {
+/* ─── Schritt 1: Consent + E-Mail ─── */
+.approval-recipient__form {
+  max-width: 36rem;
+}
+.approval-recipient__lead {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+}
+.approval-recipient__consent {
+  align-items: flex-start;
+  font-size: var(--text-xs);
+  line-height: var(--lh-h3);
+  margin: var(--half-module) 0 0;
+}
+.approval-recipient__consent input { margin-top: 0.1em; }
+.approval-recipient__form > .btn { margin-top: var(--half-module); }
+
+/* Empfänger-Hinweis in Schritt 2 */
+.approval-recipient-summary {
+  margin: 0 0 var(--module);
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
   display: flex;
   flex-wrap: wrap;
-  gap: calc(var(--base) * 0.4) var(--module);
-  font-size: var(--text-sm);
+  align-items: baseline;
+  gap: 0.35em 0.75em;
 }
-@media (min-width: 768px) {
-  .approval-meta { padding-top: calc(var(--base) * 0.4); }
-}
-.approval-meta__item { display: flex; gap: calc(var(--base) * 0.5); align-items: baseline; }
-.approval-meta__val  { color: var(--fg); }
+.approval-recipient-summary strong { color: var(--fg); font-weight: 700; }
 
 #approvalGrid { margin-bottom: var(--module); }
 
@@ -120,17 +138,6 @@
   min-width: calc(var(--base) * 10);
   flex: 0 0 auto;
 }
-
-/* ─── Direkt-Modal + Erfolgs-Modal ─── */
-.approval-direct-modal__consent {
-  align-items: flex-start;
-  font-size: var(--text-xs);
-  line-height: var(--lh-h3);
-  margin: 0;
-}
-.approval-direct-modal__consent input { margin-top: 0.1em; }
-.approval-direct-modal .flow > .form-field { margin-bottom: 0; }
-.approval-direct-modal .flow > .form-check { margin-bottom: 0; }
 
 @media (max-width: 767px) {
   .approval-submit-bar__inner {

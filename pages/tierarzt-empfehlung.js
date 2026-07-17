@@ -1000,7 +1000,7 @@ function renderSuccessStep() {
       <p>Tierbesitzer*in <strong>${requesterName || 'Max Mustermann'}</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
       <p>Angefragt: <strong>${requestedNames}</strong></p>
       <p>Diese können Sie hier einsehen und freigeben:<br>
-      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
+      <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
 
       <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
       <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
