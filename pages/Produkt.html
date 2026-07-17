@@ -6,14 +6,14 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=45">
+  <link rel="stylesheet" href="../inuvet.css?v=46">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body>
+<body class="--ann-scroll">
 
-  <!-- Announcement Bar -->
+  <!-- Announcement Bar — scrollt weg (D.1 body.--ann-scroll), nur Nav bleibt sticky -->
   <div class="announcement-bar --marquee" id="announcementBar">
     <div class="announcement-bar__track">
       <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
@@ -82,13 +82,25 @@
     <div id="pdpMount"><!-- Kaufblock — bei Variante/Menge neu gerendert --></div>
     <div id="pdpBelow"><!-- Inhaltsstoffe, Benefits, Recommendations — einmalig --></div>
   </main>
+  <!-- Sticky ATC (Mobile) — Shopify: Section-Setting sticky_atc → Klasse pdp--sticky-cta -->
+  <div class="pdp__sticky-cta" id="pdpStickyCta" aria-hidden="true">
+    <div class="pdp__sticky-cta__inner">
+      <div class="pdp__sticky-cta__meta">
+        <span class="pdp__sticky-cta__title" id="pdpStickyTitle"></span>
+        <span class="pdp__sticky-cta__price" id="pdpStickyPrice"></span>
+      </div>
+      <button class="btn --primary" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>
+    </div>
+  </div>
 
-  <script src="../inuvet.js?v=9"></script>
+  <script src="../inuvet.js?v=11"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
     let pdpId = parseInt(params.get('id') || '13', 10);
     if (!productById(pdpId)) pdpId = 13;
+    /* sticky=0 deaktiviert den Sticky-CTA (Shopify-Checkbox-Analog) */
+    const stickyCtaEnabled = params.get('sticky') !== '0';
 
     const PDP_LAST_QTY_KEY = 'inuvet:pdp-last-qty';
     const pdpLastOrderQty = () => {
@@ -96,7 +108,8 @@
       return Number.isFinite(n) && n > 0 ? n : 12;
     };
 
-    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, wishlist: false, belowRendered: false };
+    /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
+    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, wishlist: false, belowRendered: false, formTouched: false };
     const pdpProduct = () => productById(pdpId);
 
     const pdpCurrentSize = () => {
@@ -174,31 +187,38 @@
       const media = p.media && p.media.length
         ? p.media
         : (p.image ? [{ type: 'image', src: p.image, alt: p.title }] : []);
-      const first = media[0] || { type: 'image', src: '', alt: p.title };
-      const firstVideo = media.find(m => m.type === 'video');
+      /* Nach Form-Wechsel: variant.mediaIdx · vorher: Packshot (Medium 0) */
+      const formMediaIdx = p.isFamily && pdpState.formTouched
+        ? p.variants[pdpState.formIdx]?.mediaIdx
+        : null;
+      const activeIdx = Number.isInteger(formMediaIdx) && media[formMediaIdx] ? formMediaIdx : 0;
+      const active = media[activeIdx] || media[0] || { type: 'image', src: '', alt: p.title };
+      const packshot = media.find(m => m.type === 'image') || { src: p.image || '', alt: p.title };
+      const anyVideo = media.find(m => m.type === 'video');
 
       const catBadge = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
       const familyBadge = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
       const meta = `<div class="floating-meta">${catBadge}${familyBadge}</div>`;
 
-      const mainImg = first.type === 'image'
-        ? `<img src="${first.src}" alt="${first.alt || p.title}">`
-        : `<img class="--hidden" src="${p.image || ''}" alt="${p.title}">`;
-      const mainVideoSrc = first.type === 'video' ? first.src : (firstVideo ? firstVideo.src : '');
+      const mainImg = `<img class="${active.type === 'image' ? '' : '--hidden'}" src="${active.type === 'image' ? active.src : packshot.src}" alt="${active.alt || packshot.alt || p.title}">`;
+      const mainVideoSrc = active.type === 'video' ? active.src : (anyVideo ? anyVideo.src : '');
       const mainVideo = mainVideoSrc
-        ? `<video class="${first.type === 'video' ? '' : '--hidden'}" src="${mainVideoSrc}" muted loop playsinline aria-hidden="true"></video>`
+        ? `<video class="${active.type === 'video' ? '' : '--hidden'}" src="${mainVideoSrc}" muted loop playsinline${active.type === 'video' ? ' autoplay' : ''} aria-hidden="true"></video>`
         : '';
+      const caption = (active.caption || active.author)
+        ? `<div class="pdp__caption" aria-live="polite">${active.caption || ''}${active.author ? `<span class="pdp__caption-author">${active.author}</span>` : ''}</div>`
+        : `<div class="pdp__caption --hidden" aria-live="polite"></div>`;
 
       const thumbs = media.map((m, i) => {
         const cap = m.caption || '';
         const author = m.author || '';
-        const active = i === 0 ? ' --active' : '';
+        const activeClass = i === activeIdx ? ' --active' : '';
         if (m.type === 'video') {
-          return `<div class="pdp__thumb${active}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
+          return `<div class="pdp__thumb${activeClass}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
             <video src="${m.src}" muted loop playsinline aria-hidden="true"></video>
           </div>`;
         }
-        return `<div class="pdp__thumb${active}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
+        return `<div class="pdp__thumb${activeClass}" onclick="pdpSwitch(this,'${m.src}','${cap.replace(/'/g, "\\'")}','${author.replace(/'/g, "\\'")}')">
           <img src="${m.src}" alt="${m.alt || ''}">
         </div>`;
       }).join('');
@@ -208,7 +228,7 @@
           <div class="pdp__main-image">
             ${mainImg}
             ${mainVideo}
-            <div class="pdp__caption --hidden" aria-live="polite"></div>
+            ${caption}
             ${meta}
           </div>
           ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
@@ -543,8 +563,28 @@
         </div>`;
     };
 
+    const updateStickyCta = () => {
+      const bar = document.getElementById('pdpStickyCta');
+      const page = document.getElementById('pdpPage');
+      if (!bar || !page) return;
+      page.classList.toggle('pdp--sticky-cta', stickyCtaEnabled);
+      if (!stickyCtaEnabled) {
+        bar.classList.remove('--visible');
+        bar.setAttribute('aria-hidden', 'true');
+        return;
+      }
+      const p = pdpProduct();
+      const price = pdpCurrentPrice();
+      const titleEl = document.getElementById('pdpStickyTitle');
+      const priceEl = document.getElementById('pdpStickyPrice');
+      if (titleEl) titleEl.textContent = p.title;
+      if (priceEl) priceEl.textContent = `${fmt(price)} · Exkl. USt.`;
+    };
+
     const renderPdp = () => {
       document.getElementById('pdpMount').innerHTML = pdpHTML();
+      updateStickyCta();
+      initPdpStickyCta();
       if (!pdpState.belowRendered) {
         document.getElementById('pdpBelow').innerHTML = pdpBelowHTML();
         pdpState.belowRendered = true;
@@ -553,7 +593,12 @@
       }
     };
 
-    window.selectPdpForm = (i) => { pdpState.formIdx = i; pdpState.sizeIdx = 0; renderPdp(); };
+    window.selectPdpForm = (i) => {
+      pdpState.formTouched = true;
+      pdpState.formIdx = i;
+      pdpState.sizeIdx = 0;
+      renderPdp();
+    };
     window.selectPdpVariant = (i) => { pdpState.sizeIdx = i; renderPdp(); };
     window.pdpQtyChange = (delta) => { pdpState.qty = Math.max(1, pdpState.qty + delta); renderPdp(); };
     window.pdpSetQty = (val) => { pdpState.qty = Math.max(1, val); renderPdp(); };

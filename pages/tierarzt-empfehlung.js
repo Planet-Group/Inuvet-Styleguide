@@ -35,10 +35,10 @@ const PRODUCTS = [
     desc: 'Spezialformel zur Unterstützung der Leberfunktion bei Hunden und Katzen. Mit natürlichen Pflanzenextrakten, tierärztlich entwickelt.',
     ingredients: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
     darreichungsformen: [
-      { label: 'Tabletten', cartName: 'Hepax forte Tabletten', animals: 'Hund',
-        variants: [{ label: '30 Stück', price: '34,90 €' }, { label: '60 Stück', price: '64,90 €' }] },
       { label: 'Pulver',    cartName: 'Hepax forte Pulver',    animals: 'Katze, Hund', note: 'für Allergiker geeignet',
         variants: [{ label: '75 g',    price: '39,90 €' }, { label: '175 g',   price: '84,90 €' }] },
+      { label: 'Tabletten', cartName: 'Hepax forte Tabletten', animals: 'Hund',
+        variants: [{ label: '30 Stück', price: '34,90 €' }, { label: '60 Stück', price: '64,90 €' }] },
     ],
   },
   {

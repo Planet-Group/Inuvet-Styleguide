@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=101">
+  <link rel="stylesheet" href="inuvet.css?v=102">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -4134,6 +4134,7 @@
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
         <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: „Erneut übernehmen“ (<code>.pdp__reorder</code>) · NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
+        <tr><th>Sticky ATC (Mobile)</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> (Titel + Preis + CTA) · ≤899px · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
         <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Progress-Bar (<code>.nr-widget__bar</code>) + Hint · optional Gratis-Badge (<code>.badge.--free</code>) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live-Demo → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
         <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> unter dem PDP-Kaufblock (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
@@ -4154,6 +4155,7 @@
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
         <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
         <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · in <code>.pdp__type-animals</code> als „für …“ (z.&nbsp;B. „für Hund“)</td></tr>
+        <tr><th>Galerie ↔ Form</th><td>Pro Darreichungsform optional <code>mediaIdx</code> → Index in <code>product.media</code> · Default: Packshot (Medium&nbsp;1), Form vorausgewählt (z.&nbsp;B. Pulver) · erst bei aktivem Form-Wechsel Galerie umschalten · Hepax: Pulver → Medium&nbsp;2, Tabletten → Medium&nbsp;3</td></tr>
         <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
         <tr><th>Steuerhinweis</th><td>Zweites <code>.price-stack__unit</code> auf derselben Grundlinie · Text via Locale-Key · Versand-/Lieferzeit-Hinweis separat an anderer Stelle (nicht am Preis)</td></tr>
         <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code> aus <code>product.description</code>-Anfang oder Metafield (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste) — pro Produkt pflegbar</td></tr>
@@ -4164,6 +4166,7 @@
         <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
+        <tr><th>Sticky ATC</th><td>Section-Setting Checkbox <code>sticky_atc</code> (Default an) → Klasse <code>pdp--sticky-cta</code> am Section-Root · Markup <code>.pdp__sticky-cta</code> · JS <code>initPdpStickyCta()</code> · Demo <a href="pages/Produkt.html?id=13">Produkt.html</a> · aus: <code>?sticky=0</code></td></tr>
       </table>
       <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
 
@@ -4421,10 +4424,10 @@
             <div class="pdp__variants">
               <div class="pdp__type-selector">
                 <label class="pdp__type-row">
-                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
+                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">für Katze, Hund</span>
                 </label>
                 <label class="pdp__type-row">
-                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">für Katze, Hund</span>
+                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
                 </label>
               </div>
               <div class="notice"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
@@ -5694,7 +5697,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=9"></script>
+<script src="inuvet.js?v=11"></script>
 <script src="sg.js?v=4"></script>
 </body>
 </html>

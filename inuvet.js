@@ -85,6 +85,58 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 /* ═══════════════════════════════════════════════════════
+   PDP STICKY ATC (Mobile)
+   [PORTABEL → Theme]
+   Aktiv nur mit .pdp--sticky-cta (Shopify: Section-Setting
+   sticky_atc Checkbox). Bar .pdp__sticky-cta erscheint, wenn
+   der Kaufblock-CTA (.pdp__actions .btn.--primary) den
+   Viewport verlässt — Desktop immer aus.
+   ═══════════════════════════════════════════════════════ */
+let _pdpStickyIo = null;
+let _pdpStickyMq = null;
+let _pdpStickyMqHandler = null;
+
+function initPdpStickyCta() {
+  const page = document.querySelector('.pdp--sticky-cta');
+  const bar  = document.querySelector('.pdp__sticky-cta');
+  const anchor = document.querySelector('.pdp__actions .btn.--primary');
+  if (_pdpStickyIo) { _pdpStickyIo.disconnect(); _pdpStickyIo = null; }
+  if (_pdpStickyMq && _pdpStickyMqHandler) {
+    _pdpStickyMq.removeEventListener('change', _pdpStickyMqHandler);
+    _pdpStickyMqHandler = null;
+  }
+  if (!page || !bar || !anchor) {
+    bar?.classList.remove('--visible');
+    bar?.setAttribute('aria-hidden', 'true');
+    return;
+  }
+
+  const mq = window.matchMedia('(max-width: 899px)');
+  _pdpStickyMq = mq;
+
+  const sync = (inView) => {
+    const show = mq.matches && !inView;
+    bar.classList.toggle('--visible', show);
+    bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+  };
+
+  _pdpStickyIo = new IntersectionObserver(([e]) => {
+    sync(e.isIntersecting);
+  }, { threshold: 0, rootMargin: '0px' });
+  _pdpStickyIo.observe(anchor);
+
+  _pdpStickyMqHandler = () => {
+    if (!mq.matches) sync(true);
+    else {
+      const rect = anchor.getBoundingClientRect();
+      sync(rect.top < window.innerHeight && rect.bottom > 0);
+    }
+  };
+  mq.addEventListener('change', _pdpStickyMqHandler);
+  _pdpStickyMqHandler();
+}
+
+/* ═══════════════════════════════════════════════════════
    ARTIKEL-INHALTSVERZEICHNIS (.article-toc) — Scrollspy
    [PORTABEL → Theme]
    Markiert den Link zum zuletzt passierten Abschnitt mit
@@ -429,15 +481,16 @@ const allProducts = [
       },
     ],
     variants: [
-      { type: 'Tabletten', animals: 'Hund',
-        sizes: [
-          { label: '30 Stück', price: 34.90, unitPrice: '(1,16 € / Stück)' },
-          { label: '60 Stück', price: 64.90, unitPrice: '(1,08 € / Stück)' },
-        ] },
-      { type: 'Pulver', animals: 'Katze, Hund', note: 'für Allergiker geeignet',
+      /* mediaIdx → Index in product.media (1 = Pulver-Video, 2 = Tabletten-Video) */
+      { type: 'Pulver', animals: 'Katze, Hund', note: 'für Allergiker geeignet', mediaIdx: 1,
         sizes: [
           { label: '75 g', price: 39.90, unitPrice: '(0,53 € / g)' },
           { label: '175 g', price: 84.90, unitPrice: '(0,49 € / g)' },
+        ] },
+      { type: 'Tabletten', animals: 'Hund', mediaIdx: 2,
+        sizes: [
+          { label: '30 Stück', price: 34.90, unitPrice: '(1,16 € / Stück)' },
+          { label: '60 Stück', price: 64.90, unitPrice: '(1,08 € / Stück)' },
         ] },
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 0 },

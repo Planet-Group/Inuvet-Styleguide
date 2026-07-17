@@ -2897,6 +2897,66 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* Praxis-Vorteile („Nur bei euch“ …) — wie Shop #shopPraxisVorteile, letzte PDP-Rubrik */
   .pdp__praxis { margin-top: var(--module-2xl); }
 
+  /* ─── Sticky ATC Mobile ───
+     Opt-in: Klasse .pdp--sticky-cta am PDP-Root (Shopify Section-Setting sticky_atc).
+     Bar .pdp__sticky-cta als Sibling hinter <main>; sichtbar ≤899px wenn Kaufblock-CTA
+     den Viewport verlässt (initPdpStickyCta). */
+  .pdp__sticky-cta { display: none; }
+  @media (max-width: 899px) {
+    main.pdp--sticky-cta ~ .pdp__sticky-cta {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: calc(var(--z-nav) - 1);
+      background: var(--bg);
+      border-top: 1px solid var(--border-light);
+      padding: var(--half-module) var(--margin);
+      padding-bottom: calc(var(--half-module) + env(safe-area-inset-bottom, 0px));
+      transform: translateY(100%);
+      transition: transform var(--anim-mid);
+      pointer-events: none;
+    }
+    main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
+      padding-bottom: calc(var(--module) * 2.5 + env(safe-area-inset-bottom, 0px));
+    }
+    .pdp__sticky-cta__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--half-module);
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    .pdp__sticky-cta__meta {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .pdp__sticky-cta__title {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      line-height: var(--lh-base);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pdp__sticky-cta__price {
+      font-size: var(--text-xs);
+      color: var(--fg-muted);
+    }
+    .pdp__sticky-cta__inner .btn {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+  }
+
   /* ─── Naturalrabatt-Widget (PDP) ───
      Abstand zu .pdp__actions: var(--base) via Sibling-Regel (nicht --half-module /
      Desktop-Max 24px — war optisch zu weit). Fallback margin-top für andere Kontexte. */
