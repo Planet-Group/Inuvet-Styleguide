@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=107">
+  <link rel="stylesheet" href="inuvet.css?v=109">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -4150,7 +4150,7 @@
         <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · auf gleicher Grundlinie zwei <code>.price-stack__unit</code>: Grundpreis „(0,30 € / g)" (PAngV-Pflicht) + Steuerhinweis „Exkl. USt."</td></tr>
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
-        <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: „Erneut übernehmen“ (<code>.pdp__reorder</code>) · NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
+        <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
         <tr><th>Sticky ATC (Mobile)</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> (Titel + Preis + CTA) · ≤899px · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
         <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Progress-Bar (<code>.nr-widget__bar</code>) + Hint · optional Gratis-Badge (<code>.badge.--free</code>) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live-Demo → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
@@ -4323,10 +4323,6 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und verschlossen lagern.</p></div></div>
-          </div>
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zieltierart<span class="accordion-icon material-icons">expand_more</span></button>
-            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund und Katze</p></div></div>
           </div>
         </div>
         <div class="pdp__recommendations">
@@ -4543,10 +4539,6 @@
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und gut verschlossen lagern.</p></div></div>
           </div>
-          <div class="accordion-item">
-            <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Zieltierart<span class="accordion-icon material-icons">expand_more</span></button>
-            <div class="accordion-content"><div class="accordion-content__inner"><p>Hund und Katze</p></div></div>
-          </div>
         </div>
       </div>
       <p class="sg-caption">2. Thumbnail = Produktvideo · 3. Thumbnail = Lifestyle-Foto mit <code>.pdp__caption</code>-Zitat · Wechsel via <code>pdpSwitch()</code>.</p>
@@ -4557,7 +4549,7 @@
         <p><strong>Platzierung:</strong> unter dem Kaufblock auf voller Content-Breite (<code>.pdp__accordion</code>). Desktop: <code>.accordion.--cols-2</code>, ab 899px einspaltig. Inhalt bleibt server-seitig im DOM.</p>
       </div>
       <table class="spec-table">
-        <tr><th>Pflicht-Items</th><td>Beschreibung · Anwendung · Inhaltsstoffe (Auszug) · Zusammensetzung · Analytische Bestandteile · Sensorische Zusatzstoffe (je&nbsp;kg) · Tägliche Fütterungsempfehlung · Ernährungsphysiologische Zusatzstoffe (je&nbsp;kg) · Hinweise · Haltbarkeitshinweise · Zieltierart</td></tr>
+        <tr><th>Pflicht-Items</th><td>Beschreibung · Anwendung · Inhaltsstoffe (Auszug) · Zusammensetzung · Analytische Bestandteile · Sensorische Zusatzstoffe (je&nbsp;kg) · Tägliche Fütterungsempfehlung · Ernährungsphysiologische Zusatzstoffe (je&nbsp;kg) · Hinweise · Haltbarkeitshinweise</td></tr>
         <tr><th>Layout</th><td><code>.pdp__accordion.accordion.--cols-2</code> mit zwei <code>.accordion__col</code> · Items abwechselnd links/rechts (Index gerade/ungerade) · leere Items werden nicht gerendert · ≤899px 1 Spalte via <code>display: contents</code> + <code>order</code></td></tr>
         <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table</code> + <code>table.--normal</code> im jeweiligen Item</td></tr>
         <tr><th>Shopify</th><td>Product-Metafields je Item · leere Items nicht rendern · bei Produktfamilie Hinweis im Inhaltsstoff-Auszug</td></tr>
@@ -5780,7 +5772,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=12"></script>
+<script src="inuvet.js?v=13"></script>
 <script src="sg.js?v=4"></script>
 </body>
 </html>

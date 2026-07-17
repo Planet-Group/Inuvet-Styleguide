@@ -2999,22 +2999,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__actions + .notice { margin-top: var(--module); }
   .pdp__actions + .notice + .accordion { margin-top: var(--module); }
 
-  /* ─── PDP Kaufblock-Prototype (Reorder / Lieferkontext) ─── */
-  .pdp__reorder {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: calc(var(--base) * 0.5);
-    margin-top: var(--base);
-    font-size: var(--text-sm);
-    color: var(--fg-muted);
-  }
-  .pdp__reorder .material-icons {
-    font-size: var(--text-base);
-    color: var(--fg-muted);
-  }
-  .pdp__reorder-text { flex: 1 1 auto; min-width: 0; }
-  .pdp__reorder .btn { flex-shrink: 0; }
+  /* ─── PDP Lieferkontext ─── */
   .pdp__order-meta {
     list-style: none;
     margin-top: var(--half-module); /* zur NR-Box — passt */
@@ -3046,11 +3031,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .nr-widget__hint-row .nr-widget__hint { flex: 1 1 12rem; min-width: 0; }
   .nr-widget__fill { flex-shrink: 0; }
-  .pdp__reorder + .nr-widget { margin-top: var(--base); }
   .nr-widget:has(+ .pdp__order-meta) { margin-bottom: 0; }
-  /* Produkt-Akkordeon unter dem Kaufblock — volle Breite, Desktop 2 Spalten.
-     Eng am Kaufblock: früher .pdp margin-bottom --module-2xl erzeugte die große Lücke. */
-  .pdp__accordion { margin-top: var(--base); }
+  /* Produkt-Akkordeon unter dem Kaufblock — volle Breite, Desktop 2 Spalten. */
+  .pdp__accordion { margin-top: var(--module); }
   /* Nachfolger unter dem Akkordeon brauchen den früheren Section-Abstand */
   .pdp__accordion + .ingredient-list { margin-top: var(--module); }
   .pdp__actions .btn { flex: 1; text-align: center; }

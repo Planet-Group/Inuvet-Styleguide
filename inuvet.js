@@ -424,7 +424,6 @@ const allProducts = [
     desc: 'Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.',
     // PDP-Akkordeon: 4 thematische Gruppen (E.2) — Felder = Deklarations-/Produktinfos.
     application: 'Täglich über das Futter geben. Dosierung nach Körpergewicht gemäß Fütterungsempfehlung. Bei Umstellung oder Unsicherheit die behandelnde Tierarztpraxis ansprechen.',
-    targetSpecies: 'Hund und Katze',
     ingredientsExcerpt: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
     composition: 'Pflanzliche Nebenerzeugnisse, Hefe, Öle und Fette, Mineralstoffe.',
     analyticalConstituents: [

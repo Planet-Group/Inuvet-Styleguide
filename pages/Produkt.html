@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=51">
+  <link rel="stylesheet" href="../inuvet.css?v=53">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -146,7 +146,7 @@
     </div>
   </footer>
 
-  <script src="../inuvet.js?v=12"></script>
+  <script src="../inuvet.js?v=13"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -154,12 +154,6 @@
     if (!productById(pdpId)) pdpId = 13;
     /* sticky=0 deaktiviert den Sticky-CTA (Shopify-Checkbox-Analog) */
     const stickyCtaEnabled = params.get('sticky') !== '0';
-
-    const PDP_LAST_QTY_KEY = 'inuvet:pdp-last-qty';
-    const pdpLastOrderQty = () => {
-      const n = parseInt(localStorage.getItem(PDP_LAST_QTY_KEY) || '12', 10);
-      return Number.isFinite(n) && n > 0 ? n : 12;
-    };
 
     /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
     const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, wishlist: false, belowRendered: false, formTouched: false };
@@ -216,17 +210,6 @@
       const body = `${freeLine}${barHTML}${hintHTML}`;
       if (!body) return '';
       return `<div class="nr-widget" aria-label="Naturalrabatt">${body}</div>`;
-    };
-
-    /* Prototype: Erneut bestellen, Lieferkontext — leicht rückbaubar */
-    const reorderHTML = () => {
-      const last = pdpLastOrderQty();
-      return `
-        <div class="pdp__reorder">
-          <span class="material-icons" aria-hidden="true">history</span>
-          <span class="pdp__reorder-text">Zuletzt <strong>${last} Stück</strong> bestellt</span>
-          <button type="button" class="btn --ghost --sm" onclick="pdpSetQty(${last})">Erneut übernehmen</button>
-        </div>`;
     };
 
     const orderMetaHTML = () => `
@@ -544,7 +527,6 @@
         accItem('Ernährungsphysiologische Zusatzstoffe (je kg)', accTable(p.nutritionalAdditives)),
         accItem('Hinweise', accPara(p.notes)),
         accItem('Haltbarkeitshinweise', accPara(p.shelfLife)),
-        accItem('Zieltierart', accPara(p.targetSpecies)),
       ].filter(Boolean);
       const left = items.filter((_, i) => i % 2 === 0).join('');
       const right = items.filter((_, i) => i % 2 === 1).join('');
@@ -658,7 +640,6 @@
                 <span class="material-icons">${wishlistIcon}</span>
               </button>
             </div>
-            ${reorderHTML()}
             ${nrWidgetHTML()}
             ${orderMetaHTML()}
           </div>
@@ -718,7 +699,6 @@
       const formIdx = p.isFamily ? pdpState.formIdx : 0;
       const sizeIdx = (p.isFamily || p.sizes) ? pdpState.sizeIdx : 0;
       addToCart(pdpId, formIdx, sizeIdx, pdpState.qty);
-      localStorage.setItem(PDP_LAST_QTY_KEY, String(pdpState.qty));
       showToast(`${p.title} in den Warenkorb gelegt`);
       openCart();
     };
