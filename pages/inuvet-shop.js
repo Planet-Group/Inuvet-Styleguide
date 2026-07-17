@@ -1,4 +1,4 @@
-/* inuvet-Shop — seitenspezifische Logik */
+/* inuvet-shop.js — seitenspezifische Logik für Inuvet-Shop.html */
 
 // Warenkorb-Drawer ist in diesem Mockup nicht Teil des Flows — Icon/Badge bleiben sichtbar.
 window.openCart = () => {};

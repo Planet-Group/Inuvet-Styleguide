@@ -10,6 +10,22 @@
 
 ---
 
+## Dateinamen & Seitentitel
+
+| Was | Regel | Beispiel |
+|---|---|---|
+| HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Inuvet-Shop.html`, `Provision-Portal.html` |
+| Page-CSS / Page-JS | **kebab-case** (bewusst entkoppelt vom HTML) | `inuvet-shop.css`, `tierarzt-empfehlung.js` |
+| Root-Tools | kebab ok | `styleguide.html`, `inuvet.css` |
+| Seitentitel Default | `{Name} – inuvet` (en dash, Brand klein am Ende) | `Shopify – inuvet` |
+| Mockup + Doku-Paar | `{Bereich} · Mockup/Dokumentation/Start – inuvet` | `Shop · Mockup – inuvet` |
+| TE-Cluster | `Inuvet – Tierarzt-Empfehlung – {Seite}` | bleibt |
+| Produktname Portal | **Provision-Portal** (ohne zusätzliches „s“) | Datei + Titel |
+
+Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand `vetalità` in Titeln.
+
+---
+
 ## Goldene Regeln (nie brechen)
 
 1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden.
@@ -126,9 +142,9 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `pages/tierarzt-empfehlung-anfrage-freigabe.js` | Freigabe-Portal |
 | `pages/empfehlung-anfragen-mock.js` | Gemeinsame Demo-Daten Offene Anfragen ↔ Freigabe |
 | `pages/tierarzt-empfehlung-offene-anfragen.js` | Posteingang offener Produktanfragen |
-| `pages/provision-portal.js` | Provisions-Portal |
-| `pages/provision-portal-start.js` | Provisions-Portal Startseite |
-| `pages/provision-portal-vetalita.js` | Provisions-Portal Vetalita |
+| `pages/provision-portal.js` | Provision-Portal |
+| `pages/provision-portal-start.js` | Provision-Portal Startseite |
+| `pages/provision-portal-vetalita.js` | Provision-Portal Vetalita |
 | `pages/formular-reklamation.js` | Formular Reklamation |
 | `pages/formular-nebenwirkungen-ta.js` | Formular Nebenwirkungen (Tierarzt) |
 | `pages/formular-nebenwirkungen-tb.js` | Formular Nebenwirkungen (Tierbesitzer) |
@@ -376,22 +392,25 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 | Page | CSS | JS | Zweck |
 |---|---|---|---|
-| `pages/Tierarzt-Empfehlung.html` | `Tierarzt-Empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
+| `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
-| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `Tierarzt-Empfehlung-Anfrage-Freigabe.css` | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
 | `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
 | `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
 | `pages/Tierarzt-Empfehlung-Programm.html` | — | `empfehlung-anfragen-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
-| `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
+| `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
+| `pages/Inuvet-Shop.html` | `inuvet-shop.css` | `inuvet-shop.js` | Shop-Startseite Mockup |
+| `pages/Inuvet-Shop-Info.html` | — | — | Shop-Dokumentation |
+| `pages/Signature-Generator.html` | `signature-generator.css` | `signature-generator.js` | E-Mail-Signatur-Generator |
 | `pages/Formular-Reklamation.html` | — | `formular-reklamation.js` | Stand-Alone-Formular |
 | `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
 | `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
 | `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
-| `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provisions-Portal Startseite |
+| `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provision-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |
-| `pages/Provision-Portal-Info.html` | — | — | Technische Doku Provisions-Portal |
+| `pages/Provision-Portal-Info.html` | — | — | Technische Doku Provision-Portal |
 | `pages/_template.html` | — | — | Produktions-Skelett für neue Pages (kein `mockup-ui.css`) · spiegelt E.1 Page-Skeleton |
 
 ---
