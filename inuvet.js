@@ -85,55 +85,55 @@ function initScrollAnimations() {
 document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
 /* ═══════════════════════════════════════════════════════
-   PDP STICKY ATC (Mobile)
+   PDP STICKY ATC (Mobile + Desktop)
    [PORTABEL → Theme]
    Aktiv nur mit .pdp--sticky-cta (Shopify: Section-Setting
    sticky_atc Checkbox). Bar .pdp__sticky-cta erscheint, wenn
    der Kaufblock-CTA (.pdp__actions .btn.--primary) den
-   Viewport verlässt — Desktop immer aus.
+   Viewport verlässt — und verschwindet wieder am Footer
+   (sonst body-padding → weißer Streifen unter dem Footer).
    ═══════════════════════════════════════════════════════ */
 let _pdpStickyIo = null;
-let _pdpStickyMq = null;
-let _pdpStickyMqHandler = null;
 
 function initPdpStickyCta() {
   const page = document.querySelector('.pdp--sticky-cta');
   const bar  = document.querySelector('.pdp__sticky-cta');
   const anchor = document.querySelector('.pdp__actions .btn.--primary');
+  const footer = document.querySelector('.site-footer');
   if (_pdpStickyIo) { _pdpStickyIo.disconnect(); _pdpStickyIo = null; }
-  if (_pdpStickyMq && _pdpStickyMqHandler) {
-    _pdpStickyMq.removeEventListener('change', _pdpStickyMqHandler);
-    _pdpStickyMqHandler = null;
-  }
   if (!page || !bar || !anchor) {
     bar?.classList.remove('--visible');
     bar?.setAttribute('aria-hidden', 'true');
     return;
   }
 
-  const mq = window.matchMedia('(max-width: 899px)');
-  _pdpStickyMq = mq;
+  let anchorInView = true;
+  let footerInView = false;
 
-  const sync = (inView) => {
-    const show = mq.matches && !inView;
+  const sync = () => {
+    const show = !anchorInView && !footerInView;
     bar.classList.toggle('--visible', show);
     bar.setAttribute('aria-hidden', show ? 'false' : 'true');
   };
 
-  _pdpStickyIo = new IntersectionObserver(([e]) => {
-    sync(e.isIntersecting);
+  const inViewport = (el) => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight && r.bottom > 0;
+  };
+
+  _pdpStickyIo = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.target === anchor) anchorInView = e.isIntersecting;
+      else if (e.target === footer) footerInView = e.isIntersecting;
+    });
+    sync();
   }, { threshold: 0, rootMargin: '0px' });
   _pdpStickyIo.observe(anchor);
+  if (footer) _pdpStickyIo.observe(footer);
 
-  _pdpStickyMqHandler = () => {
-    if (!mq.matches) sync(true);
-    else {
-      const rect = anchor.getBoundingClientRect();
-      sync(rect.top < window.innerHeight && rect.bottom > 0);
-    }
-  };
-  mq.addEventListener('change', _pdpStickyMqHandler);
-  _pdpStickyMqHandler();
+  anchorInView = inViewport(anchor);
+  footerInView = footer ? inViewport(footer) : false;
+  sync();
 }
 
 /* ═══════════════════════════════════════════════════════

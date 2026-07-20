@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=109">
+  <link rel="stylesheet" href="inuvet.css?v=119">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -203,13 +203,13 @@
         <tr><th><code>--fg-hover</code></th><td><span class="sg-swatch" style="background:#333"></span><code>#333</code> — Hover-Zustand Text</td></tr>
         <tr><th><code>--fg-muted</code></th><td><span class="sg-swatch" style="background:#666"></span><code>#666</code> — Sekundärer Text</td></tr>
         <tr><th><code>--bg</code></th><td><span class="sg-swatch" style="background:#fff"></span><code>#fff</code> — Seitenhintergrund</td></tr>
-        <tr><th><code>--border</code></th><td><span class="sg-swatch" style="background:#adadad"></span><code>#adadad</code> — Strukturelle Linien</td></tr>
-        <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#e0e0e0"></span><code>#e0e0e0</code> — Dezente Trennlinien</td></tr>
-        <tr><th><code>--accent-bg</code></th><td><span class="sg-swatch" style="background:#f2f2f2"></span><code>#f2f2f2</code> — Flächenfarbe für Boxen &amp; Placeholder (bewusst ≠ <code>--border-light</code>: Linie ≠ Fläche)</td></tr>
+        <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#e0e0e0"></span><code>#e0e0e0</code> — Neutrale Linie (inaktiv / strukturell)</td></tr>
+        <tr><th><code>--border</code></th><td><code>var(--border-light)</code> — Alias (kein Mittelgrau mehr)</td></tr>
+        <tr><th><code>--accent-bg</code></th><td><span class="sg-swatch" style="background:#f2f2f2"></span><code>#f2f2f2</code> — Flächenfarbe für Boxen &amp; Placeholder (bewusst ≠ Linie)</td></tr>
         <tr><th><code>--green</code></th><td><span class="sg-swatch" style="background:#78b41b"></span><code>#78b41b</code> — Primärfarbe, CTAs, Icons</td></tr>
         <tr><th><code>--green-hover</code></th><td><span class="sg-swatch" style="background:#58990F"></span><code>#58990F</code> — Hover-Zustand grün</td></tr>
         <tr><th><code>--green-light</code></th><td><span class="sg-swatch" style="background:#f0fae6"></span><code>#f0fae6</code> — Hintergründe, Announcement Bar</td></tr>
-        <tr><th><code>--border-focus</code></th><td><code>var(--fg)</code> — Rahmenfarbe bei Fokus (Inputs, Selects). Der grüne Fokus-Ring nutzt separat <code>--focus-ring-color</code>.</td></tr>
+        <tr><th><code>--border-focus</code> / <code>--border-active</code></th><td><code>var(--fg)</code> — Fokus &amp; Auswahl (schwarz). Der grüne Fokus-Ring nutzt separat <code>--focus-ring-color</code>.</td></tr>
       </table>
       <p>Semantische Aliases: <code>--color-action</code> / <code>--color-success</code> / <code>--color-link</code> = <code>var(--green)</code> · Akzente <code>--color-amber</code>, <code>--color-honey</code> · Fehler <code>--color-error</code> (<code>#c00</code>). 15 Produkt-Kategoriefarben (<code>--cat-…</code>) → <a href="#A5">A.5 Farben</a>.</p>
 
@@ -325,7 +325,7 @@
       </div>
       <table class="spec-table">
         <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Abstand nach unten: <code>--half-module</code>.</td></tr>
-        <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px dashed var(--border)</code>. <code>vertical-align: top</code>.</td></tr>
+        <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px solid var(--border-light)</code>. <code>vertical-align: top</code>.</td></tr>
         <tr><th><code>th</code></th><td><code>font-weight: 700</code> — Header-Abgrenzung über Schriftstärke (Linien einheitlich).</td></tr>
         <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
       </table>
@@ -464,19 +464,11 @@
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#adadad"></div>
-          <div class="color-card__info">
-            <span class="color-card__token">--border</span>
-            <span class="color-card__hex">#adadad</span>
-            <span class="color-card__role">Strukturelle Linien</span>
-          </div>
-        </div>
-        <div class="color-card">
           <div class="color-card__swatch" style="background:#e0e0e0"></div>
           <div class="color-card__info">
-            <span class="color-card__token">--border-light</span>
+            <span class="color-card__token">--border-light / --border</span>
             <span class="color-card__hex">#e0e0e0</span>
-            <span class="color-card__role">Dekorative Trennlinien</span>
+            <span class="color-card__role">Neutrale Linien (inaktiv)</span>
           </div>
         </div>
         <div class="color-card">
@@ -545,7 +537,7 @@
         </div>
       </div>
 
-      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Links: <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich.</p>
+      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Links: <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich — Ausnahme: Links mit <code>.material-icons</code> oder <code>.badge</code> darin (kein Unterstrich).</p>
 
       <h3 class="sg-h3 --top"><code>--cat-*</code></h3>
       <p>Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
@@ -677,23 +669,22 @@
     <section class="sg-section-v2 flow" id="A6">
       <h2 class="section-label">A.6 — Linien &amp; Borders</h2>
       <div class="col-grid" data-cols="2">
-        <p>Reduziertes Linien-System mit zwei Graustufen für statische Trennungen: <strong>strukturell</strong> (<code>--border</code>, <code>#adadad</code>) für tragende Gliederung, <strong>dezent</strong> (<code>--border-light</code>, <code>#e0e0e0</code>) für feine Untergliederung. Linien strukturieren — sie ersetzen nie Whitespace (kein <code>border-top</code> als Abstandshilfe).</p>
-        <p>Interaktive Zustände nutzen dunklere Border-Token: <code>--border-focus</code> (Fokus) und <code>--border-active</code> (aktiv/ausgewählt). <code>dashed</code> markiert besondere Flächen — Upload-Zone, Checkout-Summenzeilen und RTE-Tabellen.</p>
+        <p>Linien-System mit <strong>zwei Farben</strong>: <strong>hellgrau</strong> (<code>--border-light</code> / Alias <code>--border</code>, <code>#e0e0e0</code>) für inaktive und strukturelle Linien; <strong>schwarz</strong> (<code>--fg</code> via <code>--border-active</code> / <code>--border-focus</code>) für Auswahl, Fokus und Outline-Buttons. Linien strukturieren — sie ersetzen nie Whitespace.</p>
+        <p><code>dashed</code> bleibt ein Stil-Marker für besondere Flächen (Upload-Zone, Checkout-Summenzeilen) — immer in Hellgrau. Sonderfarben (Error, Honey, Grün) liegen außerhalb dieses Modells.</p>
       </div>
 
-      <h3 class="sg-h3 --top"><code>--border</code></h3>
+      <h3 class="sg-h3 --top">Linien-Token</h3>
       <table class="spec-table">
-        <tr><th>Strukturell</th><td><code>1px solid var(--border)</code> · <code>#adadad</code> — sichtbare Trennung: Navigation, Karten, Tabellen-Header, Footer</td></tr>
-        <tr><th>Dezent</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — feine Gliederung: Rows, Rules, Formularfelder im Ruhezustand</td></tr>
-        <tr><th>Fokus</th><td><code>var(--border-focus)</code> = <code>var(--fg)</code> · <code>#2E2E2E</code> — Inputs &amp; Selects bei Fokus (subtil → prominent)</td></tr>
-        <tr><th>Aktiv</th><td><code>var(--border-active)</code> = <code>var(--fg-hover)</code> · <code>#333</code> — Pagination, ausgewählte <code>choice-box</code> · Tabs: <code>2px solid var(--fg)</code> (<a href="#C5">C.5</a>)</td></tr>
-        <tr><th>Dashed</th><td><code>1px dashed</code> — Upload-Zone &amp; Summenzeilen (<code>--border-light</code>), RTE-Tabellen (<code>--border</code>)</td></tr>
+        <tr><th>Inaktiv / Struktur</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — Selektor, Tabellen, Akkordeon, idle Controls, Nav-Trenner</td></tr>
+        <tr><th>Aktiv / Fokus</th><td><code>var(--border-active)</code> / <code>var(--border-focus)</code> = <code>var(--fg)</code> · <code>#2E2E2E</code> — ausgewählte <code>choice-box</code>, Pagination, Secondary-Button, Inputs bei Fokus</td></tr>
+        <tr><th>Alias</th><td><code>--border</code> = <code>var(--border-light)</code> — Bestandscode; kein Mittelgrau (<code>#adadad</code>) mehr</td></tr>
+        <tr><th>Dashed</th><td><code>1px dashed var(--border-light)</code> — Upload-Zone &amp; Summenzeilen (nicht Tabellen)</td></tr>
       </table>
 
       <div class="sg-demo --white">
-        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--border);">Strukturell — <code>1px solid var(--border)</code></div>
-        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--border-light); color: var(--fg-muted);">Dezent — <code>1px solid var(--border-light)</code></div>
-        <div style="padding-bottom: var(--half-module); border-bottom: 1px dashed var(--border); color: var(--fg-muted);">Dashed — <code>1px dashed var(--border)</code></div>
+        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--border-light);">Hellgrau — <code>1px solid var(--border-light)</code></div>
+        <div style="padding-bottom: var(--half-module); margin-bottom: var(--half-module); border-bottom: 1px solid var(--fg);">Schwarz (aktiv) — <code>1px solid var(--fg)</code></div>
+        <div style="padding-bottom: var(--half-module); border-bottom: 1px dashed var(--border-light); color: var(--fg-muted);">Dashed — <code>1px dashed var(--border-light)</code></div>
       </div>
 
       <h3 class="sg-h3 --top"><code>border-radius</code></h3>
@@ -1477,7 +1468,7 @@
         <tr><th><code>.form-check-group</code></th><td>Checkbox-Spalte · <code>.form-radio-grid</code> / <code>.form-radio-row</code> (nur Radio/Checkbox) / <code>.form-radio-col</code> · <code>.choice-box</code>-Reihen → <code>.btn-row</code></td></tr>
         <tr><th><code>.form-captcha</code></th><td>reCAPTCHA-Platzhalter · Stand-Alone-Formulare</td></tr>
         <tr><th><code>.form-page*</code></th><td>Stand-Alone-Shell · siehe <a href="#B5">B.5</a></td></tr>
-        <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
+        <tr><th><code>.choice-box</code></th><td>Alternative zu Radio · Ruhe: <code>--border-light</code> · Auswahl (<code>.--active</code>): <code>--border-active</code> (= <code>--fg</code>) + <code>--green-light</code> · Modifier: <code>.--sm</code>, <code>.--block</code>, <code>.--detail</code></td></tr>
         <tr><th><code>.choice-box[disabled]</code> / <code>.--disabled</code></th><td>Ausverkauft / nicht verfügbar (Shopify: <code>variant.available == false</code>) · durchgestrichen, <code>--fg-muted</code> auf <code>--accent-bg</code>, keine Interaktion</td></tr>
         <tr><th><code>.actionable-input</code></th><td>Input + Submit · mobil gestapelt · ab 768&nbsp;px nebeneinander · Inhalt in <code>.flow</code></td></tr>
         <tr><th><code>.option-divider</code></th><td>Trenner zwischen zwei gleichwertigen Optionen · Linien via <code>::before</code>/<code>::after</code> · Text in <code>&lt;span&gt;</code> (z.&nbsp;B. „oder“, „ou“) · Margin <code>var(--half-module) 0</code> · in <code>.flow</code> · kein <code>&lt;hr&gt;</code></td></tr>
@@ -1809,7 +1800,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Auswahl: <code>--border-active</code> + <code>--green-light</code> (wie Tabs/Pagination) · kein grüner Stroke. <code>.--sm</code> kompakt · <code>.--block</code> Icon + Text · <code>.--detail</code> Label + Beschreibung · Toggle via <code>.--active</code> · horizontale Gruppen in <code>.btn-row</code> (<code>gap: var(--half-module)</code>) — nicht <code>.form-radio-row</code> (nur Radio/Checkbox, <code>gap: var(--module)</code>).</p>
+      <p class="sg-caption">Ruhe: <code>--border-light</code> · Auswahl: <code>--border-active</code> (= <code>--fg</code>) + <code>--green-light</code> · kein grüner Stroke. <code>.--sm</code> kompakt · <code>.--block</code> Icon + Text · <code>.--detail</code> Label + Beschreibung · Toggle via <code>.--active</code> · horizontale Gruppen in <code>.btn-row</code> (<code>gap: var(--half-module)</code>) — nicht <code>.form-radio-row</code> (nur Radio/Checkbox, <code>gap: var(--module)</code>).</p>
 
       <h3 class="sg-h3 --top"><code>.form-field</code> — Kontaktformular</h3>
       <div class="sg-demo --white">
@@ -1992,22 +1983,22 @@
         </div>
         <div class="rule">
           <h4>Aufbau</h4>
-          <p>Pro Item ein Material-Icon <code>check</code> links + Text. Flex-Row je <code>li</code>, kein Standard-Bullet.</p>
+          <p>Pro Item ein Material-Icon <code>add</code> (Plus, Gesundheitsbezug) links + Text. Flex-Row je <code>li</code>, kein Standard-Bullet.</p>
         </div>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.check-list</code></th><td>Liste ohne Standard-Bullets · Flex-Layout pro Item · Icon links</td></tr>
         <tr><th><code>.check-list li</code></th><td>Flex-Row · Gap <code>calc(var(--base) * 0.5)</code></td></tr>
-        <tr><th>Icon</th><td>Material Icon <code>check</code> · <code>var(--green)</code> · <code>var(--base)</code></td></tr>
+        <tr><th>Icon</th><td>Material Icon <code>add</code> · <code>var(--green)</code> · <code>calc(var(--base) * 1.25)</code> · etwas kräftiger als Check</td></tr>
       </table>
 
       <div class="sg-demo --white">
         <ul class="check-list">
-          <li><span class="material-icons">check</span><span>Tierärztlich entwickelt und klinisch getestet</span></li>
-          <li><span class="material-icons">check</span><span>Hochwertige Inhaltsstoffe ohne künstliche Zusätze</span></li>
-          <li><span class="material-icons">check</span><span>Einfache Dosierung für alle Tiergrößen</span></li>
-          <li><span class="material-icons">check</span><span>Kostenloser Versand ab 49 €</span></li>
+          <li><span class="material-icons" aria-hidden="true">add</span><span>Tierärztlich entwickelt und klinisch getestet</span></li>
+          <li><span class="material-icons" aria-hidden="true">add</span><span>Hochwertige Inhaltsstoffe ohne künstliche Zusätze</span></li>
+          <li><span class="material-icons" aria-hidden="true">add</span><span>Einfache Dosierung für alle Tiergrößen</span></li>
+          <li><span class="material-icons" aria-hidden="true">add</span><span>Kostenloser Versand ab 49 €</span></li>
         </ul>
       </div>
       <p class="sg-caption">USP-Liste — kein Bullet, grünes Häkchen links.</p>
@@ -3052,7 +3043,7 @@
             <span>© 2026 inuvet · <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="#">AGB</a> · <a href="#">Widerruf</a></span>
             <div class="footer-payment" aria-label="Zahlungsarten">
               <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
-              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--border)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
+              <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
               <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">PayPal</text></svg>
               <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">Klarna</text></svg>
             </div>
@@ -4151,7 +4142,7 @@
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
         <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
-        <tr><th>Sticky ATC (Mobile)</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> (Titel + Preis + CTA) · ≤899px · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
+        <tr><th>Sticky ATC</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> · Mobil: Menge + CTA · Desktop (≥900px): + Größenwahl · kein Titel/Preis · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
         <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Progress-Bar (<code>.nr-widget__bar</code>) + Hint · optional Gratis-Badge (<code>.badge.--free</code>) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live-Demo → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
         <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> unter dem PDP-Kaufblock (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
@@ -4229,9 +4220,9 @@
             </div>
             <p class="pdp__description">Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
             <ul class="check-list">
-              <li><span class="material-icons">check</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
-              <li><span class="material-icons">check</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
-              <li><span class="material-icons">check</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
             </ul>
             <div class="social-proof">
               <div class="social-proof__avatars" aria-hidden="true">
@@ -4426,9 +4417,9 @@
             </div>
             <p class="pdp__description">Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
             <ul class="check-list">
-              <li><span class="material-icons">check</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
-              <li><span class="material-icons">check</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
-              <li><span class="material-icons">check</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
+              <li><span class="material-icons" aria-hidden="true">add</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
             </ul>
             <div class="social-proof">
               <div class="social-proof__avatars" aria-hidden="true">
@@ -4715,7 +4706,7 @@
       </div>
       <table class="spec-table">
         <tr><th><code>.social-proof</code></th><td>Flex-Zeile · Avatare + Text · vertikal zentriert</td></tr>
-        <tr><th><code>.social-proof__avatars</code></th><td>2 kreisförmige Bilder · Überlappung via negativem Margin · weißer Ring (<code>border: 2px solid var(--bg)</code>)</td></tr>
+        <tr><th><code>.social-proof__avatars</code></th><td>2 kreisförmige Bilder · Überlappung via negativem Margin · Rahmen wie andere Media: <code>1px solid var(--border-light)</code></td></tr>
         <tr><th><code>.social-proof__text</code></th><td><code>--text-sm</code> · <code>--fg-muted</code> · Verified-Icon inline nach dem Namen</td></tr>
         <tr><th><code>.social-proof__verified</code></th><td>Material Icon <code>verified</code> · Farbe <code>#1d9bf0</code> · <code>aria-label="Verifiziert"</code></td></tr>
         <tr><th>Shopify</th><td>Shop-Metafields oder Theme settings (nicht Product): z.&nbsp;B. <code>custom.social_proof_name</code>, <code>custom.social_proof_count</code>, Avatar-Files · gleiche Werte auf allen PDPs</td></tr>

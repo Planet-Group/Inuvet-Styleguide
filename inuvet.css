@@ -28,14 +28,15 @@
     --fg-hover: #333;
     --fg-muted: #666;
     --bg: #fff;
-    --border: #adadad;       /* Linien: sichtbare Trennung (Nav, Karten, Tabellen) */
-    --border-light: #e0e0e0; /* Linien: dezente Gliederung (Rules, Rows, Dashed) */
-    --accent-bg: #f2f2f2;    /* Flächen: neutrale Hintergründe (Boxen, Placeholder) — bewusst ≠ --border-light */
-    --cross-color: var(--border);
+    /* Linien: nur zwei neutrale Stufen — hellgrau (inaktiv/struktur) + schwarz (aktiv) */
+    --border-light: #e0e0e0; /* inaktiv / strukturell (Selektor, Tabellen, Akkordeon, idle Controls) */
+    --border: var(--border-light); /* Alias — kein Mittelgrau mehr (#adadad entfällt) */
+    --accent-bg: #f2f2f2;    /* Flächen: neutrale Hintergründe (Boxen, Placeholder) — bewusst ≠ Linie */
+    --cross-color: var(--border-light);
 
     /* ─── Semantische Border-Tokens ─── */
-    --border-focus:  var(--fg);
-    --border-active: var(--fg-hover); /* #333 — weicher als --fg, klar sichtbar */
+    --border-focus:  var(--fg); /* Fokus = aktiv/schwarz */
+    --border-active: var(--fg); /* Auswahl/aktiv = schwarz (Secondary, Size, Thumb, Pagination) */
 
     /* ─── Focus-Ring ─── */
     --focus-ring-width:  2px;
@@ -162,6 +163,11 @@
     color: var(--green-hover);
     text-decoration: underline;
   }
+  /* Icon/Badge im Link → kein Hover-Unterstrich (wirkt sonst zerschnitten) */
+  a:has(.material-icons):hover,
+  a:has(.badge):hover {
+    text-decoration: none;
+  }
 
   ul:not([class]), ol:not([class]) {
     padding-left: calc(var(--base) * 1.5);
@@ -187,7 +193,7 @@
   .rte pre code { font-family: 'Courier New', monospace; font-size: var(--text-xs); line-height: 1.6; color: var(--fg); background: none; }
   .rte h3 { font-size: var(--text-m); font-weight: 700; }
   .rte table { width: 100%; border-collapse: collapse; margin-bottom: var(--half-module); display: block; overflow-x: auto; }
-  .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0; border-bottom: 1px dashed var(--border); font-size: var(--text-base); vertical-align: top; }
+  .rte table th, .rte table td { text-align: left; padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0; border-bottom: 1px solid var(--border-light); font-size: var(--text-base); vertical-align: top; }
   .rte table th { font-weight: 700; }
   .rte table tr:last-child td { border-bottom: none; }
 
@@ -348,7 +354,7 @@
     }
     .rte.--data-table tbody tr {
       padding: var(--half-module) 0;
-      border-bottom: 1px dashed var(--border);
+      border-bottom: 1px solid var(--border-light);
     }
     .rte.--data-table tbody tr:last-child {
       border-bottom: none;
@@ -2361,7 +2367,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     font-size: var(--text-base);
     font-weight: 700;
     padding: calc(var(--base) * 0.5) var(--base);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-light);
     border-radius: 0;
     background: var(--bg);
     cursor: pointer;
@@ -2401,10 +2407,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 
   /* ─── Quantity Selector ─── */
   .qty-selector { display: flex; align-items: center; }
-  .qty-selector__btn { width: calc(var(--base) * 2.75); height: calc(var(--base) * 2.75); display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border); border-radius: 0; cursor: pointer; transition: background var(--anim-fast), color var(--anim-fast); font-family: var(--font); color: var(--fg); }
+  .qty-selector__btn { width: calc(var(--base) * 2.75); height: calc(var(--base) * 2.75); display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border-light); border-radius: 0; cursor: pointer; transition: background var(--anim-fast), color var(--anim-fast); font-family: var(--font); color: var(--fg); }
   .qty-selector__btn:hover { background: var(--fg); color: var(--bg); }
   .qty-selector__btn .material-icons { font-size: calc(var(--base) * 1.25); }
-  .qty-selector__input { width: calc(var(--base) * 3); height: calc(var(--base) * 2.75); text-align: center; font-family: var(--font); font-size: var(--text-base); font-weight: 700; border: 1px solid var(--border); border-left: none; border-right: none; outline: none; -moz-appearance: textfield; }
+  .qty-selector__input { width: calc(var(--base) * 3); height: calc(var(--base) * 2.75); text-align: center; font-family: var(--font); font-size: var(--text-base); font-weight: 700; border: 1px solid var(--border-light); border-left: none; border-right: none; outline: none; -moz-appearance: textfield; }
   .qty-selector__input::-webkit-inner-spin-button, .qty-selector__input::-webkit-outer-spin-button { -webkit-appearance: none; }
 
   /* ─── Section Label ─── */
@@ -2437,11 +2443,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     font-size: var(--text-base);
     line-height: var(--lh-base);
   }
+  /* Plus statt Check — Gesundheitsbezug; etwas größer für kräftigere Strichwirkung */
   .check-list li .material-icons {
     color: var(--green);
-    font-size: var(--base);
+    font-size: calc(var(--base) * 1.25);
     flex-shrink: 0;
-    margin-top: 0.2em;
+    margin-top: 0.1em;
+    font-weight: 700;
   }
 
   /* ─── Divider / Line ─── */
@@ -2660,6 +2668,20 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     font-size: var(--text-xs);
     color: var(--fg-muted);
   }
+  .footer-bar__top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: var(--text-base);
+    color: inherit;
+    text-decoration: none;
+  }
+  .footer-bar__top .material-icons {
+    font-size: 1em;
+  }
+  .footer-bar__top:hover {
+    color: var(--fg);
+  }
 
   /* Zahlungsarten-Zeile in der .footer-bar — Icons kommen im Shop
      aus Shopify (payment_type_svg_tag), im Guide als Platzhalter. */
@@ -2680,7 +2702,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   @media (max-width: 767px) {
     .footer-main { grid-template-columns: 1fr; }
-    .footer-bar { flex-direction: column; gap: 0.5rem; }
+    .footer-bar { flex-direction: column; gap: var(--half-module); }
   }
 
 
@@ -2901,6 +2923,108 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .pdp__thumb.--active, .pdp__thumb:hover { border-color: var(--border-active); }
 
+  /* ─── PDP Layout-Test (nur Produkt.html via .pdp--sticky-gallery) ───
+     Sticky-Galerie links, Thumbs vertikal links vom Packshot, Akkordeon
+     einspaltig in .pdp__info. Noch nicht im Styleguide. */
+  .pdp--sticky-gallery .pdp__gallery {
+    display: grid;
+    /* Thumbs staffeln: kompakt → 1100 → 1536 (Container-Max) */
+    grid-template-columns: calc(var(--base) * 4) minmax(0, 1fr);
+    gap: var(--half-module);
+    align-items: start;
+    position: sticky;
+    top: calc(var(--nav-height) + var(--half-module));
+    align-self: start;
+    max-height: calc(100vh - var(--nav-height) - var(--module));
+  }
+  @media (min-width: 1100px) {
+    .pdp--sticky-gallery .pdp__gallery {
+      grid-template-columns: calc(var(--base) * 5) minmax(0, 1fr);
+    }
+  }
+  @media (min-width: 1536px) {
+    .pdp--sticky-gallery .pdp__gallery {
+      grid-template-columns: calc(var(--base) * 6) minmax(0, 1fr);
+    }
+  }
+  .pdp--sticky-gallery .pdp__thumbs {
+    flex-direction: column;
+    min-width: 0;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+  .pdp--sticky-gallery .pdp__thumb {
+    width: 100%;
+    flex-shrink: 0;
+    border-color: transparent; /* idle rahmenlos */
+  }
+  .pdp--sticky-gallery .pdp__thumb.--active,
+  .pdp--sticky-gallery .pdp__thumb:hover {
+    border-color: var(--border-active);
+  }
+  .pdp--sticky-gallery .pdp__main-image {
+    border-color: transparent;
+  }
+  .pdp--sticky-gallery .pdp__info .pdp__accordion {
+    margin-top: var(--module);
+  }
+  /* Alternative 2 + Trust-Aside: 50/50-Grid, Info max 32rem, Rest = Social Proof */
+  .pdp--sticky-gallery .pdp__buy {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gutter);
+    align-items: start;
+    min-width: 0;
+  }
+  .pdp--sticky-gallery .pdp__info {
+    max-width: 32rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .pdp--sticky-gallery .pdp__aside {
+    display: none;
+  }
+  /* Inline-Trust nach USPs — ab Aside-Breakpoint aus (kein Doppel) */
+  .pdp--sticky-gallery .pdp__info > .social-proof {
+    display: flex;
+  }
+  @media (min-width: 1536px) {
+    .pdp--sticky-gallery .pdp__buy {
+      grid-template-columns: minmax(0, 32rem) minmax(8rem, 1fr);
+    }
+    .pdp--sticky-gallery .pdp__info {
+      max-width: none;
+    }
+    .pdp--sticky-gallery .pdp__info > .social-proof {
+      display: none;
+    }
+    .pdp--sticky-gallery .pdp__aside {
+      display: block;
+      position: sticky;
+      top: calc(var(--nav-height) + var(--half-module));
+      min-width: 8rem;
+    }
+    .pdp--sticky-gallery .pdp__aside .social-proof {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--half-module);
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .pdp--sticky-gallery .pdp__aside .social-proof__avatars {
+      width: 100%;
+    }
+    /* Avatare füllen die Aside-Breite (Überlappung bleibt proportional) */
+    .pdp--sticky-gallery .pdp__aside .social-proof__avatar {
+      width: 58%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+    .pdp--sticky-gallery .pdp__aside .social-proof__avatar + .social-proof__avatar {
+      margin-left: -16%;
+    }
+  }
+
   /* ─── PDP Caption (Text-Layer über Hauptbild) ─── */
   .pdp__caption.--hidden { display: none; }
   .pdp__caption {
@@ -2942,7 +3066,17 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   [data-cat="ohren"]        { background: var(--cat-ohren-light); }
   .pdp__title { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h2); margin-bottom: var(--half-module); }
   .pdp__price { display: flex; align-items: center; gap: var(--half-module); margin-bottom: var(--half-module); }
-  .pdp__price .price-stack { font-size: var(--text-m); }
+  .pdp__price .price-stack {
+    font-size: var(--text-l);
+    align-items: baseline;
+  }
+  /* Streichpreis in der Preiszeile, klein wie Unit — eigene Farbe */
+  .pdp__price .price-stack__compare {
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--color-error);
+    text-decoration: line-through;
+  }
   .pdp__info .rating { margin-bottom: var(--half-module); }
 
   .pdp__description { color: var(--fg); font-size: var(--text-base); line-height: var(--lh-base); margin-bottom: var(--half-module); }
@@ -2950,6 +3084,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__info .check-list { margin-bottom: var(--half-module); }
   .pdp__info .social-proof { margin-bottom: var(--half-module); }
   .pdp__variants { margin-bottom: var(--half-module); }
+  /* Typ-Selektor → Preis: etwas enger als Standard-Rhythmus */
+  .pdp__variants:has(.pdp__type-selector) { margin-bottom: calc(var(--base) * 0.5); }
 
   /* ─── Social Proof (PDP / Shop) ───
      Überlappende Avatare + Trust-Zeile. Shop-weit (nicht produktgebunden). */
@@ -2968,7 +3104,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    border: 2px solid var(--bg);
+    border: 1px solid var(--border-light);
     background: var(--accent-bg);
   }
   .social-proof__avatar + .social-proof__avatar {
@@ -2990,10 +3126,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__variant-label { margin-bottom: 0.5rem; }
   .pdp__variant-options { display: flex; gap: calc(var(--base) * 0.5); flex-wrap: wrap; }
   /* .pdp__variant-option → .choice-box (globaler Atom) */
-  .pdp__actions { display: flex; gap: var(--half-module); align-items: flex-end; margin-bottom: 0; flex-wrap: wrap; }
+  .pdp__actions { display: flex; gap: var(--half-module); align-items: flex-start; margin-bottom: 0; flex-wrap: wrap; }
   .pdp__actions + .accordion { margin-top: var(--module); }
   /* Naturalrabatt: Widget eng unter Actions; Accordion-Abstand kommt vom Widget-margin-bottom */
-  .pdp__actions + .nr-widget { margin-top: var(--base); }
+  /* Gleicher Abstand wie Größen-Selektor → Actions (--half-module) */
+  .pdp__actions + .nr-widget { margin-top: var(--half-module); }
   .pdp__actions + .nr-widget + .accordion { margin-top: 0; }
   /* Legacy: Notice-Hinweis (Styleguide-Altstände / andere Kontexte) */
   .pdp__actions + .notice { margin-top: var(--module); }
@@ -3002,8 +3139,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* ─── PDP Lieferkontext ─── */
   .pdp__order-meta {
     list-style: none;
-    margin-top: var(--half-module); /* zur NR-Box — passt */
-    margin-bottom: var(--half-module); /* unten ebenso */
+    margin-top: calc(var(--base) * 0.5); /* wie .pdp__type-hint unter dem Typ-Selektor */
+    margin-bottom: var(--half-module);
     padding: 0;
     display: flex;
     flex-wrap: wrap;
@@ -3064,76 +3201,88 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* Praxis-Vorteile („Nur bei euch“ …) — wie Shop #shopPraxisVorteile, letzte PDP-Rubrik */
   .pdp__praxis { margin-top: var(--module-2xl); }
 
-  /* ─── Sticky ATC Mobile ───
-     Opt-in: Klasse .pdp--sticky-cta am PDP-Root (Shopify Section-Setting sticky_atc).
-     Bar .pdp__sticky-cta als Sibling hinter <main>; sichtbar ≤899px wenn Kaufblock-CTA
-     den Viewport verlässt (initPdpStickyCta). */
+  /* ─── Sticky ATC (Mobile + Desktop, Opt-in) ───
+     Klasse .pdp--sticky-cta am PDP-Root (Shopify: sticky_atc).
+     Bar .pdp__sticky-cta als Sibling hinter <main>; sichtbar wenn
+     Kaufblock-CTA den Viewport verlässt (initPdpStickyCta).
+     Inhalt: Menge + CTA · Desktop (≥900px): + Größenwahl.
+     Kein Titel/Preis (steht schon im Kaufblock). */
   .pdp__sticky-cta { display: none; }
-  @media (max-width: 899px) {
-    main.pdp--sticky-cta ~ .pdp__sticky-cta {
-      display: block;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: calc(var(--z-nav) - 1);
-      background: var(--bg);
-      border-top: 1px solid var(--border-light);
-      padding: var(--half-module) var(--margin);
-      padding-bottom: calc(var(--half-module) + env(safe-area-inset-bottom, 0px));
-      transform: translateY(100%);
-      transition: transform var(--anim-mid);
-      pointer-events: none;
-    }
-    main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible {
-      transform: translateY(0);
-      pointer-events: auto;
-    }
+  main.pdp--sticky-cta ~ .pdp__sticky-cta {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: calc(var(--z-nav) - 1);
+    background: var(--bg);
+    border-top: 1px solid var(--border-light);
+    padding: calc(var(--base) * 0.75) var(--margin);
+    padding-bottom: calc(var(--base) * 0.75 + env(safe-area-inset-bottom, 0px));
+    transform: translateY(100%);
+    transition: transform var(--anim-mid);
+    pointer-events: none;
+  }
+  main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
+    padding-bottom: calc(var(--module) * 2 + env(safe-area-inset-bottom, 0px));
+  }
+  .pdp__sticky-cta__inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: calc(var(--base) * 0.5);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  /* Größen nur Desktop — Mobil: Auswahl bleibt im Kaufblock */
+  .pdp__sticky-cta__sizes {
+    display: none;
+    flex-wrap: wrap;
+    gap: calc(var(--base) * 0.35);
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+  .pdp__sticky-cta__inner .qty-selector {
+    flex: 0 0 auto;
+  }
+  .pdp__sticky-cta__inner .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  @media (min-width: 900px) {
     body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
       padding-bottom: calc(var(--module) * 2.5 + env(safe-area-inset-bottom, 0px));
     }
+    main.pdp--sticky-cta ~ .pdp__sticky-cta {
+      padding: var(--half-module) var(--margin);
+      padding-bottom: calc(var(--half-module) + env(safe-area-inset-bottom, 0px));
+    }
+    /* Menge · Größen · CTA als Gruppe (kurze Mauswege) */
     .pdp__sticky-cta__inner {
-      display: flex;
-      align-items: center;
-      gap: var(--half-module);
-      max-width: var(--container-max);
-      margin: 0 auto;
+      justify-content: flex-end;
+      gap: calc(var(--base) * 0.5) var(--half-module);
     }
-    .pdp__sticky-cta__meta {
-      flex: 1 1 auto;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
-    }
-    .pdp__sticky-cta__title {
-      font-size: var(--text-sm);
-      font-weight: 700;
-      line-height: var(--lh-base);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .pdp__sticky-cta__price {
-      font-size: var(--text-xs);
-      color: var(--fg-muted);
-    }
+    .pdp__sticky-cta__sizes { display: flex; }
     .pdp__sticky-cta__inner .btn {
       flex: 0 0 auto;
-      white-space: nowrap;
     }
   }
 
   /* ─── Naturalrabatt-Widget (PDP) ───
-     Abstand zu .pdp__actions: var(--base) via Sibling-Regel (nicht --half-module /
-     Desktop-Max 24px — war optisch zu weit). Fallback margin-top für andere Kontexte. */
+     Abstand zu .pdp__actions: --half-module (wie Größen-Selektor → Kaufzeile). */
   .nr-widget {
     background: var(--green-light);
     padding: var(--half-module);
     display: flex;
     flex-direction: column;
     gap: calc(var(--base) * 0.5);
-    margin-top: var(--base);
+    margin-top: var(--half-module);
     margin-bottom: var(--module);
   }
   .nr-widget__free {
@@ -3526,6 +3675,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 
     /* PDP */
     .pdp { grid-template-columns: 1fr; }
+    /* Layout-Test: Mobil wie Standard — Thumbs unter dem Bild, Galerie nicht sticky */
+    .pdp--sticky-gallery .pdp__gallery {
+      display: flex;
+      flex-direction: column;
+      position: static;
+      max-height: none;
+    }
+    .pdp--sticky-gallery .pdp__thumbs {
+      flex-direction: row;
+      overflow-y: visible;
+      /* Thumbs stehen im DOM vor dem Hauptbild — mobil wieder darunter */
+      order: 1;
+    }
+    .pdp--sticky-gallery .pdp__main-image { order: 0; }
+    .pdp--sticky-gallery .pdp__thumb {
+      width: calc((100% - var(--half-module) * 4) / 5);
+    }
 
     /* Checkout */
     .checkout { grid-template-columns: 1fr; }
@@ -3853,7 +4019,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 /* ─── PDP Typ-Selektor (Produktfamilien) ─── */
 
 .pdp__type-selector {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-light); /* wie .accordion-item */
 }
 
 .pdp__type-row {
@@ -3862,11 +4028,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   gap: calc(var(--base) * 0.5);
   align-items: center;
   padding: calc(var(--base) * 0.5) 0;
-  border-bottom: 1px dashed var(--border-light);
+  border-bottom: 1px solid var(--border-light); /* wie .accordion-item — nicht dashed */
   cursor: pointer;
 }
-
-.pdp__type-row:last-child { border-bottom: none; }
 
 .pdp__type-row input[type="radio"] {
   width: 1.1rem;
@@ -3879,6 +4043,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 .pdp__type-label { font-size: var(--text-base); }
 
 .pdp__type-animals { font-size: var(--text-xs); color: var(--fg-muted); text-align: right; }
+
+.pdp__type-hint {
+  margin: calc(var(--base) * 0.5) 0 0;
+  font-size: var(--text-xs);
+  line-height: var(--lh-base);
+  color: var(--fg-muted);
+}
 
 
 /* ═══════════════════════════════════════════
@@ -3914,3 +4085,4 @@ html .announcement-bar.--marquee .announcement-bar__sep {
   opacity: 0.35;
   margin: 0 var(--module);
 }
+

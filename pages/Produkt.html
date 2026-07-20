@@ -6,12 +6,12 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=53">
+  <link rel="stylesheet" href="../inuvet.css?v=107">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll">
+<body class="--ann-scroll" id="top">
 
   <!-- Announcement Bar — scrollt weg (D.1 body.--ann-scroll), nur Nav bleibt sticky -->
   <div class="announcement-bar --marquee" id="announcementBar">
@@ -80,17 +80,11 @@
 
   <main class="container" id="pdpPage">
     <div id="pdpMount"><!-- Kaufblock — bei Variante/Menge neu gerendert --></div>
-    <div id="pdpBelow"><!-- Akkordeon, Inhaltsstoffe, Benefits, FAQ, Testimonials, Recommendations, Praxis — einmalig --></div>
+    <div id="pdpBelow"><!-- Inhaltsstoffe-Detail, Benefits, FAQ, Testimonials, Recommendations, Praxis — einmalig --></div>
   </main>
-  <!-- Sticky ATC (Mobile) — Shopify: Section-Setting sticky_atc → Klasse pdp--sticky-cta -->
+  <!-- Sticky ATC — Layout-Test: Meta + Größe + Menge + CTA (Shopify: sticky_atc) -->
   <div class="pdp__sticky-cta" id="pdpStickyCta" aria-hidden="true">
-    <div class="pdp__sticky-cta__inner">
-      <div class="pdp__sticky-cta__meta">
-        <span class="pdp__sticky-cta__title" id="pdpStickyTitle"></span>
-        <span class="pdp__sticky-cta__price" id="pdpStickyPrice"></span>
-      </div>
-      <button class="btn --primary" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>
-    </div>
+    <div class="pdp__sticky-cta__inner" id="pdpStickyInner"></div>
   </div>
 
   <!-- Footer — D.2 ohne Newsletter (Shop / Über-inuvet-Shop-Copy) -->
@@ -136,17 +130,17 @@
       </div>
     </div>
     <div class="footer-bar">
-      <span>© 2026 inuvet</span>
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
       <div class="footer-payment" aria-label="Zahlungsarten">
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
-        <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--border)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
+        <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">PayPal</text></svg>
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">Klarna</text></svg>
       </div>
     </div>
   </footer>
 
-  <script src="../inuvet.js?v=13"></script>
+  <script src="../inuvet.js?v=15"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -156,7 +150,7 @@
     const stickyCtaEnabled = params.get('sticky') !== '0';
 
     /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
-    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, wishlist: false, belowRendered: false, formTouched: false };
+    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, belowRendered: false, formTouched: false };
     const pdpProduct = () => productById(pdpId);
 
     const pdpCurrentSize = () => {
@@ -259,15 +253,16 @@
         </div>`;
       }).join('');
 
+      /* Thumbs zuerst im DOM → Desktop links neben dem Hauptbild (pdp--sticky-gallery) */
       return `
         <div class="pdp__gallery">
+          ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
           <div class="pdp__main-image">
             ${mainImg}
             ${mainVideo}
             ${caption}
             ${meta}
           </div>
-          ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
         </div>`;
     };
 
@@ -493,12 +488,10 @@
         ).join('');
         return `<div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>${body}</tbody></table></div>`;
       };
-      let accOrder = 0;
       const accItem = (title, inner) => {
         if (!inner) return '';
-        const order = accOrder++;
         return `
-          <div class="accordion-item" style="order:${order}">
+          <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">${title}<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">${inner}</div></div>
           </div>`;
@@ -514,8 +507,7 @@
         return html;
       })();
 
-      /* Zwei unabhängige Spalten — sonst teilen Gegenüber-Items eine Grid-Zeile
-         und grid-template-rows: 0fr/1fr öffnet optisch mit. */
+      /* Experiment: einspaltig in der rechten PDP-Spalte (kein --cols-2) */
       const items = [
         accItem('Beschreibung', accPara(p.desc || p.shortDesc)),
         accItem('Anwendung', accPara(p.application)),
@@ -528,19 +520,16 @@
         accItem('Hinweise', accPara(p.notes)),
         accItem('Haltbarkeitshinweise', accPara(p.shelfLife)),
       ].filter(Boolean);
-      const left = items.filter((_, i) => i % 2 === 0).join('');
-      const right = items.filter((_, i) => i % 2 === 1).join('');
 
       return `
-        <div class="pdp__accordion accordion --cols-2">
-          <div class="accordion__col">${left}</div>
-          <div class="accordion__col">${right}</div>
+        <div class="pdp__accordion accordion">
+          ${items.join('')}
         </div>`;
     };
 
-    const pdpBelowHTML = () => `${accordionHTML()}${ingredientsDetailHTML()}${benefitsHTML()}${faqHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
+    const pdpBelowHTML = () => `${ingredientsDetailHTML()}${benefitsHTML()}${faqHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
 
-    const pdpHTML = () => {
+    const buyHTML = () => {
       const p     = pdpProduct();
       const size  = pdpCurrentSize();
       const price = size.price;
@@ -560,7 +549,7 @@
             <div class="pdp__type-selector">
               ${rows}
             </div>
-            <div class="notice --compact"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
+            <p class="pdp__type-hint">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
           </div>`;
       }
 
@@ -577,10 +566,10 @@
       }
 
       const usps = (p.usps || []).map(u =>
-        `<li><span class="material-icons">check</span><span>${u}</span></li>`).join('');
+        `<li><span class="material-icons" aria-hidden="true">add</span><span>${u}</span></li>`).join('');
       const uspsBlock = usps ? `<ul class="check-list">${usps}</ul>` : '';
 
-      // Shop-weiter Trust-Block (nicht produktgebunden) — analog alte PDP / Styleguide E.2.
+      /* Trust: nach USPs (Mobil/Laptop); ≥1536px zusätzlich/stattdessen in Aside */
       const socialProofHTML = `
         <div class="social-proof">
           <div class="social-proof__avatars" aria-hidden="true">
@@ -594,10 +583,44 @@
         ? `${p.rating} (${p.ratingCount} Bewertungen)`
         : `${p.rating || '4,8'} (Bewertungen)`;
 
-      const wishlistIcon = pdpState.wishlist ? 'favorite' : 'favorite_border';
-      const wishlistClass = pdpState.wishlist ? ' --active' : '';
-      const wishlistLabel = pdpState.wishlist ? 'Von Wunschliste entfernen' : 'Zur Wunschliste';
+      return `
+        <div class="pdp__info">
+          <h1 class="pdp__title">${p.title}</h1>
+          <div class="rating">${starsHTML(p.rating)} <span class="text-muted">${ratingLabel}</span></div>
+          <p class="pdp__description">${p.shortDesc || p.desc || ''}</p>
+          ${uspsBlock}
+          ${socialProofHTML}
+          ${typeSection}
+          <div class="pdp__price">
+            <div class="price-stack">
+              <span>${fmt(price)}</span>
+              <span class="price-stack__compare">${fmt(Math.round(price * 1.25 * 100) / 100)}</span>
+              ${unit ? `<span class="price-stack__unit">${unit}</span>` : ''}
+              <span class="price-stack__unit">Exkl. USt.</span>
+            </div>
+          </div>
+          ${sizeSection}
+          <div class="pdp__actions">
+            <div>
+              <div class="qty-selector">
+                <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
+                <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" id="pdpQty" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
+                <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
+              </div>
+            </div>
+            <button class="btn --primary" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>
+          </div>
+          ${nrWidgetHTML()}
+          ${orderMetaHTML()}
+          ${accordionHTML()}
+        </div>
+        <aside class="pdp__aside" aria-label="Vertrauen">
+          ${socialProofHTML}
+        </aside>`;
+    };
 
+    const pdpHTML = () => {
+      const p = pdpProduct();
       const crumbCat = p.catLabel
         ? `<span aria-hidden="true">/</span>
             <span class="breadcrumb__item"><a href="Bundle.html">${p.catLabel}</a></span>`
@@ -610,62 +633,54 @@
           <span aria-hidden="true">/</span>
           <span class="breadcrumb__item" aria-current="page">${p.title}</span>
         </nav>
-        <div class="pdp">
+        <div class="pdp pdp--sticky-gallery">
           ${galleryHTML()}
-          <div class="pdp__info">
-            <h1 class="pdp__title">${p.title}</h1>
-            <div class="rating">${starsHTML(p.rating)} <span class="text-muted">${ratingLabel}</span></div>
-            <p class="pdp__description">${p.shortDesc || p.desc || ''}</p>
-            ${uspsBlock}
-            ${socialProofHTML}
-            ${typeSection}
-            <div class="pdp__price">
-              <div class="price-stack">
-                <span>${fmt(price)}</span>
-                ${unit ? `<span class="price-stack__unit">${unit}</span>` : ''}
-                <span class="price-stack__unit">Exkl. USt.</span>
-              </div>
-            </div>
-            ${sizeSection}
-            <div class="pdp__actions">
-              <div>
-                <div class="qty-selector">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
-                  <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" id="pdpQty" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
-                </div>
-              </div>
-              <button class="btn --primary" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>
-              <button class="pdp__wishlist icon-box --md${wishlistClass}" type="button" aria-label="${wishlistLabel}" onclick="togglePdpWishlist()">
-                <span class="material-icons">${wishlistIcon}</span>
-              </button>
-            </div>
-            ${nrWidgetHTML()}
-            ${orderMetaHTML()}
+          <div class="pdp__buy" id="pdpBuy">
+            ${buyHTML()}
           </div>
         </div>`;
     };
 
     const updateStickyCta = () => {
       const bar = document.getElementById('pdpStickyCta');
+      const inner = document.getElementById('pdpStickyInner');
       const page = document.getElementById('pdpPage');
-      if (!bar || !page) return;
+      if (!bar || !inner || !page) return;
       page.classList.toggle('pdp--sticky-cta', stickyCtaEnabled);
       if (!stickyCtaEnabled) {
         bar.classList.remove('--visible');
         bar.setAttribute('aria-hidden', 'true');
+        inner.innerHTML = '';
         return;
       }
       const p = pdpProduct();
-      const price = pdpCurrentPrice();
-      const titleEl = document.getElementById('pdpStickyTitle');
-      const priceEl = document.getElementById('pdpStickyPrice');
-      if (titleEl) titleEl.textContent = p.title;
-      if (priceEl) priceEl.textContent = `${fmt(price)} · Exkl. USt.`;
+      const sizes = p.isFamily ? p.variants[pdpState.formIdx].sizes : (p.sizes || null);
+      const sizeBlock = sizes && sizes.length
+        ? `<div class="pdp__sticky-cta__sizes" role="group" aria-label="Größe">${
+            sizes.map((s, i) =>
+              `<button class="choice-box --sm${i === pdpState.sizeIdx ? ' --active' : ''}" type="button" onclick="selectPdpVariant(${i})">${s.label}</button>`
+            ).join('')
+          }</div>`
+        : '';
+      /* Ohne Titel/Preis — Desktop: Menge direkt links neben Größenwahl */
+      inner.innerHTML = `
+        <div class="qty-selector --sm" aria-label="Menge">
+          <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
+          <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
+          <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
+        </div>
+        ${sizeBlock}
+        <button class="btn --primary --sm" type="button" onclick="pdpAddToCart()">In den Warenkorb</button>`;
     };
 
-    const renderPdp = () => {
-      document.getElementById('pdpMount').innerHTML = pdpHTML();
+    /* gallery: true = inkl. Galerie (Form-Wechsel); false = nur Kaufblock (Größe/Menge) */
+    const renderPdp = ({ gallery = true } = {}) => {
+      const buy = document.getElementById('pdpBuy');
+      if (!gallery && buy) {
+        buy.innerHTML = buyHTML();
+      } else {
+        document.getElementById('pdpMount').innerHTML = pdpHTML();
+      }
       updateStickyCta();
       initPdpStickyCta();
       if (!pdpState.belowRendered) {
@@ -681,12 +696,11 @@
       pdpState.formTouched = true;
       pdpState.formIdx = i;
       pdpState.sizeIdx = 0;
-      renderPdp();
+      renderPdp({ gallery: true });
     };
-    window.selectPdpVariant = (i) => { pdpState.sizeIdx = i; renderPdp(); };
-    window.pdpQtyChange = (delta) => { pdpState.qty = Math.max(1, pdpState.qty + delta); renderPdp(); };
-    window.pdpSetQty = (val) => { pdpState.qty = Math.max(1, val); renderPdp(); };
-    window.togglePdpWishlist = () => { pdpState.wishlist = !pdpState.wishlist; renderPdp(); };
+    window.selectPdpVariant = (i) => { pdpState.sizeIdx = i; renderPdp({ gallery: false }); };
+    window.pdpQtyChange = (delta) => { pdpState.qty = Math.max(1, pdpState.qty + delta); renderPdp({ gallery: false }); };
+    window.pdpSetQty = (val) => { pdpState.qty = Math.max(1, val); renderPdp({ gallery: false }); };
     window.pdpFillNrTier = () => {
       const p = pdpProduct();
       const hint = nextHintFor(pdpCurrentPrice(), pdpState.qty, p.pricingModel || 'A');
