@@ -7,6 +7,29 @@
   max-width: calc(var(--form-page-max) * 1.5);
 }
 
+.sig-locale-field {
+  margin-bottom: var(--module);
+}
+
+.sig-brand-wrap {
+  margin-bottom: var(--module);
+}
+
+.sig-brand-wrap.--hidden {
+  display: none;
+}
+
+.sig-brand-options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.sig-brand-options .form-check {
+  margin-bottom: 0;
+}
+
 .sig-page-header {
   display: flex;
   flex-wrap: wrap;

@@ -19,101 +19,135 @@
     </header>
 
     <div class="sig-page-header">
-      <h1 class="form-page__title">E-Mail-Signatur</h1>
-      <p class="sig-intro">Daten eingeben, Vorschau prüfen, kopieren — fertig.</p>
+      <h1 class="form-page__title" data-i18n="pageTitle">E-Mail-Signatur</h1>
+      <p class="sig-intro" data-i18n="pageIntro">Daten eingeben, Vorschau prüfen, kopieren — fertig.</p>
     </div>
 
     <div class="col-grid sig-layout" data-cols="2">
 
       <!-- Formular -->
       <div>
-        <h3 class="section-label --sub">Bild oben (optional)</h3>
-
         <form id="sig-form">
+
+          <div class="form-field sig-locale-field">
+            <select id="f-locale" required>
+              <option value="de" selected>Deutschland</option>
+              <option value="at">Österreich</option>
+              <option value="ch-de">Schweiz (DE)</option>
+              <option value="ch-fr">Schweiz (FR)</option>
+              <option value="ch-it">Schweiz (IT)</option>
+              <option value="fr">Frankreich</option>
+              <option value="be-fr">Belgien (FR)</option>
+              <option value="be-nl">Belgien (NL)</option>
+              <option value="nl">Niederlande</option>
+              <option value="es">Spanien</option>
+              <option value="it">Italien</option>
+              <option value="ie">Irland</option>
+            </select>
+            <label for="f-locale" data-i18n="localeLabel">Land / Sprache</label>
+          </div>
+
+          <div class="sig-brand-wrap --hidden" id="brand-wrap">
+            <h3 class="section-label --sub" data-i18n="sectionBrand">Marke</h3>
+            <div class="sig-brand-options">
+              <label class="form-check">
+                <input type="radio" name="f-brand" id="f-brand-inuvet" value="inuvet" checked>
+                <span>Inuvet</span>
+              </label>
+              <label class="form-check">
+                <input type="radio" name="f-brand" id="f-brand-vetalita" value="vetalita">
+                <span>Vetalità</span>
+              </label>
+            </div>
+            <p class="sig-field-hint" data-i18n="brandHint">In Italien heißt Inuvet aus rechtlichen Gründen Vetalità — Logo, Firma und Website passen sich an.</p>
+          </div>
+
+          <h3 class="section-label --sub" data-i18n="sectionTopImage">Bild oben (optional)</h3>
+
           <div class="sig-top-image-options">
             <label class="form-check">
               <input type="radio" name="f-top-image" id="f-top-none" value="none">
-              <span>Keins</span>
+              <span data-i18n="topNone">Keins</span>
             </label>
             <label class="form-check">
               <input type="radio" name="f-top-image" id="f-top-header" value="header">
-              <span>Header-Bild</span>
+              <span data-i18n="topHeader">Header-Bild</span>
             </label>
             <label class="form-check">
               <input type="radio" name="f-top-image" id="f-top-portrait" value="portrait" checked>
-              <span>Portrait</span>
+              <span data-i18n="topPortrait">Portrait</span>
             </label>
           </div>
 
           <div class="form-field sig-header-wrap --hidden" id="header-wrap">
             <input id="f-header" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/d2530bd1-7fa9-4671-94a7-45c82e4b138f.gif" inputmode="url" autocomplete="off">
-            <label for="f-header">Header-Bild-URL</label>
-            <p class="sig-field-hint">Grafik max. <strong>240 px</strong> breit anlegen — wichtig für die Darstellung in Gmail- und Outlook-Apps.</p>
+            <label for="f-header" data-i18n="headerUrl">Header-Bild-URL</label>
+            <p class="sig-field-hint" data-i18n-html="headerHint">Grafik max. <strong>240 px</strong> breit anlegen — wichtig für die Darstellung in Gmail- und Outlook-Apps.</p>
           </div>
 
           <div class="form-field sig-photo-wrap" id="photo-wrap">
             <input id="f-photo" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/94ec4747-3a90-410e-b6f1-143a0e651845.jpg" inputmode="url" autocomplete="off">
-            <label for="f-photo">Portrait-URL</label>
+            <label for="f-photo" data-i18n="photoUrl">Portrait-URL</label>
           </div>
 
-          <h3 class="section-label --sub">Deine Angaben</h3>
+          <h3 class="section-label --sub" data-i18n="sectionPersonal">Deine Angaben</h3>
 
           <label class="form-check">
             <input type="checkbox" id="f-personal-on" checked>
-            <span>In Signatur anzeigen</span>
+            <span data-i18n="showInSignature">In Signatur anzeigen</span>
           </label>
 
           <div id="personal-wrap">
           <div class="form-field">
             <input id="f-name" type="text" placeholder=" " value="Max Mustermann" autocomplete="name">
-            <label for="f-name">Name</label>
+            <label for="f-name" data-i18n="name">Name</label>
           </div>
           <div class="form-field">
             <input id="f-position" type="text" placeholder=" " value="Marketing Manager">
-            <label for="f-position">Position</label>
+            <label for="f-position" data-i18n="position">Position</label>
           </div>
           <div class="form-field">
             <input id="f-email" type="email" placeholder=" " value="max.mustermann@inuvet.com" autocomplete="email">
-            <label for="f-email">E-Mail</label>
+            <label for="f-email" data-i18n="email">E-Mail</label>
           </div>
           <div class="form-field">
-            <input id="f-phone" type="tel" placeholder=" " value="" autocomplete="tel">
-            <label for="f-phone">Festnetz / Durchwahl (optional)</label>
+            <input id="f-phone" type="tel" placeholder=" " value="+49 (0) 7621 57 91 510" autocomplete="tel">
+            <label for="f-phone" data-i18n="phone">Festnetz / Durchwahl (optional)</label>
           </div>
           <div class="form-field">
             <input id="f-mobile" type="tel" placeholder=" " value="" autocomplete="tel">
-            <label for="f-mobile">Mobil (optional)</label>
+            <label for="f-mobile" data-i18n="mobile">Mobil (optional)</label>
           </div>
           <div class="form-field">
-            <input id="f-fax" type="tel" placeholder=" " value="" autocomplete="off">
-            <label for="f-fax">Fax (optional)</label>
+            <input id="f-fax" type="tel" placeholder=" " value="+49 (0) 7621 57 91 512" autocomplete="off">
+            <label for="f-fax" data-i18n="fax">Fax (optional)</label>
           </div>
           <div class="form-field">
             <input id="f-quote" type="text" placeholder=" " value="Natürlich gesunde Tiere">
-            <label for="f-quote">Persönliche Worte (optional)</label>
+            <label for="f-quote" data-i18n="quote">Persönliche Worte (optional)</label>
           </div>
           </div>
 
-          <h3 class="section-label --sub">Unternehmen</h3>
+          <h3 class="section-label --sub" data-i18n="sectionCompany">Unternehmen</h3>
 
           <div class="form-field">
             <input id="f-company" type="text" placeholder=" " value="Inuvet GmbH">
-            <label for="f-company">Firma</label>
+            <label for="f-company" data-i18n="company">Firma</label>
           </div>
           <div class="form-field">
-            <input id="f-street" type="text" placeholder=" " value="Berner Weg 7–25">
-            <label for="f-street">Straße &amp; Hausnummer</label>
+            <input id="f-street" type="text" placeholder=" " value="Berner Weg 7–25" autocomplete="street-address">
+            <label for="f-street" data-i18n="street">Straße &amp; Hausnummer</label>
           </div>
           <div class="form-field">
-            <input id="f-city" type="text" placeholder=" " value="79539 Lörrach">
-            <label for="f-city">PLZ &amp; Ort</label>
+            <input id="f-city" type="text" placeholder=" " value="79539 Lörrach" autocomplete="address-level2">
+            <label for="f-city" data-i18n="city">PLZ &amp; Ort</label>
           </div>
           <div class="form-field">
-            <input id="f-country" type="text" placeholder=" " value="Deutschland">
-            <label for="f-country">Land</label>
+            <input id="f-country" type="text" placeholder=" " value="Deutschland" autocomplete="country-name">
+            <label for="f-country" data-i18n="country">Land</label>
           </div>
 
-          <h3 class="section-label --sub">Social Media (optional)</h3>
+          <h3 class="section-label --sub" data-i18n="sectionSocial">Social Media (optional)</h3>
 
           <div class="sig-social-checks">
             <div class="sig-social-item">
@@ -123,7 +157,7 @@
               </label>
               <div class="form-field sig-social-url" id="social-facebook-wrap">
                 <input id="f-social-facebook-url" type="text" placeholder=" " value="https://www.facebook.com/inuvet.de" inputmode="url" autocomplete="off">
-                <label for="f-social-facebook-url">Facebook-Link</label>
+                <label for="f-social-facebook-url" data-i18n="facebookUrl">Facebook-Link</label>
               </div>
             </div>
             <div class="sig-social-item">
@@ -133,44 +167,44 @@
               </label>
               <div class="form-field sig-social-url" id="social-instagram-wrap">
                 <input id="f-social-instagram-url" type="text" placeholder=" " value="https://www.instagram.com/inuvet_tiergesundheit/" inputmode="url" autocomplete="off">
-                <label for="f-social-instagram-url">Instagram-Link</label>
+                <label for="f-social-instagram-url" data-i18n="instagramUrl">Instagram-Link</label>
               </div>
             </div>
           </div>
 
-          <h3 class="section-label --sub">Optionaler Text</h3>
+          <h3 class="section-label --sub" data-i18n="sectionOptional">Optionaler Text</h3>
 
           <label class="form-check">
             <input type="checkbox" id="f-disclaimer-on" checked>
-            <span>In Signatur anzeigen</span>
+            <span data-i18n="showInSignature">In Signatur anzeigen</span>
           </label>
 
           <div class="form-field sig-disclaimer-wrap" id="disclaimer-wrap">
-            <textarea id="f-disclaimer" placeholder=" " rows="5">Nur in eurer Praxis
+            <textarea id="f-disclaimer" placeholder=" " rows="5">Nur in eurer Tierarztpraxis
 
-Googelt doch mal: Ihr findet im Internet alles – außer Inuvet-Produkte zum Kauf. Der Vertrieb läuft ausschließlich über eure Tierarztpraxis.</textarea>
-            <label for="f-disclaimer">Text</label>
+Googelt doch mal! Ihr findet im Internet wirklich alles – außer Inuvet-Produkte zum Kauf. Das bedeutet, ihr beratet eure Kund*innen nicht umsonst: Der Vertrieb unserer Produkte läuft ausschließlich über eure Praxis.</textarea>
+            <label for="f-disclaimer" data-i18n="text">Text</label>
           </div>
 
           <label class="form-check sig-contact-hint-check">
             <input type="checkbox" id="f-contact-hint-on">
-            <span>Kontakthinweis anzeigen</span>
+            <span data-i18n="showContactHint">Kontakthinweis anzeigen</span>
           </label>
 
           <div class="sig-contact-hint-fields --hidden" id="contact-hint-wrap">
             <div class="form-field">
               <textarea id="f-contact-hint" placeholder=" " rows="4">Fragen?
 
-Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter +49 (0) 7621 57915-10.</textarea>
-              <label for="f-contact-hint">Kontakthinweis</label>
+Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter +49 (0) 7621 57 91 510.</textarea>
+              <label for="f-contact-hint" data-i18n="contactHint">Kontakthinweis</label>
             </div>
             <div class="form-field">
               <input id="f-contact-hint-email" type="email" placeholder=" " value="info@inuvet.com" autocomplete="email">
-              <label for="f-contact-hint-email">E-Mail (wird verlinkt)</label>
+              <label for="f-contact-hint-email" data-i18n="contactHintEmail">E-Mail (wird verlinkt)</label>
             </div>
             <div class="form-field">
-              <input id="f-contact-hint-phone" type="tel" placeholder=" " value="+49 (0) 7621 57915-10" autocomplete="tel">
-              <label for="f-contact-hint-phone">Telefon (wird verlinkt)</label>
+              <input id="f-contact-hint-phone" type="tel" placeholder=" " value="+49 (0) 7621 57 91 510" autocomplete="tel">
+              <label for="f-contact-hint-phone" data-i18n="contactHintPhone">Telefon (wird verlinkt)</label>
             </div>
           </div>
 
@@ -179,7 +213,7 @@ Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter
 
       <!-- Vorschau -->
       <div>
-        <h3 class="section-label --sub">Vorschau</h3>
+        <h3 class="section-label --sub" data-i18n="sectionPreview">Vorschau</h3>
 
         <div class="sig-preview">
           <div id="signature-preview"></div>
@@ -188,69 +222,19 @@ Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter
         <div class="btn-row sig-actions">
           <button type="button" class="btn --primary --full --with-icon" id="copy-btn">
             <span class="material-icons" aria-hidden="true">content_copy</span>
-            Signatur kopieren
+            <span data-i18n="copyBtn">Signatur kopieren</span>
           </button>
           <button type="button" class="btn --secondary --full --with-icon" id="html-btn">
             <span class="material-icons" aria-hidden="true">code</span>
-            HTML-Code herunterladen
+            <span data-i18n="htmlBtn">HTML-Code herunterladen</span>
           </button>
           <button type="button" class="btn --secondary --full --with-icon" id="thunderbird-btn">
             <span class="material-icons" aria-hidden="true">download</span>
-            Für Thunderbird herunterladen
+            <span data-i18n="thunderbirdBtn">Für Thunderbird herunterladen</span>
           </button>
         </div>
 
-        <div class="sig-instructions">
-          <h3 class="section-label --sub">Einrichtung</h3>
-
-          <div class="sig-instr">
-            <p class="sig-instr__title">Gmail — Google Workspace <span class="badge --pill">Empfohlen</span></p>
-            <p class="sig-instr__lead">Mit Google Workspace stehen die <strong>KI-Funktionen von Gemini</strong> direkt im Posteingang zur Verfügung.</p>
-            <ol class="sig-instr__steps">
-              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
-              <li><a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Gmail</a> öffnen → Einstellungen → Tab <strong>„Allgemein"</strong> → Abschnitt <strong>„Signatur"</strong>.</li>
-              <li><strong>„Neu erstellen"</strong> → Namen vergeben → einfügen (<strong>Cmd+V / Strg+V</strong>).</li>
-              <li>Unter <strong>„Standardwerte"</strong> die neue Signatur auswählen.</li>
-              <li>Ganz unten auf <strong>„Änderungen speichern"</strong> klicken.</li>
-            </ol>
-          </div>
-
-          <div class="notice">
-            <p class="notice__title"><span class="material-icons notice__icon" aria-hidden="true">info</span> Schriftgröße</p>
-            <p>Die Signatur nutzt <strong>font-size: small</strong> — denselben Wert wie Gmail für normalen Mail-Text. Auf Desktop erbt die Signatur sonst oft eine größere Standardgröße. Header-Grafiken breiter als 240 px können die Darstellung in Apps verkleinern.</p>
-          </div>
-
-          <div class="sig-instr">
-            <p class="sig-instr__title">Outlook (Desktop)</p>
-            <ol class="sig-instr__steps">
-              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
-              <li>Neue E-Mail → <strong>„Signatur" → „Signaturen…"</strong>.</li>
-              <li><strong>„Neu"</strong> → Namen vergeben → einfügen (<strong>Strg+V</strong>).</li>
-              <li>Als <strong>Standardsignatur</strong> für neue und weitergeleitete Mails auswählen.</li>
-              <li><strong>„OK"</strong> klicken.</li>
-            </ol>
-          </div>
-
-          <div class="sig-instr">
-            <p class="sig-instr__title">Apple Mail (macOS)</p>
-            <ol class="sig-instr__steps">
-              <li>Auf <strong>„Signatur kopieren"</strong> klicken.</li>
-              <li>Mail → <strong>„Einstellungen…"</strong> → Tab <strong>„Signaturen"</strong>.</li>
-              <li>E-Mail-Konto → <strong>+</strong> → Signatur einfügen (<strong>Cmd+V</strong>).</li>
-              <li><strong>Wichtig:</strong> Haken bei <strong>„Immer meine Standardschrift verwenden"</strong> entfernen.</li>
-            </ol>
-          </div>
-
-          <div class="sig-instr">
-            <p class="sig-instr__title">Thunderbird</p>
-            <ol class="sig-instr__steps">
-              <li>Auf <strong>„Für Thunderbird herunterladen"</strong> klicken — es wird <strong>inuvet-signatur-thunderbird.html</strong> gespeichert.</li>
-              <li>Datei an einen festen Ort ablegen (z. B. <strong>Dokumente/Inuvet-Signatur/</strong>).</li>
-              <li>Thunderbird → <strong>„Konten-Einstellungen"</strong> → Haken bei <strong>„Eine Signatur-Datei anhängen"</strong>.</li>
-              <li>Die gespeicherte HTML-Datei auswählen → <strong>„OK"</strong>.</li>
-            </ol>
-          </div>
-        </div>
+        <div class="sig-instructions" id="sig-instructions"></div>
       </div>
 
     </div>
