@@ -411,7 +411,7 @@ const allProducts = [
   // Kondition (A/B) gilt für die Familie; jede Darreichungsform sammelt eigenständig Naturalrabatt.
   // PDP-Felder (media, usps, content*) → Styleguide E.2 Produktfamilie.
   { id: 13, isFamily: true, title: 'Hepax forte', cat: 'leber', catLabel: 'Leber',
-    rating: '4,6', ratingCount: 312, past6Months: 0, past18Months: 0, pricingModel: 'A',
+    rating: '4,6', ratingCount: 312, past6Months: 57, past18Months: 120, pricingModel: 'A',
     image: '../assets/images/Hepax_Packshot_01.jpeg',
     media: [
       { type: 'image', src: '../assets/images/Hepax_Packshot_01.jpeg', alt: 'Packshot' },
@@ -420,6 +420,8 @@ const allProducts = [
       { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tier_01_Hund_1zu1.mp4', caption: 'Wohlschmeckend und einfach in der Gabe' },
       { type: 'image', src: '../assets/images/Hepax_Foto-Test.png', alt: 'Tierhalter mit Hund', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
     ],
+    /* Rechtliche Futtermittel-Kategorie — feste Choice-Liste (Shopify Metafield) */
+    feedCategory: 'Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel',
     shortDesc: 'Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.',
     desc: 'Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.',
     // PDP-Akkordeon: 4 thematische Gruppen (E.2) — Felder = Deklarations-/Produktinfos.

@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=119">
+  <link rel="stylesheet" href="inuvet.css?v=121">
   <link rel="stylesheet" href="sg.css?v=47">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -203,7 +203,7 @@
         <tr><th><code>--fg-hover</code></th><td><span class="sg-swatch" style="background:#333"></span><code>#333</code> — Hover-Zustand Text</td></tr>
         <tr><th><code>--fg-muted</code></th><td><span class="sg-swatch" style="background:#666"></span><code>#666</code> — Sekundärer Text</td></tr>
         <tr><th><code>--bg</code></th><td><span class="sg-swatch" style="background:#fff"></span><code>#fff</code> — Seitenhintergrund</td></tr>
-        <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#e0e0e0"></span><code>#e0e0e0</code> — Neutrale Linie (inaktiv / strukturell)</td></tr>
+        <tr><th><code>--border-light</code></th><td><span class="sg-swatch" style="background:#d0d0d0"></span><code>#d0d0d0</code> — Neutrale Linie (inaktiv / strukturell)</td></tr>
         <tr><th><code>--border</code></th><td><code>var(--border-light)</code> — Alias (kein Mittelgrau mehr)</td></tr>
         <tr><th><code>--accent-bg</code></th><td><span class="sg-swatch" style="background:#f2f2f2"></span><code>#f2f2f2</code> — Flächenfarbe für Boxen &amp; Placeholder (bewusst ≠ Linie)</td></tr>
         <tr><th><code>--green</code></th><td><span class="sg-swatch" style="background:#78b41b"></span><code>#78b41b</code> — Primärfarbe, CTAs, Icons</td></tr>
@@ -464,10 +464,10 @@
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#e0e0e0"></div>
+          <div class="color-card__swatch" style="background:#d0d0d0"></div>
           <div class="color-card__info">
             <span class="color-card__token">--border-light / --border</span>
-            <span class="color-card__hex">#e0e0e0</span>
+            <span class="color-card__hex">#d0d0d0</span>
             <span class="color-card__role">Neutrale Linien (inaktiv)</span>
           </div>
         </div>
@@ -669,13 +669,13 @@
     <section class="sg-section-v2 flow" id="A6">
       <h2 class="section-label">A.6 — Linien &amp; Borders</h2>
       <div class="col-grid" data-cols="2">
-        <p>Linien-System mit <strong>zwei Farben</strong>: <strong>hellgrau</strong> (<code>--border-light</code> / Alias <code>--border</code>, <code>#e0e0e0</code>) für inaktive und strukturelle Linien; <strong>schwarz</strong> (<code>--fg</code> via <code>--border-active</code> / <code>--border-focus</code>) für Auswahl, Fokus und Outline-Buttons. Linien strukturieren — sie ersetzen nie Whitespace.</p>
+        <p>Linien-System mit <strong>zwei Farben</strong>: <strong>hellgrau</strong> (<code>--border-light</code> / Alias <code>--border</code>, <code>#d0d0d0</code>) für inaktive und strukturelle Linien; <strong>schwarz</strong> (<code>--fg</code> via <code>--border-active</code> / <code>--border-focus</code>) für Auswahl, Fokus und Outline-Buttons. Linien strukturieren — sie ersetzen nie Whitespace.</p>
         <p><code>dashed</code> bleibt ein Stil-Marker für besondere Flächen (Upload-Zone, Checkout-Summenzeilen) — immer in Hellgrau. Sonderfarben (Error, Honey, Grün) liegen außerhalb dieses Modells.</p>
       </div>
 
       <h3 class="sg-h3 --top">Linien-Token</h3>
       <table class="spec-table">
-        <tr><th>Inaktiv / Struktur</th><td><code>1px solid var(--border-light)</code> · <code>#e0e0e0</code> — Selektor, Tabellen, Akkordeon, idle Controls, Nav-Trenner</td></tr>
+        <tr><th>Inaktiv / Struktur</th><td><code>1px solid var(--border-light)</code> · <code>#d0d0d0</code> — Selektor, Tabellen, Akkordeon, idle Controls, Nav-Trenner</td></tr>
         <tr><th>Aktiv / Fokus</th><td><code>var(--border-active)</code> / <code>var(--border-focus)</code> = <code>var(--fg)</code> · <code>#2E2E2E</code> — ausgewählte <code>choice-box</code>, Pagination, Secondary-Button, Inputs bei Fokus</td></tr>
         <tr><th>Alias</th><td><code>--border</code> = <code>var(--border-light)</code> — Bestandscode; kein Mittelgrau (<code>#adadad</code>) mehr</td></tr>
         <tr><th>Dashed</th><td><code>1px dashed var(--border-light)</code> — Upload-Zone &amp; Summenzeilen (nicht Tabellen)</td></tr>
@@ -2512,7 +2512,7 @@
         <tr><th><code>.pagination__page.--current</code></th><td>Aktiv: <code>font-weight: 700</code> + <code>border-color: var(--border-active)</code></td></tr>
         <tr><th><code>.pagination__btn</code></th><td>Prev/Next · gleiche Maße wie <code>.pagination__page</code></td></tr>
         <tr><th><code>.pagination__dots</code></th><td>Ellipsis · <code>color: var(--fg-muted)</code></td></tr>
-        <tr><th><code>.breadcrumb</code></th><td>Pfad-Navigation (Collection/PDP) · <code>.breadcrumb__item</code> mit Link, letzter ohne · <code>--text-xs</code>, <code>--fg-muted</code> · Trenner als Text („/") · Shopify: aus <code>collection</code>/<code>product</code>-Kontext rendern · auf PDP zusätzlich <code>.pdp__breadcrumb</code> (<code>margin-bottom: var(--half-module)</code>)</td></tr>
+        <tr><th><code>.breadcrumb</code></th><td>Pfad-Navigation (Collection/PDP) · <code>.breadcrumb__item</code> mit Link, letzter ohne · <code>--text-xs</code>, <code>--fg-muted</code> · Trenner als Text („/") · Shopify: aus <code>collection</code>/<code>product</code>-Kontext rendern · PDP: Opt-in via Section-Setting <code>show_breadcrumb</code> (Default aus) · zusätzlich <code>.pdp__breadcrumb</code> (<code>margin-bottom: var(--half-module)</code>)</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.pagination</code></h3>
@@ -4128,14 +4128,14 @@
       </div>
 
       <table class="spec-table">
-        <tr><th>Pfadnavigation</th><td><code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt (aktuell) · Abstand unten <code>--half-module</code> · Atom → <a href="#C6">C.6</a></td></tr>
+        <tr><th>Pfadnavigation</th><td>Opt-in: Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · Markup <code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt · Abstand unten <code>--half-module</code> · Demo: aus (<code>?breadcrumb=1</code> an) · Atom → <a href="#C6">C.6</a></td></tr>
         <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
         <tr><th><code>.pdp__gallery</code></th><td>Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild</td></tr>
         <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Video oder Zitat-Foto</td></tr>
         <tr><th><code>.pdp__title</code></th><td><code>--text-xl</code> · bold</td></tr>
-        <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead direkt unter H1 (Titel + Rating) · <strong>2 Sätze</strong>: welches Problem wird gelöst · benefit-first, keine Wirkstoffliste</td></tr>
+        <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead unter Rating · optional rechtliche Futtermittel-Kategorie am Absatzanfang · danach <strong>2 Sätze</strong> benefit-first, keine Wirkstoffliste</td></tr>
         <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente zum Scannen · z.&nbsp;B. „Rein pflanzlich", „Hohe Akzeptanz", „Von über 20.000 Tierärzten empfohlen"</td></tr>
         <tr><th>Social Proof</th><td><code>.social-proof</code> nach den USPs — überlappende Avatare + Trust-Zeile mit Verified-Icon · shop-weit, nicht produktgebunden · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
         <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · auf gleicher Grundlinie zwei <code>.price-stack__unit</code>: Grundpreis „(0,30 € / g)" (PAngV-Pflicht) + Steuerhinweis „Exkl. USt."</td></tr>
@@ -4143,10 +4143,10 @@
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
         <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
         <tr><th>Sticky ATC</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> · Mobil: Menge + CTA · Desktop (≥900px): + Größenwahl · kein Titel/Preis · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
-        <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Progress-Bar (<code>.nr-widget__bar</code>) + Hint · optional Gratis-Badge (<code>.badge.--free</code>) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live-Demo → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
+        <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — Standard: Progress-Bar + Hint · mit Historie: <code>.nr-widget.--personal</code> (Hook + Angebot + Secondary-CTA) · Text via <code>formatHint()</code> (<a href="#C2">C.2</a>) · Live → <a href="pages/Produkt.html?id=13">Produkt.html</a> · Standard erzwingen: <code>?nr=default</code></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
-        <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> unter dem PDP-Kaufblock (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
-        <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> nach „Inhaltsstoffe im Detail“ — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
+        <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> direkt unter dem Kaufblock — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
+        <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> nach der Benefit-Leiste (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
         <tr><th>FAQ</th><td><code>.pdp__faq.--on-green</code> nach Benefits — H2 „Häufige Fragen“ + <code>.accordion.--cols-2</code> · sichtbar im DOM + <code>FAQPage</code> JSON-LD · Spec → <a href="#pdp-faq">unten</a></td></tr>
         <tr><th><code>.pdp__recommendations</code></th><td>Border-top · Überschrift + <code>.tile-grid.--cols-4</code></td></tr>
         <tr><th>Testimonials</th><td><code>.pdp__testimonials</code> vor den Produktvorschlägen — 4 Brand-Zitate von Tierärzt*innen · <code>.testimonial-grid.--cols-4</code> · Content-Regeln → <a href="#pdp-testimonials">unten</a></td></tr>
@@ -4168,16 +4168,17 @@
         <tr><th>Galerie ↔ Form</th><td>Pro Darreichungsform optional <code>mediaIdx</code> → Index in <code>product.media</code> · Default: Packshot (Medium&nbsp;1), Form vorausgewählt (z.&nbsp;B. Pulver) · erst bei aktivem Form-Wechsel Galerie umschalten · Hepax: Pulver → Medium&nbsp;2, Tabletten → Medium&nbsp;3</td></tr>
         <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
         <tr><th>Steuerhinweis</th><td>Zweites <code>.price-stack__unit</code> auf derselben Grundlinie · Text via Locale-Key · Versand-/Lieferzeit-Hinweis separat an anderer Stelle (nicht am Preis)</td></tr>
-        <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code> aus <code>product.description</code>-Anfang oder Metafield (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste) — pro Produkt pflegbar</td></tr>
+        <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code>: optional Futtermittel-Kategorie (Choice-Metafield z.&nbsp;B. <code>custom.feed_category</code>) am Absatzanfang, danach Nutzen-Lead (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste)</td></tr>
         <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
         <tr><th>FAQ</th><td>Product Metafield <code>custom.faq</code> (Liste Frage/Antwort oder Metaobject-Refs) · Theme rendert <code>.pdp__faq</code> + <code>&lt;script type="application/ld+json"&gt;</code> <code>FAQPage</code> · Spec → <a href="#pdp-faq">FAQ</a></td></tr>
-        <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Nächste Gratis-Stufe abhängig von Menge &amp; Variante · Progress-Bar + Hint · Text via <code>formatHint()</code>/<code>nextHintFor()</code> (<code>inuvet.js</code>) · Staffel produktiv aus Cart Transform / Shopify Function (→ <a href="#shopify-cart">E.4</a>) · bei Mengen-/Variantenwechsel neu berechnen</td></tr>
+        <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Standard: nächste Gratis-Stufe · Progress-Bar + Hint · <code>formatHint()</code>/<code>nextHintFor()</code> · Staffel via Cart Transform (→ <a href="#shopify-cart">E.4</a>) · <strong>Persönlich</strong> (<code>.--personal</code>): nur wenn Bestellhistorie (<code>past6Months</code> / Customer Orders) · Hook + <code>paid+free</code> für ≈3&nbsp;Monate Bedarf · CTA setzt Menge und legt in den Warenkorb · Demo: Hepax · aus: <code>?nr=default</code></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Zielgruppen optional als eigene Items · Analytik als <code>.rte.--data-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
         <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
         <tr><th>Sticky ATC</th><td>Section-Setting Checkbox <code>sticky_atc</code> (Default an) → Klasse <code>pdp--sticky-cta</code> am Section-Root · Markup <code>.pdp__sticky-cta</code> · JS <code>initPdpStickyCta()</code> · Demo <a href="pages/Produkt.html?id=13">Produkt.html</a> · aus: <code>?sticky=0</code></td></tr>
+        <tr><th>Pfadnavigation</th><td>Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · nur rendern wenn an · Markup <code>.breadcrumb.pdp__breadcrumb</code> · Demo: aus · an: <code>?breadcrumb=1</code></td></tr>
       </table>
       <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
 
@@ -4218,7 +4219,7 @@
               <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
               <span class="text-muted">4.8 (214 Bewertungen)</span>
             </div>
-            <p class="pdp__description">Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
+            <p class="pdp__description">Ergänzungsfuttermittel. Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
             <ul class="check-list">
               <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
               <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
@@ -4415,7 +4416,7 @@
               <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
               <span class="text-muted">4.6 (312 Bewertungen)</span>
             </div>
-            <p class="pdp__description">Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
+            <p class="pdp__description">Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel. Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
             <ul class="check-list">
               <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
               <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
@@ -4465,7 +4466,21 @@
             </div>
             <div class="nr-widget" aria-label="Naturalrabatt">
               <div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:33%"></div></div>
-              <div class="nr-widget__hint">2 Stück hinzufügen für 1 weiteres Gratisprodukt</div>
+              <div class="nr-widget__hint-row">
+                <div class="nr-widget__hint">2 Stück hinzufügen für 1 weiteres Gratisprodukt</div>
+                <button class="btn --secondary --sm" type="button">Auffüllen</button>
+              </div>
+            </div>
+            <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
+              <p class="nr-widget__hook">Du hast 57 Hepax forte in den letzten 6&nbsp;Monaten gebraucht.</p>
+              <div class="nr-widget__offer">
+                <div>
+                  <p class="nr-widget__offer-label">Unser Angebot an dich</p>
+                  <p class="nr-widget__offer-deal">26+4 gratis</p>
+                </div>
+                <p class="nr-widget__offer-note">Deckt deinen bisherigen Bedarf für 3&nbsp;Monate</p>
+              </div>
+              <button class="btn --secondary" type="button">In den Warenkorb</button>
             </div>
           </div>
         </div>
@@ -4549,7 +4564,7 @@
 
       <h3 class="sg-h3 --top" id="pdp-testimonials">Testimonials</h3>
       <div class="col-grid" data-cols="2">
-        <p>Vier Stimmen von <strong>Tierärztinnen und Tierärzten</strong> — Platzierung: nach der Benefit-Leiste, <strong>vor</strong> den Produktvorschlägen (<code>.pdp__recommendations</code>). Atom → <a href="#D5">D.5</a>. Keine Rubrik-Überschrift. Auf der PDP gelten strenge Content-Regeln, weil Nahrungsergänzungsmittel keine Wirkversprechen tragen dürfen.</p>
+        <p>Vier Stimmen von <strong>Tierärztinnen und Tierärzten</strong> — Platzierung: nach FAQ, <strong>vor</strong> den Produktvorschlägen (<code>.pdp__recommendations</code>). Atom → <a href="#D5">D.5</a>. Keine Rubrik-Überschrift. Auf der PDP gelten strenge Content-Regeln, weil Nahrungsergänzungsmittel keine Wirkversprechen tragen dürfen.</p>
         <p>Shop-weit pflegbar (Metaobject / Theme settings), nicht an ein Produkt gebunden — dieselben Zitate auf allen PDPs.</p>
       </div>
       <div class="rules">
@@ -4611,11 +4626,11 @@
 
       <h3 class="sg-h3 --top" id="pdp-benefits">Benefit-Leiste</h3>
       <div class="col-grid" data-cols="2">
-        <p>Vier Benefits <strong>nach</strong> „Inhaltsstoffe im Detail“ — gleiches Muster wie auf der <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> und im Shop: <code>.tile-grid.--cols-4</code> + Kachel Variante&nbsp;A mit animiertem Lottie in <code>.tile__icon</code>.</p>
+        <p>Vier Benefits <strong>vor</strong> „Inhaltsstoffe im Detail“ — gleiches Muster wie auf der <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> und im Shop: <code>.tile-grid.--cols-4</code> + Kachel Variante&nbsp;A mit animiertem Lottie in <code>.tile__icon</code>.</p>
         <p>Shop-weit identische Copy und Icons (nicht produktgebunden). Scroll-In wie Produktkacheln via <code>initScrollAnimations()</code>.</p>
       </div>
       <table class="spec-table">
-        <tr><th><code>.pdp__benefits</code></th><td>Wrapper nach <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
+        <tr><th><code>.pdp__benefits</code></th><td>Wrapper vor <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
         <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Lottie</th><td><code>&lt;lottie-player&gt;</code> in <code>.tile__icon</code> · Größe via CSS <code>calc(var(--base) * 4)</code> · CDN <code>@lottiefiles/lottie-player</code> · Assets: <code>Icon_Tierarztpraxis</code>, <code>Icon_Langzeitgabe</code>, <code>Icon_Schutz</code>, <code>Icon_Auto</code></td></tr>
         <tr><th>Shopify</th><td>Theme settings / Shop-Metafields (4 Einträge: Icon-File oder Asset-Handle + Headline + Body) · oder fester Section-Block im PDP-Template</td></tr>
@@ -4628,7 +4643,7 @@
                 <lottie-player src="assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
               <p class="tile__headline">Beste Expertise</p>
-              <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+              <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
             </div>
             <div class="tile">
               <div class="tile__icon">
@@ -4658,7 +4673,7 @@
 
       <h3 class="sg-h3 --top" id="pdp-faq">FAQ</h3>
       <div class="col-grid" data-cols="2">
-        <p>Produktbezogene Fragen <strong>nach</strong> der Benefit-Leiste — Akkordeon auf <code>--green-light</code> (wie C.5 „typisch PDP/FAQ“). Fragen und Antworten stehen <strong>sichtbar im DOM</strong> (nicht nur hinter JS); zusätzlich <code>FAQPage</code>-JSON-LD für Rich Results.</p>
+        <p>Produktbezogene Fragen <strong>nach</strong> „Inhaltsstoffe im Detail“ — Akkordeon auf <code>--green-light</code> (wie C.5 „typisch PDP/FAQ“). Fragen und Antworten stehen <strong>sichtbar im DOM</strong> (nicht nur hinter JS); zusätzlich <code>FAQPage</code>-JSON-LD für Rich Results.</p>
         <p>Kein Wirkversprechen: Dosierung, Darreichungsform, Bestellweg Praxis, Lagerung, Deklarations-Hinweise — analog Testimonials/Heilmittelwerberecht. Getrennt vom Produkt-Akkordeon (Deklaration).</p>
       </div>
       <table class="spec-table">
@@ -4727,7 +4742,7 @@
       <h3 class="sg-h3 --top" id="pdp-ingredients">Inhaltsstoffe im Detail</h3>
       <div class="col-grid" data-cols="2">
         <p>Phytotherapie braucht erklärenden Content — nicht nur eine komma-getrennte Liste im Akkordeon. Pro Produkt die wichtigsten <strong>3–4 Inhaltsstoffe</strong> mit Bild und zwei Sätzen Nutzen/Wirkung. Texte und Bilder existieren bereits für das Sortiment; bei neuen Produkten unbedingt fortführen.</p>
-        <p>Die <strong>Deklarationsliste</strong> bleibt im Akkordeon „Inhaltsstoffe". Die Erklär-Blöcke sind SEO-/Vertrauens-Content und stehen <strong>sichtbar im DOM</strong> unter dem Kaufblock (nicht hinter Tab/Lazy-Load).</p>
+        <p>Die <strong>Deklarationsliste</strong> bleibt im Akkordeon „Inhaltsstoffe". Die Erklär-Blöcke sind SEO-/Vertrauens-Content und stehen <strong>sichtbar im DOM</strong> nach der Benefit-Leiste (nicht hinter Tab/Lazy-Load).</p>
       </div>
 
       <h3 class="sg-h3 --top">Shopify-Modell — globale Inhaltsstoff-Bibliothek</h3>
