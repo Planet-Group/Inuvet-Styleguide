@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=107">
+  <link rel="stylesheet" href="../inuvet.css?v=121">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -140,7 +140,7 @@
     </div>
   </footer>
 
-  <script src="../inuvet.js?v=15"></script>
+  <script src="../inuvet.js?v=17"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -148,9 +148,13 @@
     if (!productById(pdpId)) pdpId = 13;
     /* sticky=0 deaktiviert den Sticky-CTA (Shopify-Checkbox-Analog) */
     const stickyCtaEnabled = params.get('sticky') !== '0';
+    /* breadcrumb=1 zeigt die Pfadnavigation (Shopify: show_breadcrumb, Default aus) */
+    const breadcrumbEnabled = params.get('breadcrumb') === '1';
+    /* nr=default erzwingt Standard-NR-Widget (sonst persönlich wenn past6Months > 0) */
+    const nrForceDefault = params.get('nr') === 'default';
 
     /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
-    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, belowRendered: false, formTouched: false };
+    const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, belowRendered: false, formTouched: false, personalOffer: null, personalOfferDismissed: false };
     const pdpProduct = () => productById(pdpId);
 
     const pdpCurrentSize = () => {
@@ -174,10 +178,43 @@
       return html;
     };
 
+    /* Persönliches NR-Angebot aus 6-Monats-Bedarf → ~3 Monate Deckung inkl. Gratis */
+    const personalOfferFor = (used, price, model) => {
+      if (!used || used < 1) return null;
+      const monthsCovered = 3;
+      const need = Math.max(1, Math.ceil((used / 6) * monthsCovered));
+      for (let paid = 1; paid <= 500; paid++) {
+        const free = freeCountFor(price, paid, model);
+        if (paid + free >= need) {
+          return { used, paid, free, monthsCovered };
+        }
+      }
+      return null;
+    };
+
+    const nrWidgetPersonalHTML = (p, offer) => `
+      <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
+        <p class="nr-widget__hook">Du hast ${offer.used} ${p.title} in den letzten 6&nbsp;Monaten gebraucht.</p>
+        <div class="nr-widget__offer">
+          <div>
+            <p class="nr-widget__offer-label">Unser Angebot an dich</p>
+            <p class="nr-widget__offer-deal">${offer.paid}+${offer.free} gratis</p>
+          </div>
+          <p class="nr-widget__offer-note">Deckt deinen bisherigen Bedarf für ${offer.monthsCovered}&nbsp;Monate</p>
+        </div>
+        <button class="btn --secondary" type="button" onclick="pdpApplyPersonalOffer()">In den Warenkorb</button>
+      </div>`;
+
     const nrWidgetHTML = () => {
       const p     = pdpProduct();
       const price = pdpCurrentPrice();
       const model = p.pricingModel || 'A';
+      const used  = p.past6Months || 0;
+      const personal = !nrForceDefault && !pdpState.personalOfferDismissed && used > 0
+        ? personalOfferFor(used, price, model)
+        : null;
+      pdpState.personalOffer = personal;
+
       const free  = freeCountFor(price, pdpState.qty, model);
       const hint  = nextHintFor(price, pdpState.qty, model);
 
@@ -201,9 +238,17 @@
         hintHTML = `<div class="nr-widget__maxed">Höchste Gratis-Stufe für diese Größe erreicht.</div>`;
       }
 
-      const body = `${freeLine}${barHTML}${hintHTML}`;
-      if (!body) return '';
-      return `<div class="nr-widget" aria-label="Naturalrabatt">${body}</div>`;
+      const standardBody = `${freeLine}${barHTML}${hintHTML}`;
+      const standardHTML = standardBody
+        ? `<div class="nr-widget" aria-label="Naturalrabatt">${standardBody}</div>`
+        : '';
+
+      /* Demo: persönliches Angebot zusätzlich zum Standard-Widget */
+      const personalHTML = (personal && personal.free > 0)
+        ? nrWidgetPersonalHTML(p, personal)
+        : '';
+
+      return `${standardHTML}${personalHTML}`;
     };
 
     const orderMetaHTML = () => `
@@ -302,7 +347,7 @@
               <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
             </div>
             <p class="tile__headline">Beste Expertise</p>
-            <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+            <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
           </div>
           <div class="tile">
             <div class="tile__icon">
@@ -527,7 +572,7 @@
         </div>`;
     };
 
-    const pdpBelowHTML = () => `${ingredientsDetailHTML()}${benefitsHTML()}${faqHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
+    const pdpBelowHTML = () => `${benefitsHTML()}${ingredientsDetailHTML()}${faqHTML()}${testimonialsHTML()}${recommendationsHTML()}${praxisHTML()}`;
 
     const buyHTML = () => {
       const p     = pdpProduct();
@@ -587,7 +632,7 @@
         <div class="pdp__info">
           <h1 class="pdp__title">${p.title}</h1>
           <div class="rating">${starsHTML(p.rating)} <span class="text-muted">${ratingLabel}</span></div>
-          <p class="pdp__description">${p.shortDesc || p.desc || ''}</p>
+          <p class="pdp__description">${p.feedCategory ? `${p.feedCategory}. ` : ''}${p.shortDesc || p.desc || ''}</p>
           ${uspsBlock}
           ${socialProofHTML}
           ${typeSection}
@@ -625,14 +670,17 @@
         ? `<span aria-hidden="true">/</span>
             <span class="breadcrumb__item"><a href="Bundle.html">${p.catLabel}</a></span>`
         : '';
-
-      return `
-        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
+      const breadcrumbHTML = breadcrumbEnabled
+        ? `<nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
           <span class="breadcrumb__item"><a href="Bundle.html">Start</a></span>
           ${crumbCat}
           <span aria-hidden="true">/</span>
           <span class="breadcrumb__item" aria-current="page">${p.title}</span>
-        </nav>
+        </nav>`
+        : '';
+
+      return `
+        ${breadcrumbHTML}
         <div class="pdp pdp--sticky-gallery">
           ${galleryHTML()}
           <div class="pdp__buy" id="pdpBuy">
@@ -706,6 +754,14 @@
       const hint = nextHintFor(pdpCurrentPrice(), pdpState.qty, p.pricingModel || 'A');
       if (!hint) return;
       pdpSetQty(hint.targetQty || (pdpState.qty + hint.moreQty));
+    };
+    window.pdpApplyPersonalOffer = () => {
+      const offer = pdpState.personalOffer;
+      if (!offer) return;
+      pdpState.qty = Math.max(1, offer.paid);
+      pdpState.personalOfferDismissed = true;
+      renderPdp({ gallery: false });
+      pdpAddToCart();
     };
 
     window.pdpAddToCart = () => {

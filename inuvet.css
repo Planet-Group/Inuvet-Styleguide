@@ -29,7 +29,7 @@
     --fg-muted: #666;
     --bg: #fff;
     /* Linien: nur zwei neutrale Stufen — hellgrau (inaktiv/struktur) + schwarz (aktiv) */
-    --border-light: #e0e0e0; /* inaktiv / strukturell (Selektor, Tabellen, Akkordeon, idle Controls) */
+    --border-light: #d0d0d0; /* inaktiv / strukturell (Selektor, Tabellen, Akkordeon, idle Controls) */
     --border: var(--border-light); /* Alias — kein Mittelgrau mehr (#adadad entfällt) */
     --accent-bg: #f2f2f2;    /* Flächen: neutrale Hintergründe (Boxen, Placeholder) — bewusst ≠ Linie */
     --cross-color: var(--border-light);
@@ -2966,7 +2966,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     border-color: transparent;
   }
   .pdp--sticky-gallery .pdp__info .pdp__accordion {
-    margin-top: var(--module);
+    margin-top: var(--half-module);
   }
   /* Alternative 2 + Trust-Aside: 50/50-Grid, Info max 32rem, Rest = Social Proof */
   .pdp--sticky-gallery .pdp__buy {
@@ -3064,7 +3064,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   [data-cat="atemwege"]     { background: var(--cat-atemwege-light); }
   [data-cat="hormone"]      { background: var(--cat-hormone-light); }
   [data-cat="ohren"]        { background: var(--cat-ohren-light); }
-  .pdp__title { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h2); margin-bottom: var(--half-module); }
+  .pdp__title { font-size: var(--text-xl); font-weight: 700; line-height: var(--lh-h2); margin-bottom: calc(var(--base) * 0.5); }
   .pdp__price { display: flex; align-items: center; gap: var(--half-module); margin-bottom: var(--half-module); }
   .pdp__price .price-stack {
     font-size: var(--text-l);
@@ -3078,7 +3078,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     text-decoration: line-through;
   }
   .pdp__info .rating { margin-bottom: var(--half-module); }
-
+  /* Futtermittel-Kategorie: im Nutzen-Lead-Absatz vorangestellt (kein eigenes Element) */
   .pdp__description { color: var(--fg); font-size: var(--text-base); line-height: var(--lh-base); margin-bottom: var(--half-module); }
   /* USP-Liste (.check-list, global margin:0) in den Info-Spalten-Rhythmus einreihen — sonst klebt der Preis darunter */
   .pdp__info .check-list { margin-bottom: var(--half-module); }
@@ -3170,8 +3170,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .nr-widget__fill { flex-shrink: 0; }
   .nr-widget:has(+ .pdp__order-meta) { margin-bottom: 0; }
   /* Produkt-Akkordeon unter dem Kaufblock — volle Breite, Desktop 2 Spalten. */
-  .pdp__accordion { margin-top: var(--module); }
+  .pdp__accordion { margin-top: var(--half-module); }
   /* Nachfolger unter dem Akkordeon brauchen den früheren Section-Abstand */
+  .pdp__accordion + .pdp__benefits,
   .pdp__accordion + .ingredient-list { margin-top: var(--module); }
   .pdp__actions .btn { flex: 1; text-align: center; }
   /* .pdp__wishlist — nutzt .icon-box.--md */
@@ -3217,8 +3218,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     z-index: calc(var(--z-nav) - 1);
     background: var(--bg);
     border-top: 1px solid var(--border-light);
-    padding: calc(var(--base) * 0.75) var(--margin);
-    padding-bottom: calc(var(--base) * 0.75 + env(safe-area-inset-bottom, 0px));
+    /* Kein Seiten-Padding hier — sonst Doppel-Inset vs. .container */
+    padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     transform: translateY(100%);
     transition: transform var(--anim-mid);
     pointer-events: none;
@@ -3230,6 +3232,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
     padding-bottom: calc(var(--module) * 2 + env(safe-area-inset-bottom, 0px));
   }
+  /* Wie .container / .footer-bar: max-width + Padding auf derselben Box */
   .pdp__sticky-cta__inner {
     display: flex;
     align-items: center;
@@ -3238,6 +3241,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     gap: calc(var(--base) * 0.5);
     max-width: var(--container-max);
     margin: 0 auto;
+    padding: calc(var(--base) * 0.75) var(--margin);
+    box-sizing: border-box;
   }
   /* Größen nur Desktop — Mobil: Auswahl bleibt im Kaufblock */
   .pdp__sticky-cta__sizes {
@@ -3259,12 +3264,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
       padding-bottom: calc(var(--module) * 2.5 + env(safe-area-inset-bottom, 0px));
     }
-    main.pdp--sticky-cta ~ .pdp__sticky-cta {
-      padding: var(--half-module) var(--margin);
-      padding-bottom: calc(var(--half-module) + env(safe-area-inset-bottom, 0px));
-    }
-    /* Menge · Größen · CTA als Gruppe (kurze Mauswege) */
     .pdp__sticky-cta__inner {
+      padding-top: var(--half-module);
+      padding-bottom: var(--half-module);
       justify-content: flex-end;
       gap: calc(var(--base) * 0.5) var(--half-module);
     }
@@ -3284,6 +3286,14 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     gap: calc(var(--base) * 0.5);
     margin-top: var(--half-module);
     margin-bottom: var(--module);
+  }
+  /* Gestapelte Varianten = eine Box, getrennt nur durch Linie */
+  .nr-widget:has(+ .nr-widget) {
+    margin-bottom: 0;
+  }
+  .nr-widget + .nr-widget {
+    margin-top: 0;
+    border-top: 1px dashed var(--border-light);
   }
   .nr-widget__free {
     display: flex;
@@ -3311,6 +3321,50 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     font-size: var(--text-base);
     color: var(--green);
     font-weight: 700;
+  }
+
+  /* Persönliches Angebot — nur mit Bestellhistorie (past6Months > 0) */
+  .nr-widget.--personal {
+    gap: var(--half-module);
+  }
+  .nr-widget__hook {
+    margin: 0;
+    font-size: var(--text-m);
+    font-weight: 700;
+    line-height: var(--lh-h3);
+    color: var(--fg);
+  }
+  .nr-widget__offer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--half-module);
+    align-items: end;
+  }
+  .nr-widget__offer-label {
+    margin: 0 0 calc(var(--base) * 0.25);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    line-height: var(--lh-base);
+    color: var(--fg);
+  }
+  .nr-widget__offer-deal {
+    margin: 0;
+    font-size: var(--text-l);
+    font-weight: 700;
+    line-height: var(--lh-h2);
+    color: var(--fg);
+  }
+  .nr-widget__offer-note {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--lh-base);
+    color: var(--fg);
+  }
+  .nr-widget.--personal > .btn {
+    width: 100%;
+  }
+  @media (max-width: 767px) {
+    .nr-widget__offer { grid-template-columns: 1fr; align-items: start; }
   }
 
   /* ─── Inhaltsstoffe im Detail (PDP SEO) ───
