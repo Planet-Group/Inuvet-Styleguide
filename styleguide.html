@@ -342,6 +342,7 @@
         <tr><th><code>table.--spacious</code></th><td>Mehr vertikale Luft (<code>0.85 × --base</code> oben/unten) — Posteingänge, Portal-Listen</td></tr>
         <tr><th>Mobil (Default)</th><td>Ohne Zusatz-Klasse: <code>--mobile-stack</code> — Felder untereinander, Label-Typo wie <code>th</code></td></tr>
         <tr><th><code>.--mobile-grid</code></th><td>Am Wrapper · 2×2-Raster (z.&nbsp;B. Name/E-Mail, Datum/Produkt) · letzte Spalte volle Breite</td></tr>
+        <tr><th><code>.--mobile-table</code></th><td>Am Wrapper · echte Tabelle bleibt (wenig Spalten, z.&nbsp;B. Angabe/Wert im PDP-Akkordeon) · bei Bedarf horizontal scrollen</td></tr>
         <tr><th><code>data-label</code></th><td>Pflicht auf jeder Datenzelle · Mobile-Label via <code>::before</code> · gleiche Typo wie Desktop-<code>th</code></td></tr>
         <tr><th><code>.data-table-stack</code></th><td>Optional gestapelte Zelle (Primär + Meta) · Meta: <code>.data-table-stack__meta</code> in <code>--text-xs</code> / <code>--fg-muted</code></td></tr>
         <tr><th><code>td.--sm</code></th><td>Kompakte Datenzelle · <code>--text-sm</code> — E-Mail, Datum, Produkt bei Platzknappheit</td></tr>
@@ -2393,7 +2394,7 @@
       <h3 class="sg-h3 --top"><code>.accordion</code></h3>
       <table class="spec-table">
         <tr><th><code>.accordion</code></th><td>Container · obere Strukturlinie (<code>border-top: 1px solid var(--border-light)</code>)</td></tr>
-        <tr><th><code>.accordion-item</code></th><td>Einzelnes Item · <code>border-bottom: 1px solid var(--border-light)</code></td></tr>
+        <tr><th><code>.accordion-item</code></th><td>Einzelnes Item · <code>border-bottom: 1px solid var(--border-light)</code> · offen (<code>.--open</code>): obere + untere Linie <code>--border-active</code></td></tr>
         <tr><th><code>.accordion-trigger</code></th><td>Klickbarer Header · volle Breite · Padding <code>var(--half-module)</code> vertikal · Toggle via <code>toggleAccordion(trigger)</code></td></tr>
         <tr><th><code>.accordion-icon</code></th><td>Material Icon <code>expand_more</code> · rotiert bei <code>.--open</code></td></tr>
         <tr><th><code>.accordion-content</code></th><td>Slide-Container · <code>grid-template-rows: 0fr</code> default · <code>1fr</code> bei <code>.--open</code></td></tr>
@@ -4282,7 +4283,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Analytische Bestandteile<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">Rohprotein</td><td data-label="Wert">22,0 %</td></tr>
                 <tr><td data-label="Angabe">Rohfett</td><td data-label="Wert">5,0 %</td></tr>
               </tbody></table></div>
@@ -4291,7 +4292,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Sensorische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">Passionsblumenextrakt</td><td data-label="Wert">30.000 mg</td></tr>
               </tbody></table></div>
             </div></div>
@@ -4303,7 +4304,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Ernährungsphysiologische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">L-Tryptophan</td><td data-label="Wert">15.000 mg</td></tr>
               </tbody></table></div>
             </div></div>
@@ -4500,7 +4501,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Analytische Bestandteile<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">Rohprotein</td><td data-label="Wert">18,0 %</td></tr>
                 <tr><td data-label="Angabe">Rohfett</td><td data-label="Wert">6,5 %</td></tr>
                 <tr><td data-label="Angabe">Rohfaser</td><td data-label="Wert">4,0 %</td></tr>
@@ -4511,7 +4512,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Sensorische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">Mariendistel-Extrakt (Silymarin)</td><td data-label="Wert">50.000 mg</td></tr>
                 <tr><td data-label="Angabe">Artischockenextrakt</td><td data-label="Wert">20.000 mg</td></tr>
               </tbody></table></div>
@@ -4524,7 +4525,7 @@
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Ernährungsphysiologische Zusatzstoffe (je kg)<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner">
-              <div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
+              <div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>
                 <tr><td data-label="Angabe">Taurin</td><td data-label="Wert">10.000 mg</td></tr>
                 <tr><td data-label="Angabe">Zink (als Zinkchelat)</td><td data-label="Wert">1.200 mg</td></tr>
               </tbody></table></div>
@@ -4550,7 +4551,7 @@
       <table class="spec-table">
         <tr><th>Pflicht-Items</th><td>Beschreibung · Anwendung · Inhaltsstoffe (Auszug) · Zusammensetzung · Analytische Bestandteile · Sensorische Zusatzstoffe (je&nbsp;kg) · Tägliche Fütterungsempfehlung · Ernährungsphysiologische Zusatzstoffe (je&nbsp;kg) · Hinweise · Haltbarkeitshinweise</td></tr>
         <tr><th>Layout</th><td><code>.pdp__accordion.accordion.--cols-2</code> mit zwei <code>.accordion__col</code> · Items abwechselnd links/rechts (Index gerade/ungerade) · leere Items werden nicht gerendert · ≤899px 1 Spalte via <code>display: contents</code> + <code>order</code></td></tr>
-        <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table</code> + <code>table.--normal</code> im jeweiligen Item</td></tr>
+        <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table.--mobile-table</code> + <code>table.--normal</code> — mobil zweispaltig (kein Stack)</td></tr>
         <tr><th>Shopify</th><td>Product-Metafields je Item · leere Items nicht rendern · bei Produktfamilie Hinweis im Inhaltsstoff-Auszug</td></tr>
       </table>
       <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Tabellen-Atom → <a href="#A4-data-table">A.4</a>.</p>

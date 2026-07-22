@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=131">
+  <link rel="stylesheet" href="../inuvet.css?v=135">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -534,7 +534,7 @@
         const body = rows.map(r =>
           `<tr><td data-label="Angabe">${r.label}</td><td data-label="Wert">${r.value}</td></tr>`
         ).join('');
-        return `<div class="rte --data-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>${body}</tbody></table></div>`;
+        return `<div class="rte --data-table --mobile-table"><table class="--normal"><thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th></tr></thead><tbody>${body}</tbody></table></div>`;
       };
       const accItem = (title, inner) => {
         if (!inner) return '';

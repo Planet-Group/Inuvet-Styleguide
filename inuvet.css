@@ -200,8 +200,8 @@
   /* ─── Daten-Listen (.rte.--data-table) — Portal- und Übersichtstabellen ───
      Wrapper .rte.--data-table: volle Satzspiegelbreite
      table.--normal | table.--spacious — vertikale Dichte (Desktop)
-     --mobile-stack (Default) | --mobile-grid — Mobil-Layout (A.10)
-     Zellen brauchen data-label für Mobile-Labels (Text = th) */
+     --mobile-stack (Default) | --mobile-grid | --mobile-table — Mobil-Layout (A.4)
+     Zellen brauchen data-label für Stack/Grid-Labels (Text = th); bei --mobile-table entbehrlich */
   .rte.--data-table {
     width: 100%;
     overflow-x: auto;
@@ -326,7 +326,12 @@
     }
   }
 
-  /* Desktop: Aktions-Spalte rechtsbündig */
+  /* Desktop: Aktions-/Wert-Spalte rechtsbündig · --mobile-table auch mobil */
+  .rte.--data-table.--mobile-table th:last-child,
+  .rte.--data-table.--mobile-table td:last-child {
+    text-align: right;
+    padding-right: 0;
+  }
   @media (min-width: 768px) {
     .rte.--data-table th:last-child,
     .rte.--data-table td:last-child {
@@ -338,33 +343,33 @@
     }
   }
 
-  /* Mobil: thead aus, Label-Typo wie th, zwei Layout-Optionen */
+  /* Mobil: thead aus, Label-Typo wie th — außer .--mobile-table (echte Tabelle bleibt) */
   @media (max-width: 767px) {
-    .rte.--data-table {
+    .rte.--data-table:not(.--mobile-table) {
       overflow-x: visible;
     }
-    .rte.--data-table table {
+    .rte.--data-table:not(.--mobile-table) table {
       display: block;
     }
-    .rte.--data-table thead {
+    .rte.--data-table:not(.--mobile-table) thead {
       display: none;
     }
-    .rte.--data-table tbody {
+    .rte.--data-table:not(.--mobile-table) tbody {
       display: block;
     }
-    .rte.--data-table tbody tr {
+    .rte.--data-table:not(.--mobile-table) tbody tr {
       padding: var(--half-module) 0;
       border-bottom: 1px solid var(--border-light);
     }
-    .rte.--data-table tbody tr:last-child {
+    .rte.--data-table:not(.--mobile-table) tbody tr:last-child {
       border-bottom: none;
     }
-    .rte.--data-table td {
+    .rte.--data-table:not(.--mobile-table) td {
       border-bottom: none;
     }
 
     /* Feld-Label — gleiche Typo wie thead th (.rte table); nur wenn data-label gesetzt */
-    .rte.--data-table td[data-label]::before {
+    .rte.--data-table:not(.--mobile-table) td[data-label]::before {
       content: attr(data-label);
       display: block;
       font-size: var(--text-base);
@@ -374,17 +379,17 @@
     }
 
     /* Default: --mobile-stack — ein Feld pro Zeile */
-    .rte.--data-table:not(.--mobile-grid) tbody tr {
+    .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) tbody tr {
       display: block;
     }
-    .rte.--data-table:not(.--mobile-grid) td {
+    .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) td {
       display: block;
       padding: calc(var(--base) * 0.5) 0 0;
     }
-    .rte.--data-table:not(.--mobile-grid) td:first-child {
+    .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) td:first-child {
       padding-top: 0;
     }
-    .rte.--data-table:not(.--mobile-grid) td:last-child {
+    .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) td:last-child {
       padding-top: calc(var(--base) * 0.75);
     }
 
@@ -421,6 +426,30 @@
     .rte.--data-table.--mobile-grid.--with-select td:last-child {
       grid-column: 1 / -1;
       grid-row: 3;
+    }
+
+    /* Option: --mobile-table — Spalten bleiben (Key/Value, PDP-Akkordeon) */
+    .rte.--data-table.--mobile-table {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rte.--data-table.--mobile-table table {
+      display: table;
+    }
+    .rte.--data-table.--mobile-table thead {
+      display: table-header-group;
+    }
+    .rte.--data-table.--mobile-table tbody {
+      display: table-row-group;
+    }
+    .rte.--data-table.--mobile-table tbody tr {
+      display: table-row;
+      padding: 0;
+      border-bottom: none;
+    }
+    .rte.--data-table.--mobile-table th,
+    .rte.--data-table.--mobile-table td {
+      display: table-cell;
     }
   }
 
@@ -1445,6 +1474,16 @@
   .accordion-item {
     border-bottom: 1px solid var(--border-light);
   }
+  /* Offen: obere + untere Linie aktiv (schwarz) — teilen sich mit Nachbar-/Container-Kante */
+  .accordion-item.--open {
+    border-bottom-color: var(--border-active);
+  }
+  .accordion-item:has(+ .accordion-item.--open) {
+    border-bottom-color: var(--border-active);
+  }
+  .accordion:not(.--cols-2):has(> .accordion-item.--open:first-child) {
+    border-top-color: var(--border-active);
+  }
   /* PDP: Akkordeon in 2 unabhängigen Spalten (.accordion__col).
      Nicht flat als Grid-Items — sonst teilen Gegenüber eine Zeile und
      grid-template-rows: 0fr/1fr öffnet das Nachbar-Item optisch mit.
@@ -1467,6 +1506,16 @@
     border-bottom: none;
     min-width: 0;
     width: 100%;
+  }
+  .accordion.--cols-2 .accordion-item.--open {
+    border-top-color: var(--border-active);
+  }
+  .accordion.--cols-2 .accordion-item.--open + .accordion-item {
+    border-top-color: var(--border-active);
+  }
+  .accordion.--cols-2 .accordion__col > .accordion-item.--open:last-child,
+  .accordion.--cols-2 > .accordion-item.--open:last-child {
+    border-bottom: 1px solid var(--border-active);
   }
   /* Fallback falls Items noch flat ohne .accordion__col liegen */
   .accordion.--cols-2 > .accordion-item {
@@ -1503,7 +1552,7 @@
     cursor: pointer;
     text-align: left;
   }
-  .accordion-trigger:hover { color: var(--fg-muted); }
+  .accordion-item:not(.--open) .accordion-trigger:hover { color: var(--fg-muted); }
   .accordion-icon {
     font-size: calc(var(--base) * 1.25);
     transition: transform var(--anim-fast);
