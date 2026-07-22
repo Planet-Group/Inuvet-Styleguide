@@ -1332,8 +1332,8 @@
     display: block;
   }
   .tile__animation.--ratio-1 lottie-player,
-  .tile__animation.--ratio-weltweit lottie-player { aspect-ratio: 1; }
-  .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 907 / 833; }
+  .tile__animation.--ratio-weltweit lottie-player,
+  .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 1; }
 
   /* ─── Tile Variante B: Bild + Text ─── */
   /* .tile__image — nutzt .placeholder-bg */
@@ -3126,8 +3126,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     color: var(--color-error);
     text-decoration: line-through;
   }
-  /* Enger als --half-module: wie Titel→Rating (0.5×base) */
-  .pdp__info .rating { margin-bottom: calc(var(--base) * 0.5); }
+  .pdp__info .rating { margin-bottom: var(--half-module); }
   /* Futtermittel-Kategorie: im Nutzen-Lead-Absatz vorangestellt (kein eigenes Element) */
   .pdp__description { color: var(--fg); font-size: var(--text-base); line-height: var(--lh-base); margin-bottom: var(--half-module); }
   /* USP-Liste (.check-list, global margin:0) in den Info-Spalten-Rhythmus einreihen — sonst klebt der Preis darunter */
