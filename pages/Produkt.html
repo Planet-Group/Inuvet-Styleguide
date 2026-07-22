@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=121">
+  <link rel="stylesheet" href="../inuvet.css?v=130">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -33,12 +33,11 @@
       <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-item">
-        <a href="Bundle.html" class="nav-item__trigger">Mein Angebot</a>
-      </div>
-      <div class="nav-item">
-        <a href="Bundle-Info.html" class="nav-item__trigger">Dokumentation</a>
-      </div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Home</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Produkte</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Service</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Webinare</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Jobs</a></div>
     </div>
     <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
     <div class="nav-right">
@@ -67,10 +66,11 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
     <div class="nav-col">
-      <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
-    </div>
-    <div class="nav-col">
-      <a href="Bundle-Info.html" onclick="closeMobile()">Dokumentation</a>
+      <a href="#" onclick="return false;">Home</a>
+      <a href="#" onclick="return false;">Produkte</a>
+      <a href="#" onclick="return false;">Service</a>
+      <a href="#" onclick="return false;">Webinare</a>
+      <a href="#" onclick="return false;">Jobs</a>
     </div>
   </div>
 
@@ -140,7 +140,7 @@
     </div>
   </footer>
 
-  <script src="../inuvet.js?v=17"></script>
+  <script src="../inuvet.js?v=18"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -215,6 +215,11 @@
         : null;
       pdpState.personalOffer = personal;
 
+      /* Mit Historie: zuerst nur persönliches Angebot; nach ATC → Standard-Widget */
+      if (personal && personal.free > 0) {
+        return nrWidgetPersonalHTML(p, personal);
+      }
+
       const free  = freeCountFor(price, pdpState.qty, model);
       const hint  = nextHintFor(price, pdpState.qty, model);
 
@@ -238,24 +243,22 @@
         hintHTML = `<div class="nr-widget__maxed">Höchste Gratis-Stufe für diese Größe erreicht.</div>`;
       }
 
-      const standardBody = `${freeLine}${barHTML}${hintHTML}`;
-      const standardHTML = standardBody
-        ? `<div class="nr-widget" aria-label="Naturalrabatt">${standardBody}</div>`
-        : '';
-
-      /* Demo: persönliches Angebot zusätzlich zum Standard-Widget */
-      const personalHTML = (personal && personal.free > 0)
-        ? nrWidgetPersonalHTML(p, personal)
-        : '';
-
-      return `${standardHTML}${personalHTML}`;
+      const body = `${freeLine}${barHTML}${hintHTML}`;
+      if (!body) return '';
+      return `<div class="nr-widget" aria-label="Naturalrabatt">${body}</div>`;
     };
 
-    const orderMetaHTML = () => `
-      <ul class="pdp__order-meta">
-        <li><span class="material-icons" aria-hidden="true">local_shipping</span> Lieferung in 2–3 Werktagen</li>
-        <li><span class="material-icons" aria-hidden="true">inventory_2</span> Versandkostenfrei ab 49&nbsp;€</li>
-      </ul>`;
+    /* Liefer-/Versand-Meta — Demo ausgeblendet (Shop kann wieder einblenden) */
+    const orderMetaHTML = () => '';
+
+    const socialProofHTML = () => `
+      <div class="social-proof">
+        <div class="social-proof__avatars" aria-hidden="true">
+          <img class="social-proof__avatar" src="../assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+          <img class="social-proof__avatar" src="../assets/images/Sarah_Inuvet.png" alt="">
+        </div>
+        <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+      </div>`;
 
     const galleryHTML = () => {
       const p = pdpProduct();
@@ -298,15 +301,21 @@
         </div>`;
       }).join('');
 
-      /* Thumbs zuerst im DOM → Desktop links neben dem Hauptbild (pdp--sticky-gallery) */
+      /* Thumbs zuerst im DOM → Desktop links neben dem Hauptbild (pdp--sticky-gallery)
+         Trust unter dem Bild (<1536); ≥1536 in Aside — spart Above-the-fold in der Kaufspalte */
+      /* Packshot-Spalte: Hauptbild + Social darunter — Abstand bleibt konstant,
+         unabhängig von Thumb-Höhe (nicht Grid-Zeile über volle Galerie) */
       return `
         <div class="pdp__gallery">
           ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
-          <div class="pdp__main-image">
-            ${mainImg}
-            ${mainVideo}
-            ${caption}
-            ${meta}
+          <div class="pdp__packshot">
+            <div class="pdp__main-image">
+              ${mainImg}
+              ${mainVideo}
+              ${caption}
+              ${meta}
+            </div>
+            <div class="pdp__social-below">${socialProofHTML()}</div>
           </div>
         </div>`;
     };
@@ -614,16 +623,6 @@
         `<li><span class="material-icons" aria-hidden="true">add</span><span>${u}</span></li>`).join('');
       const uspsBlock = usps ? `<ul class="check-list">${usps}</ul>` : '';
 
-      /* Trust: nach USPs (Mobil/Laptop); ≥1536px zusätzlich/stattdessen in Aside */
-      const socialProofHTML = `
-        <div class="social-proof">
-          <div class="social-proof__avatars" aria-hidden="true">
-            <img class="social-proof__avatar" src="../assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
-            <img class="social-proof__avatar" src="../assets/images/Sarah_Inuvet.png" alt="">
-          </div>
-          <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
-        </div>`;
-
       const ratingLabel = p.ratingCount
         ? `${p.rating} (${p.ratingCount} Bewertungen)`
         : `${p.rating || '4,8'} (Bewertungen)`;
@@ -634,7 +633,6 @@
           <div class="rating">${starsHTML(p.rating)} <span class="text-muted">${ratingLabel}</span></div>
           <p class="pdp__description">${p.feedCategory ? `${p.feedCategory}. ` : ''}${p.shortDesc || p.desc || ''}</p>
           ${uspsBlock}
-          ${socialProofHTML}
           ${typeSection}
           <div class="pdp__price">
             <div class="price-stack">
@@ -660,7 +658,7 @@
           ${accordionHTML()}
         </div>
         <aside class="pdp__aside" aria-label="Vertrauen">
-          ${socialProofHTML}
+          ${socialProofHTML()}
         </aside>`;
     };
 

@@ -446,9 +446,9 @@ const allProducts = [
     notes: 'Nur zur Ergänzung der täglichen Ration. Außerhalb der Reichweite von Kindern aufbewahren. Vor direkter Sonneneinstrahlung schützen.',
     shelfLife: 'Mindesthaltbarkeit siehe Aufdruck auf der Packung. Nach Anbruch trocken und gut verschlossen lagern.',
     usps: [
-      'Rein pflanzlich, ohne künstliche Zusatzstoffe',
-      'Hohe Akzeptanz — auch bei wählerischen Tieren',
-      'Von über 20.000 Tierärzten empfohlen',
+      'Unterstützt die normale Leberfunktion.',
+      'Lange Reichweite dank hoher Dosierung.',
+      'Pulver allergikergeeignet.',
     ],
     /* PDP-FAQ → produktiv: Metafield list / Metaobject; JSON-LD FAQPage mitrendern */
     faq: [
