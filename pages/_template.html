@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seitentitel – inuvet</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <!-- <link rel="stylesheet" href="[name].css"> -->
+</head>
+<body>
+
+<!-- ── Skip-Link (A11y) — erster Fokus-Stopp, sichtbar nur bei Tastatur-Fokus ── -->
+<a class="skip-link" href="#MainContent">Zum Inhalt springen</a>
+
+<!-- ── Announcement Bar (D.1) ── -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__sentinel" aria-hidden="true"></span>
+    <!-- Duplikat für nahtlose Schleife -->
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- ── Navigation (D.1) ── -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <!-- Desktop-Nav-Items (mit Dropdowns nach Bedarf) -->
+  </div>
+  <div class="nav-center">
+    <a href="/" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <!-- openSearch()/openCart() liegen NICHT in inuvet.js — siehe E.7 (Suche) / E.4 (Cart-Drawer) bzw. Page-JS -->
+    <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb" onclick="openCart()">
+      <span class="material-icons">shopping_cart</span>
+      <span class="badge --count" id="navCartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Mobile-Menu (D.1) ── -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <!-- Mobile-Nav-Inhalt -->
+  </div>
+</div>
+
+<!-- ── Search-Overlay (E.7) — optional ── -->
+<!-- Cart-Drawer (E.4) — optional -->
+
+<!-- ════════════════════════════════════════
+     HAUPTINHALT
+     ════════════════════════════════════════ -->
+<main id="MainContent">
+  <div class="container">
+    <!-- Standard-Container (1536px max) · Modifier: --narrow (≈720px) · --sm (≈480px) -->
+    <h1>Seitentitel</h1>
+    <!-- Page-Inhalt -->
+  </div>
+</main>
+
+<!-- ── Footer (D.2) — wenn vorhanden ── -->
+
+<!-- ── JS ──
+     inuvet.js liefert nur Basis-Helper: toggleMobile()/closeMobile() + initMarquees().
+     Such-/Warenkorb-Logik (openSearch/openCart) kommt aus den Komponenten E.4/E.7
+     bzw. Page-spezifischem JS und muss zusätzlich eingebunden werden. -->
+<script src="../inuvet.js"></script>
+
+</body>
+</html>

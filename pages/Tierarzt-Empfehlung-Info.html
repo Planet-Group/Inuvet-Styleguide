@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Tierarzt-Empfehlung – Dokumentation</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="tierarzt-empfehlung.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Tierarzt-Empfehlung.html" class="nav-item__trigger">Mockup</a>
+      </div>
+      <div class="nav-item">
+        <a href="Tierarzt-Empfehlung-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center">
+      <img src="../assets/graphics/Tierarzt-Empfehlung_Logo_RGB.svg" alt="Tierarzt-Empfehlung Logo">
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Tierarzt-Empfehlung.html" onclick="closeMobile()">Mockup</a>
+    </div>
+    <div class="nav-col">
+      <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="container" id="infoMain">
+
+      <div class="article-layout">
+
+        <!-- Sidebar: Inhaltsverzeichnis (statt Autor/Tags — entweder/oder) -->
+        <aside class="article-sidebar">
+          <nav class="article-toc" aria-label="Inhalt">
+            <a href="#grundidee">Grundidee</a>
+            <a href="#teil-1">Teil 1 — Sicht Tierhalter</a>
+            <a href="#teil-2">Teil 2 — Sicht Tierarztpraxis</a>
+            <a href="#teil-3">Teil 3 — System-E-Mails</a>
+            <a href="#email-checkliste">↳ IT-Checkliste E-Mails</a>
+            <a href="#technik">Technische Umsetzung</a>
+          </nav>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Dokumentation · Stand 17. Juli 2026 (aktualisiert)</span>
+            <h1>Tierarzt-Empfehlung — Dokumentation</h1>
+          </header>
+
+          <div class="article__body rte">
+
+            <p>Dieses Dokument beschreibt die <strong>Funktionsweise des Tierarzt-Freigabe-Systems</strong> im inuvet Shop. Es richtet sich an IT, Marketing und alle, die den Ablauf verstehen oder implementieren möchten — und ist in vier Teile gegliedert:</p>
+            <ul>
+              <li><strong>Teil 1 — Sicht Tierhalter:</strong> Produkte entdecken und Freigabe-Anfragen stellen</li>
+              <li><strong>Teil 2 — Sicht Tierarztpraxis:</strong> Anfragen freigeben oder Freigaben direkt ausstellen (Vet-Portal)</li>
+              <li><strong>Teil 3 — System-E-Mails:</strong> vollständige Übersicht aller Nachrichten inkl. IT-Checkliste (nichts darf fehlen)</li>
+              <li><strong>Technische Umsetzung:</strong> States, Warenkorb, Datensätze, Implementierungs-Schritte</li>
+            </ul>
+
+            <h2 id="grundidee">Grundidee</h2>
+            <p>Inuvet-Produkte sind tierärztlich entwickelt und werden idealerweise mit Freigabe eines Tierarztes eingesetzt. Das System ermöglicht es Tierhaltern, eine <strong>Freigabe-Anfrage</strong> zu stellen — der Tierarzt prüft, ob das Produkt für das Tier geeignet ist, und gibt es frei. Erst nach dieser Freigabe kann der Tierhalter das Produkt kaufen. Umgekehrt kann die Praxis eine Freigabe auch <strong>direkt ausstellen</strong> — etwa im Anschluss an einen Praxisbesuch, ohne dass vorher eine Anfrage gestellt wurde.</p>
+            <div class="notice">
+              <p><strong>Nur teilnehmende Praxen:</strong> Freigabe-Anfragen können ausschließlich an Praxen gestellt werden, die bereits am Empfehlungsprogramm teilnehmen. Ist die eigene Praxis nicht dabei, führt ein <strong>Karten-Finder</strong> („Praxis in der Nähe finden") zu teilnehmenden Praxen in der Umgebung — oder der Tierhalter lädt seine Praxis per E-Mail zur Teilnahme ein (E-Mail D1 in Teil 3).</p>
+            </div>
+            <div class="notice">
+              <p><strong>Terminologie:</strong> Im <strong>Vet-Portal</strong> heißt die Handlung durchgehend <strong>„Freigabe"</strong> (Freigabe ausstellen, Freigabe-Anfrage, freigegeben). In der <strong>Tierhalter-Kommunikation</strong> (Shop, E-Mails) ist „Tierarzt-Empfehlung" der Programmname — dort spricht das System von der „Empfehlung" des Tierarztes. Die finalen E-Mail-Texte sind mit dem Marketing abzustimmen.</p>
+            </div>
+
+            <!-- ══════════════ TEIL 1 ══════════════ -->
+            <h2 id="teil-1">Teil 1 — Sicht Tierhalter: Produkte anfragen</h2>
+
+            <h3>Die drei Nutzerzustände</h3>
+            <p>Das System unterscheidet drei Zustände, die das gesamte Shop-UI steuern:</p>
+            <table>
+              <thead>
+                <tr><th>Zustand</th><th>Beschreibung</th><th>Mögliche Aktionen</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>① Gast</strong></td>
+                  <td>Nicht angemeldet. E-Mail unbekannt.</td>
+                  <td>Produkte anfragen, Warenkorb befüllen. Einloggen beim Abschicken.</td>
+                </tr>
+                <tr>
+                  <td><strong>② Angemeldet · keine Freigabe</strong></td>
+                  <td>Eingeloggt. Keine aktive Freigabe vorhanden.</td>
+                  <td>Freigabe-Anfrage an Tierarztpraxis stellen. Auf E-Mail-Benachrichtigung warten.</td>
+                </tr>
+                <tr>
+                  <td><strong>③ Angemeldet · mit Freigabe</strong></td>
+                  <td>Eingeloggt. Tierarzt hat Freigabe erteilt.</td>
+                  <td>Freigegebene Produkte direkt in den Warenkorb legen und kaufen.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Der Anfrage-Flow (Schritt für Schritt)</h3>
+
+            <h4>1 — Produkt entdecken</h4>
+            <p>Jeder Besucher — auch ohne Login — sieht im Shop, welche Produkte eine Tierarzt-Freigabe benötigen (Badge <em>„Freigabe benötigt"</em>). Über den Button <strong>„Freigabe anfragen"</strong> können Produkte in den Warenkorb gelegt werden. Es gibt kein Login-Gate vor dem Warenkorb. Das Ziel: möglichst wenig Reibung beim Entdecken.</p>
+
+            <h4>2 — Freigabe-Anfrage abschicken (Login erforderlich)</h4>
+            <p>Wenn der Nutzer im Warenkorb auf <strong>„Jetzt Freigabe anfragen"</strong> klickt, erscheint das Login- bzw. Registrierformular. Hier greift ein zentrales Prinzip: <strong>Die E-Mail-Adresse ist der eindeutige Schlüssel.</strong> Das System verknüpft die Freigabe-Anfrage mit der E-Mail — über diese Adresse erfolgt die spätere Benachrichtigung, wenn der Tierarzt die Freigabe erteilt (oder ablehnt).</p>
+            <p>Nach dem Login prüft das System automatisch, ob für die angefragten Produkte bereits eine Freigabe vorliegt:</p>
+            <ul>
+              <li><strong>Freigabe vorhanden</strong> → Ein Willkommen-Popup informiert den Nutzer, welche Produkte freigegeben wurden und in welcher Menge. Die Produkte liegen bereits im Warenkorb. Weiter zum Checkout.</li>
+              <li><strong>Keine Freigabe</strong> → Nutzer wählt eine Tierarztpraxis aus, an die die Freigabe-Anfrage gesendet wird.</li>
+            </ul>
+
+            <h4>3 — Praxis auswählen und Anfrage absenden (nur bei fehlender Freigabe)</h4>
+            <p>Im Warenkorb-Drawer (Schritt „Deine Anfragen", gelber Hintergrund) wählt der Nutzer die Zielpraxis. Zwei Wege stehen parallel zur Verfügung:</p>
+            <ul>
+              <li><strong>Primary:</strong> Karten-Finder — „Praxis in der Nähe finden" (bestehendes Kartenmodul von inuvet.com)</li>
+              <li><strong>Alternativ:</strong> Praxis aus der Dropdown-Liste wählen — Feld beschriftet als <strong>„Praxis auswählen"</strong> (keine freie Texteingabe)</li>
+            </ul>
+            <p><strong>Name des Tierhalters (Pflichtfeld):</strong> Unter der Praxis-Auswahl steht das Pflichtfeld <em>„Dein Name – damit dich deine Praxis zuordnen kann"</em>. Ohne Namen kann die Anfrage nicht abgesendet werden (Validierung: Feld rot markiert, Fehlermeldung <em>„Bitte gib deinen Namen an."</em> + Toast). Der Name wird mit der Anfrage gespeichert und erscheint in der E-Mail an die Praxis, im internen Queue-Eintrag sowie im Vet-Portal in der Spalte „Name" der offenen Anfragen — er ist neben der E-Mail-Adresse das zweite Zuordnungsmerkmal.</p>
+            <p><strong>Validierung Praxis:</strong> Es kann nur eine Praxis aus der Liste teilnehmender Praxen gewählt werden. Gibt der Nutzer einen Namen ein, der nicht in der Liste enthalten ist, erscheint: <em>„Praxis ist noch nicht im Empfehlungsprogramm."</em> (Feld rot markiert + Toast). Ist das Feld leer: <em>„Bitte wähle eine teilnehmende Praxis aus."</em></p>
+            <p><strong>Praxis nicht gefunden?</strong> Unter dem optionalen Notizfeld erscheint der Hinweis: <em>„Du findest deine Praxis nicht? Dann sende ihr hier eine E-Mail."</em> Der Link öffnet ein <code>mailto:</code> mit vorausgefülltem Einladungstext (E-Mail D1 in Teil 3).</p>
+            <p><strong>UI-Details:</strong> Notizfeld kompakt (2 Zeilen). „Weiter" als Ghost-Button mit Pfeil in einer sticky Submit-Leiste am unteren Drawer-Rand. <strong>Vorauswahl:</strong> Hat der Nutzer bereits aktive Freigaben, wird die zuletzt freigebende Praxis vorausgewählt; sonst startet das Feld leer.</p>
+            <p>Nach dem Absenden werden <strong>sofort</strong> drei Backend-Nachrichten ausgelöst (die E-Mail-Adresse ist durch den Login bekannt): Bestätigung an den Tierhalter (A1), Anfrage-Mail an die Praxis (A2) und ein interner Queue-Eintrag für den Innendienst (A3) — Texte in Teil 3. Da nur teilnehmende Praxen wählbar sind, gibt es immer einen klaren Empfänger.</p>
+
+            <h4>4 — Warten auf Freigabe</h4>
+            <p>Der Tierhalter erhält die Bestätigungs-E-Mail (A1). Sobald die Praxis die Anfrage im Vet-Portal bearbeitet, wird er per E-Mail über das Ergebnis informiert (B1). Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
+
+            <h4>5 — Einlösen und kaufen</h4>
+            <p>Mit aktiver Freigabe erscheint bei freigegebenen Produkten das Badge <em>„freigegeben"</em> (grün). Sie können direkt in den Warenkorb gelegt werden — ohne weiteren Anfrageschritt. Im Warenkorb ist die Menge auf das vom Tierarzt freigegebene Maximum begrenzt; ein Hinweis erscheint, wenn die Grenze erreicht wird. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
+
+            <h3>Warenkorb-Redistribution beim Login</h3>
+            <p>Ein Nutzer kann als Gast Produkte in den Warenkorb legen und sich erst beim Abschicken einloggen. In diesem Moment prüft das System jeden Warenkorb-Artikel einzeln:</p>
+            <ul>
+              <li>Artikel mit vorhandener Freigabe → wandern automatisch in den <strong>Kauf-Warenkorb</strong> (sofort bestellbar)</li>
+              <li>Artikel ohne Freigabe → verbleiben im <strong>Freigabe-Anfrage-Warenkorb</strong> (durchlaufen den Anfrage-Flow)</li>
+            </ul>
+            <p>Der Nutzer sieht das Ergebnis unmittelbar: Freigegebene Produkte erscheinen unter „Einzulösende Produkte", anfragepflichtige unter „Freizugebende Produkte". Ein gemischter Warenkorb ist möglich.</p>
+
+            <h3>Die E-Mail-Adresse — zentrales Pflichtfeld</h3>
+            <p>Die E-Mail-Adresse erfüllt im System drei Funktionen gleichzeitig:</p>
+            <ol>
+              <li><strong>Account-Identifier</strong> — verknüpft Nutzer, Freigaben und Bestellhistorie</li>
+              <li><strong>Benachrichtigungs-Kanal</strong> — Freigabe oder Ablehnung wird per E-Mail kommuniziert</li>
+              <li><strong>Checkout-Pflichtfeld</strong> — für Bestellbestätigung und Sendungsverfolgung</li>
+            </ol>
+            <p>Im Checkout ist die E-Mail-Adresse daher immer ein Pflichtfeld, auch wenn der Nutzer eingeloggt ist. Der <strong>Name des Tierhalters</strong> ergänzt sie als menschenlesbares Zuordnungsmerkmal für die Praxis.</p>
+
+            <h3>Produktentdeckung — Suche und Produktfinder</h3>
+            <p>Zwei Einstiegspfade helfen Nutzern, das richtige Produkt zu finden, bevor sie eine Freigabe-Anfrage stellen:</p>
+            <ul>
+              <li><strong>Suche:</strong> Overlay über das Lupen-Icon. Filtert in Echtzeit (debounced, 200 ms) über Produktnamen, Kategorien und Suchvorschläge. Tastatur-Navigation vollständig unterstützt.</li>
+              <li><strong>Produktfinder:</strong> Zweistufiger Modal-Dialog — Schritt 1: Tier (Hund/Katze), Schritt 2: Indikation (z. B. Nervosität &amp; Stress). Treffer als klickbare Karten; ohne Treffer Hinweis auf den Tierarzt.</li>
+            </ul>
+            <p>Beide Pfade führen zur Produktseite und damit in den normalen Freigabe-Anfrage-Flow.</p>
+
+            <h3>Announcement Bar — Gast-Hinweis</h3>
+            <p>Für nicht eingeloggte Nutzer erscheint in der Announcement Bar: <em>„Hast du eine Tierarzt-Empfehlung? Jetzt einloggen →"</em> (CSS-Klasse <code>.--guest-only</code>). Eingeloggte Nutzer sehen ihn nicht.</p>
+
+            <h3>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h3>
+            <p>Freigaben beziehen sich immer auf <strong>Einzelprodukte mit Darreichungsform und Größe</strong> (z. B. „Calmin balance Tabletten, 60 Stück"), nie auf Produktfamilien (z. B. „Calmin balance"). Im Warenkorb und Checkout wird immer die vollständige Produktbezeichnung inklusive Darreichungsform angezeigt.</p>
+
+            <!-- ══════════════ TEIL 2 ══════════════ -->
+            <h2 id="teil-2">Teil 2 — Sicht Tierarztpraxis: Freigaben erteilen</h2>
+
+            <p>Teilnehmende Praxen erhalten Zugang zum <strong>Vet-Portal</strong> auf inuvet.com. Die Navigation dort führt unter dem Menüpunkt <strong>„Freigabe"</strong> (mit Live-Zähler offener Anfragen als Badge) zu folgenden Bereichen:</p>
+            <table>
+              <thead>
+                <tr><th>Seite</th><th>Zweck</th><th>Mockup</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Freigabe ausstellen</strong></td>
+                  <td>Direkt-Freigabe ohne vorherige Anfrage (z.&nbsp;B. nach Praxisbesuch) — zweistufig: Tierbesitzer-Daten → Produkte</td>
+                  <td><a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Offene Anfragen</strong></td>
+                  <td>Posteingang aller unbearbeiteten Produktanfragen (Zähler-Badge in der Nav)</td>
+                  <td><a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Freigegeben</strong></td>
+                  <td>Historie erteilter Freigaben inkl. Provision je Position (Spalten: Name, E-Mail, Datum, Produkt, Provision)</td>
+                  <td><a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Meine Provisionen</strong></td>
+                  <td>Link zum Provision-Portal (Nav-Eintrag vorhanden, Zielseite separat)</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><strong>So funktioniert's</strong></td>
+                  <td>Programm-Erklärung mit persönlicher Ansprechpartnerin (Außendienst)</td>
+                  <td><a href="Tierarzt-Empfehlung-Programm.html">Programm</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Portal-Seiten (außer Freigabe ausstellen / Produktauswahl) nutzen den Standard-<strong>Footer ohne Newsletter</strong> (Shop · Ratgeber · Social · Über inuvet).</p>
+
+            <h3>Weg ① — Anfrage eines Tierhalters freigeben</h3>
+            <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, E-Mail, Datum und Produkt mit Größe (E-Mail/Datum/Produkt in kompakter Schrift) — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
+            <ul>
+              <li><strong>Freigeben</strong> — öffnet ein Modal mit optionaler <em>Notiz an Tierbesitzer</em>; bestätigt die Position in der angefragten Menge</li>
+              <li><strong>Nicht freigeben</strong> — gleiches Modal in der Danger-Variante (<code>.modal.--danger</code>); lehnt die Position ab</li>
+            </ul>
+            <p><strong>E-Mail-Auslösung:</strong> Nach jeder Entscheidung müssen <strong>B1</strong> (Tierhalter) und <strong>B2</strong> (intern) ausgelöst werden — sowohl bei Zeilen-Aktion als auch bei Bulk. Die optionale Notiz erscheint in B1/B2. Im Mockup zeigt das E-Mail-Overlay B1/B2 nach der Zeilen-Aktion; Bulk muss produktiv dieselben Mails auslösen (ggf. aggregiert pro Tierhalter). Es gibt keine separate Detailansicht mehr — die A2-Mail verlinkt direkt auf Offene Anfragen.</p>
+
+            <h3>Weg ② — Freigabe direkt ausstellen (ohne Anfrage)</h3>
+            <p>Über <strong>„Freigabe ausstellen"</strong> kann die Praxis eine Freigabe auch ohne vorherige Anfrage erteilen — typisch direkt nach einem Praxisbesuch. Der Tierarzt wählt Produkte und Mengen:</p>
+            <table>
+              <thead>
+                <tr><th>Option</th><th>Bedeutung</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>max. 1× / 2× / 5×</strong></td><td>Freigabe mit Mengen-Obergrenze — der Tierhalter kann höchstens diese Anzahl bestellen</td></tr>
+                <tr><td><strong>Unbegrenzt</strong></td><td>Freigabe ohne Mengen-Obergrenze</td></tr>
+                <tr><td><strong>– </strong></td><td>Größe nicht freigeben (Default)</td></tr>
+              </tbody>
+            </table>
+            <p>Der Ablauf ist zweistufig (Tab-Navigation wie <code>.tabs</code>: <em>Tierbesitzer-Daten</em> · <em>Produkte auswählen</em>): Zuerst fragt die Seite <em>„An wen soll die Freigabe ausgestellt werden?"</em>, der Tierarzt trägt die <strong>E-Mail-Adresse</strong> ein und bestätigt darunter die <strong>Consent-Checkbox</strong> — erst dann geht es mit <strong>„Weiter"</strong> (oder dem zweiten Tab) zur Produktauswahl. Dort wählt er Mengen, optional eine <strong>Notiz an den Tierhalter</strong>, und bestätigt über die sticky Submit-Leiste (<em>„Volles Vertrauen…"</em>, Counter, <strong>„Produkte freigeben"</strong>). Nach dem Absenden: E-Mail an den Tierhalter (C1) + interne Kopie (C2).</p>
+
+            <h3>Ablehnung durch den Tierarzt</h3>
+            <p>Der Tierarzt kann einzelne oder alle Positionen ablehnen (Zeile oder Bulk). Der Tierhalter erhält das Ergebnis per E-Mail (<strong>B1</strong>) — inklusive der Notiz, sofern hinterlassen; parallel geht <strong>B2</strong> an das inuvet-Team. Abgelehnte Produkte können erneut angefragt werden; es gibt keine technische Sperrfrist.</p>
+
+            <h3>Historie „Freigegeben" und Provision</h3>
+            <p>Jede erteilte Freigabe erzeugt einen Eintrag in der Historie: Name, E-Mail, Datum, Produkt mit Größe und Menge sowie die <strong>Provision</strong> der Praxis (E-Mail/Datum/Produkt/Provision in kompakter Schrift). Die Provision wird pro Einzelprodukt-Position berechnet (siehe Produkt-Modell) und in Summe im Provision-Portal abgerechnet.</p>
+
+            <!-- ══════════════ TEIL 3 ══════════════ -->
+            <h2 id="teil-3">Teil 3 — System-E-Mails im Überblick (für die IT)</h2>
+
+            <p>Pflichtkatalog für die Umsetzung: <strong>6 System-E-Mails</strong> (A1, A2, B1, B2, C1, C2) + <strong>1 interner Queue-Eintrag</strong> (A3, keine E-Mail) + <strong>1 manuelle <code>mailto:</code>-Vorlage</strong> (D1). Alle acht müssen im Go-Live abgedeckt sein. Texte entsprechen dem Stand der Mockups — Absender-Daten und finale Formulierungen sind mit Marketing abzustimmen. Variablen stehen in <code>[eckigen Klammern]</code>.</p>
+
+            <h3 id="email-checkliste">IT-Checkliste — nichts vergessen</h3>
+            <table>
+              <thead>
+                <tr><th>Nr.</th><th>Kanal</th><th>Auslöser (wann bauen?)</th><th>Empfänger</th><th>Betreff (exakt)</th><th>Mockup-Referenz</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>A1</strong></td>
+                  <td>E-Mail</td>
+                  <td>Sofort wenn Tierhalter Freigabe-Anfrage absendet</td>
+                  <td>Tierhalter (Login-E-Mail)</td>
+                  <td>Neue Anfrage</td>
+                  <td><a href="Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> · Overlay nach Submit</td>
+                </tr>
+                <tr>
+                  <td><strong>A2</strong></td>
+                  <td>E-Mail</td>
+                  <td>Zeitgleich mit A1</td>
+                  <td>Praxis (hinterlegte Adresse)</td>
+                  <td>Neue Anfrage von [Name]</td>
+                  <td>wie A1 · Link → Offene Anfragen</td>
+                </tr>
+                <tr>
+                  <td><strong>A3</strong></td>
+                  <td>Queue / Liste (keine E-Mail)</td>
+                  <td>Zeitgleich mit A1/A2</td>
+                  <td>Innendienst-Übersicht</td>
+                  <td>Neue offene Anfrage</td>
+                  <td>wie A1 · Tag „Intern“</td>
+                </tr>
+                <tr>
+                  <td><strong>B1</strong></td>
+                  <td>E-Mail</td>
+                  <td>Praxis entscheidet in Offene Anfragen (Zeile <em>oder</em> Bulk · Freigeben <em>oder</em> Nicht freigeben)</td>
+                  <td>Tierhalter</td>
+                  <td>Ihre Empfehlungsanfrage wurde bearbeitet</td>
+                  <td><a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a></td>
+                </tr>
+                <tr>
+                  <td><strong>B2</strong></td>
+                  <td>E-Mail</td>
+                  <td>Zeitgleich mit B1</td>
+                  <td><code>team@inuvet.com</code></td>
+                  <td>Empfehlungsanfrage bearbeitet: [Name]</td>
+                  <td>wie B1</td>
+                </tr>
+                <tr>
+                  <td><strong>C1</strong></td>
+                  <td>E-Mail</td>
+                  <td>Praxis klickt „Produkte freigeben“ (Direkt-Freigabe, Schritt 2)</td>
+                  <td>Tierhalter (aus Schritt 1)</td>
+                  <td>Ihre Empfehlung ist da!</td>
+                  <td><a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a></td>
+                </tr>
+                <tr>
+                  <td><strong>C2</strong></td>
+                  <td>E-Mail</td>
+                  <td>Zeitgleich mit C1</td>
+                  <td><code>team@inuvet.com</code></td>
+                  <td>Direkt-Empfehlung bearbeitet: [E-Mail]</td>
+                  <td>wie C1 · inkl. Consent-Hinweis</td>
+                </tr>
+                <tr>
+                  <td><strong>D1</strong></td>
+                  <td><code>mailto:</code> (kein Systemversand)</td>
+                  <td>Tierhalter klickt „Praxis nicht gefunden?“ im Anfrage-Drawer</td>
+                  <td>Praxis (trägt Nutzer ein)</td>
+                  <td>Teilnahme am Inuvet-Empfehlungsprogramm</td>
+                  <td><a href="Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> · <code>mailto:</code>-Link</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="notice">
+              <p><strong>Abnahme-Kriterium:</strong> Jede Zeile der Checkliste ist implementiert und manuell getestet. A3 ist bewusst <em>keine</em> E-Mail — trotzdem Pflicht (Innendienst-Sichtbarkeit + Schließen bei B). Bulk in Offene Anfragen muss B1/B2 auslösen, auch wenn das Mockup das Overlay nur bei Zeilen-Aktionen zeigt.</p>
+            </div>
+
+            <h4>Empfohlenes Abnahme-Skript</h4>
+            <ol>
+              <li>Als Tierhalter Anfrage absenden → prüfen: <strong>A1</strong> (Tierhalter), <strong>A2</strong> (Praxis, Link zu Offene Anfragen), <strong>A3</strong> (Innendienst-Liste <code>offen</code>).</li>
+              <li>Optional: „Praxis nicht gefunden?“ → <code>mailto:</code> öffnet mit Betreff/Body von <strong>D1</strong>.</li>
+              <li>Als Praxis in Offene Anfragen eine Position freigeben (mit Notiz) → <strong>B1</strong> + <strong>B2</strong>; A3 → <code>erledigt</code>; Eintrag in Freigegeben.</li>
+              <li>Als Praxis eine Position ablehnen → erneut <strong>B1</strong> + <strong>B2</strong> (nur Nicht-freigegeben-Block).</li>
+              <li>Bulk Freigeben / Nicht freigeben → ebenfalls <strong>B1</strong> + <strong>B2</strong> (aggregiert).</li>
+              <li>Freigabe ausstellen: Consent + E-Mail → Produkte → absenden → <strong>C1</strong> + <strong>C2</strong> (C2 enthält Consent-Hinweis).</li>
+            </ol>
+
+            <h3>Kurzübersicht nach Ereignis</h3>
+            <table>
+              <thead>
+                <tr><th>Ereignis</th><th>Ausgelöste Nachrichten</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Tierhalter sendet Anfrage ab</td><td><strong>A1 + A2 + A3</strong> (immer zusammen)</td></tr>
+                <tr><td>Praxis entscheidet in Offene Anfragen</td><td><strong>B1 + B2</strong> (immer zusammen) · A3 → <code>erledigt</code></td></tr>
+                <tr><td>Praxis stellt Direkt-Freigabe aus</td><td><strong>C1 + C2</strong> (immer zusammen · Consent Pflicht)</td></tr>
+                <tr><td>Tierhalter lädt Praxis ein</td><td><strong>D1</strong> nur als <code>mailto:</code>-Vorlage</td></tr>
+              </tbody>
+            </table>
+
+            <h3>A — Beim Absenden der Freigabe-Anfrage (Tierhalter-Flow)</h3>
+
+            <h4>A1 · An den Tierhalter — Bestätigung</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Neue Anfrage</p>
+              <p>Anfrage an <strong>[Praxisname]</strong> erfolgreich versendet.</p>
+              <p>Sie erhalten eine Nachricht per E-Mail ([E-Mail des Tierhalters]), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>
+            </div>
+            <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage im Warenkorb-Drawer (Login liegt zu diesem Zeitpunkt bereits vor). <strong>Empfänger:</strong> E-Mail-Adresse des eingeloggten Tierhalters. <strong>Variablen:</strong> Praxisname, E-Mail-Adresse.</p>
+
+            <h4>A2 · An die Tierarztpraxis — neue Anfrage</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Neue Anfrage von [Name des Tierhalters]</p>
+              <p>Tierbesitzer*in <strong>[Name des Tierhalters]</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
+              <p>Angefragt: <strong>[Produktliste]</strong></p>
+              <p>Diese können Sie hier einsehen und freigeben:<br>→ Zur Anfrage auf inuvet.com [Direktlink zu Offene Anfragen im Vet-Portal]</p>
+              <p><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
+              <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
+              <p>Ihre Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
+              <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+              <p><strong>Persönlicher Kontakt bei Fragen</strong></p>
+              <p>Sie haben Fragen zur Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
+              <p><strong>[Name Ansprechpartner*in]</strong> · Tierärztlicher Außendienst<br>[Telefon] · [E-Mail]</p>
+            </div>
+            <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage, an die hinterlegte Adresse der gewählten Praxis. Die beiden Erklär-Abschnitte sind bewusst Teil jeder Anfrage-Mail — viele Praxen vergessen im Alltag, dass sie teilnehmen. <strong>Variablen:</strong> Name des Tierhalters, Produktliste, Direktlink zur Übersicht <code>…/Tierarzt-Empfehlung-Offene-Anfragen.html</code>, Ansprechpartner*in des Außendienstes (aus CRM).</p>
+
+            <h4>A3 · Interner Queue-Eintrag (keine E-Mail)</h4>
+            <div class="notice">
+              <p class="notice__title">Eintrag: Neue offene Anfrage — Anfragen-Übersicht · Innendienst</p>
+              <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · [Wartezeit].</p>
+              <p><strong>Tierbesitzer*in:</strong> [Name] · [E-Mail]</p>
+              <p><strong>Praxis:</strong> [Praxisname]</p>
+              <p><strong>Angefragte Produkte:</strong> [je Position: Produkt · Variante · Menge]</p>
+            </div>
+            <p><strong>Auslösung:</strong> Zeitgleich mit A1/A2 — aber bewusst <strong>kein Mail-Versand</strong>, sondern ein Eintrag in der internen Anfragen-Liste (Status <code>offen</code>, Timestamp speist die Wartezeit-Anzeige). Der Innendienst erkennt daran, welche Anfragen zu lange offen bleiben, und kann bei der Praxis nachhaken. Mit der Bearbeitung durch die Praxis (B) wechselt der Eintrag auf <code>erledigt</code> und verschwindet aus der Liste.</p>
+
+            <h3>B — Nach Bearbeitung einer Anfrage im Vet-Portal</h3>
+
+            <h4>B1 · An den Tierhalter — Ergebnis der Anfrage</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Ihre Empfehlungsanfrage wurde bearbeitet</p>
+              <p>[Tierarzt] ([Praxisname]) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+              <p><strong>Freigegeben:</strong> [je Produkt: Name — Größe: Menge, z. B. „Calmin balance Pulver — 30 g: max. 2×"]</p>
+              <p><strong>Nicht freigegeben:</strong> [je Position: Name — Größe (angefragt: max. n×)]</p>
+              <p><strong>Notiz an Sie:</strong> <em>[Notiz des Tierarztes — nur wenn hinterlassen]</em></p>
+              <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>
+            </div>
+            <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz). Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen und erscheint bei Freigabe in <strong>Freigegeben</strong>.</p>
+
+            <h4>B2 · Intern an das inuvet-Team — Kopie der Entscheidung</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Empfehlungsanfrage bearbeitet: [Name des Tierhalters]</p>
+              <p>[Tierarzt] ([Praxisname]) hat die Empfehlungsanfrage für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
+              <p><strong>Freigegeben:</strong> [Liste] · <strong>Nicht freigegeben:</strong> [Liste]</p>
+              <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
+              <p>[n] Produkte freigegeben, [m] Positionen abgelehnt[, [k] ohne Entscheidung (–)].</p>
+              <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
+            </div>
+            <p><strong>Versand:</strong> Zeitgleich mit B1 an <code>team@inuvet.com</code> — gleicher Auslöser wie B1 (Offene Anfragen). Dient der Nachvollziehbarkeit (wer hat wann was für wen entschieden) und schließt den Queue-Eintrag A3.</p>
+
+            <h3>C — Nach Direkt-Freigabe (ohne vorherige Anfrage)</h3>
+
+            <h4>C1 · An den Tierhalter — Freigabe erhalten</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Ihre Empfehlung ist da!</p>
+              <p>[Tierarzt] ([Praxisname]) hat eine Empfehlung für Sie ausgestellt und folgende Produkte freigegeben:</p>
+              <p>[je Produkt: <strong>Name</strong> — Größe: Menge]</p>
+              <p><strong>Notiz an Sie:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
+              <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>
+            </div>
+            <p><strong>Versand:</strong> Sofort nach „Produkte freigeben" auf der Seite „Freigabe ausstellen". Die E-Mail-Adresse stammt aus Schritt 1 (Consent + Eingabe des Tierarztes). Existiert zu der Adresse noch kein Konto, dient die Mail zugleich als Einstieg: Beim ersten Login mit dieser Adresse sind die Produkte freigeschaltet.</p>
+
+            <h4>C2 · Intern an das inuvet-Team — Kopie der Direkt-Freigabe</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Direkt-Empfehlung bearbeitet: [E-Mail des Tierhalters]</p>
+              <p>[Tierarzt] ([Praxisname]) hat eine Direkt-Empfehlung (in der Praxis ausgestellt) für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
+              <p>[je Produkt: <strong>Name</strong>: Größe: Menge]</p>
+              <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
+              <p>[n] Produkte freigegeben.</p>
+              <p><em>Hinweis: Direkt-Empfehlung — E-Mail-Weitergabe + werblicher Charakter wurden vom Tierarzt bestätigt.</em></p>
+              <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
+            </div>
+            <p><strong>Versand:</strong> Zeitgleich mit C1 an <code>team@inuvet.com</code>. Der Consent-Hinweis dokumentiert die Bestätigung der Checkbox durch den Tierarzt — relevant für Datenschutz-Nachweise.</p>
+
+            <h3>D — Manuell ausgelöste E-Mail</h3>
+
+            <h4>D1 · Einladung an eine nicht teilnehmende Praxis (<code>mailto:</code>)</h4>
+            <div class="notice">
+              <p class="notice__title">Betreff: Teilnahme am Inuvet-Empfehlungsprogramm</p>
+              <p>Sehr geehrte Damen und Herren,</p>
+              <p>ich würde gerne Inuvet-Produkte für mein Tier über das Tierarzt-Empfehlungsprogramm beziehen – leider ist Ihre Praxis dort noch nicht gelistet.</p>
+              <p>Das Programm ermöglicht es Ihnen, passende Ergänzungsfuttermittel digital freizugeben. Inuvet übernimmt anschließend Beratung, Versand und Betreuung der Tierbesitzer – für Ihre Praxis entsteht kein Aufwand mit Lagerung oder Logistik. Für jede Empfehlung erhalten Sie zudem eine Provision.</p>
+              <p>Mehr Informationen: https://inuvet.com/pages/tierarzt-empfehlung-anleitung</p>
+              <p>Ich würde mich freuen, wenn Sie am Programm teilnehmen – so könnte ich die Produkte künftig direkt über Ihre Empfehlung beziehen.</p>
+              <p>Mit freundlichen Grüßen</p>
+            </div>
+            <p><strong>Auslösung:</strong> Kein Systemversand — der Link „Du findest deine Praxis nicht? Dann sende ihr hier eine E-Mail." im Anfrage-Schritt öffnet das Mail-Programm des Nutzers (<code>mailto:</code> mit vorbefülltem Betreff und Text). Empfängeradresse und Absender trägt der Tierhalter selbst ein; der Text ist frei editierbar.</p>
+
+            <!-- ══════════════ TEIL 4 ══════════════ -->
+            <h2 id="technik">Technische Umsetzung — Übersicht</h2>
+
+            <h3>Nutzerzustände im Frontend</h3>
+            <p>Das Frontend unterscheidet drei States (<code>guest</code>, <code>no-release</code>, <code>with-release</code>), die das gesamte UI steuern: CTAs, Nav-Elemente, Announcement Bar, Warenkorb-Inhalt und verfügbare Seiten.</p>
+            <pre><code>// Zustand bestimmt: welche CTAs sichtbar sind
+// - guest:        „Anfragen" ohne Login-Gate, Login-Link in Nav
+// - no-release:   „Anfragen" → führt zu Tierarzt-Auswahl
+// - with-release: „In den Warenkorb" für freigegebene Produkte</code></pre>
+
+            <h3>Warenkorb-Struktur</h3>
+            <p>Der Warenkorb besteht intern aus zwei Arrays:</p>
+            <pre><code>cartApproved  = []  // Produkte mit Freigabe → direkt kaufbar
+cartRequested = []  // Produkte ohne Freigabe → durchlaufen Anfrage-Flow</code></pre>
+            <p>Beim Login wird jeder Artikel aus <code>cartRequested</code> neu bewertet. Hat der Nutzer eine Freigabe für das Produkt, wandert es nach <code>cartApproved</code>.</p>
+
+            <h3>E-Mail-Verknüpfung</h3>
+            <p>Freigaben werden serverseitig per E-Mail-Adresse verwaltet. Das Frontend schickt beim Login die E-Mail — das Backend liefert zurück, für welche Produkte eine aktive Freigabe vorliegt. Diese Produktliste bestimmt, welche Artikel nach dem Login als <code>approved</code> markiert werden.</p>
+
+            <h3>Freigabe-Logik im Frontend (<code>approvedProductIds</code> + <code>approvedVariantByProduct</code>)</h3>
+            <p>Das Frontend verwaltet die aktiven Freigaben über zwei Laufzeit-Datenstrukturen:</p>
+            <pre><code>approvedProductIds        // Set&lt;id&gt; — welche Produkte sind freigegeben?
+approvedVariantByProduct  // Map&lt;id, { formIndex, variantIndex, maxQty }&gt;
+                          // — welche Variante in welcher Maximalmenge?</code></pre>
+            <p>Alle Stellen, die prüfen ob ein Produkt freigegeben ist — Badges, CTAs, Warenkorb-Redistribution, „Empfohlene Produkte"-Seite, Startseiten-Text — lesen ausschließlich aus diesen:</p>
+            <pre><code>isApproved(p) → state === 'with-release' && approvedProductIds.has(p.id)</code></pre>
+            <p>Die <code>maxQty</code> wird beim Einlösen durchgesetzt: Der <code>+</code>-Button im Warenkorb ist auf diesen Wert begrenzt; ein Toast-Hinweis erscheint bei Überschreitung.</p>
+
+            <h3>Anfrage-Datensatz</h3>
+            <p>Eine Freigabe-Anfrage speichert mindestens:</p>
+            <pre><code>{
+  id,                // eindeutige Anfrage-ID (A2-Mail → Offene Anfragen)
+  customerName,      // Pflichtfeld aus dem Anfrage-Schritt
+  customerEmail,     // Schlüssel (eingeloggt)
+  vetPracticeId,     // gewählte teilnehmende Praxis
+  receivedAt,        // Timestamp (speist Wartezeit im Innendienst)
+  positions: [{ productId, variantLabel, qty }],
+  status             // offen | erledigt
+}</code></pre>
+
+            <h3>Implementierungs-Schritte</h3>
+            <ol>
+              <li><strong>Freigabe-Datensatz:</strong> Pro Nutzer-E-Mail eine Liste freigegebener Produkt-IDs mit Variante und <code>maxQty</code> speichern. Timestamp der Freigabe und verknüpfte Tierarztpraxis mitführen.</li>
+              <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend setzt damit <code>approvedProductIds</code> und führt die Warenkorb-Redistribution durch.</li>
+              <li><strong>Anfrage-Flow:</strong> Login ist Pflicht vor der Praxis-Auswahl. Anfrage-Submission speichert den Anfrage-Datensatz (siehe oben, inkl. Pflichtfeld Name) und löst sofort <strong>A1 + A2 + A3</strong> aus. Validierung: nur teilnehmende Praxen; Name nicht leer. A2-Link zeigt auf Offene Anfragen.</li>
+              <li><strong>Bearbeitungs-Event (Offene Anfragen):</strong> Freigeben / Nicht freigeben (Zeile oder Bulk) → Status-Update → <strong>B1 + B2</strong> → Queue-Eintrag A3 auf <code>erledigt</code> → bei Freigabe Eintrag in Historie „Freigegeben“ (inkl. Provision und E-Mail).</li>
+              <li><strong>Direkt-Freigabe-Event:</strong> Schritt 1 Consent + E-Mail Pflicht → Schritt 2 Produkte → „Produkte freigeben“ → Freigabe-Datensatz anlegen (E-Mail ggf. ohne bestehendes Konto) → <strong>C1 + C2</strong> → Historie-Eintrag.</li>
+              <li><strong>E-Mail-Abnahme:</strong> IT-Checkliste in <a href="#email-checkliste">Teil 3</a> Zeile für Zeile abhaken (A1–A3, B1–B2, C1–C2, D1).</li>
+              <li><strong>Zähler-Badge:</strong> Anzahl offener Anfragen der Praxis wird in der Portal-Nav als Badge synchronisiert (<code>[data-nav-open-count]</code> an Trigger, Dropdown-Link und Mobile-Menü; bei 0 ausgeblendet).</li>
+              <li><strong>Announcement Bar:</strong> Gast-Item über Conditional Rendering — niemals für eingeloggte Nutzer sichtbar.</li>
+              <li><strong>D1 mailto:</strong> Link im Anfrage-Drawer öffnet Mail-Client mit vorbefülltem Betreff/Body — kein Server-Versand.</li>
+            </ol>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../inuvet.js"></script>
+  <script src="empfehlung-anfragen-mock.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', empfehlungEnsurePortalFooter);
+  </script>
+
+</body>
+</html>

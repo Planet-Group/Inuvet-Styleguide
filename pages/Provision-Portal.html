@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provision-Portal · Mockup – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="provision-portal.css">
+  <link rel="stylesheet" href="../temp.css?v=1">
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-item">
+      <a href="Provision-Portal-Start.html" class="nav-item__trigger">Start</a>
+    </div>
+    <div class="nav-item">
+      <a href="Provision-Portal.html" class="nav-item__trigger" aria-current="page">Mockup</a>
+    </div>
+    <div class="nav-item">
+      <a href="Provision-Portal-Info.html" class="nav-item__trigger">Dokumentation</a>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+    <button class="btn --icon" id="cartBtn" aria-label="Warenkorb" onclick="openCart()">
+      <span class="material-icons">redeem</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="Provision-Portal-Start.html" onclick="closeMobile()">Start</a>
+  </div>
+  <div class="nav-col">
+    <a href="Provision-Portal.html" onclick="closeMobile()">Mockup</a>
+  </div>
+  <div class="nav-col">
+    <a href="Provision-Portal-Info.html" onclick="closeMobile()">Dokumentation</a>
+  </div>
+</div>
+
+<!-- Cart Overlay + Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer"></div>
+
+<!-- Auszahlung Modal -->
+<div class="modal-overlay" id="auszahlungModal" onclick="closeAuszahlungModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Provision auszahlen</span>
+      <button class="btn --icon" onclick="closeAuszahlungModal()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body">
+      <div class="notice" id="payoutMinNotice" style="display:none">
+        <p>Eine Auszahlung ist erst ab <strong>20&nbsp;€</strong> möglich. Dein aktuelles Guthaben beträgt <strong id="payoutMinAmount"></strong>.</p>
+      </div>
+      <p class="auszahlung-hint">Bitte überprüfe deine Bankverbindung und Umsatzsteuer-ID. Die Provision wird innerhalb von 3–5 Werktagen überwiesen.</p>
+      <div class="form-field">
+        <input type="text" id="modal-iban" placeholder=" " value="DE89 3704 0044 0532 0130 00">
+        <label for="modal-iban">IBAN</label>
+      </div>
+      <div class="form-field">
+        <input type="text" id="modal-ust" placeholder=" " value="DE123456789">
+        <label for="modal-ust">Ust. IdNr.</label>
+      </div>
+      <button class="btn --primary --full" onclick="completePayout()">Provision einlösen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Promo Bar -->
+<div class="promo-bar">
+  <span class="label-caps">codice sconto per la clientela</span>
+  <strong class="promo-bar__code">T159075X</strong>
+  <button class="btn --icon" onclick="copyPromoCode(this)" aria-label="Code in Zwischenablage kopieren">
+    <span class="material-icons">content_copy</span>
+  </button>
+</div>
+
+<!-- SPA-Container -->
+<main id="app"></main>
+
+<!-- Provision Störer -->
+<a href="Provision-Portal-Start.html#register" class="provision-stoerer" aria-label="Jetzt registrieren und 10 € Startprovision kassieren">
+  <span class="provision-stoerer__label">Registrieren</span>
+  <span class="provision-stoerer__amount">10 €</span>
+  <span class="provision-stoerer__label">kassieren</span>
+</a>
+
+<!-- Mockup FAB -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Mockup-Kontext
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Mockup-Kontext</div>
+  <p>Provision-Portal: Tierarzt löst angesammelte Provisionen ein — entweder als Barauszahlung oder als Prämie.</p>
+  <div class="mockup-fab-panel__field">
+    <input type="number" id="provisionInput" step="0.01" placeholder="0.00">
+    <label for="provisionInput">Provision simulieren (€)</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setProvision()">Übernehmen</button>
+
+  <div class="mockup-fab-panel__field" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #333;">
+    <input type="text" id="voucherBrand" placeholder="z. B. amazon" value="amazon">
+    <label for="voucherBrand">Gutschein — Marke</label>
+  </div>
+  <div class="mockup-fab-panel__field">
+    <input type="text" id="voucherValue" placeholder="z. B. 400 €" value="400 €">
+    <label for="voucherValue">Gutschein — Wert</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setVoucher()">Übernehmen</button>
+</div>
+
+<script src="../inuvet.js"></script>
+
+
+<script src="provision-portal.js"></script>
+</body>
+</html>

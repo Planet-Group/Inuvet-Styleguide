@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La mia provvigione – vetalità</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="provision-portal.css">
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Spedizione gratuita da 55 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Oltre 14 anni di esperienza</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Consigliato dalla tua clinica veterinaria</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Ingredienti naturali altamente concentrati</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Prodotti disponibili in oltre 35 Paesi</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Packaging ecologico in carta</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Spedizione gratuita da 55 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Oltre 14 anni di esperienza</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Consigliato dalla tua clinica veterinaria</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Ingredienti naturali altamente concentrati</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Prodotti disponibili in oltre 35 Paesi</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Packaging ecologico in carta</span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="site-nav" aria-label="Navigazione del sito">
+  <div class="nav-left">
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Apri navigazione" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-item">
+      <a href="Provision-Portal-Vetalita.html" class="nav-item__trigger" aria-current="page">Mockup</a>
+    </div>
+    <div class="nav-item">
+      <a href="Provision-Portal-Info.html" class="nav-item__trigger">Documentazione</a>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Vai alla home">
+      <img src="../assets/graphics/Vetalita_Logo_RGB.png" alt="vetalità Logo" style="height: 92px; width: auto;">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Cerca"><span class="material-icons">search</span></button>
+    <button class="btn --icon" id="cartBtn" aria-label="Carrello" onclick="openCart()">
+      <span class="material-icons">redeem</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Navigazione principale">
+  <div class="nav-col">
+    <a href="Provision-Portal-Vetalita.html" onclick="closeMobile()">Mockup</a>
+  </div>
+  <div class="nav-col">
+    <a href="Provision-Portal-Info.html" onclick="closeMobile()">Documentazione</a>
+  </div>
+</div>
+
+<!-- Cart Overlay + Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer"></div>
+
+<!-- Modale Pagamento -->
+<div class="modal-overlay" id="auszahlungModal" onclick="closeAuszahlungModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Riscuoti la provvigione</span>
+      <button class="btn --icon" onclick="closeAuszahlungModal()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body">
+      <p class="auszahlung-hint">Verifica i tuoi dati bancari e la partita IVA. La provvigione verrà accreditata entro 3–5 giorni lavorativi.</p>
+      <div class="form-field">
+        <input type="text" id="modal-iban" placeholder=" " value="IT60 X054 2811 1010 0000 0123 456">
+        <label for="modal-iban">IBAN</label>
+      </div>
+      <div class="form-field">
+        <input type="text" id="modal-ust" placeholder=" " value="IT12345678901">
+        <label for="modal-ust">Partita IVA</label>
+      </div>
+      <button class="btn --primary --full" onclick="completePayout()">Riscuoti la provvigione</button>
+    </div>
+  </div>
+</div>
+
+<!-- SPA-Container -->
+<main id="app"></main>
+
+<!-- Mockup FAB -->
+<button class="mockup-fab" onclick="document.getElementById('mockupFabPanel').classList.toggle('--open')">
+  ⚙ Contesto Mockup
+</button>
+<div class="mockup-fab-panel" id="mockupFabPanel">
+  <div class="mockup-fab-panel__title">Contesto Mockup</div>
+  <p>Portale provvigioni: il veterinario riscatta le provvigioni accumulate — come pagamento diretto o come premio.</p>
+  <div class="mockup-fab-panel__field">
+    <input type="number" id="provisionInput" step="0.01" placeholder="0.00">
+    <label for="provisionInput">Simula provvigione (€)</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setProvision()">Applica</button>
+
+  <div class="mockup-fab-panel__field" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #333;">
+    <input type="text" id="voucherBrand" placeholder="es. amazon" value="amazon">
+    <label for="voucherBrand">Buono — Marca</label>
+  </div>
+  <div class="mockup-fab-panel__field">
+    <input type="text" id="voucherValue" placeholder="es. 400 €" value="400 €">
+    <label for="voucherValue">Buono — Valore</label>
+  </div>
+  <button class="mockup-btn" style="margin-top: 0.4rem; width: 100%;" onclick="setVoucher()">Applica</button>
+</div>
+
+<script src="../inuvet.js"></script>
+
+
+<script src="provision-portal-vetalita.js"></script>
+</body>
+</html>

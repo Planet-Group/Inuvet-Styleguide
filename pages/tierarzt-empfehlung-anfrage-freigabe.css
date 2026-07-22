@@ -1,0 +1,159 @@
+/* ══════════════════════════════════════════════════════════════
+   tierarzt-empfehlung-anfrage-freigabe.css — Freigabe ausstellen (Direkt)
+   Page-spezifische Styles. Globale Atome via inuvet.css.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Container — Platz für fixierte Submit-Leiste nur in Schritt 2 ─── */
+.approval-page.--products { padding-bottom: calc(var(--module) * 3.25); }
+
+/* ─── Intro (.col-grid --early-2 page-header data-cols="2") —
+   Abstand + H1-Reset global via .page-header ─── */
+#approvalIntro { align-items: start; }
+
+/* ─── Schritt 1: Consent + E-Mail ─── */
+.approval-recipient__form {
+  max-width: 36rem;
+}
+.approval-recipient__lead {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+}
+.approval-recipient__consent {
+  align-items: flex-start;
+  font-size: var(--text-xs);
+  line-height: var(--lh-h3);
+  margin: var(--half-module) 0 0;
+}
+.approval-recipient__consent input { margin-top: 0.1em; }
+.approval-recipient__form > .btn { margin-top: var(--half-module); }
+
+/* Empfänger-Hinweis in Schritt 2 */
+.approval-recipient-summary {
+  margin: 0 0 var(--module);
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35em 0.75em;
+}
+.approval-recipient-summary strong { color: var(--fg); font-weight: 700; }
+
+#approvalGrid { margin-bottom: var(--module); }
+
+/* ─── Cart-Item innerhalb der Card — nutzt globales .cart-item als Basis ─── */
+.approval-product-card .cart-item {
+  padding: 0;
+  border-bottom: none;
+}
+
+/* ─── Provision unter dem Produktnamen (Summe über alle Größen der Form) ─── */
+.approval-product-card__commission {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--green);
+  margin-top: calc(var(--base) * 0.25);
+}
+.approval-product-card__commission.--muted { color: var(--fg-muted); font-weight: 400; }
+
+/* ─── Varianten-Block: je Größe eine Zeile mit eigenem Mengen-Dropdown ───
+   Horizontallinien führen das Auge (bewusste Ausnahme zur „Linien sparsam"-Regel). */
+.approval-variants { margin-top: var(--half-module); }
+.approval-variant-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--half-module);
+  padding: calc(var(--base) * 0.6) 0;
+  border-top: 1px solid var(--border-light);
+}
+.approval-variant-row__label {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.5);
+  font-size: var(--text-sm);
+}
+.approval-variant-row .form-field.--sm { margin-bottom: 0; width: 9rem; }
+.approval-variant-row .form-field.--settled select { color: var(--fg-muted); }
+.approval-variant-row:last-child { border-bottom: 1px solid var(--border-light); }
+
+/* ─── Allgemeine Notiz nach dem Produkt-Grid ─── */
+.approval-note-section {
+  margin-bottom: var(--module);
+  max-width: 36rem;
+}
+.approval-note-section textarea { min-height: 4rem; }
+
+/* ─── Submit-Leiste: fixiert unten ─── */
+.approval-submit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: var(--accent-bg);
+  border-top: 1px solid var(--border-light);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+}
+.approval-submit-bar__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--half-module) var(--margin);
+}
+.approval-submit-bar__compact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--half-module) var(--module);
+  width: 100%;
+  align-items: center;
+}
+.approval-submit-bar__trust {
+  font-size: var(--text-sm);
+  margin: 0;
+  align-self: center;
+}
+.approval-submit-bar__action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: var(--half-module) var(--module);
+  margin-left: auto;
+  max-width: 100%;
+}
+.approval-submit-bar .approval-counter {
+  margin: 0;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(100%, 14rem);
+  text-align: right;
+  font-size: var(--text-sm);
+  line-height: var(--lh-h3);
+}
+.approval-submit-bar .approval-counter.--complete { color: var(--green); font-weight: 700; }
+.approval-submit-bar .approval-counter.--error { color: var(--color-error); font-weight: 400; }
+.approval-submit-bar .btn {
+  min-width: calc(var(--base) * 10);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 767px) {
+  .approval-submit-bar__inner {
+    padding: var(--half-module) var(--margin) calc(var(--base) * 0.75);
+  }
+  .approval-submit-bar__compact { grid-template-columns: 1fr; }
+  .approval-submit-bar__trust { font-size: var(--text-xs); line-height: var(--lh-h3); }
+  .approval-submit-bar__action {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+  }
+  .approval-submit-bar .approval-counter {
+    text-align: left;
+    max-width: min(calc(100% - calc(var(--base) * 10) - var(--module)), 14rem);
+  }
+}
+/* Sichtbare Mockup-Bar (fixed, bottom:0, Höhe 3.25rem) → Submit-Leiste darüber heben */
+body.--mockup-bar-visible .approval-submit-bar { bottom: 3.25rem; }

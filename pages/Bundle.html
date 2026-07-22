@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Persönliches Angebot · Mockup – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=13">
+  <link rel="stylesheet" href="bundle.css?v=4">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Bundle.html" class="nav-item__trigger" aria-current="page">Mein Angebot</a>
+      </div>
+      <div class="nav-item">
+        <a href="Bundle-Info.html" class="nav-item__trigger">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
+        <span class="material-icons">shopping_cart</span>
+        <span class="badge --count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
+    </div>
+    <div class="nav-col">
+      <a href="Bundle-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       WARENKORB-DRAWER
+       ════════════════════════════════════════ -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <!-- Inhalt wird per JS gerendert -->
+  </div>
+
+  <!-- ARCHITEKTUR-REGEL:
+       <main> OHNE .container — section-type Varianten sind selbst-containerisiert.
+       Bundle-Inhalt liegt in <div class="container">, section-types direkt in <main>. -->
+  <main id="bundleMain">
+
+    <!-- ─── Hero ─── -->
+    <div class="section-type --v4 --viewport">
+      <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_02.jpg');"></div>
+      <div class="section-type__content flow">
+        <h1 class="section-type__headline">Jetzt sparen mit deinem<br>persönlichen Angebot</h1>
+        <div class="section-type--v4__cta">
+          <button class="btn --primary" onclick="document.getElementById('bundleSection').scrollIntoView({behavior:'smooth'})">Zum Angebot</button>
+          <a class="btn --ghost" href="Bundle-Info.html">Dokumentation</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Bundle Builder ─── -->
+    <div class="container" id="bundleSection">
+
+      <div class="col-grid --early-2" data-cols="2">
+        <h2>Dein persönliches Angebot</h2>
+        <p>Basierend auf deinen Einkäufen der letzten 18 Monate haben wir dieses Set für dich zusammengestellt.</p>
+      </div>
+
+      <div class="col-grid --spaced --wide-narrow" data-cols="2" id="bundleGrid">
+
+        <!-- Linke Spalte: Produktliste -->
+        <div>
+          <div class="bundle-list col-grid" data-cols="2" id="productList"></div>
+        </div>
+
+        <!-- Rechte Spalte: Zusammenfassung (Desktop) / Portal-Ziel (Mobile) -->
+        <div id="summaryCardSlot">
+          <div class="summary-card" id="summaryCard">
+            <p class="summary-card__title">Dein Angebot (<span id="paidCount">0</span> Produkte)</p>
+            <p class="summary-card__products" id="summaryProducts">—</p>
+
+            <div class="summary-card__amounts">
+              <div class="summary-card__line --total">
+                <span>Summe</span>
+                <span id="totalAmount">0,00 €</span>
+              </div>
+
+              <div class="summary-card__line --free">
+                <span>Du sparst</span>
+                <span id="savingsAmount">0,00 €</span>
+              </div>
+            </div>
+
+            <button type="button" class="btn --full summary-card__cta" onclick="addBundleToCart()">
+              In den Warenkorb
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- /bundle-section -->
+
+    <!-- ─── Bild + Text Section → Hinweis auf Blogbeitrag ─── -->
+    <div class="section-type --v3 --viewport --reverse">
+      <div class="section-type__image" style="background-image:url('../assets/images/Hero_Mood_01.jpg');"></div>
+      <div class="section-type__inner">
+        <div class="section-type__content flow">
+          <h2 class="section-type__headline">Bis zu 5 Produkte kostenlos – automatisch.</h2>
+          <p class="section-type__body">Je regelmäßiger du nachbestellst, desto mehr profitierst du. Unser Naturalrabatt-System belohnt dich mit Gratisprodukten – ohne Gutscheine, ohne Aufwand. Erfahre, wie das Angebot aufgebaut ist und wie du das Meiste daraus machst.</p>
+          <div class="section-type__cta">
+            <a class="btn --primary" href="Bundle-Info.html">Mehr erfahren</a>
+            <button class="btn --ghost" onclick="window.scrollTo({top:0,behavior:'smooth'})">Angebot anpassen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Testimonials ─── -->
+    <div class="container" id="bundleTestimonials">
+
+      <div class="testimonial-slider --cols-3" id="tSlider">
+        <div class="testimonial-slider__track" id="tTrack"></div>
+        <div class="slider-nav">
+          <button class="slider-btn icon-box" type="button" aria-label="Zurück"  data-dir="prev" disabled><span class="material-icons">arrow_back</span></button>
+          <span class="slider-counter" id="tCounter"></span>
+          <button class="slider-btn icon-box" type="button" aria-label="Weiter"  data-dir="next"><span class="material-icons">arrow_forward</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Produkt-Grid mit Sonderkachel ─── -->
+    <div class="container" id="bundleTiles">
+      <div class="tile-grid --cols-3">
+
+        <!-- Calmin -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=12" aria-label="Calmin balance ansehen">
+              <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" onclick="quickAdd(12,'Calmin balance')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Calmin balance</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div>
+          </div>
+          <div class="tile__description">Für Entspannung und innere Balance bei Hunden und Katzen.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
+        </div>
+
+        <!-- Hepax forte -->
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <a class="tile__image" href="Produkt.html?id=13" aria-label="Hepax forte ansehen">
+              <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
+              <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row">
+            <h3 class="tile__headline">Hepax forte</h3>
+            <div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div>
+          </div>
+          <div class="tile__description">Unterstützt Leber und Stoffwechsel – hochdosiert und tierärztlich geprüft.</div>
+          <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+        </div>
+
+        <!-- Sonderkachel -->
+        <div class="tile --featured">
+          <h3 class="tile__headline">Entdecke unsere Neuheiten im Sommer</h3>
+          <div class="tile__bottom">
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+            <a href="#" class="btn --primary">Alle Produkte</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mockup-Steuerleiste -->
+  <button class="mockup-fab" onclick="openSettings()" title="Parameter festlegen">⚙ Parameter</button>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay mockup-modal-overlay" id="settingsModal" onclick="handleOverlayClick(event)">
+    <div class="mockup-modal">
+      <div class="mockup-modal__header">
+        <span class="mockup-modal__title">Naturalrabatt konfigurieren</span>
+        <button type="button" class="mockup-modal__close" onclick="closeSettings()">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="mockup-modal__body">
+        <div class="mockup-modal__note">
+          <span class="material-icons">settings</span>
+          <span>Tabellen für Kondition A und B sind <strong>global fix</strong>. Im Backend pro Produkt wählbar: welches Modell gilt. Default ist <strong>Kondition A</strong>.</span>
+        </div>
+
+        <!-- Kundentyp-Toggle (für Mockup; im echten Shop via Customer-Tag) -->
+        <p class="mockup-modal__desc">Kunden-Status (für Demo-Zwecke umschaltbar)</p>
+        <div class="mockup-customer-toggle" id="customerToggle">
+          <button type="button" class="mockup-toggle-btn --active" data-type="standard" onclick="setCustomerType('standard')">Standard-Kunde</button>
+          <button type="button" class="mockup-toggle-btn"          data-type="group"    onclick="setCustomerType('group')">Gruppen-Kunde</button>
+        </div>
+
+        <!-- Produkt-Modell-Auswahl -->
+        <p class="mockup-modal__desc">Modell pro Produkt / Familie</p>
+        <div id="modelSelector"></div>
+
+        <div class="mockup-modal__footer">
+          <button type="button" class="mockup-btn --confirm" onclick="closeSettings()">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../inuvet.js?v=4"></script>
+  <script src="bundle.js?v=2"></script>
+  <div class="toast-container" id="toastContainer"></div>
+</body>
+</html>

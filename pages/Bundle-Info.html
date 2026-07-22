@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Persönliches Angebot · Dokumentation – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="bundle.css">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item">
+        <a href="Bundle.html" class="nav-item__trigger">Mein Angebot</a>
+      </div>
+      <div class="nav-item">
+        <a href="Bundle-Info.html" class="nav-item__trigger" aria-current="page">Dokumentation</a>
+      </div>
+    </div>
+    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Bundle.html" onclick="closeMobile()">Mein Angebot</a>
+    </div>
+    <div class="nav-col">
+      <a href="Bundle-Info.html" onclick="closeMobile()">Dokumentation</a>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       ARTIKEL
+       ════════════════════════════════════════ -->
+  <main>
+    <div class="container" id="bundleInfoMain">
+
+      <div class="article-layout">
+
+        <!-- Sidebar: Autor + Tags -->
+        <aside class="article-sidebar">
+          <div class="article__author">
+            <div class="article__author-avatar placeholder-bg"></div>
+            <div>
+              <p class="article__author-name">Michael Hoppe</p>
+              <p class="article__author-role">Technische Dokumentation</p>
+            </div>
+          </div>
+          <div class="article__tags">
+            <span class="filter-tag">Shopify</span>
+            <span class="filter-tag">IT-Spezifikation</span>
+            <span class="filter-tag">Naturalrabatt</span>
+            <span class="filter-tag">Backend</span>
+            <span class="filter-tag">Frontend</span>
+          </div>
+        </aside>
+
+        <!-- Artikel-Inhalt -->
+        <article class="article">
+
+          <header class="article__header">
+            <span class="label-caps">Dokumentation · Stand 26. Juni 2026</span>
+            <h1>Persönliches Angebot — Dokumentation</h1>
+          </header>
+
+          <div class="article__body rte">
+
+            <p>Dieses Dokument beschreibt die <strong>Funktionsweise</strong> des Persönlichen Angebots im inuvet Shopify-Shop. Zielgruppe ist die IT, die das System implementiert. Es geht ausschließlich um Logik, Datenflüsse und Berechnungs-Formeln — keine Marketing-Aspekte.</p>
+
+            <h2>Überblick</h2>
+            <p>Das Persönliche Angebot zeigt eingeloggten Kunden eine vorausgefüllte Produktliste, basierend auf ihrer Bestellhistorie der <strong>letzten 549 Tage (18 Monate)</strong>. Pro Einzelprodukt-Position wird ein <em>Naturalrabatt</em> berechnet: zusätzliche Stück des jeweiligen Produkts werden bei Erreichen bestimmter Schwellen kostenlos zur Bestellung dazugegeben.</p>
+
+            <p>Für die Berechnung des Naturalrabatts gibt es <strong>zwei Modelle</strong>, von denen <strong>pro Produkt im Backend</strong> eines konfiguriert wird:</p>
+            <ul>
+              <li><strong>Kondition A</strong> (Default) — Naturalrabatt-Guthaben in € basierend auf dem Bestellwert der Produktzeile</li>
+              <li><strong>Kondition B</strong> — Feste Anzahl Gratis-Stück basierend auf der bestellten Menge</li>
+            </ul>
+
+            <p>Beide Tabellen sind <strong>global fix</strong>. Es gibt kein produktspezifisches Override der Werte — die Konfiguration pro Produkt beschränkt sich auf die Wahl A oder B.</p>
+
+            <p>Der Zeitraum <strong>549 Tage</strong> entspricht ca. 18 Monaten (18 × 30,5 Tage). Für die IT gilt dieser feste Wert — nicht kalenderbasiert „18 Monate zurück".</p>
+
+            <h2>Geltungsbereich</h2>
+            <p>Naturalrabatt ist <strong>shopweit</strong> aktiv — nicht nur auf der Bundle-Seite. Voraussetzung für das Persönliche Angebot: <strong>eingeloggter Kunde</strong> (Shopify Customer Account). Dieselbe Berechnungslogik gilt an folgenden Stellen:</p>
+            <ul>
+              <li><strong>Persönliches Angebot</strong> (<code>pages/Bundle.html</code>) — vorausgefüllte Liste + Bundle-Builder</li>
+              <li><strong>Produktdetailseite (PDP)</strong> — Gratis-Badge und Upsell-Hint</li>
+              <li><strong>Warenkorb / Checkout</strong> — Gratis-Stück pro Zeile, Neuberechnung bei Mengenänderung</li>
+            </ul>
+            <p>Referenzimplementierung (Mockup): <code>inuvet.js</code> (<code>freeCountFor</code>, <code>nextHintFor</code>, <code>calcFree</code>, <code>getHint</code>, <code>formatHint</code>). Die Pseudocode-Beispiele in diesem Dokument nutzen äquivalente Namen (<code>freeItemsA</code>, <code>freeItemsB</code>).</p>
+
+            <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
+            <p>Für die Naturalrabatt-Berechnung ist der Begriff <strong>Einzelprodukt</strong> zentral — er ist <em>nicht</em> dasselbe wie „Produktfamilie".</p>
+            <ul>
+              <li><strong>Produktfamilie</strong> — alle Darreichungsformen einer Indikation (z.&nbsp;B. Familie „Hypolene" = Pulver + Tabletten). Dient der Navigation, Kachel-Übersicht und Backend-Konfiguration (Kondition A/B).</li>
+              <li><strong>Einzelprodukt</strong> — eine konkrete Darreichungsform in einer bestimmten Größe (z.&nbsp;B. „Hypolene Pulver 60&nbsp;g", „Calmin balance Tabletten 60&nbsp;Stück"). Entspricht einer <strong>Warenkorb- bzw. Order-Position</strong> in Shopify.</li>
+            </ul>
+            <p>Naturalrabatt wird <strong>pro Einzelprodukt-Position</strong> berechnet — nie über eine Produktfamilie aggregiert. Hypolene Pulver und Hypolene Tabletten sind zwei getrennte Berechnungen; Mengen und Bestellwerte werden <strong>nicht</strong> über Darreichungsformen hinweg summiert.</p>
+
+            <h3>Shopify-Zuordnung</h3>
+            <ul>
+              <li><strong>Einzelprodukt</strong> = <strong>Shopify Product Variant</strong> (<code>variant_id</code>) — eine konkrete Darreichungsform + Größe</li>
+              <li><strong>Produktfamilie</strong> = Shopify <strong>Product</strong> (Parent mit mehreren Varianten) — nur für Navigation, Metafield-Konfiguration (Kondition A/B) und Gruppierung</li>
+              <li><strong>Order Line Item</strong> = eine Zeile mit <code>variant_id</code> + <code>quantity</code> — Berechnungs- und Buchungsgrundlage</li>
+              <li><strong>Bestellhistorie</strong> muss pro <code>variant_id</code> aggregiert werden — nicht pro Product, nicht über Familien-Metafields</li>
+            </ul>
+
+            <h2>Berechnungsregeln (gelten für beide Modelle)</h2>
+            <ol>
+              <li>Die Berechnung erfolgt <strong>pro Einzelprodukt-Position</strong> (konkrete Darreichungsform + Größe) — jede Zeile im Warenkorb/Angebot wird unabhängig betrachtet.</li>
+              <li>Als Gratis-Produkt wird <strong>immer das jeweilige Einzelprodukt selbst</strong> zusätzlich versendet (kein Cross-Selling, kein anderes Produkt).</li>
+              <li>Anzahl Gratis-Stück ist <strong>ganzzahlig abgerundet</strong> (<code>Math.floor</code>). Bei Kondition A entstehende Restguthaben verfallen.</li>
+              <li>Die gesamte Berechnungslogik gehört <strong>serverseitig</strong> in das Shopify-Backend (App / Function). Das Frontend rendert nur das Ergebnis.</li>
+              <li><strong>Checkout-Validierung:</strong> <code>free_items</code> wird beim Checkout <strong>erneut serverseitig</strong> berechnet und gegen die übermittelten Werte geprüft — nicht nur beim Page-Load der Bundle-Seite. Manipulation über geänderte Mengen oder Preise muss abgefangen werden.</li>
+            </ol>
+
+            <h2>Kondition A — Bestellwert in Guthaben</h2>
+
+            <p>Kondition A ordnet einem Bestellwert (in €) ein Naturalrabatt-Guthaben (in €) zu. Die <strong>Anzahl Gratis-Stück</strong> berechnet sich als <code>floor(Guthaben ÷ Einzelpreis)</code>.</p>
+
+            <p>Der <strong>Bestellwert</strong> ist <code>Menge × Einzelpreis</code> der jeweiligen <strong>Einzelprodukt-Position</strong> — nicht der Familie, nicht über mehrere Darreichungsformen summiert. Beispiel: 16× Hypolene Pulver und 8× Hypolene Tabletten ergeben zwei getrennte Bestellwerte; es gibt keinen gemeinsamen „Hypolene"-Bestellwert.</p>
+
+            <h3>Einzelpreis-Definition</h3>
+            <p>Für Kondition A gilt der <strong>aktuelle Varianten-Listenpreis</strong> (<code>variant.price</code>) zum Berechnungszeitpunkt — Bruttopreis pro Stück, ohne Naturalrabatt, <strong>vor</strong> weiteren manuellen Rabattcodes. Kundengruppen-Preise oder Shopify-Price-Lists, falls aktiv, ersetzen den Listenpreis. Der Einzelpreis für Schwellenberechnung und <code>floor(Guthaben ÷ Preis)</code> ist identisch.</p>
+
+            <p>Die Tabelle ist eine <strong>Stufenlookup</strong>: Es gilt das Guthaben der höchsten erreichten Schwelle. Zwei Stufen können denselben Wert haben (Plateau-Bereiche).</p>
+
+            <table>
+              <thead>
+                <tr><th>Bestellwert ab</th><th>Naturalrabatt-Guthaben</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>400 €</td><td>40 €</td></tr>
+                <tr><td>500 €</td><td>60 €</td></tr>
+                <tr><td>750 €</td><td>120 €</td></tr>
+                <tr><td>1.000 €</td><td>170 €</td></tr>
+                <tr><td>1.500 €</td><td>170 € <em>(Plateau)</em></td></tr>
+                <tr><td>2.000 €</td><td>350 €</td></tr>
+                <tr><td>2.500 €</td><td>350 € <em>(Plateau)</em></td></tr>
+                <tr><td>3.000 €</td><td>540 €</td></tr>
+                <tr><td>5.000 €</td><td>1.000 €</td></tr>
+                <tr><td>7.500 €</td><td>1.500 €</td></tr>
+                <tr><td>10.000 €</td><td>2.000 €</td></tr>
+                <tr><td>15.000 €</td><td>3.000 €</td></tr>
+                <tr><td>20.000 €</td><td>4.100 €</td></tr>
+              </tbody>
+            </table>
+
+            <p>Unter 400 € Bestellwert je Zeile: kein Naturalrabatt.</p>
+
+            <h3>Berechnung Kondition A</h3>
+            <pre><code>function lookupCreditA(orderValue) {
+  let credit = 0;
+  for (const tier of TABLE_A) {
+    if (orderValue &gt;= tier.threshold) credit = tier.credit;
+    else break;
+  }
+  return credit;
+}
+
+function freeItemsA(quantity, unitPrice) {
+  const credit = lookupCreditA(quantity * unitPrice);
+  return Math.floor(credit / unitPrice);
+}</code></pre>
+
+            <h3>Beispiel Kondition A</h3>
+            <p>16× Hypolene Pulver à 39,90 € → Bestellwert <strong>nur für diese Position</strong> 638,40 € → erreichte Schwelle 500 € → Guthaben 60 € → <code>floor(60 / 39,90) = 1</code> → <strong>1 Stück Hypolene Pulver gratis</strong>.</p>
+            <p>Gegenbeispiel: Zusätzlich 8× Hypolene Tabletten à 35,90 € → separater Bestellwert 287,20 € für die Tabletten-Position — <strong>kein</strong> gemeinsamer Bestellwert mit dem Pulver.</p>
+
+            <h2>Kondition B — Stückzahl zu Gratis-Anzahl</h2>
+
+            <p>Kondition B ordnet einer Bestellmenge (Stück) eine feste Anzahl Gratis-Stück desselben Produkts zu. Es gibt <strong>zwei Spalten</strong>, abhängig vom Kunden-Status:</p>
+            <ul>
+              <li><strong>Standard</strong>: gilt für alle Kunden ohne speziellen Status</li>
+              <li><strong>Gruppen</strong>: gilt für Kunden mit definiertem Gruppen-Status (siehe unten)</li>
+            </ul>
+
+            <table>
+              <thead>
+                <tr><th>Stückzahl ab</th><th>Standard</th><th>Gruppen</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>6</td>   <td>1</td>   <td>0</td></tr>
+                <tr><td>12</td>  <td>2</td>   <td>0</td></tr>
+                <tr><td>18</td>  <td>3</td>   <td>1</td></tr>
+                <tr><td>25</td>  <td>5</td>   <td>2</td></tr>
+                <tr><td>30</td>  <td>6</td>   <td>3</td></tr>
+                <tr><td>60</td>  <td>13</td>  <td>6</td></tr>
+                <tr><td>90</td>  <td>20</td>  <td>10</td></tr>
+                <tr><td>120</td> <td>28</td>  <td>14</td></tr>
+                <tr><td>240</td> <td>56</td>  <td>28</td></tr>
+                <tr><td>360</td> <td>84</td>  <td>42</td></tr>
+                <tr><td>480</td> <td>112</td> <td>56</td></tr>
+              </tbody>
+            </table>
+
+            <p>Es gilt jeweils die höchste erreichte Schwelle. Unter 6 Stück: kein Naturalrabatt. Für Gruppen-Kunden gilt unter 18 Stück: kein Naturalrabatt.</p>
+
+            <h3>Berechnung Kondition B</h3>
+            <pre><code>function freeItemsB(quantity, customerType) {
+  // TABLE_B ist aufsteigend nach minQty sortiert
+  const tier = [...TABLE_B].reverse().find(t =&gt; quantity &gt;= t.minQty);
+  if (!tier) return 0;
+  return customerType === 'group' ? tier.group : tier.standard;
+}</code></pre>
+
+            <h3>Beispiele Kondition B</h3>
+            <ul>
+              <li>30× Calmin balance Tabletten (Standard-Kunde) → Schwelle 30 → <strong>6 Stück Calmin balance Tabletten gratis</strong></li>
+              <li>30× Calmin balance Tabletten (Gruppen-Kunde) → Schwelle 30 → <strong>3 Stück gratis</strong></li>
+              <li>27× Calmin balance Tabletten (Standard-Kunde) → Schwelle 25 → <strong>5 Stück gratis</strong></li>
+              <li>10× Calmin balance Tabletten (Gruppen-Kunde) → unter Schwelle 18 für Gruppen → <strong>0 Stück gratis</strong></li>
+            </ul>
+            <p>Calmin balance Pulver und Calmin balance Tabletten sind getrennte Einzelprodukt-Positionen — die Stückzahl wird nicht über Darreichungsformen summiert.</p>
+
+            <h2>Identifikation des Kunden-Status (für Kondition B)</h2>
+            <p>Der „Gruppen"-Status wird in Shopify per <strong>Customer Tag</strong> markiert. Vorschlag für die Konvention:</p>
+            <ul>
+              <li><code>group-customer</code> — Kunde gehört zur Gruppe → es gilt Spalte „Gruppen" (<code>customerType === 'group'</code> in der Berechnung)</li>
+              <li>ohne Tag → es gilt Spalte „Standard" (<code>customerType === 'standard'</code>)</li>
+            </ul>
+            <p>Im Mockup (<code>Bundle.html</code> → Parameter-Modal) ist der Status per Toggle umschaltbar (<code>localStorage</code>); im echten Shop ausschließlich über den Customer Tag.</p>
+            <p>Der Tag wird beim Berechnungszeitpunkt abgefragt. Tag-Änderungen wirken bei der nächsten Berechnung — kein Caching pro Kunde.</p>
+
+            <h2>Auswahl des Modells (Kondition A / B)</h2>
+            <p>Im Backend wird pro Shopify-<strong>Product</strong> (Parent, entspricht der Produktfamilie / Indikation) festgelegt, ob Kondition A oder B gilt — <strong>nicht</strong> pro Variant. Alle Varianten desselben Products erben dasselbe Modell. Vorschlag für die Konfiguration: <strong>Product Metafield</strong>:</p>
+            <ul>
+              <li>Namespace: <code>inuvet</code></li>
+              <li>Key: <code>pricing_model</code></li>
+              <li>Typ: <code>single_line_text</code> mit Validation (akzeptierte Werte: <code>A</code>, <code>B</code>)</li>
+              <li>Default (wenn Metafield nicht gesetzt): <code>A</code></li>
+            </ul>
+            <pre><code>// Auflösung
+const model = product.metafields.inuvet.pricing_model || 'A';
+
+// Berechnung immer pro Order-Line-Item (Einzelprodukt-Position):
+// orderValue = line.quantity * line.unit_price</code></pre>
+
+            <h2>Zielarchitektur Shopify</h2>
+            <p>Vorschlag für die technische Umsetzung — Details mit Shopify-Partner abstimmen:</p>
+            <ul>
+              <li><strong>Custom App</strong> — Bestellhistorie aggregieren, Bundle-API, Checkout-Validierung, Metafield-Pflege</li>
+              <li><strong>Storefront / Customer Account</strong> — Bundle-Seite für eingeloggte Kunden (Customer Account Extension oder App-Proxy-Route unter <code>/account/…</code>)</li>
+              <li><strong>Cart Transform oder Checkout Validation Function</strong> — <code>free_items</code> serverseitig setzen/prüfen, bevor die Order finalisiert wird</li>
+              <li><strong>Theme / Headless Frontend</strong> — rendert API-Antworten; keine Tabellen oder Schwellenlogik im Liquid/JS</li>
+              <li><strong>Fulfillment-Integration</strong> — Webhook oder ERP-Connector liest Line-Item-Property <code>free_items</code> für Pickliste (<code>quantity + free_items</code>)</li>
+            </ul>
+
+            <h2>Mockup vs. Produktion</h2>
+            <p>Das HTML-Mockup (<code>Bundle.html</code>, <code>bundle.js</code>, <code>inuvet.js</code>) vereinfacht an mehreren Stellen. Für die Produktion gilt die Spezifikation in diesem Dokument — nicht das Mockup-Verhalten:</p>
+            <table>
+              <thead>
+                <tr><th>Aspekt</th><th>Mockup</th><th>Produktion (Soll)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Historie-Pool</td><td>Pro Katalog-Eintrag (Familie = eine Zeile, <code>past18Months</code>)</td><td>Pro <code>variant_id</code> aggregiert</td></tr>
+                <tr><td>Top-4-Auswahl</td><td>Top-4 Familien/Einträge</td><td>Top-4 Varianten nach Kauffrequenz</td></tr>
+                <tr><td>Vorschlagsmenge</td><td><code>Math.ceil(past18Months / 8) × 8</code></td><td>Identische Formel, aber mit variant-spezifischer Kauffrequenz</td></tr>
+                <tr><td>Variantenwahl im Bundle</td><td>Default-Variante aus Katalog, kein Umschalter</td><td>Variante aus Historie (häufigst gekaufte <code>variant_id</code>); ggf. Umschalter innerhalb der Familie</td></tr>
+                <tr><td>Kunden-Status</td><td>Toggle im Parameter-Modal</td><td>Customer Tag <code>group-customer</code></td></tr>
+                <tr><td>Berechnung</td><td>Clientseitig in <code>inuvet.js</code></td><td>Serverseitig; Frontend nur Rendering</td></tr>
+                <tr><td>Order-Properties</td><td>Nicht implementiert (<code>addToCart</code> ohne <code>free_items</code>)</td><td><code>free_items</code> als Line-Item-Property + Checkout-Validierung</td></tr>
+              </tbody>
+            </table>
+
+            <h2>Bundle-UI (Mockup / Frontend)</h2>
+            <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>inuvet.js</code>.</p>
+            <ul>
+              <li><strong>Initiales Angebot</strong>: maximal <strong>4 Einzelprodukte</strong> aus dem aktiven Historien-Pool (sortiert nach Kauffrequenz).</li>
+              <li><strong>Leerer Zustand</strong>: Wenn der Kunde alle vorgeschlagenen Positionen entfernt → Empty State mit <strong>„Wiederherstellen"</strong> (setzt das initiale Angebot zurück). Keine Empfehlungs-Schiene zum Nachfüllen. Nur im <strong>ungesperrten</strong> Zustand verfügbar.</li>
+              <li><strong>Angebot im Warenkorb (gesperrter Zustand)</strong>: Nach Klick auf <strong>„In den Warenkorb"</strong> wird die Bundle-Section gesperrt — der Kunde soll das Angebot nicht erneut bearbeiten oder doppelt hinzufügen.
+                <ul>
+                  <li>CTA-Button deaktiviert, Beschriftung: <strong>„Bereits zum Warenkorb hinzugefügt"</strong></li>
+                  <li>Mengen-Counter (+/−, Input) und Entfernen-Buttons pro Zeile deaktiviert</li>
+                  <li><strong>Freigabe</strong> erst, wenn der Warenkorb <strong>vollständig geleert</strong> ist — nicht bei Teilentfernung einzelner Positionen</li>
+                </ul>
+                Im Mockup: Flag <code>sessionStorage</code> (<code>inuvet:bundleAdded</code>) + Abgleich mit <code>cartLineCount()</code>; Entsperrung über Hooks auf <code>cartRemove</code>, <code>cartChangeQty</code>, <code>cartSetQty</code>. CSS-Klasse <code>#bundleSection.--locked</code>.</li>
+              <li><strong>Mobile</strong>: Summary-Card als kompakte Fixed-Bar am unteren Rand, sichtbar solange die Bundle-Section im Viewport ist (Titel, Sparzeile, CTA — ohne Produktlisting).</li>
+              <li><strong>Sichtbarkeit der Section</strong>: einmalig beim Page-Load entschieden; bleibt sichtbar auch wenn der Kunde danach alle Rabatt-Positionen entfernt.</li>
+            </ul>
+
+            <h2>Live-Vorschau im Frontend („Upsell-Hint")</h2>
+            <p>An jeder Produktzeile wird ein Hinweis angezeigt, wie viele Stück bis zur nächsten Schwelle fehlen, die <strong>tatsächlich mehr Gratis-Stück bringt</strong>. Plateau-Schwellen (gleicher Wert in Folgestufe) werden übersprungen — sonst wäre die Hint sinnlos („3 Stück hinzufügen für 0 weitere Gratisprodukte").</p>
+
+            <pre><code>function getHint(product, quantity, customerType) {
+  const model = product.pricing_model || 'A';
+  const price = product.price;
+  const currentFree = (model === 'A')
+    ? freeItemsA(quantity, price)
+    : freeItemsB(quantity, customerType);
+
+  if (model === 'A') {
+    for (const tier of TABLE_A) {
+      if (tier.threshold &lt;= quantity * price) continue;
+      const neededQty = Math.ceil(tier.threshold / price);
+      const newFree   = Math.floor(tier.credit / price);
+      if (newFree &gt; currentFree) {
+        return { moreQty: neededQty - quantity, moreFree: newFree - currentFree };
+      }
+    }
+    return null;
+  }
+
+  // Modell B
+  for (const tier of TABLE_B) {
+    if (tier.minQty &lt;= quantity) continue;
+    const newFree = customerType === 'group' ? tier.group : tier.standard;
+    if (newFree &gt; currentFree) {
+      return { moreQty: tier.minQty - quantity, moreFree: newFree - currentFree };
+    }
+  }
+  return null;
+}
+
+// → „{moreQty} Stück hinzufügen für {moreFree} weiteres Gratisprodukt"
+// Plural-Form: „… für {moreFree} weitere Gratisprodukte" wenn moreFree &gt; 1
+// Kein Hinweis wenn Funktion null zurückgibt (Maximalstufe erreicht)</code></pre>
+
+            <h2>Anzeige-Bedingung: kein Angebot ohne Naturalrabatt</h2>
+            <p>Die <strong>Bundle-Section</strong> wird nur angezeigt, wenn mindestens ein Produkt im vorgeschlagenen Angebot tatsächlich Gratis-Stück erzeugt. Andernfalls ergibt das Angebot keinen Mehrwert — der Kunde würde nur seine normale Bestellliste sehen, ohne Vorteil.</p>
+
+            <h3>Seitenverhalten ohne Bundle</h3>
+            <p>Wenn <code>resolveBundle()</code> → <code>show: false</code>: die <strong>Bundle-Section</strong> (<code>#bundleSection</code>) wird nicht ausgegeben. Hero, Testimonials und Produkt-Kacheln der Seite können weiterhin sichtbar bleiben — oder die gesamte Route leitet auf die Standard-Kundenkonto-Seite um (Produktentscheidung). Im Mockup bleibt der Hero sichtbar, nur die Bundle-Section ist ausgeblendet.</p>
+
+            <h3>Zeitraum-Prüfung (18 Monate)</h3>
+            <p>Die Prüfung läuft <strong>serverseitig vor dem Rendering</strong> auf Basis der Bestellhistorie der letzten <strong>549 Tage</strong> (<code>past_549_days</code> / <code>past18Months</code> im Mockup):</p>
+            <ol>
+              <li>Erzeugt mindestens ein Einzelprodukt im Pool Gratis-Stück? → Bundle-Section anzeigen, Zeitraum-Label „letzte 18 Monate".</li>
+              <li>Kein Produkt liefert Gratis-Stück → Bundle-Section nicht ausgeben (ggf. Redirect auf Standard-Account-Page).</li>
+            </ol>
+
+            <h3>Einmalige Entscheidung — kein Nachjustieren zur Laufzeit</h3>
+            <p>Die Sichtbarkeit wird <strong>nur beim initialen Page-Load</strong> bestimmt. Entfernt der Kunde danach Produkte aus dem Bundle, bis kein Rabatt mehr übrig bleibt, bleibt die Section trotzdem sichtbar — ein plötzliches Verschwinden wäre für den Kunden verwirrend. Die Prüfung wird nicht wiederholt.</p>
+
+            <pre><code>// Serverseitig vor dem Rendering (einmalig):
+function resolveBundle(customer) {
+  const bundle = buildBundle(customer.history_549);
+  if (bundle.some(p =&gt; calcFree(p) &gt; 0)) {
+    return { show: true, bundle, period: '549' };
+  }
+  return { show: false };
+}
+
+const result = resolveBundle(customer);
+if (!result.show) {
+  // Bundle-Section nicht ausgeben
+  // → ggf. Redirect auf Standard-Account-Page
+}</code></pre>
+
+            <h2>Vorausgefüllte Produktliste</h2>
+            <p>Das initiale Angebot enthält die <strong>vier häufigst gekauften Einzelprodukte</strong> (Varianten) aus dem 18-Monate-Pool, sortiert nach Kauffrequenz (häufigster Kauf oben). Enthält der Pool weniger als vier Varianten mit Rabattpotenzial, werden <strong>alle verfügbaren</strong> angezeigt (Minimum: 1). Produkte ohne Bestellhistorie in den letzten 18 Monaten erscheinen nicht im Hauptangebot. In der Produktzeile wird die Kauffrequenz angezeigt: <strong>„Letzte 18 Monate: X× gekauft"</strong>.</p>
+
+            <h3>Vorschlagsmenge (Formel)</h3>
+            <pre><code>suggested_quantity = Math.ceil(purchase_count_549 / 8) * 8</code></pre>
+            <p>Die Menge wird auf das nächste Vielfache von 8 aufgerundet — basierend auf der Kauffrequenz der jeweiligen Variante. Minimum: 8 (wenn <code>purchase_count_549 &gt; 0</code> und Ergebnis &lt; 8, auf 8 setzen).</p>
+
+            <h3>Bestellhistorie — Datenquelle</h3>
+            <p>Aggregation über die Shopify Orders API (oder ERP-Middleware), pro Kunde und <code>variant_id</code>:</p>
+            <ul>
+              <li><strong>Zeitraum:</strong> letzte 549 Tage ab Berechnungszeitpunkt</li>
+              <li><strong>Order-Status:</strong> nur bezahlte/abgeschlossene Bestellungen (z.&nbsp;B. <code>financial_status: paid</code> — exakte Filter mit Buchhaltung abstimmen)</li>
+              <li><strong>Menge:</strong> Summe der Line-Item-<code>quantity</code> je Variante; Retouren/Storno abziehen oder separate Regel definieren</li>
+              <li><strong>Ergebnis:</strong> <code>order_history_549[]</code> mit <code>{ variant_id, purchase_count, last_purchased_at }</code></li>
+            </ul>
+
+            <p>Erforderliche Datenpunkte pro Kunde:</p>
+            <ul>
+              <li><code>order_history_549</code> — <code>variant_id</code> und Kauffrequenz der letzten 549 Tage</li>
+              <li><code>suggested_quantity</code> — pro Variante, siehe Formel oben</li>
+            </ul>
+
+            <h2>API-Antwort (Frontend)</h2>
+            <p>Das Frontend (Theme oder Headless) bezieht alle berechneten Werte über eine API — keine Geschäftslogik im Client. Beispiel-Schema:</p>
+            <pre><code>{
+  "show_bundle": true,
+  "period_days": 549,
+  "customer_type": "standard",
+  "items": [
+    {
+      "variant_id": "gid://shopify/ProductVariant/123456",
+      "product_title": "Hypolene Pulver",
+      "size_label": "60 g",
+      "quantity": 16,
+      "unit_price": 39.90,
+      "free_items": 1,
+      "pricing_model": "A",
+      "purchase_count_549": 38,
+      "hint": "3 Stück hinzufügen für 1 weiteres Gratisprodukt",
+      "savings_eur": 39.90
+    }
+  ],
+  "summary": {
+    "paid_items": 16,
+    "free_items": 1,
+    "savings_eur": 39.90
+  }
+}</code></pre>
+            <p>Bei <code>show_bundle: false</code> entfällt <code>items</code> — Frontend blendet die Bundle-Section aus.</p>
+
+            <h2>Bestellübergabe und Buchhaltung</h2>
+            <p>Gratisprodukte werden <strong>nicht</strong> als separate Warenkorbpositionen übergeben. Der Kunde zahlt die volle Menge der bezahlten Stück, das Lager versendet die Gesamtmenge (bezahlt + gratis).</p>
+            <pre><code>chargedQty = quantity                // Berechnungsgrundlage: nur bezahlte Menge
+shippedQty = quantity + freeItems    // Tatsächlich versendete Menge
+discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)</code></pre>
+
+            <p>Empfohlene Repräsentation in Shopify-Order:</p>
+            <ul>
+              <li><strong>Order line item</strong>: <code>quantity</code> (bezahlt), Standard-Preis pro Einheit, ergänzendes Property <code>free_items: N</code></li>
+              <li><strong>Fulfillment</strong>: Pickliste wird aus <code>quantity + free_items</code> generiert — gleiche SKU, keine zweite Line-Item-Zeile</li>
+              <li><strong>Lager</strong>: Bestand wird für <code>shippedQty</code> reserviert/abgebucht</li>
+              <li><strong>Buchhaltung</strong>: separater Buchungsposten <code>natural_rabatt</code> pro Order-Item (<code>free_items × unit_price</code>) für korrekte Margen-Ausweisung — z.&nbsp;B. als Order-Discount-Line, Custom Attribute oder ERP-Export-Feld (mit Steuerberater abstimmen)</li>
+              <li><strong>MwSt.</strong>: Gratis-Stück als Rabatt auf die Position behandeln; Steuersatz der bezahlten Variante gilt — Details mit Buchhaltung klären</li>
+            </ul>
+
+            <h3>Checkout-Validierung</h3>
+            <p>Vor Order-Erstellung serverseitig für jede Zeile:</p>
+            <ol>
+              <li><code>variant_id</code>, <code>quantity</code>, aktuellen Preis und Kunden-Status laden</li>
+              <li><code>pricing_model</code> vom Product-Metafield lesen</li>
+              <li><code>free_items</code> neu berechnen (<code>freeCountFor</code> / <code>lookupCreditA</code> / <code>lookupFreeB</code>)</li>
+              <li>Abweichung zur Client-Übermittlung → Checkout blockieren oder Werte überschreiben</li>
+            </ol>
+
+            <h2>Zusammenfassung der Implementierungs-Schritte</h2>
+            <ol>
+              <li><strong>Konstanten:</strong> Beide Tabellen (A + B) als feste Konfiguration ins Backend einbringen — nicht als Theme-Variable, sondern als App-/Function-Konstante.</li>
+              <li><strong>Bestellhistorie:</strong> Aggregation pro <code>variant_id</code> über 549 Tage (Orders API / ERP).</li>
+              <li><strong>Product Metafield</strong> <code>inuvet.pricing_model</code> am Product (Parent) anlegen, Default <code>A</code>.</li>
+              <li><strong>Customer Tag</strong> <code>group-customer</code> in der CRM-Pflege etablieren.</li>
+              <li><strong>Berechnungsfunktion</strong> serverseitig implementieren — analog zu <code>inuvet.js</code> (<code>lookupCreditA</code>, <code>lookupFreeB</code>, <code>freeCountFor</code>, <code>nextHintFor</code>).</li>
+              <li><strong>Bundle-API:</strong> <code>resolveBundle()</code> + Response-Schema (siehe oben) für Frontend bereitstellen.</li>
+              <li><strong>Order-Erstellung:</strong> <code>free_items</code> als Line-Item-Property setzen; Checkout-Validierung vor Finalisierung.</li>
+              <li><strong>Fulfillment / ERP:</strong> Pickliste aus <code>quantity + free_items</code>; Buchungsposten <code>natural_rabatt</code>.</li>
+              <li><strong>Frontend:</strong> Bundle-Seite, PDP und Warenkorb beziehen berechnete Werte aus der API — keine Tabellen im Theme. Hint-Text und Gratis-Badge serverseitig befüllt.</li>
+              <li><strong>Anzeige-Bedingung:</strong> <code>resolveBundle()</code> auf 18-Monate-Historie — kein Rabatt im Pool → Bundle-Section nicht ausgeben. Entscheidung einmalig beim Load; danach keine Sichtbarkeitsänderung durch Frontend.</li>
+            </ol>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="../inuvet.js"></script>
+
+</body>
+</html>

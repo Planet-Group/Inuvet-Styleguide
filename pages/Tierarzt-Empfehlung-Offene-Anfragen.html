@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Tierarzt-Empfehlung – Offene Anfragen</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../temp.css">
+  <link rel="stylesheet" href="../mockup-ui.css">
+</head>
+<body class="--ann-scroll">
+
+<!-- Announcement Bar + Standard-Navigation (inuvet.css) -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <a href="#">Home</a>
+    <a href="#">Produkte</a>
+    <a href="#">Service</a>
+    <div class="nav-item">
+      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
+        <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" aria-current="page">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#" aria-label="Zur Startseite">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <a href="#" onclick="closeMobile(); return false;">Home</a>
+    <a href="#" onclick="closeMobile(); return false;">Produkte</a>
+    <a href="#" onclick="closeMobile(); return false;">Service</a>
+    <a href="#" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<main class="container">
+  <header class="page-header">
+    <h1>
+      Offene Anfragen
+      <span class="circle-badge --num" id="openRequestsCount" aria-label="Anzahl offener Produktanfragen">6</span>
+    </h1>
+  </header>
+
+  <div class="data-table-bulk" id="openRequestsBulk" hidden>
+    <div class="data-table-bulk__controls">
+      <div class="form-field --sm">
+        <label for="openBulkSelect">Auswahl</label>
+        <select id="openBulkSelect">
+          <option value="" selected disabled>Auswahl…</option>
+          <option value="all">Alle auswählen</option>
+          <option value="none">Nichts auswählen</option>
+        </select>
+      </div>
+      <div class="form-field --sm">
+        <label for="openBulkAction">Aktion</label>
+        <select id="openBulkAction" disabled>
+          <option value="" selected disabled>Aktion…</option>
+          <option value="approve">Freigeben</option>
+          <option value="decline">Nicht freigeben</option>
+        </select>
+      </div>
+    </div>
+    <p class="data-table-bulk__count" id="openRequestsBulkCount" aria-live="polite">0 ausgewählt</p>
+  </div>
+
+  <div class="rte --data-table --mobile-grid --sortable --with-select" id="openRequestsTableWrap">
+    <div class="data-table-sort">
+      <label class="visually-hidden" for="openRequestsSort">Tabelle sortieren</label>
+      <select id="openRequestsSort" class="data-table-sort__select">
+        <option value="customerName:asc">Name A–Z</option>
+        <option value="customerName:desc">Name Z–A</option>
+        <option value="customerEmail:asc">E-Mail A–Z</option>
+        <option value="customerEmail:desc">E-Mail Z–A</option>
+        <option value="date:asc">Datum aufsteigend</option>
+        <option value="date:desc">Datum absteigend</option>
+        <option value="productLabel:asc" selected>Produkt A–Z</option>
+        <option value="productLabel:desc">Produkt Z–A</option>
+      </select>
+    </div>
+    <table class="--spacious">
+      <thead>
+        <tr>
+          <th scope="col" class="data-table-select">
+            <label class="form-check">
+              <input type="checkbox" id="openSelectAll" aria-label="Alle Anfragen auswählen">
+            </label>
+          </th>
+          <th scope="col" data-sort="customerName" aria-sort="none">
+            <button type="button">Name <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="customerEmail" aria-sort="none">
+            <button type="button">E-Mail <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="date" aria-sort="none">
+            <button type="button">Datum <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" data-sort="productLabel" aria-sort="ascending">
+            <button type="button">Produkt <span class="material-icons" aria-hidden="true">arrow_upward</span></button>
+          </th>
+          <th scope="col">Aktion</th>
+        </tr>
+      </thead>
+      <tbody id="openRequestsBody"></tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" id="openRequestsEmpty" hidden>
+    <span class="material-icons">inbox</span>
+    <p class="empty-state__title">Keine offenen Produktanfragen</p>
+  </div>
+</main>
+
+<div class="modal-overlay" id="rowActionModalOverlay" onclick="closeRowActionModal()">
+  <div class="modal" id="rowActionModal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <h2 class="modal__title" id="rowActionModalTitle">Freigeben</h2>
+      <button type="button" class="btn --icon" onclick="closeRowActionModal()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body flow">
+      <p id="rowActionModalLead"></p>
+      <div class="form-field">
+        <textarea id="rowActionNote" rows="3" placeholder=" "></textarea>
+        <label for="rowActionNote">Notiz an Tierbesitzer (optional)</label>
+      </div>
+      <p class="form-required-note" id="rowActionMailHint">Nach dem Bestätigen werden E-Mails an den Tierbesitzer (B1) und intern an das inuvet-Team (B2) ausgelöst.</p>
+    </div>
+    <div class="modal__footer">
+      <button class="btn --secondary" type="button" onclick="closeRowActionModal()">Abbrechen</button>
+      <button class="btn --primary" type="button" id="rowActionConfirmBtn" onclick="confirmRowAction()">Freigeben</button>
+    </div>
+  </div>
+</div>
+
+<!-- E-Mail-Overlay (Mockup) — B1 + B2 nach Zeilen-Entscheidung -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
+</div>
+
+<script src="../inuvet.js"></script>
+<script src="empfehlung-anfragen-mock.js"></script>
+<script src="tierarzt-empfehlung-offene-anfragen.js"></script>
+</body>
+</html>
