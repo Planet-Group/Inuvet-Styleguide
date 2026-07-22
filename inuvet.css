@@ -2937,21 +2937,6 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     align-self: start;
     max-height: calc(100vh - var(--nav-height) - var(--module));
   }
-  /* Packshot-Spalte: Bild + Social als Einheit — Abstand Bild→Trust konstant
-     (Thumbs können länger sein, ohne Social nach unten zu schieben) */
-  .pdp--sticky-gallery .pdp__packshot {
-    display: flex;
-    flex-direction: column;
-    gap: var(--half-module);
-    min-width: 0;
-  }
-  .pdp--sticky-gallery .pdp__social-below {
-    display: block;
-    min-width: 0;
-  }
-  .pdp--sticky-gallery .pdp__social-below .social-proof {
-    margin-bottom: 0;
-  }
   @media (min-width: 1100px) {
     .pdp--sticky-gallery .pdp__gallery {
       grid-template-columns: calc(var(--base) * 5) minmax(0, 1fr);
@@ -2999,8 +2984,12 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp--sticky-gallery .pdp__aside {
     display: none;
   }
+  /* Trust unter NR/Angebot (<1536); ≥1536 nur Aside — kein Doppel */
+  .pdp--sticky-gallery .pdp__info > .social-proof {
+    display: flex;
+  }
   @media (min-width: 1536px) {
-    .pdp--sticky-gallery .pdp__social-below {
+    .pdp--sticky-gallery .pdp__info > .social-proof {
       display: none;
     }
     .pdp--sticky-gallery .pdp__buy {
@@ -3181,12 +3170,15 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .nr-widget__hint-row .nr-widget__hint { flex: 1 1 12rem; min-width: 0; }
   .nr-widget__fill { flex-shrink: 0; }
   .nr-widget:has(+ .pdp__order-meta) { margin-bottom: 0; }
-  /* Zur Accordion-Zeile etwas Luft — weniger als volles --module */
-  .nr-widget:has(+ .pdp__accordion) { margin-bottom: var(--half-module); }
+  /* Zur Accordion-Zeile / Trust etwas Luft — weniger als volles --module */
+  .nr-widget:has(+ .pdp__accordion),
+  .nr-widget:has(+ .social-proof) { margin-bottom: var(--half-module); }
   .nr-widget:has(+ .pdp__accordion) + .pdp__accordion,
-  .nr-widget + .nr-widget:has(+ .pdp__accordion) + .pdp__accordion {
+  .nr-widget + .nr-widget:has(+ .pdp__accordion) + .pdp__accordion,
+  .pdp__info > .social-proof + .pdp__accordion {
     margin-top: 0;
   }
+  .pdp__actions + .social-proof { margin-top: var(--half-module); }
   /* Produkt-Akkordeon unter dem Kaufblock — volle Breite, Desktop 2 Spalten. */
   .pdp__accordion { margin-top: var(--half-module); }
   /* Nachfolger unter dem Akkordeon brauchen den früheren Section-Abstand */
@@ -3757,10 +3749,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     .pdp--sticky-gallery .pdp__thumbs {
       flex-direction: row;
       overflow-y: visible;
-      /* Thumbs stehen im DOM vor dem Packshot — mobil wieder darunter */
+      /* Thumbs stehen im DOM vor dem Hauptbild — mobil wieder darunter */
       order: 1;
     }
-    .pdp--sticky-gallery .pdp__packshot { order: 0; }
+    .pdp--sticky-gallery .pdp__main-image { order: 0; }
     .pdp--sticky-gallery .pdp__thumb {
       width: calc((100% - var(--half-module) * 4) / 5);
     }

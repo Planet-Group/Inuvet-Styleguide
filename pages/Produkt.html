@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=130">
+  <link rel="stylesheet" href="../inuvet.css?v=131">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -301,21 +301,15 @@
         </div>`;
       }).join('');
 
-      /* Thumbs zuerst im DOM → Desktop links neben dem Hauptbild (pdp--sticky-gallery)
-         Trust unter dem Bild (<1536); ≥1536 in Aside — spart Above-the-fold in der Kaufspalte */
-      /* Packshot-Spalte: Hauptbild + Social darunter — Abstand bleibt konstant,
-         unabhängig von Thumb-Höhe (nicht Grid-Zeile über volle Galerie) */
+      /* Thumbs zuerst im DOM → Desktop links neben dem Hauptbild (pdp--sticky-gallery) */
       return `
         <div class="pdp__gallery">
           ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
-          <div class="pdp__packshot">
-            <div class="pdp__main-image">
-              ${mainImg}
-              ${mainVideo}
-              ${caption}
-              ${meta}
-            </div>
-            <div class="pdp__social-below">${socialProofHTML()}</div>
+          <div class="pdp__main-image">
+            ${mainImg}
+            ${mainVideo}
+            ${caption}
+            ${meta}
           </div>
         </div>`;
     };
@@ -655,6 +649,7 @@
           </div>
           ${nrWidgetHTML()}
           ${orderMetaHTML()}
+          ${socialProofHTML()}
           ${accordionHTML()}
         </div>
         <aside class="pdp__aside" aria-label="Vertrauen">
