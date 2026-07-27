@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Mail-Vorlagen – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=2">
+  <link rel="stylesheet" href="email-template-generator.css">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-page__card em-card">
+
+    <header class="form-page__header">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </header>
+
+    <div class="em-page-header">
+      <h1 class="form-page__title">E-Mail-Vorlagen</h1>
+      <p class="em-intro">System-Mails für SAP, Shopify, Gmail &amp; Co. — Bausteine wählen, Vorschau prüfen, HTML exportieren.</p>
+    </div>
+
+    <div class="col-grid em-layout" data-cols="2">
+
+      <div>
+        <form id="em-form">
+
+          <div class="form-field em-preset-field">
+            <select id="f-preset" required>
+              <option value="rechnung" selected>Rechnung (z. B. SAP)</option>
+              <option value="service">Service / Bestätigung (z. B. Gmail)</option>
+              <option value="status">Status / Anfrage (z. B. Shopify)</option>
+              <option value="custom">Leer / frei gestalten</option>
+            </select>
+            <label for="f-preset">Vorlage</label>
+          </div>
+          <p class="em-field-hint">Vorlagen sind Ausgangspunkte — Inhalt und Bausteine bleiben editierbar. Platzhalter wie <code>{{rechnungsnummer}}</code> können die Zielsysteme ersetzen.</p>
+
+          <h3 class="section-label --sub">Inhalt</h3>
+
+          <div class="form-field">
+            <input id="f-subject" type="text" placeholder=" " value="">
+            <label for="f-subject">Betreff (Hinweis)</label>
+          </div>
+          <p class="em-field-hint">Der Betreff wird nicht ins HTML geschrieben — nur als Merker für die Einpflege ins Zielsystem.</p>
+
+          <div class="form-field">
+            <input id="f-headline" type="text" placeholder=" " value="">
+            <label for="f-headline">Überschrift (optional)</label>
+          </div>
+
+          <div class="form-field">
+            <input id="f-salutation" type="text" placeholder=" " value="">
+            <label for="f-salutation">Anrede</label>
+          </div>
+
+          <div class="form-field">
+            <textarea id="f-body" placeholder=" " rows="6"></textarea>
+            <label for="f-body">Fließtext</label>
+          </div>
+          <p class="em-field-hint">Absätze mit Leerzeile trennen. Eine Zeile mit <code>• </code> oder <code>- </code> wird als Aufzählung gesetzt.</p>
+
+          <div class="form-field">
+            <input id="f-closing" type="text" placeholder=" " value="">
+            <label for="f-closing">Grußformel (optional)</label>
+          </div>
+
+          <div class="form-field">
+            <input id="f-cta-label" type="text" placeholder=" " value="">
+            <label for="f-cta-label">Button-Text (optional)</label>
+          </div>
+          <div class="form-field">
+            <input id="f-cta-url" type="text" placeholder=" " value="" inputmode="url" autocomplete="off">
+            <label for="f-cta-url">Button-Link</label>
+          </div>
+
+          <h3 class="section-label --sub">Bausteine</h3>
+
+          <label class="form-check">
+            <input type="checkbox" id="f-block-logo" checked>
+            <span>Logo oben</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-contact" checked>
+            <span>Kontakthinweis</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-company" checked>
+            <span>Firma &amp; Adresse</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-disclaimer" checked>
+            <span>„Nur in eurer Praxis“</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-social" checked>
+            <span>Social Media</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-imprint" checked>
+            <span>Imprint</span>
+          </label>
+
+          <div class="form-field em-contact-wrap" id="contact-wrap">
+            <textarea id="f-contact" placeholder=" " rows="4"></textarea>
+            <label for="f-contact">Kontakthinweis</label>
+          </div>
+
+        </form>
+      </div>
+
+      <div>
+        <h3 class="section-label --sub">Vorschau</h3>
+
+        <div class="em-preview-meta" id="em-subject-preview"></div>
+
+        <div class="em-preview">
+          <div id="email-preview"></div>
+        </div>
+
+        <div class="btn-row em-actions">
+          <button type="button" class="btn --primary --full --with-icon" id="copy-btn">
+            <span class="material-icons" aria-hidden="true">content_copy</span>
+            HTML kopieren
+          </button>
+          <button type="button" class="btn --secondary --full --with-icon" id="html-btn">
+            <span class="material-icons" aria-hidden="true">code</span>
+            HTML-Datei herunterladen
+          </button>
+        </div>
+
+        <div class="em-instructions">
+          <h3 class="section-label --sub">Einbau</h3>
+
+          <div class="notice">
+            <p class="notice__title"><span class="material-icons notice__icon" aria-hidden="true">info</span> HTML-E-Mail</p>
+            <p>Die Vorlage nutzt Tabellen und Inline-Styles — kompatibel mit Gmail, Outlook, Salesforce, Shopify und den meisten SAP-/CRM-Mailern. Platzhalter (<code>{{…}}</code>) im Zielsystem durch Variablen ersetzen.</p>
+          </div>
+
+          <div class="em-instr">
+            <p class="em-instr__title">Allgemein</p>
+            <ol class="em-instr__steps">
+              <li>Vorlage wählen und Inhalt anpassen.</li>
+              <li><strong>„HTML kopieren"</strong> oder Datei herunterladen.</li>
+              <li>Im Zielsystem als HTML-Vorlage einfügen (nicht als Plain Text).</li>
+              <li>Platzhalter an die Syntax des Systems anpassen (Salesforce oft <code>{!…}</code>, Shopify Liquid, SAP je nach Modul).</li>
+            </ol>
+          </div>
+
+          <div class="em-instr">
+            <p class="em-instr__title">Gmail / Google Workspace</p>
+            <ol class="em-instr__steps">
+              <li>Vorlagen (Templates) oder Signatur-/Vorlagen-Add-on nutzen — HTML einfügen.</li>
+              <li>Alternativ: in einem Entwurf einfügen und als Vorlage speichern.</li>
+            </ol>
+          </div>
+
+          <div class="em-instr">
+            <p class="em-instr__title">Shopify</p>
+            <ol class="em-instr__steps">
+              <li>Admin → Einstellungen → Benachrichtigungen → gewünschte Mail öffnen.</li>
+              <li>HTML-Editor: bestehenden Body ersetzen bzw. Bausteine übernehmen.</li>
+              <li>Shopify-Variablen (<code>{{ order.name }}</code> etc.) statt der Beispiel-Platzhalter setzen.</li>
+            </ol>
+          </div>
+
+          <div class="em-instr">
+            <p class="em-instr__title">Salesforce</p>
+            <ol class="em-instr__steps">
+              <li>E-Mail-Vorlage (HTML) anlegen oder Classic/Lightning Template öffnen.</li>
+              <li>HTML einfügen; Merge-Felder an Salesforce-Syntax anpassen.</li>
+            </ol>
+          </div>
+
+          <div class="em-instr">
+            <p class="em-instr__title">SAP</p>
+            <ol class="em-instr__steps">
+              <li>Je nach Modul (z. B. Output Management / Mail-Forms) HTML-Body hinterlegen.</li>
+              <li>Platzhalter an die SAP-Feldnamen anbinden.</li>
+              <li>PDF-Anhänge (Rechnung) bleiben systemseitig — die Vorlage steuert nur den Mail-Body.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="em-copy-target" aria-hidden="true"></div>
+
+<script src="../inuvet.js?v=2"></script>
+<script src="email-template-generator.js"></script>
+
+</body>
+</html>

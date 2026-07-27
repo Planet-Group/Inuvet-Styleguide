@@ -38,7 +38,7 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 8. **Linien sparsam** — Whitespace trennt. `border-top` für Trennzwecke ist Code-Smell.
 9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente: (1) Demo-Abschnitt in `styleguide.html`, (2) Zeile in der Klassen-Schnellreferenz unten. Beides zusammen, nie nur eines.
 10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird: kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
-11. **Einzelprodukt oder Produktfamilie? Erst fragen** — Wenn nicht eindeutig klar: immer nachfragen, bevor Namen, Darstellung oder Struktur festgelegt werden.
+11. **Einzelprodukt vs. Produktfamilie — Namensregeln nie brechen** — Einzelprodukt-Titel **immer** inkl. Darreichungsform (`Calmin balance Tabletten`, `Inzym Pulver`). Familien-Titel **ohne** Form (`Hepax forte`). Unklar? → erst fragen (Regel gilt für Shopify-Theme 1:1).
 12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`.
 13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
@@ -48,26 +48,39 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 
 ## Produkt-Modell
 
-| Begriff | Definition | Beispiel |
+Vier Ebenen — Details und UI-Auswirkungen: `pages/Produkt-Modell.html`.
+
+| Ebene | Definition | Beispiel |
 |---|---|---|
-| **Indikation** | Krankheitsbild, gibt dem Produkt seinen Namen | Durchfall → „EnteroGast" |
-| **Produkt** | Konkrete Darreichungsform einer Indikation | „EnteroGast Tabletten", „EnteroGast Pulver" |
-| **Variante** | Unterschiedliche Füllmengen desselben Produkts | EnteroGast Tabletten in 21 / 90 Stk. |
-| **Produktfamilie** | Alle Produkte mit derselben Indikation | Familie „EnteroGast" = Tabletten + Pulver |
+| **Indikation** | Gesundheitsbereich / Navigation (Badge) | Beruhigung, Leber |
+| **Produktfamilie** | Bundelt mehrere Darreichungsformen unter einem Namen (`isFamily: true`) | `Hepax forte` → Pulver + Tabletten |
+| **Einzelprodukt** | Genau **eine** Darreichungsform — geht in den Warenkorb (`isFamily: false`) | `Calmin balance Tabletten`, `Inzym Pulver`, `Hepax forte Pulver` |
+| **Variante** | Füllmenge mit eigenem Preis | 60 Stück / 90 Stück |
 
-**Anzeige-Regel (kontextabhängig):**
+### Pflichtregeln (Shopify-Team & Mockups)
 
-| Kontext | Anzeige |
-|---|---|
-| Tiles, Collection, Suche | `Calmin balance`, `Hepax forte` — nie nur „Hepax“ |
-| Cart, Checkout, Bestellübersicht, Freigabe | `Calmin balance Tabletten`, `Hepax forte Tabletten` |
-| Einzelprodukte (immer mit Darreichungsform) | `Inzym Pulver` |
+1. **Einzelprodukt-Name = Basisname + Darreichungsform** — immer, überall (Tile, Collection, Suche, PDP-Titel, Cart, Checkout, Freigabe). Beispiele: `Calmin balance Tabletten`, `Inzym Pulver`, `Otysan Fluid`. **Nie** nur `Calmin balance`, wenn es ein Einzelprodukt ist.
+2. **Darreichungsformen** u. a. Tabletten, Pulver, Fluid, Salbe, Sachets — der Form-Begriff steht im Produkttitel (Einzelprodukt) bzw. wird erst nach Auswahl an den Familiennamen gehängt (Cart).
+3. **Produktfamilie-Name ohne Form** — Tile / Collection / Suche / PDP-Titel: `Hepax forte`. Badge „Produktfamilie" Pflicht. Cart/Checkout: `Hepax forte Pulver` (Name + gewählte Form).
+4. **In den Warenkorb kommen nur Einzelprodukte** (Form + Größe gewählt) — nie die Familie als Position.
+5. **Kachel-Preis** immer `ab X,XX €` (günstigste Größe); bei Familien über alle Formen.
+6. **Options-Drawer:** Familie → Darreichungsform + Größe; Einzelprodukt mit Größen → nur Größe; ohne Größenwahl → Direkt-Add.
+7. Unklar ob Familie oder Einzelprodukt? → **nachfragen**, bevor Katalog/Mockup/Theme-Felder gesetzt werden.
+
+**Anzeige nach Kontext:**
+
+| Kontext | Produktfamilie | Einzelprodukt |
+|---|---|---|
+| Tile, Collection, Suche, PDP-Titel | `Hepax forte` + Badge „Produktfamilie" | `Calmin balance Tabletten` (Form im Titel) |
+| Cart, Checkout, Freigabe | `Hepax forte Pulver` + Variantenzeile Größe | `Calmin balance Tabletten` + Variantenzeile Größe |
 
 **Naturalrabatt:** Berechnung immer pro **Einzelprodukt-Position** (Darreichungsform + Größe = Order Line Item). Kondition A: Bestellwert = `Menge × Einzelpreis` dieser Position — nicht über eine Produktfamilie summiert. Details in `pages/Bundle-Info.html`.
 
 In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom`. **Naturalrabatt Gratis-Badge:** Warenkorb auf dem Thumb (`product-thumb-wrap` + `floating-meta`), Bundle Builder im Counter (`cart-item__counter`) — nie beides. **`.cart-item__tier-hint`** pro berechtigter Zeile (Text via `formatHint()`), nur auf weißem Hintergrund (`--bg`).
 
-Aktuelle Mockup-Produkte: **Calmin balance** (Familie: Tabletten + Pulver), **Hepax forte** (Familie: Tabletten + Pulver), **Inzym Pulver** (Einzelprodukt).
+Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
+
+**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured` an freien Positionen. Media optional: **Bild oder** Lottie-JSON (Shopify: `media_type` + `image` / `lottie`, nie beides) in `.tile__animation`. Spec → E.3 + D.4 · Demo → `pages/Collection.html`.
 
 ---
 
@@ -250,7 +263,8 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 **Formular-Hintergrund (Pflicht):** Formulare dürfen **nur** auf **Weiß** (`--bg`) oder **Grün** (`--green-light`) platziert werden. Auf grünen Flächen Container-Klasse `.--on-green` setzen — sie überschreibt `--field-bg` / `--field-bg-active` automatisch. **Keine weiteren Flächenfarben** (Honey, Grau, Cards …): Floating-Label-Hintergrund muss exakt zum Container passen; andere Farben brechen die Feldlinie optisch und technisch. Styleguide-Demos: `.sg-demo.--white` (Standard) bzw. `.sg-demo.--green` (`.--on-green`-Demo).
 
 ### Tile / Produktkachel
-- `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1, z. B. Tierarzt-Empfehlung Collection) · `--cols-4` (4→3→2→2, dichte Shop-Listen, Mobile 2-spaltig)
+- `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1) · `--cols-4` (4→3→2→2, Mobile 2-spaltig)
+- **Shop-Collection (Shopify):** Section-Setting `show_filters` (Default an) steuert Filter **und** Spalten: an → Sidebar + `--cols-3` · aus → `.--no-sidebar` / `.--no-filters` + `--cols-4`. Kein separates Density-Setting. Spec → E.3.
 - **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
 - `.cart-item__variant`: `60 Stück · 39,90 €` — immer diese Klasse, nie eigene
 
@@ -353,7 +367,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | D.1 | Navigation | `.site-nav .announcement-bar` | Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` (Trigger/Dropdown/Mobile) · `.nav-hamburger.icon-badged` + `.badge.--count` |
 | D.2 | Footer | `.site-footer` | `.footer-payment` (Zahlungsarten-Icons in `.footer-bar`) |
 | D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
-| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Lottie), `--product` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
 | D.7 | Newsletter | `.newsletter` | — |
@@ -404,6 +418,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Inuvet-Shop.html` | `inuvet-shop.css` | `inuvet-shop.js` | Shop-Startseite Mockup |
 | `pages/Inuvet-Shop-Info.html` | — | — | Shop-Dokumentation |
 | `pages/Signature-Generator.html` | `signature-generator.css` | `signature-generator.js` | E-Mail-Signatur-Generator |
+| `pages/Email-Template-Generator.html` | `email-template-generator.css` | `email-template-generator.js` | System-E-Mail-Vorlagen (SAP, Shopify, Gmail …) |
 | `pages/Formular-Reklamation.html` | — | `formular-reklamation.js` | Stand-Alone-Formular |
 | `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
 | `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
