@@ -42,7 +42,12 @@
   margin-top: var(--half-module);
 }
 
-.em-contact-wrap.--hidden {
+.em-person-wrap {
+  margin-top: var(--half-module);
+}
+
+.em-contact-wrap.--hidden,
+.em-person-wrap.--hidden {
   display: none;
 }
 

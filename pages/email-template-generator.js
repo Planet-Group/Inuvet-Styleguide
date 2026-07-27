@@ -2,9 +2,10 @@
   'use strict';
 
   var LOGO_URL = 'https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/19539d25-7649-448d-aee2-1059faf1a092.png';
-  var LOGO_WIDTH = 96;
+  var LOGO_WIDTH = 80;
   var DISCLAIMER_LOGO_URL = 'https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/3410cdab-9740-4fd8-8079-fe9d1bba3190.png';
   var ICON_SIZE = 24;
+  var DEFAULT_PERSON_PHOTO = 'https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/94ec4747-3a90-410e-b6f1-143a0e651845.jpg';
   var FB_ICON = 'https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/12a4b72a-782e-4459-a340-9e051d33f740.png';
   var IG_ICON = 'https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/7ecd3f53-13d6-47d4-a017-1b9aaa572439.png';
   var FB_URL = 'https://www.facebook.com/inuvet.de';
@@ -48,6 +49,7 @@
       contact: DEFAULT_CONTACT,
       blocks: {
         logo: true,
+        person: false,
         contact: false,
         company: true,
         disclaimer: true,
@@ -68,6 +70,7 @@
       contact: DEFAULT_CONTACT,
       blocks: {
         logo: true,
+        person: false,
         contact: false,
         company: true,
         disclaimer: true,
@@ -89,6 +92,7 @@
       contact: DEFAULT_CONTACT,
       blocks: {
         logo: true,
+        person: false,
         contact: true,
         company: true,
         disclaimer: true,
@@ -107,6 +111,7 @@
       contact: DEFAULT_CONTACT,
       blocks: {
         logo: true,
+        person: false,
         contact: false,
         company: true,
         disclaimer: false,
@@ -126,7 +131,11 @@
     ctaLabel: document.getElementById('f-cta-label'),
     ctaUrl: document.getElementById('f-cta-url'),
     contact: document.getElementById('f-contact'),
+    personName: document.getElementById('f-person-name'),
+    personRole: document.getElementById('f-person-role'),
+    personPhoto: document.getElementById('f-person-photo'),
     blockLogo: document.getElementById('f-block-logo'),
+    blockPerson: document.getElementById('f-block-person'),
     blockContact: document.getElementById('f-block-contact'),
     blockCompany: document.getElementById('f-block-company'),
     blockDisclaimer: document.getElementById('f-block-disclaimer'),
@@ -135,6 +144,7 @@
   };
 
   var contactWrap = document.getElementById('contact-wrap');
+  var personWrap = document.getElementById('person-wrap');
   var preview = document.getElementById('email-preview');
   var subjectPreview = document.getElementById('em-subject-preview');
   var copyTarget = document.getElementById('em-copy-target');
@@ -259,6 +269,31 @@
     return '<tr><td style="margin:0;padding:0;line-height:1;">' + img + '</td></tr>' + gapRow(16);
   }
 
+  function personRow(photo, name, role) {
+    if (!name && !photo) return '';
+    var rows = gapRow(18);
+    if (photo) {
+      rows += '<tr><td style="margin:0;padding:0;line-height:1;">'
+        + '<img src="' + escapeAttr(photo) + '" alt="' + escapeHtml(name || '') + '" width="' + LOGO_WIDTH
+        + '" height="' + LOGO_WIDTH + '" decoding="async" '
+        + 'style="display:block;width:' + LOGO_WIDTH + 'px;height:' + LOGO_WIDTH
+        + 'px;object-fit:cover;border:0;border-radius:50%;">'
+        + '</td></tr>'
+        + gapRow(10);
+    }
+    if (name) {
+      rows += '<tr><td ' + cell() + '>'
+        + '<span style="' + textStyle(FG, null, 'font-weight:bold;') + '">' + escapeHtml(name) + '</span>'
+        + '</td></tr>';
+    }
+    if (role) {
+      rows += '<tr><td ' + cell() + '>'
+        + '<span style="' + textStyle(FG_MUTED) + '">' + escapeHtml(role) + '</span>'
+        + '</td></tr>';
+    }
+    return rows;
+  }
+
   function ctaRow(label, url) {
     if (!label || !url) return '';
     return gapRow(16)
@@ -301,7 +336,11 @@
       ctaLabel: fields.ctaLabel.value.trim(),
       ctaUrl: fields.ctaUrl.value.trim(),
       contact: fields.contact.value,
+      personName: fields.personName.value.trim(),
+      personRole: fields.personRole.value.trim(),
+      personPhoto: fields.personPhoto.value.trim(),
       blockLogo: fields.blockLogo.checked,
+      blockPerson: fields.blockPerson.checked,
       blockContact: fields.blockContact.checked,
       blockCompany: fields.blockCompany.checked,
       blockDisclaimer: fields.blockDisclaimer.checked,
@@ -358,6 +397,10 @@
         + '<tr><td ' + cell() + '>'
         + '<span style="' + textStyle(FG) + '">' + escapeHtml(d.closing) + '</span>'
         + '</td></tr>';
+    }
+
+    if (d.blockPerson && (d.personName || d.personPhoto)) {
+      rows += personRow(d.personPhoto, d.personName, d.personRole);
     }
 
     if (d.blockContact && d.contact.trim()) {
@@ -421,6 +464,7 @@
   }
 
   function syncVisibility() {
+    personWrap.classList.toggle('--hidden', !fields.blockPerson.checked);
     contactWrap.classList.toggle('--hidden', !fields.blockContact.checked);
   }
 
@@ -451,11 +495,15 @@
     fields.ctaUrl.value = p.ctaUrl;
     fields.contact.value = p.contact;
     fields.blockLogo.checked = p.blocks.logo;
+    fields.blockPerson.checked = !!p.blocks.person;
     fields.blockContact.checked = p.blocks.contact;
     fields.blockCompany.checked = p.blocks.company;
     fields.blockDisclaimer.checked = p.blocks.disclaimer;
     fields.blockSocial.checked = p.blocks.social;
     fields.blockImprint.checked = p.blocks.imprint;
+    if (!fields.personPhoto.value) {
+      fields.personPhoto.value = DEFAULT_PERSON_PHOTO;
+    }
     syncVisibility();
     updateNow();
   }
@@ -533,6 +581,13 @@
   fields.blockContact.addEventListener('change', function () {
     syncVisibility();
     updateNow();
+  });
+  fields.blockPerson.addEventListener('change', function () {
+    syncVisibility();
+    updateNow();
+  });
+  fields.personPhoto.addEventListener('paste', function () {
+    setTimeout(scheduleUpdate, 0);
   });
   copyBtn.addEventListener('click', copy);
   document.getElementById('html-btn').addEventListener('click', downloadHtml);

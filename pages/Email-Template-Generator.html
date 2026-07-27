@@ -84,6 +84,10 @@
             <span>Logo oben</span>
           </label>
           <label class="form-check">
+            <input type="checkbox" id="f-block-person">
+            <span>Kontaktperson</span>
+          </label>
+          <label class="form-check">
             <input type="checkbox" id="f-block-contact" checked>
             <span>Kontakthinweis</span>
           </label>
@@ -103,6 +107,21 @@
             <input type="checkbox" id="f-block-imprint" checked>
             <span>Imprint</span>
           </label>
+
+          <div class="em-person-wrap --hidden" id="person-wrap">
+            <div class="form-field">
+              <input id="f-person-name" type="text" placeholder=" " value="Max Mustermann" autocomplete="name">
+              <label for="f-person-name">Name</label>
+            </div>
+            <div class="form-field">
+              <input id="f-person-role" type="text" placeholder=" " value="Kundenservice">
+              <label for="f-person-role">Rolle (optional)</label>
+            </div>
+            <div class="form-field">
+              <input id="f-person-photo" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/94ec4747-3a90-410e-b6f1-143a0e651845.jpg" inputmode="url" autocomplete="off">
+              <label for="f-person-photo">Portrait-URL</label>
+            </div>
+          </div>
 
           <div class="form-field em-contact-wrap" id="contact-wrap">
             <textarea id="f-contact" placeholder=" " rows="4"></textarea>
