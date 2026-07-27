@@ -84,7 +84,7 @@ strong { font-weight: var(--wd); }
 /* Linke Spalte: Anschriftfeld im Fensterkuvert-Raster (DIN 5008 Form B, ~45 mm ab Blattkante) */
 .inv-addr { grid-column: 1; margin-top: 27mm; padding-left: 2mm; }
 .inv-addr .inv-sender { font-size: var(--text-xs); color: var(--fg-muted); padding-bottom: 2pt; }
-.inv-addr .inv-recipient { line-height: 1.4; }
+.inv-addr .inv-recipient { font-size: var(--text-sm); line-height: 1.4; }
 .inv-addr .inv-recipient .r-name { font-weight: var(--wd); }
 /* Lieferadresse: volle Breite, unter dem Sichtfenster, Label fett + Adresse in EINER Zeile, kein Umbruch */
 .inv-deliver { font-size: var(--text-xs); white-space: nowrap; }
@@ -164,7 +164,8 @@ strong { font-weight: var(--wd); }
 .value-box .caps { display: block; margin-bottom: 6pt; }
 .value-box .vb-row { display: flex; justify-content: space-between; gap: var(--base); font-size: var(--text-sm); padding: 2pt 0; }
 .value-box .vb-row > span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.value-box .vb-total { border-top: 1px dashed var(--fg); margin-top: 4pt; padding-top: 5pt; font-weight: var(--wd); color: var(--green); }
+.value-box .vb-total { border-top: 1px dashed var(--fg); margin-top: 4pt; padding-top: 5pt; font-weight: var(--wd); color: var(--green); align-items: baseline; }
+.value-box .vb-total > span:last-child { font-size: var(--text-l); line-height: 1.05; }
 .inv-totals { font-size: var(--text-sm); }
 .inv-totals .row { display: grid; grid-template-columns: 1fr auto auto; column-gap: var(--base); padding: 4pt 0; align-items: baseline; }
 .inv-totals .row .v { font-variant-numeric: tabular-nums; text-align: right; min-width: 24mm; }
@@ -175,8 +176,8 @@ strong { font-weight: var(--wd); }
 .inv-totals .row.tax { color: var(--fg-muted); }
 .inv-totals .row.taxsum { border-top: 1px dashed var(--fg); }
 .inv-totals .row.grand {
-  margin-top: 4pt; padding-top: 8pt; border-top: 2px solid var(--fg);
-  font-size: var(--text-base); font-weight: var(--wd);
+  border-top: 2px solid var(--fg);
+  font-size: var(--text-sm); font-weight: var(--wd);
 }
 .inv-totals .row.grand .lbl { font-weight: var(--wd); }
 /* Bonus-Ersparnis (Naturalrabatt) — grün hervorgehoben, informativ */
