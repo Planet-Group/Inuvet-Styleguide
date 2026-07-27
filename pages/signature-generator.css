@@ -47,6 +47,19 @@
   margin-bottom: 0;
 }
 
+.sig-crosslink {
+  margin: calc(var(--half-module) * -0.5) 0 var(--module);
+  font-size: var(--text-sm);
+}
+
+.sig-crosslink a {
+  color: var(--fg-muted);
+}
+
+.sig-crosslink a:hover {
+  color: var(--green);
+}
+
 .sig-disclaimer-wrap,
 .sig-contact-hint-fields {
   margin-top: var(--half-module);

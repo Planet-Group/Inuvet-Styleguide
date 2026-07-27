@@ -24,6 +24,19 @@
   margin-bottom: 0;
 }
 
+.em-crosslink {
+  margin: calc(var(--half-module) * -0.5) 0 var(--module);
+  font-size: var(--text-sm);
+}
+
+.em-crosslink a {
+  color: var(--fg-muted);
+}
+
+.em-crosslink a:hover {
+  color: var(--green);
+}
+
 .em-preset-field {
   margin-bottom: var(--half-module);
 }
@@ -36,6 +49,10 @@
 
 .em-field-hint code {
   font-size: 0.95em;
+}
+
+#content-wrap.--hidden {
+  display: none;
 }
 
 .em-contact-wrap {

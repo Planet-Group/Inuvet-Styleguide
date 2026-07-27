@@ -22,6 +22,9 @@
       <h1 class="form-page__title">E-Mail-Vorlagen</h1>
       <p class="em-intro">System-Mails für SAP, Shopify, Gmail &amp; Co. — Bausteine wählen, Vorschau prüfen, HTML exportieren.</p>
     </div>
+    <p class="em-crosslink">
+      <a href="Signature-Generator.html">Zur E-Mail-Signatur</a>
+    </p>
 
     <div class="col-grid em-layout" data-cols="2">
 
@@ -33,12 +36,14 @@
               <option value="rechnung" selected>Rechnung (z. B. SAP)</option>
               <option value="service">Service / Bestätigung (z. B. Gmail)</option>
               <option value="status">Status / Anfrage (z. B. Shopify)</option>
+              <option value="footer">Nur Footer (System-Text)</option>
               <option value="custom">Leer / frei gestalten</option>
             </select>
             <label for="f-preset">Vorlage</label>
           </div>
-          <p class="em-field-hint">Vorlagen sind Ausgangspunkte — Inhalt und Bausteine bleiben editierbar. Platzhalter wie <code>{{rechnungsnummer}}</code> können die Zielsysteme ersetzen.</p>
+          <p class="em-field-hint" id="em-preset-hint">Vorlagen sind Ausgangspunkte — Inhalt und Bausteine bleiben editierbar. Platzhalter wie <code>{{rechnungsnummer}}</code> können die Zielsysteme ersetzen.</p>
 
+          <div id="content-wrap">
           <h3 class="section-label --sub">Inhalt</h3>
 
           <div class="form-field">
@@ -75,6 +80,7 @@
           <div class="form-field">
             <input id="f-cta-url" type="text" placeholder=" " value="" inputmode="url" autocomplete="off">
             <label for="f-cta-url">Button-Link</label>
+          </div>
           </div>
 
           <h3 class="section-label --sub">Bausteine</h3>

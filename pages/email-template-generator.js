@@ -34,8 +34,12 @@
     'Fragen?\n\n'
     + 'Wir helfen euch gerne weiter! Ihr erreicht uns per E-Mail oder telefonisch unter +49 (0) 7621 57 91 510.';
 
+  var HINT_DEFAULT = 'Vorlagen sind Ausgangspunkte — Inhalt und Bausteine bleiben editierbar. Platzhalter wie <code>{{rechnungsnummer}}</code> können die Zielsysteme ersetzen.';
+  var HINT_FOOTER = 'Nur der Footer wird erzeugt — den personalisierten Haupttext liefert das Zielsystem. HTML unter den System-Text einfügen.';
+
   var PRESETS = {
     rechnung: {
+      footerOnly: false,
       subject: 'Ausgangsrechnung - {{rechnungsnummer}}; Kundennummer: {{kundennummer}}',
       headline: '',
       salutation: 'Liebes Praxisteam,',
@@ -58,6 +62,7 @@
       },
     },
     service: {
+      footerOnly: false,
       subject: 'Eure Reklamation ist angekommen',
       headline: '',
       salutation: 'Liebes Praxisteam,',
@@ -79,6 +84,7 @@
       },
     },
     status: {
+      footerOnly: false,
       subject: 'Deine Anfrage ist unterwegs',
       headline: 'Schon unterwegs!',
       salutation: 'Hey!',
@@ -100,7 +106,28 @@
         imprint: true,
       },
     },
+    footer: {
+      footerOnly: true,
+      subject: '',
+      headline: '',
+      salutation: '',
+      body: '',
+      closing: '',
+      ctaLabel: '',
+      ctaUrl: '',
+      contact: DEFAULT_CONTACT,
+      blocks: {
+        logo: true,
+        person: false,
+        contact: true,
+        company: true,
+        disclaimer: true,
+        social: true,
+        imprint: true,
+      },
+    },
     custom: {
+      footerOnly: false,
       subject: '',
       headline: '',
       salutation: 'Liebes Praxisteam,',
@@ -145,6 +172,9 @@
 
   var contactWrap = document.getElementById('contact-wrap');
   var personWrap = document.getElementById('person-wrap');
+  var contentWrap = document.getElementById('content-wrap');
+  var presetHint = document.getElementById('em-preset-hint');
+  var footerOnly = false;
   var preview = document.getElementById('email-preview');
   var subjectPreview = document.getElementById('em-subject-preview');
   var copyTarget = document.getElementById('em-copy-target');
@@ -328,13 +358,14 @@
 
   function readFields() {
     return {
+      footerOnly: footerOnly,
       subject: fields.subject.value.trim(),
-      headline: fields.headline.value.trim(),
-      salutation: fields.salutation.value.trim(),
-      body: fields.body.value,
-      closing: fields.closing.value.trim(),
-      ctaLabel: fields.ctaLabel.value.trim(),
-      ctaUrl: fields.ctaUrl.value.trim(),
+      headline: footerOnly ? '' : fields.headline.value.trim(),
+      salutation: footerOnly ? '' : fields.salutation.value.trim(),
+      body: footerOnly ? '' : fields.body.value,
+      closing: footerOnly ? '' : fields.closing.value.trim(),
+      ctaLabel: footerOnly ? '' : fields.ctaLabel.value.trim(),
+      ctaUrl: footerOnly ? '' : fields.ctaUrl.value.trim(),
       contact: fields.contact.value,
       personName: fields.personName.value.trim(),
       personRole: fields.personRole.value.trim(),
@@ -367,36 +398,41 @@
 
   function buildEmail(d) {
     var rows = '';
+    var hasMain =
+      !d.footerOnly && !!(d.headline || d.salutation || (d.body && d.body.trim())
+        || d.closing || d.ctaLabel);
 
     if (d.blockLogo) {
       rows += logoRow(LOGO_URL, 'inuvet', LOGO_WIDTH, WEBSITE);
     }
 
-    if (d.headline) {
-      rows += '<tr><td ' + cell() + '>'
-        + '<span style="' + textStyle(FG, '22px', 'font-weight:bold;') + '">'
-        + escapeHtml(d.headline) + '</span></td></tr>'
-        + gapRow(14);
-    }
+    if (!d.footerOnly) {
+      if (d.headline) {
+        rows += '<tr><td ' + cell() + '>'
+          + '<span style="' + textStyle(FG, '22px', 'font-weight:bold;') + '">'
+          + escapeHtml(d.headline) + '</span></td></tr>'
+          + gapRow(14);
+      }
 
-    if (d.salutation) {
-      rows += '<tr><td ' + cell() + '>'
-        + '<span style="' + textStyle(FG) + '">' + escapeHtml(d.salutation) + '</span>'
-        + '</td></tr>'
-        + gapRow(10);
-    }
+      if (d.salutation) {
+        rows += '<tr><td ' + cell() + '>'
+          + '<span style="' + textStyle(FG) + '">' + escapeHtml(d.salutation) + '</span>'
+          + '</td></tr>'
+          + gapRow(10);
+      }
 
-    if (d.body && d.body.trim()) {
-      rows += renderParagraphs(d.body, { linkify: true });
-    }
+      if (d.body && d.body.trim()) {
+        rows += renderParagraphs(d.body, { linkify: true });
+      }
 
-    rows += ctaRow(d.ctaLabel, d.ctaUrl);
+      rows += ctaRow(d.ctaLabel, d.ctaUrl);
 
-    if (d.closing) {
-      rows += gapRow(14)
-        + '<tr><td ' + cell() + '>'
-        + '<span style="' + textStyle(FG) + '">' + escapeHtml(d.closing) + '</span>'
-        + '</td></tr>';
+      if (d.closing) {
+        rows += gapRow(14)
+          + '<tr><td ' + cell() + '>'
+          + '<span style="' + textStyle(FG) + '">' + escapeHtml(d.closing) + '</span>'
+          + '</td></tr>';
+      }
     }
 
     if (d.blockPerson && (d.personName || d.personPhoto)) {
@@ -404,14 +440,17 @@
     }
 
     if (d.blockContact && d.contact.trim()) {
-      rows += gapRow(22) + renderParagraphs(d.contact, { linkify: true, firstStrong: true });
+      rows += gapRow(hasMain || d.blockLogo || d.blockPerson ? 22 : 0)
+        + renderParagraphs(d.contact, { linkify: true, firstStrong: true });
     }
 
     var needsFooter = d.blockCompany || d.blockDisclaimer || d.blockSocial || d.blockImprint;
-    if (needsFooter) {
+    if (needsFooter && hasMain) {
       rows += gapRow(22)
         + '<tr><td style="margin:0;padding:0;border-top:1px solid #e5e5e5;font-size:1px;line-height:1px;">&nbsp;</td></tr>'
         + gapRow(18);
+    } else if (needsFooter && !hasMain && (d.blockPerson || (d.blockContact && d.contact.trim()))) {
+      rows += gapRow(18);
     }
 
     if (d.blockCompany) {
@@ -464,8 +503,12 @@
   }
 
   function syncVisibility() {
+    contentWrap.classList.toggle('--hidden', footerOnly);
     personWrap.classList.toggle('--hidden', !fields.blockPerson.checked);
     contactWrap.classList.toggle('--hidden', !fields.blockContact.checked);
+    if (presetHint) {
+      presetHint.innerHTML = footerOnly ? HINT_FOOTER : HINT_DEFAULT;
+    }
   }
 
   function updateNow() {
@@ -476,7 +519,7 @@
       lastHtml = html;
       preview.innerHTML = html;
     }
-    subjectPreview.textContent = d.subject ? ('Betreff: ' + d.subject) : '';
+    subjectPreview.textContent = (!footerOnly && d.subject) ? ('Betreff: ' + d.subject) : '';
   }
 
   function scheduleUpdate() {
@@ -486,6 +529,7 @@
 
   function applyPreset(id) {
     var p = PRESETS[id] || PRESETS.custom;
+    footerOnly = !!p.footerOnly;
     fields.subject.value = p.subject;
     fields.headline.value = p.headline;
     fields.salutation.value = p.salutation;
@@ -567,7 +611,8 @@
 
   function downloadHtml() {
     var doc = wrapHtmlDocument(prettyPrintHtml(getMarkup()));
-    downloadFile(doc, 'inuvet-email-vorlage.html');
+    var filename = footerOnly ? 'inuvet-email-footer.html' : 'inuvet-email-vorlage.html';
+    downloadFile(doc, filename);
     showToast('HTML-Datei heruntergeladen!', 'success');
   }
 
