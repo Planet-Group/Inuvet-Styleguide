@@ -37,6 +37,29 @@
   color: var(--green);
 }
 
+.em-locale-field {
+  margin-bottom: var(--half-module);
+}
+
+.em-brand-wrap {
+  margin-bottom: var(--module);
+}
+
+.em-brand-wrap.--hidden {
+  display: none;
+}
+
+.em-brand-options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.em-brand-options .form-check {
+  margin-bottom: 0;
+}
+
 .em-preset-field {
   margin-bottom: var(--half-module);
 }
