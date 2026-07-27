@@ -1450,25 +1450,68 @@
     fields.contact.value = contactHintFor('it', locale.phone);
   }
 
-  function applyLocale(id) {
-    activeLocaleId = LOCALES[id] ? id : 'de';
+  function defaultPersonNameFor(localeId) {
+    if (localeId === 'it' && getBrandId() === 'vetalita') return BRANDS.vetalita.name;
+    var locale = LOCALES[localeId] || LOCALES.de;
+    return locale.name;
+  }
+
+  function defaultPersonRoleFor(localeId) {
+    var locale = LOCALES[localeId] || LOCALES.de;
+    var ui = UI[locale.lang] || UI.de;
+    return ui.defaultPersonRole;
+  }
+
+  function defaultContactFor(localeId) {
+    var locale = LOCALES[localeId] || LOCALES.de;
+    return contactHintFor(locale.lang, locale.phone);
+  }
+
+  function applyLocaleDefaults(localeId) {
+    var locale = LOCALES[localeId] || LOCALES.de;
+    fields.personName.value = defaultPersonNameFor(localeId);
+    fields.personRole.value = defaultPersonRoleFor(localeId);
+    fields.contact.value = defaultContactFor(localeId);
+    if (localeId === 'it' && brandVetalita.checked) {
+      applyVetalitaOverrides();
+    }
+  }
+
+  /** Soft-update only fields that still match the previous locale defaults. */
+  function refreshLocalePlaceholders(prevLocaleId, nextLocaleId) {
+    if (fields.personName.value.trim() === defaultPersonNameFor(prevLocaleId)) {
+      fields.personName.value = defaultPersonNameFor(nextLocaleId);
+    }
+    if (fields.personRole.value.trim() === defaultPersonRoleFor(prevLocaleId)) {
+      fields.personRole.value = defaultPersonRoleFor(nextLocaleId);
+    }
+    if (fields.contact.value.trim() === defaultContactFor(prevLocaleId).trim()) {
+      fields.contact.value = defaultContactFor(nextLocaleId);
+    }
+  }
+
+  function applyLocale(id, options) {
+    options = options || {};
+    var reset = !!options.reset;
+    var prevLocaleId = activeLocaleId;
+    var nextLocaleId = LOCALES[id] ? id : 'de';
+
+    activeLocaleId = nextLocaleId;
     localeSelect.value = activeLocaleId;
     var locale = LOCALES[activeLocaleId];
-    var ui = UI[locale.lang] || UI.de;
 
     if (activeLocaleId !== 'it') {
       brandInuvet.checked = true;
     }
 
-    fields.personName.value = locale.name;
-    fields.personRole.value = ui.defaultPersonRole;
-    fields.contact.value = contactHintFor(locale.lang, locale.phone);
-
     applyUi(locale.lang);
-    applyPreset(fields.preset.value || 'rechnung');
 
-    if (activeLocaleId === 'it' && brandVetalita.checked) {
-      applyVetalitaOverrides();
+    if (reset) {
+      applyLocaleDefaults(activeLocaleId);
+      applyPreset(fields.preset.value || 'rechnung');
+    } else if (prevLocaleId !== activeLocaleId) {
+      // Keep Vorlage, Bausteine und editierte Inhalte; nur unveränderte Platzhalter anpassen
+      refreshLocalePlaceholders(prevLocaleId, activeLocaleId);
     }
 
     syncVisibility();
@@ -1488,7 +1531,7 @@
       fields.contact.value = contactHintFor(locale.lang, locale.phone);
     }
 
-    applyPreset(fields.preset.value || 'rechnung');
+    // Markenwechsel: Inhalte und Bausteine behalten — nur Logo/Firma/Disclaimer ändern sich
     syncVisibility();
     updateNow();
   }
@@ -1592,6 +1635,6 @@
   copyBtn.addEventListener('click', copy);
   document.getElementById('html-btn').addEventListener('click', downloadHtml);
 
-  applyLocale(localeSelect.value || 'de');
+  applyLocale(localeSelect.value || 'de', { reset: true });
 })();
 
