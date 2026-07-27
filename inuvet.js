@@ -393,19 +393,23 @@ const allProducts = [
       { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '100 g',   price: 27.50 }] },
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 0 },
-  // Calmin balance — Produktfamilie (Daten aus Tierarzt-Empfehlung).
-  // Kondition (A/B) gilt für die Familie; jede Darreichungsform sammelt eigenständig Naturalrabatt.
-  { id: 12, isFamily: true, title: 'Calmin balance', cat: 'beruhigung', catLabel: 'Beruhigung',
-    rating: '4,8', past6Months: 0, past18Months: 0, pricingModel: 'A',
+  // Calmin balance Tabletten — Einzelprodukt (Form steht im Titel; nur Größenwahl) → E.2.
+  { id: 12, isFamily: false, title: 'Calmin balance Tabletten', cat: 'beruhigung', catLabel: 'Beruhigung',
+    form: 'Tabletten',
+    rating: '4,8', ratingCount: 214, past6Months: 0, past18Months: 0, pricingModel: 'A', selectedSizeIdx: 0,
     image: '../assets/images/Calmin_Packshot_01.jpeg',
+    media: [
+      { type: 'image', src: '../assets/images/Calmin_Packshot_01.jpeg', alt: 'Packshot' },
+      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Calmin_Tabletten_1zu1.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
+      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Calmin_Tier_Hund_2_1zu1.mp4', caption: 'Wohlschmeckend und dadurch einfach in der Gabe' },
+    ],
     shortDesc: 'Für Entspannung und innere Balance.',
     desc: 'Unterstützt die natürliche Ausgeglichenheit von Hunden und Katzen. Schonend gewonnen, tierärztlich entwickelt und geprüft.',
     ingredients: 'Passionsblumenextrakt, Baldrian, L-Tryptophan, Vitamin B1. Ohne künstliche Zusatzstoffe.',
-    variants: [
-      { type: 'Tabletten', animals: 'Hund, Katze',                                  sizes: [{ label: '60 Stück', price: 39.90 }, { label: '90 Stück', price: 54.90 }] },
-      { type: 'Pulver',    animals: 'Hund, Katze', note: 'für Allergiker geeignet', sizes: [{ label: '30 g', price: 29.90 }, { label: '60 g', price: 49.90 }] },
-    ],
-    selectedVariantIdx: 0, selectedSizeIdx: 0 },
+    sizes: [
+      { label: '60 Stück', price: 39.90 },
+      { label: '90 Stück', price: 54.90 },
+    ] },
 
   // Hepax forte — Produktfamilie (Daten aus Tierarzt-Empfehlung).
   // Kondition (A/B) gilt für die Familie; jede Darreichungsform sammelt eigenständig Naturalrabatt.
@@ -555,6 +559,25 @@ const priceFor = (p, formIdx, sizeIdx) => {
   return p.price;
 };
 
+// Einstiegspreis für Kacheln / Collection: günstigste Größe (Familien: über alle Formen).
+const productStartPrice = (p) => {
+  if (p.isFamily && p.variants?.length) {
+    return Math.min(...p.variants.flatMap(v => (v.sizes || []).map(s => s.price)));
+  }
+  if (p.sizes?.length) return Math.min(...p.sizes.map(s => s.price));
+  return p.price || 0;
+};
+
+// PAngV-Grundpreis der Einstiegsgröße — nur wenn am Size hinterlegt.
+const productStartUnit = (p) => {
+  let sizes = [];
+  if (p.isFamily && p.variants?.length) sizes = p.variants.flatMap(v => v.sizes || []);
+  else if (p.sizes?.length) sizes = p.sizes;
+  if (!sizes.length) return '';
+  const start = productStartPrice(p);
+  return sizes.find(s => s.price === start)?.unitPrice || '';
+};
+
 const fmt = (v) => v.toFixed(2).replace('.', ',') + ' €';
 
 // ── Naturalrabatt-Kern (preis / menge / modell) ─────────────────────────
@@ -695,6 +718,142 @@ window.closeCart = () => {
   document.getElementById('cartDrawer')?.classList.remove('--open');
 };
 
+// ── Geteilte UI: Options-Drawer (Familie = Form+Größe, Einzel = nur Größe) ──
+const optionsState = { productId: null, formIdx: 0, sizeIdx: 0 };
+
+window.openOptions = (id) => {
+  const p = productById(id);
+  if (!p) return;
+  // Einzelprodukt ohne Größenwahl → direkt in den Warenkorb
+  if (!p.isFamily && !(p.sizes && p.sizes.length)) {
+    addToCart(id, 0, 0, 1);
+    showToast(`${p.title} in den Warenkorb gelegt`);
+    openCart();
+    return;
+  }
+  optionsState.productId = id;
+  optionsState.formIdx = 0;
+  optionsState.sizeIdx = 0;
+  renderOptionsDrawer();
+  document.getElementById('optionsOverlay')?.classList.add('--open');
+  document.getElementById('optionsDrawer')?.classList.add('--open');
+};
+
+window.closeOptions = () => {
+  document.getElementById('optionsOverlay')?.classList.remove('--open');
+  document.getElementById('optionsDrawer')?.classList.remove('--open');
+};
+
+window.selectOptionsForm = (index) => {
+  optionsState.formIdx = index;
+  optionsState.sizeIdx = 0;
+  renderOptionsDrawer();
+};
+
+window.selectOptionsSize = (index) => {
+  optionsState.sizeIdx = index;
+  const p = productById(optionsState.productId);
+  const priceEl = document.getElementById('optionsPrice');
+  if (p && priceEl) priceEl.textContent = fmt(priceFor(p, optionsState.formIdx, index));
+  document.querySelectorAll('#optionsSizeVariants .choice-box').forEach((btn, i) => {
+    btn.classList.toggle('--active', i === index);
+  });
+};
+
+window.optionsQtyChange = (delta) => {
+  const input = document.getElementById('optionsQty');
+  if (!input) return;
+  const next = Math.max(1, Math.min(99, (parseInt(input.value, 10) || 1) + delta));
+  input.value = next;
+};
+
+window.confirmOptions = () => {
+  const p = productById(optionsState.productId);
+  if (!p) return;
+  const qty = Math.max(1, parseInt(document.getElementById('optionsQty')?.value || '1', 10));
+  addToCart(p.id, optionsState.formIdx, optionsState.sizeIdx, qty);
+  closeOptions();
+  showToast(`${p.title} in den Warenkorb gelegt`);
+  openCart();
+};
+
+function renderOptionsDrawer() {
+  const drawer = document.getElementById('optionsDrawer');
+  const p = productById(optionsState.productId);
+  if (!drawer || !p) return;
+
+  const sizes = p.isFamily
+    ? p.variants[optionsState.formIdx].sizes
+    : p.sizes;
+  const price = priceFor(p, optionsState.formIdx, optionsState.sizeIdx);
+  const thumb = p.image
+    ? `<div class="product-thumb"><img src="${p.image}" alt="${p.title}"></div>`
+    : `<div class="product-thumb placeholder-bg"></div>`;
+
+  let formSection = '';
+  if (p.isFamily) {
+    const formBtns = p.variants.map((v, i) =>
+      `<button class="choice-box${i === optionsState.formIdx ? ' --active' : ''}" type="button"
+        onclick="selectOptionsForm(${i})">${v.type}</button>`
+    ).join('');
+    formSection = `
+      <div class="options-drawer__section">
+        <div class="label-caps options-drawer__section-label">Darreichungsform</div>
+        <div class="options-variants">${formBtns}</div>
+      </div>`;
+  }
+
+  const sizeBtns = sizes.map((s, i) =>
+    `<button class="choice-box --sm${i === optionsState.sizeIdx ? ' --active' : ''}" type="button"
+      onclick="selectOptionsSize(${i})">${s.label}</button>`
+  ).join('');
+
+  drawer.innerHTML = `
+    <div class="options-drawer__header">
+      <span class="options-drawer__title">Optionen wählen</span>
+      <button type="button" class="btn --icon" onclick="closeOptions()" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="options-drawer__items">
+      <div class="cart-item options-drawer__product">
+        ${thumb}
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${p.title}</p>
+              ${p.isFamily ? '<p class="cart-item__variant">Produktfamilie</p>' : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+      ${formSection}
+      <div class="options-drawer__section">
+        <div class="label-caps options-drawer__section-label">Größe</div>
+        <div class="options-variants" id="optionsSizeVariants">${sizeBtns}</div>
+      </div>
+      <div class="options-drawer__section">
+        <div class="label-caps options-drawer__section-label">Menge</div>
+        <div class="qty-selector --sm">
+          <button class="qty-selector__btn" type="button" aria-label="Weniger" onclick="optionsQtyChange(-1)">
+            <span class="material-icons">remove</span>
+          </button>
+          <input class="qty-selector__input" type="number" value="1" min="1" max="99" id="optionsQty">
+          <button class="qty-selector__btn" type="button" aria-label="Mehr" onclick="optionsQtyChange(1)">
+            <span class="material-icons">add</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="options-drawer__footer">
+      <div class="options-drawer__price"><span>Preis</span><span id="optionsPrice">${fmt(price)}</span></div>
+      <button class="btn --primary" type="button" style="width:100%;text-align:center" onclick="confirmOptions()">In den Warenkorb</button>
+      <div class="cart-drawer__continue-wrap">
+        <button class="btn --ghost cart-drawer__continue" type="button" onclick="closeOptions()">Zurück</button>
+      </div>
+    </div>`;
+}
+
 // Warenkorb-Zeile: Gratis-Badge auf dem Thumb · Mengen-Selector · Tier-Hint.
 function renderCartDrawer() {
   const drawer = document.getElementById('cartDrawer');
@@ -798,6 +957,18 @@ window.openSearch  = () => document.getElementById('searchOverlay')?.classList.a
 window.closeSearch = () => document.getElementById('searchOverlay')?.classList.remove('--open');
 window.handleSearchOverlayClick = (e) => {
   if (e.target === document.getElementById('searchOverlay')) closeSearch();
+};
+
+// ── Geteilte UI: Collection-Filter-Drawer (E.3) ─────────────────────────
+window.openFilter = () => {
+  document.getElementById('filterSidebar')?.classList.add('--open');
+  document.getElementById('filterOverlay')?.classList.add('--open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeFilter = () => {
+  document.getElementById('filterSidebar')?.classList.remove('--open');
+  document.getElementById('filterOverlay')?.classList.remove('--open');
+  document.body.style.overflow = '';
 };
 
 /* ═══════════════════════════════════════════════════════

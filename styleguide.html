@@ -6,8 +6,8 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=121">
-  <link rel="stylesheet" href="sg.css?v=47">
+  <link rel="stylesheet" href="inuvet.css?v=152">
+  <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
   <style>
@@ -912,8 +912,8 @@
       <h3 class="sg-h3 --top"><code>.tile-grid.--cols-4</code></h3>
       <p>Keine Sonder-CSS pro Collection: Spaltenzahl am Container wählen (<code>.tile-grid --cols-N</code> + <code>.tile.--product</code>). Die Kaskade ist fix — nur <code>N</code> ändern.</p>
       <table class="spec-table">
-        <tr><th><code>--cols-3</code></th><td><strong>3 → 2 → 1</strong> — z. B. Tierarzt-Empfehlung Collection (<code>renderCollection()</code>): Mobile einspaltig, mehr Luft pro Kachel</td></tr>
-        <tr><th><code>--cols-4</code></th><td><strong>4 → 3 → 2 → 2</strong> — dichte Shop-Listen / andere Collections: Mobile bewusst 2-spaltig (Produkt-D-Standard)</td></tr>
+        <tr><th><code>--cols-3</code></th><td><strong>3 → 2 → 1</strong> — Shop-Collection mit Filter (<code>show_filters</code>) · Tierarzt-Empfehlung: Mobile einspaltig, mehr Luft pro Kachel</td></tr>
+        <tr><th><code>--cols-4</code></th><td><strong>4 → 3 → 2 → 2</strong> — Collection ohne Filter (<code>show_filters</code> aus) / dichte Listen · Mobile bewusst 2-spaltig</td></tr>
       </table>
       <p>Wechsel = eine Klasse im HTML/JS, keine Media Queries.</p>
 
@@ -2386,8 +2386,12 @@
           <p>Trigger (Frage/Titel) + Content (Antwort). Trigger <code>font-weight: 700</code>, Content <code>color: --fg-muted</code>. Tabs: <code>.tab-nav</code> + <code>.tab-panel</code>, Umschalten via <code>switchTab(btn, index)</code> in <code>sg.js</code>.</p>
         </div>
         <div class="rule">
-          <h4>Animation</h4>
-          <p>Akkordeon-Content via <code>grid-template-rows</code> (0fr → 1fr) · Icon <code>expand_more</code> rotiert 180° bei <code>.accordion-item.--open</code>. Mehrere Items können gleichzeitig offen sein.</p>
+          <h4>Animation &amp; Zustand</h4>
+          <p>Content via <code>grid-template-rows</code> (0fr → 1fr) · Icon <code>expand_more</code> rotiert 180° bei <code>.accordion-item.--open</code>. Mehrere Items können gleichzeitig offen sein. Offen: obere + untere Linie <code>--border-active</code> (schwarz). Hover hellt den Trigger nur auf, wenn das Item <strong>geschlossen</strong> ist.</p>
+        </div>
+        <div class="rule">
+          <h4>Ein- vs. zweispaltig</h4>
+          <p>Default: eine Spalte. Optional <code>.accordion.--cols-2</code> mit zwei <code>.accordion__col</code> — Items abwechselnd links/rechts (Index gerade/ungerade + <code>order</code>). ≤899px: wieder eine Spalte via <code>display: contents</code>. Einsatz z.&nbsp;B. FAQ; PDP-Deklarations-Akkordeon Live einspaltig in der Info-Spalte.</p>
         </div>
       </div>
 
@@ -2396,9 +2400,12 @@
         <tr><th><code>.accordion</code></th><td>Container · obere Strukturlinie (<code>border-top: 1px solid var(--border-light)</code>)</td></tr>
         <tr><th><code>.accordion-item</code></th><td>Einzelnes Item · <code>border-bottom: 1px solid var(--border-light)</code> · offen (<code>.--open</code>): obere + untere Linie <code>--border-active</code></td></tr>
         <tr><th><code>.accordion-trigger</code></th><td>Klickbarer Header · volle Breite · Padding <code>var(--half-module)</code> vertikal · Toggle via <code>toggleAccordion(trigger)</code></td></tr>
+        <tr><th>Hover</th><td>Geschlossen: Trigger → <code>--fg-muted</code> · Offen: Farbe bleibt <code>--fg</code></td></tr>
         <tr><th><code>.accordion-icon</code></th><td>Material Icon <code>expand_more</code> · rotiert bei <code>.--open</code></td></tr>
         <tr><th><code>.accordion-content</code></th><td>Slide-Container · <code>grid-template-rows: 0fr</code> default · <code>1fr</code> bei <code>.--open</code></td></tr>
         <tr><th><code>.accordion-content__inner</code></th><td>Overflow-Wrapper · Padding unten bei <code>.--open</code></td></tr>
+        <tr><th><code>.--cols-2</code></th><td>Optional am Container · Desktop 2 Spalten · <code>column-gap: var(--gutter)</code> · ≤899px 1 Spalte</td></tr>
+        <tr><th><code>.accordion__col</code></th><td>Pflicht bei <code>.--cols-2</code> · zwei Wrapper · Items mit <code>order</code> für Mobile-Lesereihenfolge (1, 2, 3…)</td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="accordion">
@@ -2437,7 +2444,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Standard auf Weiß — erstes Item optional mit <code>.--open</code>.</p>
+      <p class="sg-caption">Einspaltig · erstes Item optional mit <code>.--open</code> · offene Kanten schwarz · Hover nur geschlossen.</p>
 
       <div class="sg-demo --green">
         <div class="accordion">
@@ -2465,7 +2472,63 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Auf <code>--green-light</code> — typisch PDP/FAQ.</p>
+      <p class="sg-caption">Auf <code>--green-light</code> — typisch FAQ-Hintergrund.</p>
+
+      <h3 class="sg-h3 --top"><code>.accordion.--cols-2</code></h3>
+      <p>Zweispaltige Variante für längere Listen (z.&nbsp;B. PDP-FAQ). Items gehören in <code>.accordion__col</code> — nicht flat als direkte Grid-Kinder, sonst öffnet sich beim Expand das Nachbar-Item in derselben Zeile mit.</p>
+      <div class="sg-demo --white">
+        <div class="accordion --cols-2">
+          <div class="accordion__col">
+            <div class="accordion-item --open" style="order:0">
+              <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">
+                Linke Spalte — erstes Item
+                <span class="accordion-icon material-icons">expand_more</span>
+              </button>
+              <div class="accordion-content">
+                <div class="accordion-content__inner">
+                  <p>Desktop: Spalte&nbsp;1. Mobile (<code>order</code>): Position&nbsp;1 in der Lesereihenfolge.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item" style="order:2">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+                Linke Spalte — drittes Item
+                <span class="accordion-icon material-icons">expand_more</span>
+              </button>
+              <div class="accordion-content">
+                <div class="accordion-content__inner">
+                  <p>Desktop links darunter · Mobile <code>order: 2</code> → dritte Stelle.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion__col">
+            <div class="accordion-item" style="order:1">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+                Rechte Spalte — zweites Item
+                <span class="accordion-icon material-icons">expand_more</span>
+              </button>
+              <div class="accordion-content">
+                <div class="accordion-content__inner">
+                  <p>Desktop: Spalte&nbsp;2. Mobile <code>order: 1</code> → zweite Stelle.</p>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item" style="order:3">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">
+                Rechte Spalte — viertes Item
+                <span class="accordion-icon material-icons">expand_more</span>
+              </button>
+              <div class="accordion-content">
+                <div class="accordion-content__inner">
+                  <p>≤899px stapeln beide Spalten zu einer Liste in <code>order</code>-Reihenfolge.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Optional · Markup: <code>.accordion.--cols-2</code> → 2× <code>.accordion__col</code> · Live-FAQ → <a href="#pdp-faq">E.2 FAQ</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.tabs</code></h3>
       <table class="spec-table">
@@ -3381,7 +3444,7 @@
         <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
         <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
-        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline + <code>.tile__bottom</code> (Body + CTA) · space-between</td></tr>
+        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · BG <code>--green-light</code> · optional Media in <code>.tile__animation</code>: <strong>Bild oder</strong> Lottie-JSON (füllt verfügbaren Platz) · <code>.tile__bottom</code>: Headline direkt über Body + CTA</td></tr>
         <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
       </table>
 
@@ -3440,6 +3503,41 @@
         </div>
       </div>
       <p class="sg-caption"><code>.tile.--featured</code> ersetzt eine beliebige Grid-Position · Headline oben, Body + CTA unten.</p>
+
+      <h3 class="sg-h3 --top" id="tile-featured-lottie">Sonderkachel mit Lottie (Variante C)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+          </div>
+          <div class="tile --featured">
+            <div class="tile__animation">
+              <lottie-player src="assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </div>
+            <div class="tile__bottom flow">
+              <h3 class="tile__headline">Nur über die Tierarztpraxis</h3>
+              <p class="tile__body">Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in der Regel in 2–3 Werktagen.</p>
+              <a href="pages/Collection.html" class="btn --primary">Mehr erfahren</a>
+            </div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile.--featured</code> · Media in <code>.tile__animation</code>: Bild <em>oder</em> Lottie · Text in <code>.tile__bottom.flow</code> (A.7) · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-2col">2-Spalter — Bild + Text (Variante B, 4:3)</h3>
       <div class="sg-demo --white">
@@ -4137,15 +4235,15 @@
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Video oder Zitat-Foto</td></tr>
         <tr><th><code>.pdp__title</code></th><td><code>--text-xl</code> · bold</td></tr>
         <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead unter Rating · optional rechtliche Futtermittel-Kategorie am Absatzanfang · danach <strong>2 Sätze</strong> benefit-first, keine Wirkstoffliste</td></tr>
-        <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente zum Scannen · z.&nbsp;B. „Rein pflanzlich", „Hohe Akzeptanz", „Von über 20.000 Tierärzten empfohlen"</td></tr>
-        <tr><th>Social Proof</th><td><code>.social-proof</code> unter dem Angebot (nach NR / Actions) · &lt;1536px in der Info-Spalte · ≥1536px in <code>.pdp__aside</code> · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
+        <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente · z.&nbsp;B. Hepax: „Unterstützt die normale Leberfunktion.", „Lange Reichweite…", „Pulver allergikergeeignet."</td></tr>
+        <tr><th>Social Proof</th><td><code>.social-proof</code> unter dem Angebot (nach NR / Actions) · &lt;1536px in der Info-Spalte · ≥1536px in <code>.pdp__aside</code> · Styleguide-Demos ohne Aside (Vorschaufenster) · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
         <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · auf gleicher Grundlinie zwei <code>.price-stack__unit</code>: Grundpreis „(0,30 € / g)" (PAngV-Pflicht) + Steuerhinweis „Exkl. USt."</td></tr>
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
-        <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA + Wishlist · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet</td></tr>
-        <tr><th>Kaufblock-Prototype</th><td><em>Experimentell</em> auf <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · Liefer-/Versandzeile unter NR (<code>.pdp__order-meta</code>) — jederzeit rückbaubar</td></tr>
+        <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet · Wishlist optional (Atom <a href="#B3">B.3</a>, nicht in Live-PDP)</td></tr>
+        <tr><th>Kaufblock-Prototype</th><td>Live <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · <code>.pdp__order-meta</code> optional (Demo ausgeblendet)</td></tr>
         <tr><th>Sticky ATC</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> · Mobil: Menge + CTA · Desktop (≥900px): + Größenwahl · kein Titel/Preis · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
         <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — mit Historie zuerst <code>.nr-widget.--personal</code>, nach ATC des Angebots Standard (Progress-Bar + Hint) · ohne Historie nur Standard · Live → <a href="pages/Produkt.html?id=13">Produkt.html</a> · Standard erzwingen: <code>?nr=default</code></td></tr>
-        <tr><th>Produkt-Akkordeon</th><td>Unter dem Kaufblock · ein Item pro Thema · Desktop <code>.accordion.--cols-2</code> · Spec → <a href="#pdp-accordion">unten</a></td></tr>
+        <tr><th>Produkt-Akkordeon</th><td>In der Info-Spalte unter Social Proof · ein Item pro Thema · Live einspaltig · Spec → <a href="#pdp-accordion">unten</a></td></tr>
         <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> direkt unter dem Kaufblock — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
         <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> nach der Benefit-Leiste (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
         <tr><th>FAQ</th><td><code>.pdp__faq.--on-green</code> nach Benefits — H2 „Häufige Fragen“ + <code>.accordion.--cols-2</code> · sichtbar im DOM + <code>FAQPage</code> JSON-LD · Spec → <a href="#pdp-faq">unten</a></td></tr>
@@ -4174,7 +4272,7 @@
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
         <tr><th>FAQ</th><td>Product Metafield <code>custom.faq</code> (Liste Frage/Antwort oder Metaobject-Refs) · Theme rendert <code>.pdp__faq</code> + <code>&lt;script type="application/ld+json"&gt;</code> <code>FAQPage</code> · Spec → <a href="#pdp-faq">FAQ</a></td></tr>
         <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Mit Bestellhistorie (<code>past6Months</code>): zuerst <code>.--personal</code> (Hook + Angebot + CTA) · nach Warenkorb-Klick des Angebots → Standard (Progress-Bar + Hint) · ohne Historie nur Standard · <code>formatHint()</code>/<code>nextHintFor()</code> · Staffel via Cart Transform (→ <a href="#shopify-cart">E.4</a>) · Demo: Hepax · Standard: <code>?nr=default</code></td></tr>
-        <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Zielgruppen optional als eigene Items · Analytik als <code>.rte.--data-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
+        <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Analytik als <code>.rte.--data-table.--mobile-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
         <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
@@ -4184,22 +4282,10 @@
       <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
 
       <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
+      <p>Muster-Layout für ein Produkt ohne Typ-Selektor (hier Calmin-Assets). Sticky-Galerie wie Live; Social Proof in der Info-Spalte (Aside ≥1536 nur auf <a href="pages/Produkt.html">Produkt.html</a>, damit die Styleguide-Vorschau nicht gequetscht wird).</p>
       <div class="sg-demo --white">
-        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
-          <span class="breadcrumb__item"><a href="#">Start</a></span>
-          <span aria-hidden="true">/</span>
-          <span class="breadcrumb__item"><a href="#">Beruhigung</a></span>
-          <span aria-hidden="true">/</span>
-          <span class="breadcrumb__item" aria-current="page">Calmin balance</span>
-        </nav>
-        <div class="pdp">
+        <div class="pdp pdp--sticky-gallery">
           <div class="pdp__gallery">
-            <div class="pdp__main-image">
-              <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
-              <video class="--hidden" src="assets/images/Inuvet_Einzelprodukt_Calmin_Tabletten_1zu1.mp4" muted loop playsinline aria-hidden="true"></video>
-              <div class="pdp__caption --hidden" aria-live="polite"></div>
-              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
-            </div>
             <div class="pdp__thumbs">
               <div class="pdp__thumb --active" onclick="pdpSwitch(this,'assets/images/Calmin_Packshot_01.jpeg','','')">
                 <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Packshot">
@@ -4210,22 +4296,58 @@
               <div class="pdp__thumb" onclick="pdpSwitch(this,'assets/images/Inuvet_Einzelprodukt_Calmin_Tier_Hund_2_1zu1.mp4','Wohlschmeckend und dadurch einfach in der Gabe','')">
                 <video src="assets/images/Inuvet_Einzelprodukt_Calmin_Tier_Hund_2_1zu1.mp4" muted loop playsinline aria-hidden="true"></video>
               </div>
-              <div class="pdp__thumb placeholder-bg"></div>
-              <div class="pdp__thumb placeholder-bg"></div>
+            </div>
+            <div class="pdp__main-image">
+              <img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance">
+              <video class="--hidden" src="assets/images/Inuvet_Einzelprodukt_Calmin_Tabletten_1zu1.mp4" muted loop playsinline aria-hidden="true"></video>
+              <div class="pdp__caption --hidden" aria-live="polite"></div>
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
             </div>
           </div>
-          <div class="pdp__info">
-            <h3 class="pdp__title">Calmin balance</h3>
-            <div class="rating">
-              <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
-              <span class="text-muted">4.8 (214 Bewertungen)</span>
-            </div>
-            <p class="pdp__description">Ergänzungsfuttermittel. Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
-            <ul class="check-list">
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
-            </ul>
+          <div class="pdp__buy">
+            <div class="pdp__info">
+              <h1 class="pdp__title">Calmin balance</h1>
+              <div class="rating">
+                <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+                <span class="text-muted">4,8 (214 Bewertungen)</span>
+              </div>
+              <p class="pdp__description">Ergänzungsfuttermittel. Die natürliche Unterstützung für nervöse und gestresste Tiere. Hilft Hunden und Katzen, bei Gewitter, Feuerwerk, Autofahrten oder Tierarztbesuchen ruhiger und ausgeglichener zu bleiben.</p>
+              <ul class="check-list">
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
+              </ul>
+              <div class="pdp__price">
+                <div class="price-stack">
+                  <span>29,90 €</span>
+                  <span class="price-stack__compare">37,40 €</span>
+                  <span class="price-stack__unit">(0,30 € / g)</span>
+                  <span class="price-stack__unit">Exkl. USt.</span>
+                </div>
+              </div>
+              <div class="pdp__variants">
+                <div class="pdp__variant-options">
+                  <button class="choice-box --active" type="button" onclick="selectVariant(this)">60 Tabletten</button>
+                  <button class="choice-box" type="button" onclick="selectVariant(this)">120 Tabletten</button>
+                </div>
+              </div>
+              <div class="pdp__actions">
+                <div>
+                  <div class="qty-selector">
+                    <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+                    <input class="qty-selector__input" type="number" value="1" min="1" id="qtyInput">
+                    <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+                  </div>
+                </div>
+                <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
+              </div>
+              <div class="nr-widget" aria-label="Naturalrabatt">
+                <div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:25%"></div></div>
+                <div class="nr-widget__hint-row">
+                  <div class="nr-widget__hint">Noch 3 Stück für +1 Gratisprodukt</div>
+                  <button class="btn --secondary --sm nr-widget__fill" type="button">Auffüllen</button>
+                </div>
+              </div>
             <div class="social-proof">
               <div class="social-proof__avatars" aria-hidden="true">
                 <img class="social-proof__avatar" src="assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
@@ -4233,37 +4355,7 @@
               </div>
               <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
             </div>
-            <div class="pdp__price">
-              <div class="price-stack">
-                <span>29,90 €</span>
-                <span class="price-stack__unit">(0,30 € / g)</span>
-                <span class="price-stack__unit">Exkl. USt.</span>
-              </div>
-            </div>
-            <div class="pdp__variants">
-              <div class="pdp__variant-options">
-                <button class="choice-box --active" type="button" onclick="selectVariant(this)">60 Tabletten</button>
-                <button class="choice-box" type="button" onclick="selectVariant(this)">120 Tabletten</button>
-              </div>
-            </div>
-            <div class="pdp__actions">
-              <div>
-                <div class="qty-selector">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
-                  <input class="qty-selector__input" type="number" value="1" min="1" id="qtyInput">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
-                </div>
-              </div>
-              <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
-              <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
-            </div>
-            <div class="nr-widget" aria-label="Naturalrabatt">
-              <div class="nr-widget__bar"><div class="nr-widget__bar-fill" style="width:25%"></div></div>
-              <div class="nr-widget__hint">3 Stück hinzufügen für 1 weiteres Gratisprodukt</div>
-            </div>
-          </div>
-        </div>
-        <div class="pdp__accordion accordion --cols-2">
+              <div class="pdp__accordion accordion">
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Calmin balance unterstützt Hunde und Katzen in stressigen Situationen — etwa bei Gewitter, Feuerwerk, Tierarztbesuchen oder Reisen.</p></div></div>
@@ -4317,6 +4409,9 @@
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und verschlossen lagern.</p></div></div>
           </div>
+                      </div>
+            </div>
+</div>
         </div>
         <div class="pdp__recommendations">
           <h3>Das könnte Ihnen auch gefallen</h3>
@@ -4368,31 +4463,18 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Varianten, Menge, Akkordeon interaktiv · 2. Thumbnail = Produktvideo inkl. <code>.pdp__caption</code>-Overlay · Warenkorb-CTA öffnet Drawer → <a href="#E4">E.4</a> · Wishlist → <a href="#B3">B.3</a> · Karten → <a href="#C1">C.1</a>.</p>
+      <p class="sg-caption">Sticky-Galerie · Trust unter Angebot (ohne Aside in der Demo) · Akkordeon in der Info-Spalte · Live inkl. Aside → <a href="pages/Produkt.html">Produkt.html</a> · Warenkorb → <a href="#E4">E.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Abweichende Inhaltsstoffe → <code>.notice.--compact</code> (<a href="#C7">C.7</a>). Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht, wie auf der Kachel).</p>
+      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Form-Hinweis → <code>.pdp__type-hint</code>. Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht). Layout: <code>.pdp--sticky-gallery</code>; Social Proof in der Demo ohne Aside (Aside ≥1536 nur Live).</p>
       <table class="spec-table">
         <tr><th><code>.pdp__type-selector</code></th><td>Radio-Zeilen in <code>.pdp__variants</code> · keine Header-Zeile</td></tr>
         <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart · gestrichelte Trennlinie</td></tr>
         <tr><th><code>.pdp__type-animals</code></th><td>Präfix „für“ + Tierart(en) · <code>--text-xs</code>, <code>--fg-muted</code>, rechtsbündig</td></tr>
       </table>
       <div class="sg-demo --white">
-        <nav class="breadcrumb pdp__breadcrumb" aria-label="Pfadnavigation">
-          <span class="breadcrumb__item"><a href="#">Start</a></span>
-          <span aria-hidden="true">/</span>
-          <span class="breadcrumb__item"><a href="#">Leber</a></span>
-          <span aria-hidden="true">/</span>
-          <span class="breadcrumb__item" aria-current="page">Hepax forte</span>
-        </nav>
-        <div class="pdp" id="pdp-family-demo">
+        <div class="pdp pdp--sticky-gallery" id="pdp-family-demo">
           <div class="pdp__gallery">
-            <div class="pdp__main-image">
-              <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
-              <video class="--hidden" src="assets/images/Inuvet_Einzelprodukt_Hepax_Pulver_1zu1.mp4" muted loop playsinline aria-hidden="true"></video>
-              <div class="pdp__caption --hidden" aria-live="polite"></div>
-              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
-            </div>
             <div class="pdp__thumbs">
               <div class="pdp__thumb --active" onclick="pdpSwitch(this,'assets/images/Hepax_Packshot_01.jpeg','','')">
                 <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Packshot">
@@ -4410,19 +4492,72 @@
                 <img src="assets/images/Hepax_Foto-Test.png" alt="Tierhalter mit Hund">
               </div>
             </div>
-          </div>
-          <div class="pdp__info">
-            <h3 class="pdp__title">Hepax forte</h3>
-            <div class="rating">
-              <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
-              <span class="text-muted">4.6 (312 Bewertungen)</span>
+            <div class="pdp__main-image">
+              <img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
+              <video class="--hidden" src="assets/images/Inuvet_Einzelprodukt_Hepax_Pulver_1zu1.mp4" muted loop playsinline aria-hidden="true"></video>
+              <div class="pdp__caption --hidden" aria-live="polite"></div>
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
             </div>
-            <p class="pdp__description">Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel. Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
-            <ul class="check-list">
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Rein pflanzlich, ohne künstliche Zusatzstoffe</span></li>
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Hohe Akzeptanz — auch bei wählerischen Tieren</span></li>
-              <li><span class="material-icons" aria-hidden="true">add</span><span>Von über 20.000 Tierärzten empfohlen</span></li>
-            </ul>
+          </div>
+          <div class="pdp__buy">
+            <div class="pdp__info">
+              <h1 class="pdp__title">Hepax forte</h1>
+              <div class="rating">
+                <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons --empty" aria-hidden="true">star_border</span>
+                <span class="text-muted">4,6 (312 Bewertungen)</span>
+              </div>
+              <p class="pdp__description">Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel. Unterstützt die Leberfunktion bei Hund und Katze. Mit hochwertigen pflanzlichen Wirkstoffen zur täglichen Anwendung.</p>
+              <ul class="check-list">
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Unterstützt die normale Leberfunktion.</span></li>
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Lange Reichweite dank hoher Dosierung.</span></li>
+                <li><span class="material-icons" aria-hidden="true">add</span><span>Pulver allergikergeeignet.</span></li>
+              </ul>
+              <div class="pdp__variants">
+                <div class="pdp__type-selector">
+                  <label class="pdp__type-row">
+                    <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Pulver (für Allergiker geeignet)</span> <span class="pdp__type-animals">für Katze, Hund</span>
+                  </label>
+                  <label class="pdp__type-row">
+                    <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
+                  </label>
+                </div>
+                <p class="pdp__type-hint">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+              </div>
+              <div class="pdp__price">
+                <div class="price-stack">
+                  <span>39,90 €</span>
+                  <span class="price-stack__compare">49,90 €</span>
+                  <span class="price-stack__unit">(0,53 € / g)</span>
+                  <span class="price-stack__unit">Exkl. USt.</span>
+                </div>
+              </div>
+              <div class="pdp__variants">
+                <div class="pdp__variant-options">
+                  <button class="choice-box --active" type="button" onclick="selectVariant(this)">75 g</button>
+                  <button class="choice-box" type="button" onclick="selectVariant(this)">175 g</button>
+                </div>
+              </div>
+              <div class="pdp__actions">
+                <div>
+                  <div class="qty-selector">
+                    <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
+                    <input class="qty-selector__input" type="number" value="1" min="1">
+                    <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
+                  </div>
+                </div>
+                <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
+              </div>
+              <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
+                <p class="nr-widget__hook">Du hast 57 Hepax forte in den letzten 6&nbsp;Monaten gebraucht.</p>
+                <div class="nr-widget__offer">
+                  <div>
+                    <p class="nr-widget__offer-label">Unser Angebot an dich</p>
+                    <p class="nr-widget__offer-deal">26+4 gratis</p>
+                  </div>
+                  <p class="nr-widget__offer-note">Deckt deinen bisherigen Bedarf für 3&nbsp;Monate</p>
+                </div>
+                <button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
+              </div>
             <div class="social-proof">
               <div class="social-proof__avatars" aria-hidden="true">
                 <img class="social-proof__avatar" src="assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
@@ -4430,55 +4565,7 @@
               </div>
               <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
             </div>
-            <div class="pdp__variants">
-              <div class="pdp__type-selector">
-                <label class="pdp__type-row">
-                  <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Pulver</span> <span class="pdp__type-animals">für Katze, Hund</span>
-                </label>
-                <label class="pdp__type-row">
-                  <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
-                </label>
-              </div>
-              <div class="notice --compact"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
-            </div>
-            <div class="pdp__price">
-              <div class="price-stack">
-                <span>7,60 €</span>
-                <span class="price-stack__unit">(0,25 € / g)</span>
-                <span class="price-stack__unit">Exkl. USt.</span>
-              </div>
-            </div>
-            <div class="pdp__variants">
-              <div class="pdp__variant-options">
-                <button class="choice-box --active" type="button" onclick="selectVariant(this)">30 Stück</button>
-                <button class="choice-box" type="button" onclick="selectVariant(this)">60 Stück</button>
-              </div>
-            </div>
-            <div class="pdp__actions">
-              <div>
-                <div class="qty-selector">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="changeQty(-1)"><span class="material-icons">remove</span></button>
-                  <input class="qty-selector__input" type="number" value="1" min="1">
-                  <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="changeQty(1)"><span class="material-icons">add</span></button>
-                </div>
-              </div>
-              <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
-              <button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>
-            </div>
-            <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
-              <p class="nr-widget__hook">Du hast 57 Hepax forte in den letzten 6&nbsp;Monaten gebraucht.</p>
-              <div class="nr-widget__offer">
-                <div>
-                  <p class="nr-widget__offer-label">Unser Angebot an dich</p>
-                  <p class="nr-widget__offer-deal">26+4 gratis</p>
-                </div>
-                <p class="nr-widget__offer-note">Deckt deinen bisherigen Bedarf für 3&nbsp;Monate</p>
-              </div>
-              <button class="btn --secondary" type="button">In den Warenkorb</button>
-            </div>
-          </div>
-        </div>
-        <div class="pdp__accordion accordion --cols-2">
+              <div class="pdp__accordion accordion">
           <div class="accordion-item">
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte enthält eine Kombination aus hepatoprotektiven Pflanzenstoffen zur Unterstützung und Regeneration der Leberfunktion.</p></div></div>
@@ -4539,18 +4626,21 @@
             <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Haltbarkeitshinweise<span class="accordion-icon material-icons">expand_more</span></button>
             <div class="accordion-content"><div class="accordion-content__inner"><p>Mindesthaltbarkeit siehe Aufdruck. Nach Anbruch trocken und gut verschlossen lagern.</p></div></div>
           </div>
+              </div>
+            </div>
+</div>
         </div>
       </div>
-      <p class="sg-caption">2. Thumbnail = Produktvideo · 3. Thumbnail = Lifestyle-Foto mit <code>.pdp__caption</code>-Zitat · Wechsel via <code>pdpSwitch()</code>.</p>
+      <p class="sg-caption">Sticky-Galerie · Hepax-USPs · Pulver-Größen · persönliches NR · Trust unter Angebot (ohne Aside in der Demo) · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
 
-      <h3 class="sg-h3 --top" id="pdp-accordion">Produkt-Akkordeon</h3>
+<h3 class="sg-h3 --top" id="pdp-accordion">Produkt-Akkordeon</h3>
       <div class="col-grid" data-cols="2">
         <p>Jeder Informationsblock ist ein <strong>eigenes Akkordeon-Item</strong> (Beschreibung, Anwendung, Inhaltsstoffe, …). Keine thematischen Sammelgruppen mit inneren <code>h3</code>.</p>
-        <p><strong>Platzierung:</strong> unter dem Kaufblock auf voller Content-Breite (<code>.pdp__accordion</code>). Desktop: <code>.accordion.--cols-2</code>, ab 899px einspaltig. Inhalt bleibt server-seitig im DOM.</p>
+        <p><strong>Platzierung:</strong> in <code>.pdp__info</code> unter dem Angebot / Social Proof (<code>.pdp__accordion</code>). Live-Prototype einspaltig; <code>.--cols-2</code> bleibt optional für breite Layouts. Inhalt bleibt server-seitig im DOM.</p>
       </div>
       <table class="spec-table">
         <tr><th>Pflicht-Items</th><td>Beschreibung · Anwendung · Inhaltsstoffe (Auszug) · Zusammensetzung · Analytische Bestandteile · Sensorische Zusatzstoffe (je&nbsp;kg) · Tägliche Fütterungsempfehlung · Ernährungsphysiologische Zusatzstoffe (je&nbsp;kg) · Hinweise · Haltbarkeitshinweise</td></tr>
-        <tr><th>Layout</th><td><code>.pdp__accordion.accordion.--cols-2</code> mit zwei <code>.accordion__col</code> · Items abwechselnd links/rechts (Index gerade/ungerade) · leere Items werden nicht gerendert · ≤899px 1 Spalte via <code>display: contents</code> + <code>order</code></td></tr>
+        <tr><th>Layout</th><td><code>.pdp__accordion.accordion</code> in der Info-Spalte · Live: einspaltig · optional <code>.--cols-2</code> + <code>.accordion__col</code> · leere Items nicht rendern</td></tr>
         <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table.--mobile-table</code> + <code>table.--normal</code> — mobil zweispaltig (kein Stack)</td></tr>
         <tr><th>Shopify</th><td>Product-Metafields je Item · leere Items nicht rendern · bei Produktfamilie Hinweis im Inhaltsstoff-Auszug</td></tr>
       </table>
@@ -4673,7 +4763,7 @@
       <table class="spec-table">
         <tr><th><code>.pdp__faq</code></th><td>Wrapper nach <code>.pdp__benefits</code> · <code>margin-top: var(--module-2xl)</code> · Padding <code>var(--module)</code> · Hintergrund <code>--green-light</code> · Modifier <code>.--on-green</code></td></tr>
         <tr><th>Überschrift</th><td><code>h2</code> „Häufige Fragen“ · <code>--text-m</code> bold · Abstand zum Akkordeon <code>var(--module)</code></td></tr>
-        <tr><th>Akkordeon</th><td>Desktop <code>.accordion.--cols-2</code> mit <code>.accordion__col</code> (gerade/ungerade, wie Produkt-Akkordeon) · Mobile 1 Spalte via <code>display: contents</code> + <code>order</code> · Trigger = Frage, Content = Antwort-Absatz · Atom → <a href="#C5">C.5</a></td></tr>
+        <tr><th>Akkordeon</th><td>Desktop <code>.accordion.--cols-2</code> mit <code>.accordion__col</code> (gerade/ungerade + <code>order</code>) · Mobile 1 Spalte · Atom → <a href="#C5">C.5</a></td></tr>
         <tr><th>Anzahl</th><td>4–8 Einträge · produktbezogen; shop-weite Fragen (Versand generell) nur wenn sie zur PDP passen</td></tr>
         <tr><th>JSON-LD</th><td><code>@type: FAQPage</code> · <code>mainEntity</code> = Questions mit <code>acceptedAnswer</code> · Klartext ohne HTML · Theme: Script im Section-Liquid · Mockup: <code>injectFaqJsonLd()</code> in <code>&lt;head&gt;</code></td></tr>
         <tr><th>Shopify</th><td>Metafield <code>custom.faq</code>: Liste aus Metaobjects (<code>question</code> / <code>answer</code>) oder JSON-Liste · Theme: sichtbares Akkordeon + JSON-LD aus denselben Feldern · Mockup: <code>faq[]</code> in <code>inuvet.js</code> (Hepax)</td></tr>
@@ -4710,7 +4800,7 @@
 
       <h3 class="sg-h3 --top" id="pdp-social-proof">Social Proof</h3>
       <div class="col-grid" data-cols="2">
-        <p>Kompakter Trust-Block in der PDP-Info-Spalte <strong>nach den USPs</strong>: überlappende Avatare + eine Zeile mit hervorgehobenem Namen, Verified-Icon und Community-Zahl. Wie auf der bisherigen Produktseite — shop-weit identisch, nicht pro Produkt.</p>
+        <p>Kompakter Trust-Block <strong>unter dem Angebot</strong> (nach NR / Actions): überlappende Avatare + eine Zeile mit hervorgehobenem Namen, Verified-Icon und Community-Zahl. &lt;1536px in der Info-Spalte, ≥1536px in <code>.pdp__aside</code> — shop-weit identisch, nicht pro Produkt.</p>
         <p>Icon: Material Icons <code>verified</code> (blau). Avatare dekorativ (<code>aria-hidden</code> auf dem Stack); der Sinn steckt im Text.</p>
       </div>
       <table class="spec-table">
@@ -4841,17 +4931,19 @@
       </div>
 
       <table class="spec-table">
-        <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Kategorie-Filter (Checkboxen). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code> (<code>sg.js</code>). <code>.collection-sidebar__title</code>: Desktop wie <code>.collection-toolbar__count</code> (text-xs, muted) · Mobile Drawer: text-base, bold</td></tr>
-        <tr><th>Filter-Tags</th><td>Aktive Filter als Tags. „Alle löschen"-Link.</td></tr>
-        <tr><th>Toolbar</th><td>Anzahl links, Sortierung rechts (Custom Select).</td></tr>
-        <tr><th>Grid</th><td>3-Spalter Produktkarten (<a href="#C1">C.1</a>). Mobile: 2-spaltig.</td></tr>
-        <tr><th>Badges (Kacheln)</th><td>Nur Kategorie (<code>.badge[data-cat]</code>) auf dem Bild — Status und „Produktfamilie" per CSS in <code>.collection-main</code> ausgeblendet (enge Spalten). Volle Badge-Reihe → <a href="#C1">C.1</a>.</td></tr>
-        <tr><th><code>.filter-active-bar</code></th><td>Flex, wrap, <code>gap: 0.5rem</code> — aktive Filter unter der Toolbar</td></tr>
+        <tr><th>Titel</th><td>Optional <code>.section-label</code> oberhalb des Layouts — nur wenn die Collection <em>innerhalb</em> einer Page mit weiteren Sections steht · Standalone-Collection-Page: weglassen · Shopify: Section-Setting Checkbox <code>show_title</code> (Default aus auf Collection-Template, an in eingebetteten Sections)</td></tr>
+        <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Kategorie-Filter (Checkboxen). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code> (<code>inuvet.js</code> / <code>sg.js</code>). <code>.collection-sidebar__title</code>: Desktop wie <code>.collection-toolbar__count</code> (text-xs, muted) · Mobile Drawer: text-base, bold</td></tr>
+        <tr><th>Aktive Filter</th><td><code>.filter-active-bar</code> unter der Toolbar in <code>.collection-main</code> (nicht in der Sidebar) · leer = nicht rendern / <code>hidden</code> · Tags + „Alle löschen"</td></tr>
+        <tr><th>Toolbar</th><td>Desktop: Anzahl links, Sortierung rechts (Custom Select). Mobil (≤767px): nur Filter-Button — Sortierung ausgeblendet.</td></tr>
+        <tr><th>Grid</th><td>An <code>show_filters</code> gekoppelt (<a href="#A8">A.8</a>): Filter an → <code>.tile-grid.--cols-3</code> (3→2→1) · Filter aus → <code>.tile-grid.--cols-4</code> (4→3→2→2, volle Breite). Sonderkacheln (<code>.tile.--featured</code>, <a href="#D4">D.4</a>) mischbar.</td></tr>
+        <tr><th>Warenkorb (Kachel)</th><td><code>openOptions(id)</code> · Produktfamilie: Darreichungsform + Größe · Einzelprodukt mit Größen: nur Größe · Einzel ohne Größenwahl: Direkt-Add · Bild-Link → PDP</td></tr>
+        <tr><th>Badges (Kacheln)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Familien zusätzlich „Produktfamilie" · Status (<code>.--dark</code> / <code>.--sale</code>) in <code>.collection-main</code> ausgeblendet (enge Spalten). Volle Badge-Reihe → <a href="#C1">C.1</a>.</td></tr>
+        <tr><th><code>.filter-active-bar</code></th><td>In <code>.collection-main</code> unter Toolbar · Flex wrap · nur sichtbar ohne <code>[hidden]</code> · Sidebar bleibt Checkbox-only</td></tr>
         <tr><th><code>.filter-tag__remove</code></th><td>Close-Button in <code>.filter-tag</code>, <code>color: var(--fg-muted)</code></td></tr>
         <tr><th><code>.filter-count</code></th><td><code>color: var(--fg-muted)</code>, <code>font-weight: 400</code> — Anzahl in Klammern</td></tr>
         <tr><th><code>.filter-reset</code></th><td>Text-Button, <code>margin-left: auto</code>, underline, rechts in <code>.filter-active-bar</code></td></tr>
-        <tr><th><code>.collection-layout.--no-sidebar</code></th><td>Einspaltig — Produktgrid volle Breite, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting <code>show_filters</code>)</td></tr>
-        <tr><th><code>.collection-toolbar.--no-filters</code></th><td>Toolbar ohne Filter-Button — Sortierung rechts (Desktop) bzw. zentriert (Mobile, 1-spaltiges Grid)</td></tr>
+        <tr><th><code>.collection-layout.--no-sidebar</code></th><td>Einspaltig — Produktgrid volle Breite · Grid dann <code>--cols-4</code> (Theme-Setting <code>show_filters</code> = aus)</td></tr>
+        <tr><th><code>.collection-toolbar.--no-filters</code></th><td>Toolbar ohne Filter-Button — Desktop: Sortierung rechts · Mobil: Toolbar ausgeblendet (keine Sortierung oben)</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Produktübersicht</h3>
@@ -4862,10 +4954,6 @@
             <div class="collection-sidebar__header">
               <h3 class="collection-sidebar__title">Filter</h3>
               <button class="btn --icon collection-sidebar__close" type="button" onclick="closeFilter()"><span class="material-icons">close</span></button>
-            </div>
-            <div class="filter-tags">
-              <button class="filter-tag" type="button">Pulver <span class="material-icons">close</span></button>
-              <button class="filter-clear" type="button">Alle löschen</button>
             </div>
             <div class="filter-group">
               <h4 class="filter-group__title label-caps">Darreichungsform</h4>
@@ -4893,9 +4981,20 @@
                 </select>
               </div>
             </div>
+            <div class="filter-active-bar">
+              <span class="filter-tag">Pulver <button class="filter-tag__remove" type="button" aria-label="Filter „Pulver“ entfernen"><span class="material-icons">close</span></button></span>
+              <button class="filter-reset" type="button">Alle löschen</button>
+            </div>
             <div class="tile-grid --cols-3">
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
+              <div class="tile --featured">
+                <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
+                <div class="tile__bottom">
+                  <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen für die Praxis.</p>
+                  <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+                </div>
+              </div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
@@ -4913,7 +5012,7 @@
           </main>
         </div>
       </div>
-      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Kacheln: nur Kategorie-Badge auf dem Bild · Pagination ohne Demo-Links · Warenkorb → <a href="#E4">E.4</a>.</p>
+      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Sonderkacheln (<code>.tile.--featured</code>, optional Lottie) · Live-Mockup → <a href="pages/Collection.html">Collection.html</a> · Demo → <a href="#tile-featured-lottie">D.4</a>.</p>
 
       <h3 class="sg-h3 --top">Ohne Filter-Sidebar</h3>
       <div class="sg-demo --white">
@@ -4931,15 +5030,16 @@
                 </select>
               </div>
             </div>
-            <div class="tile-grid --cols-3">
+            <div class="tile-grid --cols-4">
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div></div>
             </div>
           </main>
         </div>
       </div>
-      <p class="sg-caption"><code>.collection-layout.--no-sidebar</code> + <code>.collection-toolbar.--no-filters</code> — volle Grid-Breite, kein Collection-Titel (<code>.section-label</code>) · im Theme per Section-Setting <code>show_filters</code> schaltbar.</p>
+      <p class="sg-caption"><code>.collection-layout.--no-sidebar</code> + <code>.collection-toolbar.--no-filters</code> + <code>.tile-grid.--cols-4</code> — volle Breite, dicht · Theme: Section-Setting <code>show_filters</code> = aus.</p>
 
       <h3 class="sg-h3 --top">Filter-Zustände</h3>
       <div class="sg-demo --white">
@@ -4950,7 +5050,7 @@
           <button class="filter-reset" type="button">Alle Filter zurücksetzen</button>
         </div>
       </div>
-      <p class="sg-caption"><code>.filter-active-bar</code> unter der Toolbar — aktive Filter als entfernbare Tags.</p>
+      <p class="sg-caption"><code>.filter-active-bar</code> in <code>.collection-main</code> unter der Toolbar — nicht in der Sidebar · ohne aktive Filter: <code>hidden</code> / nicht rendern.</p>
 
       <div class="sg-demo --white">
         <div class="sg-w-sm">
@@ -4993,16 +5093,17 @@
         <p>Sortierung und Paginierung nativ über <code>collection.sort_options</code> und <code>paginate</code> — kein Custom-JS für die Grundfunktion.</p>
       </div>
       <table class="spec-table">
-        <tr><th>Grid</th><td><code>{% for product in collection.products %}</code> → <code>.tile.--product</code> je Eintrag (Snippet <code>card-product</code>) · Badges nur Kategorie in <code>.collection-main</code> (CSS)</td></tr>
+        <tr><th>Grid</th><td><code>{% if section.settings.show_filters %}</code> → <code>.tile-grid.--cols-3</code> · sonst <code>.tile-grid.--cols-4</code> · <code>{% for product in collection.products %}</code> → <code>.tile.--product</code> (Snippet <code>card-product</code>) · Badges: Kategorie + optional „Produktfamilie"; Status in <code>.collection-main</code> ausgeblendet</td></tr>
+        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Media: Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> · bei <code>image</code>: Image-Picker <code>image</code> · bei <code>lottie</code>: File/URL <code>lottie</code> (Theme-Asset / Files) → jeweils in <code>.tile__animation</code> · nie beides gleichzeitig · Demo → <a href="pages/Collection.html">Collection.html</a> · <a href="#tile-featured-lottie">D.4</a></td></tr>
         <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
-        <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> mit <code>.filter-tag</code> · Remove-Link = <code>value.url_to_remove</code> · Reset = <code>collection.url</code></td></tr>
+        <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> in <code>.collection-main</code> (unter Toolbar) · <code>.filter-tag</code> · Remove = <code>value.url_to_remove</code> · Reset = <code>collection.url</code> · leer ausblenden</td></tr>
         <tr><th>Toolbar</th><td>Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code></td></tr>
-        <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons)</td></tr>
+        <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons) · Sonderkacheln nur auf der aktuellen Seite einmischen (Position relativ zur Seite)</td></tr>
         <tr><th>Mobile-Filter</th><td><code>openFilter()</code> / <code>closeFilter()</code> ins Theme-Bundle · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>)</td></tr>
-        <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/Filter-Button aus, Layout <code>.collection-layout.--no-sidebar</code>, Toolbar <code>.collection-toolbar.--no-filters</code></td></tr>
+        <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, Label z.&nbsp;B. „Filter anzeigen“, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/Filter-Button aus · Layout <code>.collection-layout.--no-sidebar</code> · Toolbar <code>.collection-toolbar.--no-filters</code> · Grid <code>.tile-grid.--cols-4</code> (bei <code>true</code>: <code>--cols-3</code>) — ein Toggle steuert Filter <em>und</em> Spaltenzahl, kein zweites Setting</td></tr>
         <tr><th>Seitentitel</th><td>Kein <code>.section-label</code> mit Collection-Titel — Grid startet direkt mit Toolbar (Titel nur im <code>&lt;title&gt;</code> / Breadcrumb)</td></tr>
       </table>
-      <p class="sg-caption">Filter- und Sortier-Logik über Storefront-Parameter (<code>?filter.*</code>, <code>?sort_by=</code>) — Liquid rendert nur Zustände, kein clientseitiges Filtern nötig.</p>
+      <p class="sg-caption">Filter-/Sortier-Logik über Storefront-Parameter · Sonderkacheln: mehrere <code>featured_tile</code>-Blocks in <code>main-collection</code>, Position frei wählbar — Markup 1:1 aus <a href="#D4">D.4</a> · Demo → <a href="pages/Collection.html">Collection.html</a>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E4">

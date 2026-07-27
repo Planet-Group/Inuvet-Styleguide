@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=137">
+  <link rel="stylesheet" href="../inuvet.css?v=148">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -33,13 +33,13 @@
       <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Home</a></div>
-      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Produkte</a></div>
+      <div class="nav-item"><a href="Inuvet-Shop.html" class="nav-item__trigger">Home</a></div>
+      <div class="nav-item"><a href="Collection.html" class="nav-item__trigger">Produkte</a></div>
       <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Service</a></div>
       <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Webinare</a></div>
       <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Jobs</a></div>
     </div>
-    <div class="nav-center"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></div>
+    <div class="nav-center"><a href="Inuvet-Shop.html" aria-label="Zur Startseite"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></a></div>
     <div class="nav-right">
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
@@ -66,8 +66,8 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
     <div class="nav-col">
-      <a href="#" onclick="return false;">Home</a>
-      <a href="#" onclick="return false;">Produkte</a>
+      <a href="Inuvet-Shop.html" onclick="closeMobile()">Home</a>
+      <a href="Collection.html" onclick="closeMobile()">Produkte</a>
       <a href="#" onclick="return false;">Service</a>
       <a href="#" onclick="return false;">Webinare</a>
       <a href="#" onclick="return false;">Jobs</a>
@@ -93,7 +93,7 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <ul>
-          <li><a href="Inuvet-Shop.html">Alle Produkte</a></li>
+          <li><a href="Collection.html">Alle Produkte</a></li>
           <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
           <li><a href="Bundle.html">Persönliches Angebot</a></li>
         </ul>
@@ -140,7 +140,7 @@
     </div>
   </footer>
 
-  <script src="../inuvet.js?v=18"></script>
+  <script src="../inuvet.js?v=22"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);

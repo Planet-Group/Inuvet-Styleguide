@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkte – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=151">
+  <link rel="stylesheet" href="../mockup-ui.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body class="--ann-scroll" id="top">
+
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item"><a href="Inuvet-Shop.html" class="nav-item__trigger">Home</a></div>
+      <div class="nav-item"><a href="Collection.html" class="nav-item__trigger" aria-current="page">Produkte</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Service</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Webinare</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Jobs</a></div>
+    </div>
+    <div class="nav-center">
+      <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
+        <span class="material-icons">shopping_cart</span>
+        <span class="badge --count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Inuvet-Shop.html" onclick="closeMobile()">Home</a>
+      <a href="Collection.html" onclick="closeMobile()" aria-current="page">Produkte</a>
+      <a href="#" onclick="return false;">Service</a>
+      <a href="#" onclick="return false;">Webinare</a>
+      <a href="#" onclick="return false;">Jobs</a>
+    </div>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer"></div>
+
+  <div class="options-overlay" id="optionsOverlay" onclick="closeOptions()"></div>
+  <div class="options-drawer" id="optionsDrawer"></div>
+
+  <div class="filter-overlay" id="filterOverlay" onclick="closeFilter()"></div>
+
+  <main class="container" id="MainContent">
+    <div class="collection-layout">
+      <aside class="collection-sidebar" id="filterSidebar">
+        <div class="collection-sidebar__header">
+          <h2 class="collection-sidebar__title">Filter</h2>
+          <button class="btn --icon collection-sidebar__close" type="button" onclick="closeFilter()" aria-label="Filter schließen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="filter-group" id="filterCats">
+          <h3 class="filter-group__title label-caps">Kategorie</h3>
+        </div>
+        <div class="filter-group" id="filterForms">
+          <h3 class="filter-group__title label-caps">Darreichungsform</h3>
+          <label class="form-check"><input type="checkbox" name="form" value="Pulver"><span>Pulver</span></label>
+          <label class="form-check"><input type="checkbox" name="form" value="Tabletten"><span>Tabletten</span></label>
+          <label class="form-check"><input type="checkbox" name="form" value="Flüssig"><span>Flüssig</span></label>
+        </div>
+      </aside>
+
+      <div class="collection-main">
+        <div class="collection-toolbar">
+          <button class="collection-filter-toggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
+          <div class="collection-toolbar__count" id="collectionCount">—</div>
+          <div class="collection-toolbar__sort">
+            <span class="collection-toolbar__sort-label">Sortieren:</span>
+            <select class="collection-toolbar__sort-select" id="collectionSort" aria-label="Sortierung">
+              <option value="recommended">Empfohlen</option>
+              <option value="price-asc">Preis aufsteigend</option>
+              <option value="price-desc">Preis absteigend</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-active-bar" id="filterActiveBar" hidden></div>
+        <div class="tile-grid --cols-3" id="collectionGrid"></div>
+        <nav class="pagination" aria-label="Pagination" id="collectionPagination" hidden></nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="shopFooter">
+    <div class="footer-main">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="Collection.html">Alle Produkte</a></li>
+          <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
+          <li><a href="Produkt.html?id=13">Beispiel-Produkt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">AGB</a></li>
+          <li><a href="#">Widerruf</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Folge uns</h4>
+        <div class="footer-social">
+          <a href="#" class="footer-social__link" aria-label="Facebook"><svg class="footer-social__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
+          <a href="#" class="footer-social__link" aria-label="Instagram"><svg class="footer-social__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Über inuvet</h4>
+        <p>Tierärztlich entwickelte Nahrungsergänzung für Hunde und Katzen — seit über 20 Jahren.</p>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
+      <div class="footer-payment" aria-label="Zahlungsarten">
+        <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
+        <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
+        <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">PayPal</text></svg>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../inuvet.js?v=22"></script>
+  <script>
+    const FALLBACK_IMG = '../assets/images/Calmin_Packshot_01.jpeg';
+
+    const catalogForms = (p) => {
+      if (p.isFamily && p.variants?.length) return [...new Set(p.variants.map(v => v.type).filter(Boolean))];
+      if (p.form) return [p.form];
+      if (/pulver/i.test(p.title || '')) return ['Pulver'];
+      if (/fluid|flüssig/i.test(p.title || '')) return ['Flüssig'];
+      if (/tablette/i.test(p.title || '')) return ['Tabletten'];
+      return [];
+    };
+
+    const catalog = allProducts
+      .filter(p => p.title)
+      .map(p => ({
+        ...p,
+        image: p.image || FALLBACK_IMG,
+        price: productStartPrice(p),
+        unit: productStartUnit(p),
+        forms: catalogForms(p),
+        desc: p.shortDesc || p.desc || '',
+      }));
+
+    const state = { cats: new Set(), forms: new Set(), sort: 'recommended' };
+
+    const buildCatFilters = () => {
+      const wrap = document.getElementById('filterCats');
+      const cats = [...new Map(catalog.filter(p => p.cat).map(p => [p.cat, p.catLabel || p.cat])).entries()];
+      wrap.innerHTML = `<h3 class="filter-group__title label-caps">Kategorie</h3>` + cats.map(([cat, label]) =>
+        `<label class="form-check"><input type="checkbox" name="cat" value="${cat}"><span>${label}</span></label>`
+      ).join('');
+      wrap.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => {
+          if (input.checked) state.cats.add(input.value);
+          else state.cats.delete(input.value);
+          renderCollection();
+        });
+      });
+    };
+
+    const filtered = () => {
+      let list = catalog.slice();
+      if (state.cats.size) list = list.filter(p => state.cats.has(p.cat));
+      if (state.forms.size) list = list.filter(p => p.forms.some(f => state.forms.has(f)));
+      if (state.sort === 'price-asc') list.sort((a, b) => a.price - b.price);
+      else if (state.sort === 'price-desc') list.sort((a, b) => b.price - a.price);
+      else if (state.sort === 'name') list.sort((a, b) => a.title.localeCompare(b.title, 'de'));
+      else list.sort((a, b) => (b.ratingCount || 0) - (a.ratingCount || 0) || a.title.localeCompare(b.title, 'de'));
+      return list;
+    };
+
+    /** Hover-Medium: erstes Video aus media[], sonst Packshot-02 bei Calmin/Hepax. */
+    const tileHoverMedia = (p) => {
+      const video = (p.media || []).find(m => m.type === 'video');
+      if (video) return `<video src="${video.src}" muted loop playsinline aria-hidden="true"></video>`;
+      if ((p.image || '').includes('Calmin_Packshot_01')) {
+        return '<img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">';
+      }
+      if ((p.image || '').includes('Hepax_Packshot_01')) {
+        return '<img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">';
+      }
+      return '';
+    };
+
+    // Sonderkacheln (D.4 Variante C) — Shopify: Section-Blocks `featured_tile`.
+    // Media wahlweise: image ODER lottie (nicht beides) · position 0-basiert vor Produkt n.
+    const featuredTiles = [
+      {
+        position: 2,
+        headline: 'Entdecke unsere Neuheiten',
+        body: 'Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.',
+        ctaLabel: 'Alle Neuheiten',
+        ctaHref: '#',
+        image: '../assets/images/Hero_Mood_02.jpg',
+      },
+      {
+        position: 5,
+        headline: 'Nur über die Tierarztpraxis',
+        body: 'Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in der Regel in 2–3 Werktagen.',
+        ctaLabel: 'Mehr erfahren',
+        ctaHref: 'Inuvet-Shop-Info.html',
+        lottie: '../assets/lotties/inuvet_tierarzt_nur_bei_euch.json',
+      },
+    ];
+
+    const featuredMediaHTML = (f) => {
+      if (f.lottie) {
+        return `<div class="tile__animation"><lottie-player src="${f.lottie}" background="transparent" speed="1" loop autoplay></lottie-player></div>`;
+      }
+      if (f.image) {
+        return `<div class="tile__animation"><img src="${f.image}" alt=""></div>`;
+      }
+      return '';
+    };
+
+    const featuredHTML = (f) => {
+      const media = featuredMediaHTML(f);
+      if (media) {
+        return `
+      <div class="tile --featured">
+        ${media}
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">${f.headline}</h3>
+          <p class="tile__body">${f.body}</p>
+          <a href="${f.ctaHref}" class="btn --primary">${f.ctaLabel}</a>
+        </div>
+      </div>`;
+      }
+      return `
+      <div class="tile --featured">
+        <h3 class="tile__headline">${f.headline}</h3>
+        <div class="tile__bottom flow">
+          <p class="tile__body">${f.body}</p>
+          <a href="${f.ctaHref}" class="btn --primary">${f.ctaLabel}</a>
+        </div>
+      </div>`;
+    };
+
+    const tileHTML = (p) => {
+      const cat = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
+      const fam = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+      const rating = p.rating || '—';
+      const unit = p.unit ? `<span class="price-stack__unit">${p.unit}</span>` : '';
+      const hover = tileHoverMedia(p);
+      return `
+        <div class="tile --product">
+          <div class="tile__image-wrap">
+            <div class="floating-meta">${cat}${fam}</div>
+            <a class="tile__image" href="Produkt.html?id=${p.id}" aria-label="${p.title} ansehen">
+              <img src="${p.image}" alt="${p.title}">${hover}
+            </a>
+            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})"><span class="material-icons">shopping_cart</span></button>
+            <div class="tile__cart"><button class="btn --secondary" type="button" onclick="openOptions(${p.id})">In den Warenkorb</button></div>
+          </div>
+          <div class="tile__headline-row"><h3 class="tile__headline">${p.title}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${rating}</div></div>
+          <div class="tile__description">${p.desc}</div>
+          <div class="tile__price"><div class="price-stack"><span>ab ${fmt(p.price)}</span>${unit}</div></div>
+        </div>`;
+    };
+
+    /** Mischt Produkte + Sonderkacheln in Grid-Reihenfolge (position = Slot-Index). */
+    const gridHTML = (products) => {
+      if (!products.length) return '<p class="text-muted">Keine Produkte für diese Filter.</p>';
+      const byPos = new Map();
+      featuredTiles.forEach(f => {
+        const list = byPos.get(f.position) || [];
+        list.push(f);
+        byPos.set(f.position, list);
+      });
+      const parts = [];
+      products.forEach((p, i) => {
+        (byPos.get(i) || []).forEach(f => parts.push(featuredHTML(f)));
+        parts.push(tileHTML(p));
+      });
+      (byPos.get(products.length) || []).forEach(f => parts.push(featuredHTML(f)));
+      return parts.join('');
+    };
+
+    const renderActiveBar = () => {
+      const bar = document.getElementById('filterActiveBar');
+      const tags = [];
+      state.cats.forEach(cat => {
+        const label = catalog.find(p => p.cat === cat)?.catLabel || cat;
+        tags.push({ type: 'cat', value: cat, label });
+      });
+      state.forms.forEach(form => tags.push({ type: 'form', value: form, label: form }));
+      if (!tags.length) {
+        bar.hidden = true;
+        bar.innerHTML = '';
+        return;
+      }
+      bar.hidden = false;
+      bar.innerHTML = tags.map(t =>
+        `<span class="filter-tag">${t.label} <button class="filter-tag__remove" type="button" data-type="${t.type}" data-value="${t.value}" aria-label="Filter „${t.label}“ entfernen"><span class="material-icons">close</span></button></span>`
+      ).join('') + `<button class="filter-reset" type="button" id="filterReset">Alle löschen</button>`;
+      bar.querySelectorAll('.filter-tag__remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const set = btn.dataset.type === 'cat' ? state.cats : state.forms;
+          set.delete(btn.dataset.value);
+          const name = btn.dataset.type === 'cat' ? 'cat' : 'form';
+          document.querySelector(`input[name="${name}"][value="${btn.dataset.value}"]`).checked = false;
+          renderCollection();
+        });
+      });
+      document.getElementById('filterReset')?.addEventListener('click', () => {
+        state.cats.clear();
+        state.forms.clear();
+        document.querySelectorAll('#filterSidebar input[type="checkbox"]').forEach(i => { i.checked = false; });
+        renderCollection();
+      });
+    };
+
+    const renderCollection = () => {
+      const list = filtered();
+      document.getElementById('collectionGrid').innerHTML = gridHTML(list);
+      document.getElementById('collectionCount').textContent =
+        list.length ? `Zeige ${list.length} von ${catalog.length} Produkten` : 'Keine Treffer';
+      renderActiveBar();
+      initProductMediaRollover?.();
+    };
+
+    document.getElementById('filterForms').querySelectorAll('input').forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.checked) state.forms.add(input.value);
+        else state.forms.delete(input.value);
+        renderCollection();
+      });
+    });
+    document.getElementById('collectionSort').addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      renderCollection();
+    });
+
+    buildCatFilters();
+    renderCollection();
+    updateCartBadge?.();
+    initMarquees?.();
+  </script>
+</body>
+</html>

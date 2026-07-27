@@ -478,6 +478,16 @@
   outline: 1px solid var(--border-light);
   outline-offset: -1px;
 }
+/* PDP-Demos: Sticky-Galerie realistisch, aber ohne Aside-Spalte im Vorschaufenster
+   (sonst ab 1536 Trust weg + leere zweite Buy-Spalte). */
+@media (min-width: 1536px) {
+  .sg-demo .pdp--sticky-gallery .pdp__info > .social-proof {
+    display: flex;
+  }
+  .sg-demo .pdp--sticky-gallery .pdp__buy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .sg-demo.--dark { background: var(--fg); }
 .sg-demo.--green { background: var(--green-light); }
 .sg-demo.--green-solid { background: var(--green); }
