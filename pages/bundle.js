@@ -11,18 +11,30 @@ const isBundleLocked = () => cartLineCount() > 0 && sessionStorage.getItem(BUNDL
 
 const applyBundleLockUI = () => {
   const locked = isBundleLocked();
+  const empty  = activeBundle.length === 0;
   bundleSection?.classList.toggle('--locked', locked);
   const cta = document.querySelector('.summary-card__cta');
   if (cta) {
-    cta.disabled = locked;
-    cta.textContent = locked ? 'Bereits zum Warenkorb hinzugefügt' : 'In den Warenkorb';
+    if (locked) {
+      cta.disabled = true;
+      cta.textContent = 'Bereits zum Warenkorb hinzugefügt';
+    } else if (empty) {
+      cta.disabled = true;
+      cta.textContent = cartLineCount() > 0 ? 'Alle Produkte im Warenkorb' : 'In den Warenkorb';
+    } else {
+      cta.disabled = false;
+      cta.textContent = 'In den Warenkorb';
+    }
   }
 };
 
 const syncBundleLockState = () => {
-  if (cartLineCount() === 0) sessionStorage.removeItem(BUNDLE_ADDED_KEY);
+  if (cartLineCount() === 0) {
+    sessionStorage.removeItem(BUNDLE_ADDED_KEY);
+    movedToCartIds.clear();
+  }
   applyBundleLockUI();
-  if (bundleVisible && activeBundle.length) renderBundle();
+  if (bundleVisible) renderBundle();
 };
 
 // ── In den Warenkorb ────────────────────────────────────────────────────
@@ -30,14 +42,18 @@ const syncBundleLockState = () => {
 // (kein Sammel-Paket mehr). Der Naturalrabatt gilt danach global pro Position.
 window.addBundleToCart = () => {
   if (isBundleLocked()) return;
-  if (activeBundle.length === 0) { openCart(); return; }
+  if (activeBundle.length === 0) {
+    if (cartLineCount() > 0) openCart();
+    return;
+  }
+  const count = activeBundle.length;
   activeBundle.forEach(p => {
-    const formIdx = p.isFamily ? p.selectedVariantIdx : 0;
-    const sizeIdx = p.isFamily ? p.selectedSizeIdx : 0;
-    addToCart(p.id, formIdx, sizeIdx, p.quantity);
+    addBundleProductToCart(p);
+    movedToCartIds.add(p.id);
   });
+  activeBundle = [];
   sessionStorage.setItem(BUNDLE_ADDED_KEY, '1');
-  showToast(`${activeBundle.length} Produkte in den Warenkorb gelegt`);
+  showToast(`${count} Produkte in den Warenkorb gelegt`);
   applyBundleLockUI();
   renderBundle();
   openCart();
@@ -60,6 +76,25 @@ window.quickAdd = (id, name) => {
 let bundleVisible         = false;
 let activeBundle          = [];
 let initialBundleSnapshot = [];      // { id, quantity } — für Wiederherstellen
+let movedToCartIds        = new Set(); // per Icon in den Warenkorb — nicht via Wiederherstellen
+
+const bundleDisplayName = (p) => {
+  const variant = p.isFamily ? p.variants[p.selectedVariantIdx] : null;
+  return p.isFamily ? `${p.title} ${variant.type}` : p.title;
+};
+
+const addBundleProductToCart = (p) => {
+  const formIdx = p.isFamily ? p.selectedVariantIdx : 0;
+  const sizeIdx = p.isFamily ? p.selectedSizeIdx : 0;
+  addToCart(p.id, formIdx, sizeIdx, p.quantity);
+};
+
+const allMovedToCart = () =>
+  initialBundleSnapshot.length > 0 &&
+  initialBundleSnapshot.every(s => movedToCartIds.has(s.id));
+
+const restorableSnapshot = () =>
+  initialBundleSnapshot.filter(s => !movedToCartIds.has(s.id));
 
 const snapshotBundle = () => {
   initialBundleSnapshot = activeBundle.map(p => ({ id: p.id, quantity: p.quantity }));
@@ -69,6 +104,7 @@ const initBundle = () => {
   bundleVisible         = false;
   activeBundle          = [];
   initialBundleSnapshot = [];
+  movedToCartIds        = new Set();
 
   const pool = allProducts
     .filter(p => (p.past18Months ?? 0) > 0)
@@ -164,13 +200,30 @@ const renderBundle = () => {
   list.innerHTML = '';
 
   if (activeBundle.length === 0) {
-    list.innerHTML = `
-      <div class="empty-state">
-        <span class="material-icons">inventory_2</span>
-        <p>Dein Bundle ist leer.</p>
-        <button type="button" class="btn --secondary --sm" onclick="restoreBundle()">Wiederherstellen</button>
-      </div>`;
+    const locked = isBundleLocked();
+    if (allMovedToCart() && cartLineCount() > 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <span class="material-icons">shopping_cart</span>
+          <p>Alle Produkte sind in deinem Warenkorb.</p>
+          <button type="button" class="btn --secondary --sm" onclick="openCart()">Warenkorb ansehen</button>
+        </div>`;
+    } else if (restorableSnapshot().length > 0 && !locked) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <span class="material-icons">inventory_2</span>
+          <p>Dein Bundle ist leer.</p>
+          <button type="button" class="btn --secondary --sm" onclick="restoreBundle()">Wiederherstellen</button>
+        </div>`;
+    } else {
+      list.innerHTML = `
+        <div class="empty-state">
+          <span class="material-icons">inventory_2</span>
+          <p>Dein Bundle ist leer.</p>
+        </div>`;
+    }
     updateSummary();
+    applyBundleLockUI();
     return;
   }
 
@@ -205,10 +258,18 @@ const renderBundle = () => {
             <p class="cart-item__name">${displayName}</p>
             <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.${historyText}</div>
           </div>
-          <button type="button" class="btn --icon cart-item__remove"
-            onclick="removeProduct(${p.id})" title="Entfernen"${locked ? ' disabled' : ''}>
-            <span class="material-icons">close</span>
-          </button>
+          <div class="cart-item__actions">
+            <button type="button" class="btn --icon cart-item__add-to-cart"
+              onclick="moveProductToCart(${p.id})" title="In den Warenkorb legen"
+              aria-label="In den Warenkorb legen"${locked ? ' disabled' : ''}>
+              <span class="material-icons">shopping_cart</span>
+            </button>
+            <button type="button" class="btn --icon cart-item__remove"
+              onclick="removeProduct(${p.id})" title="Aus Angebot entfernen"
+              aria-label="Aus Angebot entfernen"${locked ? ' disabled' : ''}>
+              <span class="material-icons">close</span>
+            </button>
+          </div>
         </div>
         <div class="cart-item__bottom">
           <div class="cart-item__counter">
@@ -258,10 +319,22 @@ window.removeProduct = (id) => {
   renderBundle();
 };
 
+window.moveProductToCart = (id) => {
+  if (isBundleLocked()) return;
+  const i = activeBundle.findIndex(p => p.id === id);
+  if (i === -1) return;
+  const p = activeBundle[i];
+  addBundleProductToCart(p);
+  movedToCartIds.add(id);
+  activeBundle.splice(i, 1);
+  showToast(`${bundleDisplayName(p)} in den Warenkorb gelegt`);
+  renderBundle();
+};
+
 window.restoreBundle = () => {
   if (isBundleLocked()) return;
-  if (!initialBundleSnapshot.length) return;
-  activeBundle = initialBundleSnapshot.map(snap => {
+  if (!restorableSnapshot().length) return;
+  activeBundle = restorableSnapshot().map(snap => {
     const p = allProducts.find(p => p.id === snap.id);
     p.quantity = snap.quantity;
     return p;

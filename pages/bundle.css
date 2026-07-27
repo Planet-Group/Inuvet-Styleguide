@@ -43,6 +43,14 @@
 }
 
 /* ─── Bundle Item ─── */
+.bundle-item { position: relative; }
+
+.cart-item__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(var(--base) * 0.125);
+}
+
 .bundle-item.is-entering {
   animation: bundleSlideIn var(--anim-mid) forwards;
 }
@@ -226,7 +234,8 @@
 #bundleSection.--locked .qty-selector.--disabled,
 #bundleSection.--locked .qty-selector.--disabled .qty-selector__btn,
 #bundleSection.--locked .qty-selector.--disabled .qty-selector__input,
-#bundleSection.--locked .cart-item__remove:disabled {
+#bundleSection.--locked .cart-item__remove:disabled,
+#bundleSection.--locked .cart-item__add-to-cart:disabled {
   opacity: 0.35;
   pointer-events: none;
   cursor: not-allowed;

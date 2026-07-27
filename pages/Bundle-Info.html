@@ -294,11 +294,17 @@ const model = product.metafields.inuvet.pricing_model || 'A';
             <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>inuvet.js</code>.</p>
             <ul>
               <li><strong>Initiales Angebot</strong>: maximal <strong>4 Einzelprodukte</strong> aus dem aktiven Historien-Pool (sortiert nach Kauffrequenz).</li>
-              <li><strong>Leerer Zustand</strong>: Wenn der Kunde alle vorgeschlagenen Positionen entfernt → Empty State mit <strong>„Wiederherstellen"</strong> (setzt das initiale Angebot zurück). Keine Empfehlungs-Schiene zum Nachfüllen. Nur im <strong>ungesperrten</strong> Zustand verfügbar.</li>
+              <li><strong>Einzelverschiebung</strong>: Pro Zeile ein Warenkorb-Icon (<code>shopping_cart</code>) neben dem Entfernen-Button — legt die Position mit aktueller Menge in den Warenkorb und entfernt sie aus dem Angebot. Kein Sammel-Lock; der Rest bleibt bearbeitbar. Der Sammel-CTA übernimmt nur noch die verbleibenden Positionen.
+                <ul>
+                  <li><strong>×</strong> — aus Angebot entfernen, <em>ohne</em> Warenkorb</li>
+                  <li><strong>Warenkorb-Icon</strong> — in den Warenkorb legen, aus Angebot entfernen</li>
+                  <li>Per Einzelverschiebung verschobene Produkte erscheinen nicht wieder bei <strong>„Wiederherstellen"</strong></li>
+                </ul></li>
+              <li><strong>Leerer Zustand</strong>: Alle per Icon verschoben → <strong>„Alle Produkte sind in deinem Warenkorb"</strong> + Link zum Warenkorb. Nur per × entfernt → <strong>„Wiederherstellen"</strong> (ohne bereits verschobene Positionen). Keine Empfehlungs-Schiene zum Nachfüllen.</li>
               <li><strong>Angebot im Warenkorb (gesperrter Zustand)</strong>: Nach Klick auf <strong>„In den Warenkorb"</strong> wird die Bundle-Section gesperrt — der Kunde soll das Angebot nicht erneut bearbeiten oder doppelt hinzufügen.
                 <ul>
                   <li>CTA-Button deaktiviert, Beschriftung: <strong>„Bereits zum Warenkorb hinzugefügt"</strong></li>
-                  <li>Mengen-Counter (+/−, Input) und Entfernen-Buttons pro Zeile deaktiviert</li>
+                  <li>Mengen-Counter (+/−, Input), Warenkorb-Icon und Entfernen-Buttons pro Zeile deaktiviert</li>
                   <li><strong>Freigabe</strong> erst, wenn der Warenkorb <strong>vollständig geleert</strong> ist — nicht bei Teilentfernung einzelner Positionen</li>
                 </ul>
                 Im Mockup: Flag <code>sessionStorage</code> (<code>inuvet:bundleAdded</code>) + Abgleich mit <code>cartLineCount()</code>; Entsperrung über Hooks auf <code>cartRemove</code>, <code>cartChangeQty</code>, <code>cartSetQty</code>. CSS-Klasse <code>#bundleSection.--locked</code>.</li>
