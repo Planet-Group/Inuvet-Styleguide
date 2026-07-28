@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=152">
+  <link rel="stylesheet" href="inuvet.css?v=157">
   <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -2036,7 +2036,7 @@
         <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
         <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
         <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht)</td></tr>
-        <tr><th><code>.tile.--featured</code></th><td>Sonderkachel (Content-Box) — mischbar ins Grid · Details → <a href="#D4">D.4</a></td></tr>
+        <tr><th><code>.tile.--featured</code></th><td>Sonderkachel — mischbar · optional <code>.--cover</code> (Vollflächen-Bild) · Details → <a href="#D4">D.4</a></td></tr>
         <tr><th>Container</th><td><code>.tile-grid.--cols-2/3/4</code> — Breakpoints · <a href="#A8">A.8</a></td></tr>
       </table>
 
@@ -3444,7 +3444,7 @@
         <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
         <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
-        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · BG <code>--green-light</code> · optional Media in <code>.tile__animation</code>: <strong>Bild oder</strong> Lottie-JSON (füllt verfügbaren Platz) · <code>.tile__bottom</code>: Headline direkt über Body + CTA</td></tr>
+        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · vier Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>cover</strong> (<code>.--cover</code>) · Details und Demos unten</td></tr>
         <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
       </table>
 
@@ -3475,7 +3475,7 @@
       </div>
       <p class="sg-caption"><code>.tile-grid.--cols-4</code> · Icon via <code>.icon-box</code> · Tablet 2×2 · Mobile 2-spaltig (Shop-Standard) bzw. 1-spaltig bei <code>--cols-3</code>.</p>
 
-      <h3 class="sg-h3 --top" id="tile-featured">4-Spalter mit Sonderkachel (Variante C)</h3>
+      <h3 class="sg-h3 --top" id="tile-featured">Sonderkachel ohne Media (Variante C)</h3>
       <div class="sg-demo --white">
         <div class="tile-grid --cols-4">
           <div class="tile">
@@ -3490,7 +3490,7 @@
           </div>
           <div class="tile --featured">
             <h3 class="tile__headline">Headline</h3>
-            <div class="tile__bottom">
+            <div class="tile__bottom flow">
               <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore magna aliqua.</p>
               <div class="btn --primary">Call to Action</div>
             </div>
@@ -3502,9 +3502,44 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> ersetzt eine beliebige Grid-Position · Headline oben, Body + CTA unten.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline oben, Body + CTA in <code>.tile__bottom.flow</code> · Shopify <code>layout: stack</code> + <code>media_type: none</code>.</p>
 
-      <h3 class="sg-h3 --top" id="tile-featured-lottie">Sonderkachel mit Lottie (Variante C)</h3>
+      <h3 class="sg-h3 --top" id="tile-featured-image">Sonderkachel mit Bild (Variante C · stack)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+          </div>
+          <div class="tile --featured">
+            <div class="tile__animation">
+              <img src="assets/images/Hero_Mood_02.jpg" alt="">
+            </div>
+            <div class="tile__bottom flow">
+              <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
+              <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.</p>
+              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+            </div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (grünes Panel darunter) · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+
+      <h3 class="sg-h3 --top" id="tile-featured-lottie">Sonderkachel mit Lottie (Variante C · stack)</h3>
       <div class="sg-demo --white">
         <div class="tile-grid --cols-3">
           <div class="tile --product">
@@ -3537,7 +3572,40 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> · Media in <code>.tile__animation</code>: Bild <em>oder</em> Lottie · Text in <code>.tile__bottom.flow</code> (A.7) · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · Lottie in <code>.tile__animation</code> · Text in <code>.tile__bottom.flow</code> (A.7) · Shopify <code>media_type: lottie</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+
+      <h3 class="sg-h3 --top" id="tile-featured-cover">Sonderkachel Cover (Variante C · <code>.--cover</code>)</h3>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
+          </div>
+          <div class="tile --featured --cover" style="--tile-fg: #fff">
+            <img class="tile__cover" src="assets/images/Hero_Mood_02.jpg" alt="">
+            <div class="tile__bottom flow">
+              <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
+              <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.</p>
+              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+            </div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
+            </div>
+            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile.--featured.--cover</code> · <code>.tile__cover</code> vollflächig (<code>object-fit: cover</code>) · Hover: Zoom <code>scale(1.05)</code> wie Produktbild · Verlauf unten→oben für Lesbarkeit · Text via <code>--tile-fg</code> (Default <code>#fff</code>) · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-2col">2-Spalter — Bild + Text (Variante B, 4:3)</h3>
       <div class="sg-demo --white">
@@ -4931,7 +4999,7 @@
       </div>
 
       <table class="spec-table">
-        <tr><th>Titel</th><td>Optional <code>.section-label</code> oberhalb des Layouts — nur wenn die Collection <em>innerhalb</em> einer Page mit weiteren Sections steht · Standalone-Collection-Page: weglassen · Shopify: Section-Setting Checkbox <code>show_title</code> (Default aus auf Collection-Template, an in eingebetteten Sections)</td></tr>
+        <tr><th>Titel</th><td>Optional <code>.section-label</code> oberhalb des Layouts — nur wenn die Collection <em>innerhalb</em> einer Page mit weiteren Sections steht · Standalone-Collection-Page: weglassen · Shopify: Section-Setting Checkbox <code>show_title</code> (Default aus auf Collection-Template, an in eingebetteten Sections) · <strong>kein Breadcrumb</strong></td></tr>
         <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Kategorie-Filter (Checkboxen). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code> (<code>inuvet.js</code> / <code>sg.js</code>). <code>.collection-sidebar__title</code>: Desktop wie <code>.collection-toolbar__count</code> (text-xs, muted) · Mobile Drawer: text-base, bold</td></tr>
         <tr><th>Aktive Filter</th><td><code>.filter-active-bar</code> unter der Toolbar in <code>.collection-main</code> (nicht in der Sidebar) · leer = nicht rendern / <code>hidden</code> · Tags + „Alle löschen"</td></tr>
         <tr><th>Toolbar</th><td>Desktop: Anzahl links, Sortierung rechts (Custom Select). Mobil (≤767px): nur Filter-Button — Sortierung ausgeblendet.</td></tr>
@@ -4942,6 +5010,7 @@
         <tr><th><code>.filter-tag__remove</code></th><td>Close-Button in <code>.filter-tag</code>, <code>color: var(--fg-muted)</code></td></tr>
         <tr><th><code>.filter-count</code></th><td><code>color: var(--fg-muted)</code>, <code>font-weight: 400</code> — Anzahl in Klammern</td></tr>
         <tr><th><code>.filter-reset</code></th><td>Text-Button, <code>margin-left: auto</code>, underline, rechts in <code>.filter-active-bar</code></td></tr>
+        <tr><th>Empty State</th><td>0 Produkte im Grid → <code>.empty-state</code> (<a href="#C8">C.8</a>) in <code>.collection-main</code> statt <code>.tile-grid</code> · Spec + Demo → unten · Shopify-Mapping → <a href="#shopify-collection">Shopify</a></td></tr>
         <tr><th><code>.collection-layout.--no-sidebar</code></th><td>Einspaltig — Produktgrid volle Breite · Grid dann <code>--cols-4</code> (Theme-Setting <code>show_filters</code> = aus)</td></tr>
         <tr><th><code>.collection-toolbar.--no-filters</code></th><td>Toolbar ohne Filter-Button — Desktop: Sortierung rechts · Mobil: Toolbar ausgeblendet (keine Sortierung oben)</td></tr>
       </table>
@@ -4988,9 +5057,10 @@
             <div class="tile-grid --cols-3">
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
-              <div class="tile --featured">
-                <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
-                <div class="tile__bottom">
+              <div class="tile --featured --cover" style="--tile-fg: #fff">
+                <img class="tile__cover" src="assets/images/Hero_Mood_02.jpg" alt="">
+                <div class="tile__bottom flow">
+                  <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
                   <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen für die Praxis.</p>
                   <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
                 </div>
@@ -5012,7 +5082,7 @@
           </main>
         </div>
       </div>
-      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Sonderkacheln (<code>.tile.--featured</code>, optional Lottie) · Live-Mockup → <a href="pages/Collection.html">Collection.html</a> · Demo → <a href="#tile-featured-lottie">D.4</a>.</p>
+      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Sonderkacheln: alle Layouts (ohne Media / Bild / Lottie / Cover) · Live → <a href="pages/Collection.html">Collection.html</a> · Spec → <a href="#tile-featured">D.4</a>.</p>
 
       <h3 class="sg-h3 --top">Ohne Filter-Sidebar</h3>
       <div class="sg-demo --white">
@@ -5087,6 +5157,35 @@
       </div>
       <p class="sg-caption">Filtergruppen als Akkordeon — offen/eingeklappt via <code>.accordion-item.--open</code> (<a href="#C5">C.5</a>).</p>
 
+      <h3 class="sg-h3 --top" id="collection-empty">Empty State (0 Treffer)</h3>
+      <table class="spec-table">
+        <tr><th>Wann</th><td>Filter/Sortierung liefern 0 Produkte · oder Collection ohne Produkte</td></tr>
+        <tr><th>Wo</th><td>In <code>.collection-main</code> an Stelle von <code>.tile-grid</code> (+ Pagination aus) · Toolbar und ggf. Active-Bar bleiben sichtbar</td></tr>
+        <tr><th>Markup</th><td><code>.empty-state</code> (→ <a href="#C8">C.8</a>) · Icon <code>search_off</code></td></tr>
+        <tr><th>Copy (Filter)</th><td>Titel: „Keine Produkte gefunden“ · Sub: „Passe die Filter an oder setze sie zurück.“ · CTA: „Alle Filter löschen“</td></tr>
+        <tr><th>Copy (leer)</th><td>Titel: „Keine Produkte gefunden“ · Sub: „In dieser Übersicht sind aktuell keine Produkte hinterlegt.“ · kein Reset-CTA</td></tr>
+      </table>
+      <div class="sg-demo --white">
+        <div class="collection-layout --no-sidebar">
+          <main class="collection-main">
+            <div class="collection-toolbar --no-filters">
+              <div class="collection-toolbar__count">Keine Treffer</div>
+            </div>
+            <div class="filter-active-bar">
+              <span class="filter-tag">Flüssig <button class="filter-tag__remove" type="button" aria-label="Filter „Flüssig“ entfernen"><span class="material-icons">close</span></button></span>
+              <button class="filter-reset" type="button">Alle löschen</button>
+            </div>
+            <div class="empty-state">
+              <span class="material-icons">search_off</span>
+              <p class="empty-state__title">Keine Produkte gefunden</p>
+              <p class="empty-state__sub">Passe die Filter an oder setze sie zurück.</p>
+              <button class="btn --primary" type="button">Alle Filter löschen</button>
+            </div>
+          </main>
+        </div>
+      </div>
+      <p class="sg-caption">Active-Bar + Empty State · CTA und „Alle löschen“ in der Bar machen dasselbe (Filter reset).</p>
+
       <h3 class="sg-h3 --top" id="shopify-collection">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
         <p>Section <code>main-collection.liquid</code> + Snippet <code>card-product</code> (→ <a href="#C1">C.1</a>). Produkte aus <code>collection.products</code>, Filter aus <code>collection.filters</code> (Storefront Filtering / Search &amp; Discovery).</p>
@@ -5094,14 +5193,15 @@
       </div>
       <table class="spec-table">
         <tr><th>Grid</th><td><code>{% if section.settings.show_filters %}</code> → <code>.tile-grid.--cols-3</code> · sonst <code>.tile-grid.--cols-4</code> · <code>{% for product in collection.products %}</code> → <code>.tile.--product</code> (Snippet <code>card-product</code>) · Badges: Kategorie + optional „Produktfamilie"; Status in <code>.collection-main</code> ausgeblendet</td></tr>
-        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Media: Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> · bei <code>image</code>: Image-Picker <code>image</code> · bei <code>lottie</code>: File/URL <code>lottie</code> (Theme-Asset / Files) → jeweils in <code>.tile__animation</code> · nie beides gleichzeitig · Demo → <a href="pages/Collection.html">Collection.html</a> · <a href="#tile-featured-lottie">D.4</a></td></tr>
+        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> → Media in <code>.tile__animation</code> (nie Bild+Lottie) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="pages/Collection.html">Collection.html</a></td></tr>
         <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
         <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> in <code>.collection-main</code> (unter Toolbar) · <code>.filter-tag</code> · Remove = <code>value.url_to_remove</code> · Reset = <code>collection.url</code> · leer ausblenden</td></tr>
         <tr><th>Toolbar</th><td>Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code></td></tr>
         <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons) · Sonderkacheln nur auf der aktuellen Seite einmischen (Position relativ zur Seite)</td></tr>
         <tr><th>Mobile-Filter</th><td><code>openFilter()</code> / <code>closeFilter()</code> ins Theme-Bundle · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>)</td></tr>
         <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, Label z.&nbsp;B. „Filter anzeigen“, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/Filter-Button aus · Layout <code>.collection-layout.--no-sidebar</code> · Toolbar <code>.collection-toolbar.--no-filters</code> · Grid <code>.tile-grid.--cols-4</code> (bei <code>true</code>: <code>--cols-3</code>) — ein Toggle steuert Filter <em>und</em> Spaltenzahl, kein zweites Setting</td></tr>
-        <tr><th>Seitentitel</th><td>Kein <code>.section-label</code> mit Collection-Titel — Grid startet direkt mit Toolbar (Titel nur im <code>&lt;title&gt;</code> / Breadcrumb)</td></tr>
+        <tr><th>Seitentitel</th><td>Kein <code>.section-label</code> und kein Breadcrumb auf der Collection-Page — Grid startet direkt mit Toolbar (Titel nur im <code>&lt;title&gt;</code>)</td></tr>
+        <tr><th>Empty State</th><td>0 Treffer → Grid durch <code>.empty-state</code> ersetzen (→ <a href="#C8">C.8</a>), Pagination aus · Icon <code>search_off</code> · Titel „Keine Produkte gefunden“ · Sub „Passe die Filter an oder setze sie zurück.“ · bei aktiven Filtern: <code>.btn.--primary</code> „Alle Filter löschen“ → <code>collection.url</code> / Filter reset · leere Collection ohne Filter: gleicher Block ohne Reset-CTA, Sub „In dieser Übersicht sind aktuell keine Produkte hinterlegt.“</td></tr>
       </table>
       <p class="sg-caption">Filter-/Sortier-Logik über Storefront-Parameter · Sonderkacheln: mehrere <code>featured_tile</code>-Blocks in <code>main-collection</code>, Position frei wählbar — Markup 1:1 aus <a href="#D4">D.4</a> · Demo → <a href="pages/Collection.html">Collection.html</a>.</p>
     </section>
@@ -5624,9 +5724,42 @@
 
       <h3 class="sg-h3 --top" id="shopify-list-collections">List-Collections</h3>
       <table class="spec-table">
-        <tr><th>Template</th><td><code>sections/collections.liquid</code> · <code>{% for collection in collections %}</code></td></tr>
-        <tr><th>Aufbau</th><td><code>.tile-grid.--cols-3</code> · je Collection eine Kachel analog <code>.tile</code> (→ <a href="#C1">C.1</a>) ohne Preis/Cart: Bild <code>collection.featured_image</code>, Titel, Produktanzahl als <code>.text-muted</code> · Kategorie-Badge via <code>[data-cat]</code> wenn Collection = Indikation</td></tr>
+        <tr><th>Template</th><td><code>sections/collections.liquid</code> · <code>{% for collection in collections %}</code> · URL typisch <code>/collections</code></td></tr>
+        <tr><th>Layout</th><td><code>&lt;main class="container"&gt;</code> · <strong>kein</strong> Filter-Sidebar · kein Breadcrumb · kein Seitentitel (<code>.section-label</code>)</td></tr>
+        <tr><th>Grid</th><td><code>.tile-grid.--cols-3</code> (3→2→1) — volle Containerbreite</td></tr>
+        <tr><th>Collection-Kachel</th><td><code>.tile</code> (kein <code>.--product</code>) · Bild in <code>.tile__image.--square</code> · Titel <code>.tile__headline</code> · Produktanzahl <code>.text-muted</code> („N Produkte“) · optional Kategorie-Badge <code>.badge[data-cat]</code> in <code>.floating-meta</code> wenn Collection = Indikation · gesamtes Tile verlinkt auf <code>collection.url</code> · kein Preis, kein Cart</td></tr>
+        <tr><th>Sonderkacheln</th><td>Wie Produkt-Collection: beliebig viele Blocks <code>featured_tile</code> (→ <a href="#D4">D.4</a>) mischbar — <code>stack</code> / <code>cover</code> inkl. Bild, Lottie, ohne Media · Position frei · Demo → <a href="pages/List-Collections.html">List-Collections.html</a></td></tr>
+        <tr><th>Empty State</th><td>Keine Collections → <code>.empty-state</code> (→ <a href="#C8">C.8</a>) · Icon <code>folder_off</code> · „Keine Kategorien“ · Sub kurz · optional CTA zum Shop</td></tr>
       </table>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <a class="tile" href="pages/Collection.html">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
+              <div class="tile__image --square"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Leber"></div>
+            </div>
+            <h3 class="tile__headline">Leber</h3>
+            <p class="text-muted">8 Produkte</p>
+          </a>
+          <div class="tile --featured --cover" style="--tile-fg: #fff">
+            <img class="tile__cover" src="assets/images/Hero_Mood_02.jpg" alt="">
+            <div class="tile__bottom flow">
+              <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
+              <p class="tile__body">Neue Formulierungen für die Praxis.</p>
+              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+            </div>
+          </div>
+          <a class="tile" href="pages/Collection.html">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+              <div class="tile__image --square"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Beruhigung"></div>
+            </div>
+            <h3 class="tile__headline">Beruhigung</h3>
+            <p class="text-muted">5 Produkte</p>
+          </a>
+        </div>
+      </div>
+      <p class="sg-caption">Collection-Kacheln + Cover-Sonderkachel im Mix · Live → <a href="pages/List-Collections.html">List-Collections.html</a> · Kartentypen → <a href="#tile-featured">D.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="shopify-cart-page">Cart-Seite (Fallback zum Drawer)</h3>
       <div class="col-grid" data-cols="2">

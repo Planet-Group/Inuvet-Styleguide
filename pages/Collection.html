@@ -6,7 +6,7 @@
   <title>Produkte – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=151">
+  <link rel="stylesheet" href="../inuvet.css?v=156">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
@@ -126,8 +126,8 @@
         <h4>Shop</h4>
         <ul>
           <li><a href="Collection.html">Alle Produkte</a></li>
+          <li><a href="List-Collections.html">Kategorien</a></li>
           <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
-          <li><a href="Produkt.html?id=13">Beispiel-Produkt</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -231,6 +231,26 @@
     const featuredTiles = [
       {
         position: 2,
+        layout: 'cover',
+        headline: 'Entdecke unsere Neuheiten',
+        body: 'Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.',
+        ctaLabel: 'Alle Neuheiten',
+        ctaHref: '#',
+        image: '../assets/images/Hero_Mood_02.jpg',
+        textColor: '#fff',
+      },
+      {
+        position: 5,
+        layout: 'stack',
+        headline: 'Nur über die Tierarztpraxis',
+        body: 'Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in der Regel in 2–3 Werktagen.',
+        ctaLabel: 'Mehr erfahren',
+        ctaHref: 'Inuvet-Shop-Info.html',
+        lottie: '../assets/lotties/inuvet_tierarzt_nur_bei_euch.json',
+      },
+      {
+        position: 8,
+        layout: 'stack',
         headline: 'Entdecke unsere Neuheiten',
         body: 'Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.',
         ctaLabel: 'Alle Neuheiten',
@@ -238,16 +258,17 @@
         image: '../assets/images/Hero_Mood_02.jpg',
       },
       {
-        position: 5,
-        headline: 'Nur über die Tierarztpraxis',
-        body: 'Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in der Regel in 2–3 Werktagen.',
-        ctaLabel: 'Mehr erfahren',
+        position: 11,
+        layout: 'stack',
+        headline: 'Beratung für die Praxis',
+        body: 'Fragen zur Anwendung? Unser Team unterstützt euch bei der Auswahl der richtigen Formulierung.',
+        ctaLabel: 'Kontakt aufnehmen',
         ctaHref: 'Inuvet-Shop-Info.html',
-        lottie: '../assets/lotties/inuvet_tierarzt_nur_bei_euch.json',
       },
     ];
 
     const featuredMediaHTML = (f) => {
+      if (f.layout === 'cover') return '';
       if (f.lottie) {
         return `<div class="tile__animation"><lottie-player src="${f.lottie}" background="transparent" speed="1" loop autoplay></lottie-player></div>`;
       }
@@ -258,6 +279,18 @@
     };
 
     const featuredHTML = (f) => {
+      if (f.layout === 'cover' && f.image) {
+        const fg = f.textColor || '#fff';
+        return `
+      <div class="tile --featured --cover" style="--tile-fg: ${fg}">
+        <img class="tile__cover" src="${f.image}" alt="">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">${f.headline}</h3>
+          <p class="tile__body">${f.body}</p>
+          <a href="${f.ctaHref}" class="btn --primary">${f.ctaLabel}</a>
+        </div>
+      </div>`;
+      }
       const media = featuredMediaHTML(f);
       if (media) {
         return `
@@ -303,8 +336,23 @@
     };
 
     /** Mischt Produkte + Sonderkacheln in Grid-Reihenfolge (position = Slot-Index). */
+    const emptyHTML = (hasFilters) => {
+      const sub = hasFilters
+        ? 'Passe die Filter an oder setze sie zurück.'
+        : 'In dieser Übersicht sind aktuell keine Produkte hinterlegt.';
+      const cta = hasFilters
+        ? '<button class="btn --primary" type="button" id="emptyFilterReset">Alle Filter löschen</button>'
+        : '';
+      return `
+      <div class="empty-state">
+        <span class="material-icons">search_off</span>
+        <p class="empty-state__title">Keine Produkte gefunden</p>
+        <p class="empty-state__sub">${sub}</p>
+        ${cta}
+      </div>`;
+    };
+
     const gridHTML = (products) => {
-      if (!products.length) return '<p class="text-muted">Keine Produkte für diese Filter.</p>';
       const byPos = new Map();
       featuredTiles.forEach(f => {
         const list = byPos.get(f.position) || [];
@@ -318,6 +366,13 @@
       });
       (byPos.get(products.length) || []).forEach(f => parts.push(featuredHTML(f)));
       return parts.join('');
+    };
+
+    const resetAllFilters = () => {
+      state.cats.clear();
+      state.forms.clear();
+      document.querySelectorAll('#filterSidebar input[type="checkbox"]').forEach(i => { i.checked = false; });
+      renderCollection();
     };
 
     const renderActiveBar = () => {
@@ -346,21 +401,25 @@
           renderCollection();
         });
       });
-      document.getElementById('filterReset')?.addEventListener('click', () => {
-        state.cats.clear();
-        state.forms.clear();
-        document.querySelectorAll('#filterSidebar input[type="checkbox"]').forEach(i => { i.checked = false; });
-        renderCollection();
-      });
+      document.getElementById('filterReset')?.addEventListener('click', resetAllFilters);
     };
 
     const renderCollection = () => {
       const list = filtered();
-      document.getElementById('collectionGrid').innerHTML = gridHTML(list);
+      const grid = document.getElementById('collectionGrid');
+      const hasFilters = state.cats.size > 0 || state.forms.size > 0;
+      if (!list.length) {
+        grid.className = '';
+        grid.innerHTML = emptyHTML(hasFilters);
+        document.getElementById('emptyFilterReset')?.addEventListener('click', resetAllFilters);
+      } else {
+        grid.className = 'tile-grid --cols-3';
+        grid.innerHTML = gridHTML(list);
+        initProductMediaRollover?.();
+      }
       document.getElementById('collectionCount').textContent =
         list.length ? `Zeige ${list.length} von ${catalog.length} Produkten` : 'Keine Treffer';
       renderActiveBar();
-      initProductMediaRollover?.();
     };
 
     document.getElementById('filterForms').querySelectorAll('input').forEach(input => {

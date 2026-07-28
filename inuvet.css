@@ -1298,6 +1298,11 @@
     flex-direction: column;
     gap: 0.5rem;
   }
+  /* List-Collections: gesamtes Tile als Link (E.9) */
+  a.tile {
+    color: inherit;
+    text-decoration: none;
+  }
   .tile__headline-row {
     display: flex;
     align-items: baseline;
@@ -1342,6 +1347,11 @@
   .tile__image.--landscape { aspect-ratio: 4 / 3; }
   .tile__image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--anim-mid); }
   .tile__image:hover img:nth-child(1) { transform: scale(1.05); }
+  /* Badge-Overlay-Wrapper (Produkt + Collection-Kachel) */
+  .tile__image-wrap {
+    position: relative;
+    overflow: hidden;
+  }
 
   /* ─── Produkt-Rollover ─── */
   /* Zweites Medium (img oder video) = Rollover, absolut überlagert, auf Hover sichtbar */
@@ -1404,14 +1414,56 @@
     aspect-ratio: auto;
     object-fit: contain;
   }
+  /* Variante C cover: vollflächiges Hintergrundbild, Text + CTA darüber */
+  .tile.--featured.--cover {
+    position: relative;
+    background: var(--fg);
+    color: var(--tile-fg, #fff);
+    overflow: hidden;
+  }
+  .tile.--featured.--cover > .tile__cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform var(--anim-mid);
+  }
+  .tile.--featured.--cover:hover > .tile__cover {
+    transform: scale(1.05);
+  }
+  /* Verlauf unten → oben für Lesbarkeit (stärker am Textblock) */
+  .tile.--featured.--cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.4) 32%,
+      rgba(0, 0, 0, 0.12) 62%,
+      transparent 100%
+    );
+  }
+  .tile.--featured.--cover > .tile__bottom {
+    position: relative;
+    z-index: 2;
+  }
+  .tile.--featured.--cover .tile__headline,
+  .tile.--featured.--cover .tile__body {
+    color: var(--tile-fg, #fff);
+  }
+  .tile.--featured.--cover .tile__body {
+    opacity: 0.92;
+  }
   /* ─── Tile Variante D: Produktkarte ─── */
   .tile.--product {
     position: relative;
     cursor: pointer;
-  }
-  .tile.--product .tile__image-wrap {
-    position: relative;
-    overflow: hidden;
   }
   .tile.--product .tile__image {
     aspect-ratio: 1 / 1;

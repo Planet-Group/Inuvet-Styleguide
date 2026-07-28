@@ -80,7 +80,7 @@ In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted
 
 Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
 
-**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured` an freien Positionen. Media optional: **Bild oder** Lottie-JSON (Shopify: `media_type` + `image` / `lottie`, nie beides) in `.tile__animation`. Spec → E.3 + D.4 · Demo → `pages/Collection.html`.
+**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **cover** (`.--cover`, `--tile-fg`). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Demos → `pages/Collection.html`, `pages/List-Collections.html`.
 
 ---
 
@@ -264,7 +264,7 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 
 ### Tile / Produktkachel
 - `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1) · `--cols-4` (4→3→2→2, Mobile 2-spaltig)
-- **Shop-Collection (Shopify):** Section-Setting `show_filters` (Default an) steuert Filter **und** Spalten: an → Sidebar + `--cols-3` · aus → `.--no-sidebar` / `.--no-filters` + `--cols-4`. Kein separates Density-Setting. Spec → E.3.
+- **Shop-Collection (Shopify):** Section-Setting `show_filters` (Default an) steuert Filter **und** Spalten: an → Sidebar + `--cols-3` · aus → `.--no-sidebar` / `.--no-filters` + `--cols-4`. Kein Breadcrumb. 0 Treffer → `.empty-state` (C.8). Spec → E.3.
 - **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
 - `.cart-item__variant`: `60 Stück · 39,90 €` — immer diese Klasse, nie eigene
 
@@ -382,7 +382,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
 | E.7 | Suche | `.search-overlay .search-panel` |
 | E.8 | Blog & Artikel | `.blog-card` · `.article-layout` · `.article-toc` (Sidebar-Inhaltsverzeichnis, Desktop) · `.rte` |
-| E.9 | Utility-Seiten (Shopify) | Nur Spezifikation — komponiert aus `.empty-state`, `.form-page`, `.cart-item`, `.tile-grid` (kein eigenes CSS) |
+| E.9 | Utility-Seiten (Shopify) | Spec · List-Collections Demo → `pages/List-Collections.html` |
 
 #### Globale Helfer
 | Klasse | Modifier | Zweck |
@@ -422,6 +422,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Formular-Reklamation.html` | — | `formular-reklamation.js` | Stand-Alone-Formular |
 | `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
 | `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
+| `pages/Collection.html` | — | Inline + `inuvet.js` | Produkt-Collection (E.3) |
+| `pages/List-Collections.html` | — | `inuvet.js` | List-Collections / Kategorien (E.9) · Mix Collection- + Featured-Kacheln |
 | `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
 | `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provision-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |
