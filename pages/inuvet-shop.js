@@ -13,7 +13,7 @@ const SHOP_POPUP_DELAYS = {
   'contact-fr': 1000,
 };
 
-let shopPopupVariant = 'contact-fr';
+let shopPopupVariant = 'rezept';
 let shopPopupTimer = null;
 
 function closeAllShopPopups() {

@@ -153,7 +153,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 |---|---|
 | `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
 | `pages/tierarzt-empfehlung-anfrage-freigabe.js` | Freigabe-Portal |
-| `pages/empfehlung-anfragen-mock.js` | Gemeinsame Demo-Daten Offene Anfragen ↔ Freigabe |
+| `pages/tierarzt-empfehlung-anfrage-mock.js` | Gemeinsame Demo-Daten Offene Anfragen ↔ Freigabe |
 | `pages/tierarzt-empfehlung-offene-anfragen.js` | Posteingang offener Produktanfragen |
 | `pages/provision-portal.js` | Provision-Portal |
 | `pages/provision-portal-start.js` | Provision-Portal Startseite |
@@ -406,12 +406,13 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 | Page | CSS | JS | Zweck |
 |---|---|---|---|
+| `index.html` | — | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE|EN) |
 | `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
-| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
-| `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
-| `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `empfehlung-anfragen-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
-| `pages/Tierarzt-Empfehlung-Programm.html` | — | `empfehlung-anfragen-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
+| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
+| `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
+| `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
+| `pages/Tierarzt-Empfehlung-Programm.html` | — | `tierarzt-empfehlung-anfrage-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
 | `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
