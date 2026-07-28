@@ -597,6 +597,8 @@
   .nav-left > a,
   .nav-item__trigger {
     font-size: var(--text-base);
+    font-weight: 400;
+    line-height: 1.25;
     color: var(--fg-muted);
     text-decoration: none;
     transition: color var(--anim-fast);
@@ -607,12 +609,11 @@
   .nav-item:hover .nav-item__trigger,
   .nav-item:focus-within .nav-item__trigger { color: var(--fg); }
 
-  /* Aktiver Bereich: direkter Link, Trigger oder Dropdown mit aria-current="page" */
+  /* Aktiv: nur Farbe — kein font-weight (Schnebel-Bold verschiebt Baseline) */
   .nav-left > a[aria-current="page"],
   .nav-item__trigger[aria-current="page"],
   .nav-item:has(.nav-item__dropdown [aria-current="page"]) .nav-item__trigger {
     color: var(--fg);
-    font-weight: 700;
   }
   .nav-item:has(.nav-item__dropdown [aria-current="page"]) .nav-item__trigger .material-icons {
     color: var(--fg);
@@ -737,6 +738,11 @@
     visibility: hidden;
     transition: opacity var(--anim-fast), visibility var(--anim-fast), transform var(--anim-fast);
   }
+  /* Rechtsbündig unter dem Trigger — z. B. Sprachwahl in .nav-right */
+  .nav-item.--end .nav-item__dropdown {
+    left: auto;
+    right: 0;
+  }
   .nav-item:hover .nav-item__dropdown,
   .nav-item:focus-within .nav-item__dropdown {
     opacity: 1;
@@ -759,7 +765,7 @@
     transition: color var(--anim-fast), background var(--anim-fast);
   }
   .nav-item__dropdown a:hover { color: var(--fg); background: var(--accent-bg); }
-  .nav-item__dropdown a[aria-current="page"] { color: var(--fg); font-weight: 700; }
+  .nav-item__dropdown a[aria-current="page"] { color: var(--fg); }
 
   /* Offene-Anfragen-Zähler in Portal-Navigation */
   [data-nav-open-count] { flex-shrink: 0; }
@@ -3974,7 +3980,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .shop-modal-overlay.--open .shop-modal { transform: translateY(0); opacity: 1; }
   .shop-modal__icon .material-icons { font-size: 3rem; color: var(--green); }
   .shop-modal__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); margin: 0; }
-  .shop-modal__body  { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); margin: 0; max-width: 28rem; }
+  /* Kein margin:0 — sonst überschreibt es .flow > * + * (Titel→Absatz / Absatz→Absatz) */
+  .shop-modal__body  { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); max-width: 28rem; }
   .shop-modal__actions { display: flex; flex-direction: column; align-items: center; gap: calc(var(--half-module) / 2); width: 100%; margin-top: calc(var(--base) * 0.4); }
 
   /* ─── Login-Modal (zweispaltig: Brand-Panel + Formular-Panel) ─── */
