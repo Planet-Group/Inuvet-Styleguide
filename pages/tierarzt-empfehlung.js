@@ -75,7 +75,7 @@ const isApprovedVariant = (p, formIndex, variantIndex) => {
   return av && av.formIndex === formIndex && av.variantIndex === variantIndex;
 };
 
-function productStartPrice(p) {
+function teProductStartPrice(p) {
   return p.familie ? p.darreichungsformen[0].variants[0].price : p.variants[0].price;
 }
 
@@ -131,8 +131,8 @@ function changeCartQty(cartName, variantLabel, type, delta) {
 /* Menge im Options-Drawer ändern */
 function optionsQtyChange(delta) {
   const inp     = document.getElementById('optionsQty');
-  const p       = getProduct(optionsState.productId);
-  const approved = isApprovedVariant(p, optionsState.formIndex, optionsState.variantIndex);
+  const p       = getProduct(teOptionsState.productId);
+  const approved = isApprovedVariant(p, teOptionsState.formIndex, teOptionsState.variantIndex);
   const maxQty  = approved ? (approvedVariantByProduct.get(p.id)?.maxQty ?? 99) : 99;
   const newVal  = Math.max(1, +inp.value + delta);
   if (delta > 0 && newVal > maxQty) {
@@ -259,9 +259,9 @@ function closeCart() {
 
 /* ════════════════════════════════════════════
    OPTIONS-DRAWER (Varianten wählen)
-   optionsState hält den aktuellen Auswahl-Stand
+   teOptionsState hält den aktuellen Auswahl-Stand
    ════════════════════════════════════════════ */
-const optionsState = { productId: null, formIndex: 0, variantIndex: 0 };
+const teOptionsState = { productId: null, formIndex: 0, variantIndex: 0 };
 
 /* ── Login-Modal ── */
 let loginTargetState    = 'no-release';
@@ -447,9 +447,9 @@ function proceedToRequest() {
 
 function openOptions(id) {
   const av = isApproved(getProduct(id)) ? approvedVariantByProduct.get(id) : null;
-  optionsState.productId    = id;
-  optionsState.formIndex    = av ? av.formIndex    : 0;
-  optionsState.variantIndex = av ? av.variantIndex : 0;
+  teOptionsState.productId    = id;
+  teOptionsState.formIndex    = av ? av.formIndex    : 0;
+  teOptionsState.variantIndex = av ? av.variantIndex : 0;
   renderOptionsDrawer();
   document.getElementById('optionsOverlay').classList.add('--open');
   document.getElementById('optionsDrawer').classList.add('--open');
@@ -461,23 +461,23 @@ function closeOptions() {
 }
 
 function selectOptionsForm(index) {
-  optionsState.formIndex    = index;
-  optionsState.variantIndex = 0;
+  teOptionsState.formIndex    = index;
+  teOptionsState.variantIndex = 0;
   renderOptionsDrawer();
 }
 
 function selectOptionsVariant(index) {
-  optionsState.variantIndex = index;
-  const p = getProduct(optionsState.productId);
+  teOptionsState.variantIndex = index;
+  const p = getProduct(teOptionsState.productId);
   const price = p.familie
-    ? p.darreichungsformen[optionsState.formIndex].variants[index].price
+    ? p.darreichungsformen[teOptionsState.formIndex].variants[index].price
     : p.variants[index].price;
   const priceEl = document.getElementById('optionsPrice');
   if (priceEl) priceEl.textContent = price;
   document.querySelectorAll('#optionsSizeVariants .choice-box').forEach((btn, i) =>
     btn.classList.toggle('--active', i === index));
   // CTA aktualisieren: nur freigegebene Variante → "In den Warenkorb"
-  const approvedNow = isApprovedVariant(p, optionsState.formIndex, index);
+  const approvedNow = isApprovedVariant(p, teOptionsState.formIndex, index);
   const ctaBtn = document.querySelector('.cart-drawer__checkout');
   if (ctaBtn) {
     ctaBtn.className = `btn ${approvedNow ? '--primary' : '--honey'} cart-drawer__checkout`;
@@ -486,17 +486,17 @@ function selectOptionsVariant(index) {
 }
 
 function renderOptionsDrawer() {
-  const p       = getProduct(optionsState.productId);
-  const approved = isApprovedVariant(p, optionsState.formIndex, optionsState.variantIndex);
+  const p       = getProduct(teOptionsState.productId);
+  const approved = isApprovedVariant(p, teOptionsState.formIndex, teOptionsState.variantIndex);
 
   let currentVariants, currentPrice;
   if (p.familie) {
-    const form   = p.darreichungsformen[optionsState.formIndex];
+    const form   = p.darreichungsformen[teOptionsState.formIndex];
     currentVariants = form.variants;
-    currentPrice    = form.variants[optionsState.variantIndex].price;
+    currentPrice    = form.variants[teOptionsState.variantIndex].price;
   } else {
     currentVariants = p.variants;
-    currentPrice    = p.variants[optionsState.variantIndex].price;
+    currentPrice    = p.variants[teOptionsState.variantIndex].price;
   }
 
   const ctaClass = approved ? 'btn --primary' : 'btn --honey';
@@ -513,7 +513,7 @@ function renderOptionsDrawer() {
   if (p.familie) {
     const formBtns = p.darreichungsformen.map((f, i) => {
       const isApprovedForm = av && av.formIndex === i;
-      return `<button class="choice-box${i === optionsState.formIndex ? ' --active' : ''}${isApprovedForm ? ' --approved' : ''}" type="button"
+      return `<button class="choice-box${i === teOptionsState.formIndex ? ' --active' : ''}${isApprovedForm ? ' --approved' : ''}" type="button"
         onclick="selectOptionsForm(${i})">${f.label}${isApprovedForm ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
     }).join('');
     formSection = `
@@ -524,8 +524,8 @@ function renderOptionsDrawer() {
   }
 
   const variantBtns = currentVariants.map((v, i) => {
-    const isApprovedSize = av && av.formIndex === optionsState.formIndex && av.variantIndex === i;
-    return `<button class="choice-box --sm${i === optionsState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
+    const isApprovedSize = av && av.formIndex === teOptionsState.formIndex && av.variantIndex === i;
+    return `<button class="choice-box --sm${i === teOptionsState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
       onclick="selectOptionsVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
   }).join('');
 
@@ -579,18 +579,18 @@ function renderOptionsDrawer() {
 }
 
 function confirmOptions() {
-  const p        = getProduct(optionsState.productId);
-  const approved = isApprovedVariant(p, optionsState.formIndex, optionsState.variantIndex);
+  const p        = getProduct(teOptionsState.productId);
+  const approved = isApprovedVariant(p, teOptionsState.formIndex, teOptionsState.variantIndex);
   let cartName, variantLabel, priceStr;
 
   if (p.familie) {
-    const form    = p.darreichungsformen[optionsState.formIndex];
-    const variant = form.variants[optionsState.variantIndex];
+    const form    = p.darreichungsformen[teOptionsState.formIndex];
+    const variant = form.variants[teOptionsState.variantIndex];
     cartName     = form.cartName;
     variantLabel = variant.label;
     priceStr     = variant.price;
   } else {
-    const variant = p.variants[optionsState.variantIndex];
+    const variant = p.variants[teOptionsState.variantIndex];
     cartName      = p.name;
     variantLabel  = variant.label;
     priceStr      = variant.price;
@@ -1407,7 +1407,7 @@ function tileHTML(p) {
     </div>
     <div class="tile__description">${p.shortDesc}</div>
     <div class="tile__price">
-      <div class="price-stack"><span>ab ${productStartPrice(p)}</span></div>
+      <div class="price-stack"><span>ab ${teProductStartPrice(p)}</span></div>
     </div>
   </div>`;
 }
@@ -2118,7 +2118,7 @@ const SEARCH_DATA = {
   ],
   products: PRODUCTS.map(p => ({
     name: p.name, meta: p.catLabel,
-    price: productStartPrice(p),
+    price: teProductStartPrice(p),
     img: p.img, imgHover: p.imgHover, id: p.id,
   })),
 };
