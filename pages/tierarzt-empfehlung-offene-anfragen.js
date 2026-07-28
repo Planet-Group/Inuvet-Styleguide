@@ -2,7 +2,7 @@
    Tierarzt-Empfehlung-Offene-Anfragen — Posteingang
    Eine Tabellenzeile = eine Produktanfrage (Position).
    Zeilen-Aktionen als Links · Bulk über Dropdowns (.form-field.--sm).
-   Daten: empfehlung-anfragen-mock.js
+   Daten: tierarzt-empfehlung-anfrage-mock.js
    ════════════════════════════════════════════ */
 
 let openRequests = [];

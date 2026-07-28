@@ -21,6 +21,7 @@ const PRODUCTS = [
     shortDesc: 'Für Entspannung und innere Balance.',
     desc: 'Unterstützt die natürliche Ausgeglichenheit von Hunden und Katzen. Schonend gewonnen, tierärztlich entwickelt und geprüft.',
     ingredients: 'Passionsblumenextrakt, Baldrian, L-Tryptophan, Vitamin B1. Ohne künstliche Zusatzstoffe.',
+    usps: ['Tierärztlich entwickelt', 'Für Hund und Katze', 'Ohne künstliche Zusatzstoffe'],
     darreichungsformen: [
       { label: 'Tabletten', cartName: 'Calmin balance Tabletten', animals: 'Hund, Katze',
         variants: [{ label: '60 Stück', price: '39,90 €' }, { label: '90 Stück', price: '54,90 €' }] },
@@ -34,6 +35,7 @@ const PRODUCTS = [
     shortDesc: 'Unterstützt die Leberfunktion.',
     desc: 'Spezialformel zur Unterstützung der Leberfunktion bei Hunden und Katzen. Mit natürlichen Pflanzenextrakten, tierärztlich entwickelt.',
     ingredients: 'Mariendistel-Extrakt (Silymarin), Artischockenextrakt, Taurin, Zink. Frei von Getreide und Soja.',
+    usps: ['Hochdosierte Pflanzenextrakte', 'Frei von Getreide und Soja', 'Für Hund und Katze'],
     darreichungsformen: [
       { label: 'Pulver',    cartName: 'Hepax forte Pulver',    animals: 'Katze, Hund', note: 'für Allergiker geeignet',
         variants: [{ label: '75 g',    price: '39,90 €' }, { label: '175 g',   price: '84,90 €' }] },
@@ -47,6 +49,7 @@ const PRODUCTS = [
     shortDesc: 'Unterstützt die Bauchspeicheldrüse.',
     desc: 'Hochwertige Enzymformel zur Unterstützung der Verdauung bei Erkrankungen der Bauchspeicheldrüse. Für Hunde und Katzen.',
     ingredients: 'Pankreasenzym-Konzentrat (Lipase, Amylase, Protease), Bromelain. Ohne künstliche Konservierungsstoffe.',
+    usps: ['Enzymformel für die Verdauung', 'Für Hund und Katze', 'Ohne künstliche Konservierungsstoffe'],
     variants: [{ label: '50 g', price: '24,90 €' }, { label: '100 g', price: '44,90 €' }],
   },
 ];
@@ -215,9 +218,7 @@ function toggleMockupBar() {
 }
 
 function pdpSetImg(thumb, src) {
-  document.getElementById('pdpMainImg').src = src;
-  document.querySelectorAll('.pdp__thumb').forEach(t => t.classList.remove('--active'));
-  thumb.classList.add('--active');
+  pdpSwitch(thumb, src, '', '');
 }
 
 function toggleAccordion(btn) {
@@ -611,50 +612,9 @@ function confirmOptions() {
 }
 
 /* ════════════════════════════════════════════
-   PDP-VARIANTEN-AUSWAHL (direkt auf der Produktseite)
+   PDP — Layout analog Produkt.html (E.2), inkl. Freigabe-Logik
    ════════════════════════════════════════════ */
-const pdpState = { formIndex: 0, variantIndex: 0 };
-
-function selectPdpForm(index) {
-  pdpState.formIndex    = index;
-  pdpState.variantIndex = 0;
-  const p    = activeProduct;
-  const form = p.darreichungsformen[index];
-  const av   = isApproved(p) ? approvedVariantByProduct.get(p.id) : null;
-  const sizeEl = document.getElementById('pdpSizeOptions');
-  if (sizeEl) sizeEl.innerHTML = form.variants.map((v, i) => {
-    const isApprovedSize = av && av.formIndex === index && av.variantIndex === i;
-    return `<button class="choice-box${i === 0 ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
-      onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
-  }).join('');
-  const priceEl = document.getElementById('pdpPrice');
-  if (priceEl) priceEl.textContent = form.variants[0].price;
-  updatePdpQtyMax();
-  updatePdpCta();
-}
-
-function selectPdpVariant(index) {
-  pdpState.variantIndex = index;
-  const p = activeProduct;
-  const price = p.familie
-    ? p.darreichungsformen[pdpState.formIndex].variants[index].price
-    : p.variants[index].price;
-  document.querySelectorAll('#pdpSizeOptions .choice-box').forEach((b, i) =>
-    b.classList.toggle('--active', i === index));
-  const priceEl = document.getElementById('pdpPrice');
-  if (priceEl) priceEl.textContent = price;
-  updatePdpQtyMax();
-  updatePdpCta();
-}
-
-function updatePdpCta() {
-  const p           = activeProduct;
-  const approvedNow = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
-  const btn         = document.querySelector('.pdp__actions button[onclick="pdpAddToCart()"]');
-  if (!btn) return;
-  btn.className  = `btn ${approvedNow ? '--primary' : '--honey'}`;
-  btn.textContent = approvedNow ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
-}
+const pdpState = { formIndex: 0, variantIndex: 0, qty: 1 };
 
 function pdpMaxQty() {
   const p = activeProduct;
@@ -662,44 +622,398 @@ function pdpMaxQty() {
   return approved ? (approvedVariantByProduct.get(p.id)?.maxQty ?? 99) : 99;
 }
 
-function updatePdpQtyMax() {
-  const inp = document.getElementById('pdpQty');
-  if (inp) inp.max = pdpMaxQty();
+function pdpCurrentPriceStr() {
+  const p = activeProduct;
+  if (p.familie) return p.darreichungsformen[pdpState.formIndex].variants[pdpState.variantIndex].price;
+  return p.variants[pdpState.variantIndex].price;
+}
+
+function pdpGalleryHTML() {
+  const p = activeProduct;
+  const approved = isApproved(p);
+  const media = [p.img, p.imgHover, p.imgDetail].filter(Boolean);
+  const freigabeBadge = approved
+    ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>'
+    : '<div class="badge --pill --honey">Freigabe benötigt</div>';
+  const meta = `
+    <div class="floating-meta">
+      <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
+      ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
+    </div>
+    <div class="floating-meta --right">${freigabeBadge}</div>`;
+
+  if (!media.length) {
+    return `
+      <div class="pdp__gallery">
+        <div class="pdp__main-image placeholder-bg">${meta}</div>
+      </div>`;
+  }
+
+  const thumbs = media.map((src, i) => `
+    <div class="pdp__thumb${i === 0 ? ' --active' : ''}" onclick="pdpSwitch(this,'${src}','','')">
+      <img src="${src}" alt="${p.name}${i ? ` Ansicht ${i + 1}` : ''}">
+    </div>`).join('');
+
+  return `
+    <div class="pdp__gallery">
+      ${media.length > 1 ? `<div class="pdp__thumbs">${thumbs}</div>` : ''}
+      <div class="pdp__main-image">
+        <img src="${media[0]}" alt="${p.name}" id="pdpMainImg">
+        ${meta}
+      </div>
+    </div>`;
+}
+
+function pdpSocialProofHTML() {
+  return `
+    <div class="social-proof">
+      <div class="social-proof__avatars" aria-hidden="true">
+        <img class="social-proof__avatar" src="../assets/images/Partner_Krause_Erl_Thumbnail.jpg" alt="">
+        <img class="social-proof__avatar" src="../assets/images/Sarah_Inuvet.png" alt="">
+      </div>
+      <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
+    </div>`;
+}
+
+function pdpAccordionHTML() {
+  const p = activeProduct;
+  const item = (title, body) => body ? `
+    <div class="accordion-item">
+      <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">${title}<span class="accordion-icon material-icons">expand_more</span></button>
+      <div class="accordion-content"><div class="accordion-content__inner"><p>${body}</p></div></div>
+    </div>` : '';
+  return `
+    <div class="pdp__accordion accordion">
+      ${item('Beschreibung', p.desc || p.shortDesc)}
+      ${item('Inhaltsstoffe (Auszug)', p.ingredients)}
+      ${item('Versand &amp; Lieferung', 'Standardversand: 3–5 Werktage. Expressversand: 1–2 Werktage. Ab 50 € versandkostenfrei.')}
+    </div>`;
+}
+
+function pdpBuyHTML() {
+  const p = activeProduct;
+  const pdpAv = isApproved(p) ? approvedVariantByProduct.get(p.id) : null;
+  const approvedNow = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
+  const maxQty = pdpMaxQty();
+
+  let typeSection = '';
+  if (p.familie) {
+    const formRows = p.darreichungsformen.map((f, i) => {
+      const isApprovedForm = pdpAv && pdpAv.formIndex === i;
+      const badge = isApprovedForm
+        ? '<span class="circle-badge --check pdp__type-badge"><span class="material-icons">check</span></span>'
+        : '';
+      return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
+        <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
+        <span class="pdp__type-label">${f.label}${f.note ? ` (${f.note})` : ''}${badge}</span>
+        <span class="pdp__type-animals">${f.animals ? `für ${f.animals}` : ''}</span>
+      </label>`;
+    }).join('');
+    typeSection = `
+      <div class="pdp__variants">
+        <div class="pdp__type-selector">${formRows}</div>
+        <p class="pdp__type-hint">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
+      </div>`;
+  }
+
+  const variants = p.familie
+    ? p.darreichungsformen[pdpState.formIndex].variants
+    : p.variants;
+  const sizeBtns = variants.map((v, i) => {
+    const isApprovedSize = pdpAv && pdpAv.formIndex === pdpState.formIndex && pdpAv.variantIndex === i;
+    return `<button class="choice-box${i === pdpState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
+      onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+  }).join('');
+  const sizeSection = `
+    <div class="pdp__variants">
+      <div class="pdp__variant-options" id="pdpSizeOptions">${sizeBtns}</div>
+    </div>`;
+
+  const usps = (p.usps || []).map(u =>
+    `<li><span class="material-icons" aria-hidden="true">add</span><span>${u}</span></li>`).join('');
+  const uspsBlock = usps ? `<ul class="check-list">${usps}</ul>` : '';
+
+  const ctaClass = approvedNow ? 'btn --primary' : 'btn --honey';
+  const ctaLabel = approvedNow ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
+  const productApproved = isApproved(p);
+
+  return `
+    <div class="pdp__info">
+      <h1 class="pdp__title">${p.name}</h1>
+      <div class="rating">${ratingStarsHTML(p.rating)} <span class="text-muted">${p.rating} (Bewertungen)</span></div>
+      <p class="pdp__description">${p.shortDesc}</p>
+      ${uspsBlock}
+      ${typeSection}
+      <div class="pdp__price">
+        <div class="price-stack">
+          <span id="pdpPrice">${pdpCurrentPriceStr()}</span>
+          <span class="price-stack__unit">Exkl. USt.</span>
+        </div>
+      </div>
+      ${sizeSection}
+      <div class="pdp__actions">
+        <div>
+          <div class="qty-selector">
+            <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
+            <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" max="${maxQty}" id="pdpQty" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
+            <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
+          </div>
+        </div>
+        <button class="${ctaClass}" type="button" onclick="pdpAddToCart()">${ctaLabel}</button>
+        ${productApproved ? `<button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>` : ''}
+      </div>
+      ${pdpSocialProofHTML()}
+      ${pdpAccordionHTML()}
+    </div>
+    <aside class="pdp__aside" aria-label="Vertrauen">
+      ${pdpSocialProofHTML()}
+    </aside>`;
+}
+
+function pdpMountHTML() {
+  return `
+    <div class="pdp pdp--sticky-gallery">
+      ${pdpGalleryHTML()}
+      <div class="pdp__buy" id="pdpBuy">
+        ${pdpBuyHTML()}
+      </div>
+    </div>`;
+}
+
+function pdpBenefitsHTML() {
+  return `
+    <div class="pdp__benefits">
+      <div class="tile-grid --cols-4">
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Beste Expertise</p>
+          <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Für die Langzeitgabe</p>
+          <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Immer gut unterstützt</p>
+          <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon">
+            <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Schnell bei dir</p>
+          <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function pdpTestimonialsHTML() {
+  const items = [
+    { text: 'Bei Inuvet fühle ich mich als Praxis gut aufgehoben. Die Antworten kommen schnell, und man merkt, dass hinter dem Shop echte fachliche Expertise steckt.', name: 'Dr. Sandra Meier', role: 'Tierärztin, München', img: '../assets/images/Sarah_Inuvet.png' },
+    { text: 'Was mir an Inuvet gefällt: die enge, verlässliche Zusammenarbeit mit uns Tierärztinnen und Tierärzten. Das spüre ich in jedem Kontakt.', name: 'Dr. Thomas Krause', role: 'Tierarzt, Hamburg', img: '../assets/images/Partner_Krause_Erl_Thumbnail.jpg' },
+    { text: 'Bestellen bei Inuvet ist unkompliziert — übersichtlich, klar und ohne Schnickschnack. Genau so soll ein Shop für die Praxis funktionieren.', name: 'Dr. Julia Richter', role: 'Tierärztin, Berlin', img: '../assets/images/Partner_Mia_01.png' },
+    { text: 'Zuverlässige Lieferung, freundlicher Kontakt und ein Markenauftritt, dem ich vertraue. Deshalb empfehle ich Inuvet in meiner Praxis weiter.', name: 'Dr. Markus Thal', role: 'Tierarzt, Köln', img: '../assets/images/Tierhalter_Test_Thumbnail.jpg' },
+  ];
+  const cards = items.map(t => `
+    <div class="testimonial">
+      <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
+      <p class="testimonial__text">${t.text}</p>
+      <div class="rating">
+        <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
+      </div>
+      <div class="testimonial__author">
+        <div class="testimonial__avatar icon-box"><img src="${t.img}" alt=""></div>
+        <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
+      </div>
+    </div>`).join('');
+  return `
+    <div class="pdp__testimonials testimonial-section">
+      <div class="testimonial-grid --cols-4">${cards}</div>
+      <div class="testimonial-more">
+        <button class="btn --secondary" type="button" onclick="showMore(this)">Mehr anzeigen</button>
+      </div>
+    </div>`;
+}
+
+function pdpRecommendationsHTML() {
+  const others = PRODUCTS.filter(x => x.id !== activeProduct.id);
+  if (!others.length) return '';
+  const tiles = others.map(o => {
+    const freigabe = isApproved(o)
+      ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>'
+      : '<div class="badge --pill --honey">Freigabe benötigt</div>';
+    return `
+      <a class="tile --product" href="#" onclick="activeProduct=PRODUCTS.find(x=>x.id===${o.id});setPage('product');return false;" style="text-decoration:none;color:inherit">
+        <div class="tile__image-wrap">
+          <div class="floating-meta"><div class="badge" data-cat="${o.cat}">${o.catLabel}</div>${o.familie ? '<div class="badge">Produktfamilie</div>' : ''}</div>
+          <div class="floating-meta --right">${freigabe}</div>
+          ${o.img ? `<div class="tile__image"><img src="${o.img}" alt="${o.name}"></div>` : '<div class="tile__image placeholder-bg"></div>'}
+        </div>
+        <div class="tile__headline-row"><h3 class="tile__headline">${o.name}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating}</div></div>
+        <div class="tile__description">${o.shortDesc}</div>
+        <div class="tile__price"><div class="price-stack"><span>ab ${teProductStartPrice(o)}</span></div></div>
+      </a>`;
+  }).join('');
+  return `
+    <div class="pdp__recommendations">
+      <h3>Das könnte Ihnen auch gefallen</h3>
+      <div class="tile-grid --cols-4">${tiles}</div>
+    </div>`;
+}
+
+function pdpPraxisHTML() {
+  return `
+    <div class="pdp__praxis">
+      <div class="tile-grid --cols-3">
+        <div class="tile">
+          <div class="tile__icon tile__animation --ratio-1">
+            <lottie-player src="../assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Nur bei euch</p>
+          <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon tile__animation --ratio-weltweit">
+            <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
+          <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
+        </div>
+        <div class="tile">
+          <div class="tile__icon tile__animation --ratio-inhaltsstoffe">
+            <lottie-player src="../assets/lotties/inuvet_animation_inhaltsstoffe.json?v=2" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <p class="tile__headline">Grüne Pfoten</p>
+          <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function pdpBelowHTML() {
+  return `${pdpBenefitsHTML()}${pdpTestimonialsHTML()}${pdpRecommendationsHTML()}${pdpPraxisHTML()}`;
+}
+
+function updatePdpStickyCta() {
+  const bar = document.getElementById('pdpStickyCta');
+  const inner = document.getElementById('pdpStickyInner');
+  const pageEl = document.getElementById('pdpPage');
+  if (!bar || !inner || !pageEl) return;
+
+  const p = activeProduct;
+  const approvedNow = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
+  const maxQty = pdpMaxQty();
+  const pdpAv = isApproved(p) ? approvedVariantByProduct.get(p.id) : null;
+  const variants = p.familie
+    ? p.darreichungsformen[pdpState.formIndex].variants
+    : p.variants;
+  const sizeBlock = variants.length
+    ? `<div class="pdp__sticky-cta__sizes" role="group" aria-label="Größe">${
+        variants.map((s, i) => {
+          const isApprovedSize = pdpAv && pdpAv.formIndex === pdpState.formIndex && pdpAv.variantIndex === i;
+          return `<button class="choice-box --sm${i === pdpState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button" onclick="selectPdpVariant(${i})">${s.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
+        }).join('')
+      }</div>`
+    : '';
+  const ctaClass = approvedNow ? 'btn --primary --sm' : 'btn --honey --sm';
+  const ctaLabel = approvedNow ? 'In den Warenkorb' : 'Freigabe anfragen';
+
+  inner.innerHTML = `
+    <div class="qty-selector --sm" aria-label="Menge">
+      <button class="qty-selector__btn" type="button" aria-label="Menge verringern" onclick="pdpQtyChange(-1)"><span class="material-icons">remove</span></button>
+      <input class="qty-selector__input" type="number" value="${pdpState.qty}" min="1" max="${maxQty}" onchange="pdpSetQty(parseInt(this.value)||1)" aria-label="Menge">
+      <button class="qty-selector__btn" type="button" aria-label="Menge erhöhen" onclick="pdpQtyChange(1)"><span class="material-icons">add</span></button>
+    </div>
+    ${sizeBlock}
+    <button class="${ctaClass}" type="button" onclick="pdpAddToCart()">${ctaLabel}</button>`;
+}
+
+function hidePdpStickyCta() {
+  const bar = document.getElementById('pdpStickyCta');
+  if (!bar) return;
+  bar.classList.remove('--visible');
+  bar.setAttribute('aria-hidden', 'true');
+  const inner = document.getElementById('pdpStickyInner');
+  if (inner) inner.innerHTML = '';
+  document.getElementById('pdpPage')?.classList.remove('pdp--sticky-cta');
+}
+
+function refreshPdp() {
+  const buy = document.getElementById('pdpBuy');
+  if (buy) buy.innerHTML = pdpBuyHTML();
+  else {
+    const mount = document.getElementById('pdpMount');
+    if (mount) mount.innerHTML = pdpMountHTML();
+  }
+  updatePdpStickyCta();
+  initPdpStickyCta();
+}
+
+function selectPdpForm(index) {
+  pdpState.formIndex = index;
+  pdpState.variantIndex = 0;
+  refreshPdp();
+}
+
+function selectPdpVariant(index) {
+  pdpState.variantIndex = index;
+  refreshPdp();
 }
 
 function pdpQtyChange(delta) {
-  const inp    = document.getElementById('pdpQty');
   const maxQty = pdpMaxQty();
-  const newVal = Math.max(1, +inp.value + delta);
-  if (delta > 0 && newVal > maxQty) {
+  const next = Math.max(1, pdpState.qty + delta);
+  if (delta > 0 && next > maxQty) {
     showToast(`Dein Tierarzt hat max. ${maxQty} Packung${maxQty !== 1 ? 'en' : ''} freigegeben.`, 'info');
     return;
   }
-  inp.value = newVal;
+  pdpState.qty = next;
+  refreshPdp();
+}
+
+function pdpSetQty(val) {
+  const maxQty = pdpMaxQty();
+  let qty = Math.max(1, val);
+  if (qty > maxQty) {
+    qty = maxQty;
+    showToast(`Dein Tierarzt hat max. ${maxQty} Packung${maxQty !== 1 ? 'en' : ''} freigegeben.`, 'info');
+  }
+  pdpState.qty = qty;
+  refreshPdp();
 }
 
 function pdpAddToCart() {
-  const p        = activeProduct;
+  const p = activeProduct;
   const approved = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
   let cartName, variantLabel, priceStr;
   if (p.familie) {
-    const form    = p.darreichungsformen[pdpState.formIndex];
+    const form = p.darreichungsformen[pdpState.formIndex];
     const variant = form.variants[pdpState.variantIndex];
-    cartName     = form.cartName;
+    cartName = form.cartName;
     variantLabel = variant.label;
-    priceStr     = variant.price;
+    priceStr = variant.price;
   } else {
     const variant = p.variants[pdpState.variantIndex];
-    cartName      = p.name;
-    variantLabel  = variant.label;
-    priceStr      = variant.price;
+    cartName = p.name;
+    variantLabel = variant.label;
+    priceStr = variant.price;
   }
-  const price  = parseFloat(priceStr.replace(',', '.').replace(' €', ''));
-  let   qty    = parseInt(document.getElementById('pdpQty')?.value || '1', 10);
+  const price = parseFloat(priceStr.replace(',', '.').replace(' €', ''));
+  let qty = pdpState.qty;
   if (approved) {
     const maxQty = approvedVariantByProduct.get(p.id)?.maxQty ?? 99;
     if (qty > maxQty) {
       qty = maxQty;
+      pdpState.qty = maxQty;
       showToast(`Dein Tierarzt hat max. ${maxQty} Packung${maxQty !== 1 ? 'en' : ''} freigegeben.`, 'info');
     }
   }
@@ -1250,7 +1564,7 @@ function renderNav() {
   const navLinks = document.getElementById('navLinks');
   const navRight = document.getElementById('navRight');
 
-  // Desktop-Links (hinter dem Hamburger)
+  // Desktop-Links · Menu B: Home · Alle Produkte · Dokumentation
   const hamburger = navLinks.querySelector('.nav-hamburger');
   navLinks.innerHTML = '';
   if (hamburger) navLinks.appendChild(hamburger);
@@ -1263,19 +1577,22 @@ function renderNav() {
     navLinks.appendChild(a);
   };
 
+  addLink('Home', (e) => { e.preventDefault(); setPage('home'); });
   addLink('Alle Produkte', (e) => { e.preventDefault(); setPage('collection'); });
-  if (state === 'with-release') {
-    addLink('Empfohlene Produkte', (e) => { e.preventDefault(); setPage('recommended'); });
-  }
 
   const docsLink = document.createElement('a');
   docsLink.href = 'Tierarzt-Empfehlung-Info.html';
   docsLink.textContent = 'Dokumentation';
   navLinks.appendChild(docsLink);
 
-  // Mobile-Menu synchronisieren
-  const mobileRec = document.getElementById('mobileRecommended');
-  if (mobileRec) mobileRec.style.display = state === 'with-release' ? '' : 'none';
+  // Mobile-Menu · Menu B synchronisieren
+  const mobileCol = document.getElementById('mobileNavCol');
+  if (mobileCol) {
+    mobileCol.innerHTML = `
+      <a href="#" onclick="setPage('home');closeMobile();return false;">Home</a>
+      <a href="#" onclick="setPage('collection');closeMobile();return false;">Alle Produkte</a>
+      <a href="Tierarzt-Empfehlung-Info.html" onclick="closeMobile()">Dokumentation</a>`;
+  }
 
   navRight.innerHTML = '';
 
@@ -1822,148 +2139,20 @@ function renderRecommended() {
 `;
 }
 
-/* ── Produktseite (PDP) ── */
+/* ── Produktseite (PDP) — Layout analog Produkt.html, Freigabe erhalten ── */
 function renderProduct() {
-  const p        = activeProduct;
+  const p = activeProduct;
   const approved = isApproved(p);
-
-  // Approved Variante vorauswählen, sonst auf Index 0 zurücksetzen
   const pdpAv = approved ? approvedVariantByProduct.get(p.id) : null;
-  pdpState.formIndex    = pdpAv ? pdpAv.formIndex    : 0;
+  pdpState.formIndex = pdpAv ? pdpAv.formIndex : 0;
   pdpState.variantIndex = pdpAv ? pdpAv.variantIndex : 0;
-
-  const imgBadges = `<div class="floating-meta">
-    <div class="badge" data-cat="${p.cat}">${p.catLabel}</div>
-    ${p.familie ? '<div class="badge">Produktfamilie</div>' : ''}
-  </div>
-  <div class="floating-meta --right">${approved ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>' : '<div class="badge --pill --honey">Freigabe benötigt</div>'}</div>`;
-
-
-  // Bewertung — wie im Styleguide: Sterne + Text
-  const ratingHTML = p.rating ? `
-    <div class="rating">
-      ${ratingStarsHTML(p.rating)}
-      <span class="text-muted">${p.rating} (Bewertungen)</span>
-    </div>` : '';
-
-  let typeSection  = '';
-  let priceDisplay = '';
-  let sizeSection  = '';
-  let actions      = '';
-
-  {
-    const startForm     = p.familie ? p.darreichungsformen[pdpState.formIndex] : null;
-    const startVariants = startForm ? startForm.variants : p.variants;
-    const startPrice    = startVariants[pdpState.variantIndex].price;
-
-    priceDisplay = `<div class="pdp__price"><div class="price-stack"><span id="pdpPrice">${startPrice}</span></div></div>`;
-
-    // Darreichungsform-Auswahl — nur Familien, VOR dem Preis (wie Styleguide)
-    if (p.familie) {
-      const formRows = p.darreichungsformen.map((f, i) => {
-        const isApprovedForm = pdpAv && pdpAv.formIndex === i;
-        const badge = isApprovedForm
-          ? '<span class="circle-badge --check pdp__type-badge"><span class="material-icons">check</span></span>'
-          : '';
-        return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
-          <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
-          <span class="pdp__type-label">${f.label}${f.note ? ` (${f.note})` : ''}${badge}</span>
-          <span class="pdp__type-animals">${f.animals ? `für ${f.animals}` : ''}</span>
-        </label>`;
-      }).join('');
-      typeSection = `
-        <div class="pdp__variants">
-          <div class="pdp__type-selector">
-            ${formRows}
-          </div>
-          <div class="notice --compact"><p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p></div>
-        </div>`;
-    }
-
-    // Größen-Auswahl
-    const sizeBtns = startVariants.map((v, i) => {
-      const isApprovedSize = pdpAv && pdpAv.formIndex === pdpState.formIndex && pdpAv.variantIndex === i;
-      return `<button class="choice-box${i === pdpState.variantIndex ? ' --active' : ''}${isApprovedSize ? ' --approved' : ''}" type="button"
-        onclick="selectPdpVariant(${i})">${v.label}${isApprovedSize ? '<span class="circle-badge --check choice-box__check"><span class="material-icons">check</span></span>' : ''}</button>`;
-    }).join('');
-    sizeSection = `
-      <div class="pdp__variants">
-        <div class="pdp__variant-label label-caps">Größe</div>
-        <div class="pdp__variant-options" id="pdpSizeOptions">${sizeBtns}</div>
-      </div>`;
-
-    const ctaClass = approved ? 'btn --primary' : 'btn --honey';
-    const ctaIcon  = '';
-    const ctaLabel = approved ? 'In den Warenkorb' : 'Freigabe-Anfrage in den Korb legen';
-    actions = `<div class="pdp__actions">
-      <div>
-        <div class="pdp__variant-label label-caps">Menge</div>
-        <div class="qty-selector">
-          <button class="qty-selector__btn" type="button" aria-label="Weniger"
-            onclick="pdpQtyChange(-1)">
-            <span class="material-icons">remove</span>
-          </button>
-          <input class="qty-selector__input" type="number" value="1" min="1" max="${approved ? (approvedVariantByProduct.get(p.id)?.maxQty ?? 99) : 99}" id="pdpQty">
-          <button class="qty-selector__btn" type="button" aria-label="Mehr"
-            onclick="pdpQtyChange(1)">
-            <span class="material-icons">add</span>
-          </button>
-        </div>
-      </div>
-      <button class="${ctaClass}" onclick="pdpAddToCart()">${ctaIcon}${ctaLabel}</button>
-      ${approved ? `<button class="pdp__wishlist icon-box --md" type="button" aria-label="Zur Wunschliste"><span class="material-icons">favorite_border</span></button>` : ''}
-    </div>`;
-  }
-
-  const gallerySection = p.img ? `
-    <div class="pdp__gallery">
-      <div class="pdp__main-image" id="pdpMainImage">
-        <img src="${p.img}" alt="${p.name}" id="pdpMainImg">
-        ${imgBadges}
-      </div>
-      <div class="pdp__thumbs">
-        <button class="pdp__thumb --active" onclick="pdpSetImg(this,'${p.img}')"><img src="${p.img}" alt="${p.name}"></button>
-        ${p.imgHover  ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgHover}')"><img src="${p.imgHover}" alt="${p.name} Ansicht 2"></button>` : ''}
-        ${p.imgDetail ? `<button class="pdp__thumb" onclick="pdpSetImg(this,'${p.imgDetail}')"><img src="${p.imgDetail}" alt="${p.name} Ansicht 3"></button>` : ''}
-      </div>
-    </div>` : `
-    <div class="pdp__gallery">
-      <div class="pdp__main-image placeholder-bg" id="pdpMainImage">
-        ${imgBadges}
-      </div>
-    </div>`;
+  pdpState.qty = 1;
 
   return `
-    <div class="container">
-      <div class="pdp">
-        ${gallerySection}
-        <div class="pdp__info">
-          <h1 class="pdp__title">${p.name}</h1>
-          ${ratingHTML}
-          <p class="pdp__description">${p.shortDesc}</p>
-          ${typeSection}
-          ${priceDisplay}
-          ${sizeSection}
-          ${actions}
-          <div class="accordion">
-            <div class="accordion-item --open">
-              <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Beschreibung<span class="accordion-icon material-icons">expand_more</span></button>
-              <div class="accordion-content"><div class="accordion-content__inner"><p>${p.desc}</p></div></div>
-            </div>
-            <div class="accordion-item">
-              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Inhaltsstoffe<span class="accordion-icon material-icons">expand_more</span></button>
-              <div class="accordion-content"><div class="accordion-content__inner"><p>${p.ingredients}</p></div></div>
-            </div>
-            <div class="accordion-item">
-              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Versand &amp; Lieferung<span class="accordion-icon material-icons">expand_more</span></button>
-              <div class="accordion-content"><div class="accordion-content__inner"><p>Standardversand: 3–5 Werktage. Expressversand: 1–2 Werktage. Ab 50 € versandkostenfrei.</p></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    ${testimonialSectionHTML()}
-`;
+    <div class="container pdp--sticky-cta" id="pdpPage">
+      <div id="pdpMount">${pdpMountHTML()}</div>
+      <div id="pdpBelow">${pdpBelowHTML()}</div>
+    </div>`;
 }
 
 /* ── Checkout-Seite ── */
@@ -2092,6 +2281,7 @@ function render() {
   renderNav();
   document.body.classList.toggle('--page-home', page === 'home');
   const main = document.getElementById('shopMain');
+  if (page !== 'product') hidePdpStickyCta();
   switch (page) {
     case 'home':
       main.innerHTML = renderHome();
@@ -2099,7 +2289,13 @@ function render() {
     case 'about':       main.innerHTML = renderAbout();       break;
     case 'collection':  main.innerHTML = renderCollection();  break;
     case 'recommended': main.innerHTML = renderRecommended(); break;
-    case 'product':     main.innerHTML = renderProduct();     break;
+    case 'product':
+      main.innerHTML = renderProduct();
+      updatePdpStickyCta();
+      initPdpStickyCta();
+      if (typeof initTestimonials === 'function') initTestimonials();
+      if (typeof initScrollAnimations === 'function') initScrollAnimations();
+      break;
     case 'checkout':    main.innerHTML = renderCheckout();    break;
   }
   initSliders();
