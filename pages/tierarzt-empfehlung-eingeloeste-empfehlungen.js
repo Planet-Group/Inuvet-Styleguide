@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════
    Tierarzt-Empfehlung-Eingeloeste-Empfehlungen — Historie
    Eine Tabellenzeile = eine eingelöste Produktposition (Bestellung).
-   Daten: empfehlung-anfragen-mock.js
+   Daten: tierarzt-empfehlung-anfrage-mock.js
    ════════════════════════════════════════════ */
 
 const redeemedSortState = { key: 'date', dir: 'desc' };
