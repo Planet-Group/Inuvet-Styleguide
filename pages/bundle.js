@@ -59,13 +59,6 @@ window.addBundleToCart = () => {
   openCart();
 };
 
-// Schnell-Hinzufügen aus den Produktkacheln (Einzelprodukte, Menge 1).
-window.quickAdd = (id, name) => {
-  addToCart(id, 0, 0, 1);
-  showToast(`${name} in den Warenkorb gelegt`);
-  openCart();
-};
-
 // ── Sichtbarkeits-Logik (einmalige Entscheidung beim Load) ──────────────
 // Pool: letzte 549 Tage (18 Monate, past18Months).
 // Mindestens ein Produkt mit Gratisartikel? → Section zeigen.
@@ -418,85 +411,6 @@ window.setProductModel = (productId, model) => {
   renderModelSelector();
   renderBundle();
 };
-
-// ── Testimonial-Slider ──────────────────────────────────────────────────
-const TESTIMONIALS = [
-  { text: 'Nach wenigen Wochen hat sich die Beweglichkeit meiner Hündin spürbar verbessert. Das Vorrats-Bundle spart mir Zeit und bringt echte Vorteile.',    name: 'Sandra M.',   role: 'Labrador-Besitzerin, München'    },
-  { text: 'Endlich eine einfache Möglichkeit, regelmäßig nachzubestellen. Hypolene ist aus dem Alltag mit meinem Retriever nicht mehr wegzudenken.',           name: 'Thomas K.',   role: 'Hundebesitzer, Hamburg'          },
-  { text: 'Das Naturalrabatt-System ist eine tolle Idee. Ich bekomme Gratis-Produkte dazu und muss nicht jedes Mal neu überlegen, was ich bestelle.',           name: 'Julia R.',    role: 'Tierliebhaberin, Berlin'         },
-  { text: 'Seit ich das Bundle nutze, habe ich Respirax immer vorrätig. Mein Tierarzt ist begeistert – und mein Hund auch.',                                    name: 'Markus T.',   role: 'Golden-Retriever-Besitzer'       },
-  { text: 'Der Vorteil beim Bundle ist unschlagbar. Ich zahle weniger und habe immer genug auf Lager. Absolute Empfehlung für alle, die regelmäßig bestellen.', name: 'Petra L.',    role: 'Hundebesitzerin, Köln'           },
-  { text: 'Ich habe das Bundle meiner Tierärztin gezeigt – sie war sofort überzeugt. Jetzt nutzen wir es schon seit Monaten und sind sehr zufrieden.',          name: 'Anna W.',     role: 'Beagle-Mama, Frankfurt'          },
-];
-
-(function initSlider() {
-  const track   = document.getElementById('tTrack');
-  const counter = document.getElementById('tCounter');
-  const slider  = document.getElementById('tSlider');
-  const prevBtn = slider.querySelector('[data-dir="prev"]');
-  const nextBtn = slider.querySelector('[data-dir="next"]');
-  let current   = 0;
-
-  track.innerHTML = TESTIMONIALS.map(t => `
-    <div class="testimonial-slider__slide testimonial">
-      <div class="testimonial__quote-mark"><span class="material-icons">format_quote</span></div>
-      <p class="testimonial__text">${t.text}</p>
-      <div class="rating">
-        <span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span>
-      </div>
-      <div class="testimonial__author">
-        <div class="testimonial__avatar icon-box placeholder-bg"></div>
-        <div><p class="testimonial__name">${t.name}</p><div class="testimonial__role">${t.role}</div></div>
-      </div>
-    </div>`).join('');
-
-  const slides = track.querySelectorAll('.testimonial-slider__slide');
-
-  function getVisible() {
-    const w = window.innerWidth;
-    if (w <= 767) return slides.length; // Mobile: alle sichtbar (vertikaler Stack via CSS)
-    return w <= 1100 ? 2 : 3;
-  }
-  function getMaxPage() { return Math.max(0, slides.length - getVisible()); }
-  function update() {
-    const vis     = getVisible();
-    const maxPage = getMaxPage();
-    if (current > maxPage) current = maxPage;
-
-    // .--visible setzen — auf Mobile braucht inuvet.css diese Klasse
-    slides.forEach((s, idx) => {
-      s.classList.toggle('--visible', idx >= current && idx < current + vis);
-    });
-
-    if (slides.length > 0 && vis < slides.length) {
-      const slideWidth = slides[0].offsetWidth;
-      const gap = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft - slideWidth : 0;
-      track.style.transform = `translateX(-${current * (slideWidth + gap)}px)`;
-    } else {
-      track.style.transform = 'translateX(0)';
-    }
-    if (counter) counter.textContent = `${current + 1} – ${Math.min(current + vis, slides.length)} / ${slides.length}`;
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current >= maxPage;
-  }
-
-  prevBtn.addEventListener('click', () => { if (current > 0) { current--; update(); } });
-  nextBtn.addEventListener('click', () => { if (current < getMaxPage()) { current++; update(); } });
-
-  let startX = 0;
-  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend',   e => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && current < getMaxPage()) current++;
-      else if (diff < 0 && current > 0) current--;
-      update();
-    }
-  });
-
-  window.addEventListener('resize', update);
-  update();
-})();
 
 // Warenkorb geleert → Bundle-Section wieder freigeben.
 ['cartRemove', 'cartChangeQty', 'cartSetQty'].forEach((name) => {
