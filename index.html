@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockups – inuvet</title>
+  <meta name="description" content="Übersicht der zentralen HTML-Mockups des inuvet Design Systems.">
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="inuvet.css?v=164">
+</head>
+<body class="--ann-scroll">
+
+<a class="skip-link" href="#MainContent" data-i18n="skip">Zum Inhalt springen</a>
+
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left"></div>
+  <div class="nav-center">
+    <a href="index.html" aria-label="Zur Übersicht" aria-current="page" data-i18n-aria="logoAria">
+      <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-item --end">
+      <a href="#" class="nav-item__trigger" id="langTrigger" aria-haspopup="true" aria-expanded="false" data-i18n-aria="langMenuAria">
+        <span data-lang-label>DE</span>
+        <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown" role="menu">
+        <a href="#" data-lang="de" role="menuitem" aria-current="true" aria-pressed="true">Deutsch</a>
+        <a href="#" data-lang="en" role="menuitem" aria-pressed="false">English</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main id="MainContent">
+  <div class="container">
+
+    <header class="page-header">
+      <h1 data-i18n="title">Mockups</h1>
+    </header>
+
+    <h2 class="section-label" data-i18n="secStyleguide">Styleguide</h2>
+    <div class="tile-grid --cols-3">
+      <div class="flow">
+        <h2 data-i18n="cardDesignTitle">Design System</h2>
+        <p data-i18n="cardDesignBody">Tokens, Atome, Moleküle und Organismen — verbindliche Referenz.</p>
+        <a href="styleguide.html" class="btn --primary" data-i18n="ctaStyleguide">Zum Styleguide</a>
+      </div>
+    </div>
+
+    <h2 class="section-label" data-i18n="secTe">Tierarzt-Empfehlung</h2>
+    <div class="tile-grid --cols-3">
+      <div class="flow">
+        <h2 data-i18n="cardTeTitle">Tierarzt-Empfehlung</h2>
+        <p data-i18n="cardTeBody">Endkunden-Flow: Empfehlung anfragen und freigegebene Produkte kaufen.</p>
+        <a href="pages/Tierarzt-Empfehlung.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+      <div class="flow">
+        <h2 data-i18n="cardFreigabeTitle">Freigabe ausstellen</h2>
+        <p data-i18n="cardFreigabeBody">Vet-Portal: Empfänger wählen, Produkte freigeben, E-Mail-Vorschau.</p>
+        <a href="pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+    </div>
+
+    <h2 class="section-label" data-i18n="secShopify">Standard Shopify</h2>
+    <div class="tile-grid --cols-3">
+      <div class="flow">
+        <h2 data-i18n="cardShopTitle">Startseite</h2>
+        <p data-i18n="cardShopBody">Shop-Startseite mit Praxis-Opt-in und weiteren Pop-ups.</p>
+        <a href="pages/Inuvet-Shop.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+      <div class="flow">
+        <h2 data-i18n="cardPdpTitle">Produktdetailseite</h2>
+        <p data-i18n="cardPdpBody">PDP mit Sticky-Galerie, Naturalrabatt und Sticky ATC.</p>
+        <a href="pages/Produkt.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+      <div class="flow">
+        <h2 data-i18n="cardCollectionTitle">Collection</h2>
+        <p data-i18n="cardCollectionBody">Produktübersicht mit optionaler Filter-Sidebar und Sonderkacheln.</p>
+        <a href="pages/Collection.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+    </div>
+
+    <h2 class="section-label" data-i18n="secSections">Sections</h2>
+    <div class="tile-grid --cols-3">
+      <div class="flow">
+        <h2 data-i18n="cardBundleTitle">Personalisiertes Angebot</h2>
+        <p data-i18n="cardBundleBody">Bundle-Builder mit Naturalrabatt-Staffeln und Warenkorb-Logik.</p>
+        <a href="pages/Bundle.html" class="btn --primary" data-i18n="ctaMockup">Zum Mockup</a>
+      </div>
+    </div>
+
+    <h2 class="section-label" data-i18n="secStandalone">Stand Alone Pages</h2>
+    <div class="tile-grid --cols-3">
+      <div class="flow">
+        <h2 data-i18n="cardFormTitle">Formular für Nebenwirkungen</h2>
+        <p data-i18n="cardFormBody">Meldeformular für unerwünschte Wirkungen — Tierarztpraxis.</p>
+        <a href="pages/Formular-Nebenwirkungen-TA.html" class="btn --primary" data-i18n="ctaForm">Zum Formular</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="inuvet.js?v=2"></script>
+<script src="index.js?v=2"></script>
+</body>
+</html>
