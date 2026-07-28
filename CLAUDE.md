@@ -43,6 +43,7 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
 15. **Text-Rhythmus gehört immer `.flow`** — Abstände zwischen Überschriften und Absätzen (Text↔Text) kommen **ausschließlich** aus dem `.flow`-System (`inuvet.css`, Doku A.7) — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt `.flow`. Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke** (Medien / Textblock / Actions), nie Headline→Paragraph. Kein Heading→Paragraph-Abstand über Flex-/Grid-`gap` oder Ad-hoc-Margins. Sonderfall: `--flow-space` am Element überschreiben, nicht neue Margins. Siehe `.cursor/rules/flow-spacing.mdc`.
+16. **`index.html` immer aktuell halten** — Die Mockup-Übersicht (`index.html` + `index.js`, Live: https://planet-group.github.io/Inuvet-Styleguide/) ist der Bookmark für IT und Team. Michael und Agent: bei **neuen zentralen Mockup-Seiten**, **Umbenennungen** oder **Link-Änderungen** die Index-Seite mitziehen (DE|EN-Texte in `index.js` inklusive). Nie nur die Page anlegen/verschieben und den Index vergessen.
 
 ---
 
@@ -406,7 +407,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 | Page | CSS | JS | Zweck |
 |---|---|---|---|
-| `index.html` | — | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE|EN) |
+| `index.html` | `index.css` | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 16) |
 | `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
 | `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
