@@ -24,15 +24,19 @@
   </div>
 </div>
 
+<!-- Navigation · Menu A -->
 <nav class="site-nav" aria-label="Seiten-Navigation">
   <div class="nav-left">
     <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
       <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
     </button>
-    <a href="#">Home</a>
-    <a href="#">Produkte</a>
-    <a href="#">Service</a>
+    <div class="nav-item">
+      <a href="Inuvet-Shop.html" class="nav-item__trigger">Home</a>
+    </div>
+    <div class="nav-item">
+      <a href="Collection.html" class="nav-item__trigger">Produkte</a>
+    </div>
     <div class="nav-item">
       <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
         Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
@@ -47,7 +51,7 @@
     </div>
   </div>
   <div class="nav-center">
-    <a href="#" aria-label="Zur Startseite">
+    <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
       <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
     </a>
   </div>
@@ -61,12 +65,12 @@
   </div>
 </nav>
 
+<!-- Mobile Menu · Menu A -->
 <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
   <div class="nav-col">
-    <a href="#" onclick="closeMobile(); return false;">Home</a>
-    <a href="#" onclick="closeMobile(); return false;">Produkte</a>
-    <a href="#" onclick="closeMobile(); return false;">Service</a>
-    <a href="#" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Shop.html" onclick="closeMobile(); return false;">Home</a>
+    <a href="Collection.html" onclick="closeMobile(); return false;">Produkte</a>
+    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigegeben</a>
@@ -130,7 +134,7 @@
 </main>
 
 <script src="../inuvet.js"></script>
-<script src="empfehlung-anfragen-mock.js"></script>
+<script src="tierarzt-empfehlung-anfrage-mock.js"></script>
 <script src="tierarzt-empfehlung-eingeloeste-empfehlungen.js"></script>
 </body>
 </html>
