@@ -399,7 +399,7 @@ function empfehlungEnsurePortalFooter() {
     </div>
   </footer>
 `);
-}}
+}
 
 /* Freigegeben — Historie; wächst mit Freigaben (sessionStorage, Start leer). */
 const EMPFEHLUNG_VARIANT_COMMISSIONS = {
