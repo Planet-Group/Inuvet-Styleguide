@@ -98,7 +98,8 @@ let _pdpStickyIo = null;
 function initPdpStickyCta() {
   const page = document.querySelector('.pdp--sticky-cta');
   const bar  = document.querySelector('.pdp__sticky-cta');
-  const anchor = document.querySelector('.pdp__actions .btn.--primary');
+  const anchor = document.querySelector('.pdp__actions > .btn.--primary, .pdp__actions > .btn.--honey')
+    || document.querySelector('.pdp__actions > .btn');
   const footer = document.querySelector('.site-footer');
   if (_pdpStickyIo) { _pdpStickyIo.disconnect(); _pdpStickyIo = null; }
   if (!page || !bar || !anchor) {
