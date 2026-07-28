@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=157">
+  <link rel="stylesheet" href="inuvet.css?v=163">
   <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="stylesheet" href="temp.css">
@@ -347,7 +347,7 @@
         <tr><th><code>.data-table-stack</code></th><td>Optional gestapelte Zelle (Primär + Meta) · Meta: <code>.data-table-stack__meta</code> in <code>--text-xs</code> / <code>--fg-muted</code></td></tr>
         <tr><th><code>td.--sm</code></th><td>Kompakte Datenzelle · <code>--text-sm</code> — E-Mail, Datum, Produkt bei Platzknappheit</td></tr>
         <tr><th>Desktop Aktionen</th><td>Letzte Spalte rechtsbündig · <code>.data-table-actions</code> mit <code>justify-content: flex-end</code></td></tr>
-        <tr><th><code>.--sortable</code></th><td>Sortierbare Spalten: <code>th[data-sort]</code> + Button · Mobil: <code>.data-table-sort</code> Select · JS-Helfer in <code>empfehlung-anfragen-mock.js</code></td></tr>
+        <tr><th><code>.--sortable</code></th><td>Sortierbare Spalten: <code>th[data-sort]</code> + Button · Mobil: <code>.data-table-sort</code> Select · JS-Helfer in <code>tierarzt-empfehlung-anfrage-mock.js</code></td></tr>
         <tr><th><code>.--with-select</code></th><td>Checkbox-Spalte <code>.data-table-select</code> · Bulk-Leiste <code>.data-table-bulk</code> darüber · Referenz: Offene Anfragen</td></tr>
       </table>
 
@@ -2908,6 +2908,7 @@
 
       <table class="spec-table">
         <tr><th><code>.nav-item</code></th><td><code>position: relative</code></td></tr>
+        <tr><th><code>.nav-item.--end</code></th><td>Dropdown rechtsbündig unter dem Trigger (<code>left: auto; right: 0</code>) — für Items in <code>.nav-right</code></td></tr>
         <tr><th><code>.nav-item__trigger</code></th><td>Link + <code>expand_more</code> · gleiche Stile wie <code>.nav-left &gt; a</code></td></tr>
         <tr><th><code>.nav-item__dropdown</code></th><td>Absolute · <code>min-width: 14rem</code> · Border-Top <code>2px solid var(--fg)</code></td></tr>
         <tr><th>Aktiv</th><td><code>aria-current="page"</code> auf Link · Trigger wird per <code>:has()</code> fett/dunkel · Dropdown-Eintrag ebenfalls fett</td></tr>
@@ -5818,8 +5819,10 @@
 <div class="shop-modal-overlay" id="demoShopModal" onclick="closeShopModal('demoShopModal')">
   <div class="shop-modal" onclick="event.stopPropagation()">
     <div class="shop-modal__icon"><span class="material-icons">check_circle</span></div>
-    <h2 class="shop-modal__title">Bestellung eingegangen!</h2>
-    <p class="shop-modal__body">Deine Bestellung wird bearbeitet. Du erhältst in Kürze eine Bestätigung per E-Mail.</p>
+    <div class="flow">
+      <h2 class="shop-modal__title">Bestellung eingegangen!</h2>
+      <p class="shop-modal__body">Deine Bestellung wird bearbeitet. Du erhältst in Kürze eine Bestätigung per E-Mail.</p>
+    </div>
     <div class="shop-modal__actions">
       <button type="button" class="btn --primary" onclick="closeShopModal('demoShopModal')">Verstanden</button>
       <button type="button" class="btn --ghost" onclick="closeShopModal('demoShopModal')">Zur Bestellübersicht</button>
