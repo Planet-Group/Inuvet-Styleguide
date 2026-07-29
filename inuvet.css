@@ -2648,6 +2648,36 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     overflow: hidden;
   }
 
+  /* ─── Media Credit (KI-Hinweis auf Fotos/Bildern) ───
+     Zusatzklasse am sichtbaren Bild-Container (.section-type__image /
+     <img>-Wrapper) — nicht bei Lottie / .section-type__animation.
+     Farbe: Default --fg-muted; auf Fotos per --media-credit-color.
+     Position: physisches `right` (nicht inset-inline-*), weil
+     writing-mode: vertical-rl die Inline-Achse dreht. */
+  .media-credit {
+    position: relative;
+    --media-credit-color: var(--fg-muted);
+  }
+  .media-credit__label {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--base) * 0.35);
+    left: auto;
+    bottom: auto;
+    z-index: var(--z-default);
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: var(--text-xs);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: var(--media-credit-color);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    border-radius: 0;
+  }
+
   /* ─── Quantity Selector ─── */
   .qty-selector { display: flex; align-items: center; }
   .qty-selector__btn { width: calc(var(--base) * 2.75); height: calc(var(--base) * 2.75); display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border-light); border-radius: 0; cursor: pointer; transition: background var(--anim-fast), color var(--anim-fast); font-family: var(--font); color: var(--fg); }
