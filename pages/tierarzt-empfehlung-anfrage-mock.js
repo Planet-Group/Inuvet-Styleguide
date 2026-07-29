@@ -23,6 +23,7 @@ const EMPFEHLUNG_MOCK_REQUESTS = [
     customerName: 'Sabine Sommer',
     customerEmail: 'sabine.sommer@beispiel.de',
     receivedAt: '2026-07-02',
+    customerNote: 'Max frisst nur gemischt mit Nassfutter — bitte Hepax und Calmin freigeben, Inzym nur wenn nötig.',
     positions: [
       { id: 'pos-so-1', cartName: 'Calmin balance Tabletten', variantLabel: '60 Stück', qty: 2 },
       { id: 'pos-so-2', cartName: 'Hepax forte Tabletten', variantLabel: '30 Stück', qty: 1 },
@@ -34,6 +35,7 @@ const EMPFEHLUNG_MOCK_REQUESTS = [
     customerName: 'Otto Krause',
     customerEmail: 'otto.krause@beispiel.de',
     receivedAt: '2026-07-01',
+    customerNote: 'Bella (Katze) — Allergieverdacht, möglichst hypoallergene Varianten.',
     positions: [
       { id: 'pos-kr-1', cartName: 'Calmin balance Pulver', variantLabel: '30 g', qty: 1 },
       { id: 'pos-kr-2', cartName: 'Hepax forte Pulver', variantLabel: '75 g', qty: 1 },
@@ -44,6 +46,7 @@ const EMPFEHLUNG_MOCK_REQUESTS = [
     customerName: 'Karl Friedrich Berger',
     customerEmail: 'kf.berger@beispiel.de',
     receivedAt: '2026-06-30',
+    customerNote: '',
     positions: [
       { id: 'pos-be-1', cartName: 'Calmin balance Tabletten', variantLabel: '90 Stück', qty: 1 },
     ],
@@ -174,6 +177,7 @@ function empfehlungMarkPositionApproved(positionId) {
   empfehlungAddRedeemedEntry({
     customerName: request.customerName,
     customerEmail: request.customerEmail,
+    customerNote: request.customerNote || '',
     cartName: position.cartName,
     variantLabel: position.variantLabel,
     qty: position.qty,
@@ -248,6 +252,7 @@ function empfehlungFlattenOpenRows() {
         requestId: req.id,
         customerName: req.customerName,
         customerEmail: req.customerEmail,
+        customerNote: req.customerNote || '',
         date: req.receivedAt,
         productLabel: empfehlungProductLabel(pos.cartName, pos.variantLabel),
         unitPrice: empfehlungUnitPrice(pos.cartName, pos.variantLabel),
@@ -256,6 +261,59 @@ function empfehlungFlattenOpenRows() {
         variantLabel: pos.variantLabel,
       }))
   ).sort((a, b) => a.productLabel.localeCompare(b.productLabel, 'de'));
+}
+
+/** Anzeige-Text für Tierhalter-Notiz (Platzhalter wenn leer). */
+function empfehlungCustomerNoteText(note) {
+  const text = (note == null ? '' : String(note)).trim();
+  return text || 'Tierhalter hat keine Notiz hinterlassen';
+}
+
+function empfehlungCustomerNoteIsEmpty(note) {
+  return !(note == null ? '' : String(note)).trim();
+}
+
+function empfehlungEscapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/** Zellen-Markup Anzeigename (ohne E-Mail). */
+function empfehlungCustomerNameCellHtml(name) {
+  const safeName = empfehlungEscapeHtml(name || '');
+  return `<td data-label="Name">${safeName}</td>`;
+}
+
+/**
+ * Meta-Zeile unter dem Produktnamen (Größe [, Menge]).
+ * Open: nur Größe · Freigegeben: Größe · qty× / unbegrenzt.
+ */
+function empfehlungProductMeta(variantLabel, qty, unlimited) {
+  const size = variantLabel || '';
+  if (unlimited) return size ? `${size} · unbegrenzt` : 'unbegrenzt';
+  if (qty != null && qty !== '') {
+    const qtyLabel = `${qty}×`;
+    return size ? `${size} · ${qtyLabel}` : qtyLabel;
+  }
+  return size;
+}
+
+/** Zellen-Markup Produkt + Größe (gestapelt). */
+function empfehlungProductCellHtml(cartName, variantLabel, qty, unlimited) {
+  const safeName = empfehlungEscapeHtml(cartName || '');
+  const safeMeta = empfehlungEscapeHtml(empfehlungProductMeta(variantLabel, qty, unlimited));
+  return `<td data-label="Produkt"><div class="data-table-stack"><span class="data-table-stack__primary">${safeName}</span><span class="data-table-stack__meta">${safeMeta}</span></div></td>`;
+}
+
+/** Zellen-Markup für Kundennotiz (immer voll, kein Truncate/Expand). */
+function empfehlungCustomerNoteCellHtml(note) {
+  const empty = empfehlungCustomerNoteIsEmpty(note);
+  const text = empfehlungEscapeHtml(empfehlungCustomerNoteText(note));
+  const emptyClass = empty ? ' --empty' : '';
+  return `<td class="data-table-note${emptyClass}" data-label="Notiz"><span class="data-table-stack__meta">${text}</span></td>`;
 }
 
 /* ── Tabellen-Sortierung (Offene Anfragen / Freigegeben) ── */
@@ -438,7 +496,7 @@ function empfehlungParseApprovalQty(value, fallbackQty) {
   return { qty: fallbackQty ?? 1, unlimited: false };
 }
 
-function empfehlungAddRedeemedEntry({ customerName, customerEmail, cartName, variantLabel, qty, unlimited, sourceId }) {
+function empfehlungAddRedeemedEntry({ customerName, customerEmail, cartName, variantLabel, qty, unlimited, sourceId, customerNote }) {
   const entries = empfehlungGetRedeemedEntries();
   if (sourceId && entries.some(entry => entry.sourceId === sourceId)) return;
   entries.push({
@@ -446,6 +504,7 @@ function empfehlungAddRedeemedEntry({ customerName, customerEmail, cartName, var
     sourceId: sourceId || null,
     customerName,
     customerEmail: customerEmail || '',
+    customerNote: customerNote || '',
     orderDate: empfehlungTodayISO(),
     cartName,
     variantLabel,
@@ -456,6 +515,8 @@ function empfehlungAddRedeemedEntry({ customerName, customerEmail, cartName, var
 }
 
 function empfehlungRecordRedeemedFromSubmit(customerName, requestId, approvedVariants, customerEmail) {
+  const req = requestId ? empfehlungGetRequest(requestId) : null;
+  const customerNote = req?.customerNote || '';
   approvedVariants.forEach(item => {
     const parsed = empfehlungParseApprovalQty(item.value, item.fallbackQty);
     const sourceId = item.positionId
@@ -464,6 +525,7 @@ function empfehlungRecordRedeemedFromSubmit(customerName, requestId, approvedVar
     empfehlungAddRedeemedEntry({
       customerName,
       customerEmail,
+      customerNote,
       cartName: item.cartName,
       variantLabel: item.variantLabel,
       qty: parsed.unlimited ? (item.fallbackQty ?? 1) : parsed.qty,
@@ -493,7 +555,12 @@ function empfehlungFlattenRedeemedRows() {
     id: row.id,
     customerName: row.customerName,
     customerEmail: row.customerEmail || '',
+    customerNote: row.customerNote || '',
     date: row.orderDate,
+    cartName: row.cartName,
+    variantLabel: row.variantLabel,
+    qty: row.qty,
+    unlimited: !!row.unlimited,
     productLabel: empfehlungRedeemedProductLabel(row.cartName, row.variantLabel, row.qty, row.unlimited),
     unitPrice: empfehlungUnitPrice(row.cartName, row.variantLabel),
     commission: empfehlungRedeemedCommission(row.cartName, row.variantLabel, row.qty, row.unlimited),

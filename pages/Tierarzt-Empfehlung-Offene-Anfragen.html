@@ -6,8 +6,7 @@
   <title>Inuvet – Tierarzt-Empfehlung – Offene Anfragen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css">
-  <link rel="stylesheet" href="../temp.css">
+  <link rel="stylesheet" href="../inuvet.css?v=165">
   <link rel="stylesheet" href="../mockup-ui.css">
 </head>
 <body class="--ann-scroll">
@@ -111,14 +110,12 @@
     <p class="data-table-bulk__count" id="openRequestsBulkCount" aria-live="polite">0 ausgewählt</p>
   </div>
 
-  <div class="rte --data-table --mobile-grid --sortable --with-select" id="openRequestsTableWrap">
+  <div class="rte --data-table --sortable --with-select" id="openRequestsTableWrap">
     <div class="data-table-sort">
       <label class="visually-hidden" for="openRequestsSort">Tabelle sortieren</label>
       <select id="openRequestsSort" class="data-table-sort__select">
         <option value="customerName:asc">Name A–Z</option>
         <option value="customerName:desc">Name Z–A</option>
-        <option value="customerEmail:asc">E-Mail A–Z</option>
-        <option value="customerEmail:desc">E-Mail Z–A</option>
         <option value="date:asc">Datum aufsteigend</option>
         <option value="date:desc">Datum absteigend</option>
         <option value="productLabel:asc" selected>Produkt A–Z</option>
@@ -136,16 +133,14 @@
           <th scope="col" data-sort="customerName" aria-sort="none">
             <button type="button">Name <span class="material-icons" aria-hidden="true">unfold_more</span></button>
           </th>
-          <th scope="col" data-sort="customerEmail" aria-sort="none">
-            <button type="button">E-Mail <span class="material-icons" aria-hidden="true">unfold_more</span></button>
-          </th>
-          <th scope="col" data-sort="date" aria-sort="none">
+          <th scope="col" class="data-table-date" data-sort="date" aria-sort="none">
             <button type="button">Datum <span class="material-icons" aria-hidden="true">unfold_more</span></button>
           </th>
           <th scope="col" data-sort="productLabel" aria-sort="ascending">
             <button type="button">Produkt <span class="material-icons" aria-hidden="true">arrow_upward</span></button>
           </th>
-          <th scope="col">Aktion</th>
+          <th scope="col" class="data-table-note">Notiz</th>
+          <th scope="col" class="data-table-action">Freigeben</th>
         </tr>
       </thead>
       <tbody id="openRequestsBody"></tbody>
@@ -168,6 +163,7 @@
     </div>
     <div class="modal__body flow">
       <p id="rowActionModalLead"></p>
+      <p id="rowActionCustomerNote" class="data-table-stack__meta"></p>
       <div class="form-field">
         <textarea id="rowActionNote" rows="3" placeholder=" "></textarea>
         <label for="rowActionNote">Notiz an Tierbesitzer (optional)</label>

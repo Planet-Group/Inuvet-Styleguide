@@ -98,7 +98,7 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`temp.css`-Inhalt: leer (Stand 2026-07-15).
+`temp.css`-Inhalt: leer (Stand 2026-07-29).
 `temp.js`-Inhalt: leer (Stand 2026-06-07).
 
 ### CSS-Workflow: Neue Styles
@@ -342,7 +342,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### B — Atome
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --danger --honey --loading` (Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content`) |
+| B.1 | Button | `.btn` | `--primary --secondary --ghost --back --sm --full --with-icon --icon --success --danger --honey --loading` · Icon-only: `--icon` schlicht · Fläche: `--icon.--success/--danger/--primary/--secondary` (Touch `--icon-box-sm`) · klein: `--icon.--sm` (Quadrat `calc(--base * 2)`) · Kombi `--full.--with-icon` zentriert Icon+Text via `justify-content` |
 | B.2 | Badge / Label | `.badge` | `--dark --sale --pill --free --info --honey --muted --error --count`; `[data-cat]` · Status-Pills: `.--pill` („freigegeben", mit `check`-Icon) / `.--pill.--honey` („Freigabe benötigt") · Icon im Badge global (Größe + Gap eingebaut) |
 | B.3 | Icon-Box | `.icon-box` | — |
 | B.4 | Formularfeld | `.form-field` | `--sm --full`; `.form-grid`, `.form-check`, `.actionable-input` |
@@ -398,7 +398,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.skip-link` / `.visually-hidden` | — | A11y: erster Fokus-Stopp zu `#MainContent` / Screenreader-only-Text |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
 | `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
-| `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Aktions-Spalte: `.data-table-actions` mit `.order-item__link` |
+| `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Portal-Stack: Name+Datum zweispaltig · Notiz: `.data-table-note` · Aktions-Spalte: `.data-table-actions` mit `.btn.--icon.--sm` oder `.order-item__link` |
 | `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---

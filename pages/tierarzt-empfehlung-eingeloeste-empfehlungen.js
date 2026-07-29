@@ -7,7 +7,6 @@
 const redeemedSortState = { key: 'date', dir: 'desc' };
 const REDEEMED_SORT_GETTERS = {
   customerName: row => row.customerName,
-  customerEmail: row => row.customerEmail,
   date: row => row.date,
   productLabel: row => row.productLabel,
   commission: row => row.commission,
@@ -44,11 +43,11 @@ function renderRedeemedRecommendations() {
 
   tbody.innerHTML = sorted.map(row => `
     <tr data-id="${row.id}">
-      <td data-label="Name">${row.customerName}</td>
-      <td class="--sm" data-label="E-Mail">${row.customerEmail || '—'}</td>
-      <td class="--sm" data-label="Datum">${row.date}</td>
-      <td class="--sm" data-label="Produkt">${row.productLabel}</td>
-      <td class="--sm" data-label="Provision">${formatPrice(row.commission)}</td>
+      ${empfehlungCustomerNameCellHtml(row.customerName)}
+      <td data-label="Datum">${row.date}</td>
+      ${empfehlungProductCellHtml(row.cartName, row.variantLabel, row.qty, row.unlimited)}
+      ${empfehlungCustomerNoteCellHtml(row.customerNote)}
+      <td class="data-table-commission" data-label="Provision">${formatPrice(row.commission)}</td>
     </tr>
   `).join('');
 }

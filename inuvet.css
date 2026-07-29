@@ -201,6 +201,7 @@
      Wrapper .rte.--data-table: volle Satzspiegelbreite
      table.--normal | table.--spacious — vertikale Dichte (Desktop)
      --mobile-stack (Default) | --mobile-grid | --mobile-table — Mobil-Layout (A.4)
+     Portal-Default (ohne --mobile-grid): Name+Datum zweispaltig, Rest gestapelt
      Zellen brauchen data-label für Stack/Grid-Labels (Text = th); bei --mobile-table entbehrlich */
   .rte.--data-table {
     width: 100%;
@@ -212,16 +213,33 @@
     width: 100%;
     table-layout: auto;
   }
-  /* Portal-Tabellen: Text + Controls (Checkbox, Select) mittig — RTE-Default ist top */
+  /* Portal-Tabellen: oben ausrichten (Stacks + Mehrzeilen-Notizen) */
   .rte.--data-table th,
   .rte.--data-table td {
-    vertical-align: middle;
+    vertical-align: top;
   }
 
-  /* Normal — gleiche Zellen-Dichte wie RTE-Default (Referenz für Daten-Listen) */
+  /*
+    Typo: thead kleiner (--text-sm), Zeilenkörper größer (--text-base).
+    Zeileninhalt nicht fett (kein 700 auf Name/Produkt).
+  */
+  .rte.--data-table th,
+  .rte.--data-table.--sortable th[data-sort] button {
+    font-size: var(--text-sm);
+  }
+  .rte.--data-table td,
+  .rte.--data-table td.--sm {
+    font-size: var(--text-base);
+    font-weight: 400;
+  }
+  .rte.--data-table .data-table-stack__primary {
+    font-weight: 400;
+  }
+
+  /* Normal — gleiche Zellen-Dichte wie RTE-Default; Spalten-Gutter --half-module */
   .rte.--data-table table.--normal th,
   .rte.--data-table table.--normal td {
-    padding: calc(var(--base) * 0.4) calc(var(--base) * 0.75) calc(var(--base) * 0.4) 0;
+    padding: calc(var(--base) * 0.4) var(--half-module) calc(var(--base) * 0.4) 0;
   }
 
   /* Großzügig — mehr vertikale Luft (Portal-Posteingänge, Übersichtstabellen) */
@@ -229,15 +247,16 @@
   .rte.--data-table table.--spacious td {
     padding-top: calc(var(--base) * 0.85);
     padding-bottom: calc(var(--base) * 0.85);
-    padding-right: calc(var(--base) * 0.75);
+    padding-right: var(--half-module);
   }
 
-  /* Gestapelte Zelle — z. B. Name + E-Mail */
+  /* Gestapelte Zelle — z. B. Produkt + Variante */
   .data-table-stack {
     display: flex;
     flex-direction: column;
     gap: 0.15em;
     line-height: var(--lh-base);
+    min-width: 0;
   }
   .data-table-stack__meta {
     font-size: var(--text-xs);
@@ -245,17 +264,24 @@
     word-break: break-word;
   }
 
-  /* Kompakte Datenzellen — Datum, Produkt, Preis */
-  .rte.--data-table td.--sm {
-    font-size: var(--text-sm);
+  /* Kundennotiz — voll anzeigen; Empty bleibt muted via .data-table-stack__meta */
+  .rte.--data-table td.data-table-note .data-table-stack__meta,
+  #rowActionCustomerNote {
+    display: block;
+    font-size: var(--text-base);
+    white-space: normal;
+  }
+  .rte.--data-table td.data-table-note:not(.--empty) .data-table-stack__meta,
+  #rowActionCustomerNote:not(.--empty) {
+    color: inherit;
   }
 
-  /* Aktions-Links — .order-item__link (E.6) in Flex-Zeile */
+  /* Aktions-Zeile — Links (.order-item__link) oder Icon-Buttons (.btn.--icon.--sm) */
   .data-table-actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.15em 0.35em;
+    align-items: center;
+    gap: calc(var(--base) * 0.5);
   }
   .data-table-actions__sep {
     color: var(--fg-muted);
@@ -334,12 +360,27 @@
   }
   @media (min-width: 768px) {
     .rte.--data-table th:last-child,
-    .rte.--data-table td:last-child {
+    .rte.--data-table td:last-child,
+    .rte.--data-table table.--normal th:last-child,
+    .rte.--data-table table.--normal td:last-child,
+    .rte.--data-table table.--spacious th:last-child,
+    .rte.--data-table table.--spacious td:last-child {
       text-align: right;
       padding-right: 0;
     }
     .rte.--data-table .data-table-actions {
       justify-content: flex-end;
+    }
+    /* Aktion/Provision schrumpfen; Luft kommt vom Zellen-Gutter */
+    .rte.--data-table th.data-table-action,
+    .rte.--data-table td.data-table-action,
+    .rte.--data-table th.data-table-commission,
+    .rte.--data-table td.data-table-commission {
+      width: 1%;
+      white-space: nowrap;
+    }
+    .rte.--data-table td.data-table-action .data-table-actions {
+      flex-wrap: nowrap;
     }
   }
 
@@ -358,7 +399,7 @@
       display: block;
     }
     .rte.--data-table:not(.--mobile-table) tbody tr {
-      padding: var(--half-module) 0;
+      padding: var(--module) 0;
       border-bottom: 1px solid var(--border-light);
     }
     .rte.--data-table:not(.--mobile-table) tbody tr:last-child {
@@ -368,17 +409,17 @@
       border-bottom: none;
     }
 
-    /* Feld-Label — gleiche Typo wie thead th (.rte table); nur wenn data-label gesetzt */
+    /* Feld-Label — wie thead (--text-sm); nur wenn data-label gesetzt */
     .rte.--data-table:not(.--mobile-table) td[data-label]::before {
       content: attr(data-label);
       display: block;
-      font-size: var(--text-base);
+      font-size: var(--text-sm);
       font-weight: 700;
       color: var(--fg);
       margin-bottom: calc(var(--base) * 0.25);
     }
 
-    /* Default: --mobile-stack — ein Feld pro Zeile */
+    /* Default: --mobile-stack — ein Feld pro Zeile (Fallback ohne Name/Datum-Muster) */
     .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) tbody tr {
       display: block;
     }
@@ -391,6 +432,78 @@
     }
     .rte.--data-table:not(.--mobile-grid):not(.--mobile-table) td:last-child {
       padding-top: calc(var(--base) * 0.75);
+    }
+
+    /*
+      Portal-Stack (--with-select): Checkbox links, Content rechts.
+      Name + Datum zweispaltig; Produkt / Notiz / Aktionen darunter.
+    */
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) tbody tr {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr;
+      column-gap: var(--half-module);
+      align-items: start;
+    }
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) td.data-table-select {
+      grid-column: 1;
+      grid-row: 1;
+      padding: 0;
+    }
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) td[data-label="Name"] {
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 0;
+      padding-right: 0;
+    }
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) td[data-label="Datum"] {
+      grid-column: 3;
+      grid-row: 1;
+      padding-top: 0;
+      padding-right: 0;
+    }
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) td:not(.data-table-select):not([data-label="Name"]):not([data-label="Datum"]) {
+      grid-column: 2 / -1;
+      padding-top: calc(var(--base) * 0.75);
+      padding-right: 0;
+    }
+    .rte.--data-table.--with-select:not(.--mobile-grid):not(.--mobile-table) td.data-table-action .data-table-actions {
+      margin-top: var(--half-module);
+    }
+
+    /* Ohne Select (z. B. Freigegeben): Name + Datum 2-spaltig, Rest Stack */
+    .rte.--data-table:not(.--with-select):not(.--mobile-grid):not(.--mobile-table) tbody tr {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--half-module);
+      align-items: start;
+    }
+    .rte.--data-table:not(.--with-select):not(.--mobile-grid):not(.--mobile-table) td[data-label="Name"] {
+      grid-column: 1;
+      grid-row: 1;
+      padding-top: 0;
+      padding-right: 0;
+    }
+    .rte.--data-table:not(.--with-select):not(.--mobile-grid):not(.--mobile-table) td[data-label="Datum"] {
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 0;
+      padding-right: 0;
+    }
+    .rte.--data-table:not(.--with-select):not(.--mobile-grid):not(.--mobile-table) td:not([data-label="Name"]):not([data-label="Datum"]) {
+      grid-column: 1 / -1;
+      padding-top: calc(var(--base) * 0.75);
+      padding-right: 0;
+    }
+    .rte.--data-table:not(.--with-select):not(.--mobile-grid):not(.--mobile-table) td.data-table-action .data-table-actions {
+      margin-top: var(--half-module);
+    }
+
+    /* Aktions-Icons links; Label „Freigeben“ mobil aus (Desktop-th bleibt) */
+    .rte.--data-table td.data-table-action[data-label]::before {
+      display: none;
+    }
+    .rte.--data-table td.data-table-action .data-table-actions {
+      justify-content: flex-start;
     }
 
     /* Option: --mobile-grid — 2×2-Raster, Aktionen volle Breite */
@@ -475,7 +588,7 @@
     border-color: var(--border-focus);
   }
   .rte.--data-table.--sortable th[data-sort] {
-    padding-right: calc(var(--base) * 0.25);
+    padding-right: var(--half-module);
   }
   .rte.--data-table.--sortable th[data-sort] button {
     display: inline-flex;
@@ -3591,6 +3704,72 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     transition: transform var(--anim-fast);
   }
   .btn.--icon:not(:disabled):not(.--disabled):hover .material-icons { transform: scale(1.15); }
+
+  /*
+    Icon-only mit Fläche — Kombi .btn.--icon + Farb-Modifier.
+    Touch-Ziel = --icon-box-sm. Schlicht ohne Fläche: nur .btn.--icon.
+  */
+  .btn.--icon.--primary,
+  .btn.--icon.--secondary,
+  .btn.--icon.--success,
+  .btn.--icon.--danger {
+    width: var(--icon-box-sm);
+    height: var(--icon-box-sm);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: background var(--anim-fast), color var(--anim-fast), border-color var(--anim-fast), box-shadow var(--anim-fast);
+  }
+  .btn.--icon.--primary {
+    background: var(--fg);
+    color: var(--bg);
+    border: none;
+  }
+  .btn.--icon.--primary:not(:disabled):not(.--disabled):hover {
+    box-shadow: 0 0 0 2px var(--fg);
+  }
+  /* Hellgrau-Fläche (nicht Outline) — Token --accent-bg */
+  .btn.--icon.--secondary {
+    background: var(--accent-bg);
+    color: var(--fg);
+    border: none;
+  }
+  .btn.--icon.--secondary:not(:disabled):not(.--disabled):hover {
+    background: var(--border-light);
+    color: var(--fg);
+    box-shadow: none;
+  }
+  .btn.--icon.--success {
+    background: var(--green);
+    color: var(--bg);
+    border: none;
+  }
+  .btn.--icon.--success:not(:disabled):not(.--disabled):hover {
+    background: var(--green-hover);
+  }
+  .btn.--icon.--danger {
+    background: var(--color-error);
+    color: var(--bg);
+    border: none;
+  }
+  .btn.--icon.--danger:not(:disabled):not(.--disabled):hover {
+    background: var(--color-error-bg);
+  }
+  /* Fläche ändert Farbe — kein Icon-Zoom wie bei schlichtem .btn.--icon */
+  .btn.--icon.--primary:not(:disabled):not(.--disabled):hover .material-icons,
+  .btn.--icon.--secondary:not(:disabled):not(.--disabled):hover .material-icons,
+  .btn.--icon.--success:not(:disabled):not(.--disabled):hover .material-icons,
+  .btn.--icon.--danger:not(:disabled):not(.--disabled):hover .material-icons {
+    transform: none;
+  }
+  /* Icon-only klein — analog .btn.--sm (Höhe calc(--base * 2)) */
+  .btn.--icon.--sm {
+    width: calc(var(--base) * 2);
+    height: calc(var(--base) * 2);
+  }
+  .btn.--icon.--sm .material-icons {
+    font-size: var(--base);
+  }
+
   .btn.--with-icon { display: inline-flex; align-items: center; gap: 0.5rem; }
   .btn.--with-icon .material-icons { font-size: 1em; }
   /* Vollbreiter Icon-Button: --full setzt text-align:center, das bei inline-flex nicht greift */

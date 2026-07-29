@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════
    Tierarzt-Empfehlung-Offene-Anfragen — Posteingang
    Eine Tabellenzeile = eine Produktanfrage (Position).
-   Zeilen-Aktionen als Links · Bulk über Dropdowns (.form-field.--sm).
+   Zeilen-Aktionen: Icon-Buttons (.btn.--icon.--success / .--danger) · Bulk über Dropdowns.
    Daten: tierarzt-empfehlung-anfrage-mock.js
    ════════════════════════════════════════════ */
 
@@ -11,7 +11,6 @@ let pendingRowAction = null; // { id, type: 'approve' | 'decline' }
 const openSortState = { key: 'productLabel', dir: 'asc' };
 const OPEN_SORT_GETTERS = {
   customerName: row => row.customerName,
-  customerEmail: row => row.customerEmail,
   date: row => row.date,
   productLabel: row => row.productLabel,
 };
@@ -126,15 +125,18 @@ function renderOpenRequests() {
           <input type="checkbox"${checked} aria-label="Anfrage auswählen" onchange="toggleRowSelection('${row.id}', this.checked)">
         </label>
       </td>
-      <td data-label="Name">${row.customerName}</td>
-      <td class="--sm" data-label="E-Mail">${row.customerEmail}</td>
-      <td class="--sm" data-label="Datum">${row.date}</td>
-      <td class="--sm" data-label="Produkt">${row.productLabel}</td>
-      <td>
+      ${empfehlungCustomerNameCellHtml(row.customerName)}
+      <td data-label="Datum">${row.date}</td>
+      ${empfehlungProductCellHtml(row.cartName, row.variantLabel)}
+      ${empfehlungCustomerNoteCellHtml(row.customerNote)}
+      <td class="data-table-action" data-label="Freigeben">
         <div class="data-table-actions">
-          <button type="button" class="order-item__link" onclick="quickApprove('${row.id}')">Freigeben</button>
-          <span class="data-table-actions__sep" aria-hidden="true">·</span>
-          <button type="button" class="order-item__link" onclick="quickDecline('${row.id}')">Nicht freigeben</button>
+          <button type="button" class="btn --icon --sm --success" aria-label="Freigeben" onclick="quickApprove('${row.id}')">
+            <span class="material-icons" aria-hidden="true">check</span>
+          </button>
+          <button type="button" class="btn --icon --sm --danger" aria-label="Nicht freigeben" onclick="quickDecline('${row.id}')">
+            <span class="material-icons" aria-hidden="true">close</span>
+          </button>
         </div>
       </td>
     </tr>`;
@@ -159,6 +161,7 @@ function openRowActionModal(id, type) {
   const titleEl = document.getElementById('rowActionModalTitle');
   const leadEl = document.getElementById('rowActionModalLead');
   const noteEl = document.getElementById('rowActionNote');
+  const customerNoteEl = document.getElementById('rowActionCustomerNote');
   const confirmBtn = document.getElementById('rowActionConfirmBtn');
 
   modalEl?.classList.toggle('--danger', !approve);
@@ -167,6 +170,13 @@ function openRowActionModal(id, type) {
     leadEl.textContent = approve
       ? `„${row.productLabel}“ für ${row.customerName} freigeben (${row.qty}×).`
       : `„${row.productLabel}“ für ${row.customerName} nicht freigeben.`;
+  }
+  if (customerNoteEl) {
+    const empty = empfehlungCustomerNoteIsEmpty(row.customerNote);
+    customerNoteEl.textContent = empty
+      ? empfehlungCustomerNoteText('')
+      : `Notiz des Tierhalters: ${empfehlungCustomerNoteText(row.customerNote)}`;
+    customerNoteEl.classList.toggle('--empty', empty);
   }
   if (noteEl) noteEl.value = '';
   if (confirmBtn) confirmBtn.textContent = title;

@@ -6,10 +6,9 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=163">
+  <link rel="stylesheet" href="inuvet.css?v=165">
   <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-  <link rel="stylesheet" href="temp.css">
   <style>
     html { scroll-padding-top: var(--module); }
   </style>
@@ -333,37 +332,38 @@
       <h3 class="sg-h3 --top" id="A4-data-table"><code>.rte.--data-table</code> — Daten-Listen</h3>
       <div class="col-grid" data-cols="2">
         <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>inuvet.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
-        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Zeilen-Aktionen: <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select.</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Zeilen-Aktionen: Icon-Buttons <code>.btn.--icon.--sm.--success/--danger</code> oder Links <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select.</p>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.rte.--data-table</code></th><td>Volle Satzspiegelbreite · Desktop: <code>display: table</code> · Mobil: <code>thead</code> aus</td></tr>
-        <tr><th><code>table.--normal</code></th><td>Vertikale Dichte wie <code>.rte table</code> (Padding <code>0.4 × --base</code>)</td></tr>
-        <tr><th><code>table.--spacious</code></th><td>Mehr vertikale Luft (<code>0.85 × --base</code> oben/unten) — Posteingänge, Portal-Listen</td></tr>
-        <tr><th>Mobil (Default)</th><td>Ohne Zusatz-Klasse: <code>--mobile-stack</code> — Felder untereinander, Label-Typo wie <code>th</code></td></tr>
+        <tr><th><code>table.--normal</code></th><td>Vertikale Dichte wie <code>.rte table</code> (Padding <code>0.4 × --base</code>) · Spalten-Gutter <code>--half-module</code> · letzte Spalte <code>padding-right: 0</code></td></tr>
+        <tr><th><code>table.--spacious</code></th><td>Mehr vertikale Luft (<code>0.85 × --base</code> oben/unten) — Posteingänge, Portal-Listen · gleicher Spalten-Gutter</td></tr>
+        <tr><th>Typo</th><td><code>th</code> / Sort-Button: <code>--text-sm</code> · Zellen: <code>--text-base</code>, <code>font-weight: 400</code> · <code>vertical-align: top</code></td></tr>
+        <tr><th>Mobil (Default)</th><td>Ohne Zusatz-Klasse: Portal-Stack — Name+Datum zweispaltig, Rest darunter · Labels <code>--text-sm</code> · Zeilen-Padding <code>--module</code></td></tr>
+        <tr><th><code>.--with-select</code> mobil</th><td>Checkbox links · Content rechts · Name+Datum in der ersten Content-Zeile · Produkt/Notiz/Aktionen gestapelt</td></tr>
         <tr><th><code>.--mobile-grid</code></th><td>Am Wrapper · 2×2-Raster (z.&nbsp;B. Name/E-Mail, Datum/Produkt) · letzte Spalte volle Breite</td></tr>
         <tr><th><code>.--mobile-table</code></th><td>Am Wrapper · echte Tabelle bleibt (wenig Spalten, z.&nbsp;B. Angabe/Wert im PDP-Akkordeon) · bei Bedarf horizontal scrollen</td></tr>
-        <tr><th><code>data-label</code></th><td>Pflicht auf jeder Datenzelle · Mobile-Label via <code>::before</code> · gleiche Typo wie Desktop-<code>th</code></td></tr>
-        <tr><th><code>.data-table-stack</code></th><td>Optional gestapelte Zelle (Primär + Meta) · Meta: <code>.data-table-stack__meta</code> in <code>--text-xs</code> / <code>--fg-muted</code></td></tr>
-        <tr><th><code>td.--sm</code></th><td>Kompakte Datenzelle · <code>--text-sm</code> — E-Mail, Datum, Produkt bei Platzknappheit</td></tr>
-        <tr><th>Desktop Aktionen</th><td>Letzte Spalte rechtsbündig · <code>.data-table-actions</code> mit <code>justify-content: flex-end</code></td></tr>
+        <tr><th><code>data-label</code></th><td>Pflicht auf jeder Datenzelle · Mobile-Label via <code>::before</code> · wie Desktop-<code>th</code> (<code>--text-sm</code>, fett)</td></tr>
+        <tr><th><code>.data-table-stack</code></th><td>Gestapelte Zelle (Primär + Meta) · <code>.data-table-stack__primary</code> nicht fett · Meta: <code>.data-table-stack__meta</code> in <code>--text-xs</code> / <code>--fg-muted</code></td></tr>
+        <tr><th><code>.data-table-note</code></th><td>Notiz-Zelle · Meta in <code>--text-base</code>, volle Anzeige · Empty: Klasse <code>.--empty</code> (bleibt muted)</td></tr>
+        <tr><th><code>.data-table-action</code> / <code>.data-table-commission</code></th><td>Desktop: <code>width: 1%</code> + <code>nowrap</code> · Mobil: Aktions-Label aus · Icons linksbündig mit <code>margin-top</code> auf <code>.data-table-actions</code></td></tr>
+        <tr><th>Desktop Aktionen</th><td>Letzte Spalte rechtsbündig · <code>.data-table-actions</code> mit Icon-Gap <code>0.5 × --base</code> · <code>align-items: center</code></td></tr>
         <tr><th><code>.--sortable</code></th><td>Sortierbare Spalten: <code>th[data-sort]</code> + Button · Mobil: <code>.data-table-sort</code> Select · JS-Helfer in <code>tierarzt-empfehlung-anfrage-mock.js</code></td></tr>
         <tr><th><code>.--with-select</code></th><td>Checkbox-Spalte <code>.data-table-select</code> · Bulk-Leiste <code>.data-table-bulk</code> darüber · Referenz: Offene Anfragen</td></tr>
       </table>
 
-      <pre class="sg-code"><code>&lt;div class="rte --data-table --mobile-grid --sortable"&gt;
-  &lt;div class="data-table-sort"&gt;
-    &lt;label class="visually-hidden" for="tableSort"&gt;Tabelle sortieren&lt;/label&gt;
-    &lt;select id="tableSort" class="data-table-sort__select"&gt;…&lt;/select&gt;
-  &lt;/div&gt;
+      <pre class="sg-code"><code>&lt;div class="rte --data-table --sortable --with-select"&gt;
+  &lt;div class="data-table-sort"&gt;…&lt;/div&gt;
   &lt;table class="--spacious"&gt;
     &lt;thead&gt;
       &lt;tr&gt;
-        &lt;th scope="col" data-sort="customerName" aria-sort="none"&gt;
-          &lt;button type="button"&gt;Name &lt;span class="material-icons" aria-hidden="true"&gt;unfold_more&lt;/span&gt;&lt;/button&gt;
-        &lt;/th&gt;
-        …
-        &lt;th scope="col"&gt;Aktion&lt;/th&gt;
+        &lt;th scope="col" class="data-table-select"&gt;…&lt;/th&gt;
+        &lt;th scope="col" data-sort="customerName"&gt;…&lt;/th&gt;
+        &lt;th scope="col" data-sort="date"&gt;…&lt;/th&gt;
+        &lt;th scope="col" data-sort="productLabel"&gt;…&lt;/th&gt;
+        &lt;th scope="col" class="data-table-note"&gt;Notiz&lt;/th&gt;
+        &lt;th scope="col" class="data-table-action"&gt;Freigeben&lt;/th&gt;
       &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;…&lt;/tbody&gt;
@@ -371,41 +371,49 @@
 &lt;/div&gt;</code></pre>
 
       <div class="sg-demo --white --flush">
-        <div class="rte --data-table --mobile-grid" style="padding: 0 var(--margin);">
+        <div class="rte --data-table" style="padding: 0 var(--margin);">
           <table class="--spacious">
             <thead>
               <tr>
                 <th scope="col">Name</th>
-                <th scope="col">E-Mail</th>
                 <th scope="col">Datum</th>
                 <th scope="col">Produkt</th>
-                <th scope="col">Aktion</th>
+                <th scope="col" class="data-table-note">Notiz</th>
+                <th scope="col" class="data-table-action">Freigeben</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td data-label="Name">Testkunde XY</td>
-                <td class="--sm" data-label="E-Mail">testkunde.xy@beispiel.de</td>
-                <td class="--sm" data-label="Datum">2026-07-02</td>
-                <td class="--sm" data-label="Produkt">Calmin balance Tabletten / 60 Stück</td>
-                <td>
+                <td data-label="Datum">2026-07-02</td>
+                <td data-label="Produkt">
+                  <div class="data-table-stack">
+                    <span class="data-table-stack__primary">Calmin balance Tabletten</span>
+                    <span class="data-table-stack__meta">60 Stück</span>
+                  </div>
+                </td>
+                <td class="data-table-note" data-label="Notiz"><span class="data-table-stack__meta">Bitte möglichst schnell freigeben.</span></td>
+                <td class="data-table-action" data-label="Freigeben">
                   <div class="data-table-actions">
-                    <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
-                    <span class="data-table-actions__sep" aria-hidden="true">·</span>
-                    <a href="#" class="order-item__link" onclick="return false;">Nicht freigeben</a>
+                    <button type="button" class="btn --icon --sm --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
+                    <button type="button" class="btn --icon --sm --danger" aria-label="Ablehnen"><span class="material-icons" aria-hidden="true">close</span></button>
                   </div>
                 </td>
               </tr>
               <tr>
                 <td data-label="Name">Test Customer</td>
-                <td class="--sm" data-label="E-Mail">test.customer@beispiel.de</td>
-                <td class="--sm" data-label="Datum">2026-06-30</td>
-                <td class="--sm" data-label="Produkt">Hepax forte Tabletten / 30 Stück</td>
-                <td>
+                <td data-label="Datum">2026-06-30</td>
+                <td data-label="Produkt">
+                  <div class="data-table-stack">
+                    <span class="data-table-stack__primary">Hepax forte Tabletten</span>
+                    <span class="data-table-stack__meta">30 Stück</span>
+                  </div>
+                </td>
+                <td class="data-table-note --empty" data-label="Notiz"><span class="data-table-stack__meta">Keine Notiz</span></td>
+                <td class="data-table-action" data-label="Freigeben">
                   <div class="data-table-actions">
-                    <a href="#" class="order-item__link" onclick="return false;">Freigeben</a>
-                    <span class="data-table-actions__sep" aria-hidden="true">·</span>
-                    <a href="#" class="order-item__link" onclick="return false;">Nicht freigeben</a>
+                    <button type="button" class="btn --icon --sm --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
+                    <button type="button" class="btn --icon --sm --danger" aria-label="Ablehnen"><span class="material-icons" aria-hidden="true">close</span></button>
                   </div>
                 </td>
               </tr>
@@ -413,7 +421,7 @@
           </table>
         </div>
       </div>
-      <p class="sg-caption">Demo: <code>--spacious</code> + <code>--mobile-grid</code> · E-Mail/Datum/Produkt in <code>td.--sm</code> · Mobil (≤767px): 2×2-Raster.</p>
+      <p class="sg-caption">Demo: Portal-Muster (<code>--spacious</code>, Stack, Notiz, Icon-Aktionen) · Mobil: Name+Datum zweispaltig · Alternative: <code>--mobile-grid</code> / <code>--mobile-table</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="A5">
@@ -1004,7 +1012,13 @@
         <tr><th><code>.btn.--full</code></th><td><code>width: 100%</code> · kombinierbar mit allen Varianten</td></tr>
         <tr><th><code>.btn.--with-icon</code></th><td><code>inline-flex</code> · <code>gap: 0.5rem</code> · mit <code>.--full</code>: <code>justify-content: center</code></td></tr>
         <tr><th><code>[disabled]</code> / <code>.--disabled</code></th><td>Opacity 35%, keine Interaktion · <code>&lt;a&gt;</code>: Klasse <code>.--disabled</code></td></tr>
-        <tr><th><code>.btn.--icon</code></th><td>Icon-only · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
+        <tr><th><code>.btn.--icon</code></th><td>Icon-only schlicht · kein BG, kein Border · immer <code>aria-label</code> · Hover: Icon <code>scale(1.15)</code> auf <code>.material-icons</code></td></tr>
+        <tr><th><code>.btn.--icon.--primary</code></th><td>Icon-Fläche schwarz · Touch <code>--icon-box-sm</code> · BG <code>--fg</code> · Icon <code>--bg</code> · Hover: Box-Shadow wie Primary</td></tr>
+        <tr><th><code>.btn.--icon.--secondary</code></th><td>Icon-Fläche hellgrau · Touch <code>--icon-box-sm</code> · BG <code>--accent-bg</code> · Hover <code>--border-light</code> · z.&nbsp;B. Bundle qty-Zeile</td></tr>
+        <tr><th><code>.btn.--icon.--success</code></th><td>Icon-Fläche grün · Touch <code>--icon-box-sm</code> · BG <code>--green</code> · Hover <code>--green-hover</code> · z.&nbsp;B. Freigeben</td></tr>
+        <tr><th><code>.btn.--icon.--danger</code></th><td>Icon-Fläche rot · Touch <code>--icon-box-sm</code> · BG <code>--color-error</code> · Hover <code>--color-error-bg</code> · z.&nbsp;B. Ablehnen</td></tr>
+        <tr><th><code>.btn.--icon.--sm</code></th><td>Icon-only klein · Quadrat <code>calc(var(--base) * 2)</code> (wie <code>.btn.--sm</code>-Höhe) · Glyph <code>var(--base)</code> · kombinierbar mit Flächen-Modifiern</td></tr>
+        <tr><th><code>.btn.--danger</code></th><td>Text-Button destruktiv · Schrift <code>--color-error</code> (ohne Fläche) · mit <code>.--icon</code>: siehe Icon-Fläche oben</td></tr>
         <tr><th><code>.btn.--honey</code></th><td>Freigabe-/Anfrage-Kontext · BG + Rand <code>--color-honey</code> · Schrift <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --color-honey</code></td></tr>
         <tr><th><code>.btn.--loading</code></th><td>Laufende AJAX-Aktion (z.&nbsp;B. <code>/cart/add.js</code>) · Spinner vor dem Text (<code>::before</code>, <code>currentColor</code>) · <code>pointer-events: none</code> · Klasse per JS setzen/entfernen</td></tr>
       </table>
@@ -1087,7 +1101,7 @@
       </div>
       <p class="sg-caption"><code>.--back</code>: Pfeil als <code>::before</code>, kein Material-Icon nötig.</p>
 
-      <h3 class="sg-h3 --top"><code>.btn.--icon</code></h3>
+      <h3 class="sg-h3 --top"><code>.btn.--icon</code> — schlicht</h3>
       <div class="sg-demo">
         <div class="sg-btn-row">
           <button class="btn --icon" aria-label="Suche"><span class="material-icons">search</span></button>
@@ -1095,8 +1109,31 @@
           <button class="btn --icon" aria-label="Schließen"><span class="material-icons">close</span></button>
           <button class="btn --icon" aria-label="Favorit"><span class="material-icons">favorite_border</span></button>
         </div>
+        <div class="sg-btn-row" style="margin-top: var(--half-module);">
+          <button class="btn --icon --sm" aria-label="Suche"><span class="material-icons">search</span></button>
+          <button class="btn --icon --sm" aria-label="Warenkorb"><span class="material-icons">shopping_cart</span></button>
+          <button class="btn --icon --sm" aria-label="Schließen"><span class="material-icons">close</span></button>
+          <button class="btn --icon --sm" aria-label="Favorit"><span class="material-icons">favorite_border</span></button>
+        </div>
       </div>
-      <p class="sg-caption"><code>.--icon</code> immer mit <code>aria-label</code> · Hover: Zoom auf dem Icon (<code>scale(1.15)</code>).</p>
+      <p class="sg-caption">Schlicht schwarz/grau · kein BG · immer <code>aria-label</code> · Hover: Zoom · zweite Reihe <code>.--sm</code> · Nav, Drawer-Schließen, Cart-Remove.</p>
+
+      <h3 class="sg-h3 --top"><code>.btn.--icon</code> — mit Fläche</h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --icon --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
+          <button class="btn --icon --danger" aria-label="Ablehnen"><span class="material-icons" aria-hidden="true">close</span></button>
+          <button class="btn --icon --primary" aria-label="Bestätigen"><span class="material-icons" aria-hidden="true">check</span></button>
+          <button class="btn --icon --secondary" aria-label="Mehr Optionen"><span class="material-icons" aria-hidden="true">more_vert</span></button>
+        </div>
+        <div class="sg-btn-row" style="margin-top: var(--half-module);">
+          <button class="btn --icon --sm --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
+          <button class="btn --icon --sm --danger" aria-label="Ablehnen"><span class="material-icons" aria-hidden="true">close</span></button>
+          <button class="btn --icon --sm --primary" aria-label="Bestätigen"><span class="material-icons" aria-hidden="true">check</span></button>
+          <button class="btn --icon --sm --secondary" aria-label="Mehr Optionen"><span class="material-icons" aria-hidden="true">more_vert</span></button>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.--success</code> grün · <code>.--danger</code> rot · <code>.--primary</code> schwarz · <code>.--secondary</code> hellgrau (<code>--accent-bg</code>) · Standard Touch <code>--icon-box-sm</code> · <code>.--sm</code> = <code>calc(var(--base) * 2)</code> · Portal: Offene Anfragen (<code>.--sm</code>) · Bundle: Warenkorb in qty-Zeile.</p>
 
       <h3 class="sg-h3 --top"><code>.btn.--honey</code></h3>
       <div class="sg-demo">

@@ -252,11 +252,6 @@ const renderBundle = () => {
             <div class="cart-item__variant">${sizeLabel}${fmt(getActivePrice(p))} / Stk.${historyText}</div>
           </div>
           <div class="cart-item__actions">
-            <button type="button" class="btn --icon cart-item__add-to-cart"
-              onclick="moveProductToCart(${p.id})" title="In den Warenkorb legen"
-              aria-label="In den Warenkorb legen"${locked ? ' disabled' : ''}>
-              <span class="material-icons">shopping_cart</span>
-            </button>
             <button type="button" class="btn --icon cart-item__remove"
               onclick="removeProduct(${p.id})" title="Aus Angebot entfernen"
               aria-label="Aus Angebot entfernen"${locked ? ' disabled' : ''}>
@@ -281,6 +276,11 @@ const renderBundle = () => {
             </div>
             ${freeItems > 0 ? `<span class="badge --free">+ ${freeItems} Gratis</span>` : ''}
           </div>
+          <button type="button" class="btn --icon --sm --secondary cart-item__add-to-cart"
+            onclick="moveProductToCart(${p.id})" title="In den Warenkorb legen"
+            aria-label="In den Warenkorb legen"${locked ? ' disabled' : ''}>
+            <span class="material-icons">shopping_cart</span>
+          </button>
         </div>
       </div>
       ${tierHint ? `<span class="cart-item__tier-hint" aria-hidden="true">${tierHint}</span>` : ''}`;
