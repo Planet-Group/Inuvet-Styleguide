@@ -6,11 +6,11 @@
   <title>Produkte – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=163">
+  <link rel="stylesheet" href="../inuvet.css?v=174">
   <link rel="stylesheet" href="../mockup-ui.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll" id="top">
+<body class="--ann-scroll --mockup-bar-visible" id="top">
 
   <div class="announcement-bar --marquee" id="announcementBar">
     <div class="announcement-bar__track">
@@ -94,11 +94,22 @@
   <div class="filter-overlay" id="filterOverlay" onclick="closeFilter()"></div>
 
   <main class="container" id="MainContent">
-    <div class="collection-layout">
+    <div class="collection-intro flow" id="collectionIntro" hidden>
+      <h1 id="collectionTitle" hidden>Produkte</h1>
+      <div class="rte" id="collectionDesc" hidden>
+        <p>Tierärztlich entwickelte Nahrungsergänzung für Hund, Katze und kleine Heimtiere — Formulierungen für den Praxisalltag.</p>
+      </div>
+    </div>
+    <div class="collection-layout" id="collectionLayout">
       <aside class="collection-sidebar" id="filterSidebar">
         <div class="collection-sidebar__header">
           <h2 class="collection-sidebar__title">Filter</h2>
           <button class="btn --icon collection-sidebar__close" type="button" onclick="closeFilter()" aria-label="Filter schließen"><span class="material-icons">close</span></button>
+        </div>
+        <div class="filter-group" id="filterAnimals">
+          <h3 class="filter-group__title label-caps">Tierarten</h3>
+          <label class="form-check"><input type="checkbox" name="animal" value="hund-katze"><span>Hund &amp; Katze</span></label>
+          <label class="form-check"><input type="checkbox" name="animal" value="kleine-heimtiere"><span>Kleine Heimtiere</span></label>
         </div>
         <div class="filter-group" id="filterCats">
           <h3 class="filter-group__title label-caps">Kategorie</h3>
@@ -112,8 +123,8 @@
       </aside>
 
       <div class="collection-main">
-        <div class="collection-toolbar">
-          <button class="collection-filter-toggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
+        <button class="collection-filter-toggle" id="collectionFilterToggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
+        <div class="collection-toolbar" id="collectionToolbar">
           <div class="collection-toolbar__count" id="collectionCount">—</div>
           <div class="collection-toolbar__sort">
             <span class="collection-toolbar__sort-label">Sortieren:</span>
@@ -177,9 +188,74 @@
     </div>
   </footer>
 
+  <div class="mockup-bar" role="region" aria-label="Mockup: Shopify Section-Setting">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">show_filters</span>
+      <button type="button" class="mockup-btn" id="mockFilterOn">an · 3 Spalten</button>
+      <button type="button" class="mockup-btn" id="mockFilterOff">aus · 4 Spalten</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">toolbar</span>
+      <button type="button" class="mockup-btn" id="mockToolbarOn">an</button>
+      <button type="button" class="mockup-btn" id="mockToolbarOff">aus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">title</span>
+      <button type="button" class="mockup-btn" id="mockTitleOn">an</button>
+      <button type="button" class="mockup-btn" id="mockTitleOff">aus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">description</span>
+      <button type="button" class="mockup-btn" id="mockDescOn">an</button>
+      <button type="button" class="mockup-btn" id="mockDescOff">aus</button>
+    </div>
+  </div>
+
   <script src="../inuvet.js?v=22"></script>
   <script>
     const FALLBACK_IMG = '../assets/images/Calmin_Packshot_01.jpeg';
+
+    // Shopify Section-Settings — Mock: ?filters=0&toolbar=0&title=1&description=1 oder Steuerleiste
+    const params = new URLSearchParams(location.search);
+    const paramOn = (key, fallback = false) => {
+      const v = (params.get(key) ?? '').toLowerCase();
+      if (['1', 'true', 'on'].includes(v)) return true;
+      if (['0', 'false', 'off'].includes(v)) return false;
+      return fallback;
+    };
+    let showFilters = !['0', 'false', 'off'].includes((params.get('filters') || '1').toLowerCase());
+    let showToolbar = !['0', 'false', 'off'].includes((params.get('toolbar') || '1').toLowerCase());
+    let showTitle = paramOn('title', false);
+    let showDescription = paramOn('description', false);
+
+    const ANIMAL_LABELS = {
+      'hund-katze': 'Hund & Katze',
+      'kleine-heimtiere': 'Kleine Heimtiere',
+    };
+
+    /** Variant/Produkt-`animals`-String → Filter-Gruppen (hund-katze | kleine-heimtiere). */
+    const animalGroupsFromText = (text) => {
+      const t = (text || '').toLowerCase();
+      const groups = new Set();
+      if (/kleintier|kleine\s*heimtiere/.test(t)) groups.add('kleine-heimtiere');
+      if (/\bhund\b|\bkatze\b/.test(t)) groups.add('hund-katze');
+      return groups;
+    };
+
+    const catalogAnimals = (p) => {
+      const groups = new Set();
+      if (p.isFamily && p.variants?.length) {
+        p.variants.forEach(v => animalGroupsFromText(v.animals).forEach(g => groups.add(g)));
+      } else if (p.animals) {
+        animalGroupsFromText(p.animals).forEach(g => groups.add(g));
+      }
+      // Fallback: Shop-Default Hund & Katze (wenn keine Tierart hinterlegt)
+      if (!groups.size) groups.add('hund-katze');
+      return [...groups];
+    };
 
     const catalogForms = (p) => {
       if (p.isFamily && p.variants?.length) return [...new Set(p.variants.map(v => v.type).filter(Boolean))];
@@ -198,10 +274,96 @@
         price: productStartPrice(p),
         unit: productStartUnit(p),
         forms: catalogForms(p),
+        animals: catalogAnimals(p),
         desc: p.shortDesc || p.desc || '',
       }));
 
-    const state = { cats: new Set(), forms: new Set(), sort: 'recommended' };
+    const state = { cats: new Set(), forms: new Set(), animals: new Set(), sort: 'recommended' };
+
+    const gridColsClass = () => showFilters ? 'tile-grid --cols-3' : 'tile-grid --cols-4';
+
+    const clearFilterInputs = () => {
+      document.querySelectorAll('#filterSidebar input[type="checkbox"]').forEach(i => { i.checked = false; });
+    };
+
+    const syncUrl = () => {
+      const url = new URL(location.href);
+      if (showFilters) url.searchParams.delete('filters');
+      else url.searchParams.set('filters', '0');
+      if (showToolbar) url.searchParams.delete('toolbar');
+      else url.searchParams.set('toolbar', '0');
+      if (showTitle) url.searchParams.set('title', '1');
+      else url.searchParams.delete('title');
+      if (showDescription) url.searchParams.set('description', '1');
+      else url.searchParams.delete('description');
+      history.replaceState(null, '', url);
+    };
+
+    const applyIntro = () => {
+      const intro = document.getElementById('collectionIntro');
+      const title = document.getElementById('collectionTitle');
+      const desc = document.getElementById('collectionDesc');
+      const any = showTitle || showDescription;
+      intro.hidden = !any;
+      title.hidden = !showTitle;
+      desc.hidden = !showDescription;
+      document.getElementById('mockTitleOn')?.classList.toggle('--active', showTitle);
+      document.getElementById('mockTitleOff')?.classList.toggle('--active', !showTitle);
+      document.getElementById('mockDescOn')?.classList.toggle('--active', showDescription);
+      document.getElementById('mockDescOff')?.classList.toggle('--active', !showDescription);
+    };
+
+    const applyShowToolbar = () => {
+      const toolbar = document.getElementById('collectionToolbar');
+      toolbar.hidden = !showToolbar;
+      document.getElementById('mockToolbarOn')?.classList.toggle('--active', showToolbar);
+      document.getElementById('mockToolbarOff')?.classList.toggle('--active', !showToolbar);
+      syncUrl();
+    };
+
+    const applyShowFilters = () => {
+      const layout = document.getElementById('collectionLayout');
+      const filterToggle = document.getElementById('collectionFilterToggle');
+      const sidebar = document.getElementById('filterSidebar');
+      const overlay = document.getElementById('filterOverlay');
+      layout.classList.toggle('--no-sidebar', !showFilters);
+      if (filterToggle) filterToggle.hidden = !showFilters;
+      sidebar.hidden = !showFilters;
+      if (overlay) overlay.hidden = !showFilters;
+      if (!showFilters) {
+        closeFilter?.();
+        state.cats.clear();
+        state.forms.clear();
+        state.animals.clear();
+        clearFilterInputs();
+      }
+      document.getElementById('mockFilterOn')?.classList.toggle('--active', showFilters);
+      document.getElementById('mockFilterOff')?.classList.toggle('--active', !showFilters);
+      syncUrl();
+    };
+
+    const setShowFilters = (on) => {
+      showFilters = on;
+      applyShowFilters();
+      renderCollection();
+    };
+
+    const setShowToolbar = (on) => {
+      showToolbar = on;
+      applyShowToolbar();
+    };
+
+    const setShowTitle = (on) => {
+      showTitle = on;
+      applyIntro();
+      syncUrl();
+    };
+
+    const setShowDescription = (on) => {
+      showDescription = on;
+      applyIntro();
+      syncUrl();
+    };
 
     const buildCatFilters = () => {
       const wrap = document.getElementById('filterCats');
@@ -220,8 +382,11 @@
 
     const filtered = () => {
       let list = catalog.slice();
-      if (state.cats.size) list = list.filter(p => state.cats.has(p.cat));
-      if (state.forms.size) list = list.filter(p => p.forms.some(f => state.forms.has(f)));
+      if (showFilters && state.animals.size) {
+        list = list.filter(p => p.animals.some(a => state.animals.has(a)));
+      }
+      if (showFilters && state.cats.size) list = list.filter(p => state.cats.has(p.cat));
+      if (showFilters && state.forms.size) list = list.filter(p => p.forms.some(f => state.forms.has(f)));
       if (state.sort === 'price-asc') list.sort((a, b) => a.price - b.price);
       else if (state.sort === 'price-desc') list.sort((a, b) => b.price - a.price);
       else if (state.sort === 'name') list.sort((a, b) => a.title.localeCompare(b.title, 'de'));
@@ -387,13 +552,20 @@
     const resetAllFilters = () => {
       state.cats.clear();
       state.forms.clear();
-      document.querySelectorAll('#filterSidebar input[type="checkbox"]').forEach(i => { i.checked = false; });
+      state.animals.clear();
+      clearFilterInputs();
       renderCollection();
     };
 
     const renderActiveBar = () => {
       const bar = document.getElementById('filterActiveBar');
+      if (!showFilters) {
+        bar.hidden = true;
+        bar.innerHTML = '';
+        return;
+      }
       const tags = [];
+      state.animals.forEach(a => tags.push({ type: 'animal', value: a, label: ANIMAL_LABELS[a] || a }));
       state.cats.forEach(cat => {
         const label = catalog.find(p => p.cat === cat)?.catLabel || cat;
         tags.push({ type: 'cat', value: cat, label });
@@ -410,9 +582,13 @@
       ).join('') + `<button class="filter-reset" type="button" id="filterReset">Alle löschen</button>`;
       bar.querySelectorAll('.filter-tag__remove').forEach(btn => {
         btn.addEventListener('click', () => {
-          const set = btn.dataset.type === 'cat' ? state.cats : state.forms;
+          const set = btn.dataset.type === 'cat' ? state.cats
+            : btn.dataset.type === 'animal' ? state.animals
+            : state.forms;
           set.delete(btn.dataset.value);
-          const name = btn.dataset.type === 'cat' ? 'cat' : 'form';
+          const name = btn.dataset.type === 'cat' ? 'cat'
+            : btn.dataset.type === 'animal' ? 'animal'
+            : 'form';
           document.querySelector(`input[name="${name}"][value="${btn.dataset.value}"]`).checked = false;
           renderCollection();
         });
@@ -423,13 +599,13 @@
     const renderCollection = () => {
       const list = filtered();
       const grid = document.getElementById('collectionGrid');
-      const hasFilters = state.cats.size > 0 || state.forms.size > 0;
+      const hasFilters = showFilters && (state.cats.size > 0 || state.forms.size > 0 || state.animals.size > 0);
       if (!list.length) {
         grid.className = '';
         grid.innerHTML = emptyHTML(hasFilters);
         document.getElementById('emptyFilterReset')?.addEventListener('click', resetAllFilters);
       } else {
-        grid.className = 'tile-grid --cols-3';
+        grid.className = gridColsClass();
         grid.innerHTML = gridHTML(list);
         initProductMediaRollover?.();
       }
@@ -438,6 +614,13 @@
       renderActiveBar();
     };
 
+    document.getElementById('filterAnimals').querySelectorAll('input').forEach(input => {
+      input.addEventListener('change', () => {
+        if (input.checked) state.animals.add(input.value);
+        else state.animals.delete(input.value);
+        renderCollection();
+      });
+    });
     document.getElementById('filterForms').querySelectorAll('input').forEach(input => {
       input.addEventListener('change', () => {
         if (input.checked) state.forms.add(input.value);
@@ -451,7 +634,18 @@
     });
 
     buildCatFilters();
+    applyShowFilters();
+    applyShowToolbar();
+    applyIntro();
     renderCollection();
+    document.getElementById('mockFilterOn')?.addEventListener('click', () => setShowFilters(true));
+    document.getElementById('mockFilterOff')?.addEventListener('click', () => setShowFilters(false));
+    document.getElementById('mockToolbarOn')?.addEventListener('click', () => setShowToolbar(true));
+    document.getElementById('mockToolbarOff')?.addEventListener('click', () => setShowToolbar(false));
+    document.getElementById('mockTitleOn')?.addEventListener('click', () => setShowTitle(true));
+    document.getElementById('mockTitleOff')?.addEventListener('click', () => setShowTitle(false));
+    document.getElementById('mockDescOn')?.addEventListener('click', () => setShowDescription(true));
+    document.getElementById('mockDescOff')?.addEventListener('click', () => setShowDescription(false));
     updateCartBadge?.();
     initMarquees?.();
   </script>

@@ -242,7 +242,7 @@ Gilt für `.col-grid`, `.tile-grid`, `.testimonial-grid`, `.testimonial-slider`:
 | ≥ 1100px | 4 Sp. | 3 Sp. | 2 Sp. |
 | 900–1099px | 3 Sp. | 2 Sp. | 1 Sp. (`data-cols="2"`) / 2 Sp. (`--cols-2`) |
 | 768–899px | 2 Sp. | 2 Sp. | 1 Sp. / 2 Sp. |
-| < 768px | 2 Sp. (`--cols-4`, bewusst) · 1 Sp. (`.col-grid`) | 1 Sp. | 1 Sp. |
+| < 768px | 2 Sp. (`--cols-4` Benefit/Icon) · 1 Sp. (`.collection-main` Produkte, `--cols-2/3`, `.col-grid`) | 1 Sp. | 1 Sp. |
 
 Modifier: `.col-grid.--early-2` → 50/50 ab 768px (Intro-Paare). `.col-grid.--wide-narrow` → 2fr/1fr ab 768px (Bundle-Sidebar). `.hero-split` bleibt seiten-spezifisch.
 
@@ -264,8 +264,8 @@ Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
 **Formular-Hintergrund (Pflicht):** Formulare dürfen **nur** auf **Weiß** (`--bg`) oder **Grün** (`--green-light`) platziert werden. Auf grünen Flächen Container-Klasse `.--on-green` setzen — sie überschreibt `--field-bg` / `--field-bg-active` automatisch. **Keine weiteren Flächenfarben** (Honey, Grau, Cards …): Floating-Label-Hintergrund muss exakt zum Container passen; andere Farben brechen die Feldlinie optisch und technisch. Styleguide-Demos: `.sg-demo.--white` (Standard) bzw. `.sg-demo.--green` (`.--on-green`-Demo).
 
 ### Tile / Produktkachel
-- `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1) · `--cols-4` (4→3→2→2, Mobile 2-spaltig)
-- **Shop-Collection (Shopify):** Section-Setting `show_filters` (Default an) steuert Filter **und** Spalten: an → Sidebar + `--cols-3` · aus → `.--no-sidebar` / `.--no-filters` + `--cols-4`. Kein Breadcrumb. 0 Treffer → `.empty-state` (C.8). Spec → E.3.
+- `.tile-grid.--cols-2/3/4` für Grid-Layouts — **pro Seite wählen**: `--cols-3` (3→2→1) · `--cols-4` (4→3→2→2 Benefit/Icon · in `.collection-main` →1 mobil, Produkte nie 2-spaltig)
+- **Shop-Collection (Shopify):** Section-Settings: `show_filters` (Default an) steuert Filter **und** Spalten: an → Sidebar + Mobil-`.collection-filter-toggle` + `--cols-3` · aus → `.--no-sidebar` + `--cols-4`. `show_toolbar` (Default an) → `.collection-toolbar` (Anzahl + Sortierung) — **unabhängig** vom Filter-Toggle. `show_title` / `show_description` (Default aus). Kein Breadcrumb. 0 Treffer → `.empty-state` (C.8). Spec → E.3.
 - **Preis immer mit „ab"** in der Übersicht: `<span>ab 39,90 €</span>`
 - `.cart-item__variant`: `60 Stück · 39,90 €` — immer diese Klasse, nie eigene
 
@@ -377,7 +377,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | Sek. | Komponente | Klasse(n) |
 |---|---|---|
 | E.2 | PDP | `.pdp`, `.nr-widget`, `.social-proof`, `.pdp__benefits`, `.pdp__testimonials` (Brand-only, keine Produkt-/Wirkungstexte), `.pdp__praxis`, `.ingredient-list` |
-| E.3 | Collection | `.collection-layout` · `.collection-sidebar` · `.collection-toolbar` · Modifier `.--no-sidebar` / `.--no-filters` (Filter optional) |
+| E.3 | Collection | `.collection-layout` · `.collection-sidebar` · `.collection-filter-toggle` · `.collection-toolbar` · Modifier `.--no-sidebar` (Filter optional) |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |

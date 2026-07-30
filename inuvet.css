@@ -1407,15 +1407,17 @@
     display: grid;
     gap: var(--gutter);
   }
-  .tile-grid.--cols-2 { grid-template-columns: 1fr 1fr; }
-  .tile-grid.--cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-  .tile-grid.--cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .tile-grid.--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile-grid.--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tile-grid.--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
   /* ─── Tile Base ─── */
   .tile {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    min-width: 0; /* Grid: intrinsische Bildbreiten dürfen Spalte nicht aufblasen */
+    max-width: 100%;
   }
   /* List-Collections: gesamtes Tile als Link (E.9) */
   a.tile {
@@ -1464,7 +1466,7 @@
   .tile__image { position: relative; overflow: hidden; }
   .tile__image.--square { aspect-ratio: 1 / 1; }
   .tile__image.--landscape { aspect-ratio: 4 / 3; }
-  .tile__image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform var(--anim-mid); }
+  .tile__image img { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; transition: transform var(--anim-mid); }
   .tile__image:hover img:nth-child(1) { transform: scale(1.05); }
   /* Badge-Overlay-Wrapper (Produkt + Collection-Kachel) */
   .tile__image-wrap {
@@ -1524,11 +1526,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
-  .tile.--featured > .tile__animation lottie-player,
   .tile.--featured > .tile__animation img {
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    object-fit: cover; /* füllt die Media-Fläche (Desktop-Stretch + Mobil-Band) */
+  }
+  .tile.--featured > .tile__animation lottie-player {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
     max-height: 100%;
     aspect-ratio: auto;
     object-fit: contain;
@@ -1578,6 +1587,25 @@
   }
   .tile.--featured.--cover .tile__body {
     opacity: 0.92;
+  }
+  /* Mobil (1-Spalte): kein Row-Stretch — Stack: Bildband vollbreit + cover;
+     Cover-Kachel: Hochformat statt Quadrat */
+  @media (max-width: 767px) {
+    .tile.--featured {
+      min-height: auto;
+      width: 100%;
+    }
+    .tile.--featured:not(.--cover) > .tile__animation {
+      flex: 0 0 auto;
+      aspect-ratio: 4 / 3;
+      width: calc(100% + var(--half-module) * 2);
+      max-width: none;
+      margin: calc(var(--half-module) * -1) calc(var(--half-module) * -1) 0;
+    }
+    .tile.--featured.--cover {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
   }
   /* ─── Tile Variante D: Produktkarte ─── */
   .tile.--product {
@@ -3915,6 +3943,12 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      ═══════════════════════════════════════════ */
 
   .collection-layout { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--gutter); margin-bottom: var(--module-2xl); }
+  /* Optional: Titel + Beschreibung über dem Layout (Shopify show_title / show_description) */
+  .collection-intro {
+    margin-bottom: var(--module);
+  }
+  .collection-intro h1 { margin-bottom: 0; }
+  .collection-intro .rte { color: var(--fg-muted); max-width: 65ch; }
   /* Volle Breite für Produktgrid, wenn Filter-Sidebar ausgeblendet ist (Theme-Setting) */
   .collection-layout.--no-sidebar { grid-template-columns: 1fr; }
   .collection-sidebar { position: sticky; top: var(--module); align-self: start; }
@@ -3933,6 +3967,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* ─── Filter Active Bar — unter Toolbar in .collection-main (nicht in Sidebar) ─── */
   /* display nur wenn sichtbar: sonst überschreibt display:flex das HTML-[hidden] */
   .collection-toolbar:has(+ .filter-active-bar:not([hidden])) {
+    margin-bottom: 0;
+  }
+  .collection-filter-toggle:not([hidden]) + .collection-toolbar:not([hidden]) {
+    border-top: none;
+  }
+  .collection-filter-toggle:not([hidden]):has(+ .filter-active-bar:not([hidden])),
+  .collection-filter-toggle:not([hidden]):has(+ .collection-toolbar[hidden] + .filter-active-bar:not([hidden])) {
     margin-bottom: 0;
   }
   .filter-active-bar:not([hidden]) {
@@ -3954,14 +3995,27 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .filter-reset { font-family: var(--font); font-size: var(--text-xs); color: var(--fg-muted); background: none; border: none; cursor: pointer; padding: calc(var(--base) * 0.25) 0; margin-left: auto; transition: color var(--anim-fast); text-decoration: underline; }
   .filter-reset:hover { color: var(--fg); }
   .collection-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--half-module); padding-bottom: var(--half-module); border-bottom: 1px solid var(--border-light); }
-  /* Toolbar ohne Filter-Button (Desktop: Sortierung rechts) */
-  .collection-toolbar.--no-filters .collection-toolbar__sort { margin-left: auto; }
+  .collection-toolbar[hidden] { display: none !important; }
   .collection-toolbar__count { font-size: var(--text-xs); color: var(--fg-muted); line-height: var(--lh-base); }
-  .collection-toolbar__sort { display: flex; align-items: center; gap: 0.5rem; }
+  .collection-toolbar__sort { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
   .collection-toolbar__sort-label { font-size: var(--text-xs); color: var(--fg-muted); line-height: var(--lh-base); }
   .collection-toolbar__sort-select { font-family: var(--font); font-size: var(--text-xs); color: var(--fg); line-height: var(--lh-base); border: 1px solid var(--border-light); padding: 0.375rem 2rem 0.375rem 0.5rem; background: var(--bg); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23000' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; cursor: pointer; outline: none; transition: border-color var(--anim-fast); }
   .collection-toolbar__sort-select:focus { border-color: var(--border-focus); }
-  .collection-filter-toggle { display: none; font-family: var(--font); font-size: var(--text-base); font-weight: 700; padding: 0.5rem 0; background: none; border: none; cursor: pointer; color: var(--fg); align-items: center; gap: 0.25rem; }
+  /* Mobil-Filter: Sibling vor der Toolbar · unabhängig von show_toolbar · Desktop aus (Sidebar) */
+  .collection-filter-toggle {
+    display: none;
+    font-family: var(--font);
+    font-size: var(--text-base);
+    font-weight: 700;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--fg);
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .collection-filter-toggle[hidden] { display: none !important; }
   .collection-filter-toggle .material-icons { font-size: calc(var(--base) * 1.25); }
   /* Desktop: Sidebar-Titel „Filter" + Toolbar auf einer Linie (Select bestimmt die Zeilenhöhe) */
   @media (min-width: 768px) {
@@ -3999,8 +4053,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   @media (max-width: 1100px) {
     .col-grid[data-cols="3"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .col-grid[data-cols="4"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .tile-grid.--cols-4 { grid-template-columns: 1fr 1fr 1fr; }
-    .tile-grid.--cols-3 { grid-template-columns: 1fr 1fr; }
+    .tile-grid.--cols-4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tile-grid.--cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .testimonial-grid.--cols-4 { grid-template-columns: 1fr 1fr 1fr; }
     .testimonial-slider.--cols-4 .testimonial-slider__track {
       grid-auto-columns: calc((100% - var(--gutter) * 2) / 3);
@@ -4012,7 +4066,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   @media (max-width: 899px) {
     .col-grid[data-cols="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tile-grid.--cols-4 { grid-template-columns: 1fr 1fr; }
+    .tile-grid.--cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .testimonial-grid.--cols-4 { grid-template-columns: 1fr 1fr; }
     .testimonial-slider.--cols-4 .testimonial-slider__track {
       grid-auto-columns: calc((100% - var(--gutter)) / 2);
@@ -4021,8 +4075,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   @media (max-width: 767px) {
     .container { padding: var(--module); }
     .col-grid[data-cols="2"], .col-grid[data-cols="3"], .col-grid[data-cols="4"] { grid-template-columns: 1fr; }
-    /* --cols-4 bewusst ausgenommen: Produktkacheln bleiben 2-spaltig (Shop-Standard) */
-    .tile-grid.--cols-2, .tile-grid.--cols-3 { grid-template-columns: 1fr; }
+    /* --cols-4 global: bleibt 2-spaltig (Benefit-/Icon-Raster).
+       Collection-Produkte: nie 2-spaltig mobil — zu eng → 1 Spalte. */
+    .tile-grid.--cols-2, .tile-grid.--cols-3 { grid-template-columns: minmax(0, 1fr); }
+    .collection-main .tile-grid.--cols-4 { grid-template-columns: minmax(0, 1fr); }
     .section-type { grid-template-columns: 1fr; }
     .section-type.--viewport { height: auto; max-height: none; }
     .section-type__image { min-height: 15rem; }
@@ -4132,11 +4188,27 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       align-self: stretch;
     }
     .collection-sidebar.--open { transform: translateX(0); }
-    .collection-toolbar { display: grid; grid-template-columns: 1fr; padding: 0; border-top: 1px solid var(--border-light); margin-bottom: var(--module); }
-    .collection-toolbar.--no-filters { display: none; }
-    .collection-toolbar__count { display: none; }
-    .collection-filter-toggle { display: flex; justify-content: center; padding: var(--half-module) 0; width: 100%; }
-    .collection-toolbar__sort { display: none; }
+    .collection-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--half-module) 0;
+      border-top: 1px solid var(--border-light);
+      margin-bottom: var(--half-module);
+    }
+    .collection-filter-toggle:not([hidden]) {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: var(--half-module) 0;
+      border-top: 1px solid var(--border-light);
+      margin-bottom: var(--half-module);
+    }
+    .collection-filter-toggle:not([hidden]) + .collection-toolbar:not([hidden]) {
+      border-top: none;
+      padding-top: 0;
+      margin-top: calc(var(--half-module) * -1);
+    }
     /* iOS Safari: Zoom bei Inputs unter 16px verhindern */
     .form-field input, .form-field textarea, .form-field select { font-size: 1rem; }
   }

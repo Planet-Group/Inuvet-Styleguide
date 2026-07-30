@@ -6,7 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=165">
+  <link rel="stylesheet" href="inuvet.css?v=174">
   <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
@@ -896,7 +896,7 @@
       <table class="spec-table">
         <tr><th><code>1100px</code></th><td><code>min-width: 1100px</code>: <code>data-cols="2"</code> wird 50/50 · <code>max-width: 1100px</code>: 3→2, 4→3 (<code>.tile-grid</code> analog)</td></tr>
         <tr><th><code>900px</code></th><td><code>max-width: 899px</code> — <code>data-cols="4"</code> / <code>--cols-4</code>: 4→2</td></tr>
-        <tr><th><code>768px</code></th><td><code>max-width: 767px</code> — Layout-Raster (<code>.col-grid</code>) → 1 Spalte · Kachel-Raster <code>--cols-2/3</code> → 1 · <code>--cols-4</code> bleibt <strong>2</strong> (Produkt-D) · Section Types einspaltig</td></tr>
+        <tr><th><code>768px</code></th><td><code>max-width: 767px</code> — Layout-Raster (<code>.col-grid</code>) → 1 Spalte · Kachel-Raster <code>--cols-2/3</code> → 1 · <code>--cols-4</code> bleibt <strong>2</strong> (Benefit-/Icon), in <code>.collection-main</code> → <strong>1</strong> (Produkte) · Section Types einspaltig</td></tr>
       </table>
       <p>Modifier für <code>data-cols="2"</code>: <code>.--early-2</code> (50/50 ab 768px, Intro-Paare) · <code>.--wide-narrow</code> (2fr/1fr ab 768px, Sidebar-Layouts) — Details <a href="#A9">A.9</a>.</p>
 
@@ -913,7 +913,7 @@
       <table class="spec-table">
         <tr><th><code>--cols-2</code></th><td>2 → <strong>1</strong> (≤767px)</td></tr>
         <tr><th><code>--cols-3</code></th><td>3 → <strong>2</strong> (≤1100px) → <strong>1</strong> (≤767px)</td></tr>
-        <tr><th><code>--cols-4</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) · Mobile: <strong>2</strong> (bewusst — kompakter Shop-Standard für Produkt-D)</td></tr>
+        <tr><th><code>--cols-4</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) · Mobile: <strong>2</strong> (Benefit-/Icon) · in <code>.collection-main</code>: <strong>1</strong> (Produkte, nie 2-spaltig)</td></tr>
       </table>
       <p><code>.testimonial-grid</code> und <code>.testimonial-slider</code> nutzen dieselben Breakpoints (<code>--cols-3/4</code>). Testimonial-Grid auf Mobile: progressive Anzeige via „Mehr anzeigen" — Details in <a href="#D5">D.5 Testimonials</a>.</p>
 
@@ -921,7 +921,7 @@
       <p>Keine Sonder-CSS pro Collection: Spaltenzahl am Container wählen (<code>.tile-grid --cols-N</code> + <code>.tile.--product</code>). Die Kaskade ist fix — nur <code>N</code> ändern.</p>
       <table class="spec-table">
         <tr><th><code>--cols-3</code></th><td><strong>3 → 2 → 1</strong> — Shop-Collection mit Filter (<code>show_filters</code>) · Tierarzt-Empfehlung: Mobile einspaltig, mehr Luft pro Kachel</td></tr>
-        <tr><th><code>--cols-4</code></th><td><strong>4 → 3 → 2 → 2</strong> — Collection ohne Filter (<code>show_filters</code> aus) / dichte Listen · Mobile bewusst 2-spaltig</td></tr>
+        <tr><th><code>--cols-4</code></th><td><strong>4 → 3 → 2 → 1</strong> in Collection (<code>.collection-main</code>) · sonst <strong>4 → 3 → 2 → 2</strong> (Benefit-/Icon-Raster, Mobile 2-spaltig) · Collection ohne Filter (<code>show_filters</code> aus)</td></tr>
       </table>
       <p>Wechsel = eine Klasse im HTML/JS, keine Media Queries.</p>
 
@@ -3482,7 +3482,7 @@
         <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
         <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
-        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · vier Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>cover</strong> (<code>.--cover</code>) · Details und Demos unten</td></tr>
+        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · vier Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>cover</strong> (<code>.--cover</code>) · Desktop: <code>min-height: 100%</code> (Row-Stretch), Bild <code>object-fit: cover</code> · Mobil: Stack-Bildband <code>4/3</code> vollbreit · Cover <code>3/4</code> Hochformat · Details und Demos unten</td></tr>
         <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
       </table>
 
@@ -3575,7 +3575,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (grünes Panel darunter) · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (<code>object-fit: cover</code>, grünes Panel darunter) · Mobil: Bildband <code>4/3</code> vollbreit · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-lottie">Sonderkachel mit Lottie (Variante C · stack)</h3>
       <div class="sg-demo --white">
@@ -5037,11 +5037,12 @@
       </div>
 
       <table class="spec-table">
-        <tr><th>Titel</th><td>Optional <code>.section-label</code> oberhalb des Layouts — nur wenn die Collection <em>innerhalb</em> einer Page mit weiteren Sections steht · Standalone-Collection-Page: weglassen · Shopify: Section-Setting Checkbox <code>show_title</code> (Default aus auf Collection-Template, an in eingebetteten Sections) · <strong>kein Breadcrumb</strong></td></tr>
-        <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Kategorie-Filter (Checkboxen). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code> (<code>inuvet.js</code> / <code>sg.js</code>). <code>.collection-sidebar__title</code>: Desktop wie <code>.collection-toolbar__count</code> (text-xs, muted) · Mobile Drawer: text-base, bold</td></tr>
+        <tr><th>Titel</th><td>Optional <code>h1</code> in <code>.collection-intro</code> (Seitentitel, nicht Section-Label) · Shopify Checkbox <code>show_title</code> (Default <strong>aus</strong> auf Collection-Template) · <strong>kein Breadcrumb</strong></td></tr>
+        <tr><th>Beschreibung</th><td>Optional <code>.rte</code> in <code>.collection-intro</code> · Shopify Checkbox <code>show_description</code> (Default <strong>aus</strong>) · Content: <code>collection.description</code> · Titel und Beschreibung unabhängig schaltbar</td></tr>
+        <tr><th>Sidebar</th><td><code>12rem</code>, sticky. Filtergruppen: <strong>Tierarten</strong> (Hund &amp; Katze · Kleine Heimtiere), Kategorie, Darreichungsform (+ weitere Storefront-Filter). Mobile: Drawer via <code>openFilter()</code> / <code>closeFilter()</code>. <code>.collection-sidebar__title</code>: Desktop wie <code>.collection-toolbar__count</code> (text-xs, muted) · Mobile Drawer: text-base, bold</td></tr>
         <tr><th>Aktive Filter</th><td><code>.filter-active-bar</code> unter der Toolbar in <code>.collection-main</code> (nicht in der Sidebar) · leer = nicht rendern / <code>hidden</code> · Tags + „Alle löschen"</td></tr>
-        <tr><th>Toolbar</th><td>Desktop: Anzahl links, Sortierung rechts (Custom Select). Mobil (≤767px): nur Filter-Button — Sortierung ausgeblendet.</td></tr>
-        <tr><th>Grid</th><td>An <code>show_filters</code> gekoppelt (<a href="#A8">A.8</a>): Filter an → <code>.tile-grid.--cols-3</code> (3→2→1) · Filter aus → <code>.tile-grid.--cols-4</code> (4→3→2→2, volle Breite). Sonderkacheln (<code>.tile.--featured</code>, <a href="#D4">D.4</a>) mischbar.</td></tr>
+        <tr><th>Toolbar</th><td>Optional · Anzahl + Sortierung · Shopify Checkbox <code>show_toolbar</code> (Default <strong>an</strong>) · unabhängig von Filtern · Desktop und Mobil</td></tr>
+        <tr><th>Grid</th><td>An <code>show_filters</code> gekoppelt (<a href="#A8">A.8</a>): Filter an → <code>.tile-grid.--cols-3</code> (3→2→1) · Filter aus → <code>.tile-grid.--cols-4</code> (4→3→2→<strong>1</strong> mobil in <code>.collection-main</code>, volle Breite). Sonderkacheln (<code>.tile.--featured</code>, <a href="#D4">D.4</a>) mischbar. Produktkacheln mobil nie 2-spaltig.</td></tr>
         <tr><th>Warenkorb (Kachel)</th><td><code>openOptions(id)</code> · Produktfamilie: Darreichungsform + Größe · Einzelprodukt mit Größen: nur Größe · Einzel ohne Größenwahl: Direkt-Add · Bild-Link → PDP</td></tr>
         <tr><th>Badges (Kacheln)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Familien zusätzlich „Produktfamilie" · Status (<code>.--dark</code> / <code>.--sale</code>) in <code>.collection-main</code> ausgeblendet (enge Spalten). Volle Badge-Reihe → <a href="#C1">C.1</a>.</td></tr>
         <tr><th><code>.filter-active-bar</code></th><td>In <code>.collection-main</code> unter Toolbar · Flex wrap · nur sichtbar ohne <code>[hidden]</code> · Sidebar bleibt Checkbox-only</td></tr>
@@ -5049,8 +5050,8 @@
         <tr><th><code>.filter-count</code></th><td><code>color: var(--fg-muted)</code>, <code>font-weight: 400</code> — Anzahl in Klammern</td></tr>
         <tr><th><code>.filter-reset</code></th><td>Text-Button, <code>margin-left: auto</code>, underline, rechts in <code>.filter-active-bar</code></td></tr>
         <tr><th>Empty State</th><td>0 Produkte im Grid → <code>.empty-state</code> (<a href="#C8">C.8</a>) in <code>.collection-main</code> statt <code>.tile-grid</code> · Spec + Demo → unten · Shopify-Mapping → <a href="#shopify-collection">Shopify</a></td></tr>
+        <tr><th><code>.collection-filter-toggle</code></th><td>Mobil-Filter-Button · Sibling <strong>vor</strong> der Toolbar (nicht darin) · sichtbar nur ≤767px und wenn <code>show_filters</code> · Desktop: Sidebar</td></tr>
         <tr><th><code>.collection-layout.--no-sidebar</code></th><td>Einspaltig — Produktgrid volle Breite · Grid dann <code>--cols-4</code> (Theme-Setting <code>show_filters</code> = aus)</td></tr>
-        <tr><th><code>.collection-toolbar.--no-filters</code></th><td>Toolbar ohne Filter-Button — Desktop: Sortierung rechts · Mobil: Toolbar ausgeblendet (keine Sortierung oben)</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Produktübersicht</h3>
@@ -5061,6 +5062,11 @@
             <div class="collection-sidebar__header">
               <h3 class="collection-sidebar__title">Filter</h3>
               <button class="btn --icon collection-sidebar__close" type="button" onclick="closeFilter()"><span class="material-icons">close</span></button>
+            </div>
+            <div class="filter-group">
+              <h4 class="filter-group__title label-caps">Tierarten</h4>
+              <label class="form-check"><input type="checkbox" checked><span>Hund &amp; Katze</span></label>
+              <label class="form-check"><input type="checkbox"><span>Kleine Heimtiere</span></label>
             </div>
             <div class="filter-group">
               <h4 class="filter-group__title label-caps">Darreichungsform</h4>
@@ -5075,8 +5081,8 @@
             </div>
           </aside>
           <main class="collection-main">
+            <button class="collection-filter-toggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
             <div class="collection-toolbar">
-              <button class="collection-filter-toggle" type="button" onclick="openFilter()"><span class="material-icons">filter_list</span> Filter</button>
               <div class="collection-toolbar__count">Zeige 1–9 von 12 Produkten</div>
               <div class="collection-toolbar__sort">
                 <span class="collection-toolbar__sort-label">Sortieren:</span>
@@ -5126,7 +5132,7 @@
       <div class="sg-demo --white">
         <div class="collection-layout --no-sidebar">
           <main class="collection-main">
-            <div class="collection-toolbar --no-filters">
+            <div class="collection-toolbar">
               <div class="collection-toolbar__count">Zeige 1–9 von 12 Produkten</div>
               <div class="collection-toolbar__sort">
                 <span class="collection-toolbar__sort-label">Sortieren:</span>
@@ -5147,7 +5153,7 @@
           </main>
         </div>
       </div>
-      <p class="sg-caption"><code>.collection-layout.--no-sidebar</code> + <code>.collection-toolbar.--no-filters</code> + <code>.tile-grid.--cols-4</code> — volle Breite, dicht · Theme: Section-Setting <code>show_filters</code> = aus.</p>
+      <p class="sg-caption"><code>.collection-layout.--no-sidebar</code> + <code>.tile-grid.--cols-4</code> — volle Breite · Theme: Section-Setting <code>show_filters</code> = aus · Toolbar unabhängig via <code>show_toolbar</code>.</p>
 
       <h3 class="sg-h3 --top">Filter-Zustände</h3>
       <div class="sg-demo --white">
@@ -5206,7 +5212,7 @@
       <div class="sg-demo --white">
         <div class="collection-layout --no-sidebar">
           <main class="collection-main">
-            <div class="collection-toolbar --no-filters">
+            <div class="collection-toolbar">
               <div class="collection-toolbar__count">Keine Treffer</div>
             </div>
             <div class="filter-active-bar">
@@ -5232,13 +5238,13 @@
       <table class="spec-table">
         <tr><th>Grid</th><td><code>{% if section.settings.show_filters %}</code> → <code>.tile-grid.--cols-3</code> · sonst <code>.tile-grid.--cols-4</code> · <code>{% for product in collection.products %}</code> → <code>.tile.--product</code> (Snippet <code>card-product</code>) · Badges: Kategorie + optional „Produktfamilie"; Status in <code>.collection-main</code> ausgeblendet</td></tr>
         <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> → Media in <code>.tile__animation</code> (nie Bild+Lottie) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="pages/Collection.html">Collection.html</a></td></tr>
-        <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
+        <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Pflicht-Facet <strong>Tierarten</strong>: Werte „Hund &amp; Katze“ / „Kleine Heimtiere“ (Shopify: Product/Variant Metafield oder Tag, z.&nbsp;B. aus <code>custom.geeignet_fuer</code> / PDP Tierart-Spalte) · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
         <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> in <code>.collection-main</code> (unter Toolbar) · <code>.filter-tag</code> · Remove = <code>value.url_to_remove</code> · Reset = <code>collection.url</code> · leer ausblenden</td></tr>
-        <tr><th>Toolbar</th><td>Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code></td></tr>
+        <tr><th>Toolbar</th><td>Section-Setting <code>show_toolbar</code> (Checkbox, Label z.&nbsp;B. „Toolbar anzeigen“, default <code>true</code>) · bei an: Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code> · bei aus: <code>.collection-toolbar</code> nicht rendern / <code>hidden</code> · <strong>unabhängig</strong> von <code>show_filters</code></td></tr>
         <tr><th>Pagination</th><td><code>{% paginate collection.products by 9 %}</code> → <code>paginate.parts</code> in <code>.pagination</code> · echte <code>&lt;a href&gt;</code> (Demo nutzt Buttons) · Sonderkacheln nur auf der aktuellen Seite einmischen (Position relativ zur Seite)</td></tr>
-        <tr><th>Mobile-Filter</th><td><code>openFilter()</code> / <code>closeFilter()</code> ins Theme-Bundle · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>)</td></tr>
-        <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, Label z.&nbsp;B. „Filter anzeigen“, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/Filter-Button aus · Layout <code>.collection-layout.--no-sidebar</code> · Toolbar <code>.collection-toolbar.--no-filters</code> · Grid <code>.tile-grid.--cols-4</code> (bei <code>true</code>: <code>--cols-3</code>) — ein Toggle steuert Filter <em>und</em> Spaltenzahl, kein zweites Setting</td></tr>
-        <tr><th>Seitentitel</th><td>Kein <code>.section-label</code> und kein Breadcrumb auf der Collection-Page — Grid startet direkt mit Toolbar (Titel nur im <code>&lt;title&gt;</code>)</td></tr>
+        <tr><th>Mobile-Filter</th><td><code>.collection-filter-toggle</code> vor der Toolbar · <code>openFilter()</code> / <code>closeFilter()</code> · Sidebar = Off-Canvas-Drawer (CSS ab <code>767px</code>) · unabhängig von <code>show_toolbar</code></td></tr>
+        <tr><th>Filter optional</th><td>Section-Setting <code>show_filters</code> (Checkbox, Label z.&nbsp;B. „Filter anzeigen“, default <code>true</code>) · bei <code>false</code>: Sidebar/Overlay/<code>.collection-filter-toggle</code> aus · Layout <code>.collection-layout.--no-sidebar</code> · Grid <code>.tile-grid.--cols-4</code> (bei <code>true</code>: <code>--cols-3</code>) — steuert Filter <em>und</em> Spaltenzahl · Toolbar bleibt eigenes Setting</td></tr>
+        <tr><th>Titel / Beschreibung</th><td>Checkboxen <code>show_title</code> / <code>show_description</code> (Default beide aus) · bei an: <code>.collection-intro.flow</code> mit <code>h1</code> (= <code>collection.title</code>) und/oder <code>.rte</code> (= <code>collection.description</code>) · unabhängig schaltbar · kein Breadcrumb</td></tr>
         <tr><th>Empty State</th><td>0 Treffer → Grid durch <code>.empty-state</code> ersetzen (→ <a href="#C8">C.8</a>), Pagination aus · Icon <code>search_off</code> · Titel „Keine Produkte gefunden“ · Sub „Passe die Filter an oder setze sie zurück.“ · bei aktiven Filtern: <code>.btn.--primary</code> „Alle Filter löschen“ → <code>collection.url</code> / Filter reset · leere Collection ohne Filter: gleicher Block ohne Reset-CTA, Sub „In dieser Übersicht sind aktuell keine Produkte hinterlegt.“</td></tr>
       </table>
       <p class="sg-caption">Filter-/Sortier-Logik über Storefront-Parameter · Sonderkacheln: mehrere <code>featured_tile</code>-Blocks in <code>main-collection</code>, Position frei wählbar — Markup 1:1 aus <a href="#D4">D.4</a> · Demo → <a href="pages/Collection.html">Collection.html</a>.</p>
