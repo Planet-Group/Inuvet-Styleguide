@@ -2652,6 +2652,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      Zusatzklasse am sichtbaren Bild-Container (.section-type__image /
      <img>-Wrapper) — nicht bei Lottie / .section-type__animation.
      Farbe: Default --fg-muted; auf Fotos per --media-credit-color.
+     text-shadow: leichter Halo für Lesbarkeit auf hellen Flächen.
      Position: physisches `right` (nicht inset-inline-*), weil
      writing-mode: vertical-rl die Inline-Achse dreht. */
   .media-credit {
@@ -2672,6 +2673,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     line-height: 1;
     letter-spacing: 0.05em;
     color: var(--media-credit-color);
+    text-shadow:
+      0 0 1px color-mix(in srgb, var(--fg) 55%, transparent),
+      0 0 4px color-mix(in srgb, var(--fg) 30%, transparent);
     pointer-events: none;
     user-select: none;
     white-space: nowrap;
