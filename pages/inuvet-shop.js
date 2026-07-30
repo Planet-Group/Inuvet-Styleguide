@@ -108,15 +108,6 @@ window.resetShopPopups = () => {
   scheduleShopPopup();
 };
 
-window.toggleMockupBar = () => {
-  const bar = document.getElementById('mockupBar');
-  const revive = document.getElementById('mockupRevive');
-  const hide = !bar.classList.contains('--hidden');
-  bar.classList.toggle('--hidden', hide);
-  revive.classList.toggle('--visible', hide);
-  document.body.classList.toggle('--mockup-bar-visible', !hide);
-};
-
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   scheduleShopPopup();

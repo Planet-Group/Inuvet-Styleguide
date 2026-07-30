@@ -208,15 +208,6 @@ function calcTotal(items) {
 /* ════════════════════════════════════════════
    UI-HELFER
    ════════════════════════════════════════════ */
-function toggleMockupBar() {
-  const bar    = document.getElementById('mockupBar');
-  const revive = document.getElementById('mockupRevive');
-  const hide   = !bar.classList.contains('--hidden');
-  bar.classList.toggle('--hidden', hide);
-  revive.classList.toggle('--visible', hide);
-  document.body.classList.toggle('--mockup-bar-visible', !hide);
-}
-
 function pdpSetImg(thumb, src) {
   pdpSwitch(thumb, src, '', '');
 }

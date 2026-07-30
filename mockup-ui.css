@@ -2,7 +2,23 @@
    mockup-ui.css — Steuerleiste für HTML-Mockup-Seiten
    Wiederverwendbar für alle Prototypen-Seiten
    Nie in Produktion einbinden.
+
+   Tastatur (mockup-ui.js): Alt+M / ⌥M — Chrome ein-/ausblenden
    ═══════════════════════════════════════════════════════ */
+
+/* ─── Global: gesamtes Mockup-Chrome aus (Tastatur) ─── */
+html.--mockup-ui-hidden .mockup-bar,
+html.--mockup-ui-hidden .mockup-fab,
+html.--mockup-ui-hidden .mockup-fab-panel,
+body.--mockup-ui-hidden .mockup-bar,
+body.--mockup-ui-hidden .mockup-fab,
+body.--mockup-ui-hidden .mockup-fab-panel {
+  display: none;
+}
+html.--mockup-ui-hidden body.--mockup-bar-visible,
+body.--mockup-ui-hidden.--mockup-bar-visible {
+  padding-bottom: 0;
+}
 
 /* ─── Body-Padding wenn Leiste sichtbar ─── */
 body.--mockup-bar-visible {
@@ -45,11 +61,6 @@ body.--mockup-bar-visible {
   font-family: monospace;
   flex-wrap: wrap;
   border-top: 1px solid #333;
-  transform: translateY(0);
-  transition: transform 0.2s ease;
-}
-.mockup-bar.--hidden {
-  transform: translateY(100%);
 }
 
 /* ─── Gruppen & Trennlinien ─── */
@@ -87,45 +98,6 @@ body.--mockup-bar-visible {
 }
 .mockup-btn:hover       { border-color: #666; color: #fff; }
 .mockup-btn.--active    { background: var(--green); border-color: var(--green); color: #fff; }
-
-/* ─── Collapse-Button (rechts in der Leiste) ─── */
-.mockup-bar__collapse {
-  margin-left: auto;
-  flex-shrink: 0;
-  background: transparent;
-  border: 1px solid #383838;
-  color: #666;
-  font-family: monospace;
-  font-size: 0.65rem;
-  padding: 0.2em 0.5em;
-  cursor: pointer;
-  transition: color 0.12s, border-color 0.12s;
-  white-space: nowrap;
-}
-.mockup-bar__collapse:hover { color: #fff; border-color: #666; }
-
-/* ─── Revive-Tab (erscheint wenn Leiste ausgeblendet) ─── */
-.mockup-revive {
-  position: fixed;
-  bottom: 0;
-  right: 1.25rem;
-  z-index: 9999;
-  background: #1a1a1a;
-  color: #666;
-  border: 1px solid #333;
-  border-bottom: none;
-  font-family: monospace;
-  font-size: 0.65rem;
-  padding: 0.25em 0.6em;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: color 0.12s;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease, color 0.12s;
-}
-.mockup-revive:hover       { color: #fff; }
-.mockup-revive.--visible   { opacity: 1; pointer-events: auto; }
 
 /* ─── Mockup-Modal ─── */
 .mockup-modal-overlay {

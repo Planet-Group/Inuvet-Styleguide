@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=167">
   <link rel="stylesheet" href="inuvet-shop.css">
-  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body>
+<body class="--mockup-bar-visible">
 
-  <!-- Mockup-Steuerleiste -->
-  <div class="mockup-bar --hidden" id="mockupBar">
+  <!-- Mockup-Steuerleiste (⌥M / Alt+M ausblenden) -->
+  <div class="mockup-bar" id="mockupBar">
     <div class="mockup-bar__group">
       <span class="mockup-bar__group-label">Pop-up:</span>
       <button class="mockup-btn --active" type="button" data-popup="rezept" onclick="setShopPopup('rezept', this)">① Rezept · 400 ms</button>
@@ -25,9 +26,7 @@
       <button class="mockup-btn" type="button" onclick="openShopPopupNow()">Jetzt öffnen</button>
       <button class="mockup-btn" type="button" onclick="resetShopPopups()">Zurücksetzen</button>
     </div>
-    <button class="mockup-bar__collapse" type="button" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
   </div>
-  <button class="mockup-revive --visible" id="mockupRevive" type="button" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
   <!-- Announcement Bar -->
   <div class="announcement-bar --marquee" id="announcementBar">

@@ -7,16 +7,17 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=163">
-  <link rel="stylesheet" href="../mockup-ui.css">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <script src="../mockup-ui.js?v=2" defer></script>
   <link rel="stylesheet" href="tierarzt-empfehlung.css">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll" id="top">
+<body class="--ann-scroll --mockup-bar-visible" id="top">
 
 <!-- ════════════════════════════════════════
-     MOCKUP-STEUERLEISTE
+     MOCKUP-STEUERLEISTE (⌥M / Alt+M ausblenden)
      ════════════════════════════════════════ -->
-<div class="mockup-bar --hidden" id="mockupBar">
+<div class="mockup-bar" id="mockupBar">
   <div class="mockup-bar__group">
     <span class="mockup-bar__group-label">Zustand:</span>
     <button class="mockup-btn --active" data-state="guest"        onclick="setState('guest',        this)">① Nicht angemeldet</button>
@@ -38,9 +39,7 @@
   <div class="mockup-bar__group" id="productPicker" style="display:none">
     <span class="mockup-bar__group-label">Produkt:</span>
   </div>
-  <button class="mockup-bar__collapse" onclick="toggleMockupBar()" title="Leiste ausblenden">▾ Ausblenden</button>
 </div>
-<button class="mockup-revive --visible" id="mockupRevive" onclick="toggleMockupBar()" title="Steuerleiste einblenden">▴ Mockup</button>
 
 <!-- ════════════════════════════════════════
      SHOP-HEADER

@@ -39,7 +39,7 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente: (1) Demo-Abschnitt in `styleguide.html`, (2) Zeile in der Klassen-Schnellreferenz unten. Beides zusammen, nie nur eines.
 10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird: kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
 11. **Einzelprodukt vs. Produktfamilie — Namensregeln nie brechen** — Einzelprodukt-Titel **immer** inkl. Darreichungsform (`Calmin balance Tabletten`, `Inzym Pulver`). Familien-Titel **ohne** Form (`Hepax forte`). Unklar? → erst fragen (Regel gilt für Shopify-Theme 1:1).
-12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`.
+12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`. JS: `mockup-ui.js` (Alt+M / ⌥M blendet Mockup-Chrome global ein/aus).
 13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
 15. **Text-Rhythmus gehört immer `.flow`** — Abstände zwischen Überschriften und Absätzen (Text↔Text) kommen **ausschließlich** aus dem `.flow`-System (`inuvet.css`, Doku A.7) — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt `.flow`. Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke** (Medien / Textblock / Actions), nie Headline→Paragraph. Kein Heading→Paragraph-Abstand über Flex-/Grid-`gap` oder Ad-hoc-Margins. Sonderfall: `--flow-space` am Element überschreiben, nicht neue Margins. Siehe `.cursor/rules/flow-spacing.mdc`.
@@ -94,6 +94,7 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | `inuvet.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
 | `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
 | `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
+| `mockup-ui.js` | Mockup-Chrome-JS (Alt+M / ⌥M Toggle) | Produktions-/Theme-Code |
 | `pages/[name].css` | Page-spezifische Overrides | Globale Design-System-Änderungen |
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
