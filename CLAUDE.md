@@ -99,8 +99,8 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`temp.css`-Inhalt: leer (Stand 2026-07-29).
-`temp.js`-Inhalt: leer (Stand 2026-06-07).
+`temp.css`-Inhalt: leer (Stand 2026-08-04).
+`temp.js`-Inhalt: leer (Stand 2026-08-04).
 
 ### CSS-Workflow: Neue Styles
 
@@ -148,6 +148,14 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `addToCart()` / `updateCartBadge()` | Globaler Warenkorb (localStorage) |
 | `showToast()` | Toast-Benachrichtigung |
 | `calcFree()` / `formatHint()` | Naturalrabatt-Logik (Bundle & PDP) |
+| `animalsIconsHTML()` / `pdpAnimalsHTML()` | Tierart-String → Icon-Markup (PDP, Kacheln) |
+| `animalsLabelForProduct()` / `productTileAnimalsHTML()` | Tierart-Label aus Katalog · Kachel-HTML |
+| `initProductTileAnimals()` | Statische `.tile.--product` anreichern (auch in `reinitSection`) |
+| `pdpDailyCostIconHTML()` / `pdpFormIconFile()` | Tageskosten-Icon je Darreichungsform (Mask) |
+| `initNavScrolled()` | `body.--nav-scrolled` bei scrollY > 0 |
+| `initNavLogoToggle()` | Nav-Logo Theme-Setting `logo_variant` · Mockup-Bar-Demo |
+| `getEffectivePdpGalleryMode()` / `applyPdpGalleryMode()` | PDP-Galerie effektiver Modus (Thumbs/Mosaic) |
+| `initPdpGalleryToggle()` | [MOCKUP] Mockup-Bar Galerie-Toggle auf Produkt.html |
 
 **Seitenspezifische JS-Dateien:**
 
@@ -355,7 +363,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### C — Moleküle
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| C.1 | Produktkarte | `.tile.--product` | `--featured`; in `.tile-grid.--cols-2/3/4` |
+| C.1 | Produktkarte | `.tile.--product` | `--featured`; `.tile__animals` · `.tile__cart` (Desktop Glass) · `.tile__cart-icon` (Mobile Glass) · in `.tile-grid.--cols-2/3/4` |
 | C.2 | Cart Item | `.cart-item` | `.product-thumb` / `.product-thumb-wrap` · `.cart-item__variant` · `.cart-item__counter` · `.cart-item__tier-hint`
 | C.5 | Tabs & Akkordeon | `.tabs .tab-panel .accordion` | — |
 | C.6 | Pagination & Breadcrumb | `.pagination` · `.breadcrumb` | `.--current` |
@@ -367,13 +375,14 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### D — Organismen
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| D.1 | Navigation | `.site-nav .announcement-bar` | Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` (Trigger/Dropdown/Mobile) · `.nav-hamburger.icon-badged` + `.badge.--count` |
+| D.1 | Navigation | `.site-nav .announcement-bar .nav-logo` | Frosted Glass · `body.--nav-scrolled` · Logo-Setting `body[data-nav-logo="campus"]` · Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` |
 | D.2 | Footer | `.site-footer` | `.footer-payment` (Zahlungsarten-Icons in `.footer-bar`) |
 | D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
 | D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Lottie), `--product` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
 | D.7 | Newsletter | `.newsletter` | — |
+| D.9 | Story Iconslider | `.story-iconslider` | `__track` · `__item` · `__media` · `__label` · `--flush` · `--new` |
 
 #### E — Seiten-Vorlagen
 | Sek. | Komponente | Klasse(n) |
@@ -428,7 +437,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
 | `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
 | `pages/Collection.html` | — | Inline + `inuvet.js` | Produkt-Collection (E.3) |
-| `pages/List-Collections.html` | — | `inuvet.js` | List-Collections / Kategorien (E.9) · Mix Collection- + Featured-Kacheln |
+| `pages/List-Collections.html` | `list-collections.css` | `inuvet.js` | List-Collections / Kategorien (E.9) · Mix Collection- + Featured-Kacheln · Cover-Gradient + Featured-Layout |
 | `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
 | `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provision-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |

@@ -851,7 +851,7 @@ function pdpRecommendationsHTML() {
     const freigabe = isApproved(o)
       ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>'
       : '<div class="badge --pill --honey">Freigabe benötigt</div>';
-    const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(o) : '';
+    const animals = productTileAnimalsHTML(o);
     return `
       <a class="tile --product" href="#" onclick="activeProduct=PRODUCTS.find(x=>x.id===${o.id});setPage('product');return false;" style="text-decoration:none;color:inherit">
         <div class="tile__image-wrap">
@@ -1708,7 +1708,7 @@ function tileHTML(p) {
     ? `<img src="${p.img}" alt="${p.name}" loading="lazy">${p.imgHover ? `<img src="${p.imgHover}" alt="" loading="lazy" aria-hidden="true">` : ''}`
     : '';
   const imgClass = p.img ? 'tile__image' : 'tile__image placeholder-bg';
-  const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(p) : '';
+  const animals = productTileAnimalsHTML(p);
 
   return `<div class="tile --product" onclick="if(!event.target.closest('.tile__cart,.tile__cart-icon')){activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')}">
     <div class="tile__image-wrap">

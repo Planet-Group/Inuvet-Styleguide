@@ -6,8 +6,8 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=163">
-  <link rel="stylesheet" href="../temp.css?v=27">
+  <link rel="stylesheet" href="../inuvet.css?v=177">
+  <link rel="stylesheet" href="../temp.css?v=20">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
@@ -166,8 +166,8 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=22"></script>
-  <script src="../temp.js?v=24"></script>
+  <script src="../inuvet.js?v=24"></script>
+  <script src="../temp.js?v=20"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -179,10 +179,8 @@
     const breadcrumbEnabled = params.get('breadcrumb') === '1';
     /* nr=default erzwingt Standard-NR-Widget (sonst persönlich wenn past6Months > 0) */
     const nrForceDefault = params.get('nr') === 'default';
-    /* gallery=mosaic — Mosaic-Galerie (Default: thumbs) · Persistenz via temp.js */
-    if (typeof applyPdpGalleryMode === 'function') {
-      applyPdpGalleryMode(typeof readPdpGalleryMode === 'function' ? readPdpGalleryMode() : 'thumbs');
-    }
+    /* gallery=mosaic — Mosaic-Galerie (Default: thumbs) · init via inuvet.js */
+    applyPdpGalleryMode(readPdpGalleryMode());
 
     /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
     const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, belowRendered: false, formTouched: false, personalOffer: null, personalOfferDismissed: false };
@@ -436,7 +434,7 @@
           : (o.sizes ? o.sizes[0].price : (o.price || 0));
         const cat = o.catLabel ? `<div class="badge" data-cat="${o.cat}">${o.catLabel}</div>` : '';
         const fam = o.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
-        const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(o) : '';
+        const animals = productTileAnimalsHTML(o);
         return `
           <a class="tile --product" href="Produkt.html?id=${o.id}" style="text-decoration:none;color:inherit">
             <div class="tile__image-wrap">

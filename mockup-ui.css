@@ -609,3 +609,13 @@ body.--mockup-ui-hidden .mockup-fab-panel {
   color: #666;
   font-size: 0.65rem;
 }
+
+/* PDP-Galerie-Toggle — nur Desktop (Mobile immer Thumbs) */
+@media (max-width: 1099px) {
+  .mockup-bar__group[data-pdp-gallery-toggle] {
+    display: none;
+  }
+  .mockup-bar__sep:has(+ .mockup-bar__group[data-pdp-gallery-toggle]) {
+    display: none;
+  }
+}

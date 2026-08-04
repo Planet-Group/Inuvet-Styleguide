@@ -6,8 +6,7 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=176">
-  <link rel="stylesheet" href="temp.css?v=27">
+  <link rel="stylesheet" href="inuvet.css?v=177">
   <link rel="stylesheet" href="sg.css?v=49">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
@@ -2127,11 +2126,11 @@
       <table class="spec-table">
         <tr><th><code>.tile__image</code></th><td>1. <code>img</code>: beschreibendes <code>alt</code> · 2. <code>video</code> (Standard): Rollover, <code>aria-hidden="true"</code> · <code>muted loop playsinline</code> · Shopify → <a href="#shopify-pdp">E.2</a></td></tr>
         <tr><th>Badges</th><td><code>.floating-meta</code> · Reihenfolge: Kategorie (<code>.badge[data-cat]</code>), Status (<code>.--dark</code> / <code>.--sale</code>), bei Produktfamilien „Produktfamilie" (Pflicht)</td></tr>
-        <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Text-Button gleitet bei Hover ins Bild (Desktop) · Mobile: <code>.btn.--icon.--sm.--secondary.tile__cart-icon</code> (permanent, unten rechts) · beide <code>aria-label="In den Warenkorb"</code></td></tr>
+        <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Text-Button gleitet bei Hover ins Bild (Desktop) · Frosted Glass · Mobile: Icon-Button <code>.btn.--icon.--sm.tile__cart-icon</code> (permanent, unten rechts, Glass) · Text-Button auf Mobile ausgeblendet · beide <code>aria-label="In den Warenkorb"</code></td></tr>
         <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
         <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
-        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> links · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht, nur PDP/Detail — nicht auf Collection-Kacheln) · rechts <code>.tile__animals</code> (Tier-Icons via <code>productTileAnimalsHTML()</code> / <code>animalsIconsHTML()</code>, Staging <code>temp.js</code>)</td></tr>
-        <tr><th><code>.tile__animals</code></th><td>Icon-Reihe in der Preiszeile · gleiche Icons wie PDP <code>.pdp__type-animals</code> · kleiner (<code>temp.css</code>) · SR: „für" + <code>aria-label</code> pro Tier · statische Kacheln: <code>initProductTileAnimals()</code> oder <code>data-animals</code></td></tr>
+        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> links · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht, nur PDP/Detail — nicht auf Collection-Kacheln) · rechts <code>.tile__animals</code> (Tier-Icons via <code>productTileAnimalsHTML()</code> / <code>animalsIconsHTML()</code>)</td></tr>
+        <tr><th><code>.tile__animals</code></th><td>Icon-Reihe in der Preiszeile · gleiche Icons wie PDP <code>.pdp__type-animals</code> · kleiner · SR: „für" + <code>aria-label</code> pro Tier · statische Kacheln: <code>initProductTileAnimals()</code> oder <code>data-animals</code></td></tr>
         <tr><th><code>.tile.--featured</code></th><td>Sonderkachel — mischbar · optional <code>.--cover</code> (Vollflächen-Bild) · Details → <a href="#D4">D.4</a></td></tr>
         <tr><th>Container</th><td><code>.tile-grid.--cols-2/3/4</code> — Breakpoints · <a href="#A8">A.8</a></td></tr>
       </table>
@@ -2943,10 +2942,13 @@
       </div>
 
       <table class="spec-table">
-        <tr><th><code>.announcement-bar</code></th><td>Höhe <code>var(--announcement-height)</code> · scrollt mit (Default) · Items <code>.announcement-bar__item</code></td></tr>
+        <tr><th><code>.announcement-bar</code></th><td>Höhe <code>var(--announcement-height)</code> · scrollt mit (Default) · Items <code>.announcement-bar__item</code> · Frosted Glass wie Nav (<code>--ann-glass: var(--green-light)</code>)</td></tr>
         <tr><th><code>.announcement-bar.--marquee</code></th><td>Endlos-Scroll · Track <code>.announcement-bar__track</code> · Init via <code>sg.js</code></td></tr>
         <tr><th>Fade-Rotation</th><td><code>@keyframes annBarFade</code> · Dauer <code>var(--anim-announcement) × n</code> · Delays per <code>:nth-child</code></td></tr>
-        <tr><th><code>.site-nav</code></th><td>Sticky · <code>top: 0</code> (Default) · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code></td></tr>
+        <tr><th><code>.site-nav</code></th><td>Sticky · <code>top: 0</code> (Default) · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code> · <strong>Frosted Glass:</strong> <code>backdrop-filter: blur(12px) saturate(1.15)</code> · <code>color-mix</code> 58% · Fallback ohne Blur: <code>--nav-glass</code></td></tr>
+        <tr><th><code>body.--nav-scrolled</code></th><td>Nach Scroll (<code>initNavScrolled()</code>): <code>border-bottom: var(--border-light)</code> an <code>.site-nav</code> · am Top transparent (kein Layout-Sprung)</td></tr>
+        <tr><th><code>.nav-logo</code></th><td>Theme-Setting <code>logo_variant: inuvet | campus</code> · zwei <code>.nav-logo__img</code> (<code>.--inuvet</code> / <code>.--campus</code>) · Umschaltung via <code>body[data-nav-logo="campus"]</code> · Campus: größeres Logo, <code>--nav-height: calc(var(--module) * 3)</code></td></tr>
+        <tr><th>Logo Mockup</th><td>Mockup-Bar „Logo: inuvet | Campus" · URL <code>?logo=campus</code> · Persistenz <code>sessionStorage</code> · JS: <code>initNavLogoToggle()</code> — überschreibt nur mit Mockup-Controls; Produktion setzt <code>data-nav-logo</code> per Liquid</td></tr>
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> · nur bei Sticky-Bar (<code>body.--ann-sticky</code>) für <code>scroll-padding-top</code></td></tr>
         <tr><th><code>body.--ann-sticky</code></th><td>Opt-in: Bar + Nav sticky · <code>scroll-padding-top: var(--header-height)</code> · Shopify: <code>.announcement-bar.--scroll-away</code> am Section-Wrapper</td></tr>
         <tr><th><code>aria-current="page"</code></th><td>Aktiver Bereich: direkter Link, Trigger oder Dropdown-Link · <code>--fg</code>, bold · Dropdown-Treffer heben den Eltern-Trigger via <code>:has()</code> hervor</td></tr>
@@ -4333,7 +4335,7 @@
     <section class="sg-section-v2 flow" id="D9">
       <h2 class="section-label">D.9 — Story Iconslider</h2>
 
-      <p><code>.story-iconslider</code> · horizontale Reihe runder Media-Thumbs (Story-Style) · Scroll + Snap · Staging in <code>temp.css</code> · Live → <a href="pages/Inuvet-Shop.html">Inuvet-Shop.html</a>.</p>
+      <p><code>.story-iconslider</code> · horizontale Reihe runder Media-Thumbs (Story-Style) · Scroll + Snap · Live → <a href="pages/Inuvet-Shop.html">Inuvet-Shop.html</a>.</p>
 
       <div class="rules">
         <div class="rule"><h4>Aufbau</h4><p><code>.story-iconslider</code> → <code>__track</code> (Flex, <code>overflow-x: auto</code>, Scroll-Snap) → <code>__item</code> (Link) mit <code>__media</code> (Kreis) + optional <code>__label</code>.</p></div>
@@ -4352,7 +4354,7 @@
         <tr><th><code>.story-iconslider__media</code></th><td>Kreis <code>--story-size</code> · Default <code>1px --border-light</code> · Hover/Focus (ohne <code>.--new</code>) <code>--border-active</code></td></tr>
         <tr><th><code>.--new</code></th><td>Äußerer Ring <code>box-shadow: 0 0 0 1px var(--color-action)</code> · Gap <code>border: var(--story-ring-gap) solid var(--bg)</code> · Hover <code>--color-action-hover</code></td></tr>
         <tr><th><code>.story-iconslider__label</code></th><td><code>--text-xs</code>, Ellipsis, zentriert unter dem Kreis</td></tr>
-        <tr><th>Staging</th><td>Styles in <code>temp.css</code> — nach Freigabe nach <code>inuvet.css</code> verschieben</td></tr>
+        <tr><th>Shopify</th><td>Section mit Story-Items (Media, Label, Link, optional <code>.--new</code>) · Modifier <code>.--flush</code> für Position direkt unter Nav</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Demo</h3>
@@ -4511,8 +4513,8 @@
       <table class="spec-table">
         <tr><th>Pfadnavigation</th><td>Opt-in: Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · Markup <code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt · Abstand unten <code>--half-module</code> · Demo: aus (<code>?breadcrumb=1</code> an) · Atom → <a href="#C6">C.6</a></td></tr>
         <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
-        <tr><th><code>.pdp__gallery</code></th><td><strong>Thumbs (Default, alle Viewports):</strong> Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild · <strong>Mosaic (Staging, nur Desktop ≥1100px):</strong> <code>.pdp__mosaic</code> — Hero <code>.pdp__mosaic-hero</code> + Grid <code>.pdp__mosaic-grid</code> (2 Spalten, Gap <code>var(--base)</code>) · Zellen <code>.pdp__mosaic-cell</code> · CSS in <code>temp.css</code></td></tr>
-        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="pages/Produkt.html">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · Toggle-JS: <code>initPdpGalleryToggle()</code> in <code>temp.js</code></td></tr>
+        <tr><th><code>.pdp__gallery</code></th><td><strong>Thumbs (Default, alle Viewports):</strong> Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild · <strong>Mosaic (nur Desktop ≥1100px):</strong> <code>.pdp__mosaic</code> — Hero <code>.pdp__mosaic-hero</code> + Grid <code>.pdp__mosaic-grid</code> (2 Spalten, Gap <code>var(--base)</code>) · Zellen <code>.pdp__mosaic-cell</code></td></tr>
+        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="pages/Produkt.html">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · JS: <code>getEffectivePdpGalleryMode()</code>, <code>applyPdpGalleryMode()</code> in <code>inuvet.js</code> · Mockup-Toggle: <code>initPdpGalleryToggle()</code></td></tr>
         <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Video oder Zitat-Foto</td></tr>
@@ -4520,8 +4522,8 @@
         <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead unter Rating · optional rechtliche Futtermittel-Kategorie am Absatzanfang · danach <strong>2 Sätze</strong> benefit-first, keine Wirkstoffliste</td></tr>
         <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente · z.&nbsp;B. Hepax: „Unterstützt die normale Leberfunktion.", „Lange Reichweite…", „Pulver allergikergeeignet."</td></tr>
         <tr><th>Social Proof</th><td><code>.social-proof</code> unter dem Angebot (nach NR / Actions) · &lt;1536px in der Info-Spalte · ≥1536px in <code>.pdp__aside</code> · Styleguide-Demos ohne Aside (Vorschaufenster) · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
-        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · nur Hauptpreis (+ optional Streichpreis) · kein <code>.price-stack__unit</code> in dieser Zeile (Platz für Tageskosten) · rechts daneben optional <code>.pdp__daily-cost</code> (Napf-Icon + „ab €… EUR" / „für einen …") — Staging in <code>temp.css</code></td></tr>
-        <tr><th><code>.pdp__daily-cost</code></th><td>Tageskosten neben dem Preis · Icon via CSS-Mask (<code>Icon_Form_Dosierlöffel_gestrichen.svg</code>, Napf-Silhouette) · <code>__amount</code> bold · <code>__note</code> regular · Flex-Align über bestehendes <code>.pdp__price</code></td></tr>
+        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · nur Hauptpreis (+ optional Streichpreis) · kein <code>.price-stack__unit</code> in dieser Zeile (Platz für Tageskosten) · rechts daneben optional <code>.pdp__daily-cost</code> (Form-Icon + „ab €… EUR" / „für einen …")</td></tr>
+        <tr><th><code>.pdp__daily-cost</code></th><td>Tageskosten neben dem Preis · Icon via CSS-Mask — Darreichungsform: Pulver → <code>Icon_Form_Pulver.svg</code>, Tabletten → <code>Icon_Form_Tablette_ganz.svg</code> (<code>pdpDailyCostIconHTML()</code>) · <code>__amount</code> bold · <code>__note</code> regular · Flex-Align über <code>.pdp__price</code></td></tr>
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet · Wishlist optional (Atom <a href="#B3">B.3</a>, nicht in Live-PDP)</td></tr>
         <tr><th>Kaufblock-Prototype</th><td>Live <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · <code>.pdp__order-meta</code> optional (Demo ausgeblendet)</td></tr>
@@ -4551,7 +4553,7 @@
         <tr><th>Galerie ↔ Form</th><td>Pro Darreichungsform optional <code>mediaIdx</code> → Index in <code>product.media</code> · Default: Packshot (Medium&nbsp;1), Form vorausgewählt (z.&nbsp;B. Pulver) · erst bei aktivem Form-Wechsel Galerie umschalten · Hepax: Pulver → Medium&nbsp;2, Tabletten → Medium&nbsp;3</td></tr>
         <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · Tile, Cart, Suche · <strong>nicht</strong> in der PDP-Preiszeile (dort Platz für <code>.pdp__daily-cost</code>)</td></tr>
         <tr><th>Steuerhinweis</th><td>Nicht in der PDP-Preiszeile · Text via Locale-Key an anderer Stelle · Versand-/Lieferzeit-Hinweis separat (nicht am Preis)</td></tr>
-        <tr><th>Tageskosten</th><td>Optional neben dem Preis: <code>.pdp__daily-cost</code> · Werte aus Metafield (z.&nbsp;B. Tagespreis + Referenz-Tier) · Icon Napf (<code>Icon_Form_Dosierlöffel_gestrichen.svg</code>) · Staging in <code>temp.css</code></td></tr>
+        <tr><th>Tageskosten</th><td>Optional neben dem Preis: <code>.pdp__daily-cost</code> · Werte aus Metafield (z.&nbsp;B. Tagespreis + Referenz-Tier) · Icon je Darreichungsform (<code>pdpDailyCostIconHTML()</code>: Pulver / Tablette_ganz)</td></tr>
         <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code>: optional Futtermittel-Kategorie (Choice-Metafield z.&nbsp;B. <code>custom.feed_category</code>) am Absatzanfang, danach Nutzen-Lead (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste)</td></tr>
         <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
@@ -4609,7 +4611,7 @@
                   <span class="price-stack__compare">37,40 €</span>
                 </div>
                 <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
-                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg')"></span>
+                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Pulver.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Pulver.svg')"></span>
                   <span class="pdp__daily-cost__text">
                     <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
                     <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
@@ -4832,7 +4834,7 @@
                   <span class="price-stack__compare">49,90 €</span>
                 </div>
                 <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
-                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg')"></span>
+                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Pulver.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Pulver.svg')"></span>
                   <span class="pdp__daily-cost__text">
                     <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
                     <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
@@ -5026,7 +5028,7 @@
         <tr><th>Header — empfohlener Default</th><td><code>.section-label-row.--headline</code> → <code>&lt;h2&gt;</code> + optional <code>&lt;a class="btn --ghost --sm"&gt;</code> · ohne untere Border-Linie (→ <a href="#A12">A.12</a>)</td></tr>
         <tr><th>Header — Alternative</th><td><code>.section-label-row</code> mit <code>&lt;h2 class="section-label"&gt;</code> (Uppercase, wie Bestseller auf Shop-Startseite) · gleiche View-all-Option</td></tr>
         <tr><th>Ohne View-all</th><td>Headline: nur <code>&lt;h2&gt;</code> oder <code>&lt;h2 class="section-label"&gt;</code> · kein Row-Wrapper nötig</td></tr>
-        <tr><th>Kacheln</th><td><code>.tile.--product</code> · Preis mit „ab" · Tierart-Icons via <code>productTileAnimalsHTML()</code> (<code>temp.js</code>) · Atom → <a href="#C1">C.1</a></td></tr>
+        <tr><th>Kacheln</th><td><code>.tile.--product</code> · Preis mit „ab" · Tierart-Icons via <code>productTileAnimalsHTML()</code> · Atom → <a href="#C1">C.1</a></td></tr>
         <tr><th>Anzahl</th><td>Max. 4 Produkte (ohne aktuelles Produkt)</td></tr>
       </table>
       <table class="spec-table">
@@ -6306,8 +6308,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=13"></script>
-<script src="temp.js?v=19"></script>
+<script src="inuvet.js?v=24"></script>
 <script src="sg.js?v=5"></script>
 </body>
 </html>

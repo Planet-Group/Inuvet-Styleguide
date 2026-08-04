@@ -6,8 +6,8 @@
   <title>Produkte – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=174">
-  <link rel="stylesheet" href="../temp.css?v=19">
+  <link rel="stylesheet" href="../inuvet.css?v=177">
+  <link rel="stylesheet" href="../temp.css?v=20">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -223,8 +223,8 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=22"></script>
-  <script src="../temp.js?v=19"></script>
+  <script src="../inuvet.js?v=24"></script>
+  <script src="../temp.js?v=20"></script>
   <script>
     const FALLBACK_IMG = '../assets/images/Calmin_Packshot_01.jpeg';
 
@@ -513,9 +513,7 @@
       const fam = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
       const rating = p.rating || '—';
       const hover = tileHoverMedia(p);
-      const animals = (typeof productTileAnimalsHTML === 'function')
-        ? productTileAnimalsHTML(p)
-        : '';
+      const animals = productTileAnimalsHTML(p);
       return `
         <div class="tile --product">
           <div class="tile__image-wrap">
