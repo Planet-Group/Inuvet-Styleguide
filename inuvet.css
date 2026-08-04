@@ -139,7 +139,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: var(--header-height);
+    scroll-padding-top: var(--nav-height);
   }
 
   body {
@@ -631,10 +631,10 @@
      ANNOUNCEMENT BAR + NAVIGATION
      ═══════════════════════════════════════════ */
 
-  /* ─── Announcement Bar ─── */
+  /* ─── Announcement Bar ───
+     Default: scrollt mit dem Content weg (nicht sticky).
+     Sticky-Variante: body.--ann-sticky (Styleguide-Demo / optional). */
   .announcement-bar {
-    position: sticky;
-    top: 0;
     z-index: calc(var(--z-nav) + 1);
     height: var(--announcement-height);
     display: flex;
@@ -674,7 +674,7 @@
   /* ─── Navigation ─── */
   .site-nav {
     position: sticky;
-    top: var(--announcement-height);
+    top: 0;
     z-index: var(--z-nav);
     height: var(--nav-height);
     display: grid;
@@ -684,10 +684,21 @@
     background: var(--bg);
   }
 
-  /* ─── Scroll-Away-Modus ───
+  /* ─── Sticky-Header-Modus (Opt-in) ───
+     Default: Bar scrollt weg, nur Nav sticky (top: 0).
+     body.--ann-sticky: Bar + Nav beide sticky (Legacy / Styleguide-Toggle).
      Theme (Shopify): .announcement-bar.--scroll-away → Section-Wrapper sticky
-     mit negativem top (Bar raus, Nav bleibt). Ohne Wrapper: body.--ann-scroll.
+     mit negativem top (Bar raus, Nav bleibt) — entspricht dem Default.
      Mobile-Menü-top: positionMobileMenu() in toggleMobile(). */
+  body.--ann-sticky .announcement-bar {
+    position: sticky;
+    top: 0;
+  }
+  body.--ann-sticky .site-nav {
+    top: var(--announcement-height);
+  }
+  html:has(body.--ann-sticky) { scroll-padding-top: var(--header-height); }
+
   .shopify-section--sticky-header:has(.announcement-bar.--scroll-away) {
     top: calc(var(--announcement-height) * -1);
   }
@@ -697,10 +708,6 @@
     top: auto;
   }
   html:has(.announcement-bar.--scroll-away) { scroll-padding-top: var(--nav-height); }
-
-  body.--ann-scroll .announcement-bar { position: static; }
-  body.--ann-scroll .site-nav { top: 0; }
-  html:has(body.--ann-scroll) { scroll-padding-top: var(--nav-height); }
 
   .nav-left {
     display: flex;

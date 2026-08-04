@@ -282,7 +282,7 @@ Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben
 
 ### Section-Label Modifier
 - `.section-label` — Top-Level (h2), `--border`
-- `.section-label-row` — optional: Label links + Ghost-CTA rechts (`.btn.--ghost.--sm`); Border/Spacing am Wrapper · Spec → Styleguide A.12 · Shopify: `show_view_all`, `view_all_label`, `view_all_link`
+- `.section-label-row` — optional: Label **oder Headline** (`.--headline` + `h2`) links + Ghost-CTA rechts (`.btn.--ghost.--sm`); Border/Spacing am Wrapper · **Headline ist in den meisten Fällen die bevorzugte Option** (`heading_style: headline`); Section-Label wenn die Zeile in ein Label-getriebenes Section-Raster passt · Spec → Styleguide A.12 · PDP-Empfehlungen → E.2 · Shopify: `heading_style`, `show_view_all`, `view_all_label`, `view_all_link`
 - `.section-label.--sub` — Sub-Sektion (h3), `--border-light` — **nur Produktion** (Formular-/Checkout-Sub-Sektionen, unter einem `form-page__title`/h1)
 - **Styleguide-Doku:** Gruppen-Überschriften im Guide nutzen `.sg-h3` (gemischte Schreibweise, fett, ohne Linie) — **nicht** `.section-label --sub`. Grund: neben der Sektions-`.section-label` (klein, Uppercase, mit Linie) würde `--sub` zu ähnlich aussehen; `.sg-h3` hebt sich klar als untergeordnete Inhalts-Überschrift ab.
 
@@ -290,7 +290,7 @@ Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben
 Überall wo Headline + Fließtext + CTA gestapelt: je `margin-bottom: var(--half-module)`. In `section-type__headline/body` genauso wie in seitenspezifischen Teasern (D.3).
 
 ### Header-Verhalten: Announcement Bar Scroll-Away
-Standard: Announcement Bar **und** Nav bleiben sticky. Optional via Klasse `--ann-scroll` auf `<body>`: Die Bar läuft im Fluss mit (scrollt weg), nur die Nav pinnt oben (`top: 0`). `scroll-padding-top` reduziert sich dann auf `--nav-height`. Das Mobile-Menü-`top` wird in beiden Modi von `positionMobileMenu()` (in `toggleMobile()`) dynamisch an die Nav-Unterkante gesetzt — beim Öffnen ist der Scroll via `body{overflow:hidden}` gesperrt, daher stabil.
+Standard: Announcement Bar **scrollt weg** (nicht sticky), nur die Nav bleibt sticky (`top: 0`). `scroll-padding-top` = `--nav-height`. Opt-in für Sticky-Bar: Klasse `--ann-sticky` auf `<body>` — Bar und Nav bleiben oben, Nav sitzt unter der Bar (`top: var(--announcement-height)`), `scroll-padding-top` = `--header-height`. Styleguide D.1: Toggle „Sticky Header aktivieren“. Shopify: `.announcement-bar.--scroll-away` am Section-Wrapper (entspricht Default). Das Mobile-Menü-`top` wird in beiden Modi von `positionMobileMenu()` (in `toggleMobile()`) dynamisch an die Nav-Unterkante gesetzt — beim Öffnen ist der Scroll via `body{overflow:hidden}` gesperrt, daher stabil.
 
 ---
 
@@ -378,7 +378,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### E — Seiten-Vorlagen
 | Sek. | Komponente | Klasse(n) |
 |---|---|---|
-| E.2 | PDP | `.pdp`, `.nr-widget`, `.social-proof`, `.pdp__benefits`, `.pdp__testimonials` (Brand-only, keine Produkt-/Wirkungstexte), `.pdp__praxis`, `.ingredient-list` |
+| E.2 | PDP | `.pdp`, `.pdp__accordion`, `.nr-widget`, `.social-proof`, `.pdp__benefits`, `.ingredient-list`, `.pdp__faq`, `.pdp__testimonials` (Brand-only), `.pdp__recommendations`, `.pdp__praxis` · Reihenfolge: Kaufblock → Benefits → Inhaltsstoffe → FAQ → Testimonials → Empfehlungen → Praxis |
 | E.3 | Collection | `.collection-layout` · `.collection-sidebar` · `.collection-filter-toggle` · `.collection-toolbar` · Modifier `.--no-sidebar` (Filter optional) |
 | E.4 | Cart-Drawer | `.cart-drawer .cart-overlay` |
 | E.5 | Checkout | `.checkout .summary-line .summary-total` |
@@ -392,7 +392,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|
 | `.container` | `--narrow --sm --flush-top` | Container mit max-width + padding |
 | `.section-label` | `--sub` | Abschnittsüberschrift · Spec A.12 |
-| `.section-label-row` | — | Label + optional View-all (`.btn.--ghost.--sm`) · Shopify `show_view_all` |
+| `.section-label-row` | `--headline` | Headline (empfohlener Default) oder Label + optional View-all (`.btn.--ghost.--sm`) · Shopify `heading_style`, `show_view_all` |
 | `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |

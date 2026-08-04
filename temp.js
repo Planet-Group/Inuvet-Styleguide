@@ -317,10 +317,80 @@ function initNavLogoToggle() {
   apply(readPreferred());
 }
 
+/**
+ * PDP-Galerie-Modus — Thumbs (Default) | Mosaic (LIVOM-Style, nur Desktop ≥1100px).
+ * URL `?gallery=mosaic` · sonst sessionStorage · Mockup-Bar `[data-pdp-gallery-btn]`.
+ * Mobile: immer Thumbs — Präferenz bleibt gespeichert für Desktop-Resize.
+ * Braucht `window.renderPdp({ gallery: true })` auf der PDP-Seite.
+ */
+var PDP_GALLERY_STORAGE_KEY = 'inuvet-pdp-gallery';
+var PDP_GALLERY_MOSAIC_MIN = 1100;
+
+function isPdpGalleryMosaicViewport() {
+  return window.innerWidth >= PDP_GALLERY_MOSAIC_MIN;
+}
+
+function readPdpGalleryMode() {
+  var params = new URLSearchParams(location.search);
+  var fromUrl = (params.get('gallery') || '').toLowerCase();
+  if (fromUrl === 'mosaic' || fromUrl === 'thumbs') return fromUrl;
+  try {
+    var stored = (sessionStorage.getItem(PDP_GALLERY_STORAGE_KEY) || '').toLowerCase();
+    if (stored === 'mosaic' || stored === 'thumbs') return stored;
+  } catch (_) { /* private mode */ }
+  return 'thumbs';
+}
+
+function getEffectivePdpGalleryMode(pref) {
+  var preference = pref === 'mosaic' || pref === 'thumbs' ? pref : readPdpGalleryMode();
+  return preference === 'mosaic' && isPdpGalleryMosaicViewport() ? 'mosaic' : 'thumbs';
+}
+
+function applyPdpGalleryMode(mode) {
+  var preference = mode === 'mosaic' ? 'mosaic' : 'thumbs';
+  var effective = getEffectivePdpGalleryMode(preference);
+  document.body.dataset.pdpGallery = effective;
+  try { sessionStorage.setItem(PDP_GALLERY_STORAGE_KEY, preference); } catch (_) { /* ignore */ }
+
+  var url = new URL(location.href);
+  if (preference === 'mosaic') url.searchParams.set('gallery', 'mosaic');
+  else url.searchParams.delete('gallery');
+  if (url.href !== location.href) history.replaceState(null, '', url);
+
+  document.querySelectorAll('[data-pdp-gallery-btn]').forEach(function (btn) {
+    btn.classList.toggle('--active', btn.getAttribute('data-pdp-gallery-btn') === preference);
+  });
+}
+
+function syncPdpGalleryViewport() {
+  var effective = getEffectivePdpGalleryMode();
+  var prev = document.body.dataset.pdpGallery || 'thumbs';
+  if (effective === prev) return;
+  document.body.dataset.pdpGallery = effective;
+  if (typeof window.renderPdp === 'function') window.renderPdp({ gallery: true });
+}
+
+function setPdpGalleryMode(mode) {
+  applyPdpGalleryMode(mode);
+  if (typeof window.renderPdp === 'function') window.renderPdp({ gallery: true });
+}
+
+function initPdpGalleryToggle() {
+  if (!document.querySelector('[data-pdp-gallery-btn]')) return;
+  applyPdpGalleryMode(readPdpGalleryMode());
+  document.querySelectorAll('[data-pdp-gallery-btn]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setPdpGalleryMode(btn.getAttribute('data-pdp-gallery-btn'));
+    });
+  });
+  window.addEventListener('resize', syncPdpGalleryViewport, { passive: true });
+}
+
 function initTempStaging() {
   initNavScrolled();
   initNavLogoToggle();
   initProductTileAnimals();
+  initPdpGalleryToggle();
 }
 
 if (document.readyState === 'loading') {

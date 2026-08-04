@@ -7,15 +7,15 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=163">
-  <link rel="stylesheet" href="../temp.css?v=19">
+  <link rel="stylesheet" href="../temp.css?v=27">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll --mockup-bar-visible" id="top">
+<body class="--mockup-bar-visible" id="top">
 
-  <!-- Announcement Bar — scrollt weg (D.1 body.--ann-scroll), nur Nav bleibt sticky -->
+  <!-- Announcement Bar — scrollt weg (Default D.1), nur Nav bleibt sticky -->
   <div class="announcement-bar --marquee" id="announcementBar">
     <div class="announcement-bar__track">
       <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
@@ -99,7 +99,7 @@
 
   <main class="container" id="pdpPage">
     <div id="pdpMount"><!-- Kaufblock — bei Variante/Menge neu gerendert --></div>
-    <div id="pdpBelow"><!-- Inhaltsstoffe-Detail, Benefits, FAQ, Testimonials, Recommendations, Praxis — einmalig --></div>
+    <div id="pdpBelow"><!-- Benefits, Inhaltsstoffe-Detail, FAQ, Testimonials, Recommendations, Praxis — einmalig --></div>
   </main>
   <!-- Sticky ATC — Layout-Test: Meta + Größe + Menge + CTA (Shopify: sticky_atc) -->
   <div class="pdp__sticky-cta" id="pdpStickyCta" aria-hidden="true">
@@ -152,16 +152,22 @@
     </div>
   </footer>
 
-  <div class="mockup-bar" role="region" aria-label="Mockup: Nav-Logo">
+  <div class="mockup-bar" role="region" aria-label="Mockup: PDP-Galerie">
     <div class="mockup-bar__group">
       <span class="mockup-bar__group-label">Logo:</span>
       <button type="button" class="mockup-btn --active" data-nav-logo-btn="inuvet">inuvet</button>
       <button type="button" class="mockup-btn" data-nav-logo-btn="campus">Campus</button>
     </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group" data-pdp-gallery-toggle>
+      <span class="mockup-bar__group-label">Galerie:</span>
+      <button type="button" class="mockup-btn --active" data-pdp-gallery-btn="thumbs">Thumbs</button>
+      <button type="button" class="mockup-btn" data-pdp-gallery-btn="mosaic">Mosaic</button>
+    </div>
   </div>
 
   <script src="../inuvet.js?v=22"></script>
-  <script src="../temp.js?v=19"></script>
+  <script src="../temp.js?v=24"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -173,6 +179,10 @@
     const breadcrumbEnabled = params.get('breadcrumb') === '1';
     /* nr=default erzwingt Standard-NR-Widget (sonst persönlich wenn past6Months > 0) */
     const nrForceDefault = params.get('nr') === 'default';
+    /* gallery=mosaic — Mosaic-Galerie (Default: thumbs) · Persistenz via temp.js */
+    if (typeof applyPdpGalleryMode === 'function') {
+      applyPdpGalleryMode(typeof readPdpGalleryMode === 'function' ? readPdpGalleryMode() : 'thumbs');
+    }
 
     /* formTouched: Galerie zeigt Packshot (Medium 0), bis die Darreichungsform aktiv gewechselt wird */
     const pdpState = { formIdx: 0, sizeIdx: 0, qty: 1, belowRendered: false, formTouched: false, personalOffer: null, personalOfferDismissed: false };
@@ -286,16 +296,62 @@
         <p class="social-proof__text">Dr. med vet. Michael Kluge <span class="material-icons social-proof__verified" aria-label="Verifiziert">verified</span> und 26.162 andere Tierärzt*innen arbeiten mit Inuvet</p>
       </div>`;
 
-    const galleryHTML = () => {
+    const pdpGalleryMedia = () => {
       const p = pdpProduct();
-      const media = p.media && p.media.length
-        ? p.media
+      return p.media && p.media.length
+        ? [...p.media]
         : (p.image ? [{ type: 'image', src: p.image, alt: p.title }] : []);
-      /* Nach Form-Wechsel: variant.mediaIdx · vorher: Packshot (Medium 0) */
+    };
+
+    /* Mosaic-Demo: mind. 1 Hero + 4 Grid-Zellen — fehlende Motive mit Packshot auffüllen */
+    const ensureMosaicMedia = (media, p) => {
+      const items = [...media];
+      if (!items.length && p.image) items.push({ type: 'image', src: p.image, alt: p.title });
+      const packshot = items.find(m => m.type === 'image') || { type: 'image', src: p.image || '', alt: p.title };
+      while (items.length < 5) {
+        items.push({ type: 'image', src: packshot.src, alt: packshot.alt || p.title });
+      }
+      return items;
+    };
+
+    const pdpActiveMediaIdx = (media) => {
+      const p = pdpProduct();
       const formMediaIdx = p.isFamily && pdpState.formTouched
         ? p.variants[pdpState.formIdx]?.mediaIdx
         : null;
-      const activeIdx = Number.isInteger(formMediaIdx) && media[formMediaIdx] ? formMediaIdx : 0;
+      return Number.isInteger(formMediaIdx) && media[formMediaIdx] ? formMediaIdx : 0;
+    };
+
+    /* caption = Begleittext · author = Kultur/Credit-Zeile (Name, Rolle, ggf. „A.I. generated") */
+    const pdpCaptionHTML = (m, hiddenWhenEmpty, showAuthor = true) => {
+      const hasCaption = !!m.caption;
+      const hasAuthor = showAuthor && !!m.author;
+      if (hasCaption || hasAuthor) {
+        return `<div class="pdp__caption" aria-live="polite">${m.caption || ''}${hasAuthor ? `<span class="pdp__caption-author">${m.author}</span>` : ''}</div>`;
+      }
+      return hiddenWhenEmpty
+        ? `<div class="pdp__caption --hidden" aria-live="polite"></div>`
+        : '';
+    };
+
+    const mosaicCellHTML = (m, { autoplayVideo = false, showCaption = true, showAuthor = true } = {}) => {
+      const cap = showCaption ? pdpCaptionHTML(m, false, showAuthor) : '';
+      if (m.type === 'video') {
+        return `<div class="pdp__mosaic-cell">
+          <video src="${m.src}" muted loop playsinline${autoplayVideo ? ' autoplay' : ''} aria-hidden="true"></video>
+          ${cap}
+        </div>`;
+      }
+      return `<div class="pdp__mosaic-cell">
+        <img src="${m.src}" alt="${m.alt || ''}">
+        ${cap}
+      </div>`;
+    };
+
+    const galleryThumbsHTML = () => {
+      const p = pdpProduct();
+      const media = pdpGalleryMedia();
+      const activeIdx = pdpActiveMediaIdx(media);
       const active = media[activeIdx] || media[0] || { type: 'image', src: '', alt: p.title };
       const packshot = media.find(m => m.type === 'image') || { src: p.image || '', alt: p.title };
       const anyVideo = media.find(m => m.type === 'video');
@@ -309,9 +365,7 @@
       const mainVideo = mainVideoSrc
         ? `<video class="${active.type === 'video' ? '' : '--hidden'}" src="${mainVideoSrc}" muted loop playsinline${active.type === 'video' ? ' autoplay' : ''} aria-hidden="true"></video>`
         : '';
-      const caption = (active.caption || active.author)
-        ? `<div class="pdp__caption" aria-live="polite">${active.caption || ''}${active.author ? `<span class="pdp__caption-author">${active.author}</span>` : ''}</div>`
-        : `<div class="pdp__caption --hidden" aria-live="polite"></div>`;
+      const caption = pdpCaptionHTML(active, true);
 
       const thumbs = media.map((m, i) => {
         const cap = m.caption || '';
@@ -340,6 +394,39 @@
         </div>`;
     };
 
+    const galleryMosaicHTML = () => {
+      const p = pdpProduct();
+      const media = ensureMosaicMedia(pdpGalleryMedia(), p);
+      const activeIdx = pdpActiveMediaIdx(media);
+      const hero = media[activeIdx] || media[0];
+      const gridItems = media.filter((_, i) => i !== activeIdx);
+
+      const catBadge = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
+      const familyBadge = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+      const meta = `<div class="floating-meta">${catBadge}${familyBadge}</div>`;
+
+      const heroCell = mosaicCellHTML(hero, { autoplayVideo: hero.type === 'video' });
+      const gridCells = gridItems.map(m => mosaicCellHTML(m, { autoplayVideo: true, showAuthor: false })).join('');
+
+      return `
+        <div class="pdp__gallery">
+          <div class="pdp__mosaic">
+            <div class="pdp__mosaic-hero">
+              ${heroCell}
+              ${meta}
+            </div>
+            <div class="pdp__mosaic-grid">${gridCells}</div>
+          </div>
+        </div>`;
+    };
+
+    const galleryHTML = () => {
+      const mode = typeof getEffectivePdpGalleryMode === 'function'
+        ? getEffectivePdpGalleryMode()
+        : (document.body.dataset.pdpGallery === 'mosaic' ? 'mosaic' : 'thumbs');
+      return mode === 'mosaic' ? galleryMosaicHTML() : galleryThumbsHTML();
+    };
+
     const recommendationsHTML = () => {
       const others = allProducts.filter(x => x.id !== pdpId && x.image).slice(0, 4);
       if (!others.length) return '';
@@ -363,7 +450,10 @@
       }).join('');
       return `
         <div class="pdp__recommendations">
-          <h3>Das könnte Ihnen auch gefallen</h3>
+          <div class="section-label-row --headline">
+            <h2>Das könnte dir auch gefallen</h2>
+            <a class="btn --ghost --sm" href="Collection.html">Alle Produkte</a>
+          </div>
           <div class="tile-grid --cols-4">${tiles}</div>
         </div>`;
     };
@@ -800,6 +890,7 @@
       openCart();
     };
 
+    window.renderPdp = renderPdp;
     renderPdp();
     updateCartBadge();
   </script>

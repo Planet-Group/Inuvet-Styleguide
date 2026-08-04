@@ -393,14 +393,32 @@ function pdpSwitch(el, src, captionText, authorText) {
   }
 }
 
-/* D.1 Demo: Scroll-Away-Modus live umschalten (body.--ann-scroll).
-   Schaltet die echte Announcement Bar oben auf dieser Seite um. */
+/* D.1 Demo: Header-Verhalten umschalten (body.--ann-sticky).
+   Default: Bar scrollt weg. Mit --ann-sticky: Bar + Nav sticky. */
 function toggleAnnScrollDemo(btn) {
-  var on = document.body.classList.toggle('--ann-scroll');
-  btn.classList.toggle('--primary', on);
-  btn.classList.toggle('--secondary', !on);
-  btn.textContent = on ? 'Scroll-Away deaktivieren' : 'Scroll-Away aktivieren';
+  var sticky = document.body.classList.toggle('--ann-sticky');
+  btn.classList.toggle('--primary', sticky);
+  btn.classList.toggle('--secondary', !sticky);
+  btn.textContent = sticky ? 'Scroll-Away aktivieren' : 'Sticky Header aktivieren';
+  try {
+    localStorage.setItem('sg-ann-sticky', sticky ? '1' : '0');
+  } catch (e) { /* ignore */ }
 }
+
+(function initAnnScrollDemo() {
+  var btn = document.querySelector('[data-sg-ann-toggle]');
+  if (!btn) return;
+  var sticky = false;
+  try {
+    sticky = localStorage.getItem('sg-ann-sticky') === '1';
+  } catch (e) { /* ignore */ }
+  if (sticky) {
+    document.body.classList.add('--ann-sticky');
+    btn.classList.add('--primary');
+    btn.classList.remove('--secondary');
+    btn.textContent = 'Scroll-Away aktivieren';
+  }
+})();
 
 /* ─── Styleguide v2: Scrollspy — aktuellen Abschnitt in der Sidebar markieren ───
    Tut nichts im alten Guide (kein .sg-sidebar / .sg-section-v2). */

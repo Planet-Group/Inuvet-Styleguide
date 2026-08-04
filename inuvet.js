@@ -14,8 +14,8 @@
    ═══════════════════════════════════════════════════════ */
 
 /* Mobile-Menü: top dynamisch an die aktuelle Nav-Unterkante setzen.
-   Funktioniert für beide Header-Modi: Standard-Sticky (Wert konstant) und
-   Scroll-Away (body.--ann-scroll, Wert hängt von der Scroll-Position ab).
+   Funktioniert für beide Header-Modi: Scroll-Away (Default, Nav top: 0) und
+   Sticky-Bar (body.--ann-sticky, Nav unter der Bar).
    Beim Öffnen ist der Scroll via body{overflow:hidden} gesperrt → stabil. */
 function positionMobileMenu() {
   const menu = document.getElementById('mobileMenu');

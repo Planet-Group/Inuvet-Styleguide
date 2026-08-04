@@ -502,6 +502,18 @@
   padding-right: var(--margin);
 }
 
+/* D.1 — Scrollbare Header-Demo (Announcement + Nav) */
+.sg-header-demo-scroll {
+  height: calc(var(--header-height) * 4);
+  overflow: auto;
+  border: 1px solid var(--border-light);
+}
+.sg-header-demo-scroll__body {
+  min-height: calc(var(--header-height) * 6);
+  padding: var(--module);
+  background: var(--accent-bg);
+}
+
 /* ─── Code-Blöcke ─── */
 .sg-code {
   background: #111;
