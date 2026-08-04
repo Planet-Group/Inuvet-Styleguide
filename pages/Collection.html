@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=174">
+  <link rel="stylesheet" href="../temp.css?v=19">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -47,8 +48,9 @@
       </div>
     </div>
     <div class="nav-center">
-      <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
-        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <a class="nav-logo" href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img class="nav-logo__img --inuvet" src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+        <img class="nav-logo__img --campus" src="../assets/graphics/Campus_Logo_RGB.svg" alt="">
       </a>
     </div>
     <div class="nav-right">
@@ -191,6 +193,12 @@
 
   <div class="mockup-bar" role="region" aria-label="Mockup: Shopify Section-Setting">
     <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Logo:</span>
+      <button type="button" class="mockup-btn --active" data-nav-logo-btn="inuvet">inuvet</button>
+      <button type="button" class="mockup-btn" data-nav-logo-btn="campus">Campus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
       <span class="mockup-bar__group-label">show_filters</span>
       <button type="button" class="mockup-btn" id="mockFilterOn">an · 3 Spalten</button>
       <button type="button" class="mockup-btn" id="mockFilterOff">aus · 4 Spalten</button>
@@ -216,6 +224,7 @@
   </div>
 
   <script src="../inuvet.js?v=22"></script>
+  <script src="../temp.js?v=19"></script>
   <script>
     const FALLBACK_IMG = '../assets/images/Calmin_Packshot_01.jpeg';
 
@@ -258,6 +267,10 @@
       return [...groups];
     };
 
+    /** Union der Tierart-Strings für Icon-Reihe (Familie: variants[].animals). */
+    const animalsLabelForTile = (p) =>
+      (typeof animalsLabelForProduct === 'function' ? animalsLabelForProduct(p) : (p.animals || 'Katze, Hund'));
+
     const catalogForms = (p) => {
       if (p.isFamily && p.variants?.length) return [...new Set(p.variants.map(v => v.type).filter(Boolean))];
       if (p.form) return [p.form];
@@ -273,8 +286,8 @@
         ...p,
         image: p.image || FALLBACK_IMG,
         price: productStartPrice(p),
-        unit: productStartUnit(p),
         forms: catalogForms(p),
+        animalsLabel: animalsLabelForTile(p),
         animals: catalogAnimals(p),
         desc: p.shortDesc || p.desc || '',
       }));
@@ -499,8 +512,10 @@
       const cat = p.catLabel ? `<div class="badge" data-cat="${p.cat}">${p.catLabel}</div>` : '';
       const fam = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
       const rating = p.rating || '—';
-      const unit = p.unit ? `<span class="price-stack__unit">${p.unit}</span>` : '';
       const hover = tileHoverMedia(p);
+      const animals = (typeof productTileAnimalsHTML === 'function')
+        ? productTileAnimalsHTML(p)
+        : '';
       return `
         <div class="tile --product">
           <div class="tile__image-wrap">
@@ -508,12 +523,12 @@
             <a class="tile__image" href="Produkt.html?id=${p.id}" aria-label="${p.title} ansehen">
               <img src="${p.image}" alt="${p.title}">${hover}
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})"><span class="material-icons">shopping_cart</span></button>
+            <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})"><span class="material-icons">shopping_cart</span></button>
             <div class="tile__cart"><button class="btn --secondary" type="button" onclick="openOptions(${p.id})">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row"><h3 class="tile__headline">${p.title}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${rating}</div></div>
           <div class="tile__description">${p.desc}</div>
-          <div class="tile__price"><div class="price-stack"><span>ab ${fmt(p.price)}</span>${unit}</div></div>
+          <div class="tile__price"><div class="price-stack"><span>ab ${fmt(p.price)}</span></div>${animals}</div>
         </div>`;
     };
 

@@ -6,7 +6,8 @@
   <title>Shop · Mockup – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=167">
+  <link rel="stylesheet" href="../inuvet.css?v=175">
+  <link rel="stylesheet" href="../temp.css?v=19">
   <link rel="stylesheet" href="inuvet-shop.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
@@ -16,6 +17,12 @@
 
   <!-- Mockup-Steuerleiste (⌥M / Alt+M ausblenden) -->
   <div class="mockup-bar" id="mockupBar">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Logo:</span>
+      <button class="mockup-btn --active" type="button" data-nav-logo-btn="inuvet">inuvet</button>
+      <button class="mockup-btn" type="button" data-nav-logo-btn="campus">Campus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
     <div class="mockup-bar__group">
       <span class="mockup-bar__group-label">Pop-up:</span>
       <button class="mockup-btn --active" type="button" data-popup="rezept" onclick="setShopPopup('rezept', this)">① Rezept · 400 ms</button>
@@ -68,8 +75,9 @@
       </div>
     </div>
     <div class="nav-center">
-      <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
-        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <a class="nav-logo" href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img class="nav-logo__img --inuvet" src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+        <img class="nav-logo__img --campus" src="../assets/graphics/Campus_Logo_RGB.svg" alt="">
       </a>
     </div>
     <div class="nav-right">
@@ -110,6 +118,108 @@
   </div>
 
   <main>
+
+    <!-- Story Iconslider (Staging → temp.css) · Top unter Nav → --flush -->
+    <div class="container">
+      <div class="story-iconslider --flush" aria-label="Stories entdecken">
+        <div class="story-iconslider__track" role="list">
+          <a class="story-iconslider__item --new" href="Produkt.html?id=12" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="">
+            </span>
+            <span class="story-iconslider__label">Beruhigung</span>
+          </a>
+          <a class="story-iconslider__item --new" href="Produkt.html?id=13" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="">
+            </span>
+            <span class="story-iconslider__label">Leber</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Hero_Mood_01.jpg" alt="">
+            </span>
+            <span class="story-iconslider__label">Praxis</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Inuvet_Einzelprodukt_Hepax_Tier_01_Hund_1zu1.png" alt="">
+            </span>
+            <span class="story-iconslider__label">Hepax</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="gelenke"></span>
+            <span class="story-iconslider__label">Gelenke</span>
+          </a>
+          <a class="story-iconslider__item --new" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Hero_Mood_03.jpg" alt="">
+            </span>
+            <span class="story-iconslider__label">Empfehlung</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="immun"></span>
+            <span class="story-iconslider__label">Immun</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Inhaltsstoff_Mariendistel.jpg" alt="">
+            </span>
+            <span class="story-iconslider__label">Inhaltsstoffe</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="haut"></span>
+            <span class="story-iconslider__label">Haut</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media">
+              <img src="../assets/images/Hero_Mood_05.jpg" alt="">
+            </span>
+            <span class="story-iconslider__label">Alltag</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="magendarm"></span>
+            <span class="story-iconslider__label">Magen-Darm</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="herz"></span>
+            <span class="story-iconslider__label">Herz</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="niere"></span>
+            <span class="story-iconslider__label">Niere</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="blase"></span>
+            <span class="story-iconslider__label">Blase</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="atemwege"></span>
+            <span class="story-iconslider__label">Atemwege</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="ohren"></span>
+            <span class="story-iconslider__label">Ohren</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="fettsaeuren"></span>
+            <span class="story-iconslider__label">Fettsäuren</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="hormone"></span>
+            <span class="story-iconslider__label">Hormone</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="bauchspeichel"></span>
+            <span class="story-iconslider__label">Bauchspeichel</span>
+          </a>
+          <a class="story-iconslider__item" href="Collection.html" role="listitem">
+            <span class="story-iconslider__media" data-cat="cbd"></span>
+            <span class="story-iconslider__label">CBD</span>
+          </a>
+        </div>
+      </div>
+    </div>
 
     <!-- Hero: Lottie JSON (Variante 1) -->
     <div class="section-type --v1">
@@ -164,7 +274,10 @@
 
     <!-- Produkt-Collection (4 Spalten) -->
     <div class="container" id="shopCollection">
-      <h2 class="section-label">Alle Produkte</h2>
+      <div class="section-label-row">
+        <h2 class="section-label">Bestseller</h2>
+        <a class="btn --ghost --sm" href="Collection.html">Zu allen Produkten</a>
+      </div>
       <div class="tile-grid --cols-4">
 
         <!-- Calmin balance Tabletten -->
@@ -174,7 +287,7 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance Tabletten')"><span class="material-icons">shopping_cart</span></button>
+            <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance Tabletten')"><span class="material-icons">shopping_cart</span></button>
             <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance Tabletten')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
@@ -192,7 +305,7 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
             <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
@@ -210,7 +323,7 @@
               <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten">
               <img src="../assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance Tabletten')"><span class="material-icons">shopping_cart</span></button>
+            <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(12,'Calmin balance Tabletten')"><span class="material-icons">shopping_cart</span></button>
             <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(12,'Calmin balance Tabletten')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
@@ -228,7 +341,7 @@
               <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte">
               <img src="../assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true">
             </a>
-            <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
+            <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="quickAdd(13,'Hepax forte')"><span class="material-icons">shopping_cart</span></button>
             <div class="tile__cart"><button class="btn --secondary" type="button" onclick="quickAdd(13,'Hepax forte')">In den Warenkorb</button></div>
           </div>
           <div class="tile__headline-row">
@@ -424,6 +537,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <script src="../inuvet.js?v=3"></script>
+  <script src="../temp.js?v=19"></script>
   <script src="inuvet-shop.js"></script>
 
 </body>

@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=157">
+  <link rel="stylesheet" href="../temp.css?v=19">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll" id="top">
+<body class="--ann-scroll --mockup-bar-visible list-collections" id="top">
 
   <div class="announcement-bar --marquee" id="announcementBar">
     <div class="announcement-bar__track">
@@ -37,8 +37,9 @@
       <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Service</a></div>
     </div>
     <div class="nav-center">
-      <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
-        <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+      <a class="nav-logo" href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img class="nav-logo__img --inuvet" src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+        <img class="nav-logo__img --campus" src="../assets/graphics/Campus_Logo_RGB.svg" alt="">
       </a>
     </div>
     <div class="nav-right">
@@ -77,138 +78,131 @@
 
   <!--
     List-Collections (E.9) — Shopify: sections/collections.liquid
-    Grid: .tile-grid.--cols-3
-    Collection-Kachel: Bild + Titel + Anzahl (kein Preis/Cart)
-    Optional: featured_tile-Blocks (D.4) wie auf der Produkt-Collection mischbar
+    Intro: optional .collection-intro.flow (h1 + .rte) wie Collection / show_title · show_description
+    Layout: Indikationen als .tile.--featured, BG --cat-*-light
+    Grid: .tile-grid.--cols-3 · Reihenfolge alphabetisch DE
+    Demo: Cover-Kacheln mit Packshot (Beruhigung / Calmin, Leber / Hepax)
+    Text unten via .tile__bottom (Cover + reine Farb-Kacheln)
+    min-height Featured ohne Media + mobil Quadrat → temp.css Staging
+    body.list-collections für engen Scope
   -->
   <main class="container" id="MainContent">
+    <div class="collection-intro flow" id="collectionIntro" hidden>
+      <h1 id="collectionTitle" hidden>Indikationen</h1>
+      <div class="rte" id="collectionDesc" hidden>
+        <p>Nahrungsergänzung nach Gesundheitsbereich — wähle eine Indikation, um passende Produkte zu sehen.</p>
+      </div>
+    </div>
+
     <div class="tile-grid --cols-3">
 
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Leber">
-          </div>
-        </div>
-        <h3 class="tile__headline">Leber</h3>
-        <p class="text-muted">8 Produkte</p>
-      </a>
-
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Calmin_Packshot_01.jpeg" alt="Beruhigung">
-          </div>
-        </div>
-        <h3 class="tile__headline">Beruhigung</h3>
-        <p class="text-muted">5 Produkte</p>
-      </a>
-
-      <div class="tile --featured --cover" style="--tile-fg: #fff">
-        <img class="tile__cover" src="../assets/images/Hero_Mood_02.jpg" alt="">
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-atemwege-light)" data-cat="atemwege">
         <div class="tile__bottom flow">
-          <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
-          <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen für die Praxis.</p>
-          <a href="Collection.html" class="btn --primary">Alle Neuheiten</a>
+          <h3 class="tile__headline">Atemwege</h3>
+          <p class="tile__body">4 Produkte</p>
         </div>
-      </div>
-
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="gelenke">Gelenke</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Hero_Mood_01.jpg" alt="Gelenke">
-          </div>
-        </div>
-        <h3 class="tile__headline">Gelenke</h3>
-        <p class="text-muted">6 Produkte</p>
       </a>
 
-      <div class="tile --featured">
-        <div class="tile__animation">
-          <lottie-player src="../assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
-        </div>
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-bauchspeichel-light)" data-cat="bauchspeichel">
         <div class="tile__bottom flow">
-          <h3 class="tile__headline">Nur über die Tierarztpraxis</h3>
-          <p class="tile__body">Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in 2–3 Werktagen.</p>
-          <a href="Inuvet-Shop-Info.html" class="btn --primary">Mehr erfahren</a>
+          <h3 class="tile__headline">Bauchspeicheldrüse</h3>
+          <p class="tile__body">4 Produkte</p>
         </div>
-      </div>
-
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="magendarm">Magen &amp; Darm</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Hero_Mood_03.jpg" alt="Magen und Darm">
-          </div>
-        </div>
-        <h3 class="tile__headline">Magen &amp; Darm</h3>
-        <p class="text-muted">7 Produkte</p>
       </a>
 
-      <div class="tile --featured">
-        <div class="tile__animation">
-          <img src="../assets/images/Hero_Mood_04.jpg" alt="">
-        </div>
+      <!-- Demo: Packshot als Cover-Hintergrund (Calmin → Beruhigung) -->
+      <a class="tile --featured --cover" href="Collection.html" style="background: var(--cat-beruhigung-light)" data-cat="beruhigung">
+        <img class="tile__cover" src="../assets/images/Calmin_Packshot_01.jpeg" alt="">
         <div class="tile__bottom flow">
-          <h3 class="tile__headline">Für Hund &amp; Katze</h3>
-          <p class="tile__body">Indikationsbezogene Formulierungen — passend zur Praxis-Routine.</p>
-          <a href="Collection.html" class="btn --primary">Zum Sortiment</a>
+          <h3 class="tile__headline">Beruhigung</h3>
+          <p class="tile__body">5 Produkte</p>
         </div>
-      </div>
-
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="haut">Haut &amp; Fell</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Hero_Mood_05.jpg" alt="Haut und Fell">
-          </div>
-        </div>
-        <h3 class="tile__headline">Haut &amp; Fell</h3>
-        <p class="text-muted">4 Produkte</p>
       </a>
 
-      <div class="tile --featured">
-        <h3 class="tile__headline">Beratung für die Praxis</h3>
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-blase-light)" data-cat="blase">
         <div class="tile__bottom flow">
-          <p class="tile__body">Fragen zur Anwendung? Unser Team unterstützt euch bei der Auswahl.</p>
-          <a href="Inuvet-Shop-Info.html" class="btn --primary">Kontakt aufnehmen</a>
+          <h3 class="tile__headline">Blase</h3>
+          <p class="tile__body">3 Produkte</p>
         </div>
-      </div>
-
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="niere">Niere</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Inhaltsstoff_Mariendistel.jpg" alt="Niere">
-          </div>
-        </div>
-        <h3 class="tile__headline">Niere</h3>
-        <p class="text-muted">3 Produkte</p>
       </a>
 
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="herz">Herz</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Inhaltsstoff_Artischoke.jpg" alt="Herz">
-          </div>
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-cbd-light)" data-cat="cbd">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">CBD</h3>
+          <p class="tile__body">2 Produkte</p>
         </div>
-        <h3 class="tile__headline">Herz</h3>
-        <p class="text-muted">2 Produkte</p>
       </a>
 
-      <a class="tile" href="Collection.html">
-        <div class="tile__image-wrap">
-          <div class="floating-meta"><div class="badge" data-cat="bauchspeichel">Bauchspeicheldrüse</div></div>
-          <div class="tile__image --square">
-            <img src="../assets/images/Hepax_Packshot_01.jpeg" alt="Bauchspeicheldrüse">
-          </div>
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-fettsaeuren-light)" data-cat="fettsaeuren">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Fettsäuren</h3>
+          <p class="tile__body">3 Produkte</p>
         </div>
-        <h3 class="tile__headline">Bauchspeicheldrüse</h3>
-        <p class="text-muted">4 Produkte</p>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-gelenke-light)" data-cat="gelenke">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Gelenke</h3>
+          <p class="tile__body">6 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-haut-light)" data-cat="haut">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Haut &amp; Fell</h3>
+          <p class="tile__body">4 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-herz-light)" data-cat="herz">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Herz</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-hormone-light)" data-cat="hormone">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Hormone</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-immun-light)" data-cat="immun">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Immun</h3>
+          <p class="tile__body">5 Produkte</p>
+        </div>
+      </a>
+
+      <!-- Demo: Packshot als Cover-Hintergrund (Hepax → Leber) -->
+      <a class="tile --featured --cover" href="Collection.html" style="background: var(--cat-leber-light)" data-cat="leber">
+        <img class="tile__cover" src="../assets/images/Hepax_Packshot_01.jpeg" alt="">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Leber</h3>
+          <p class="tile__body">8 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-magendarm-light)" data-cat="magendarm">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Magen &amp; Darm</h3>
+          <p class="tile__body">7 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-niere-light)" data-cat="niere">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Niere</h3>
+          <p class="tile__body">3 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-ohren-light)" data-cat="ohren">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Ohren</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
       </a>
 
     </div>
@@ -242,6 +236,28 @@
     </div>
   </footer>
 
+  <div class="mockup-bar" role="region" aria-label="Mockup: Shopify Section-Setting">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Logo:</span>
+      <button type="button" class="mockup-btn --active" data-nav-logo-btn="inuvet">inuvet</button>
+      <button type="button" class="mockup-btn" data-nav-logo-btn="campus">Campus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">title</span>
+      <button type="button" class="mockup-btn" id="mockTitleOn">an</button>
+      <button type="button" class="mockup-btn" id="mockTitleOff">aus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">description</span>
+      <button type="button" class="mockup-btn" id="mockDescOn">an</button>
+      <button type="button" class="mockup-btn" id="mockDescOff">aus</button>
+    </div>
+  </div>
+
   <script src="../inuvet.js?v=22"></script>
+  <script src="../temp.js?v=19"></script>
+  <script src="list-collections.js"></script>
 </body>
 </html>

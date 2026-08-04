@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../inuvet.css?v=163">
+  <link rel="stylesheet" href="../temp.css?v=19">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--ann-scroll" id="top">
+<body class="--ann-scroll --mockup-bar-visible" id="top">
 
   <!-- Announcement Bar — scrollt weg (D.1 body.--ann-scroll), nur Nav bleibt sticky -->
   <div class="announcement-bar --marquee" id="announcementBar">
@@ -49,7 +50,12 @@
         </div>
       </div>
     </div>
-    <div class="nav-center"><a href="Inuvet-Shop.html" aria-label="Zur Startseite"><img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo"></a></div>
+    <div class="nav-center">
+      <a class="nav-logo" href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img class="nav-logo__img --inuvet" src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+        <img class="nav-logo__img --campus" src="../assets/graphics/Campus_Logo_RGB.svg" alt="">
+      </a>
+    </div>
     <div class="nav-right">
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
@@ -146,7 +152,16 @@
     </div>
   </footer>
 
+  <div class="mockup-bar" role="region" aria-label="Mockup: Nav-Logo">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Logo:</span>
+      <button type="button" class="mockup-btn --active" data-nav-logo-btn="inuvet">inuvet</button>
+      <button type="button" class="mockup-btn" data-nav-logo-btn="campus">Campus</button>
+    </div>
+  </div>
+
   <script src="../inuvet.js?v=22"></script>
+  <script src="../temp.js?v=19"></script>
   <script>
     // ── PDP — Abgleich Styleguide E.2 (Produktfamilie / Einzelprodukt) ──
     const params = new URLSearchParams(location.search);
@@ -198,9 +213,14 @@
       return null;
     };
 
+    /* Cart-/Hook-Name: Familie = Titel + Form, Einzelprodukt = Titel (Form schon enthalten) */
+    const pdpLineName = (p) => p.isFamily
+      ? `${p.title} ${p.variants[pdpState.formIdx].type}`
+      : p.title;
+
     const nrWidgetPersonalHTML = (p, offer) => `
       <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
-        <p class="nr-widget__hook">Du hast ${offer.used} ${p.title} in den letzten 6&nbsp;Monaten gebraucht.</p>
+        <p class="nr-widget__hook">Du hast ${offer.used} ${pdpLineName(p)} in den letzten 6&nbsp;Monaten gebraucht.</p>
         <div class="nr-widget__offer">
           <div>
             <p class="nr-widget__offer-label">Unser Angebot an dich</p>
@@ -329,6 +349,7 @@
           : (o.sizes ? o.sizes[0].price : (o.price || 0));
         const cat = o.catLabel ? `<div class="badge" data-cat="${o.cat}">${o.catLabel}</div>` : '';
         const fam = o.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
+        const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(o) : '';
         return `
           <a class="tile --product" href="Produkt.html?id=${o.id}" style="text-decoration:none;color:inherit">
             <div class="tile__image-wrap">
@@ -337,7 +358,7 @@
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">${o.title}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating || '—'}</div></div>
             <div class="tile__description">${o.shortDesc || o.desc || ''}</div>
-            <div class="tile__price"><div class="price-stack"><span>ab ${fmt(price)}</span></div></div>
+            <div class="tile__price"><div class="price-stack"><span>ab ${fmt(price)}</span></div>${animals}</div>
           </a>`;
       }).join('');
       return `
@@ -587,7 +608,9 @@
       const p     = pdpProduct();
       const size  = pdpCurrentSize();
       const price = size.price;
-      const unit  = size.unitPrice || '';
+      const formLabel = p.isFamily
+        ? (p.variants[pdpState.formIdx]?.type || '')
+        : p.title;
 
       // Darreichungsform — vor Preis (E.2 Familie)
       let typeSection = '';
@@ -596,7 +619,7 @@
           <label class="pdp__type-row">
             <input type="radio" name="pdpType"${i === pdpState.formIdx ? ' checked' : ''} onchange="selectPdpForm(${i})">
             <span class="pdp__type-label">${v.type}${v.note ? ` (${v.note})` : ''}</span>
-            <span class="pdp__type-animals">${v.animals ? `für ${v.animals}` : ''}</span>
+            ${v.animals ? pdpAnimalsHTML(v.animals) : ''}
           </label>`).join('');
         typeSection = `
           <div class="pdp__variants">
@@ -638,8 +661,13 @@
             <div class="price-stack">
               <span>${fmt(price)}</span>
               <span class="price-stack__compare">${fmt(Math.round(price * 1.25 * 100) / 100)}</span>
-              ${unit ? `<span class="price-stack__unit">${unit}</span>` : ''}
-              <span class="price-stack__unit">Exkl. USt.</span>
+            </div>
+            <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
+              ${pdpDailyCostIconHTML(formLabel)}
+              <span class="pdp__daily-cost__text">
+                <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
+                <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
+              </span>
             </div>
           </div>
           ${sizeSection}

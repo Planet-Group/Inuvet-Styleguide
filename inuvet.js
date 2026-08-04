@@ -374,17 +374,21 @@ const allProducts = [
     selectedVariantIdx: 0, selectedSizeIdx: 0 },
 
   { id:  5, isFamily: false, title: 'Laxin Pulver',           price: 22.50, past6Months: 3, past18Months:  8, pricingModel: 'A',
+    animals: 'Katze, Hund',
     desc: 'Sanfte Unterstützung der Verdauung bei trägem Darm.' },
   { id:  6, isFamily: false, title: 'Ibedex Pulver',          price: 29.90, past6Months: 0, past18Months: 14, pricingModel: 'A',
+    animals: 'Katze, Hund',
     desc: 'Unterstützt Gelenke und Beweglichkeit bei aktiven und älteren Tieren.' },
   // Inzym Pulver — Einzelprodukt mit zwei Größen (Daten aus Tierarzt-Empfehlung).
   { id:  7, isFamily: false, title: 'Inzym Pulver', cat: 'bauchspeichel', catLabel: 'Bauchspeicheldrüse',
+    animals: 'Katze, Hund',
     rating: '4,4', past6Months: 0, past18Months: 14, pricingModel: 'A', selectedSizeIdx: 0,
     sizes: [{ label: '50 g', price: 24.90 }, { label: '100 g', price: 44.90 }],
     shortDesc: 'Unterstützt die Bauchspeicheldrüse.',
     desc: 'Hochwertige Enzymformel zur Unterstützung der Verdauung bei Erkrankungen der Bauchspeicheldrüse. Für Hunde und Katzen.',
     ingredients: 'Pankreasenzym-Konzentrat (Lipase, Amylase, Protease), Bromelain. Ohne künstliche Konservierungsstoffe.' },
   { id:  9, isFamily: false, title: 'Otysan Fluid',           price: 24.90, past6Months: 0, past18Months:  6, pricingModel: 'A',
+    animals: 'Katze, Hund',
     desc: 'Zur Pflege und Reinigung empfindlicher Ohren.' },
   // FloraComplex — Produktfamilie (Kondition A/B gilt für die Familie).
   { id: 10, isFamily: true, title: 'FloraComplex', past6Months: 0, past18Months: 16, pricingModel: 'A',
@@ -397,6 +401,7 @@ const allProducts = [
   // Calmin balance Tabletten — Einzelprodukt (Form steht im Titel; nur Größenwahl) → E.2.
   { id: 12, isFamily: false, title: 'Calmin balance Tabletten', cat: 'beruhigung', catLabel: 'Beruhigung',
     form: 'Tabletten',
+    animals: 'Katze, Hund',
     rating: '4,8', ratingCount: 214, past6Months: 0, past18Months: 0, pricingModel: 'A', selectedSizeIdx: 0,
     image: '../assets/images/Calmin_Packshot_01.jpeg',
     media: [

@@ -686,6 +686,9 @@ function pdpBuyHTML() {
   const pdpAv = isApproved(p) ? approvedVariantByProduct.get(p.id) : null;
   const approvedNow = isApprovedVariant(p, pdpState.formIndex, pdpState.variantIndex);
   const maxQty = pdpMaxQty();
+  const formLabel = p.familie
+    ? (p.darreichungsformen[pdpState.formIndex]?.label || '')
+    : p.name;
 
   let typeSection = '';
   if (p.familie) {
@@ -697,7 +700,7 @@ function pdpBuyHTML() {
       return `<label class="pdp__type-row${isApprovedForm ? ' --approved' : ''}">
         <input type="radio" name="pdpType"${i === pdpState.formIndex ? ' checked' : ''} onchange="selectPdpForm(${i})">
         <span class="pdp__type-label">${f.label}${f.note ? ` (${f.note})` : ''}${badge}</span>
-        <span class="pdp__type-animals">${f.animals ? `für ${f.animals}` : ''}</span>
+        ${f.animals ? pdpAnimalsHTML(f.animals) : ''}
       </label>`;
     }).join('');
     typeSection = `
@@ -738,7 +741,13 @@ function pdpBuyHTML() {
       <div class="pdp__price">
         <div class="price-stack">
           <span id="pdpPrice">${pdpCurrentPriceStr()}</span>
-          <span class="price-stack__unit">Exkl. USt.</span>
+        </div>
+        <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
+          ${pdpDailyCostIconHTML(formLabel)}
+          <span class="pdp__daily-cost__text">
+            <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
+            <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
+          </span>
         </div>
       </div>
       ${sizeSection}
@@ -842,6 +851,7 @@ function pdpRecommendationsHTML() {
     const freigabe = isApproved(o)
       ? '<div class="badge --pill"><span class="material-icons" aria-hidden="true">check</span>freigegeben</div>'
       : '<div class="badge --pill --honey">Freigabe benötigt</div>';
+    const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(o) : '';
     return `
       <a class="tile --product" href="#" onclick="activeProduct=PRODUCTS.find(x=>x.id===${o.id});setPage('product');return false;" style="text-decoration:none;color:inherit">
         <div class="tile__image-wrap">
@@ -851,7 +861,7 @@ function pdpRecommendationsHTML() {
         </div>
         <div class="tile__headline-row"><h3 class="tile__headline">${o.name}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating}</div></div>
         <div class="tile__description">${o.shortDesc}</div>
-        <div class="tile__price"><div class="price-stack"><span>ab ${teProductStartPrice(o)}</span></div></div>
+        <div class="tile__price"><div class="price-stack"><span>ab ${teProductStartPrice(o)}</span></div>${animals}</div>
       </a>`;
   }).join('');
   return `
@@ -1678,7 +1688,7 @@ function tileHTML(p) {
   let cartOverlay = '';
   if (approved) {
     cartOverlay = `
-      <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})">
+      <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb" onclick="openOptions(${p.id})">
         <span class="material-icons">shopping_cart</span>
       </button>
       <div class="tile__cart">
@@ -1686,7 +1696,7 @@ function tileHTML(p) {
       </div>`;
   } else {
     cartOverlay = `
-      <button class="tile__cart-icon" type="button" aria-label="Freigabe anfragen" onclick="openOptions(${p.id})">
+      <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="Freigabe anfragen" onclick="openOptions(${p.id})">
         <span class="material-icons">mail_outline</span>
       </button>
       <div class="tile__cart">
@@ -1698,6 +1708,7 @@ function tileHTML(p) {
     ? `<img src="${p.img}" alt="${p.name}" loading="lazy">${p.imgHover ? `<img src="${p.imgHover}" alt="" loading="lazy" aria-hidden="true">` : ''}`
     : '';
   const imgClass = p.img ? 'tile__image' : 'tile__image placeholder-bg';
+  const animals = (typeof productTileAnimalsHTML === 'function') ? productTileAnimalsHTML(p) : '';
 
   return `<div class="tile --product" onclick="if(!event.target.closest('.tile__cart,.tile__cart-icon')){activeProduct=PRODUCTS.find(x=>x.id===${p.id});setPage('product')}">
     <div class="tile__image-wrap">
@@ -1716,6 +1727,7 @@ function tileHTML(p) {
     <div class="tile__description">${p.shortDesc}</div>
     <div class="tile__price">
       <div class="price-stack"><span>ab ${teProductStartPrice(p)}</span></div>
+      ${animals}
     </div>
   </div>`;
 }

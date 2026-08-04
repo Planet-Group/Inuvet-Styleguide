@@ -2730,6 +2730,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
      Leichter Border, kleinerer Top-Abstand. Sema­ntik: h3 mit .section-label.--sub */
   .section-label.--sub { border-bottom-color: var(--border-light); padding-bottom: calc(var(--half-module) * 0.5); margin-bottom: var(--half-module); }
   * + .section-label.--sub { margin-top: var(--module); }
+  /* ─── Section-Label-Row — Label links + optionale Ghost-CTA rechts (View-all).
+     Border/Spacing am Wrapper (wie .section-label); innere .section-label ohne eigene Border. */
+  .section-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--half-module);
+    padding-bottom: var(--half-module);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--section-label-mb, var(--module));
+  }
+  .section-label-row .section-label {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  * + .section-label-row { margin-top: var(--section-label-mt, var(--module-2xl)); }
 
   /* ─── Label Caps — kompaktes Uppercase-Label ohne Border/Padding (z.B. Varianten, Filter) ─── */
   .label-caps { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-muted); }
@@ -2798,9 +2815,10 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .flow > * + h3 { --flow-space: var(--half-module); }
   .flow > * + h4 { --flow-space: calc(var(--base) * 1.5); }
 
-  /* Nach .section-label: deutlicher Abstand zum ersten Content-Element */
+  /* Nach .section-label / .section-label-row: deutlicher Abstand zum ersten Content-Element */
   .flow > .section-label + * { --flow-space: var(--module); }
   .flow > .section-label.--sub + * { --flow-space: var(--half-module); }
+  .flow > .section-label-row + * { --flow-space: var(--module); }
 
   /* * → CTA: Abstand vor Button/Button-Row etwas großzügiger */
   .flow > * + .btn,

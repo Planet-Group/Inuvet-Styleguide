@@ -282,6 +282,7 @@ Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben
 
 ### Section-Label Modifier
 - `.section-label` — Top-Level (h2), `--border`
+- `.section-label-row` — optional: Label links + Ghost-CTA rechts (`.btn.--ghost.--sm`); Border/Spacing am Wrapper · Spec → Styleguide A.12 · Shopify: `show_view_all`, `view_all_label`, `view_all_link`
 - `.section-label.--sub` — Sub-Sektion (h3), `--border-light` — **nur Produktion** (Formular-/Checkout-Sub-Sektionen, unter einem `form-page__title`/h1)
 - **Styleguide-Doku:** Gruppen-Überschriften im Guide nutzen `.sg-h3` (gemischte Schreibweise, fett, ohne Linie) — **nicht** `.section-label --sub`. Grund: neben der Sektions-`.section-label` (klein, Uppercase, mit Linie) würde `--sub` zu ähnlich aussehen; `.sg-h3` hebt sich klar als untergeordnete Inhalts-Überschrift ab.
 
@@ -390,7 +391,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | Klasse | Modifier | Zweck |
 |---|---|---|
 | `.container` | `--narrow --sm --flush-top` | Container mit max-width + padding |
-| `.section-label` | `--sub` | Abschnittsüberschrift |
+| `.section-label` | `--sub` | Abschnittsüberschrift · Spec A.12 |
+| `.section-label-row` | — | Label + optional View-all (`.btn.--ghost.--sm`) · Shopify `show_view_all` |
 | `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |

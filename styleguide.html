@@ -6,7 +6,8 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=174">
+  <link rel="stylesheet" href="inuvet.css?v=175">
+  <link rel="stylesheet" href="temp.css?v=19">
   <link rel="stylesheet" href="sg.css?v=48">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
@@ -33,6 +34,7 @@
         <a href="#A9">A.9 Spaltenraster</a>
         <a href="#A10">A.10 Responsive</a>
         <a href="#A11">A.11 Styleguide UI</a>
+        <a href="#A12">A.12 Section Label</a>
       </div>
 
       <div class="sg-nav-group">
@@ -67,6 +69,7 @@
         <a href="#D6">D.6 Marquee</a>
         <a href="#D7">D.7 Newsletter Signup</a>
         <a href="#D8">D.8 Cookie-Banner</a>
+        <a href="#D9">D.9 Story Iconslider</a>
       </div>
 
       <div class="sg-nav-group">
@@ -763,7 +766,7 @@
         <tr><th><code>* + h2</code></th><td><code>var(--module)</code> · 1.5–3rem — neuer Abschnitt, deutliche Zäsur</td></tr>
         <tr><th><code>* + h3</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem — Unterabschnitt</td></tr>
         <tr><th><code>* + h4</code></th><td><code>calc(var(--base) * 1.5)</code> · 24px</td></tr>
-        <tr><th><code>.section-label + *</code></th><td><code>var(--module)</code> — Abstand nach Sektions-Titel</td></tr>
+        <tr><th><code>.section-label + *</code> / <code>.section-label-row + *</code></th><td><code>var(--module)</code> — Abstand nach Sektions-Titel (<a href="#A12">A.12</a>)</td></tr>
         <tr><th><code>.section-label.--sub + *</code></th><td><code>var(--half-module)</code> — Abstand nach Formular-Gruppentitel</td></tr>
         <tr><th><code>* + .btn</code> / <code>* + .btn-row</code></th><td><code>calc(var(--half-module) * 1.5)</code> · 1.125–2.25rem — Body → CTA</td></tr>
         <tr><th><code>* + .form-field</code> / <code>.form-grid</code> / <code>.actionable-input</code></th><td><code>var(--half-module)</code> — Fließtext → Formular (<a href="#B4">B.4</a>)</td></tr>
@@ -961,7 +964,7 @@
         <tr><th><code>.sg-layout</code></th><td>Sidebar + Main — auf dieser Seite mit <code>.container</code></td></tr>
         <tr><th><code>.sg-sidebar</code></th><td>Sticky Nav · Scrollspy (<code>sg.js</code>) markiert <code>a.--active</code></td></tr>
         <tr><th><code>.sg-section-v2</code></th><td>Sektions-Wrapper · oft mit <code>.flow</code></td></tr>
-        <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) — menschenlesbarer Titel</td></tr>
+        <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) — menschenlesbarer Titel · Spec → <a href="#A12">A.12</a></td></tr>
         <tr><th><code>.sg-h3</code></th><td>Untergruppe: primärer Selektor in <code>&lt;code&gt;</code> (Klasse, Token, Attribut). Varianten-Demo: <code>.btn.--full</code> oder <code>.btn</code> — Kurzinfo</td></tr>
         <tr><th><code>.spec-table</code></th><td>Spec-Tabellen · <code>.rules</code> / <code>.rule</code> = 2-spaltige Regel-Blöcke</td></tr>
       </table>
@@ -978,6 +981,50 @@
           <figcaption class="sg-caption"><code>.sg-demo.--white</code></figcaption>
         </figure>
       </div>
+    </section>
+
+    <section class="sg-section-v2 flow" id="A12">
+      <h2 class="section-label">A.12 — Section Label</h2>
+      <div class="col-grid" data-cols="2">
+        <p>Abschnittsüberschrift für Shop-Sektionen (Produkt-Raster, Teaser-Blöcke): Uppercase, Linie darunter, Spacing via <code>--section-label-mb</code> / <code>--section-label-mt</code>. Default nur Label; optional Zeile mit Ghost-CTA rechts („View all“).</p>
+        <p>Nicht verwechseln mit <code>.section-label.--sub</code> (Formular-/Checkout-Gruppentitel → <a href="#B4">B.4</a> / <a href="#B5">B.5</a>) und <code>.label-caps</code> (ohne Linie → <a href="#B2">B.2</a>).</p>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.section-label</code></th><td>Default · <code>h2</code> · <code>--text-xs</code>, Uppercase, <code>--fg-muted</code> · Border unten <code>var(--border)</code> · Spacing: <code>--section-label-mb</code> (default <code>--module</code>), <code>--section-label-mt</code> (default <code>--module-2xl</code>)</td></tr>
+        <tr><th><code>.section-label-row</code></th><td>Optional · Flex-Zeile: Label links + Ghost-CTA rechts · Border/Spacing am <strong>Wrapper</strong> · innere <code>.section-label</code> ohne eigene Border/Margins</td></tr>
+        <tr><th>CTA</th><td><code>.btn.--ghost.--sm</code> als <code>&lt;a&gt;</code> · nur rendern wenn Link gesetzt · Label frei wählbar (z.&nbsp;B. „Zu allen Produkten“)</td></tr>
+        <tr><th><code>.--sub</code></th><td>Nur Produktion in Formularen/Checkout · leichter Border · siehe <a href="#B4">B.4</a> — <strong>nicht</strong> mit Shop-Section-Label mischen</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top"><code>.section-label</code> — Default</h3>
+      <div class="sg-demo --white">
+        <h2 class="section-label" style="--section-label-mt: 0; --section-label-mb: 0;">Bestseller</h2>
+      </div>
+      <p class="sg-caption"><code>&lt;h2 class="section-label"&gt;</code> — nur Titel, Border und Spacing am Label selbst.</p>
+
+      <h3 class="sg-h3 --top"><code>.section-label-row</code> — mit View-all</h3>
+      <div class="sg-demo --white">
+        <div class="section-label-row" style="--section-label-mt: 0; --section-label-mb: 0;">
+          <h2 class="section-label">Bestseller</h2>
+          <a class="btn --ghost --sm" href="pages/Collection.html">Zu allen Produkten</a>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.section-label-row</code> · Label + <code>.btn.--ghost.--sm</code> · Live → <a href="pages/Inuvet-Shop.html#shopCollection">Shop · Bestseller</a>.</p>
+
+      <h3 class="sg-h3 --top" id="shopify-section-label">Shopify-Mapping</h3>
+      <div class="col-grid" data-cols="2">
+        <p>Bei Sektionen mit Abschnitts-Titel (z.&nbsp;B. Featured Collection, Produkt-Raster) als <strong>Option</strong> anbieten — Default aus / CTA nur wenn Link gesetzt.</p>
+        <p>Markup 1:1 aus dem Mockup; keine eigene Theme-Klasse. Settings an der jeweiligen Section (nicht global).</p>
+      </div>
+      <table class="spec-table">
+        <tr><th><code>heading</code></th><td>Text · Sektions-Titel → <code>h2.section-label</code></td></tr>
+        <tr><th><code>show_view_all</code></th><td>Checkbox · Default <strong>aus</strong> · bei an: Wrapper <code>.section-label-row</code> statt alleinigem Label</td></tr>
+        <tr><th><code>view_all_label</code></th><td>Text · CTA-Label (z.&nbsp;B. „Zu allen Produkten“) · nur relevant wenn <code>show_view_all</code></td></tr>
+        <tr><th><code>view_all_link</code></th><td>URL · Ziel des Ghost-Buttons · CTA nur rendern wenn gesetzt (<code>view_all_link != blank</code>) — auch wenn Checkbox an</td></tr>
+        <tr><th>Markup</th><td>Ohne CTA: <code>&lt;h2 class="section-label"&gt;</code> · Mit CTA: <code>.section-label-row</code> → Label + <code>&lt;a class="btn --ghost --sm"&gt;</code></td></tr>
+      </table>
+      <p class="sg-caption">Liquid-Skizze: <code>{% if section.settings.show_view_all and section.settings.view_all_link != blank %}</code> → Row · sonst Default-Label.</p>
     </section>
 
 
@@ -2052,7 +2099,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Bild, Name, Bewertung, Preis, optionale Badges und Warenkorb-Button. Entspricht Variante D in <a href="#D4">D.4 Kachel-Raster</a> — Spaltenzahl am Container (<code>.tile-grid.--cols-N</code>) → <a href="#A8">A.8</a>.</p>
-        <p>Kanonischer Aufbau: <code>.tile.--product</code> → <code>.tile__image-wrap</code> (<code>.floating-meta</code>, <code>.tile__image</code>, <code>.tile__cart-icon</code>, <code>.tile__cart</code>) → <code>.tile__headline-row</code> → <code>.tile__description</code> → <code>.tile__price</code>.</p>
+        <p>Kanonischer Aufbau: <code>.tile.--product</code> → <code>.tile__image-wrap</code> (<code>.floating-meta</code>, <code>.tile__image</code>, <code>.tile__cart-icon</code>, <code>.tile__cart</code>) → <code>.tile__headline-row</code> → <code>.tile__description</code> → <code>.tile__price</code> (<code>.price-stack</code> links · <code>.tile__animals</code> rechts).</p>
       </div>
 
       <div class="rules">
@@ -2069,10 +2116,11 @@
       <table class="spec-table">
         <tr><th><code>.tile__image</code></th><td>1. <code>img</code>: beschreibendes <code>alt</code> · 2. <code>video</code> (Standard): Rollover, <code>aria-hidden="true"</code> · <code>muted loop playsinline</code> · Shopify → <a href="#shopify-pdp">E.2</a></td></tr>
         <tr><th>Badges</th><td><code>.floating-meta</code> · Reihenfolge: Kategorie (<code>.badge[data-cat]</code>), Status (<code>.--dark</code> / <code>.--sale</code>), bei Produktfamilien „Produktfamilie" (Pflicht)</td></tr>
-        <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Button gleitet bei Hover ins Bild · <code>.tile__cart-icon</code>: permanent auf Mobile · beide <code>aria-label="In den Warenkorb"</code></td></tr>
+        <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Text-Button gleitet bei Hover ins Bild (Desktop) · Mobile: <code>.btn.--icon.--sm.--secondary.tile__cart-icon</code> (permanent, unten rechts) · beide <code>aria-label="In den Warenkorb"</code></td></tr>
         <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
         <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
-        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht)</td></tr>
+        <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> links · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht, nur PDP/Detail — nicht auf Collection-Kacheln) · rechts <code>.tile__animals</code> (Tier-Icons via <code>productTileAnimalsHTML()</code> / <code>animalsIconsHTML()</code>, Staging <code>temp.js</code>)</td></tr>
+        <tr><th><code>.tile__animals</code></th><td>Icon-Reihe in der Preiszeile · gleiche Icons wie PDP <code>.pdp__type-animals</code> · kleiner (<code>temp.css</code>) · SR: „für" + <code>aria-label</code> pro Tier · statische Kacheln: <code>initProductTileAnimals()</code> oder <code>data-animals</code></td></tr>
         <tr><th><code>.tile.--featured</code></th><td>Sonderkachel — mischbar · optional <code>.--cover</code> (Vollflächen-Bild) · Details → <a href="#D4">D.4</a></td></tr>
         <tr><th>Container</th><td><code>.tile-grid.--cols-2/3/4</code> — Breakpoints · <a href="#A8">A.8</a></td></tr>
       </table>
@@ -2088,7 +2136,7 @@
                 <div class="badge">Produktfamilie</div>
               </div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
@@ -2110,7 +2158,7 @@
                 <div class="badge">Produktfamilie</div>
               </div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
@@ -2125,7 +2173,7 @@
                 <div class="badge">Produktfamilie</div>
               </div>
               <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.1</div></div>
@@ -2138,7 +2186,7 @@
                 <div class="badge" data-cat="bauchspeichel">Bauchspeicheldrüse</div>
               </div>
               <div class="tile__image placeholder-bg"></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
@@ -2159,7 +2207,7 @@
                 <div class="badge">Produktfamilie</div>
               </div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
@@ -2181,7 +2229,7 @@
                 <div class="badge">Produktfamilie</div>
               </div>
               <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-              <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+              <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
             <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
@@ -4244,6 +4292,83 @@
       <button class="btn --secondary" onclick="document.getElementById('cookieBannerDemo').style.display='flex';">Cookie-Banner öffnen</button>
     </section>
 
+    <section class="sg-section-v2 flow" id="D9">
+      <h2 class="section-label">D.9 — Story Iconslider</h2>
+
+      <p><code>.story-iconslider</code> · horizontale Reihe runder Media-Thumbs (Story-Style) · Scroll + Snap · Staging in <code>temp.css</code> · Live → <a href="pages/Inuvet-Shop.html">Inuvet-Shop.html</a>.</p>
+
+      <div class="rules">
+        <div class="rule"><h4>Aufbau</h4><p><code>.story-iconslider</code> → <code>__track</code> (Flex, <code>overflow-x: auto</code>, Scroll-Snap) → <code>__item</code> (Link) mit <code>__media</code> (Kreis) + optional <code>__label</code>.</p></div>
+        <div class="rule"><h4>Spacing</h4><p><strong>Default</strong> (mitten auf der Seite): <code>margin-block: var(--half-module)</code>. <strong>Top unter Nav:</strong> <code>.--flush</code> → Margin/Padding block 0; Parent-<code>.container</code> per <code>:has(> .--flush)</code> ebenfalls ohne <code>padding-block</code>.</p></div>
+        <div class="rule"><h4>Media</h4><p>Kreis via <code>border-radius: 50%</code> (Avatar-Ausnahme). Bild mit <code>object-fit: cover</code> oder Cat-Fallback: <code>data-cat</code> auf <code>__media</code> (volle <code>--cat-*</code>-Farbe).</p></div>
+        <div class="rule"><h4>Ringe</h4><p><strong>Default:</strong> <code>1px solid var(--border-light)</code>. <strong>Optional</strong> <code>.--new</code>: Instagram-Style — äußerer Ring <code>1px var(--color-action)</code> + weißer Gap (<code>--story-ring-gap</code> / <code>--bg</code>) zwischen Ring und Media. Kein Cat-farbiger Ring.</p></div>
+        <div class="rule"><h4>Scroll</h4><p>Native Horizontal-Scroll (Touch + Trackpad). Scrollbar ausgeblendet (wie <code>.tab-nav</code>). Kein JS nötig — kein Marquee, kein <code>initSliders</code>.</p></div>
+        <div class="rule"><h4>Bleed &amp; Fade</h4><p><strong>Nur rechts:</strong> unter Container <code>margin-inline-end: calc(var(--margin) * -1)</code> + <code>padding-inline-end: var(--margin)</code> — links bündig zur Content-Kante. <strong>Fade-Mask rechts:</strong> <code>mask-image</code> linear-gradient, Breite <code>--story-fade</code> (= <code>--half-module</code>).</p></div>
+      </div>
+
+      <table class="spec-table">
+        <tr><th><code>.story-iconslider</code></th><td>Wrapper · <code>--story-size: calc(var(--base) * 5)</code> · Default Margin <code>--half-module</code> (Mid-Page)</td></tr>
+        <tr><th><code>.--flush</code></th><td>Top unter Nav · <code>margin/padding-block: 0</code> · Parent-<code>.container</code> ebenfalls ohne <code>padding-block</code></td></tr>
+        <tr><th><code>.story-iconslider__track</code></th><td>Flex-Zeile, Gap <code>--half-module</code>, <code>scroll-snap-type: x mandatory</code> · Edge-Bleed <strong>nur rechts</strong> · Fade-Mask rechts (<code>--story-fade</code>)</td></tr>
+        <tr><th><code>.story-iconslider__item</code></th><td>Spalte Media + Label · <code>scroll-snap-align: start</code> · Modifier <code>.--new</code> → Action-Ring + weißer Gap</td></tr>
+        <tr><th><code>.story-iconslider__media</code></th><td>Kreis <code>--story-size</code> · Default <code>1px --border-light</code> · Hover/Focus (ohne <code>.--new</code>) <code>--border-active</code></td></tr>
+        <tr><th><code>.--new</code></th><td>Äußerer Ring <code>box-shadow: 0 0 0 1px var(--color-action)</code> · Gap <code>border: var(--story-ring-gap) solid var(--bg)</code> · Hover <code>--color-action-hover</code></td></tr>
+        <tr><th><code>.story-iconslider__label</code></th><td><code>--text-xs</code>, Ellipsis, zentriert unter dem Kreis</td></tr>
+        <tr><th>Staging</th><td>Styles in <code>temp.css</code> — nach Freigabe nach <code>inuvet.css</code> verschieben</td></tr>
+      </table>
+
+      <h3 class="sg-h3 --top">Demo</h3>
+      <div class="sg-demo --white">
+        <div class="story-iconslider" aria-label="Stories Demo">
+          <div class="story-iconslider__track" role="list">
+            <a class="story-iconslider__item --new" href="pages/Produkt.html?id=12" role="listitem">
+              <span class="story-iconslider__media">
+                <img src="assets/images/Calmin_Packshot_01.jpeg" alt="">
+              </span>
+              <span class="story-iconslider__label">Beruhigung</span>
+            </a>
+            <a class="story-iconslider__item --new" href="pages/Produkt.html?id=13" role="listitem">
+              <span class="story-iconslider__media">
+                <img src="assets/images/Hepax_Packshot_01.jpeg" alt="">
+              </span>
+              <span class="story-iconslider__label">Leber</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media">
+                <img src="assets/images/Hero_Mood_01.jpg" alt="">
+              </span>
+              <span class="story-iconslider__label">Praxis</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media" data-cat="gelenke"></span>
+              <span class="story-iconslider__label">Gelenke</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media" data-cat="immun"></span>
+              <span class="story-iconslider__label">Immun</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media">
+                <img src="assets/images/Inhaltsstoff_Mariendistel.jpg" alt="">
+              </span>
+              <span class="story-iconslider__label">Inhaltsstoffe</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media" data-cat="haut"></span>
+              <span class="story-iconslider__label">Haut</span>
+            </a>
+            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+              <span class="story-iconslider__media">
+                <img src="assets/images/Hero_Mood_05.jpg" alt="">
+              </span>
+              <span class="story-iconslider__label">Alltag</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Horizontal scrollen · Bleed + Fade nur rechts · Default = dünner <code>--border-light</code>-Ring · <code>.--new</code> = Action-Ring + weißer Gap · Cat-Kreise ohne Bild via <code>data-cat</code>.</p>
+    </section>
+
 
     <!-- ══════════════════════════════════════
          E — SEITEN-VORLAGEN
@@ -4343,7 +4468,8 @@
         <tr><th><code>.pdp__description</code></th><td>Nutzen-Lead unter Rating · optional rechtliche Futtermittel-Kategorie am Absatzanfang · danach <strong>2 Sätze</strong> benefit-first, keine Wirkstoffliste</td></tr>
         <tr><th>USP-Liste</th><td><code>.check-list</code> (<a href="#B6">B.6</a>) in der Info-Spalte — 3–4 stärkste Argumente · z.&nbsp;B. Hepax: „Unterstützt die normale Leberfunktion.", „Lange Reichweite…", „Pulver allergikergeeignet."</td></tr>
         <tr><th>Social Proof</th><td><code>.social-proof</code> unter dem Angebot (nach NR / Actions) · &lt;1536px in der Info-Spalte · ≥1536px in <code>.pdp__aside</code> · Styleguide-Demos ohne Aside (Vorschaufenster) · Spec → <a href="#pdp-social-proof">unten</a></td></tr>
-        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · auf gleicher Grundlinie zwei <code>.price-stack__unit</code>: Grundpreis „(0,30 € / g)" (PAngV-Pflicht) + Steuerhinweis „Exkl. USt."</td></tr>
+        <tr><th><code>.pdp__price</code></th><td><code>.price-stack</code> in <code>--text-m</code> · nur Hauptpreis (+ optional Streichpreis) · kein <code>.price-stack__unit</code> in dieser Zeile (Platz für Tageskosten) · rechts daneben optional <code>.pdp__daily-cost</code> (Napf-Icon + „ab €… EUR" / „für einen …") — Staging in <code>temp.css</code></td></tr>
+        <tr><th><code>.pdp__daily-cost</code></th><td>Tageskosten neben dem Preis · Icon via CSS-Mask (<code>Icon_Form_Dosierlöffel_gestrichen.svg</code>, Napf-Silhouette) · <code>__amount</code> bold · <code>__note</code> regular · Flex-Align über bestehendes <code>.pdp__price</code></td></tr>
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet · Wishlist optional (Atom <a href="#B3">B.3</a>, nicht in Live-PDP)</td></tr>
         <tr><th>Kaufblock-Prototype</th><td>Live <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR-Hint „Noch X Stück für +Y Gratisprodukte“ + Auffüllen · <code>.pdp__order-meta</code> optional (Demo ausgeblendet)</td></tr>
@@ -4369,10 +4495,11 @@
         <tr><th>Video-Attribute</th><td><code>muted loop playsinline</code> · <code>preload="none"</code> auf Karten · komprimierte Clips (&lt; 10&nbsp;MB) über Product Media / Shopify Files</td></tr>
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
         <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
-        <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · in <code>.pdp__type-animals</code> als „für …“ (z.&nbsp;B. „für Hund“)</td></tr>
+        <tr><th>Tierart-Spalte</th><td>Variant Metafield (z.&nbsp;B. <code>custom.geeignet_fuer</code>) pro Darreichungsform · in <code>.pdp__type-animals</code> als Icons (<code>Icon_Tier_*.svg</code>) · SR: „für“ + Tiername · Helper <code>pdpAnimalsHTML()</code></td></tr>
         <tr><th>Galerie ↔ Form</th><td>Pro Darreichungsform optional <code>mediaIdx</code> → Index in <code>product.media</code> · Default: Packshot (Medium&nbsp;1), Form vorausgewählt (z.&nbsp;B. Pulver) · erst bei aktivem Form-Wechsel Galerie umschalten · Hepax: Pulver → Medium&nbsp;2, Tabletten → Medium&nbsp;3</td></tr>
-        <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · überall rendern, wo ein Preis steht (Tile, PDP, Cart, Suche)</td></tr>
-        <tr><th>Steuerhinweis</th><td>Zweites <code>.price-stack__unit</code> auf derselben Grundlinie · Text via Locale-Key · Versand-/Lieferzeit-Hinweis separat an anderer Stelle (nicht am Preis)</td></tr>
+        <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · Tile, Cart, Suche · <strong>nicht</strong> in der PDP-Preiszeile (dort Platz für <code>.pdp__daily-cost</code>)</td></tr>
+        <tr><th>Steuerhinweis</th><td>Nicht in der PDP-Preiszeile · Text via Locale-Key an anderer Stelle · Versand-/Lieferzeit-Hinweis separat (nicht am Preis)</td></tr>
+        <tr><th>Tageskosten</th><td>Optional neben dem Preis: <code>.pdp__daily-cost</code> · Werte aus Metafield (z.&nbsp;B. Tagespreis + Referenz-Tier) · Icon Napf (<code>Icon_Form_Dosierlöffel_gestrichen.svg</code>) · Staging in <code>temp.css</code></td></tr>
         <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code>: optional Futtermittel-Kategorie (Choice-Metafield z.&nbsp;B. <code>custom.feed_category</code>) am Absatzanfang, danach Nutzen-Lead (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste)</td></tr>
         <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
@@ -4427,8 +4554,13 @@
                 <div class="price-stack">
                   <span>29,90 €</span>
                   <span class="price-stack__compare">37,40 €</span>
-                  <span class="price-stack__unit">(0,30 € / g)</span>
-                  <span class="price-stack__unit">Exkl. USt.</span>
+                </div>
+                <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
+                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg')"></span>
+                  <span class="pdp__daily-cost__text">
+                    <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
+                    <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
+                  </span>
                 </div>
               </div>
               <div class="pdp__variants">
@@ -4526,7 +4658,7 @@
               <div class="tile__image-wrap">
                 <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div>
                 <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
               <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
@@ -4537,7 +4669,7 @@
               <div class="tile__image-wrap">
                 <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
                 <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
               <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
@@ -4548,7 +4680,7 @@
               <div class="tile__image-wrap">
                 <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div>
                 <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Calmin_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
               <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div>
@@ -4559,7 +4691,7 @@
               <div class="tile__image-wrap">
                 <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
                 <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><video src="assets/images/Hepax_Video-Test.mp4" muted loop playsinline aria-hidden="true"></video></div>
-                <button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
+                <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
               <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
@@ -4572,11 +4704,11 @@
       <p class="sg-caption">Sticky-Galerie · Trust unter Angebot (ohne Aside in der Demo) · Akkordeon in der Info-Spalte · Live inkl. Aside → <a href="pages/Produkt.html">Produkt.html</a> · Warenkorb → <a href="#E4">E.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
-      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als „für …“. Form-Hinweis → <code>.pdp__type-hint</code>. Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht). Layout: <code>.pdp--sticky-gallery</code>; Social Proof in der Demo ohne Aside (Aside ≥1536 nur Live).</p>
+      <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als Icons (<code>assets/graphics/inuvet-icons/Icon_Tier_*.svg</code>). Form-Hinweis → <code>.pdp__type-hint</code>. Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht). Layout: <code>.pdp--sticky-gallery</code>; Social Proof in der Demo ohne Aside (Aside ≥1536 nur Live).</p>
       <table class="spec-table">
         <tr><th><code>.pdp__type-selector</code></th><td>Radio-Zeilen in <code>.pdp__variants</code> · keine Header-Zeile</td></tr>
-        <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart · gestrichelte Trennlinie</td></tr>
-        <tr><th><code>.pdp__type-animals</code></th><td>Präfix „für“ + Tierart(en) · <code>--text-xs</code>, <code>--fg-muted</code>, rechtsbündig</td></tr>
+        <tr><th><code>.pdp__type-row</code></th><td>Grid: Radio + Label + Tierart-Icons · Trennlinie <code>--border-light</code></td></tr>
+        <tr><th><code>.pdp__type-animals</code></th><td>Icon-Reihe (<code>.pdp__type-animal-icon</code>, CSS-Mask, <code>currentColor</code> → <code>--fg-muted</code>) · SR: <code>.visually-hidden</code> „für“ + <code>aria-label</code> pro Tier · Mapping via <code>pdpAnimalsHTML()</code> · Hund ohne Größe → <code>Hund_L</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="pdp pdp--sticky-gallery" id="pdp-family-demo">
@@ -4621,10 +4753,19 @@
               <div class="pdp__variants">
                 <div class="pdp__type-selector">
                   <label class="pdp__type-row">
-                    <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Pulver (für Allergiker geeignet)</span> <span class="pdp__type-animals">für Katze, Hund</span>
+                    <input type="radio" name="pdpType" checked> <span class="pdp__type-label">Pulver (für Allergiker geeignet)</span>
+                    <span class="pdp__type-animals">
+                      <span class="visually-hidden">für </span>
+                      <span class="pdp__type-animal-icon" role="img" aria-label="Katze" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Katze.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Katze.svg')"></span>
+                      <span class="pdp__type-animal-icon" role="img" aria-label="Hund" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Hund_L.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Hund_L.svg')"></span>
+                    </span>
                   </label>
                   <label class="pdp__type-row">
-                    <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span> <span class="pdp__type-animals">für Hund</span>
+                    <input type="radio" name="pdpType"> <span class="pdp__type-label">Tabletten</span>
+                    <span class="pdp__type-animals">
+                      <span class="visually-hidden">für </span>
+                      <span class="pdp__type-animal-icon" role="img" aria-label="Hund" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Hund_L.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Tier_Hund_L.svg')"></span>
+                    </span>
                   </label>
                 </div>
                 <p class="pdp__type-hint">Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
@@ -4633,8 +4774,13 @@
                 <div class="price-stack">
                   <span>39,90 €</span>
                   <span class="price-stack__compare">49,90 €</span>
-                  <span class="price-stack__unit">(0,53 € / g)</span>
-                  <span class="price-stack__unit">Exkl. USt.</span>
+                </div>
+                <div class="pdp__daily-cost" aria-label="Tageskosten ab 0,77 Euro für einen 10kg Hund">
+                  <span class="pdp__daily-cost__icon" aria-hidden="true" style="-webkit-mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg');mask-image:url('assets/graphics/inuvet-icons/Icon_Form_Dosierlöffel_gestrichen.svg')"></span>
+                  <span class="pdp__daily-cost__text">
+                    <span class="pdp__daily-cost__amount">ab €0,77 EUR</span>
+                    <span class="pdp__daily-cost__note">für einen 10kg Hund</span>
+                  </span>
                 </div>
               </div>
               <div class="pdp__variants">
@@ -4654,7 +4800,7 @@
                 <button class="btn --primary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button>
               </div>
               <div class="nr-widget --personal" aria-label="Persönliches Naturalrabatt-Angebot">
-                <p class="nr-widget__hook">Du hast 57 Hepax forte in den letzten 6&nbsp;Monaten gebraucht.</p>
+                <p class="nr-widget__hook">Du hast 57 Hepax forte Pulver in den letzten 6&nbsp;Monaten gebraucht.</p>
                 <div class="nr-widget__offer">
                   <div>
                     <p class="nr-widget__offer-label">Unser Angebot an dich</p>
@@ -5099,8 +5245,8 @@
               <button class="filter-reset" type="button">Alle löschen</button>
             </div>
             <div class="tile-grid --cols-3">
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
               <div class="tile --featured --cover" style="--tile-fg: #fff">
                 <img class="tile__cover" src="assets/images/Hero_Mood_02.jpg" alt="">
                 <div class="tile__bottom flow">
@@ -5109,10 +5255,10 @@
                   <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
                 </div>
               </div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">39,90 €</span></div></div></div>
             </div>
             <nav class="pagination" aria-label="Pagination">
               <button type="button" class="pagination__btn" aria-label="Vorherige Seite"><span class="material-icons">chevron_left</span></button>
@@ -5145,10 +5291,10 @@
               </div>
             </div>
             <div class="tile-grid --cols-4">
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div></div>
             </div>
           </main>
         </div>
@@ -5769,7 +5915,7 @@
       <h3 class="sg-h3 --top" id="shopify-list-collections">List-Collections</h3>
       <table class="spec-table">
         <tr><th>Template</th><td><code>sections/collections.liquid</code> · <code>{% for collection in collections %}</code> · URL typisch <code>/collections</code></td></tr>
-        <tr><th>Layout</th><td><code>&lt;main class="container"&gt;</code> · <strong>kein</strong> Filter-Sidebar · kein Breadcrumb · kein Seitentitel (<code>.section-label</code>)</td></tr>
+        <tr><th>Layout</th><td><code>&lt;main class="container"&gt;</code> · <strong>kein</strong> Filter-Sidebar · kein Breadcrumb · optional Intro wie Collection: <code>.collection-intro.flow</code> mit <code>h1</code> / <code>.rte</code> · Shopify <code>show_title</code> / <code>show_description</code></td></tr>
         <tr><th>Grid</th><td><code>.tile-grid.--cols-3</code> (3→2→1) — volle Containerbreite</td></tr>
         <tr><th>Collection-Kachel</th><td><code>.tile</code> (kein <code>.--product</code>) · Bild in <code>.tile__image.--square</code> · Titel <code>.tile__headline</code> · Produktanzahl <code>.text-muted</code> („N Produkte“) · optional Kategorie-Badge <code>.badge[data-cat]</code> in <code>.floating-meta</code> wenn Collection = Indikation · gesamtes Tile verlinkt auf <code>collection.url</code> · kein Preis, kein Cart</td></tr>
         <tr><th>Sonderkacheln</th><td>Wie Produkt-Collection: beliebig viele Blocks <code>featured_tile</code> (→ <a href="#D4">D.4</a>) mischbar — <code>stack</code> / <code>cover</code> inkl. Bild, Lottie, ohne Media · Position frei · Demo → <a href="pages/List-Collections.html">List-Collections.html</a></td></tr>
@@ -6053,6 +6199,7 @@
 </div>
 
 <script src="inuvet.js?v=13"></script>
+<script src="temp.js?v=19"></script>
 <script src="sg.js?v=4"></script>
 </body>
 </html>
