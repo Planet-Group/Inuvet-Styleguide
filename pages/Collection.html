@@ -6,8 +6,7 @@
   <title>Produkte – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=177">
-  <link rel="stylesheet" href="../temp.css?v=20">
+  <link rel="stylesheet" href="../inuvet.css?v=178">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -54,6 +53,20 @@
       </a>
     </div>
     <div class="nav-right">
+      <div class="nav-item --end">
+        <a href="#" class="nav-item__trigger" id="countryTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Land wählen">
+          <span data-country-label>DE</span>
+          <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown" role="menu">
+          <a href="#" role="menuitem" data-country="de" aria-current="true">Deutschland</a>
+          <a href="#" role="menuitem" data-country="at">Österreich</a>
+          <a href="#" role="menuitem" data-country="ch">Schweiz</a>
+        </div>
+      </div>
+      <a class="btn --icon" href="../styleguide.html#E6" aria-label="Anmelden">
+        <span class="material-icons">person</span>
+      </a>
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
       </button>
@@ -85,6 +98,11 @@
       <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile()">Freigegeben</a>
       <a href="#" class="--indent" onclick="return false;">Meine Provisionen</a>
       <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile()">So funktioniert's</a>
+      <a href="#" onclick="closeMobile(); return false;">Land</a>
+      <a href="#" class="--indent" data-country="de" aria-current="page" onclick="closeMobile(); return false;">Deutschland</a>
+      <a href="#" class="--indent" data-country="at" onclick="closeMobile(); return false;">Österreich</a>
+      <a href="#" class="--indent" data-country="ch" onclick="closeMobile(); return false;">Schweiz</a>
+      <a href="../styleguide.html#E6" onclick="closeMobile()">Anmelden</a>
     </div>
   </div>
 
@@ -182,7 +200,7 @@
       </div>
     </div>
     <div class="footer-bar">
-      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Nach oben</a>
       <div class="footer-payment" aria-label="Zahlungsarten">
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
@@ -223,8 +241,7 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=24"></script>
-  <script src="../temp.js?v=20"></script>
+  <script src="../inuvet.js?v=26"></script>
   <script>
     const FALLBACK_IMG = '../assets/images/Calmin_Packshot_01.jpeg';
 
@@ -288,7 +305,7 @@
         price: productStartPrice(p),
         forms: catalogForms(p),
         animalsLabel: animalsLabelForTile(p),
-        animals: catalogAnimals(p),
+        animalGroups: catalogAnimals(p),
         desc: p.shortDesc || p.desc || '',
       }));
 
@@ -397,7 +414,7 @@
     const filtered = () => {
       let list = catalog.slice();
       if (showFilters && state.animals.size) {
-        list = list.filter(p => p.animals.some(a => state.animals.has(a)));
+        list = list.filter(p => p.animalGroups.some(a => state.animals.has(a)));
       }
       if (showFilters && state.cats.size) list = list.filter(p => state.cats.has(p.cat));
       if (showFilters && state.forms.size) list = list.filter(p => p.forms.some(f => state.forms.has(f)));
@@ -433,6 +450,10 @@
         ctaHref: '#',
         image: '../assets/images/Hero_Mood_02.jpg',
         textColor: '#fff',
+        labels: [
+          { text: 'Leber', cat: 'leber' },
+          { text: 'Neu', modifier: '--dark' },
+        ],
       },
       {
         position: 5,
@@ -451,6 +472,10 @@
         ctaLabel: 'Alle Neuheiten',
         ctaHref: '#',
         image: '../assets/images/Hero_Mood_02.jpg',
+        labels: [
+          { text: 'Immunsystem', cat: 'immun' },
+          { text: 'Neu', modifier: '--dark' },
+        ],
       },
       {
         position: 11,
@@ -462,23 +487,36 @@
       },
     ];
 
+    const featuredLabelsHTML = (labels) => {
+      if (!labels?.length) return '';
+      const badges = labels.map(({ text, cat, modifier }) => {
+        const mod = modifier ? ` ${modifier}` : '';
+        const catAttr = cat ? ` data-cat="${cat}"` : '';
+        return `<div class="badge${mod}"${catAttr}>${text}</div>`;
+      }).join('');
+      return `<div class="floating-meta">${badges}</div>`;
+    };
+
     const featuredMediaHTML = (f) => {
       if (f.layout === 'cover') return '';
+      const labels = featuredLabelsHTML(f.labels);
       if (f.lottie) {
-        return `<div class="tile__animation"><lottie-player src="${f.lottie}" background="transparent" speed="1" loop autoplay></lottie-player></div>`;
+        return `<div class="tile__animation">${labels}<lottie-player src="${f.lottie}" background="transparent" speed="1" loop autoplay></lottie-player></div>`;
       }
       if (f.image) {
-        return `<div class="tile__animation"><img src="${f.image}" alt=""></div>`;
+        return `<div class="tile__animation">${labels}<img src="${f.image}" alt=""></div>`;
       }
       return '';
     };
 
     const featuredHTML = (f) => {
+      const labels = featuredLabelsHTML(f.labels);
       if (f.layout === 'cover' && f.image) {
         const fg = f.textColor || '#fff';
         return `
       <div class="tile --featured --cover" style="--tile-fg: ${fg}">
         <img class="tile__cover" src="${f.image}" alt="">
+        ${labels}
         <div class="tile__bottom flow">
           <h3 class="tile__headline">${f.headline}</h3>
           <p class="tile__body">${f.body}</p>
@@ -513,7 +551,7 @@
       const fam = p.isFamily ? '<div class="badge">Produktfamilie</div>' : '';
       const rating = p.rating || '—';
       const hover = tileHoverMedia(p);
-      const animals = productTileAnimalsHTML(p);
+      const animals = productTileAnimalsHTML(p.animalsLabel || p);
       return `
         <div class="tile --product">
           <div class="tile__image-wrap">

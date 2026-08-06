@@ -84,6 +84,31 @@ function initScrollAnimations() {
 
 document.addEventListener('DOMContentLoaded', initScrollAnimations);
 
+/** Lottie: Aspect-Ratio aus JSON (w/h), damit Hero/Section nicht auf Default 300×300 bleibt. */
+function initLottieAspect(root) {
+  const scope = root && root.querySelectorAll ? root : document;
+  scope.querySelectorAll('lottie-player').forEach((player) => {
+    if (player.dataset.aspectBound === '1') return;
+    player.dataset.aspectBound = '1';
+    const apply = () => {
+      try {
+        const anim = typeof player.getLottie === 'function' ? player.getLottie() : null;
+        const data = anim && (anim.animationData || anim);
+        const w = data && data.w;
+        const h = data && data.h;
+        if (w && h) {
+          player.style.aspectRatio = w + ' / ' + h;
+          player.style.height = 'auto';
+        }
+      } catch (_) { /* player noch nicht bereit */ }
+    };
+    player.addEventListener('ready', apply);
+    apply();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initLottieAspect);
+
 /* ═══════════════════════════════════════════════════════
    PDP STICKY ATC (Mobile + Desktop)
    [PORTABEL → Theme]
@@ -426,7 +451,7 @@ const allProducts = [
     media: [
       { type: 'image', src: '../assets/images/Hepax_Packshot_01.jpeg', alt: 'Packshot' },
       { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Pulver_1zu1.mp4', caption: 'Das Pulver lässt sich einfach dosieren und unter das Futter mischen' },
-      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tabletten_1zu1.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
+      { type: 'video', src: '../assets/images/Hepax_Packshot_03.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
       { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tier_01_Hund_1zu1.mp4', caption: 'Wohlschmeckend und einfach in der Gabe' },
       { type: 'image', src: '../assets/images/Hepax_Foto-Test.png', alt: 'Tierhalter mit Hund', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
     ],
@@ -1121,6 +1146,8 @@ function animalsIconsHTML(animals, opts) {
 
     if (key === 'kleintiere' || key === 'kleine heimtiere') {
       list = KLEINTIERE;
+    } else if (key === 'hund-katze' || key === 'hund & katze' || key === 'hund und katze') {
+      list = [MAP.katze, MAP.hund];
     } else {
       var hundSize = key.match(/^hund[\s_-]?([sml])$/i);
       if (hundSize) {
@@ -1195,13 +1222,15 @@ function animalsLabelForProduct(p, opts) {
     return famLabel || fallback;
   }
 
-  return p.animals || fallback;
+  // Nur String-Labels (z. B. „Katze, Hund“) — Arrays sind Filter-Gruppen, kein Icon-Input
+  if (typeof p.animals === 'string' && p.animals.trim()) return p.animals;
+  return fallback;
 }
 
 function productTileAnimalsHTML(pOrLabel, opts) {
   var label = typeof pOrLabel === 'string'
     ? pOrLabel
-    : animalsLabelForProduct(pOrLabel, opts);
+    : (pOrLabel && pOrLabel.animalsLabel) || animalsLabelForProduct(pOrLabel, opts);
   if (!label) return '';
   return animalsIconsHTML(label, { wrapClass: 'tile__animals', iconClass: 'pdp__type-animal-icon' });
 }
@@ -1350,6 +1379,63 @@ function initNavLogoToggle() {
   apply(readPreferred());
 }
 
+/** Länder-/Locale-Umschalter in .nav-right (.nav-item.--end) + Mobile-Menu-Spiegel */
+function initNavCountry() {
+  var options = document.querySelectorAll('[data-country]');
+  if (!options.length) return;
+
+  var COUNTRIES = { de: 'DE', at: 'AT', ch: 'CH' };
+  var STORAGE_KEY = 'inuvet-shop-country';
+
+  function applyCountry(code) {
+    code = COUNTRIES[code] ? code : 'de';
+    var label = document.querySelector('[data-country-label]');
+    if (label) label.textContent = COUNTRIES[code];
+
+    document.querySelectorAll('[data-country]').forEach(function (el) {
+      var active = el.getAttribute('data-country') === code;
+      if (active) {
+        el.setAttribute('aria-current', el.classList.contains('--indent') ? 'page' : 'true');
+      } else {
+        el.removeAttribute('aria-current');
+      }
+    });
+
+    try {
+      localStorage.setItem(STORAGE_KEY, code);
+    } catch (e) { /* ignore */ }
+  }
+
+  var trigger = document.getElementById('countryTrigger');
+  var navItem = trigger && trigger.closest('.nav-item');
+  if (navItem && trigger) {
+    function setExpanded(open) {
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    navItem.addEventListener('mouseenter', function () { setExpanded(true); });
+    navItem.addEventListener('mouseleave', function () { setExpanded(false); });
+    navItem.addEventListener('focusin', function () { setExpanded(true); });
+    navItem.addEventListener('focusout', function () {
+      if (!navItem.contains(document.activeElement)) setExpanded(false);
+    });
+    trigger.addEventListener('click', function (e) { e.preventDefault(); });
+  }
+
+  var saved = null;
+  try {
+    saved = localStorage.getItem(STORAGE_KEY);
+  } catch (e) { /* ignore */ }
+
+  applyCountry(saved || 'de');
+
+  options.forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      applyCountry(el.getAttribute('data-country'));
+    });
+  });
+}
+
 /* ═══════════════════════════════════════════════════════
    PDP-GALERIE — Thumbs | Mosaic (effektiver Modus portabel)
    Mockup-Bar-Wiring: initPdpGalleryToggle() [MOCKUP — nicht portieren]
@@ -1423,6 +1509,7 @@ function initPdpGalleryToggle() {
 function initPromotedUI() {
   initNavScrolled();
   initNavLogoToggle();
+  initNavCountry();
   initProductTileAnimals();
   initPdpGalleryToggle();
 }
@@ -1441,6 +1528,7 @@ document.addEventListener('DOMContentLoaded', initPromotedUI);
 function reinitSection() {
   initMarquees();
   initScrollAnimations();
+  initLottieAspect();
   initArticleToc();
   initTestimonials();
   initProductMediaRollover();

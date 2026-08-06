@@ -154,6 +154,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `pdpDailyCostIconHTML()` / `pdpFormIconFile()` | Tageskosten-Icon je Darreichungsform (Mask) |
 | `initNavScrolled()` | `body.--nav-scrolled` bei scrollY > 0 |
 | `initNavLogoToggle()` | Nav-Logo Theme-Setting `logo_variant` · Mockup-Bar-Demo |
+| `initNavCountry()` | Länder-Umschalter in `.nav-right` |
 | `getEffectivePdpGalleryMode()` / `applyPdpGalleryMode()` | PDP-Galerie effektiver Modus (Thumbs/Mosaic) |
 | `initPdpGalleryToggle()` | [MOCKUP] Mockup-Bar Galerie-Toggle auf Produkt.html |
 
@@ -204,10 +205,24 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 --announcement-height: calc(var(--module) * 0.67)
 --nav-height: calc(var(--module) * 2.5)
 --header-height: calc(var(--announcement-height) + var(--nav-height))
---container-pt: var(--module)
+--container-pt: var(--module)   /* Legacy-Alias; Stack nutzt --section-gap */
+--section-gap: var(--module)    /* Vertikalabstand Section-Stack (A.7) */
 --container-max: 1536px
 --form-page-max: 640px
 ```
+
+### Section-Stack (Seiten-Abschnitte) — verbindlich
+
+Vertikaler Abstand zwischen Shop-Sections (nicht Text-`.flow`):
+
+1. **Default V1/V2:** `padding-top: var(--section-gap)` · `padding-bottom: 0` · kein vertikales `margin` am Stack-Root.
+2. **Ein/Aus V1/V2:** `--pt-0` (oben aus) · `--pb` (unten an, Wert = `--section-gap`). Keine freien Pixel.
+3. **Gilt für** `.container` und `.section-type` (V1/V2).
+4. **V3/V4 Vollbild:** kein Stack-Padding (Bild edge-to-edge). Optional `--mt` / `--mb` = `margin-*: var(--section-gap)` — Spalt zeigt Seitenfläche. Default beide aus.
+5. **Shopify:** V1/V2 „Padding oben/unten“ · V3/V4 „Margin oben/unten“ → `--mt`/`--mb`. Stories unter Nav: oben aus.
+6. **Alias:** `.container.--flush-top` = `--pt-0`.
+
+Doku → Styleguide A.7 „Section-Stack" (`styleguide.html#section-stack`).
 
 ### Z-Index
 ```css
@@ -240,7 +255,8 @@ Semantische Aliasse (für neuen Code bevorzugen): `--color-action` / `--color-ac
 | `.container` | 1536px | Standard, Listen, Übersichten |
 | `.container.--narrow` | ≈ 720px | Lese-Content, Detail-Seiten |
 | `.container.--sm` | ≈ 480px | Eingabe-Formulare |
-| `.container.--flush-top` | — | Hebt `--container-pt` auf |
+| `.container.--pt-0` / `.--flush-top` | — | Kein Padding oben (Stack) |
+| `.container.--pb` | — | Padding unten = `--section-gap` |
 
 ## Responsive Breakpoints (vereinheitlicht)
 
@@ -290,12 +306,13 @@ Page-spezifische Card-Patterns (`summary-card`, `approval-product-card`) bleiben
 
 ### Section-Label Modifier
 - `.section-label` — Top-Level (h2), `--border`
-- `.section-label-row` — optional: Label **oder Headline** (`.--headline` + `h2`) links + Ghost-CTA rechts (`.btn.--ghost.--sm`); Border/Spacing am Wrapper · **Headline ist in den meisten Fällen die bevorzugte Option** (`heading_style: headline`); Section-Label wenn die Zeile in ein Label-getriebenes Section-Raster passt · Spec → Styleguide A.12 · PDP-Empfehlungen → E.2 · Shopify: `heading_style`, `show_view_all`, `view_all_label`, `view_all_link`
+- `.section-label-row` — optional: Label **oder Headline** (`.--headline` + `h2`) links + Ghost-CTA rechts (`.btn.--ghost.--sm`); Border/Spacing am Wrapper · **Headline ist in den meisten Fällen die bevorzugte Option** (`heading_style: headline`); Section-Label wenn die Zeile in ein Label-getriebenes Section-Raster passt · Spec → Styleguide A.12 · PDP-Empfehlungen → E.2 · Shopify: `heading_style`, `heading_body`, `show_view_all`, `view_all_label`, `view_all_link`
+- `.section-header` — Wrapper für Label/Headline-Zeile + optionalen Absatz (`.section-header__body`, `.flow`) · Shopify-Snippet `section-heading`
 - `.section-label.--sub` — Sub-Sektion (h3), `--border-light` — **nur Produktion** (Formular-/Checkout-Sub-Sektionen, unter einem `form-page__title`/h1)
 - **Styleguide-Doku:** Gruppen-Überschriften im Guide nutzen `.sg-h3` (gemischte Schreibweise, fett, ohne Linie) — **nicht** `.section-label --sub`. Grund: neben der Sektions-`.section-label` (klein, Uppercase, mit Linie) würde `--sub` zu ähnlich aussehen; `.sg-h3` hebt sich klar als untergeordnete Inhalts-Überschrift ab.
 
 ### Spacing: H→p→Button-Stacks
-Überall wo Headline + Fließtext + CTA gestapelt: je `margin-bottom: var(--half-module)`. In `section-type__headline/body` genauso wie in seitenspezifischen Teasern (D.3).
+Überall wo Headline + Fließtext + CTA gestapelt: **via `.flow`** (nicht Ad-hoc-Margins). Headline → Body: `--half-module` · Body → CTA: `calc(var(--half-module) * 1.5)` über `* + .btn` / `* + .btn-row` / `* + .section-type--v4__cta`. Shop/Theme: CTAs in `.btn-row` (auch bei einem Button); Hero V4 nutzt `.section-type--v4__cta`. Nie `.btn-row` in die Formular-Flow-Gruppe ziehen (überschreibt sonst den CTA-Abstand).
 
 ### Header-Verhalten: Announcement Bar Scroll-Away
 Standard: Announcement Bar **scrollt weg** (nicht sticky), nur die Nav bleibt sticky (`top: 0`). `scroll-padding-top` = `--nav-height`. Opt-in für Sticky-Bar: Klasse `--ann-sticky` auf `<body>` — Bar und Nav bleiben oben, Nav sitzt unter der Bar (`top: var(--announcement-height)`), `scroll-padding-top` = `--header-height`. Styleguide D.1: Toggle „Sticky Header aktivieren“. Shopify: `.announcement-bar.--scroll-away` am Section-Wrapper (entspricht Default). Das Mobile-Menü-`top` wird in beiden Modi von `positionMobileMenu()` (in `toggleMobile()`) dynamisch an die Nav-Unterkante gesetzt — beim Öffnen ist der Scroll via `body{overflow:hidden}` gesperrt, daher stabil.
@@ -375,9 +392,9 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 #### D — Organismen
 | Sek. | Komponente | Klasse(n) | Modifier |
 |---|---|---|---|
-| D.1 | Navigation | `.site-nav .announcement-bar .nav-logo` | Frosted Glass · `body.--nav-scrolled` · Logo-Setting `body[data-nav-logo="campus"]` · Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` |
-| D.2 | Footer | `.site-footer` | `.footer-payment` (Zahlungsarten-Icons in `.footer-bar`) |
-| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` |
+| D.1 | Navigation | `.site-nav .announcement-bar .nav-logo` | Frosted Glass · `body.--nav-scrolled` · Logo-Setting `body[data-nav-logo="campus"]` · Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` · Utility: `.nav-item.--end` Land + Account-Icon in `.nav-right` |
+| D.2 | Footer | `.site-footer` | `.footer-bar__top` („Nach oben“) · `.footer-payment` |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` · **V1:** Bild/Lottie · **V2:** Bild + Content-Box · **V3:** Vollbild + Box · **V4:** Text auf Bild · `--content-top|--content-center|--content-bottom` · V3/V4 optional `--mt`/`--mb` · Badges nur V1/V2 · Shopify: `Hero V1`–`V4`, Snippet `section-type-media` |
 | D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Lottie), `--product` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
@@ -401,7 +418,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|
 | `.container` | `--narrow --sm --flush-top` | Container mit max-width + padding |
 | `.section-label` | `--sub` | Abschnittsüberschrift · Spec A.12 |
-| `.section-label-row` | `--headline` | Headline (empfohlener Default) oder Label + optional View-all (`.btn.--ghost.--sm`) · Shopify `heading_style`, `show_view_all` |
+| `.section-label-row` | `--headline` | Headline (empfohlener Default) oder Label + optional View-all (`.btn.--ghost.--sm`) · Shopify `heading_style`, `heading_body`, `show_view_all` |
+| `.section-header` | `.flow` | Optionaler Absatz unter Überschrift (`.section-header__body`) · Snippet `section-heading` |
 | `.page-header` | — | Seitenkopf für Portal-/Listen-Seiten: H1 + optionaler Zähler (`.circle-badge.--num`), Abstand `--module` zum Inhalt |
 | `.label-caps` | — | Inline Caps-Beschriftung |
 | `.qty-selector` | `--sm` | Mengenauswahl |
@@ -411,7 +429,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
 | `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
 | `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Portal-Stack: Name+Datum zweispaltig · Notiz: `.data-table-note` · Aktions-Spalte: `.data-table-actions` mit `.btn.--icon.--sm` oder `.order-item__link` |
-| `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
+| `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row / * + .section-type--v4__cta` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
 ---
 

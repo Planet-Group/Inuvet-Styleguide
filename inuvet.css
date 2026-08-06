@@ -1002,9 +1002,18 @@
     .site-nav { padding: 0 var(--half-module); }
     .nav-left > a,
     .nav-left .nav-item { display: none; } /* Direkte Links + Dropdowns weg, nur Hamburger */
+    /* .nav-right: nur Suche + Warenkorb — Land & Account leben im .mobile-menu */
+    .nav-right { gap: calc(var(--base) * 0.5); }
+    .nav-right > .nav-item.--end,
+    .nav-right > a.btn.--icon { display: none; }
     .mobile-menu.--open { display: flex; flex-direction: column; padding: var(--module); gap: 0.5rem; }
     .mobile-menu .nav-col { display: contents; }
+    /* Localization-Form flach halten — sonst liegen Länder-Links inline nebeneinander */
+    .mobile-menu form { display: contents; }
     .mobile-menu a {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
       font-size: var(--text-base);
       color: var(--fg);
       text-decoration: none;
@@ -1027,7 +1036,9 @@
       padding: var(--module) var(--margin);
     }
     .mobile-menu .nav-col { display: flex; flex-direction: column; gap: 0.25rem; }
+    .mobile-menu form { display: contents; }
     .mobile-menu a {
+      display: block;
       font-size: var(--text-base);
       color: var(--fg);
       text-decoration: none;
@@ -1044,17 +1055,25 @@
   }
 
   /* ─── Container ─── Standard-Content-Wrapper (Satzspiegel)
-     padding-top via --container-pt: Atemraum zum sticky Header.
+     Vertikal: Section-Stack-Regel A.7 — Default nur padding-top (--section-gap), unten aus.
      Hero-Sections (.section-type) liegen außerhalb von .container (siehe Bundle.html). */
-  .container { max-width: var(--container-max); margin: 0 auto; padding: var(--container-pt) var(--margin) var(--margin); }
+  .container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-top: var(--section-gap);
+    padding-bottom: 0;
+    padding-inline: var(--margin);
+  }
 
   /* ─── Container-Breiten-Modifier ───
      Standard (1536px), --narrow (Lese-Content, 720px), --sm (Formulare im Shop, 480px). */
   .container.--narrow { max-width: calc(var(--module) * 15); }   /* ≈ 720px — Lese-Content */
   .container.--sm     { max-width: calc(var(--module) * 10); }   /* ≈ 480px — kompakte Formulare */
 
-  /* Direkt nach Hero: kein zusätzliches padding-top */
-  .container.--flush-top { padding-top: 0; }
+  /* Section-Stack-Toggles (gleiche Modifier an .section-type) */
+  .container.--pt-0,
+  .container.--flush-top { padding-top: 0; } /* --flush-top = Alias für --pt-0 */
+  .container.--pb { padding-bottom: var(--section-gap); }
 
   /* ─── Page-Header — Seitenkopf für Portal- und Listen-Seiten ───
      H1 mit optionalem Zähler (.circle-badge.--num) inline daneben.
@@ -1165,10 +1184,18 @@
     grid-template-columns: 1fr 1fr;
     min-height: var(--section-min-height);
   }
-  /* Alle Section-Types außer --v3 + --v4 (Vollbild-Hintergrund): Satzspiegel + Abstand oben */
-  .section-type:not(.--v3):not(.--v4) {
-    margin-top: var(--module);
+  /* V1/V2: Section-Stack-Regel A.7 — Default nur padding-top, kein margin.
+     V3/V4 Vollbild: eigener Modus (kein Stack-Padding). Toggles danach. */
+  .section-type.--v1,
+  .section-type.--v2 {
+    padding-top: var(--section-gap);
+    padding-bottom: 0;
   }
+  .section-type.--pt-0 { padding-top: 0; }
+  .section-type.--pb { padding-bottom: var(--section-gap); }
+  /* V3/V4 Vollbild: optionaler Außenabstand (Margin, nicht Padding — Bild bleibt edge-to-edge) */
+  .section-type.--mt { margin-top: var(--section-gap); }
+  .section-type.--mb { margin-bottom: var(--section-gap); }
   .section-type.--viewport {
     height: calc(100dvh - var(--header-height));
     max-height: var(--section-max-height);
@@ -1179,6 +1206,7 @@
   /* ─── Section Image ─── */
   /* .section-type__image — nutzt .placeholder-bg */
   .section-type__image {
+    position: relative; /* Anchor für .floating-meta (wie .tile__image-wrap) */
     background-position: center center;
     background-size: cover;
   }
@@ -1192,7 +1220,10 @@
   }
 
   /* ─── Section Animation (Lottie) ─── */
-  .section-type__animation { align-self: center; }
+  .section-type__animation {
+    position: relative; /* Anchor für .floating-meta auf Hero-Animation */
+    align-self: center;
+  }
   .section-type__animation lottie-player { width: 100%; display: block; }
 
   /* Wenn Animation statt Bild: Content vertikal zentriert, Zeilenlänge begrenzt.
@@ -1209,21 +1240,67 @@
     flex-direction: column;
   }
 
-  /* Variante 1: kein Hintergrund, H1, Inhalt vertikal zentriert */
-  .section-type.--v1 { gap: var(--gutter); max-width: var(--container-max); margin-left: auto; margin-right: auto; padding-left: var(--margin); padding-right: var(--margin); }
+  /* Variante 1: kein Hintergrund, H1, Inhalt vertikal zentriert.
+     Desktop: Bild-Spalte mind. so hoch wie Content (stretch + cover).
+     Hohes Bild darf die Zeile weiter wachsen lassen. Lottie: native Proportion. */
+  .section-type.--v1 {
+    gap: var(--gutter);
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--margin);
+    padding-right: var(--margin);
+    min-height: 0;
+    align-items: stretch;
+  }
   .section-type.--v1 .section-type__image {
     overflow: hidden;
+    align-self: stretch;
+    min-height: 0;
+  }
+  /* Placeholder / reines Background-Image (Styleguide): weiterhin Min-Höhe */
+  .section-type.--v1 .section-type__image:not(:has(img)) {
+    min-height: var(--section-min-height);
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v1 .section-type__image picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+  .section-type.--v1 .section-type__image img {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    max-width: none;
+    max-height: none;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v1 .section-type__animation lottie-player {
+    width: 100%;
+    height: auto;
   }
   .section-type.--v1 .section-type__content {
     justify-content: center;
     gap: 0;
     max-width: 36rem;
-    margin-inline: auto;
+    margin-inline: 0;
+    /* In der Content-Zelle zur Medien-Kante (innen), nicht zentrieren. */
+    justify-self: start;
+  }
+  /* --reverse nutzt direction:rtl → start liegt innen am Bild; Text soll außen
+     links bündig sitzen (wie bei Lottie mit max-width:none), sonst Extra-Abstand. */
+  .section-type.--v1.--reverse .section-type__content {
+    justify-self: end;
   }
   .section-type.--v1:has(.section-type__animation) .section-type__content {
     max-width: none;
     margin-inline: 0;
+    justify-self: stretch;
   }
   .section-type.--v1 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -1242,10 +1319,33 @@
     line-height: var(--lh-base);
   }
 
-  /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding 3rem, Inhalt vertikal zentriert */
-  .section-type.--v2 { gap: 0; max-width: var(--container-max); margin-left: auto; margin-right: auto; padding-left: var(--margin); padding-right: var(--margin); }
+  /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding module.
+     Nur Bild (kein Lottie). Ohne --viewport: Bildhöhe steuert die Zeile,
+     grüne Box zieht mit. Mit --viewport: Section-Höhe = Viewport, Bild cover. */
+  .section-type.--v2 {
+    gap: 0;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--margin);
+    padding-right: var(--margin);
+    min-height: 0;
+    align-items: stretch;
+  }
   .section-type.--v2 .section-type__image {
     overflow: hidden;
+    align-self: start;
+    min-height: 0;
+    width: 100%;
+  }
+  .section-type.--v2 .section-type__image:not(:has(img)) {
+    min-height: var(--section-min-height);
+    animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v2 .section-type__image img {
+    width: 100%;
+    height: auto;
+    display: block;
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   .section-type.--v2 .section-type__content {
@@ -1253,6 +1353,37 @@
     padding: var(--module);
     justify-content: center;
     gap: 0;
+  }
+  /* Grüne Box = Bildhöhe: Content trägt nicht zur Row-Höhe bei, füllt sie aber */
+  .section-type.--v2:not(.--viewport) .section-type__content {
+    height: 0;
+    min-height: 100%;
+    margin-block: 0;
+  }
+
+  /* V2 + Viewport: Bild füllt die Section-Höhe (cover) */
+  .section-type.--v2.--viewport .section-type__image {
+    align-self: stretch;
+    height: auto;
+    min-height: 100%;
+  }
+  .section-type.--v2.--viewport .section-type__image:not(:has(img)) {
+    min-height: 100%;
+  }
+  .section-type.--v2.--viewport .section-type__image picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .section-type.--v2.--viewport .section-type__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .section-type.--v2.--viewport .section-type__content {
+    height: auto;
+    min-height: 0;
+    align-self: stretch;
   }
   .section-type.--v2 .section-type__content > * {
     animation: heroFadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -1280,18 +1411,41 @@
     to   { transform: scale(1); }
   }
 
-  /* Variante 3: Viewport-Breite, Hintergrundbild, Content-Box mit BG überlagert */
+  /* Variante 3: Vollbild-Hintergrund + Content-Box am Satzspiegel.
+     Kein Stack-Padding — Bild edge-to-edge via absolute + cover. */
   .section-type.--v3 {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
     overflow: hidden;
+    min-height: var(--section-min-height);
   }
   .section-type.--v3 .section-type__image {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: var(--z-default);
+    overflow: hidden;
+  }
+  .section-type.--v3 .section-type__image:not(:has(img)) {
+    animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  /* Cover gegen Theme-Reset img/picture { max-width:100%; height:auto } */
+  .section-type.--v3 .section-type__image picture,
+  .section-type.--v3 .section-type__image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+  .section-type.--v3 .section-type__image img {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   .section-type.--v3 .section-type__inner {
@@ -1309,6 +1463,13 @@
     padding: var(--module);
     align-self: center;
     margin: var(--module) 0;
+  }
+  /* Optionale Box-Transparenz — Bild scheint durch (--box-soft / --box-glass) */
+  .section-type.--v3.--box-soft .section-type__content {
+    background: color-mix(in srgb, var(--green-light) 82%, transparent);
+  }
+  .section-type.--v3.--box-glass .section-type__content {
+    background: color-mix(in srgb, var(--green-light) 62%, transparent);
   }
   .section-type.--v3.--reverse .section-type__content {
     grid-column: 1;
@@ -1335,7 +1496,8 @@
      margin-top direkt gesetzt, damit --flow-space zuverlässig greift. */
   .section-type.--v1 .section-type__content > .section-type__headline + *,
   .section-type.--v2 .section-type__content > .section-type__headline + *,
-  .section-type.--v3 .section-type__content > .section-type__headline + * {
+  .section-type.--v3 .section-type__content > .section-type__headline + *,
+  .section-type.--v4 .section-type__content > .section-type__headline + * {
     --flow-space: var(--half-module);
     margin-top: var(--half-module);
   }
@@ -1343,16 +1505,21 @@
   /* Reduced motion: skip animations */
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v1 .section-type__image,
+    .section-type.--v1 .section-type__image img,
     .section-type.--v1 .section-type__content > *,
     .section-type.--v2 .section-type__image,
+    .section-type.--v2 .section-type__image img,
     .section-type.--v2 .section-type__content > *,
     .section-type.--v3 .section-type__image,
+    .section-type.--v3 .section-type__image img,
     .section-type.--v3 .section-type__content > * {
       animation: none;
     }
   }
 
-  /* ─── Variante 4: Vollbild-Hintergrund, Text direkt auf Bild ─── */
+  /* ─── Variante 4: Vollbild-Hintergrund, Text direkt auf Bild ───
+     Kein Stack-Padding · kein Badge. Bild via <img> cover (wie V3).
+     Textblock vertikal: --content-top | --content-center (Default) | --content-bottom. */
   .section-type.--v4 {
     position: relative;
     width: 100%;
@@ -1362,6 +1529,9 @@
     justify-content: center;
     min-height: 60vh;
   }
+  .section-type.--v4.--content-top { align-items: flex-start; }
+  .section-type.--v4.--content-center { align-items: center; }
+  .section-type.--v4.--content-bottom { align-items: flex-end; }
   /* Dunkles Overlay für Lesbarkeit */
   .section-type.--v4::before {
     content: '';
@@ -1373,7 +1543,28 @@
   .section-type.--v4 .section-type__image {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: 0;
+    overflow: hidden;
+  }
+  .section-type.--v4 .section-type__image:not(:has(img)) {
+    animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  /* Cover gegen Theme-Reset img/picture { max-width:100%; height:auto } */
+  .section-type.--v4 .section-type__image picture,
+  .section-type.--v4 .section-type__image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+  .section-type.--v4 .section-type__image img {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   .section-type.--v4 .section-type__content {
@@ -1405,12 +1596,12 @@
   .section-type.--v3 .section-type__content .btn.--ghost { border: none; }
   .section-type.--v4 .section-type__content .btn         { text-shadow: none; }
   .section-type.--v4 .section-type__content .btn.--ghost { color: #fff; border: none; }
+  /* CTA-Row (nicht .btn-row). Abstand Body→CTA via .flow A.7 */
   .section-type--v4__cta {
     display: flex;
     gap: var(--half-module);
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: var(--base);
   }
   @media (max-width: 767px) {
     .section-type--v4__cta { flex-direction: column; align-items: center; }
@@ -1423,24 +1614,18 @@
   .section-type.--v4 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v4 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v4 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
-  /* Mobile: volle Höhe abzgl. Header, Text oben – Buttons unten */
+  /* Mobile: volle Höhe abzgl. Header · Text-Position wie Desktop (--content-*) */
   @media (max-width: 767px) {
     .section-type.--v4 {
       min-height: calc(100dvh - var(--header-height));
-      align-items: stretch;
     }
-    .section-type.--v4 .section-type__content {
-      flex: 1;
-      justify-content: flex-start;
-      padding-top: calc(var(--module) * 2);
-    }
-    .section-type--v4__cta {
-      margin-top: auto;
-      padding-bottom: var(--module);
-    }
+    .section-type.--v4.--content-top { align-items: flex-start; }
+    .section-type.--v4.--content-center { align-items: center; }
+    .section-type.--v4.--content-bottom { align-items: flex-end; }
   }
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v4 .section-type__image,
+    .section-type.--v4 .section-type__image img,
     .section-type.--v4 .section-type__content > * { animation: none; }
   }
 
@@ -1482,6 +1667,15 @@
     line-height: var(--lh-base);
     margin-bottom: 0;
   }
+  /* Ausnahme: Titel-Link auf Produktkacheln nicht grün (Guide: Headline ist Textfarbe) */
+  .tile__headline-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .tile__headline-link:hover {
+    color: inherit;
+    text-decoration: underline;
+  }
   .tile__body {
     font-size: var(--text-base);
     color: var(--fg);
@@ -1503,9 +1697,7 @@
     height: auto;
     display: block;
   }
-  .tile__animation.--ratio-1 lottie-player,
-  .tile__animation.--ratio-weltweit lottie-player,
-  .tile__animation.--ratio-inhaltsstoffe lottie-player { aspect-ratio: 1; }
+  .tile__animation.--ratio-1 lottie-player { aspect-ratio: 1; }
 
   /* ─── Tile Variante B: Bild + Text ─── */
   /* .tile__image — nutzt .placeholder-bg */
@@ -1566,6 +1758,7 @@
   }
   /* Media (Bild oder Lottie) füllt den Platz über dem Textblock */
   .tile.--featured > .tile__animation {
+    position: relative; /* Anchor für absolute .floating-meta (wie .tile__image-wrap) */
     flex: 1 1 auto;
     width: 100%;
     min-height: 0;
@@ -1622,6 +1815,9 @@
       rgba(0, 0, 0, 0.12) 62%,
       transparent 100%
     );
+  }
+  .tile.--featured.--cover > .floating-meta {
+    z-index: 2; /* über Verlauf, gleiche Ebene wie .tile__bottom */
   }
   .tile.--featured.--cover > .tile__bottom {
     position: relative;
@@ -1748,6 +1944,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  /* Produktkarte: Preis regular — Titel führt; PDP/Zwischensumme bleiben bold (.price-stack) */
+  .tile.--product .tile__price .price-stack {
+    font-weight: 400;
   }
   .tile.--product .tile__animals {
     display: inline-flex;
@@ -2091,9 +2291,11 @@
   /* ─── Breadcrumb ─── */
   .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: var(--module); }
   .breadcrumb__item { display: flex; align-items: center; gap: 0.25rem; }
-  .breadcrumb__item a { color: var(--fg-muted); text-decoration: none; transition: color var(--anim-fast); }
-  .breadcrumb__item a:hover { color: var(--fg); }
+  /* Links wie Fließtext-a: grün (nicht muted) */
+  .breadcrumb__item a { color: var(--green); text-decoration: none; transition: color var(--anim-fast); }
+  .breadcrumb__item a:hover { color: var(--green-hover); text-decoration: underline; }
   .breadcrumb__sep { color: var(--border); }
+  .breadcrumb__item[aria-current="page"],
   .breadcrumb__item .--current { color: var(--fg); font-weight: 700; }
 
   /* ─── Toast / Notification ─── */
@@ -2520,6 +2722,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     display: block;
   }
 
+  /* ─── Section-Divider — horizontale Trennlinie zwischen Shop-Sections (A.6)
+     Spacing ausschließlich über Section-Stack am .container — Linie ohne eigene Margins. */
+  .section-divider {
+    display: block;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    border: none;
+    border-top: 1px solid var(--border-light);
+    border-radius: 0;
+  }
+  .section-divider.--active { border-top-color: var(--border-active); }
+  .section-divider.--dashed {
+    border-top-style: dashed;
+    border-top-color: var(--border-light);
+  }
+
   /* ─── Option-Divider (zwei gleichwertige Wege, z. B. „oder") ─── */
   .option-divider { display: flex; align-items: center; gap: var(--half-module); margin: var(--half-module) 0; font-size: var(--text-xs); color: var(--fg-muted); }
   .option-divider::before, .option-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -2818,11 +3037,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .section-label.--sub { border-bottom-color: var(--border-light); padding-bottom: calc(var(--half-module) * 0.5); margin-bottom: var(--half-module); }
   * + .section-label.--sub { margin-top: var(--module); }
   /* ─── Section-Label-Row — Label links + optionale Ghost-CTA rechts (View-all).
-     Border/Spacing am Wrapper (wie .section-label); innere .section-label ohne eigene Border. */
+     Border/Spacing am Wrapper (wie .section-label); innere .section-label ohne eigene Border.
+     Mit Linie: flex-end, damit der höhere Ghost-Button die Label→Linie-Distanz
+     nicht aufbläst (baseline würde den padding-bottom unter die Button-Box schieben). */
   .section-label-row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
     gap: var(--half-module);
     padding-bottom: var(--half-module);
     border-bottom: 1px solid var(--border);
@@ -2838,11 +3059,33 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .section-label-row.--headline {
     border-bottom: none;
     padding-bottom: 0;
+    align-items: baseline;
   }
   .section-label-row.--headline > h2 {
-    font-size: var(--text-m);
+    font-size: var(--text-l);
     font-weight: 700;
-    line-height: var(--lh-h3);
+    line-height: var(--lh-h2);
+    margin: 0;
+  }
+
+  /* ─── Section-Header — Label/Headline-Zeile + optionaler Absatz (A.12) ───
+     Außenabstand wie .section-label-row; innen Rhythmus via .flow. */
+  .section-header {
+    margin-bottom: var(--section-label-mb, var(--module));
+  }
+  * + .section-header { margin-top: var(--section-label-mt, var(--module-2xl)); }
+  .section-header > .section-label-row {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .section-header.flow > .section-label-row + .section-header__body {
+    --flow-space: var(--half-module);
+  }
+  .section-header__body {
+    font-size: var(--text-base);
+    line-height: var(--lh-base);
+    color: var(--fg);
+    max-width: 40rem;
     margin: 0;
   }
 
@@ -2920,7 +3163,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 
   /* * → CTA: Abstand vor Button/Button-Row etwas großzügiger */
   .flow > * + .btn,
-  .flow > * + .btn-row { --flow-space: calc(var(--half-module) * 1.5); }
+  .flow > * + .btn-row,
+  .flow > * + .section-type--v4__cta { --flow-space: calc(var(--half-module) * 1.5); }
 
   /* Fließtext → Formular: Abstand vor Feldern, Grids, Molekülen (B.4) */
   .flow > * + .form-field,
@@ -2935,7 +3179,6 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .flow > * + .form-radio-row,
   .flow > * + .form-radio-col,
   .flow > * + .form-group-label,
-  .flow > * + .btn-row,
   .flow > * + .link-stack,
   .flow > * + .form-captcha {
     --flow-space: var(--half-module);
@@ -3216,6 +3459,30 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .container .story-iconslider__track {
     margin-inline-end: calc(var(--margin) * -1);
     padding-inline-end: var(--margin);
+  }
+  /* Desktop: Restbreite als Linie (Höhe = Kreismitte). Default rechts; .--center beidseitig.
+     Bei vollem/overflowendem Track flex → 0. */
+  @media (min-width: 768px) {
+    .story-iconslider__track::after,
+    .story-iconslider.--center .story-iconslider__track::before {
+      content: '';
+      flex: 1 1 0;
+      min-width: 0;
+      align-self: flex-start;
+      margin-top: calc(var(--story-size) / 2);
+      height: 0;
+      border-top: 1px solid var(--border-light);
+      pointer-events: none;
+    }
+    .story-iconslider.--center .story-iconslider__track {
+      justify-content: safe center;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .container .story-iconslider.--center .story-iconslider__track {
+      margin-inline-end: 0;
+      padding-inline-end: 0;
+    }
   }
   .story-iconslider__item {
     display: flex;
@@ -3513,42 +3780,50 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
 
   /* PDP Mosaic-Galerie — Alternative zu Thumbs (LIVOM-Style, nur Desktop ≥1100px)
-     Theme-Setting gallery: thumbs | mosaic · body[data-pdp-gallery="mosaic"] */
-  body[data-pdp-gallery="mosaic"] .pdp--sticky-gallery .pdp__gallery {
-    display: flex;
-    flex-direction: column;
-    gap: var(--base);
-    grid-template-columns: unset;
-    max-height: none;
-    overflow-y: visible;
-  }
-  body[data-pdp-gallery="mosaic"] .pdp__mosaic {
-    display: flex;
-    flex-direction: column;
-    gap: var(--base);
-    min-width: 0;
-  }
-  body[data-pdp-gallery="mosaic"] .pdp__mosaic-hero {
-    position: relative;
-  }
-  body[data-pdp-gallery="mosaic"] .pdp__mosaic-cell {
+     Theme-Setting gallery: thumbs | mosaic · body[data-pdp-gallery="mosaic"]
+     Mobile: immer Thumbs (Mosaic ausgeblendet). */
+  .pdp__mosaic { display: none; }
+  .pdp__mosaic-hero { position: relative; }
+  .pdp__mosaic-cell {
     aspect-ratio: 1 / 1;
     border: 1px solid transparent;
     overflow: hidden;
     position: relative;
   }
-  body[data-pdp-gallery="mosaic"] .pdp__mosaic-cell img,
-  body[data-pdp-gallery="mosaic"] .pdp__mosaic-cell video {
+  .pdp__mosaic-cell img,
+  .pdp__mosaic-cell video {
     width: 100%;
     height: 100%;
+    max-width: none;
+    max-height: none;
     object-fit: cover;
     display: block;
   }
+  .pdp__mosaic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--base);
+  }
   @media (min-width: 1100px) {
-    body[data-pdp-gallery="mosaic"] .pdp__mosaic-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    body[data-pdp-gallery="mosaic"] .pdp--sticky-gallery .pdp__gallery {
+      display: flex;
+      flex-direction: column;
       gap: var(--base);
+      grid-template-columns: unset;
+      max-height: none;
+      overflow-y: visible;
+      position: static;
+    }
+    body[data-pdp-gallery="mosaic"] .pdp--sticky-gallery .pdp__thumbs,
+    body[data-pdp-gallery="mosaic"] .pdp--sticky-gallery .pdp__main-image {
+      display: none;
+    }
+    body[data-pdp-gallery="mosaic"] .pdp__mosaic {
+      display: flex;
+      flex-direction: column;
+      gap: var(--base);
+      min-width: 0;
+      width: 100%;
     }
     body[data-pdp-gallery="mosaic"] .pdp__mosaic-cell .pdp__caption {
       opacity: 0;
@@ -3624,7 +3899,23 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     }
   }
 
-  /* ─── PDP Caption (Text-Layer über Hauptbild) ─── */
+  /* ─── PDP Caption (Text-Layer über Hauptbild) ───
+     Glass-Tint: --cat-*-light via data-pdp-cat am .pdp (Fallback: --bg). */
+  .pdp[data-pdp-cat="cbd"]           { --pdp-caption-glass: var(--cat-cbd-light); }
+  .pdp[data-pdp-cat="bauchspeichel"] { --pdp-caption-glass: var(--cat-bauchspeichel-light); }
+  .pdp[data-pdp-cat="blase"]         { --pdp-caption-glass: var(--cat-blase-light); }
+  .pdp[data-pdp-cat="niere"]         { --pdp-caption-glass: var(--cat-niere-light); }
+  .pdp[data-pdp-cat="herz"]          { --pdp-caption-glass: var(--cat-herz-light); }
+  .pdp[data-pdp-cat="leber"]         { --pdp-caption-glass: var(--cat-leber-light); }
+  .pdp[data-pdp-cat="beruhigung"]    { --pdp-caption-glass: var(--cat-beruhigung-light); }
+  .pdp[data-pdp-cat="gelenke"]       { --pdp-caption-glass: var(--cat-gelenke-light); }
+  .pdp[data-pdp-cat="magendarm"]     { --pdp-caption-glass: var(--cat-magendarm-light); }
+  .pdp[data-pdp-cat="fettsaeuren"]   { --pdp-caption-glass: var(--cat-fettsaeuren-light); }
+  .pdp[data-pdp-cat="haut"]          { --pdp-caption-glass: var(--cat-haut-light); }
+  .pdp[data-pdp-cat="immun"]         { --pdp-caption-glass: var(--cat-immun-light); }
+  .pdp[data-pdp-cat="atemwege"]      { --pdp-caption-glass: var(--cat-atemwege-light); }
+  .pdp[data-pdp-cat="hormone"]       { --pdp-caption-glass: var(--cat-hormone-light); }
+  .pdp[data-pdp-cat="ohren"]         { --pdp-caption-glass: var(--cat-ohren-light); }
   .pdp__caption.--hidden { display: none; }
   .pdp__caption {
     position: absolute;
@@ -3632,12 +3923,16 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     left: calc(var(--base) * 0.75);
     right: calc(var(--base) * 0.75);
     z-index: 1;
-    background: var(--color-overlay-light);
-    backdrop-filter: blur(6px);
+    background: color-mix(in srgb, var(--pdp-caption-glass, var(--bg)) 85%, transparent);
+    -webkit-backdrop-filter: blur(6px) saturate(1.15);
+    backdrop-filter: blur(6px) saturate(1.15);
     padding: var(--half-module);
     font-size: var(--text-base);
     line-height: var(--lh-base);
     color: var(--fg);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .pdp__caption { background: var(--pdp-caption-glass, var(--bg)); }
   }
   .pdp__caption-author {
     display: block;
@@ -3812,13 +4107,15 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .pdp__praxis { margin-top: var(--module-2xl); }
 
   /* ─── Sticky ATC (Mobile + Desktop, Opt-in) ───
-     Klasse .pdp--sticky-cta am PDP-Root (Shopify: sticky_atc).
-     Bar .pdp__sticky-cta als Sibling hinter <main>; sichtbar wenn
-     Kaufblock-CTA den Viewport verlässt (initPdpStickyCta).
-     Inhalt: Menge + CTA · Desktop (≥900px): + Größenwahl.
-     Kein Titel/Preis (steht schon im Kaufblock). */
+     Opt-in: .pdp--sticky-cta (Shopify: sticky_atc).
+     Styleguide: Bar als Sibling hinter <main.pdp--sticky-cta>.
+     Theme: Bar in der Product-Section (Sibling von .container).
+     Sichtbar wenn Kaufblock-CTA den Viewport verlässt (initPdpStickyCta).
+     Inhalt: Menge + CTA · Desktop (≥900px): + Größenwahl. */
   .pdp__sticky-cta { display: none; }
-  main.pdp--sticky-cta ~ .pdp__sticky-cta {
+  main.pdp--sticky-cta ~ .pdp__sticky-cta,
+  .shopify-section:has(.pdp--sticky-cta) > .pdp__sticky-cta,
+  .container:has(.pdp--sticky-cta) ~ .pdp__sticky-cta {
     display: block;
     position: fixed;
     left: 0;
@@ -3834,11 +4131,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     transition: transform var(--anim-mid);
     pointer-events: none;
   }
-  main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible {
+  main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible,
+  .shopify-section:has(.pdp--sticky-cta) > .pdp__sticky-cta.--visible,
+  .container:has(.pdp--sticky-cta) ~ .pdp__sticky-cta.--visible {
     transform: translateY(0);
     pointer-events: auto;
   }
-  body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
+  body:has(.pdp__sticky-cta.--visible) {
     padding-bottom: calc(var(--module) * 2 + env(safe-area-inset-bottom, 0px));
   }
   /* Wie .container / .footer-bar: max-width + Padding auf derselben Box */
@@ -3870,7 +4169,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     white-space: nowrap;
   }
   @media (min-width: 900px) {
-    body:has(main.pdp--sticky-cta ~ .pdp__sticky-cta.--visible) {
+    body:has(.pdp__sticky-cta.--visible) {
       padding-bottom: calc(var(--module) * 2.5 + env(safe-area-inset-bottom, 0px));
     }
     .pdp__sticky-cta__inner {
@@ -4377,11 +4676,41 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     .section-type { grid-template-columns: 1fr; }
     .section-type.--viewport { height: auto; max-height: none; }
     .section-type__image { min-height: 15rem; }
+    .section-type.--v1 .section-type__image:not(:has(img)),
+    .section-type.--v2 .section-type__image:not(:has(img)) { min-height: 15rem; }
+    .section-type.--v1 .section-type__image:has(img),
+    .section-type.--v2 .section-type__image:has(img) { min-height: 0; }
+    /* Mobil gestapelt: V1-Bild wieder natürliche Höhe (kein Desktop-Cover-Stretch) */
+    .section-type.--v1 .section-type__image picture {
+      height: auto;
+      min-height: 0;
+    }
+    .section-type.--v1 .section-type__image img {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      object-fit: unset;
+    }
     .section-type.--reverse { direction: ltr; }
     .section-type.--v1 .section-type__content,
     .section-type.--v2 .section-type__content {
       justify-content: flex-start;
       gap: 0;
+    }
+    /* Mobil gestapelt: grüne Box wieder inhaltsgroß (keine Medien-Match-Höhe) */
+    .section-type.--v2 .section-type__content {
+      height: auto;
+      min-height: 0;
+    }
+    .section-type.--v2.--viewport .section-type__image,
+    .section-type.--v2.--viewport .section-type__image img {
+      height: auto;
+      min-height: 0;
+      object-fit: unset;
+    }
+    .section-type.--v2.--viewport .section-type__image img {
+      width: 100%;
+      height: auto;
     }
     .section-type:has(.section-type__animation) .section-type__content {
       max-width: none;
@@ -4391,9 +4720,13 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       width: 100%;
       display: flex;
       flex-direction: column;
+      min-height: 0;
     }
     .section-type.--v3 .section-type__image {
       position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
       min-height: 15rem;
     }
     .section-type.--v3 .section-type__inner {

@@ -6,14 +6,13 @@
   <title>Shop · Mockup – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=177">
-  <link rel="stylesheet" href="../temp.css?v=20">
+  <link rel="stylesheet" href="../inuvet.css?v=179">
   <link rel="stylesheet" href="inuvet-shop.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
-<body class="--mockup-bar-visible">
+<body class="--mockup-bar-visible" id="top">
 
   <!-- Mockup-Steuerleiste (⌥M / Alt+M ausblenden) -->
   <div class="mockup-bar" id="mockupBar">
@@ -81,6 +80,20 @@
       </a>
     </div>
     <div class="nav-right">
+      <div class="nav-item --end">
+        <a href="#" class="nav-item__trigger" id="countryTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Land wählen">
+          <span data-country-label>DE</span>
+          <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown" role="menu">
+          <a href="#" role="menuitem" data-country="de" aria-current="true">Deutschland</a>
+          <a href="#" role="menuitem" data-country="at">Österreich</a>
+          <a href="#" role="menuitem" data-country="ch">Schweiz</a>
+        </div>
+      </div>
+      <a class="btn --icon" href="../styleguide.html#E6" aria-label="Anmelden">
+        <span class="material-icons">person</span>
+      </a>
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
       </button>
@@ -114,6 +127,11 @@
       <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile()">Freigegeben</a>
       <a href="#" class="--indent" onclick="return false;">Meine Provisionen</a>
       <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile()">So funktioniert's</a>
+      <a href="#" onclick="closeMobile(); return false;">Land</a>
+      <a href="#" class="--indent" data-country="de" aria-current="page" onclick="closeMobile(); return false;">Deutschland</a>
+      <a href="#" class="--indent" data-country="at" onclick="closeMobile(); return false;">Österreich</a>
+      <a href="#" class="--indent" data-country="ch" onclick="closeMobile(); return false;">Schweiz</a>
+      <a href="../styleguide.html#E6" onclick="closeMobile()">Anmelden</a>
     </div>
   </div>
 
@@ -366,14 +384,14 @@
           <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
         </div>
         <div class="tile">
-          <div class="tile__icon tile__animation --ratio-weltweit">
+          <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
           <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
           <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
         </div>
         <div class="tile">
-          <div class="tile__icon tile__animation --ratio-inhaltsstoffe">
+          <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/inuvet_animation_inhaltsstoffe.json?v=2" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
           <p class="tile__headline">Grüne Pfoten</p>
@@ -382,9 +400,14 @@
       </div>
     </div>
 
-    <!-- Closing Hero: Foto rechts (Variante 1 + reverse) · .media-credit Demo -->
+    <!-- Closing Hero: Foto rechts (Variante 1 + reverse) · img + .media-credit Demo -->
     <div class="section-type --v1 --reverse">
-      <div class="section-type__image media-credit" style="background-image:url('../assets/images/Hero_Mood_03.jpg'); --media-credit-color: color-mix(in srgb, var(--bg) 75%, transparent);" role="img" aria-label="Tierärztliche Untersuchung — Hund bei der Behandlung. A.I. generated">
+      <div class="section-type__image media-credit" style="--media-credit-color: color-mix(in srgb, var(--bg) 75%, transparent);">
+        <div class="floating-meta">
+          <div class="badge" data-cat="immun">Immun</div>
+          <div class="badge --dark">Praxis</div>
+        </div>
+        <img src="../assets/images/Hero_Mood_03.jpg" alt="Tierärztliche Untersuchung — Hund bei der Behandlung" width="4000" height="1958" loading="lazy">
         <span class="media-credit__label" aria-hidden="true">A.I. generated</span>
       </div>
       <div class="section-type__content flow">
@@ -436,7 +459,7 @@
       </div>
     </div>
     <div class="footer-bar">
-      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Nach oben</a>
       <div class="footer-payment" aria-label="Zahlungsarten">
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>
@@ -536,8 +559,7 @@
 
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="../inuvet.js?v=24"></script>
-  <script src="../temp.js?v=20"></script>
+  <script src="../inuvet.js?v=26"></script>
   <script src="inuvet-shop.js"></script>
 
 </body>

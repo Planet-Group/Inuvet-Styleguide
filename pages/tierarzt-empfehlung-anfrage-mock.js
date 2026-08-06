@@ -448,7 +448,7 @@ function empfehlungEnsurePortalFooter() {
       </div>
     </div>
     <div class="footer-bar">
-      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Nach oben</a>
       <div class="footer-payment" aria-label="Zahlungsarten">
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><text x="19" y="16" text-anchor="middle" font-size="8" fill="var(--fg-muted)">VISA</text></svg>
         <svg viewBox="0 0 38 24" aria-hidden="true"><rect width="37" height="23" x="0.5" y="0.5" fill="var(--accent-bg)" stroke="var(--border-light)"/><circle cx="15" cy="12" r="6" fill="var(--fg-muted)"/><circle cx="23" cy="12" r="6" fill="var(--border-light)"/></svg>

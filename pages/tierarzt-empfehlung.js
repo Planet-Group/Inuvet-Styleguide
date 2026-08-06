@@ -771,8 +771,9 @@ function pdpBuyHTML() {
 }
 
 function pdpMountHTML() {
+  const p = activeProduct;
   return `
-    <div class="pdp pdp--sticky-gallery">
+    <div class="pdp pdp--sticky-gallery"${p.cat ? ` data-pdp-cat="${p.cat}"` : ''}>
       ${pdpGalleryHTML()}
       <div class="pdp__buy" id="pdpBuy">
         ${pdpBuyHTML()}
@@ -883,14 +884,14 @@ function pdpPraxisHTML() {
           <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
         </div>
         <div class="tile">
-          <div class="tile__icon tile__animation --ratio-weltweit">
+          <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
           <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
           <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
         </div>
         <div class="tile">
-          <div class="tile__icon tile__animation --ratio-inhaltsstoffe">
+          <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/inuvet_animation_inhaltsstoffe.json?v=2" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
           <p class="tile__headline">Grüne Pfoten</p>

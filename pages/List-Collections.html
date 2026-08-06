@@ -6,9 +6,8 @@
   <title>Kategorien – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=177">
+  <link rel="stylesheet" href="../inuvet.css?v=178">
   <link rel="stylesheet" href="list-collections.css?v=1">
-  <link rel="stylesheet" href="../temp.css?v=20">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
 </head>
@@ -44,6 +43,20 @@
       </a>
     </div>
     <div class="nav-right">
+      <div class="nav-item --end">
+        <a href="#" class="nav-item__trigger" id="countryTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Land wählen">
+          <span data-country-label>DE</span>
+          <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown" role="menu">
+          <a href="#" role="menuitem" data-country="de" aria-current="true">Deutschland</a>
+          <a href="#" role="menuitem" data-country="at">Österreich</a>
+          <a href="#" role="menuitem" data-country="ch">Schweiz</a>
+        </div>
+      </div>
+      <a class="btn --icon" href="../styleguide.html#E6" aria-label="Anmelden">
+        <span class="material-icons">person</span>
+      </a>
       <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
         <span class="material-icons">search</span>
       </button>
@@ -71,6 +84,11 @@
       <a href="Collection.html" onclick="closeMobile()">Produkte</a>
       <a href="List-Collections.html" onclick="closeMobile()" aria-current="page">Kategorien</a>
       <a href="#" onclick="return false;">Service</a>
+      <a href="#" onclick="closeMobile(); return false;">Land</a>
+      <a href="#" class="--indent" data-country="de" aria-current="page" onclick="closeMobile(); return false;">Deutschland</a>
+      <a href="#" class="--indent" data-country="at" onclick="closeMobile(); return false;">Österreich</a>
+      <a href="#" class="--indent" data-country="ch" onclick="closeMobile(); return false;">Schweiz</a>
+      <a href="../styleguide.html#E6" onclick="closeMobile()">Anmelden</a>
     </div>
   </div>
 
@@ -233,7 +251,7 @@
       </div>
     </div>
     <div class="footer-bar">
-      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Zum Seitenanfang</a>
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Nach oben</a>
     </div>
   </footer>
 
@@ -257,8 +275,7 @@
     </div>
   </div>
 
-  <script src="../inuvet.js?v=24"></script>
-  <script src="../temp.js?v=20"></script>
+  <script src="../inuvet.js?v=26"></script>
   <script src="list-collections.js"></script>
 </body>
 </html>
