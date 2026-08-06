@@ -451,9 +451,9 @@ const allProducts = [
     image: '../assets/images/Hepax_Packshot_01.jpeg',
     media: [
       { type: 'image', src: '../assets/images/Hepax_Packshot_01.jpeg', alt: 'Packshot' },
-      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Pulver_1zu1.mp4', caption: 'Das Pulver lässt sich einfach dosieren und unter das Futter mischen' },
+      { type: 'video', src: '../assets/images/Hepax_Packshot_02.mp4', caption: 'Das Pulver lässt sich einfach dosieren und unter das Futter mischen' },
       { type: 'video', src: '../assets/images/Hepax_Packshot_03.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
-      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Hepax_Tier_01_Hund_1zu1.mp4', caption: 'Wohlschmeckend und einfach in der Gabe' },
+      { type: 'image', src: '../assets/images/Hepax_Packshot_04.png', alt: 'Packshot' },
       { type: 'image', src: '../assets/images/Hepax_Foto-Test.png', alt: 'Tierhalter mit Hund', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
     ],
     /* Rechtliche Futtermittel-Kategorie — feste Choice-Liste (Shopify Metafield) */
