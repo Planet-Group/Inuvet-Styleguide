@@ -431,8 +431,9 @@ const allProducts = [
     image: '../assets/images/Calmin_Packshot_01.jpeg',
     media: [
       { type: 'image', src: '../assets/images/Calmin_Packshot_01.jpeg', alt: 'Packshot' },
-      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Calmin_Tabletten_1zu1.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
-      { type: 'video', src: '../assets/images/Inuvet_Einzelprodukt_Calmin_Tier_Hund_2_1zu1.mp4', caption: 'Wohlschmeckend und dadurch einfach in der Gabe' },
+      { type: 'video', src: '../assets/images/Calmin_Packshot_02.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
+      { type: 'video', src: '../assets/images/Calmin_Packshot_03.mp4', caption: 'Wohlschmeckend und dadurch einfach in der Gabe' },
+      { type: 'image', src: '../assets/images/Calmin_Packshot_04.png', alt: 'Packshot' },
     ],
     shortDesc: 'Für Entspannung und innere Balance.',
     desc: 'Unterstützt die natürliche Ausgeglichenheit von Hunden und Katzen. Schonend gewonnen, tierärztlich entwickelt und geprüft.',

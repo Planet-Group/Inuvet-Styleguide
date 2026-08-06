@@ -5,7 +5,7 @@ const HERO_IMG = '../assets/images/Hero_Mood_03.jpg';
 
 const CALMIN_1 = '../assets/images/Calmin_Packshot_01.jpeg';
 const CALMIN_2 = '../assets/images/Calmin_Packshot_02.png';
-const CALMIN_3 = '../assets/images/Calmin_Packshot_03.png';
+const CALMIN_3 = '../assets/images/Calmin_Packshot_04.png';
 const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
 const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
 
