@@ -453,8 +453,7 @@ const allProducts = [
       { type: 'image', src: '../assets/images/Hepax_Packshot_01.jpeg', alt: 'Packshot' },
       { type: 'video', src: '../assets/images/Hepax_Packshot_02.mp4', caption: 'Das Pulver lässt sich einfach dosieren und unter das Futter mischen' },
       { type: 'video', src: '../assets/images/Hepax_Packshot_03.mp4', caption: 'Teilbare Tabletten mit hoher Akzeptanz' },
-      { type: 'image', src: '../assets/images/Hepax_Packshot_04.png', alt: 'Packshot' },
-      { type: 'image', src: '../assets/images/Hepax_Foto-Test.png', alt: 'Tierhalter mit Hund', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
+      { type: 'image', src: '../assets/images/Hepax_Packshot_04.png', alt: 'Packshot', caption: '„Hepax forte hilft meinen Patienten nach der OP. Schnelle Lieferung, unkompliziert.“', author: 'Klaus W. · Tierärztin, Frankfurt' },
     ],
     /* Rechtliche Futtermittel-Kategorie — feste Choice-Liste (Shopify Metafield) */
     feedCategory: 'Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel',
