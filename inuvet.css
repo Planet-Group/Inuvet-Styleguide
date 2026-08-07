@@ -2951,6 +2951,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     transition: border-color var(--anim-fast), background var(--anim-fast);
     user-select: none;
   }
+  /* display:inline-flex schlägt UA-[hidden] — PDP-Größenfilter braucht das */
+  .choice-box[hidden] { display: none; }
   .choice-box.--active,
   .choice-box:has(input:checked) { border-color: var(--border-active); background: var(--green-light); color: var(--fg); }
   /* Ausverkauft / nicht verfügbar — Shopify: variant.available == false */
@@ -4026,6 +4028,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   /* Gleicher Abstand wie Größen-Selektor → Actions (--half-module) */
   .pdp__actions + .nr-widget { margin-top: var(--half-module); }
   .pdp__actions + .nr-widget + .accordion { margin-top: 0; }
+  .pdp__info > form + .social-proof { margin-top: var(--half-module); }
+  .pdp__info > form + .pdp__accordion,
+  .pdp__info > .social-proof + .pdp__accordion {
+    margin-top: var(--half-module);
+  }
   /* Legacy: Notice-Hinweis (Styleguide-Altstände / andere Kontexte) */
   .pdp__actions + .notice { margin-top: var(--module); }
   .pdp__actions + .notice + .accordion { margin-top: var(--module); }
@@ -4067,13 +4074,18 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .nr-widget:has(+ .pdp__accordion),
   .nr-widget:has(+ .social-proof) { margin-bottom: var(--half-module); }
   .nr-widget:has(+ .pdp__accordion) + .pdp__accordion,
-  .nr-widget + .nr-widget:has(+ .pdp__accordion) + .pdp__accordion,
-  .pdp__info > .social-proof + .pdp__accordion {
+  .nr-widget + .nr-widget:has(+ .pdp__accordion) + .pdp__accordion {
     margin-top: 0;
   }
   .pdp__actions + .social-proof { margin-top: var(--half-module); }
-  /* Produkt-Akkordeon unter dem Kaufblock — volle Breite, Desktop 2 Spalten. */
+  /* Produkt-Akkordeon: Default eng; --module nur ≥1536 wenn Social Proof in Aside */
   .pdp__accordion { margin-top: var(--half-module); }
+  @media (min-width: 1536px) {
+    .pdp--sticky-gallery .pdp__info > .social-proof + .pdp__accordion,
+    .pdp--sticky-gallery .pdp__info > form + .pdp__accordion {
+      margin-top: var(--module);
+    }
+  }
   /* Nachfolger unter dem Akkordeon brauchen den früheren Section-Abstand */
   .pdp__accordion + .pdp__benefits,
   .pdp__accordion + .ingredient-list { margin-top: var(--module); }
@@ -4231,9 +4243,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     font-weight: 700;
   }
 
-  /* Persönliches Angebot — nur mit Bestellhistorie (past6Months > 0) */
+  /* Persönliches Angebot — nur mit Bestellhistorie (past6Months > 0).
+     Kein margin-bottom: Abstand zum Akkordeon kommt vom Nachfolger (Social Proof / Accordion). */
   .nr-widget.--personal {
     gap: var(--half-module);
+    margin-bottom: 0;
   }
   .nr-widget__hook {
     margin: 0;

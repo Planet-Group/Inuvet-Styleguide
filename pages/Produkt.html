@@ -6,7 +6,7 @@
   <title>Produkt – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=177">
+  <link rel="stylesheet" href="../inuvet.css?v=179">
   <link rel="stylesheet" href="bundle.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
@@ -266,7 +266,8 @@
         : null;
       pdpState.personalOffer = personal;
 
-      /* Mit Historie: zuerst nur persönliches Angebot; nach ATC → Standard-Widget */
+      /* Mit Historie: persönliches Angebot; nach ATC kein Folge-Widget */
+      if (pdpState.personalOfferDismissed && !nrForceDefault) return '';
       if (personal && personal.free > 0) {
         return nrWidgetPersonalHTML(p, personal);
       }
