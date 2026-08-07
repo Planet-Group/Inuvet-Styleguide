@@ -1,0 +1,272 @@
+/* ═══════════════════════════════════════════════════════
+   tierarzt-empfehlung.css
+   Seitenspezifische Darstellungsanpassungen für dieses Mockup.
+   Nie in Produktion einbinden.
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── Logo-Override (nur diese Seite) ─── */
+.nav-center img { transform: scale(1.5); }
+
+/* ─── Hero-Content-Box: leicht transparent ─── */
+body.--page-home .section-type.--v3 .section-type__content {
+  background: color-mix(in srgb, var(--green-light) 80%, transparent);
+}
+
+.testimonial-slider.--no-borders .testimonial { border-top: none; padding-top: 0; }
+
+/* ─── So funktioniert's — Prozess-Pfad ─── */
+.hiw {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--base) * 0.6) 0;
+}
+.hiw .container { padding-top: 0; padding-bottom: 0; }
+
+.hiw__track {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Node — offener Kreis als Prozess-Punkt */
+.hiw__step {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--base) * 0.4);
+  flex: 0 0 auto;
+  max-width: 13rem;
+}
+
+.hiw__node {
+  width:  calc(var(--base) * 0.6);
+  height: calc(var(--base) * 0.6);
+  border: 1.5px solid var(--fg-muted);
+  border-radius: 50%;
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: calc(var(--base) * 0.2);
+}
+
+.hiw__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.05);
+}
+
+.hiw__num {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1.2;
+}
+
+.hiw__text {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  line-height: var(--lh-base);
+  margin: 0;
+}
+
+/* Verbindungslinie zwischen den Schritten */
+.hiw__connector {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--border);
+  margin-top: calc(var(--base) * 0.5);
+  min-width: var(--half-module);
+}
+
+@media (max-width: 600px) {
+  .hiw__track    { flex-direction: column; gap: calc(var(--base) * 0.5); }
+  .hiw__step     { max-width: none; }
+  .hiw__connector { display: none; }
+}
+
+/* ─── Produktfinder-Modal — Gerüst global (.modal__header/__body/__footer, C.10),
+   hier nur Finder-Inhalt ─── */
+.finder__modal {
+  max-width: 28rem;
+  width: 100%;
+}
+.finder__question {
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin: 0;
+}
+.finder__options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.4);
+}
+.finder__options.--row { flex-direction: row; }
+.finder__options.--row .choice-box { flex: 1; }
+.finder__results {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.5);
+}
+
+/* ─── Seiten-Elemente ─── */
+.shop-page-title {
+  font-size: var(--text-m);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  margin-bottom: var(--half-module);
+}
+
+/* ─── Login-Panel: Abweichungen für Freigabe-Mockup ─── */
+/* Sub-Text agiert als Headline (kein .login-panel__title) */
+.login-form-panel .login-panel__header        { margin-bottom: var(--half-module); }
+.login-form-panel .login-panel__sub           { font-size: var(--text-m); font-weight: 700; color: var(--fg); line-height: var(--lh-h3); }
+/* Passwort-Feld direkt über »Passwort vergessen?« — kein unterer Abstand */
+.login-forgot-wrap > .form-field              { margin-bottom: 0; }
+
+/* ─── Tierarzt-Suche ─── */
+.vet-search { position: relative; margin-bottom: var(--half-module); }
+.vet-search__intro { color: var(--fg-muted); font-size: var(--text-base); margin-bottom: var(--half-module); }
+
+/* ─── Praxis-Finder: vollflächiges Overlay mit Karten-Platzhalter ─── */
+.vet-map-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay-dark);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--anim-base), visibility var(--anim-base);
+}
+.vet-map-overlay.--open { opacity: 1; visibility: visible; }
+.vet-map-panel {
+  width: 100%;
+  max-width: var(--container-max);
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+.vet-map-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--module);
+}
+
+/* ─── Tierarzt-Dropdown ─── */
+.vet-dropdown__meta {
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+}
+.vet-dropdown__add-icon {
+  font-size: var(--base);
+  vertical-align: middle;
+  margin-right: calc(var(--base) * 0.25);
+  color: var(--fg-muted);
+}
+
+/* ─── Freigabe-Badges (drei Kontexte — Visuals global aus inuvet.css) ─
+   1. Pill-Badge auf Produktbild (top-right): .badge.--pill / .--pill.--honey (B.2)
+   2. .circle-badge.--check auf choice-box (absolut positioniert)
+   3. .circle-badge.--check inline in PDP-Darreichungsform-Zeile
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* 1 — Pill-Badge: nur Positionierung via floating-meta top-right */
+.floating-meta.--right {
+  left: auto;
+  right: calc(var(--base) * 0.75);
+}
+
+/* 2 — choice-box: nur Positionierung, Visuals via .circle-badge */
+.choice-box.--approved { position: relative; }
+.choice-box__check {
+  position: absolute;
+  top: calc(var(--base) * -0.5);
+  right: calc(var(--base) * -0.5);
+}
+
+/* 3 — PDP-Darreichungsform: Label als Flex-Container für inline-Badge */
+.pdp__type-row.--approved .pdp__type-label {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--base) * 0.4);
+}
+/* .pdp__type-badge erbt alle Visuals von .circle-badge.--check */
+
+/* ─── Hero Split — Gast-Zustand ─── */
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--half-module);
+}
+
+.hero-split__divider {
+  border-left: 1px dashed var(--border);
+}
+
+.hero-split__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-split__text {
+  color: var(--fg);
+  line-height: var(--lh-base);
+  flex: 1;
+}
+
+@media (min-width: 1100px) {
+  .hero-split__text {
+    font-size: calc(var(--base) * 1.125);
+  }
+  .hero-split .btn {
+    font-size: calc(var(--base) * 1.125);
+    padding: calc(var(--base) * 1.25) var(--module);
+  }
+}
+
+/* ─── Cart Drawer — Freigabe-Anfrage Schritt (komplett Honey) ─── */
+.cart-drawer.--request-step .cart-drawer__items,
+.cart-drawer.--request-step .cart-drawer__footer {
+  background: var(--color-honey);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+  --field-bg: var(--color-honey);
+  --field-bg-active: var(--color-honey);
+}
+.cart-drawer.--request-step .cart-drawer__items {
+  padding: var(--half-module) var(--module) var(--module);
+}
+/* Kompaktes Notizfeld — globale min-height (8rem) ist hier zu hoch */
+.cart-drawer.--request-step .vet-request__notes textarea { min-height: 4rem; }
+.vet-request__hint {
+  font-size: var(--text-base);
+  color: var(--fg-muted);
+  margin: calc(var(--base) * 0.25) 0 0;
+}
+.vet-request__hint a { color: var(--fg); font-weight: 700; text-decoration: underline; }
+/* Submit-Leiste: klar abgesetzter Footer mit Schatten über volle Drawer-Breite */
+.cart-drawer.--request-step .cart-drawer__footer.--submit {
+  padding: var(--half-module) var(--module);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Cart Drawer — Freizugebende Produkte, Honey-Sektion ─── */
+.cart-section.--requested {
+  background: var(--color-honey);
+  margin: 0 calc(var(--module) * -1) 0;
+  padding: var(--half-module) var(--module) var(--module);
+  --fg-muted: var(--fg);
+  --border: rgba(0, 0, 0, 0.2);
+  --border-light: rgba(0, 0, 0, 0.15);
+}
+.cart-drawer__items > .cart-section.--requested:first-child {
+  margin-top: 0;
+}
+
+/* ─── Test-Hero: kein margin-top, direkt unter Nav ─── */
+.section-type.--v1.--hero-test { margin-top: 0; }

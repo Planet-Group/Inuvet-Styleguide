@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Mail-Vorlagen – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=2">
+  <link rel="stylesheet" href="email-template-generator.css">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-page__card em-card">
+
+    <header class="form-page__header">
+      <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+    </header>
+
+    <div class="em-page-header">
+      <h1 class="form-page__title" data-i18n="pageTitle">E-Mail-Vorlagen</h1>
+      <p class="em-intro" data-i18n="pageIntro">System-Mails für SAP, Shopify, Gmail &amp; Co. — Bausteine wählen, Vorschau prüfen, HTML exportieren.</p>
+    </div>
+    <p class="em-crosslink">
+      <a href="Signature-Generator.html" data-i18n="crosslinkSignature">Zur E-Mail-Signatur</a>
+    </p>
+
+    <div class="col-grid em-layout" data-cols="2">
+
+      <div>
+        <form id="em-form">
+
+          <div class="form-field em-locale-field">
+            <select id="f-locale" required>
+              <option value="de" selected>Deutschland</option>
+              <option value="at">Österreich</option>
+              <option value="ch-de">Schweiz (DE)</option>
+              <option value="ch-fr">Schweiz (FR)</option>
+              <option value="ch-it">Schweiz (IT)</option>
+              <option value="fr">Frankreich</option>
+              <option value="be-fr">Belgien (FR)</option>
+              <option value="be-nl">Belgien (NL)</option>
+              <option value="nl">Niederlande</option>
+              <option value="es">Spanien</option>
+              <option value="it">Italien</option>
+              <option value="ie">Irland</option>
+            </select>
+            <label for="f-locale" data-i18n="localeLabel">Land / Sprache</label>
+          </div>
+
+          <div class="em-brand-wrap --hidden" id="brand-wrap">
+            <h3 class="section-label --sub" data-i18n="sectionBrand">Marke</h3>
+            <div class="em-brand-options">
+              <label class="form-check">
+                <input type="radio" name="f-brand" id="f-brand-inuvet" value="inuvet" checked>
+                <span>Inuvet</span>
+              </label>
+              <label class="form-check">
+                <input type="radio" name="f-brand" id="f-brand-vetalita" value="vetalita">
+                <span>Vetalità</span>
+              </label>
+            </div>
+            <p class="em-field-hint" data-i18n="brandHint">In Italien heißt Inuvet aus rechtlichen Gründen Vetalità — Logo, Firma und Website passen sich an.</p>
+          </div>
+
+          <div class="form-field em-preset-field">
+            <select id="f-preset" required>
+              <option value="rechnung" selected data-i18n-option="presetRechnung">Rechnung (z. B. SAP)</option>
+              <option value="service" data-i18n-option="presetService">Service / Bestätigung (z. B. Gmail)</option>
+              <option value="status" data-i18n-option="presetStatus">Status / Anfrage (z. B. Shopify)</option>
+              <option value="footer" data-i18n-option="presetFooter">Nur Footer (System-Text)</option>
+              <option value="custom" data-i18n-option="presetCustom">Leer / frei gestalten</option>
+            </select>
+            <label for="f-preset" data-i18n="presetLabel">Vorlage</label>
+          </div>
+          <p class="em-field-hint" id="em-preset-hint" data-i18n-html="hintDefault">Vorlagen sind Ausgangspunkte — Inhalt und Bausteine bleiben editierbar. Platzhalter wie <code>{{rechnungsnummer}}</code> können die Zielsysteme ersetzen.</p>
+
+          <div id="content-wrap">
+          <h3 class="section-label --sub" data-i18n="sectionContent">Inhalt</h3>
+
+          <div class="form-field">
+            <input id="f-subject" type="text" placeholder=" " value="">
+            <label for="f-subject" data-i18n="subject">Betreff (Hinweis)</label>
+          </div>
+          <p class="em-field-hint" data-i18n="subjectHint">Der Betreff wird nicht ins HTML geschrieben — nur als Merker für die Einpflege ins Zielsystem.</p>
+
+          <div class="form-field">
+            <input id="f-headline" type="text" placeholder=" " value="">
+            <label for="f-headline" data-i18n="headline">Überschrift (optional)</label>
+          </div>
+
+          <div class="form-field">
+            <input id="f-salutation" type="text" placeholder=" " value="">
+            <label for="f-salutation" data-i18n="salutation">Anrede</label>
+          </div>
+
+          <div class="form-field">
+            <textarea id="f-body" placeholder=" " rows="6"></textarea>
+            <label for="f-body" data-i18n="body">Fließtext</label>
+          </div>
+          <p class="em-field-hint" data-i18n-html="bodyHint">Absätze mit Leerzeile trennen. Eine Zeile mit <code>• </code> oder <code>- </code> wird als Aufzählung gesetzt.</p>
+
+          <div class="form-field">
+            <input id="f-closing" type="text" placeholder=" " value="">
+            <label for="f-closing" data-i18n="closing">Grußformel (optional)</label>
+          </div>
+
+          <div class="form-field">
+            <input id="f-cta-label" type="text" placeholder=" " value="">
+            <label for="f-cta-label" data-i18n="ctaLabel">Button-Text (optional)</label>
+          </div>
+          <div class="form-field">
+            <input id="f-cta-url" type="text" placeholder=" " value="" inputmode="url" autocomplete="off">
+            <label for="f-cta-url" data-i18n="ctaUrl">Button-Link</label>
+          </div>
+          </div>
+
+          <h3 class="section-label --sub" data-i18n="sectionBlocks">Bausteine</h3>
+
+          <label class="form-check">
+            <input type="checkbox" id="f-block-logo" checked>
+            <span data-i18n="blockLogo">Logo oben</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-person">
+            <span data-i18n="blockPerson">Kontaktperson</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-contact" checked>
+            <span data-i18n="blockContact">Kontakthinweis</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-company" checked>
+            <span data-i18n="blockCompany">Firma &amp; Adresse</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-disclaimer" checked>
+            <span data-i18n="blockDisclaimer">„Nur in eurer Praxis“</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-social" checked>
+            <span data-i18n="blockSocial">Social Media</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" id="f-block-imprint" checked>
+            <span data-i18n="blockImprint">Imprint</span>
+          </label>
+
+          <div class="em-person-wrap --hidden" id="person-wrap">
+            <div class="form-field">
+              <input id="f-person-name" type="text" placeholder=" " value="Max Mustermann" autocomplete="name">
+              <label for="f-person-name" data-i18n="personName">Name</label>
+            </div>
+            <div class="form-field">
+              <input id="f-person-role" type="text" placeholder=" " value="">
+              <label for="f-person-role" data-i18n="personRole">Rolle (optional)</label>
+            </div>
+            <div class="form-field">
+              <input id="f-person-photo" type="text" placeholder=" " value="https://image.email.inuvet.com/lib/fe2b11737364047b7c1477/m/1/94ec4747-3a90-410e-b6f1-143a0e651845.jpg" inputmode="url" autocomplete="off">
+              <label for="f-person-photo" data-i18n="personPhoto">Portrait-URL</label>
+            </div>
+          </div>
+
+          <div class="form-field em-contact-wrap" id="contact-wrap">
+            <textarea id="f-contact" placeholder=" " rows="4"></textarea>
+            <label for="f-contact" data-i18n="contactHint">Kontakthinweis</label>
+          </div>
+
+        </form>
+      </div>
+
+      <div>
+        <h3 class="section-label --sub" data-i18n="sectionPreview">Vorschau</h3>
+
+        <div class="em-preview-meta" id="em-subject-preview"></div>
+
+        <div class="em-preview">
+          <div id="email-preview"></div>
+        </div>
+
+        <div class="btn-row em-actions">
+          <button type="button" class="btn --primary --full --with-icon" id="copy-btn">
+            <span class="material-icons" aria-hidden="true">content_copy</span>
+            <span data-i18n="copyBtn">HTML kopieren</span>
+          </button>
+          <button type="button" class="btn --secondary --full --with-icon" id="html-btn">
+            <span class="material-icons" aria-hidden="true">code</span>
+            <span data-i18n="htmlBtn">HTML-Datei herunterladen</span>
+          </button>
+        </div>
+
+        <div class="em-instructions" id="em-instructions"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="em-copy-target" aria-hidden="true"></div>
+
+<script src="../inuvet.js?v=2"></script>
+<script src="email-template-generator.js"></script>
+
+</body>
+</html>

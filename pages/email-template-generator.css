@@ -1,0 +1,188 @@
+/* ══════════════════════════════════════════════════════════════
+   email-template-generator.css — System-E-Mail Vorlagen
+   Shell via .form-page* (inuvet.css); hier nur Seiten-Spezifika
+   ══════════════════════════════════════════════════════════════ */
+
+.em-card {
+  max-width: calc(var(--form-page-max) * 1.5);
+}
+
+.em-page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--half-module) var(--module);
+  margin-bottom: var(--module);
+}
+
+.em-page-header .form-page__title {
+  margin-bottom: 0;
+}
+
+.em-intro {
+  color: var(--fg-muted);
+  margin-bottom: 0;
+}
+
+.em-crosslink {
+  margin: calc(var(--half-module) * -0.5) 0 var(--module);
+  font-size: var(--text-sm);
+}
+
+.em-crosslink a {
+  color: var(--fg-muted);
+}
+
+.em-crosslink a:hover {
+  color: var(--green);
+}
+
+.em-locale-field {
+  margin-bottom: var(--half-module);
+}
+
+.em-brand-wrap {
+  margin-bottom: var(--module);
+}
+
+.em-brand-wrap.--hidden {
+  display: none;
+}
+
+.em-brand-options {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.em-brand-options .form-check {
+  margin-bottom: 0;
+}
+
+.em-preset-field {
+  margin-bottom: var(--half-module);
+}
+
+.em-field-hint {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  margin: 0 0 var(--half-module);
+}
+
+.em-field-hint code {
+  font-size: 0.95em;
+}
+
+#content-wrap.--hidden {
+  display: none;
+}
+
+.em-contact-wrap {
+  margin-top: var(--half-module);
+}
+
+.em-person-wrap {
+  margin-top: var(--half-module);
+}
+
+.em-contact-wrap.--hidden,
+.em-person-wrap.--hidden {
+  display: none;
+}
+
+.em-preview-meta {
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  margin-bottom: calc(var(--half-module) * 0.5);
+  min-height: 1.35em;
+}
+
+.em-preview-meta:empty {
+  display: none;
+}
+
+.em-preview {
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  padding: var(--module);
+  min-height: calc(var(--module) * 10);
+}
+
+#email-preview {
+  font-size: small;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.45;
+  color: #2E2E2E;
+  max-width: 600px;
+}
+
+#email-preview * {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#email-preview a {
+  color: #78b41b;
+}
+
+#email-preview a[href=""] {
+  color: #666666;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.em-actions {
+  flex-direction: column;
+  margin-top: var(--half-module);
+}
+
+.em-actions .btn.--copied {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--bg);
+}
+
+.em-instructions {
+  margin-top: var(--module);
+}
+
+.em-instructions > .section-label {
+  margin-bottom: var(--half-module);
+}
+
+.em-instr {
+  margin-bottom: var(--module);
+}
+
+.em-instr:last-child {
+  margin-bottom: 0;
+}
+
+.em-instr__title {
+  font-weight: 700;
+  margin-bottom: calc(var(--half-module) * 0.5);
+}
+
+.em-instr__steps {
+  padding-left: var(--base);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--base) * 0.35);
+}
+
+.em-instr__steps strong {
+  color: var(--fg);
+}
+
+.em-instructions .notice {
+  margin-bottom: var(--module);
+}
+
+#em-copy-target {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  background-color: var(--bg);
+}

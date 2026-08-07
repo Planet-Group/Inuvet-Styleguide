@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kategorien – inuvet</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../inuvet.css?v=178">
+  <link rel="stylesheet" href="list-collections.css?v=1">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <script src="../mockup-ui.js?v=2" defer></script>
+</head>
+<body class="--mockup-bar-visible list-collections" id="top">
+
+  <div class="announcement-bar --marquee" id="announcementBar">
+    <div class="announcement-bar__track">
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+      <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    </div>
+  </div>
+
+  <nav class="site-nav" aria-label="Seiten-Navigation">
+    <div class="nav-left">
+      <button class="nav-hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-item"><a href="Inuvet-Shop.html" class="nav-item__trigger">Home</a></div>
+      <div class="nav-item"><a href="Collection.html" class="nav-item__trigger">Produkte</a></div>
+      <div class="nav-item"><a href="List-Collections.html" class="nav-item__trigger" aria-current="page">Kategorien</a></div>
+      <div class="nav-item"><a href="#" class="nav-item__trigger" onclick="return false;">Service</a></div>
+    </div>
+    <div class="nav-center">
+      <a class="nav-logo" href="Inuvet-Shop.html" aria-label="Zur Startseite">
+        <img class="nav-logo__img --inuvet" src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
+        <img class="nav-logo__img --campus" src="../assets/graphics/Campus_Logo_RGB.svg" alt="">
+      </a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-item --end">
+        <a href="#" class="nav-item__trigger" id="countryTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Land wählen">
+          <span data-country-label>DE</span>
+          <span class="material-icons" aria-hidden="true">expand_more</span>
+        </a>
+        <div class="nav-item__dropdown" role="menu">
+          <a href="#" role="menuitem" data-country="de" aria-current="true">Deutschland</a>
+          <a href="#" role="menuitem" data-country="at">Österreich</a>
+          <a href="#" role="menuitem" data-country="ch">Schweiz</a>
+        </div>
+      </div>
+      <a class="btn --icon" href="../styleguide.html#E6" aria-label="Anmelden">
+        <span class="material-icons">person</span>
+      </a>
+      <button class="btn --icon" aria-label="Suche" onclick="openSearch()">
+        <span class="material-icons">search</span>
+      </button>
+      <button class="btn --icon icon-badged" aria-label="Warenkorb" id="cartBtn" onclick="openCart()">
+        <span class="material-icons">shopping_cart</span>
+        <span class="badge --count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="search-overlay" id="searchOverlay" onclick="handleSearchOverlayClick(event)">
+    <div class="search-panel" id="searchPanel">
+      <div class="search-panel__bar">
+        <span class="material-icons">search</span>
+        <input class="search-panel__input" id="searchInput" type="search" placeholder="Produkt oder Kategorie suchen …" autocomplete="off" aria-label="Suche">
+        <button class="btn --icon" onclick="closeSearch()" aria-label="Suche schließen"><span class="material-icons">close</span></button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox"></div>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+    <div class="nav-col">
+      <a href="Inuvet-Shop.html" onclick="closeMobile()">Home</a>
+      <a href="Collection.html" onclick="closeMobile()">Produkte</a>
+      <a href="List-Collections.html" onclick="closeMobile()" aria-current="page">Kategorien</a>
+      <a href="#" onclick="return false;">Service</a>
+      <a href="#" onclick="closeMobile(); return false;">Land</a>
+      <a href="#" class="--indent" data-country="de" aria-current="page" onclick="closeMobile(); return false;">Deutschland</a>
+      <a href="#" class="--indent" data-country="at" onclick="closeMobile(); return false;">Österreich</a>
+      <a href="#" class="--indent" data-country="ch" onclick="closeMobile(); return false;">Schweiz</a>
+      <a href="../styleguide.html#E6" onclick="closeMobile()">Anmelden</a>
+    </div>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer"></div>
+
+  <!--
+    List-Collections (E.9) — Shopify: sections/collections.liquid
+    Intro: optional .collection-intro.flow (h1 + .rte) wie Collection / show_title · show_description
+    Layout: Indikationen als .tile.--featured, BG --cat-*-light
+    Grid: .tile-grid.--cols-3 · Reihenfolge alphabetisch DE
+    Demo: Cover-Kacheln mit Packshot (Beruhigung / Calmin, Leber / Hepax)
+    Text unten via .tile__bottom (Cover + reine Farb-Kacheln)
+    min-height Featured ohne Media + mobil Quadrat → list-collections.css
+    body.list-collections für engen Scope
+  -->
+  <main class="container" id="MainContent">
+    <div class="collection-intro flow" id="collectionIntro" hidden>
+      <h1 id="collectionTitle" hidden>Indikationen</h1>
+      <div class="rte" id="collectionDesc" hidden>
+        <p>Nahrungsergänzung nach Gesundheitsbereich — wähle eine Indikation, um passende Produkte zu sehen.</p>
+      </div>
+    </div>
+
+    <div class="tile-grid --cols-3">
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-atemwege-light)" data-cat="atemwege">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Atemwege</h3>
+          <p class="tile__body">4 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-bauchspeichel-light)" data-cat="bauchspeichel">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Bauchspeicheldrüse</h3>
+          <p class="tile__body">4 Produkte</p>
+        </div>
+      </a>
+
+      <!-- Demo: Packshot als Cover-Hintergrund (Calmin → Beruhigung) -->
+      <a class="tile --featured --cover" href="Collection.html" style="background: var(--cat-beruhigung-light)" data-cat="beruhigung">
+        <img class="tile__cover" src="../assets/images/Calmin_Packshot_01.jpeg" alt="">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Beruhigung</h3>
+          <p class="tile__body">5 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-blase-light)" data-cat="blase">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Blase</h3>
+          <p class="tile__body">3 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-cbd-light)" data-cat="cbd">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">CBD</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-fettsaeuren-light)" data-cat="fettsaeuren">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Fettsäuren</h3>
+          <p class="tile__body">3 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-gelenke-light)" data-cat="gelenke">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Gelenke</h3>
+          <p class="tile__body">6 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-haut-light)" data-cat="haut">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Haut &amp; Fell</h3>
+          <p class="tile__body">4 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-herz-light)" data-cat="herz">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Herz</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-hormone-light)" data-cat="hormone">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Hormone</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-immun-light)" data-cat="immun">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Immun</h3>
+          <p class="tile__body">5 Produkte</p>
+        </div>
+      </a>
+
+      <!-- Demo: Packshot als Cover-Hintergrund (Hepax → Leber) -->
+      <a class="tile --featured --cover" href="Collection.html" style="background: var(--cat-leber-light)" data-cat="leber">
+        <img class="tile__cover" src="../assets/images/Hepax_Packshot_01.jpeg" alt="">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Leber</h3>
+          <p class="tile__body">8 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-magendarm-light)" data-cat="magendarm">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Magen &amp; Darm</h3>
+          <p class="tile__body">7 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-niere-light)" data-cat="niere">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Niere</h3>
+          <p class="tile__body">3 Produkte</p>
+        </div>
+      </a>
+
+      <a class="tile --featured" href="Collection.html" style="background: var(--cat-ohren-light)" data-cat="ohren">
+        <div class="tile__bottom flow">
+          <h3 class="tile__headline">Ohren</h3>
+          <p class="tile__body">2 Produkte</p>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" id="shopFooter">
+    <div class="footer-main">
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="Collection.html">Alle Produkte</a></li>
+          <li><a href="List-Collections.html">Kategorien</a></li>
+          <li><a href="#" onclick="openSearch();return false;">Produkt suchen</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">AGB</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Über inuvet</h4>
+        <p>Tierärztlich entwickelte Nahrungsergänzung für Hunde und Katzen — seit über 20 Jahren.</p>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <a href="#top" class="footer-bar__top"><span class="material-icons" aria-hidden="true">arrow_upward</span> Nach oben</a>
+    </div>
+  </footer>
+
+  <div class="mockup-bar" role="region" aria-label="Mockup: Shopify Section-Setting">
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">Logo:</span>
+      <button type="button" class="mockup-btn --active" data-nav-logo-btn="inuvet">inuvet</button>
+      <button type="button" class="mockup-btn" data-nav-logo-btn="campus">Campus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">title</span>
+      <button type="button" class="mockup-btn" id="mockTitleOn">an</button>
+      <button type="button" class="mockup-btn" id="mockTitleOff">aus</button>
+    </div>
+    <div class="mockup-bar__sep"></div>
+    <div class="mockup-bar__group">
+      <span class="mockup-bar__group-label">description</span>
+      <button type="button" class="mockup-btn" id="mockDescOn">an</button>
+      <button type="button" class="mockup-btn" id="mockDescOff">aus</button>
+    </div>
+  </div>
+
+  <script src="../inuvet.js?v=26"></script>
+  <script src="list-collections.js"></script>
+</body>
+</html>
