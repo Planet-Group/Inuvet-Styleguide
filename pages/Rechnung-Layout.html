@@ -172,7 +172,9 @@ strong { font-weight: var(--wd); }
 .inv-totals .row .v::before { content: "€\00a0"; }
 .inv-totals .row .rate { font-variant-numeric: tabular-nums; text-align: right; color: var(--fg-muted); min-width: 22mm; }
 .inv-totals .row.tax .rate::before { content: "€\00a0"; }
-.inv-totals .row.net { border-bottom: 1px dashed var(--fg); }
+.inv-totals .row.subtotal { border-bottom: 1px dashed var(--fg); }
+.inv-totals .row.discount .v { font-variant-numeric: tabular-nums; }
+.inv-totals .row.net { border-bottom: 1px dashed var(--fg); font-weight: var(--wd); }
 .inv-totals .row.tax { color: var(--fg-muted); }
 .inv-totals .row.taxsum { border-top: 1px dashed var(--fg); }
 .inv-totals .row.grand {
@@ -387,6 +389,8 @@ strong { font-weight: var(--wd); }
       <div class="vb-row vb-total"><span>Gesamtersparnis</span><span>€ 568,00</span></div>
     </div>
     <div class="inv-totals">
+      <div class="row subtotal"><span class="lbl">Summe Positionen</span><span class="rate"></span><span class="v">1.611,95</span></div>
+      <div class="row discount"><span class="lbl">./. VUK-Rabatt</span><span class="rate"></span><span class="v">−333,20</span></div>
       <div class="row net"><span class="lbl">Nettogesamtbetrag</span><span class="rate"></span><span class="v">1.278,75</span></div>
       <div class="row tax"><span class="lbl">USt. 7,00 %</span><span class="rate">1.278,75</span><span class="v">89,51</span></div>
       <div class="row tax"><span class="lbl">USt. 19,00 %</span><span class="rate">0,00</span><span class="v">0,00</span></div>
