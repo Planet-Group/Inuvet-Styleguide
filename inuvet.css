@@ -5283,17 +5283,20 @@ html .announcement-bar.--marquee .announcement-bar__sep {
 
 /* ═══════════════════════════════════════════
    ANNOUNCEMENT BAR — STATISCHE VARIANTE
-   Desktop: Benefits nebeneinander, zentriert; JS blendet überzählige
-   Items/Separatoren via .--overflow aus (so viele wie passen).
-   Mobil: ein Item nach dem anderen (Fade-Rotation via .--visible, JS).
+   Passt alles in eine Zeile → Benefits nebeneinander (zentriert).
+   Sonst schaltet JS auf .--rotate: ein Item nach dem anderen (Fade) — wie mobil.
    ═══════════════════════════════════════════ */
 html .announcement-bar.--static .announcement-bar__track {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
+  min-width: 0; /* sonst dehnt min-content den Flex-Track über die Bar */
   height: 100%;
   flex-wrap: nowrap;
+  padding-inline: var(--module);
+  overflow: hidden; /* nötig, damit scrollWidth den Überlauf korrekt meldet */
 }
 html .announcement-bar.--static .announcement-bar__item {
   position: static;
@@ -5301,7 +5304,6 @@ html .announcement-bar.--static .announcement-bar__item {
   animation: none;
   white-space: nowrap;
 }
-html .announcement-bar.--static .--overflow { display: none; }
 html .announcement-bar.--static .announcement-bar__sep {
   display: inline-flex;
   width: 3px;
@@ -5312,31 +5314,29 @@ html .announcement-bar.--static .announcement-bar__sep {
   opacity: 0.35;
   margin: 0 var(--module);
 }
-@media (max-width: 767px) {
-  /* Bar darf mehrzeilig werden statt Text seitlich abzuschneiden.
-     Alle Items im selben Grid-Feld stapeln → Höhe = längstes Item, Crossfade bleibt. */
-  html .announcement-bar.--static.--js {
-    height: auto;
-    min-height: var(--announcement-height);
-  }
-  html .announcement-bar.--static.--js .announcement-bar__track {
-    display: grid;
-    place-items: center;
-    padding-block: calc(var(--base) * 0.5);
-    padding-inline: var(--module);
-  }
-  html .announcement-bar.--static.--js .announcement-bar__sep { display: none; }
-  html .announcement-bar.--static.--js .announcement-bar__item {
-    grid-area: 1 / 1;
-    position: static;
-    white-space: normal;
-    text-align: center;
-    opacity: 0;
-    transition: opacity var(--anim-mid);
-  }
-  html .announcement-bar.--static.--js .announcement-bar__item.--visible { opacity: 1; }
+
+/* Rotations-Modus (JS setzt .--rotate, sobald nicht alle Items in eine Zeile passen).
+   Items im selben Grid-Feld stapeln → Höhe = höchstes Item, sauberer Crossfade,
+   Umbruch statt seitlichem Anschnitt. */
+html .announcement-bar.--static.--rotate {
+  height: auto;
+  min-height: var(--announcement-height);
 }
+html .announcement-bar.--static.--rotate .announcement-bar__track {
+  display: grid;
+  place-items: center;
+  padding-block: calc(var(--base) * 0.5);
+}
+html .announcement-bar.--static.--rotate .announcement-bar__sep { display: none; }
+html .announcement-bar.--static.--rotate .announcement-bar__item {
+  grid-area: 1 / 1;
+  white-space: normal;
+  text-align: center;
+  opacity: 0;
+  transition: opacity var(--anim-mid);
+}
+html .announcement-bar.--static.--rotate .announcement-bar__item.--visible { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  html .announcement-bar.--static.--js .announcement-bar__item { transition: none; }
+  html .announcement-bar.--static.--rotate .announcement-bar__item { transition: none; }
 }
 

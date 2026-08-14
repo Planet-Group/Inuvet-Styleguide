@@ -3013,7 +3013,7 @@
       <table class="spec-table">
         <tr><th><code>.announcement-bar</code></th><td>Höhe <code>var(--announcement-height)</code> · scrollt mit (Default) · Items <code>.announcement-bar__item</code> · Frosted Glass wie Nav (<code>--ann-glass: var(--green-light)</code>)</td></tr>
         <tr><th><code>.announcement-bar.--marquee</code></th><td>Endlos-Scroll · Track <code>.announcement-bar__track</code> · Init via <code>sg.js</code></td></tr>
-        <tr><th><code>.announcement-bar.--static</code></th><td>Kein Laufband · Desktop: Items nebeneinander (überzählige → <code>.--overflow</code>) · Mobil: Fade-Rotation je ein Item (<code>.--visible</code>) · Init via <code>initAnnouncementBar()</code></td></tr>
+        <tr><th><code>.announcement-bar.--static</code></th><td>Kein Laufband · passt alles in eine Zeile → nebeneinander · sonst <code>.--rotate</code>: Fade-Rotation je ein Item (<code>.--visible</code>) · Fit-Messung + Umschaltung via <code>initAnnouncementBar()</code></td></tr>
         <tr><th>Fade-Rotation</th><td><code>@keyframes annBarFade</code> · Dauer <code>var(--anim-announcement) × n</code> · Delays per <code>:nth-child</code></td></tr>
         <tr><th><code>.site-nav</code></th><td>Sticky · <code>top: 0</code> (Default) · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code> · <strong>Frosted Glass:</strong> <code>backdrop-filter: blur(12px) saturate(1.15)</code> · <code>color-mix</code> 58% · Fallback ohne Blur: <code>--nav-glass</code></td></tr>
         <tr><th><code>body.--nav-scrolled</code></th><td>Nach Scroll (<code>initNavScrolled()</code>): <code>border-bottom: var(--border-light)</code> an <code>.site-nav</code> · am Top transparent (kein Layout-Sprung)</td></tr>
@@ -3059,7 +3059,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Kein Laufband: Desktop zeigt Items nebeneinander (JS blendet überzählige via <code>.--overflow</code> aus). Mobil rotiert je ein Item (Fade via <code>.--visible</code>). Steuerung: <code>initAnnouncementBar()</code> in <code>inuvet.js</code>. Trenner nur <em>zwischen</em> Items — kein Duplikat/Sentinel.</p>
+      <p class="sg-caption">Kein Laufband: Passt alles in eine Zeile, stehen die Items nebeneinander. Sobald es nicht mehr passt, schaltet <code>initAnnouncementBar()</code> auf <code>.--rotate</code> — dann wird je ein Item nacheinander eingeblendet (Fade via <code>.--visible</code>, Umbruch statt Anschnitt). Fit-Messung nach Font-Load + <code>ResizeObserver</code>. Trenner nur <em>zwischen</em> Items — kein Duplikat/Sentinel.</p>
 
       <h3 class="sg-h3 --top">Header-Verhalten</h3>
       <div class="rules">

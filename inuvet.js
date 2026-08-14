@@ -54,21 +54,22 @@ function initMarquees() {
 document.addEventListener('DOMContentLoaded', initMarquees);
 
 // Announcement Bar — statische Variante (.--static)
-// Desktop: nur so viele Items nebeneinander wie passen (überzählige → .--overflow).
-// Mobil: ein Item nach dem anderen (Fade-Rotation via .--visible).
+// Passt alles in eine Zeile → nebeneinander. Sonst .--rotate: ein Item nach dem
+// anderen (Fade), wie mobil. Entscheidung über echte Breite, nicht über Breakpoint.
 function initAnnouncementBar() {
   document.querySelectorAll('.announcement-bar.--static').forEach(bar => {
+    if (typeof bar._annCleanup === 'function') bar._annCleanup();
+
     const track = bar.querySelector('.announcement-bar__track');
     if (!track) return;
-    const nodes = [...track.children];
-    const items = nodes.filter(n => n.classList.contains('announcement-bar__item'));
+    const items = [...track.querySelectorAll('.announcement-bar__item')];
     if (!items.length) return;
     bar.classList.add('--js');
 
-    const mqMobile = window.matchMedia('(max-width: 767px)');
     const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     let timer = null;
     let idx = 0;
+    let ro = null;
 
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
@@ -78,8 +79,7 @@ function initAnnouncementBar() {
       return raw.indexOf('ms') > -1 ? n : n * 1000;
     }
 
-    function applyMobile() {
-      nodes.forEach(n => n.classList.remove('--overflow'));
+    function startRotation() {
       items.forEach((it, i) => it.classList.toggle('--visible', i === 0));
       idx = 0;
       stop();
@@ -92,33 +92,49 @@ function initAnnouncementBar() {
       }
     }
 
-    function applyDesktop() {
+    // Inhalt inkl. Trenner-Margins (getBoundingClientRect zählt Margin nicht;
+    // --module-Margins der Dots waren der Grund, warum „passt“ trotz Anschnitt).
+    function rowOverflows() {
+      let total = 0;
+      [...track.children].forEach(n => {
+        const s = getComputedStyle(n);
+        if (s.display === 'none') return;
+        total += n.getBoundingClientRect().width
+          + parseFloat(s.marginLeft)
+          + parseFloat(s.marginRight);
+      });
+      return total > bar.clientWidth + 1 || track.scrollWidth > bar.clientWidth + 1;
+    }
+
+    function apply() {
       stop();
       items.forEach(it => it.classList.remove('--visible'));
-      nodes.forEach(n => n.classList.remove('--overflow'));
-      const max = bar.clientWidth;
-      const widths = nodes.map(n => n.getBoundingClientRect().width);
-      let total = widths.reduce((a, b) => a + b, 0);
-      for (let i = nodes.length - 1; i >= 0 && total > max; i--) {
-        nodes[i].classList.add('--overflow');
-        total -= widths[i];
-      }
-      // hängenden Trenner am Ende entfernen
-      for (let i = nodes.length - 1; i >= 0; i--) {
-        if (nodes[i].classList.contains('--overflow')) continue;
-        if (nodes[i].classList.contains('announcement-bar__sep')) nodes[i].classList.add('--overflow');
-        break;
+      bar.classList.remove('--rotate');
+      void bar.offsetWidth;
+      if (rowOverflows()) {
+        bar.classList.add('--rotate');
+        startRotation();
       }
     }
 
-    function apply() { mqMobile.matches ? applyMobile() : applyDesktop(); }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(apply);
     apply();
 
-    let rt;
-    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(apply, 150); });
-    const onChange = () => apply();
-    if (mqMobile.addEventListener) mqMobile.addEventListener('change', onChange);
-    else mqMobile.addListener(onChange);
+    let lastW = -1;
+    if ('ResizeObserver' in window) {
+      ro = new ResizeObserver(entries => {
+        const w = Math.round(entries[0].contentRect.width);
+        if (w === lastW) return;
+        lastW = w;
+        requestAnimationFrame(apply);
+      });
+      ro.observe(bar);
+    } else {
+      let rt;
+      window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(apply, 150); });
+    }
+
+    bar._annCleanup = () => { stop(); if (ro) ro.disconnect(); };
   });
 }
 document.addEventListener('DOMContentLoaded', initAnnouncementBar);
