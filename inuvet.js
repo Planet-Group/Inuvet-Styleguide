@@ -53,6 +53,76 @@ function initMarquees() {
 
 document.addEventListener('DOMContentLoaded', initMarquees);
 
+// Announcement Bar — statische Variante (.--static)
+// Desktop: nur so viele Items nebeneinander wie passen (überzählige → .--overflow).
+// Mobil: ein Item nach dem anderen (Fade-Rotation via .--visible).
+function initAnnouncementBar() {
+  document.querySelectorAll('.announcement-bar.--static').forEach(bar => {
+    const track = bar.querySelector('.announcement-bar__track');
+    if (!track) return;
+    const nodes = [...track.children];
+    const items = nodes.filter(n => n.classList.contains('announcement-bar__item'));
+    if (!items.length) return;
+    bar.classList.add('--js');
+
+    const mqMobile = window.matchMedia('(max-width: 767px)');
+    const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let timer = null;
+    let idx = 0;
+
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    function stepMs() {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue('--anim-announcement').trim();
+      const n = parseFloat(raw) || 4;
+      return raw.indexOf('ms') > -1 ? n : n * 1000;
+    }
+
+    function applyMobile() {
+      nodes.forEach(n => n.classList.remove('--overflow'));
+      items.forEach((it, i) => it.classList.toggle('--visible', i === 0));
+      idx = 0;
+      stop();
+      if (items.length > 1 && !mqReduce.matches) {
+        timer = setInterval(() => {
+          items[idx].classList.remove('--visible');
+          idx = (idx + 1) % items.length;
+          items[idx].classList.add('--visible');
+        }, stepMs());
+      }
+    }
+
+    function applyDesktop() {
+      stop();
+      items.forEach(it => it.classList.remove('--visible'));
+      nodes.forEach(n => n.classList.remove('--overflow'));
+      const max = bar.clientWidth;
+      const widths = nodes.map(n => n.getBoundingClientRect().width);
+      let total = widths.reduce((a, b) => a + b, 0);
+      for (let i = nodes.length - 1; i >= 0 && total > max; i--) {
+        nodes[i].classList.add('--overflow');
+        total -= widths[i];
+      }
+      // hängenden Trenner am Ende entfernen
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        if (nodes[i].classList.contains('--overflow')) continue;
+        if (nodes[i].classList.contains('announcement-bar__sep')) nodes[i].classList.add('--overflow');
+        break;
+      }
+    }
+
+    function apply() { mqMobile.matches ? applyMobile() : applyDesktop(); }
+    apply();
+
+    let rt;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(apply, 150); });
+    const onChange = () => apply();
+    if (mqMobile.addEventListener) mqMobile.addEventListener('change', onChange);
+    else mqMobile.addListener(onChange);
+  });
+}
+document.addEventListener('DOMContentLoaded', initAnnouncementBar);
+
 function toggleAccordion(trigger) {
   const item = trigger.parentElement;
   const isOpen = item.classList.toggle('--open');
