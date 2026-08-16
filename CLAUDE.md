@@ -14,8 +14,8 @@
 
 | Was | Regel | Beispiel |
 |---|---|---|
-| HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Inuvet-Shop.html`, `Provision-Portal.html` |
-| Page-CSS / Page-JS | **kebab-case** (bewusst entkoppelt vom HTML) | `inuvet-shop.css`, `tierarzt-empfehlung.js` |
+| HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Tierarzt-Empfehlung.html`, `Provision-Portal.html` |
+| Page-CSS / Page-JS | **kebab-case** (bewusst entkoppelt vom HTML) | `tierarzt-empfehlung.css`, `tierarzt-empfehlung.js` |
 | Root-Tools | kebab ok | `styleguide.html`, `inuvet.css` |
 | Seitentitel Default | `{Name} – inuvet` (en dash, Brand klein am Ende) | `Shopify – inuvet` |
 | Mockup + Doku-Paar | `{Bereich} · Mockup/Dokumentation/Start – inuvet` | `Shop · Mockup – inuvet` |
@@ -43,7 +43,8 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
 15. **Text-Rhythmus gehört immer `.flow`** — Abstände zwischen Überschriften und Absätzen (Text↔Text) kommen **ausschließlich** aus dem `.flow`-System (`inuvet.css`, Doku A.7) — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt `.flow`. Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke** (Medien / Textblock / Actions), nie Headline→Paragraph. Kein Heading→Paragraph-Abstand über Flex-/Grid-`gap` oder Ad-hoc-Margins. Sonderfall: `--flow-space` am Element überschreiben, nicht neue Margins. Siehe `.cursor/rules/flow-spacing.mdc`.
-16. **`index.html` immer aktuell halten** — Die Mockup-Übersicht (`index.html` + `index.js`, Live: https://planet-group.github.io/Inuvet-Styleguide/) ist der Bookmark für IT und Team. Michael und Agent: bei **neuen zentralen Mockup-Seiten**, **Umbenennungen** oder **Link-Änderungen** die Index-Seite mitziehen (DE|EN-Texte in `index.js` inklusive). Nie nur die Page anlegen/verschieben und den Index vergessen.
+16. **Print ist ein eigener Dialekt — nicht mit Web mischen** — Druckfähige PDFs laufen ausschließlich über `print.css` + `tools/print/`. Doku: `print-styleguide.html`. Drei Regeln daraus nie brechen: (1) **Haarlinien als SVG-Vektor**, nie als CSS-Rahmen — CSS-Rahmen unter ~0,25 mm verwirft Chromium beim PDF-Export teilweise, ohne Warnung. (2) **CMYK steht nie im CSS** — im HTML bleibt RGB, die Umwandlung macht die Zuordnungstabelle `tools/print/inks.py`. (3) **Jedes PDF wird nachgemessen** (`measure.py`) *und* als PNG angesehen — beides, keines ersetzt das andere. Neue Farbe im Print? → erst Eintrag in `inks.py`, sonst bricht die Pipeline ab.
+17. **`index.html` immer aktuell halten** — Die Mockup-Übersicht (`index.html` + `index.js`, Live: https://planet-group.github.io/Inuvet-Styleguide/) ist der Bookmark für IT und Team. Michael und Agent: bei **neuen zentralen Mockup-Seiten**, **Umbenennungen** oder **Link-Änderungen** die Index-Seite mitziehen (DE|EN-Texte in `index.js` inklusive). Nie nur die Page anlegen/verschieben und den Index vergessen.
 
 ---
 
@@ -81,7 +82,7 @@ In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted
 
 Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
 
-**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **cover** (`.--cover`, `--tile-fg`). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Demos → `pages/Collection.html`, `pages/List-Collections.html`.
+**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **cover** (`.--cover`, `--tile-fg`). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Live → Collection `https://inuvet-dev.myshopify.com/collections/all`, List-Collections `https://inuvet-dev.myshopify.com/collections`.
 
 ---
 
@@ -96,8 +97,12 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
 | `mockup-ui.js` | Mockup-Chrome-JS (Alt+M / ⌥M Toggle) | Produktions-/Theme-Code |
 | `pages/[name].css` | Page-spezifische Overrides | Globale Design-System-Änderungen |
+| `print.css` | Print-Dialekt: Token-Layer für druckfähige PDFs (mm-Geometrie, pt-Typo, Formate, Seitenmodell) | Web-Styles, CMYK-Werte (Farbe bleibt RGB), Guide-Chrome |
+| `print-sg.css` | Doku-Chrome für `print-styleguide.html` (`.pg-*`) | Produktionscode |
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
+
+`print.css` wird **nie zusammen mit `inuvet.css`** geladen — es restyled `body` für die Seitenvorschau. Print-Dokumente binden `print.css` allein ein.
 
 `temp.css`-Inhalt: leer (Stand 2026-08-04).
 `temp.js`-Inhalt: leer (Stand 2026-08-04).
@@ -156,7 +161,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 | `initNavLogoToggle()` | Nav-Logo Theme-Setting `logo_variant` · Mockup-Bar-Demo |
 | `initNavCountry()` | Länder-Umschalter in `.nav-right` |
 | `getEffectivePdpGalleryMode()` / `applyPdpGalleryMode()` | PDP-Galerie effektiver Modus (Thumbs/Mosaic) |
-| `initPdpGalleryToggle()` | [MOCKUP] Mockup-Bar Galerie-Toggle auf Produkt.html |
+| `initPdpGalleryToggle()` | [MOCKUP] Mockup-Bar Galerie-Toggle auf der Live-PDP |
 
 **Seitenspezifische JS-Dateien:**
 
@@ -190,12 +195,12 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 ### Typografie
 ```css
---text-xs: clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)
---text-sm: 0.8rem
---text-base: clamp(0.875rem, 0.8rem + 0.3vw, 1rem)
---text-m: clamp(1.25rem, 1rem + 0.7vw, 1.5rem)
---text-l: clamp(1.5rem, 1rem + 1.7vw, 2.25rem)
---text-xl: clamp(2rem, 1rem + 3.2vw, 3.375rem)
+--text-xs: clamp(0.75rem, 0.7rem + 0.15vw, 0.8125rem)
+--text-sm: 0.875rem
+--text-base: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem)
+--text-m: clamp(1.375rem, 1.15rem + 0.65vw, 1.625rem)
+--text-l: clamp(1.625rem, 1.15rem + 1.6vw, 2.375rem)
+--text-xl: clamp(2.125rem, 1.15rem + 3vw, 3.5rem)
 --lh-base: 1.5  --lh-h3: 1.2  --lh-h2: 1.17  --lh-h1: 1.11
 --font: "schnebel-sans-me", sans-serif
 ```
@@ -271,7 +276,7 @@ Gilt für `.col-grid`, `.tile-grid`, `.testimonial-grid`, `.testimonial-slider`:
 
 Modifier: `.col-grid.--early-2` → 50/50 ab 768px (Intro-Paare). `.col-grid.--wide-narrow` → 2fr/1fr ab 768px (Bundle-Sidebar). `.hero-split` bleibt seiten-spezifisch.
 
-Footer (`.footer-main`) bleibt bei eigenem Breakpoint 1535px → 2-spaltig.
+Footer: Newsletter-Zeile über `.footer-cols`, optionale `.footer-row` darunter. Zonen mit gestrichelter Linie (Desktop + Mobil). Spalten-Raster bei 1535px → 2-spaltig, unter 768px 1-spaltig.
 
 ---
 
@@ -411,7 +416,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | E.6 | Account-Seiten | `.order-item` · Formulare `.form-field` / `.tab-nav` |
 | E.7 | Suche | `.search-overlay .search-panel` |
 | E.8 | Blog & Artikel | `.blog-card` · `.article-layout` · `.article-toc` (Sidebar-Inhaltsverzeichnis, Desktop) · `.rte` |
-| E.9 | Utility-Seiten (Shopify) | Spec · List-Collections Demo → `pages/List-Collections.html` |
+| E.9 | Utility-Seiten (Shopify) | Spec · List-Collections Live → `https://inuvet-dev.myshopify.com/collections` |
 
 #### Globale Helfer
 | Klasse | Modifier | Zweck |
@@ -437,7 +442,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 | Page | CSS | JS | Zweck |
 |---|---|---|---|
-| `index.html` | `index.css` | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 16) |
+| `index.html` | `index.css` | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 17) |
+| `print-styleguide.html` | `sg.css`, `print-sg.css` | — | **Print- & PDF-Guide**: Formate, Seitenraster, Logo-Position, pt-Typo, CMYK, Pipeline. Sektionen P (Grundlagen) · Q (Dokumentarten) · R (Produktion) |
 | `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
 | `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
@@ -446,16 +452,11 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Tierarzt-Empfehlung-Programm.html` | — | `tierarzt-empfehlung-anfrage-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
-| `pages/Produkt.html` | `bundle.css` | — (Inline + `inuvet.js`) | PDP-Mockup |
-| `pages/Inuvet-Shop.html` | `inuvet-shop.css` | `inuvet-shop.js` | Shop-Startseite Mockup |
-| `pages/Inuvet-Shop-Info.html` | — | — | Shop-Dokumentation |
 | `pages/Signature-Generator.html` | `signature-generator.css` | `signature-generator.js` | E-Mail-Signatur-Generator |
 | `pages/Email-Template-Generator.html` | `email-template-generator.css` | `email-template-generator.js` | System-E-Mail-Vorlagen (SAP, Shopify, Gmail …) |
 | `pages/Formular-Reklamation.html` | — | `formular-reklamation.js` | Stand-Alone-Formular |
 | `pages/Formular-Nebenwirkungen-TB.html` | — | `formular-nebenwirkungen-tb.js` | Meldeformular Tierbesitzer |
 | `pages/Formular-Nebenwirkungen-TA.html` | — | `formular-nebenwirkungen-ta.js` | Meldeformular Tierarztpraxis |
-| `pages/Collection.html` | — | Inline + `inuvet.js` | Produkt-Collection (E.3) |
-| `pages/List-Collections.html` | `list-collections.css` | `inuvet.js` | List-Collections / Kategorien (E.9) · Mix Collection- + Featured-Kacheln · Cover-Gradient + Featured-Layout |
 | `pages/Produkt-Modell.html` | — | — | Artikel: Indikation → Variante |
 | `pages/Provision-Portal-Start.html` | `provision-portal.css` | `provision-portal-start.js` | Provision-Portal Startseite |
 | `pages/Provision-Portal.html` | `provision-portal.css` | `provision-portal.js` | Tierarzt löst Provisionen ein |
@@ -488,9 +489,11 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 **Git / Deploy:** GitHub Pages-Quelle = Branch `main`, Pfad `/`. Feature-Branches (`feat/*`, `session/*`) sind **nicht** live. Push-Ziel für alles Sichtbare: `origin main`.
 
+**Print-PDF-Pipeline:** `tools/print/` — Einrichtung `pip3 install -r tools/print/requirements.txt` + `python3 -m playwright install chromium`. Reihenfolge: `fonts.py` (Schrift subsetten + Base64 + Zeilenhöhe messen) → `build.py` (HTML→PDF) → `cmyk.py` (RGB→CMYK) → `measure.py` (nachmessen, `--png` für Sichtprüfung). **Ausstehend:** verbindliche CMYK-Werte für 6 Farben und die `schnebel-sans-me`-Schriftdateien — bis dahin brechen `cmyk.py` und `build.py` bewusst ab. Details: `print-styleguide.html` §R.4.
+
 **Commit-Format:** `feat:` / `fix:` / `refactor:` / `docs:`
 
-**Bildpfade:** `assets/images/Calmin_Packshot_01.jpeg` etc. Nur Calmin- und Hepax-forte-Packshots existieren (Dateipräfix `Hepax_`) — alle anderen Produkte: `placeholder-bg`.
+**Bildpfade:** Packshots u. a. `Calmin_`, `Hepax_`, `Cortisan_`, `Dermin_`, `Diabex_`, `EnteroGast_` unter `assets/images/` — fehlende Produkte: `placeholder-bg` bzw. Fallback-Packshot.
 
 **CSS Cache-Busting:** `inuvet.css?v=N` — N hochzählen nach Änderungen.
 

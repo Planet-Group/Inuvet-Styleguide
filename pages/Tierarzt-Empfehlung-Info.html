@@ -370,15 +370,18 @@
 
             <h4>A1 · An den Tierhalter — Bestätigung</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Neue Anfrage</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Neue Anfrage</p>
               <p>Anfrage an <strong>[Praxisname]</strong> erfolgreich versendet.</p>
               <p>Sie erhalten eine Nachricht per E-Mail ([E-Mail des Tierhalters]), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage im Warenkorb-Drawer (Login liegt zu diesem Zeitpunkt bereits vor). <strong>Empfänger:</strong> E-Mail-Adresse des eingeloggten Tierhalters. <strong>Variablen:</strong> Praxisname, E-Mail-Adresse.</p>
 
             <h4>A2 · An die Tierarztpraxis — neue Anfrage</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Neue Anfrage von [Name des Tierhalters]</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Neue Anfrage von [Name des Tierhalters]</p>
               <p>Tierbesitzer*in <strong>[Name des Tierhalters]</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
               <p>Angefragt: <strong>[Produktliste]</strong></p>
               <p>Diese können Sie hier einsehen und freigeben:<br>→ Zur Anfrage auf inuvet.com [Direktlink zu Offene Anfragen im Vet-Portal]</p>
@@ -389,16 +392,19 @@
               <p><strong>Persönlicher Kontakt bei Fragen</strong></p>
               <p>Sie haben Fragen zur Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
               <p><strong>[Name Ansprechpartner*in]</strong> · Tierärztlicher Außendienst<br>[Telefon] · [E-Mail]</p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage, an die hinterlegte Adresse der gewählten Praxis. Die beiden Erklär-Abschnitte sind bewusst Teil jeder Anfrage-Mail — viele Praxen vergessen im Alltag, dass sie teilnehmen. <strong>Variablen:</strong> Name des Tierhalters, Produktliste, Direktlink zur Übersicht <code>…/Tierarzt-Empfehlung-Offene-Anfragen.html</code>, Ansprechpartner*in des Außendienstes (aus CRM).</p>
 
             <h4>A3 · Interner Queue-Eintrag (keine E-Mail)</h4>
             <div class="notice">
-              <p class="notice__title">Eintrag: Neue offene Anfrage — Anfragen-Übersicht · Innendienst</p>
+              <div class="flow">
+<p class="notice__title">Eintrag: Neue offene Anfrage — Anfragen-Übersicht · Innendienst</p>
               <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · [Wartezeit].</p>
               <p><strong>Tierbesitzer*in:</strong> [Name] · [E-Mail]</p>
               <p><strong>Praxis:</strong> [Praxisname]</p>
               <p><strong>Angefragte Produkte:</strong> [je Position: Produkt · Variante · Menge]</p>
+              </div>
             </div>
             <p><strong>Auslösung:</strong> Zeitgleich mit A1/A2 — aber bewusst <strong>kein Mail-Versand</strong>, sondern ein Eintrag in der internen Anfragen-Liste (Status <code>offen</code>, Timestamp speist die Wartezeit-Anzeige). Der Innendienst erkennt daran, welche Anfragen zu lange offen bleiben, und kann bei der Praxis nachhaken. Mit der Bearbeitung durch die Praxis (B) wechselt der Eintrag auf <code>erledigt</code> und verschwindet aus der Liste.</p>
 
@@ -406,23 +412,27 @@
 
             <h4>B1 · An den Tierhalter — Ergebnis der Anfrage</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Ihre Empfehlungsanfrage wurde bearbeitet</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Ihre Empfehlungsanfrage wurde bearbeitet</p>
               <p>[Tierarzt] ([Praxisname]) hat Ihre Empfehlungsanfrage bearbeitet:</p>
               <p><strong>Freigegeben:</strong> [je Produkt: Name — Größe: Menge, z. B. „Calmin balance Pulver — 30 g: max. 2×"]</p>
               <p><strong>Nicht freigegeben:</strong> [je Position: Name — Größe (angefragt: max. n×)]</p>
               <p><strong>Notiz an Sie:</strong> <em>[Notiz des Tierarztes — nur wenn hinterlassen]</em></p>
               <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz). Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen und erscheint bei Freigabe in <strong>Freigegeben</strong>.</p>
 
             <h4>B2 · Intern an das inuvet-Team — Kopie der Entscheidung</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Empfehlungsanfrage bearbeitet: [Name des Tierhalters]</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Empfehlungsanfrage bearbeitet: [Name des Tierhalters]</p>
               <p>[Tierarzt] ([Praxisname]) hat die Empfehlungsanfrage für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
               <p><strong>Freigegeben:</strong> [Liste] · <strong>Nicht freigegeben:</strong> [Liste]</p>
               <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
               <p>[n] Produkte freigegeben, [m] Positionen abgelehnt[, [k] ohne Entscheidung (–)].</p>
               <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Zeitgleich mit B1 an <code>team@inuvet.com</code> — gleicher Auslöser wie B1 (Offene Anfragen). Dient der Nachvollziehbarkeit (wer hat wann was für wen entschieden) und schließt den Queue-Eintrag A3.</p>
 
@@ -430,23 +440,27 @@
 
             <h4>C1 · An den Tierhalter — Freigabe erhalten</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Ihre Empfehlung ist da!</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Ihre Empfehlung ist da!</p>
               <p>[Tierarzt] ([Praxisname]) hat eine Empfehlung für Sie ausgestellt und folgende Produkte freigegeben:</p>
               <p>[je Produkt: <strong>Name</strong> — Größe: Menge]</p>
               <p><strong>Notiz an Sie:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
               <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach „Produkte freigeben" auf der Seite „Freigabe ausstellen". Die E-Mail-Adresse stammt aus Schritt 1 (Consent + Eingabe des Tierarztes). Existiert zu der Adresse noch kein Konto, dient die Mail zugleich als Einstieg: Beim ersten Login mit dieser Adresse sind die Produkte freigeschaltet.</p>
 
             <h4>C2 · Intern an das inuvet-Team — Kopie der Direkt-Freigabe</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Direkt-Empfehlung bearbeitet: [E-Mail des Tierhalters]</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Direkt-Empfehlung bearbeitet: [E-Mail des Tierhalters]</p>
               <p>[Tierarzt] ([Praxisname]) hat eine Direkt-Empfehlung (in der Praxis ausgestellt) für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
               <p>[je Produkt: <strong>Name</strong>: Größe: Menge]</p>
               <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
               <p>[n] Produkte freigegeben.</p>
               <p><em>Hinweis: Direkt-Empfehlung — E-Mail-Weitergabe + werblicher Charakter wurden vom Tierarzt bestätigt.</em></p>
               <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
+              </div>
             </div>
             <p><strong>Versand:</strong> Zeitgleich mit C1 an <code>team@inuvet.com</code>. Der Consent-Hinweis dokumentiert die Bestätigung der Checkbox durch den Tierarzt — relevant für Datenschutz-Nachweise.</p>
 
@@ -454,13 +468,15 @@
 
             <h4>D1 · Einladung an eine nicht teilnehmende Praxis (<code>mailto:</code>)</h4>
             <div class="notice">
-              <p class="notice__title">Betreff: Teilnahme am Inuvet-Empfehlungsprogramm</p>
+              <div class="flow">
+<p class="notice__title">Betreff: Teilnahme am Inuvet-Empfehlungsprogramm</p>
               <p>Sehr geehrte Damen und Herren,</p>
               <p>ich würde gerne Inuvet-Produkte für mein Tier über das Tierarzt-Empfehlungsprogramm beziehen – leider ist Ihre Praxis dort noch nicht gelistet.</p>
               <p>Das Programm ermöglicht es Ihnen, passende Ergänzungsfuttermittel digital freizugeben. Inuvet übernimmt anschließend Beratung, Versand und Betreuung der Tierbesitzer – für Ihre Praxis entsteht kein Aufwand mit Lagerung oder Logistik. Für jede Empfehlung erhalten Sie zudem eine Provision.</p>
               <p>Mehr Informationen: https://inuvet.com/pages/tierarzt-empfehlung-anleitung</p>
               <p>Ich würde mich freuen, wenn Sie am Programm teilnehmen – so könnte ich die Produkte künftig direkt über Ihre Empfehlung beziehen.</p>
               <p>Mit freundlichen Grüßen</p>
+              </div>
             </div>
             <p><strong>Auslösung:</strong> Kein Systemversand — der Link „Du findest deine Praxis nicht? Dann sende ihr hier eine E-Mail." im Anfrage-Schritt öffnet das Mail-Programm des Nutzers (<code>mailto:</code> mit vorbefülltem Betreff und Text). Empfängeradresse und Absender trägt der Tierhalter selbst ein; der Text ist frei editierbar.</p>
 

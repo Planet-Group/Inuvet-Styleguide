@@ -164,8 +164,10 @@ function cardHTML(p) {
         <div class="cart-item__info">
           <div class="cart-item__top">
             <div>
-              <p class="cart-item__name">${p.cartName}</p>
-              <p class="approval-product-card__commission${prodComm.muted ? ' --muted' : ''}" id="prodcomm-${p.id}">${prodComm.text}</p>
+              <div class="flow">
+                <p class="cart-item__name">${p.cartName}</p>
+                <p class="approval-product-card__commission${prodComm.muted ? ' --muted' : ''}" id="prodcomm-${p.id}">${prodComm.text}</p>
+              </div>
             </div>
           </div>
         </div>

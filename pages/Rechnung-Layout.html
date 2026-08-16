@@ -220,6 +220,67 @@ strong { font-weight: var(--wd); }
     position: absolute; top: 0; right: 0; z-index: 60;
     background: #e5484d; color: #fff; font-size: 9pt; font-weight: var(--wd); padding: 2mm 3mm;
   }
+
+  /* ---------- Bemaßungs-Ebene (Nachbau / InDesign) ---------- */
+  .measure-toggle {
+    position: fixed; top: 12px; right: 12px; z-index: 200;
+    font: 700 12px/1.2 var(--font); letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 10px 14px; border: 1px solid #111; background: #fff; color: #111; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  }
+  .measure-toggle[aria-pressed="true"] { background: #111; color: #fff; }
+
+  .measure-panel {
+    display: none; position: fixed; top: 56px; right: 12px; z-index: 200;
+    width: min(320px, calc(100vw - 24px)); max-height: calc(100vh - 72px); overflow: auto;
+    background: #fff; border: 1px solid #111; padding: 14px 16px;
+    font: 400 11px/1.45 var(--font); color: #111;
+    box-shadow: 0 4px 18px rgba(0,0,0,.14);
+  }
+  body.measure-on .measure-panel { display: block; }
+  .measure-panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .measure-panel h3 { font-size: 11px; margin: 12px 0 4px; }
+  .measure-panel dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; }
+  .measure-panel dt { color: #444; }
+  .measure-panel dd { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+  .measure-panel .note { margin-top: 10px; color: #444; font-size: 10px; }
+
+  .measure-layer {
+    display: none; position: absolute; inset: 0; z-index: 80; pointer-events: none;
+    font: 700 8px/1 var(--font); color: #c2185b;
+  }
+  body.measure-on .measure-layer { display: block; }
+
+  .measure-guide {
+    position: absolute; border: 1px dashed rgba(194,24,91,.55);
+    background: rgba(194,24,91,.04);
+  }
+  .measure-guide.--safe { border-style: solid; border-color: rgba(194,24,91,.35); background: transparent; }
+  .measure-guide.--footer { background: rgba(194,24,91,.07); }
+
+  .measure-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
+  .measure-dim.--h { height: 0; border-top: 1px solid #c2185b; }
+  .measure-dim.--v { width: 0; border-left: 1px solid #c2185b; flex-direction: column; }
+  .measure-dim::before, .measure-dim::after {
+    content: ""; flex: none; background: #c2185b;
+  }
+  .measure-dim.--h::before, .measure-dim.--h::after { width: 1px; height: 6px; margin-top: -3px; }
+  .measure-dim.--v::before, .measure-dim.--v::after { width: 6px; height: 1px; margin-left: -3px; }
+  .measure-dim > span {
+    position: absolute; background: #fff; color: #c2185b; border: 1px solid #c2185b;
+    padding: 1px 3px; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .measure-dim.--h > span { top: -9px; }
+  .measure-dim.--v > span { left: 4px; writing-mode: horizontal-tb; }
+
+  .measure-tag {
+    position: absolute; background: #c2185b; color: #fff; padding: 2px 4px;
+    white-space: nowrap; font-variant-numeric: tabular-nums; max-width: 46mm;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+}
+@media print {
+  .measure-toggle, .measure-panel, .measure-layer { display: none !important; }
 }
 </style>
 </head>
@@ -240,6 +301,13 @@ strong { font-weight: var(--wd); }
     <path class="ivl-sym" d="M74.8,32.3c-.7,5.3-4.4,9.7-9.7,12-4.6-3.6-7.2-8.6-6.6-14,.6-5.3,4.4-9.7,9.7-12,4.6,3.6,7.2,8.7,6.6,14h0Z"/>
   </symbol>
 </svg>
+
+<button type="button" class="measure-toggle" id="measureToggle" aria-pressed="false" aria-controls="measurePanel">Bemaßung</button>
+<aside class="measure-panel" id="measurePanel" aria-hidden="true">
+  <h2>Maßblatt · A4</h2>
+  <dl id="measureSpec"></dl>
+  <p class="note">Magenta-Ebene = Live-Bemaßung relativ zur Blattkante. Werte in mm (1 Dezimalstelle). Nur Bildschirm — nicht im Druck.</p>
+</aside>
 
 <!-- ===================== SEITE 1 ===================== -->
 <section class="page">
@@ -447,8 +515,254 @@ function checkOverflow() {
     if (over) console.warn('Überlauf auf Seite ' + (i+1));
   });
 }
-window.addEventListener('load', checkOverflow);
-window.addEventListener('resize', checkOverflow);
+
+/* ---------- Bemaßung (mm) für InDesign-/Programm-Nachbau ---------- */
+const PAGE_W_MM = 210;
+const PAGE_H_MM = 297;
+const mm1 = (n) => (Math.round(n * 10) / 10).toFixed(1).replace('.', ',');
+
+function pageMetrics(page) {
+  const r = page.getBoundingClientRect();
+  return { left: r.left, top: r.top, w: r.width, h: r.height, pxPerMm: r.width / PAGE_W_MM };
+}
+
+function boxOnPage(el, page, m) {
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return {
+    x: (r.left - m.left) / m.pxPerMm,
+    y: (r.top - m.top) / m.pxPerMm,
+    w: r.width / m.pxPerMm,
+    h: r.height / m.pxPerMm,
+  };
+}
+
+function addGuide(layer, b, extraClass) {
+  if (!b) return;
+  const g = document.createElement('div');
+  g.className = 'measure-guide' + (extraClass ? ' ' + extraClass : '');
+  g.style.left = b.x + 'mm'; g.style.top = b.y + 'mm';
+  g.style.width = b.w + 'mm'; g.style.height = b.h + 'mm';
+  layer.appendChild(g);
+}
+
+function addDimH(layer, x, y, w, label, spanY) {
+  if (w < 0.4) return;
+  const d = document.createElement('div');
+  d.className = 'measure-dim --h';
+  d.style.left = x + 'mm'; d.style.top = y + 'mm'; d.style.width = w + 'mm';
+  const s = document.createElement('span');
+  s.textContent = label;
+  if (spanY != null) s.style.top = spanY + 'px';
+  d.appendChild(s);
+  layer.appendChild(d);
+}
+
+function addDimV(layer, x, y, h, label) {
+  if (h < 0.4) return;
+  const d = document.createElement('div');
+  d.className = 'measure-dim --v';
+  d.style.left = x + 'mm'; d.style.top = y + 'mm'; d.style.height = h + 'mm';
+  const s = document.createElement('span');
+  s.textContent = label;
+  d.appendChild(s);
+  layer.appendChild(d);
+}
+
+function addTag(layer, x, y, text) {
+  const t = document.createElement('div');
+  t.className = 'measure-tag';
+  t.style.left = x + 'mm'; t.style.top = y + 'mm';
+  t.textContent = text;
+  layer.appendChild(t);
+}
+
+function buildMeasureLayer(page, index) {
+  let layer = page.querySelector('.measure-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.className = 'measure-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    page.appendChild(layer);
+  }
+  layer.replaceChildren();
+
+  const m = pageMetrics(page);
+  const mx = 18, my = 18, footerY = 10, footerReserve = 34, logo = 20;
+
+  // Ränder + Content-Safe + Footer-Reserve
+  addGuide(layer, { x: mx, y: my, w: PAGE_W_MM - 2 * mx, h: PAGE_H_MM - my - footerReserve }, '--safe');
+  addGuide(layer, { x: mx, y: PAGE_H_MM - footerReserve, w: PAGE_W_MM - 2 * mx, h: footerReserve - footerY }, '--footer');
+
+  // Außenmaße
+  addDimH(layer, 0, 4, PAGE_W_MM, PAGE_W_MM + ' mm');
+  addDimV(layer, 4, 0, PAGE_H_MM, PAGE_H_MM + ' mm');
+
+  // Ränder
+  addDimH(layer, 0, 12, mx, mx + ' mm');
+  addDimH(layer, PAGE_W_MM - mx, 12, mx, mx + ' mm');
+  addDimV(layer, 12, 0, my, my + ' mm');
+  addDimV(layer, PAGE_W_MM - 8, PAGE_H_MM - footerY, footerY, footerY + ' mm');
+  addDimV(layer, PAGE_W_MM - 14, PAGE_H_MM - footerReserve, footerReserve, footerReserve + ' mm Reserve');
+
+  // Logo
+  const brand = boxOnPage(page.querySelector(':scope > .brandmark'), page, m);
+  if (brand) {
+    addGuide(layer, brand);
+    addDimH(layer, brand.x, brand.y + brand.h + 1.5, brand.w, mm1(brand.w) + ' mm Logo');
+    addTag(layer, brand.x, Math.max(0.5, brand.y - 4), 'Logo ' + mm1(brand.w) + '×' + mm1(brand.h));
+  } else {
+    addGuide(layer, { x: mx, y: my, w: logo, h: logo });
+  }
+
+  // Kopf / Anschrift / rechte Spalte
+  const head = boxOnPage(page.querySelector('.inv-head'), page, m);
+  const addr = boxOnPage(page.querySelector('.inv-addr'), page, m);
+  const right = boxOnPage(page.querySelector('.inv-head-right'), page, m);
+  if (head) {
+    addGuide(layer, head);
+    addDimV(layer, head.x - 6, head.y, head.h, mm1(head.h) + ' mm Kopf');
+    addTag(layer, head.x, head.y + 1, 'Kopf · min. 67 mm Raster');
+  }
+  if (addr) {
+    addGuide(layer, addr);
+    addDimH(layer, addr.x, addr.y - 3, addr.w, mm1(addr.w) + ' mm Anschrift');
+    addDimV(layer, addr.x - 3, my, addr.y - my, mm1(addr.y - my) + ' → Fenster');
+    addTag(layer, addr.x, addr.y + addr.h + 1, 'DIN 5008 B · Empfänger ab ~' + mm1(addr.y) + ' mm');
+  }
+  if (right) {
+    addGuide(layer, right);
+    addDimH(layer, right.x, right.y - 3, right.w, mm1(right.w) + ' mm rechts');
+  }
+  if (addr && right) {
+    const gap = right.x - (addr.x + addr.w);
+    addDimH(layer, addr.x + addr.w, addr.y + 8, gap, mm1(gap) + ' mm');
+  }
+
+  // Zahlungshinweis, Tabelle, Übertrag / Summen
+  const note = boxOnPage(page.querySelector('.inv-note'), page, m);
+  if (note) {
+    addGuide(layer, note);
+    addDimV(layer, note.x + note.w + 2, note.y, note.h, mm1(note.h) + ' mm');
+    addTag(layer, note.x, note.y - 3.5, 'Zahlungshinweis');
+  }
+
+  const table = boxOnPage(page.querySelector('.itable'), page, m);
+  if (table) {
+    addGuide(layer, table);
+    addDimH(layer, table.x, table.y - 3, table.w, mm1(table.w) + ' mm Tabelle');
+    addTag(layer, table.x, table.y + 1, 'Positionstabelle');
+  }
+
+  const carry = boxOnPage(page.querySelector('.inv-carry'), page, m);
+  if (carry) {
+    addGuide(layer, carry);
+    addTag(layer, carry.x, carry.y - 3.5, 'Übertrag');
+  }
+
+  const summary = boxOnPage(page.querySelector('.summary-row'), page, m);
+  const valueBox = boxOnPage(page.querySelector('.value-box'), page, m);
+  const totals = boxOnPage(page.querySelector('.inv-totals'), page, m);
+  if (summary) {
+    addGuide(layer, summary);
+    addDimH(layer, summary.x, summary.y - 3, summary.w, mm1(summary.w) + ' mm Summenzeile');
+  }
+  if (valueBox) {
+    addGuide(layer, valueBox);
+    addDimH(layer, valueBox.x, valueBox.y + valueBox.h + 1.5, valueBox.w, mm1(valueBox.w) + ' mm Mehrwert');
+  }
+  if (totals) {
+    addGuide(layer, totals);
+    addDimH(layer, totals.x, totals.y + totals.h + 1.5, totals.w, mm1(totals.w) + ' mm Totals');
+  }
+  if (valueBox && totals) {
+    const gap = totals.x - (valueBox.x + valueBox.w);
+    addDimH(layer, valueBox.x + valueBox.w, valueBox.y + 6, gap, mm1(gap) + ' mm');
+  }
+
+  const pay = boxOnPage(page.querySelector('.pay-panel'), page, m);
+  if (pay) {
+    addGuide(layer, pay);
+    addDimV(layer, pay.x + pay.w + 2, pay.y, pay.h, mm1(pay.h) + ' mm');
+    addTag(layer, pay.x, pay.y - 3.5, 'SEPA-Panel');
+  }
+
+  const qr = boxOnPage(page.querySelector('.inv-reklam .qr'), page, m);
+  if (qr) {
+    addGuide(layer, qr);
+    addDimH(layer, qr.x, qr.y + qr.h + 1.5, qr.w, mm1(qr.w) + '×' + mm1(qr.h) + ' mm QR');
+  }
+
+  const footer = boxOnPage(page.querySelector('.inv-footer'), page, m);
+  if (footer) {
+    addGuide(layer, footer);
+    addDimH(layer, footer.x, footer.y - 3, footer.w, mm1(footer.w) + ' mm Footer 4-spaltig');
+    addTag(layer, footer.x, footer.y + 1, 'Footer · bottom ' + footerY + ' mm');
+  }
+
+  addTag(layer, PAGE_W_MM - 42, 2, 'Seite ' + (index + 1));
+}
+
+function fillSpecPanel() {
+  const panel = document.getElementById('measurePanel');
+  const dl = document.getElementById('measureSpec');
+  panel.querySelectorAll('h3.spec-h').forEach((el) => el.remove());
+
+  const rows = [
+    ['Format', 'A4 · 210 × 297 mm'],
+    ['Rand L/R/O', '18 mm'],
+    ['Footer bottom', '10 mm'],
+    ['Footer-Reserve', '34 mm (Content endet darüber)'],
+    ['Satzspiegel-Breite', '174 mm (210 − 2×18)'],
+    ['Logo', '20 × 20 mm · oben links im Rand'],
+    ['Kopf-Raster', '85 mm | gap Modul | 1fr · min-height 67 mm'],
+    ['Anschrift-Offset', '27 mm unter Kopf-Start → ~45 mm ab Blattkante (DIN 5008 B)'],
+    ['Anschrift-Pad links', '2 mm'],
+    ['Totals-Spalte', '88 mm'],
+    ['QR', '16 × 16 mm'],
+    ['Tabelle Pos.', '9 mm'],
+    ['Tabelle Zahl', '20 mm'],
+    ['Modul / Half', '30 pt / 16 pt'],
+    ['Typo Display', '24 pt (Rechnung, Einzug, Gesamtersparnis)'],
+    ['Typo Normal', '10,5 pt'],
+    ['Typo Klein', '9 pt (Empfänger, Tabelle, Summen)'],
+    ['Typo Sehr klein', '7,8 pt (Meta, Footer, Caps)'],
+    ['Schrift', 'Schnebel Sans Me'],
+  ];
+
+  const h3 = document.createElement('h3');
+  h3.className = 'spec-h';
+  h3.textContent = 'Design-Tokens';
+  dl.before(h3);
+
+  dl.replaceChildren();
+  rows.forEach(([k, v]) => {
+    const dt = document.createElement('dt'); dt.textContent = k;
+    const dd = document.createElement('dd'); dd.textContent = v;
+    dl.append(dt, dd);
+  });
+}
+
+function refreshMeasures() {
+  if (!document.body.classList.contains('measure-on')) return;
+  pages.forEach((p, i) => buildMeasureLayer(p, i));
+}
+
+const measureToggle = document.getElementById('measureToggle');
+const measurePanel = document.getElementById('measurePanel');
+measureToggle.addEventListener('click', () => {
+  const on = !document.body.classList.contains('measure-on');
+  document.body.classList.toggle('measure-on', on);
+  measureToggle.setAttribute('aria-pressed', String(on));
+  measurePanel.setAttribute('aria-hidden', String(!on));
+  if (on) {
+    fillSpecPanel();
+    refreshMeasures();
+  }
+});
+
+window.addEventListener('load', () => { checkOverflow(); });
+window.addEventListener('resize', () => { checkOverflow(); refreshMeasures(); });
 </script>
 </body>
 </html>

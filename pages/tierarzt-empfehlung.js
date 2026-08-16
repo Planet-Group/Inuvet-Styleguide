@@ -183,8 +183,8 @@ function showReleaseWelcome() {
 
   document.getElementById('releaseWelcomeTitle').textContent = `Freigabe von ${VET_NAME}`;
   document.getElementById('releaseWelcomeBody').innerHTML =
-    `<p style="margin-bottom:var(--half-module);">Dein Tierarzt hat folgende Produkte für dich freigegeben – wir haben sie bereits in den Warenkorb gelegt:</p>
-     <ul style="list-style:none;margin:0 0 var(--half-module);padding:0;">${items}</ul>`;
+    `<p>Dein Tierarzt hat folgende Produkte für dich freigegeben – wir haben sie bereits in den Warenkorb gelegt:</p>
+     <ul style="list-style:none;margin:0;padding:0;">${items}</ul>`;
   document.getElementById('releaseWelcomeOverlay').classList.add('--open');
 }
 
@@ -603,7 +603,7 @@ function confirmOptions() {
 }
 
 /* ════════════════════════════════════════════
-   PDP — Layout analog Produkt.html (E.2), inkl. Freigabe-Logik
+   PDP — Layout analog Theme-PDP (E.2), inkl. Freigabe-Logik
    ════════════════════════════════════════════ */
 const pdpState = { formIndex: 0, variantIndex: 0, qty: 1 };
 
@@ -789,29 +789,37 @@ function pdpBenefitsHTML() {
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Beste Expertise</p>
           <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Für die Langzeitgabe</p>
           <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Immer gut unterstützt</p>
           <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Schnell bei dir</p>
           <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+          </div>
         </div>
       </div>
     </div>`;
@@ -860,8 +868,10 @@ function pdpRecommendationsHTML() {
           <div class="floating-meta --right">${freigabe}</div>
           ${o.img ? `<div class="tile__image"><img src="${o.img}" alt="${o.name}"></div>` : '<div class="tile__image placeholder-bg"></div>'}
         </div>
-        <div class="tile__headline-row"><h3 class="tile__headline">${o.name}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating}</div></div>
-        <div class="tile__description">${o.shortDesc}</div>
+        <div class="flow">
+          <div class="tile__headline-row"><h3 class="tile__headline">${o.name}</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> ${o.rating}</div></div>
+          <div class="tile__description">${o.shortDesc}</div>
+        </div>
         <div class="tile__price"><div class="price-stack"><span>ab ${teProductStartPrice(o)}</span></div>${animals}</div>
       </a>`;
   }).join('');
@@ -880,22 +890,28 @@ function pdpPraxisHTML() {
           <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Nur bei euch</p>
           <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
           <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon tile__animation --ratio-1">
             <lottie-player src="../assets/lotties/inuvet_animation_inhaltsstoffe.json?v=2" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Grüne Pfoten</p>
           <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p>
+          </div>
         </div>
       </div>
     </div>`;
@@ -1249,7 +1265,7 @@ function renderRequestStep() {
       <span class="cart-drawer__title">Deine Anfragen</span>
       <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
     </div>
-    <div class="cart-drawer__items">
+    <div class="cart-drawer__items flow">
       <p class="vet-search__intro">An welche Praxis möchtest du deine Freigabe-Anfrage stellen?</p>
       <!-- Primärer Weg: Karten-Finder für teilnehmende Praxen -->
       <button type="button" class="btn --primary --full --with-icon" onclick="openVetMap()">
@@ -1353,10 +1369,12 @@ function renderSuccessStep() {
     <div class="cart-drawer__items">
       <div class="success-state">
         <span class="material-icons success-state__icon">check_circle</span>
-        <h3 class="success-state__title">Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</h3>
-        <p class="success-state__body">
-          Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
-        </p>
+        <div class="flow">
+          <h3 class="success-state__title">Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</h3>
+          <p class="success-state__body">
+            Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
+          </p>
+        </div>
       </div>
     </div>
     <div class="cart-drawer__footer" id="drawerFooter" style="display:none">
@@ -1385,7 +1403,12 @@ function renderCartDrawer() {
         <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Schließen"><span class="material-icons">close</span></button>
       </div>
       <div class="cart-drawer__empty">
-        <p class="text-muted">Dein Warenkorb ist leer.</p>
+        <div class="empty-state">
+          <span class="material-icons" aria-hidden="true">shopping_cart</span>
+          <div class="flow">
+            <p class="empty-state__title">Dein Warenkorb ist leer.</p>
+          </div>
+        </div>
       </div>`;
     return;
   }
@@ -1721,11 +1744,13 @@ function tileHTML(p) {
       <div class="${imgClass}">${imgContent}</div>
       ${cartOverlay}
     </div>
-    <div class="tile__headline-row">
-      <h3 class="tile__headline">${p.name}</h3>
-      ${p.rating ? `<div class="rating"><span class="material-icons" aria-hidden="true">star</span><span>${p.rating}</span></div>` : ''}
+    <div class="flow">
+      <div class="tile__headline-row">
+        <h3 class="tile__headline">${p.name}</h3>
+        ${p.rating ? `<div class="rating"><span class="material-icons" aria-hidden="true">star</span><span>${p.rating}</span></div>` : ''}
+      </div>
+      <div class="tile__description">${p.shortDesc}</div>
     </div>
-    <div class="tile__description">${p.shortDesc}</div>
     <div class="tile__price">
       <div class="price-stack"><span>ab ${teProductStartPrice(p)}</span></div>
       ${animals}
@@ -1969,29 +1994,37 @@ function renderHome() {
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Beste Expertise</p>
           <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Für die Langzeitgabe</p>
           <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Immer gut unterstützt</p>
           <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Schnell bei dir</p>
           <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2053,29 +2086,37 @@ function renderAbout() {
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Beste Expertise</p>
           <p class="tile__body">Kaufe Inuvet-Produkte online – mit der Empfehlung deiner Tierarztpraxis</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Für die Langzeitgabe</p>
           <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Immer gut unterstützt</p>
           <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+          </div>
         </div>
         <div class="tile">
           <div class="tile__icon">
             <lottie-player src="../assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay style="width:calc(var(--base)*4);height:calc(var(--base)*4);display:block;"></lottie-player>
           </div>
+          <div class="flow">
           <p class="tile__headline">Schnell bei dir</p>
           <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2106,7 +2147,7 @@ function renderCollection() {
   return `
     <div class="section-type --v1 --reverse">
       <div class="section-type__animation">
-        <lottie-player src="../assets/lotties/inuvet_website_animation_pagenotfound_json.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        <lottie-player src="../assets/lotties/inuvet_website_animation_pagenotfound.json" background="transparent" speed="1" loop autoplay></lottie-player>
       </div>
       <div class="section-type__content flow">
         <h2 class="section-type__headline">Produkte finden und von deinem Tierarzt freigeben lassen</h2>
@@ -2143,7 +2184,7 @@ function renderRecommended() {
 `;
 }
 
-/* ── Produktseite (PDP) — Layout analog Produkt.html, Freigabe erhalten ── */
+/* ── Produktseite (PDP) — Layout analog Theme-PDP, Freigabe erhalten ── */
 function renderProduct() {
   const p = activeProduct;
   const approved = isApproved(p);
@@ -2359,7 +2400,9 @@ function renderSearchResults(query) {
     container.innerHTML = `
       <div class="empty-state">
         <span class="material-icons">search_off</span>
-        <p>Keine Ergebnisse für „${query}"</p>
+        <div class="flow">
+          <p class="empty-state__title">Keine Ergebnisse für „${query}“</p>
+        </div>
       </div>`;
     return;
   }

@@ -6,8 +6,8 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=194">
-  <link rel="stylesheet" href="sg.css?v=49">
+  <link rel="stylesheet" href="inuvet.css?v=202">
+  <link rel="stylesheet" href="sg.css?v=50">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
     html { scroll-padding-top: var(--module); }
@@ -185,12 +185,12 @@
 
       <h3 class="sg-h3 --top"><code>--text-base</code></h3>
       <table class="spec-table">
-        <tr><th><code>--text-xs</code></th><td><code>clamp(0.667rem, 0.6rem + 0.21vw, 0.75rem)</code> — Labels, Captions, Metainfos</td></tr>
-        <tr><th><code>--text-sm</code></th><td><code>0.8rem</code> — Kompakter Hilfstext, Formular-Labels</td></tr>
-        <tr><th><code>--text-base</code></th><td><code>clamp(0.875rem, 0.8rem + 0.3vw, 1rem)</code> — Fließtext</td></tr>
-        <tr><th><code>--text-m</code></th><td><code>clamp(1.25rem, 1rem + 0.7vw, 1.5rem)</code> — H3, Intro, hervorgehobene Werte</td></tr>
-        <tr><th><code>--text-l</code></th><td><code>clamp(1.5rem, 1rem + 1.7vw, 2.25rem)</code> — H2</td></tr>
-        <tr><th><code>--text-xl</code></th><td><code>clamp(2rem, 1rem + 3.2vw, 3.375rem)</code> — H1</td></tr>
+        <tr><th><code>--text-xs</code></th><td><code>clamp(0.75rem, 0.7rem + 0.15vw, 0.8125rem)</code> — Labels, Captions, Metainfos</td></tr>
+        <tr><th><code>--text-sm</code></th><td><code>0.875rem</code> — Kompakter Hilfstext, Formular-Labels</td></tr>
+        <tr><th><code>--text-base</code></th><td><code>clamp(1rem, 0.95rem + 0.2vw, 1.0625rem)</code> — Fließtext</td></tr>
+        <tr><th><code>--text-m</code></th><td><code>clamp(1.375rem, 1.15rem + 0.65vw, 1.625rem)</code> — H3, Intro, hervorgehobene Werte</td></tr>
+        <tr><th><code>--text-l</code></th><td><code>clamp(1.625rem, 1.15rem + 1.6vw, 2.375rem)</code> — H2</td></tr>
+        <tr><th><code>--text-xl</code></th><td><code>clamp(2.125rem, 1.15rem + 3vw, 3.5rem)</code> — H1</td></tr>
         <tr><th><code>--lh-base</code></th><td><code>1.5</code> — Fließtext, H4</td></tr>
         <tr><th><code>--lh-h3</code></th><td><code>1.2</code> — H3 Headlines</td></tr>
         <tr><th><code>--lh-h2</code></th><td><code>1.17</code> — H2 Headlines</td></tr>
@@ -265,31 +265,31 @@
       </div>
 
       <div class="type-scale">
-        <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.667–0.75rem</div></div>
-        <div class="type-scale-step"><div class="glyph --sm">Ag</div><div class="meta"><span class="sg-token">--text-sm</span>0.8rem</div></div>
-        <div class="type-scale-step"><div class="glyph --base">Ag</div><div class="meta"><span class="sg-token">--text-base</span>0.875–1rem</div></div>
-        <div class="type-scale-step"><div class="glyph --m">Ag</div><div class="meta"><span class="sg-token">--text-m</span>1.25–1.5rem</div></div>
-        <div class="type-scale-step"><div class="glyph --l">Ag</div><div class="meta"><span class="sg-token">--text-l</span>1.5–2.25rem</div></div>
-        <div class="type-scale-step"><div class="glyph --xl">Ag</div><div class="meta"><span class="sg-token">--text-xl</span>2–3.375rem</div></div>
+        <div class="type-scale-step"><div class="glyph --xs">Ag</div><div class="meta"><span class="sg-token">--text-xs</span>0.75–0.8125rem</div></div>
+        <div class="type-scale-step"><div class="glyph --sm">Ag</div><div class="meta"><span class="sg-token">--text-sm</span>0.875rem</div></div>
+        <div class="type-scale-step"><div class="glyph --base">Ag</div><div class="meta"><span class="sg-token">--text-base</span>1–1.0625rem</div></div>
+        <div class="type-scale-step"><div class="glyph --m">Ag</div><div class="meta"><span class="sg-token">--text-m</span>1.375–1.625rem</div></div>
+        <div class="type-scale-step"><div class="glyph --l">Ag</div><div class="meta"><span class="sg-token">--text-l</span>1.625–2.375rem</div></div>
+        <div class="type-scale-step"><div class="glyph --xl">Ag</div><div class="meta"><span class="sg-token">--text-xl</span>2.125–3.5rem</div></div>
       </div>
 
       <h3 class="sg-h3 --top"><code>h1</code>–<code>h4</code></h3>
       <div class="specimen">
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2–3.375rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.5–2.25rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-m</span><span>1.25–1.5rem</span><span>LH 1.2</span></div><h3>Headline 3</h3></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5</span></div><h4>Headline 4</h4></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>0.875–1rem</span><span>LH 1.5 · Body</span></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Alle Produkte enthalten <a href="#">natürliche Wirkstoffe</a> – ohne unnötige Zusatzstoffe. Mehr dazu in unserem <a href="#">Ratgeber</a>.</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xl</span><span>2.125–3.5rem</span><span>LH 1.11</span></div><p class="h1">Headline 1</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-l</span><span>1.625–2.375rem</span><span>LH 1.17</span></div><p class="h2">Headline 2</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-m</span><span>1.375–1.625rem</span><span>LH 1.2</span></div><h3>Headline 3</h3></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>1–1.0625rem</span><span>LH 1.5</span></div><h4>Headline 4</h4></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-base</span><span>1–1.0625rem</span><span>LH 1.5 · Body</span></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Alle Produkte enthalten <a href="#">natürliche Wirkstoffe</a> – ohne unnötige Zusatzstoffe. Mehr dazu in unserem <a href="#">Ratgeber</a>.</p></div>
         <div class="specimen-row"><div class="specimen-meta"><span>ul · ol</span><span>a:not([class])</span></div><div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--module)"><ul><li>Tierärztlich entwickelt</li><li>Ohne künstliche Zusätze</li><li>Nachhaltige Rohstoffe</li></ul><ol><li>Produkt wählen</li><li>Dosierung beachten</li><li>Regelmäßig anwenden</li></ol></div></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>LH 1.5</span></div><p style="font-size: var(--text-xs)">Caption · Label · Kleingedrucktes · Metainfo</p></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>Uppercase · 0.15em</span></div><div style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted);">Section Label · Tabellen-Header · Filter-Label</div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.75–0.8125rem</span><span>LH 1.5</span></div><p style="font-size: var(--text-xs)">Caption · Label · Kleingedrucktes · Metainfo</p></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.75–0.8125rem</span><span>Uppercase · 0.15em</span></div><div style="font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-muted);">Section Label · Tabellen-Header · Filter-Label</div></div>
         <div class="specimen-row"><div class="specimen-meta"><span>0.85em (relativ)</span><span>Monospace</span></div><div style="font-size: var(--text-base); line-height: var(--lh-base); color: var(--fg-muted);">Inline-Code: <code>var(--module)</code>, <code>clamp()</code>, <code>#78b41b</code></div></div>
-        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.667–0.75rem</span><span>700 · uppercase · ls 0.05em</span></div><div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;"><div class="badge" data-cat="herz">Herz</div><div class="badge" data-cat="gelenke">Gelenke</div><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge --sale">Sale</div></div></div>
+        <div class="specimen-row"><div class="specimen-meta"><span class="sg-token">--text-xs</span><span>0.75–0.8125rem</span><span>700 · uppercase · ls 0.05em</span></div><div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;"><div class="badge" data-cat="herz">Herz</div><div class="badge" data-cat="gelenke">Gelenke</div><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge --sale">Sale</div></div></div>
       </div>
       <p>Die vollständige Icon-Galerie ist in <a href="#B3">B.3 — Icons &amp; icon-box</a> dokumentiert.</p>
 
       <h3 class="sg-h3 --top"><code>.rte</code></h3>
-      <p>Texte aus dem Shopify-Backend (Seiten, Blogbeiträge, Produktbeschreibungen) haben keine Utility-Klassen. Der Wrapper <code>.rte</code> sorgt dafür, dass Standard-HTML-Tags automatisch den korrekten vertikalen Rhythmus erhalten.</p>
+      <p>Texte aus dem Shopify-Backend (Seiten, Blogbeiträge, Produktbeschreibungen) haben keine Utility-Klassen. Der Wrapper <code>.rte</code> ist ein <strong>Flow-Container</strong> (gleiche Regeln wie <a href="#A7"><code>.flow</code></a> A.7): direkte Überschriften und Absätze bekommen denselben Typo-Rhythmus. Listen, Zitate, Tabellen und Figures behalten ihre Tag-Styles ohne Extra-Margins zwischen Heading und Absatz.</p>
       <div class="sg-demo">
         <div class="rte">
           <h2>Warum natürliche Inhaltsstoffe?</h2>
@@ -325,7 +325,7 @@
         </div>
       </div>
       <table class="spec-table">
-        <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Abstand nach unten: <code>--half-module</code>.</td></tr>
+        <tr><th><code>.rte table</code></th><td>Volle Breite, <code>border-collapse: collapse</code>, horizontale Scroll-Unterstützung via <code>overflow-x: auto</code>. Vertikaler Abstand über <code>.flow</code> / <code>.rte</code> als Flow-Container (A.7).</td></tr>
         <tr><th><code>th, td</code></th><td>Linksbündig, kein linkes Padding. Vertikales Padding: <code>0.4 × --base</code>. Trennlinie unten: <code>1px solid var(--border-light)</code>. <code>vertical-align: top</code>.</td></tr>
         <tr><th><code>th</code></th><td><code>font-weight: 700</code> — Header-Abgrenzung über Schriftstärke (Linien einheitlich).</td></tr>
         <tr><th>Letzte Zeile</th><td>Kein Border-Bottom auf <code>tr:last-child td</code>.</td></tr>
@@ -548,7 +548,7 @@
         </div>
       </div>
 
-      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Links: <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich — Ausnahme: Links mit <code>.material-icons</code> oder <code>.badge</code> darin (kein Unterstrich).</p>
+      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Klassenlose Links (<code>a:not([class])</code>): <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich — Ausnahme: Links mit <code>.material-icons</code> oder <code>.badge</code> darin (kein Unterstrich). Kein globales <code>:visited</code> — das wäre spezifischer als Nav/TOC und färbt Chrome grün. Komponenten setzen ihre Linkfarbe selbst; <code>a:not([class])</code> gilt bereits inkl. besuchter Links.</p>
 
       <h3 class="sg-h3 --top"><code>--cat-*</code></h3>
       <p>Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
@@ -767,7 +767,7 @@
       </table>
 
       <h3 class="sg-h3 --top"><code>.flow</code></h3>
-      <p>Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Alle direkten Kinder: <code>margin-bottom: 0</code> (Rhythmus läuft ausschließlich über <code>margin-top</code>). Einsatz auf Info-Pages, <code>.section-type__content</code> und <code>.section-type__bottom</code> (Hero Body + CTA). Nicht für <code>.rte</code>-Blöcke (eigene Regelung).</p>
+      <p>Utility für gemischte Heading/Text-Blöcke. Setzt <code>margin-top</code> kontextsensitiv via <code>--flow-space</code> — je nachdem welches Element auf welches folgt. Alle direkten Kinder: <code>margin-bottom: 0</code> (Rhythmus läuft ausschließlich über <code>margin-top</code>). Einsatz auf Info-Pages, <code>.section-type__content</code>, <code>.section-type__bottom</code> und <strong>CMS-Fließtext</strong> (<code>.rte</code> ist derselbe Container, ohne Klasse <code>.flow</code> am HTML aus dem Editor).</p>
 
       <div class="rules">
         <div class="rule">
@@ -783,12 +783,14 @@
       <table class="spec-table">
         <tr><th><code>&gt; *</code></th><td><code>margin-bottom: 0</code> — Default-Margins der Kinder werden zurückgesetzt</td></tr>
         <tr><th><code>* + *</code> (Default)</th><td><code>var(--base)</code> · 1rem — Paragraph → Paragraph</td></tr>
-        <tr><th><code>h1 + *</code> / <code>h2 + *</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem — Content bleibt nah unter Headline</td></tr>
-        <tr><th><code>h3 + *</code></th><td><code>calc(var(--base) * 0.75)</code> · 12px — h3 fast body-groß → eng</td></tr>
-        <tr><th><code>h4 + *</code></th><td><code>calc(var(--base) * 0.5)</code> · 8px — Minimalabstand</td></tr>
-        <tr><th><code>* + h2</code></th><td><code>var(--module)</code> · 1.5–3rem — neuer Abschnitt, deutliche Zäsur</td></tr>
-        <tr><th><code>* + h3</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem — Unterabschnitt</td></tr>
-        <tr><th><code>* + h4</code></th><td><code>calc(var(--base) * 1.5)</code> · 24px</td></tr>
+        <tr><th><code>h1 + *</code></th><td><code>calc(var(--half-module) * 1.5)</code> · 1.125–2.25rem</td></tr>
+        <tr><th><code>h2 + *</code></th><td><code>var(--half-module)</code> · 0.75–1.5rem</td></tr>
+        <tr><th><code>h3 + *</code></th><td><code>calc(var(--base) * 0.75)</code></td></tr>
+        <tr><th><code>h4/h5/h6 + *</code></th><td><code>calc(var(--base) * 0.5)</code></td></tr>
+        <tr><th><code>* + h1</code> / <code>* + h2</code></th><td><code>var(--module)</code> — neuer Abschnitt</td></tr>
+        <tr><th><code>* + h3</code></th><td><code>var(--half-module)</code></td></tr>
+        <tr><th><code>* + h4/h5/h6</code></th><td><code>calc(var(--base) * 1.5)</code></td></tr>
+        <tr><th>Heading + Heading</th><td><code>var(--half-module)</code> — Unterüberschrift bleibt nah</td></tr>
         <tr><th><code>.section-label + *</code> / <code>.section-label-row + *</code></th><td><code>var(--module)</code> — Abstand nach Sektions-Titel (<a href="#A12">A.12</a>)</td></tr>
         <tr><th><code>.section-label.--sub + *</code></th><td><code>var(--half-module)</code> — Abstand nach Formular-Gruppentitel</td></tr>
         <tr><th><code>* + .btn</code> / <code>* + .btn-row</code> / <code>* + .section-type--v4__cta</code></th><td><code>calc(var(--half-module) * 1.5)</code> · 1.125–2.25rem — Body → CTA · <strong>nicht</strong> in die Formular-Gruppe darunter ziehen (sonst Override)</td></tr>
@@ -970,7 +972,7 @@
       <p>Spaltenwahl per Modifier am Container — Kacheln selbst unverändert. Gap: <code>var(--gutter)</code>.</p>
       <table class="spec-table">
         <tr><th><code>--cols-2</code></th><td>2 → <strong>1</strong> (≤767px)</td></tr>
-        <tr><th><code>--cols-3</code></th><td>3 → <strong>2</strong> (≤1100px) → <strong>1</strong> (≤767px)</td></tr>
+        <tr><th><code>--cols-3</code></th><td>3 → <strong>2</strong> (≤1100px) → <strong>1</strong> (≤767px) · Ausnahme Content-Kacheln: Mobil <strong>2</strong>, außer <code>.--mobile-stack</code></td></tr>
         <tr><th><code>--cols-4</code></th><td>4 → <strong>3</strong> (≤1100px) → <strong>2</strong> (≤899px) · Mobile: <strong>2</strong> (Benefit-/Icon) · in <code>.collection-main</code>: <strong>1</strong> (Produkte, nie 2-spaltig)</td></tr>
       </table>
       <p><code>.testimonial-grid</code> und <code>.testimonial-slider</code> nutzen dieselben Breakpoints (<code>--cols-3/4</code>). Testimonial-Grid auf Mobile: progressive Anzeige via „Mehr anzeigen" — Details in <a href="#D5">D.5 Testimonials</a>.</p>
@@ -1064,19 +1066,19 @@
       <div class="sg-demo --white">
         <div class="section-label-row" style="--section-label-mt: 0; --section-label-mb: 0;">
           <h2 class="section-label">Bestseller</h2>
-          <a class="btn --ghost --sm" href="pages/Collection.html">Zu allen Produkten</a>
+          <a class="btn --ghost --sm" href="https://inuvet-dev.myshopify.com/collections/all">Zu allen Produkten</a>
         </div>
       </div>
-      <p class="sg-caption"><code>.section-label-row</code> · Label + <code>.btn.--ghost.--sm</code> · Live → <a href="pages/Inuvet-Shop.html#shopCollection">Shop · Bestseller</a>.</p>
+      <p class="sg-caption"><code>.section-label-row</code> · Label + <code>.btn.--ghost.--sm</code> · Live → <a href="https://inuvet-dev.myshopify.com/">Shop · Bestseller</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.section-label-row.--headline</code> — Headline statt Label</h3>
       <div class="sg-demo --white">
         <div class="section-label-row --headline" style="--section-label-mt: 0; --section-label-mb: 0;">
           <h2>Das könnte dir auch gefallen</h2>
-          <a class="btn --ghost --sm" href="pages/Collection.html">Alle Produkte</a>
+          <a class="btn --ghost --sm" href="https://inuvet-dev.myshopify.com/collections/all">Alle Produkte</a>
         </div>
       </div>
-      <p class="sg-caption"><code>.section-label-row.--headline</code> · <code>&lt;h2&gt;</code> + Ghost-CTA · <strong>empfohlener Default</strong> für <code>heading_style</code> · Live → <a href="pages/Produkt.html?id=13">PDP · Empfehlungen</a> · Spec → <a href="#pdp-recommendations">E.2</a>.</p>
+      <p class="sg-caption"><code>.section-label-row.--headline</code> · <code>&lt;h2&gt;</code> + Ghost-CTA · <strong>empfohlener Default</strong> für <code>heading_style</code> · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">PDP · Empfehlungen</a> · Spec → <a href="#pdp-recommendations">E.2</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.section-header</code> — Headline + Absatz</h3>
       <div class="sg-demo --white">
@@ -1312,7 +1314,7 @@
 
       <h3 class="sg-h3 --top"><code>.badge</code></h3>
       <table class="spec-table">
-        <tr><th><code>.badge</code> + <code>data-cat</code></th><td>Kategorie-Label · Hintergrund aus <code>--cat-*-light</code> · Schrift <code>--fg</code></td></tr>
+        <tr><th><code>.badge</code> + <code>data-cat</code></th><td>Kategorie-Label · Hintergrund aus <code>--cat-*-light</code> · Schrift <code>--fg</code> · immer einzeilig (<code>white-space: nowrap</code>)</td></tr>
         <tr><th><code>.badge.--dark</code></th><td>Schwarz · weiße Schrift — „Neu"</td></tr>
         <tr><th><code>.badge.--sale</code></th><td>Grün · weiße Schrift — Sale</td></tr>
         <tr><th><code>.badge.--free</code></th><td>Tone-on-Tone Grün — Gratis-Hinweis (<code>--green-light</code> / <code>--green</code>)</td></tr>
@@ -1375,7 +1377,7 @@
       </table>
       <div class="sg-demo">
         <p class="label-caps">Darreichungsform</p>
-        <p class="label-caps" style="margin-top: var(--half-module);">12. April 2026 · Ernährung</p>
+        <p class="label-caps" style="margin-top: var(--half-module);">12.04.26 · Ernährung</p>
       </div>
     </section>
 
@@ -1697,7 +1699,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Referenz: <a href="pages/Inuvet-Shop.html">Inuvet-Shop</a> (Contact-FR-Pop-up).</p>
+      <p class="sg-caption">Referenz: <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a> (Contact-FR-Pop-up).</p>
 
       <h3 class="sg-h3 --top"><code>.option-divider</code></h3>
       <p>Trennt zwei gleichwertige Optionen in Formular- oder Modal-Kontexten — z.&nbsp;B. Gast-Checkout und Login, Direktkontakt und Rückruf. Text sprachlich anpassen (<code>oder</code>, <code>ou</code> …). Immer in <code>.flow</code>; kein <code>&lt;hr&gt;</code>.</p>
@@ -1718,7 +1720,7 @@
           <button class="btn --primary --full" type="button">Anmelden</button>
         </div>
       </div>
-      <p class="sg-caption">Einsatz u.&nbsp;a. Shop-Pop-ups (<a href="pages/Inuvet-Shop.html">Inuvet-Shop</a>) · Schrift <code>var(--text-xs)</code>, Farbe <code>var(--fg-muted)</code>, Linien <code>var(--border)</code>.</p>
+      <p class="sg-caption">Einsatz u.&nbsp;a. Shop-Pop-ups (<a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a>) · Schrift <code>var(--text-xs)</code>, Farbe <code>var(--fg-muted)</code>, Linien <code>var(--border)</code>.</p>
 
       <h3 class="sg-h3 --top"><code>.form-check.--with-input</code></h3>
       <div class="sg-demo --white">
@@ -2780,12 +2782,12 @@
       </div>
 
       <table class="spec-table">
-        <tr><th><code>.notice</code></th><td>Hintergrund <code>var(--color-notice-bg)</code> · kein Border · Padding <code>var(--half-module)</code> · Flex-Spalte mit <code>gap</code></td></tr>
+        <tr><th><code>.notice</code></th><td>Hintergrund <code>var(--color-notice-bg)</code> · kein Border · Padding <code>var(--half-module)</code> · Text in <code>.flow</code> (A.7) · Actions strukturell</td></tr>
         <tr><th><code>.notice.--compact</code></th><td>Kompakt für Inline-Hinweise (PDP Typ-Selektor) · Padding vertikal wie <code>.pdp__type-row</code> (<code>calc(var(--base) * 0.5)</code>) · Text <code>--text-sm</code> / <code>--lh-h3</code> · einzeilig, Höhe ≈ Tabellenzeile darüber</td></tr>
         <tr><th><code>.notice__title</code></th><td>Optionaler Titel · fett · <code>var(--text-base)</code></td></tr>
         <tr><th><code>.notice__actions</code></th><td>CTA-Zeile · Flex · <code>gap: var(--half-module)</code></td></tr>
         <tr><th><code>.notice__icon</code></th><td>Material Icon · <code>var(--green)</code> · <code>1.25rem</code></td></tr>
-        <tr><th><code>details.notice</code></th><td>Aufklappbar · <code>&lt;summary&gt;</code>: <code>.notice__title</code> (Icon darin) + <code>.notice__chevron</code> · Inhalt in <code>.notice__body</code></td></tr>
+        <tr><th><code>details.notice</code></th><td>Aufklappbar · <code>&lt;summary&gt;</code>: <code>.notice__title</code> (Icon darin) + <code>.notice__chevron</code> · Inhalt in <code>.notice__body.flow</code></td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.notice</code></h3>
@@ -2802,35 +2804,41 @@
           <p>Beachte: Je nach Produkttyp ändern sich die Inhaltsstoffe.</p>
         </div>
       </div>
-      <p class="sg-caption">Kompakt — PDP unter dem Typ-Selektor · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+      <p class="sg-caption">Kompakt — PDP unter dem Typ-Selektor · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a>.</p>
 
       <h3 class="sg-h3 --top"><code>.notice__title</code></h3>
       <div class="sg-demo --white">
         <div class="notice">
-          <p class="notice__title">Wichtiger Hinweis zur Dosierung</p>
-          <p>Die empfohlene Tagesdosis richtet sich nach dem Körpergewicht deines Tieres. Bei Unsicherheiten empfehlen wir die Rücksprache mit deinem Tierarzt.</p>
+          <div class="flow">
+            <p class="notice__title">Wichtiger Hinweis zur Dosierung</p>
+            <p>Die empfohlene Tagesdosis richtet sich nach dem Körpergewicht deines Tieres. Bei Unsicherheiten empfehlen wir die Rücksprache mit deinem Tierarzt.</p>
+          </div>
         </div>
       </div>
-      <p class="sg-caption">Mehrzeilig — Titel + Fließtext.</p>
+      <p class="sg-caption">Mehrzeilig — Titel + Fließtext in <code>.flow</code> (A.7).</p>
 
       <h3 class="sg-h3 --top"><code>.notice__actions</code></h3>
       <div class="sg-demo --white">
         <div class="notice">
-          <p class="notice__title">Tierärztliche Empfehlung verfügbar</p>
-          <p>Dein Tierarzt hat bereits Produkte für dein Tier freigegeben. Diese sind in deinem persönlichen Angebot hinterlegt.</p>
+          <div class="flow">
+            <p class="notice__title">Tierärztliche Empfehlung verfügbar</p>
+            <p>Dein Tierarzt hat bereits Produkte für dein Tier freigegeben. Diese sind in deinem persönlichen Angebot hinterlegt.</p>
+          </div>
           <div class="notice__actions">
             <a class="btn --primary" href="#">Zum Angebot</a>
             <button type="button" class="btn --ghost">Später</button>
           </div>
         </div>
       </div>
-      <p class="sg-caption">Mit CTA-Buttons.</p>
+      <p class="sg-caption">Mit CTA-Buttons — Actions strukturell unter dem Textblock.</p>
 
       <h3 class="sg-h3 --top"><code>.notice__icon</code></h3>
       <div class="sg-demo --white">
         <div class="notice">
-          <p class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung</p>
-          <p>Du gibst die angefragten Produkte mit einem Klick frei — Beratung, Versand und Betreuung übernimmt Inuvet.</p>
+          <div class="flow">
+            <p class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung</p>
+            <p>Du gibst die angefragten Produkte mit einem Klick frei — Beratung, Versand und Betreuung übernimmt Inuvet.</p>
+          </div>
         </div>
       </div>
       <p class="sg-caption">Icon im Titel.</p>
@@ -2842,14 +2850,14 @@
             <span class="notice__title"><span class="material-icons notice__icon">info</span> So funktioniert die Empfehlung — und dein persönlicher Kontakt</span>
             <span class="material-icons notice__chevron">expand_more</span>
           </summary>
-          <div class="notice__body">
+          <div class="notice__body flow">
             <p>Du gibst die angefragten Produkte mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — kein Aufwand mit Lagerung oder Logistik.</p>
             <p class="notice__title">Persönlicher Kontakt bei Fragen</p>
             <p>Deine persönliche Ansprechpartnerin hilft dir gern weiter: <strong>Birka Beispiel</strong> · <a href="#">birka@inuvet.com</a></p>
           </div>
         </details>
       </div>
-      <p class="sg-caption">Aufklappbar — Chevron rotiert bei <code>[open]</code>.</p>
+      <p class="sg-caption">Aufklappbar — Inhalt in <code>.notice__body.flow</code> · Chevron rotiert bei <code>[open]</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="C8">
@@ -2985,9 +2993,9 @@
       <h3 class="sg-h3 --top"><code>.shop-modal</code></h3>
       <table class="spec-table">
         <tr><th><code>.shop-modal-overlay</code></th><td>Backdrop · Toggle <code>.--open</code> · Fade-Transition</td></tr>
-        <tr><th><code>.shop-modal</code></th><td>Kompakte Box · Padding <code>var(--module)</code> · Flex-Spalte · zentriert (wie <code>.success-state</code>)</td></tr>
+        <tr><th><code>.shop-modal</code></th><td>Kompakte Box · Padding <code>var(--module)</code> · Flex-Spalte · zentriert · mit <code>.flow</code>: Gap nur Icon&nbsp;/ Text&nbsp;/ Actions</td></tr>
         <tr><th><code>.shop-modal__icon</code></th><td>Material Icon · <code>3rem</code> · <code>var(--green)</code></td></tr>
-        <tr><th><code>.shop-modal__body</code></th><td><code>--fg-muted</code> · <code>max-width: 28rem</code></td></tr>
+        <tr><th><code>.shop-modal__body</code></th><td><code>--fg-muted</code> · Titel + Body in <code>.flow</code> (A.7)</td></tr>
         <tr><th><code>.shop-modal__actions</code></th><td>CTA-Spalte · zentriert · Primary + Ghost · <code>.--full</code> optional</td></tr>
         <tr><th><code>openShopModal(id)</code></th><td>Öffnet Shop-Modal · sperrt Scroll</td></tr>
       </table>
@@ -3015,7 +3023,7 @@
         <tr><th><code>.announcement-bar.--marquee</code></th><td>Endlos-Scroll · Track <code>.announcement-bar__track</code> · Init via <code>sg.js</code></td></tr>
         <tr><th><code>.announcement-bar.--static</code></th><td>Kein Laufband · passt alles in eine Zeile → nebeneinander · sonst <code>.--rotate</code>: Fade-Rotation je ein Item (<code>.--visible</code>) · Fit-Messung + Umschaltung via <code>initAnnouncementBar()</code></td></tr>
         <tr><th>Fade-Rotation</th><td><code>@keyframes annBarFade</code> · Dauer <code>var(--anim-announcement) × n</code> · Delays per <code>:nth-child</code></td></tr>
-        <tr><th><code>.site-nav</code></th><td>Sticky · <code>top: 0</code> (Default) · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code> · <strong>Frosted Glass:</strong> <code>backdrop-filter: blur(12px) saturate(1.15)</code> · <code>color-mix</code> 58% · Fallback ohne Blur: <code>--nav-glass</code></td></tr>
+        <tr><th><code>.site-nav</code></th><td>Sticky · <code>top: 0</code> (Default) · Höhe <code>var(--nav-height)</code> · 3-Spalten <code>1fr auto 1fr</code> · Padding <code>var(--margin)</code> (gleicher Satzspiegel wie <code>.container</code>, auch Mobile) · <strong>Frosted Glass:</strong> <code>backdrop-filter: blur(12px) saturate(1.15)</code> · <code>color-mix</code> 58% · Fallback ohne Blur: <code>--nav-glass</code></td></tr>
         <tr><th><code>body.--nav-scrolled</code></th><td>Nach Scroll (<code>initNavScrolled()</code>): <code>border-bottom: var(--border-light)</code> an <code>.site-nav</code> · am Top transparent (kein Layout-Sprung)</td></tr>
         <tr><th><code>.nav-logo</code></th><td>Theme-Setting <code>logo_variant: inuvet | campus</code> · zwei <code>.nav-logo__img</code> (<code>.--inuvet</code> / <code>.--campus</code>) · Umschaltung via <code>body[data-nav-logo="campus"]</code> · Campus: größeres Logo, <code>--nav-height: calc(var(--module) * 3)</code></td></tr>
         <tr><th>Logo Mockup</th><td>Mockup-Bar „Logo: inuvet | Campus" · URL <code>?logo=campus</code> · Persistenz <code>sessionStorage</code> · JS: <code>initNavLogoToggle()</code> — überschreibt nur mit Mockup-Controls; Produktion setzt <code>data-nav-logo</code> per Liquid</td></tr>
@@ -3025,7 +3033,8 @@
         <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
         <tr><th><code>.nav-hamburger.icon-badged</code></th><td>Hamburger mit <code>.badge.--count</code> oben rechts — Mobile-Ersatz für den Zähler in der Desktop-Nav</td></tr>
         <tr><th><code>.nav-item.--end</code> (Land)</th><td>Länder-/Locale-Umschalter in <code>.nav-right</code> · Trigger zeigt ISO-Code (<code>DE</code>) · Dropdown mit Markt-Namen · Mockup: DACH (<code>de</code> · <code>at</code> · <code>ch</code>) · JS: <code>initNavCountry()</code> in <code>inuvet.js</code></td></tr>
-        <tr><th>Account-Link</th><td><code>.btn.--icon</code> mit <code>person</code> · <code>aria-label="Anmelden"</code> (eingeloggt: „Konto") · Ziel <code>/account</code> · Mockup: <a href="#E6">E.6 Account</a></td></tr>
+        <tr><th>Account</th><td><code>&lt;shopify-account class="nav-account"&gt;</code> · signed-out: Icon <code>person</code> · New Customer Accounts Sheet · Spec → <a href="#E6">E.6</a></td></tr>
+        <tr><th>Mobile <code>.nav-right</code></th><td>Trefferfelder Konto/Suche/Warenkorb 36px (<code>2.25rem</code>), Icon-Größe unverändert · <code>gap: 0</code> (Abstand nur aus Feld-Padding) · Cart-Badge am Icon, nicht an der Feld-Ecke</td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.announcement-bar.--marquee</code></h3>
@@ -3251,7 +3260,7 @@
       <table class="spec-table">
         <tr><th>Trigger</th><td><code>#countryTrigger</code> · <code>aria-haspopup="true"</code> · <code>[data-country-label]</code> für ISO-Code</td></tr>
         <tr><th>Einträge</th><td><code>[data-country="de|at|ch"]</code> · aktiv via <code>aria-current</code> · Mockup speichert Wahl in <code>localStorage</code> (<code>inuvet-shop-country</code>)</td></tr>
-        <tr><th>Account</th><td><code>href="/account/login"</code> (Theme) · Mockup → <a href="#E6">E.6</a></td></tr>
+        <tr><th>Account</th><td><code>&lt;shopify-account&gt;</code> im Theme-Header · Spec → <a href="#E6">E.6</a></td></tr>
       </table>
 
       <pre class="sg-code"><code>&lt;!-- .nav-right — Land + Account vor Suche/Warenkorb --&gt;
@@ -3312,31 +3321,33 @@
 
       <div class="col-grid" data-cols="2">
         <p>Volle Breite · Hintergrund <code>--green-light</code> · zwei Bereiche: <code>.footer-main</code> (Inhalte) + <code>.footer-bar</code> (Meta-Zeile).</p>
-        <p>Referenz: <a href="pages/Inuvet-Shop.html">Inuvet-Shop</a> · Page-Skeleton → <a href="#E1">E.1</a> · Newsletter-Formular → <a href="#B4">B.4</a> mit <code>.--on-green</code>.</p>
+        <p>Referenz: <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a> · Page-Skeleton → <a href="#E1">E.1</a> · Newsletter-Formular → <a href="#B4">B.4</a> mit <code>.--on-green</code>.</p>
       </div>
 
       <div class="rules">
         <div class="rule">
           <h4>Struktur</h4>
-          <p><code>.site-footer</code> → <code>.footer-main</code> (Grid) + optional <code>.footer-bar</code>. Spalten: <code>.footer-col</code> mit <code>h4</code> + Linkliste oder Newsletter mit <code>h3</code>.</p>
+          <p><code>.site-footer</code> → <code>.footer-main</code> (Newsletter-Zeile + <code>.footer-cols</code> + optionale <code>.footer-row</code>) + optional <code>.footer-bar</code>. Spalten: <code>.footer-col</code> mit <code>h4</code> + Linkliste. Newsletter mit <code>h3</code> sitzt über dem Raster, Textzeilen darunter.</p>
         </div>
         <div class="rule">
           <h4>Varianten</h4>
-          <p><strong>Mit Newsletter:</strong> 4 gleich breite Spalten (Newsletter, Shop, Rechtliches, Social) → <a href="#footer-newsletter">Demo</a>. <strong>Ohne Newsletter:</strong> 4 gleich breite Spalten · »Über inuvet« als letzte Spalte, Copy kontextabhängig (Spec) · Demo → <a href="#footer-social">Tierarztpraxis</a>.</p>
+          <p><strong>Mit Newsletter:</strong> Newsletter volle Breite über <code>.footer-cols</code> (4 Spalten) → <a href="#footer-newsletter">Demo</a>. <strong>Ohne Newsletter:</strong> dieselben 4 Spalten · »Über inuvet« als letzte Spalte · Demo → <a href="#footer-social">Tierarztpraxis</a>.</p>
         </div>
         <div class="rule">
           <h4>Responsive</h4>
-          <p>Desktop: 4 Spalten · Tablet (&lt;1536px): 2 Spalten · Mobile (&lt;768px): 1 Spalte · <code>.footer-bar</code> stapelt vertikal.</p>
+          <p>Desktop: Newsletter-Zeile, darunter immer 4 Spalten, optional Textzeile darunter · Tablet (&lt;1536px): Spalten 2-spaltig · Mobile: 1 Spalte · Zonen mit gestrichelter Linie (Desktop + Mobil) · <code>.footer-bar</code> stapelt vertikal.</p>
         </div>
       </div>
 
       <table class="spec-table">
         <tr><th><code>.site-footer</code></th><td><code>background: var(--green-light)</code> · <code>margin-top: var(--module-2xl)</code></td></tr>
-        <tr><th><code>.footer-main</code></th><td>4-Spalten-Grid · <code>max-width: var(--container-max)</code> · Padding oben <code>--module-2xl</code>, unten <code>--module</code></td></tr>
-        <tr><th><code>.footer-col</code></th><td>Spalte · <code>h4</code> + <code>ul</code> oder Intro-Text (<code>p</code>) · Newsletter-Block → <code>.--newsletter</code></td></tr>
+        <tr><th><code>.footer-main</code></th><td>Flex-Spalte · Newsletter + <code>.footer-cols</code> + optionale <code>.footer-row</code> · Zonen: <code>1px dashed var(--border-light)</code> · <code>max-width: var(--container-max)</code> · Padding oben <code>--module-2xl</code>, unten <code>--module</code></td></tr>
+        <tr><th><code>.footer-cols</code></th><td>Immer 4 Spalten · Tablet 2 · Mobile 1</td></tr>
+        <tr><th><code>.footer-row</code></th><td>Volle Breite unter den Spalten · <code>h4</code> + Text · Theme-Block „Text“</td></tr>
+        <tr><th><code>.footer-col</code></th><td>Spalte mit <code>.flow</code> (A.7) · <code>h3</code>/<code>h4</code> → Content einheitlich <code>0.75 × --base</code> (wie Praxis-Tile) · Link-<code>ul</code> Item-Gap <code>0.35 × --base</code> (enger als Heading) · Newsletter → <code>.--newsletter</code></td></tr>
         <tr><th>Über inuvet — Shop</th><td>Tierärztlich entwickelte Nahrungsergänzung für Hunde und Katzen — seit über 20 Jahren.</td></tr>
         <tr><th>Über inuvet — Tierarztpraxis</th><td>Natürlich gesunde Tiere, nur in eurer Tierarztpraxis — seit über 15 Jahren.</td></tr>
-        <tr><th><code>.footer-col.--newsletter</code></th><td>Newsletter-Spalte · <code>h3</code> + Text + <code>.footer-nl-form</code> · Container <code>.--on-green</code></td></tr>
+        <tr><th><code>.footer-col.--newsletter</code></th><td>Eigene Zeile über <code>.footer-cols</code> · <code>h3</code> + Text + <code>.footer-nl-form</code> (max. 22rem)</td></tr>
         <tr><th><code>.footer-nl-form</code></th><td>Flex-Spalte · <code>.form-field</code> + Primary-Button · Container <code>.--on-green</code></td></tr>
         <tr><th><code>.footer-social</code></th><td>Icon-Zeile ohne Box · Spec → <a href="#B3">B.3</a> · Brand-SVG via <a href="https://simpleicons.org/" target="_blank">Simple Icons</a> (MIT) · Hover: Icon <code>scale(1.15)</code></td></tr>
         <tr><th><code>.footer-bar</code></th><td>Border-top · links <code>.footer-bar__top</code> („Nach oben“) · rechts <code>.footer-payment</code> · <code>--text-xs</code> (Bar) · Mobile: vertikal gestapelt</td></tr>
@@ -3350,8 +3361,10 @@
         <footer class="site-footer">
           <div class="footer-main">
             <div class="footer-col --newsletter --on-green">
+              <div class="flow">
               <h3>Bleib auf dem Laufenden</h3>
               <p>Tipps, Angebote und Neuigkeiten rund um die Gesundheit deines Tieres.</p>
+              </div>
               <form class="footer-nl-form" onsubmit="return false;">
                 <div class="form-field">
                   <input type="email" id="footer-nl-email" placeholder=" ">
@@ -3360,7 +3373,8 @@
                 <button class="btn --primary" type="submit">Anmelden</button>
               </form>
             </div>
-            <div class="footer-col">
+            <div class="footer-cols">
+            <div class="footer-col flow">
               <h4>Shop</h4>
               <ul>
                 <li><a href="#">Alle Produkte</a></li>
@@ -3368,7 +3382,7 @@
                 <li><a href="#">Persönliches Angebot</a></li>
               </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-col flow">
               <h4>Rechtliches</h4>
               <ul>
                 <li><a href="#">Impressum</a></li>
@@ -3376,7 +3390,7 @@
                 <li><a href="#">AGB</a></li>
               </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-col flow">
               <h4>Folge uns</h4>
               <div class="footer-social">
                 <a href="#" class="footer-social__link" aria-label="Facebook">
@@ -3392,6 +3406,11 @@
                   <svg class="footer-social__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
               </div>
+            </div>
+            </div>
+            <div class="footer-row flow">
+              <h4>Über inuvet</h4>
+              <p>Tierärztlich entwickelte Nahrungsergänzung für Hunde und Katzen — seit über 20 Jahren.</p>
             </div>
           </div>
           <div class="footer-bar">
@@ -3405,14 +3424,15 @@
           </div>
         </footer>
       </div>
-      <p class="sg-caption">Vier gleich breite Spalten · Formular mit <code>.--on-green</code> · Social → <a href="#B3">B.3</a> · <code>.footer-bar</code>: „Nach oben“ + <code>.footer-payment</code> · Rechtliches in <code>.footer-col</code> (Pflichtlinks).</p>
+      <p class="sg-caption">Newsletter-Zeile über <code>.footer-cols</code> (4 Spalten) · darunter optionale <code>.footer-row</code> · Zonen gestrichelt getrennt · Formular max. 22rem · Social → <a href="#B3">B.3</a>.</p>
 
       <h3 class="sg-h3 --top" id="footer-social">Ohne Newsletter — Tierarztpraxis</h3>
       <p>Vier gleich breite Spalten · »Über inuvet« als letzte Spalte, Copy → Spec · Social → <a href="#B3">B.3</a>.</p>
       <div class="sg-demo --flush">
         <footer class="site-footer">
           <div class="footer-main">
-            <div class="footer-col">
+            <div class="footer-cols">
+            <div class="footer-col flow">
               <h4>Shop</h4>
               <ul>
                 <li><a href="#">Alle Produkte</a></li>
@@ -3420,7 +3440,7 @@
                 <li><a href="#">Persönliches Angebot</a></li>
               </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-col flow">
               <h4>Ratgeber</h4>
               <ul>
                 <li><a href="#">Ernährung</a></li>
@@ -3428,7 +3448,7 @@
                 <li><a href="#">Über uns</a></li>
               </ul>
             </div>
-            <div class="footer-col">
+            <div class="footer-col flow">
               <h4>Folge uns</h4>
               <div class="footer-social">
                 <a href="#" class="footer-social__link" aria-label="Facebook">
@@ -3445,9 +3465,10 @@
                 </a>
               </div>
             </div>
-            <div class="footer-col">
+            <div class="footer-col flow">
               <h4>Über inuvet</h4>
               <p>Natürlich gesunde Tiere, nur in eurer Tierarztpraxis — seit über 15 Jahren.</p>
+            </div>
             </div>
           </div>
           <div class="footer-bar">
@@ -3467,7 +3488,7 @@
 
       <div class="col-grid" data-cols="2">
         <p><code>.section-type</code> — 2-Spalten-Grid (Medien + Content) in vier Varianten · Modifier <code>--reverse</code>, <code>--viewport</code>.</p>
-        <p>Content-Boxen mit <code>.section-type__content.flow</code> · V1/V2 nutzen <code>.section-type__bottom</code> für Body + CTA · Referenz: <a href="pages/Inuvet-Shop.html">Inuvet-Shop</a>.</p>
+        <p>Content-Boxen mit <code>.section-type__content.flow</code> · V1/V2 nutzen <code>.section-type__bottom</code> für Body + CTA · Referenz: <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a>.</p>
       </div>
 
       <div class="rules">
@@ -3477,11 +3498,11 @@
         </div>
         <div class="rule">
           <h4>Varianten</h4>
-          <p><code>--v1</code> transparent · Gap · H1 · <code>--v2</code> Content-Box mit BG · H2 · kein Gap · <code>--v3</code> Vollbild + Box-Overlay · <code>--v4</code> Text auf Bild.</p>
+          <p><code>--v1</code> transparent · Gap · Default-Tag H1 · <code>--v2</code> Content-Box mit BG · Default-Tag H2 · kein Gap · <code>--v3</code> Vollbild + Box-Overlay · <code>--v4</code> Text auf Bild. Größe und Abstand immer vom Tag (A.7).</p>
         </div>
         <div class="rule">
           <h4>Inhalts-Abstände</h4>
-          <p>Headline → Body: <code>var(--half-module)</code> · Body → CTA: <code>calc(var(--half-module) * 1.5)</code> — via <code>.section-type__content.flow</code> und <code>.section-type__bottom.flow</code>. Details → <a href="#A7">A.7</a> <code>.flow</code>.</p>
+          <p>Headline-Größe und Headline→Text folgen dem Tag (A.7). Body → CTA: <code>calc(var(--half-module) * 1.5)</code>.</p>
         </div>
       </div>
 
@@ -3599,7 +3620,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Drei Badge-Typen + KI-Hinweis · Live → <a href="pages/Inuvet-Shop.html">Inuvet-Shop</a> (Closing Hero).</p>
+      <p class="sg-caption">Drei Badge-Typen + KI-Hinweis · Live → <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a> (Closing Hero).</p>
 
       <h3 class="sg-h3 --top" id="hero-v1-lottie">Variante 1 — Animation + Text</h3>
       <p>Gleiches Layout wie V1 · Lottie-JSON statt Bild · Höhe aus nativen JSON-Proportionen (<code>w</code>/<code>h</code> → <code>aspect-ratio</code> via <code>initLottieAspect</code> in <code>inuvet.js</code>).</p>
@@ -3632,7 +3653,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Default · Höhe aus JSON · Badges auf Lottie · Content vertikal zentriert · wie <a href="pages/Inuvet-Shop.html">Inuvet-Shop</a>.</p>
+      <p class="sg-caption">Default · Höhe aus JSON · Badges auf Lottie · Content vertikal zentriert · wie <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a>.</p>
 
       <div class="sg-demo --flush">
         <div class="section-type --v1 --reverse">
@@ -3889,10 +3910,10 @@
       <table class="spec-table">
         <tr><th>Gap</th><td><code>var(--gutter)</code></td></tr>
         <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
-        <tr><th>Kachel A</th><td><code>.tile__icon</code> (<code>.icon-box</code>) + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
+        <tr><th>Kachel A</th><td><code>.tile__icon</code> + <code>.flow</code> mit <code>.tile__headline</code> + <code>.tile__body</code> (A.7)</td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
         <tr><th>Kachel C</th><td><code>.tile.--featured</code> · vier Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>cover</strong> (<code>.--cover</code>) · Desktop: <code>min-height: 100%</code> (Row-Stretch), Bild <code>object-fit: cover</code> · Mobil: Stack-Bildband <code>4/3</code> vollbreit · Cover <code>3/4</code> Hochformat · optionale Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Details und Demos unten</td></tr>
-        <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a></td></tr>
+        <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a> · Content-Kacheln Mobil 2-spaltig, optional <code>.--mobile-stack</code></td></tr>
       </table>
 
       <h3 class="sg-h3 --top" id="tile-4col">4-Spalter — Icon + Text (Variante A)</h3>
@@ -3900,23 +3921,31 @@
         <div class="tile-grid --cols-4">
           <div class="tile">
             <div class="tile__icon icon-box placeholder-bg"></div>
+            <div class="flow">
             <h3 class="tile__headline">Headline</h3>
             <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
-          <div class="tile">
-            <div class="tile__icon icon-box placeholder-bg"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
           <div class="tile">
             <div class="tile__icon icon-box placeholder-bg"></div>
+            <div class="flow">
             <h3 class="tile__headline">Headline</h3>
             <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
+          </div>
           <div class="tile">
             <div class="tile__icon icon-box placeholder-bg"></div>
+            <div class="flow">
             <h3 class="tile__headline">Headline</h3>
             <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          </div>
+          <div class="tile">
+            <div class="tile__icon icon-box placeholder-bg"></div>
+            <div class="flow">
+            <h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -3974,7 +4003,7 @@
             <div class="tile__bottom flow">
               <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
               <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.</p>
-              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+              <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Alle Neuheiten</a>
             </div>
           </div>
           <div class="tile --product">
@@ -3988,12 +4017,12 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (<code>object-fit: cover</code>, grünes Panel darunter) · optional Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Mobil: Bildband <code>4/3</code> vollbreit · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (<code>object-fit: cover</code>, grünes Panel darunter) · optional Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Mobil: Bildband <code>4/3</code> vollbreit · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-labels">Media-Labels auf Sonderkachel-Bildern</h3>
       <p>Optionale Badges <strong>im Bild</strong> — gleiche Optik wie automatisierte Produkt-Badges (<code>.floating-meta</code> + <code>.badge</code> in <a href="#C1">C.1</a> / <a href="#B2">B.2</a>). Mehrere Labels in einer Zeile, Position oben links. Kein eigenes Badge-CSS — Positionierung via <code>position: relative</code> am Media-Container (<code>inuvet.css</code>).</p>
       <table class="spec-table">
-        <tr><th>Referenz (auto)</th><td>Produktkachel: Kategorie + Status aus Katalog/Metafields → <code>tileHTML()</code> in <code>Collection.html</code> / Theme-Snippet <code>card-product</code></td></tr>
+        <tr><th>Referenz (auto)</th><td>Produktkachel: Kategorie + Status aus Katalog/Metafields → <code>tileHTML()</code> im Theme-Snippet / Theme-Snippet <code>card-product</code></td></tr>
         <tr><th>Manuell (stack + Bild/Lottie)</th><td><code>.tile__animation</code> → <code>.floating-meta</code> vor <code>&lt;img&gt;</code> / <code>&lt;lottie-player&gt;</code></td></tr>
         <tr><th>Manuell (cover)</th><td><code>.tile.--featured.--cover</code> → <code>.floating-meta</code> als Geschwister von <code>.tile__cover</code> (vor <code>.tile__bottom</code>) · <code>z-index: 2</code></td></tr>
         <tr><th>Badge-Typen</th><td><code>category</code> → <code>.badge[data-cat="…"]</code> (15 Indikationen, → <a href="#A5">A.5</a>) · <code>dark</code> → <code>.--dark</code> · <code>sale</code> → <code>.--sale</code> · <code>plain</code> → <code>.badge</code> ohne Modifier (→ <a href="#B2">B.2</a>)</td></tr>
@@ -4053,7 +4082,7 @@
             <div class="tile__bottom flow">
               <h3 class="tile__headline">Nur über die Tierarztpraxis</h3>
               <p class="tile__body">Inuvet-Produkte bestellt ihr als Praxis direkt — Lieferung in der Regel in 2–3 Werktagen.</p>
-              <a href="pages/Collection.html" class="btn --primary">Mehr erfahren</a>
+              <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Mehr erfahren</a>
             </div>
           </div>
           <div class="tile --product">
@@ -4067,7 +4096,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> · Lottie in <code>.tile__animation</code> · Text in <code>.tile__bottom.flow</code> (A.7) · Shopify <code>media_type: lottie</code> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · Lottie in <code>.tile__animation</code> · Text in <code>.tile__bottom.flow</code> (A.7) · Shopify <code>media_type: lottie</code> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-cover">Sonderkachel Cover (Variante C · <code>.--cover</code>)</h3>
       <div class="sg-demo --white">
@@ -4090,7 +4119,7 @@
             <div class="tile__bottom flow">
               <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
               <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen und Packungsgrößen für die Praxis.</p>
-              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+              <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Alle Neuheiten</a>
             </div>
           </div>
           <div class="tile --product">
@@ -4104,7 +4133,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured.--cover</code> · <code>.tile__cover</code> vollflächig (<code>object-fit: cover</code>) · Hover: Zoom <code>scale(1.05)</code> wie Produktbild · Verlauf unten→oben für Lesbarkeit · Text via <code>--tile-fg</code> (Default <code>#fff</code>) · Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Live → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption"><code>.tile.--featured.--cover</code> · <code>.tile__cover</code> vollflächig (<code>object-fit: cover</code>) · Hover: Zoom <code>scale(1.05)</code> wie Produktbild · Verlauf unten→oben für Lesbarkeit · Text via <code>--tile-fg</code> (Default <code>#fff</code>) · Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-2col">2-Spalter — Bild + Text (Variante B, 4:3)</h3>
       <div class="sg-demo --white">
@@ -4708,11 +4737,11 @@
     <section class="sg-section-v2 flow" id="D9">
       <h2 class="section-label">D.9 — Story Iconslider</h2>
 
-      <p><code>.story-iconslider</code> · horizontale Reihe runder Media-Thumbs (Story-Style) · Scroll + Snap · Live → <a href="pages/Inuvet-Shop.html">Inuvet-Shop.html</a>.</p>
+      <p><code>.story-iconslider</code> · horizontale Reihe runder Media-Thumbs (Story-Style) · Scroll + Snap · Live → <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop.html</a>.</p>
 
       <div class="rules">
         <div class="rule"><h4>Aufbau</h4><p><code>.story-iconslider</code> → <code>__track</code> (Flex, <code>overflow-x: auto</code>, Scroll-Snap) → <code>__item</code> (Link) mit <code>__media</code> (Kreis) + optional <code>__label</code>.</p></div>
-        <div class="rule"><h4>Spacing</h4><p><strong>Default</strong> (mitten auf der Seite): <code>margin-block: var(--half-module)</code>. <strong>Top unter Nav:</strong> <code>.--flush</code> → Margin/Padding block 0; Parent-<code>.container</code> per <code>:has(> .--flush)</code> ebenfalls ohne <code>padding-block</code>.</p></div>
+        <div class="rule"><h4>Spacing</h4><p><strong>Default</strong> (mitten auf der Seite): <code>margin-block: var(--half-module)</code>. <strong><code>.--flush</code></strong> entfernt nur diesen Extra-Margin (Slider direkt unter Nav). Section-Abstand kommt ausschließlich aus dem Container-Stack (A.7: Default <code>padding-top</code>, <code>--pt-0</code>, <code>--pb</code>) — <code>.--flush</code> überschreibt das nicht.</p></div>
         <div class="rule"><h4>Media</h4><p>Kreis via <code>border-radius: 50%</code> (Avatar-Ausnahme). Bild mit <code>object-fit: cover</code> oder Cat-Fallback: <code>data-cat</code> auf <code>__media</code> (volle <code>--cat-*</code>-Farbe).</p></div>
         <div class="rule"><h4>Ringe</h4><p><strong>Default:</strong> <code>1px solid var(--border-light)</code>. <strong>Optional</strong> <code>.--new</code>: Instagram-Style — äußerer Ring <code>1px var(--color-action)</code> + weißer Gap (<code>--story-ring-gap</code> / <code>--bg</code>) zwischen Ring und Media. Kein Cat-farbiger Ring.</p></div>
         <div class="rule"><h4>Scroll</h4><p>Native Horizontal-Scroll (Touch + Trackpad). Scrollbar ausgeblendet (wie <code>.tab-nav</code>). Kein JS nötig — kein Marquee, kein <code>initSliders</code>.</p></div>
@@ -4723,7 +4752,7 @@
 
       <table class="spec-table">
         <tr><th><code>.story-iconslider</code></th><td>Wrapper · <code>--story-size: calc(var(--base) * 5)</code> · Default Margin <code>--half-module</code> (Mid-Page)</td></tr>
-        <tr><th><code>.--flush</code></th><td>Top unter Nav · <code>margin/padding-block: 0</code> · Parent-<code>.container</code> ebenfalls ohne <code>padding-block</code></td></tr>
+        <tr><th><code>.--flush</code></th><td>Kein Extra-Margin am Slider · Section-Padding bleibt beim Container (<code>--pt-0</code> / <code>--pb</code>)</td></tr>
         <tr><th><code>.--center</code></th><td>Desktop zentriert · beidseitige Restlinien · kein Bleed/Fade · Shopify <code>center</code></td></tr>
         <tr><th><code>.story-iconslider__track</code></th><td>Flex-Zeile, Gap <code>--half-module</code>, <code>scroll-snap-type: x mandatory</code> · Edge-Bleed <strong>nur rechts</strong> (ohne <code>.--center</code>) · Fade-Mask rechts · Desktop: Restlinie(n)</td></tr>
         <tr><th><code>.story-iconslider__item</code></th><td>Spalte Media + Label · <code>scroll-snap-align: start</code> · Modifier <code>.--new</code> → Action-Ring + weißer Gap</td></tr>
@@ -4737,43 +4766,43 @@
       <div class="sg-demo --white">
         <div class="story-iconslider" aria-label="Stories Demo">
           <div class="story-iconslider__track" role="list">
-            <a class="story-iconslider__item --new" href="pages/Produkt.html?id=12" role="listitem">
+            <a class="story-iconslider__item --new" href="https://inuvet-dev.myshopify.com/products/hepax-forte" role="listitem">
               <span class="story-iconslider__media">
                 <img src="assets/images/Calmin_Packshot_01.jpeg" alt="">
               </span>
               <span class="story-iconslider__label">Beruhigung</span>
             </a>
-            <a class="story-iconslider__item --new" href="pages/Produkt.html?id=13" role="listitem">
+            <a class="story-iconslider__item --new" href="https://inuvet-dev.myshopify.com/products/hepax-forte" role="listitem">
               <span class="story-iconslider__media">
                 <img src="assets/images/Hepax_Packshot_01.jpeg" alt="">
               </span>
               <span class="story-iconslider__label">Leber</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media">
                 <img src="assets/images/Hero_Mood_01.jpg" alt="">
               </span>
               <span class="story-iconslider__label">Praxis</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media" data-cat="gelenke"></span>
               <span class="story-iconslider__label">Gelenke</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media" data-cat="immun"></span>
               <span class="story-iconslider__label">Immun</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media">
                 <img src="assets/images/Inhaltsstoff_Mariendistel.jpg" alt="">
               </span>
               <span class="story-iconslider__label">Inhaltsstoffe</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media" data-cat="haut"></span>
               <span class="story-iconslider__label">Haut</span>
             </a>
-            <a class="story-iconslider__item" href="pages/Collection.html" role="listitem">
+            <a class="story-iconslider__item" href="https://inuvet-dev.myshopify.com/collections/all" role="listitem">
               <span class="story-iconslider__media">
                 <img src="assets/images/Hero_Mood_05.jpg" alt="">
               </span>
@@ -4859,21 +4888,21 @@
 
       <div class="col-grid" data-cols="2">
         <p>2-Spalten-Layout: Galerie links, Produktinfo rechts · Mobile: 1-spaltig.</p>
-        <p>Einzelprodukt vs. Produktfamilie (<code>.pdp__type-selector</code>) · Referenz: <a href="pages/Produkt.html">Produkt</a>, <a href="pages/Produkt-Modell.html">Produkt-Modell</a>.</p>
+        <p>Einzelprodukt vs. Produktfamilie (<code>.pdp__type-selector</code>) · Referenz: <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt</a>, <a href="pages/Produkt-Modell.html">Produkt-Modell</a>.</p>
       </div>
 
       <h3 class="sg-h3 --top" id="pdp-section-order">Sektionsreihenfolge (Standard)</h3>
-      <p>Kanonischer Aufbau der Live-PDP (<a href="pages/Produkt.html?id=13">Produkt.html</a>) — unterhalb des Kaufblocks (<code>#pdpBelow</code>, einmalig gerendert):</p>
+      <p>Kanonischer Aufbau der Live-PDP (<a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a>) — unterhalb des Kaufblocks (<code>#pdpBelow</code>, einmalig gerendert):</p>
       <table class="spec-table">
         <tr><th>1</th><td><strong>Kaufblock</strong> — <code>.pdp</code>: Galerie + Info-Spalte inkl. Produkt-Akkordeon (<code>.pdp__accordion</code>) · optional Sticky-ATC (<code>.pdp__sticky-cta</code>)</td></tr>
         <tr><th>2</th><td><strong>Benefit-Leiste</strong> — <code>.pdp__benefits</code> · 4× Lottie-Kachel · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
-        <tr><th>3</th><td><strong>Inhaltsstoffe im Detail</strong> — <code>.ingredient-list</code> · 3–4 Schlüssel-Inhaltsstoffe · Spec → <a href="#pdp-ingredients">Inhaltsstoffe</a></td></tr>
+        <tr><th>3</th><td><strong>Inhaltsstoffe (Auszug) im Detail</strong> — <code>.ingredient-list</code> · 3–4 Schlüssel-Inhaltsstoffe · Spec → <a href="#pdp-ingredients">Inhaltsstoffe</a></td></tr>
         <tr><th>4</th><td><strong>FAQ</strong> — <code>.pdp__faq.--on-green</code> · H2 + 2-spaltiges Akkordeon + JSON-LD · Spec → <a href="#pdp-faq">FAQ</a></td></tr>
         <tr><th>5</th><td><strong>Testimonials</strong> — <code>.pdp__testimonials</code> · 4 Brand-Zitate · ohne Rubrik-Überschrift · Spec → <a href="#pdp-testimonials">Testimonials</a></td></tr>
         <tr><th>6</th><td><strong>Empfehlungen</strong> — <code>.pdp__recommendations</code> · 4 Produktkacheln · Spec → <a href="#pdp-recommendations">Empfehlungen</a></td></tr>
         <tr><th>7</th><td><strong>Praxis-Vorteile</strong> — <code>.pdp__praxis</code> · letzte Rubrik · Spec → <a href="#pdp-praxis">Praxis-Vorteile</a></td></tr>
       </table>
-      <p class="sg-caption">Produkt-Akkordeon (Deklaration/Tabellen) sitzt <strong>in der Info-Spalte</strong> des Kaufblocks — nicht in <code>#pdpBelow</code>. Reihenfolge im Mockup: <code>pdpBelowHTML()</code> in <a href="pages/Produkt.html">Produkt.html</a>.</p>
+      <p class="sg-caption">Produkt-Akkordeon (Deklaration/Tabellen) sitzt <strong>in der Info-Spalte</strong> des Kaufblocks — nicht in <code>#pdpBelow</code>. Reihenfolge im Mockup: <code>pdpBelowHTML()</code> in <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a>.</p>
 
       <div class="rules">
         <div class="rule">
@@ -4882,7 +4911,7 @@
         </div>
         <div class="rule">
           <h4>Interaktion</h4>
-          <p>Varianten via <code>.choice-box</code> (<code>selectVariant</code>) · Menge via <code>.qty-selector</code> (<code>changeQty</code>) · Galerie Thumbs: Packshot + Video (<code>pdpSwitch</code>) · Galerie Mosaic (Desktop): vertikaler Scroll, alle Medien sichtbar · Mockup-Toggle auf <a href="pages/Produkt.html">Produkt.html</a> (nur Desktop): <code>?gallery=mosaic</code> · Warenkorb-Drawer → <a href="#E4">E.4</a>.</p>
+          <p>Varianten via <code>.choice-box</code> (<code>selectVariant</code>) · Menge via <code>.qty-selector</code> (<code>changeQty</code>) · Galerie Thumbs: Packshot + Video (<code>pdpSwitch</code>) · Galerie Mosaic (Desktop): vertikaler Scroll, alle Medien sichtbar · Mockup-Toggle auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> (nur Desktop): <code>?gallery=mosaic</code> · Warenkorb-Drawer → <a href="#E4">E.4</a>.</p>
         </div>
       </div>
 
@@ -4890,7 +4919,7 @@
         <tr><th>Pfadnavigation</th><td>Opt-in: Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · Markup <code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt · Abstand unten <code>--half-module</code> · Demo: aus (<code>?breadcrumb=1</code> an) · Atom → <a href="#C6">C.6</a></td></tr>
         <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
         <tr><th><code>.pdp__gallery</code></th><td><strong>Thumbs (Default, alle Viewports):</strong> Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild · <strong>Mosaic (nur Desktop ≥1100px):</strong> <code>.pdp__mosaic</code> — Hero <code>.pdp__mosaic-hero</code> + Grid <code>.pdp__mosaic-grid</code> (2 Spalten, Gap <code>var(--base)</code>) · Zellen <code>.pdp__mosaic-cell</code></td></tr>
-        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="pages/Produkt.html">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · JS: <code>getEffectivePdpGalleryMode()</code>, <code>applyPdpGalleryMode()</code> in <code>inuvet.js</code> · Mockup-Toggle: <code>initPdpGalleryToggle()</code></td></tr>
+        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · JS: <code>getEffectivePdpGalleryMode()</code>, <code>applyPdpGalleryMode()</code> in <code>inuvet.js</code> · Mockup-Toggle: <code>initPdpGalleryToggle()</code></td></tr>
         <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Glass-Tint: <code>data-pdp-cat</code> am <code>.pdp</code> setzt <code>--pdp-caption-glass</code> auf <code>--cat-*-light</code> (85&nbsp;% + Blur, Fallback <code>--bg</code>) · nicht <code>data-cat</code> (volle Badge-Fläche)</td></tr>
@@ -4902,17 +4931,17 @@
         <tr><th><code>.pdp__daily-cost</code></th><td>Tageskosten neben dem Preis · Icon via CSS-Mask — Darreichungsform: Pulver → <code>Icon_Form_Pulver.svg</code>, Tabletten → <code>Icon_Form_Tablette_ganz.svg</code> (<code>pdpDailyCostIconHTML()</code>) · <code>__amount</code> bold · <code>__note</code> regular · Flex-Align über <code>.pdp__price</code></td></tr>
         <tr><th><code>.pdp__variants</code></th><td><code>.pdp__variant-options</code> mit <code>.choice-box</code> · Label <code>.pdp__variant-label.label-caps</code> bei selbsterklärenden Optionen („60 Tabletten", „30 Stück") weglassen — gilt auch für Produktfamilien · Typ-Selektor ohne Spaltenköpfe</td></tr>
         <tr><th><code>.pdp__actions</code></th><td>Mengen-Auswahl (ohne „Menge"-Überschrift) + Primary-CTA · CTA <code>flex: 1</code> · <code>.qty-selector</code> per <code>aria-label</code> beschriftet · Wishlist optional (Atom <a href="#B3">B.3</a>, nicht in Live-PDP)</td></tr>
-        <tr><th>Kaufblock-Prototype</th><td>Live <a href="pages/Produkt.html?id=13">Produkt.html</a>: NR persönlich oder (ohne Historie / <code>?nr=default</code>) Progress-Hint + Auffüllen · <code>.pdp__order-meta</code> optional (Demo ausgeblendet)</td></tr>
+        <tr><th>Kaufblock-Prototype</th><td>Live <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a>: NR persönlich oder (ohne Historie / <code>?nr=default</code>) Progress-Hint + Auffüllen · <code>.pdp__order-meta</code> optional (Demo ausgeblendet)</td></tr>
         <tr><th>Sticky ATC</th><td>Opt-in: Klasse <code>.pdp--sticky-cta</code> am PDP-Root · Bar <code>.pdp__sticky-cta</code> · Mobil: Menge + CTA · Desktop (≥900px): + Größenwahl · kein Titel/Preis · erscheint wenn Kaufblock-CTA den Viewport verlässt · Demo: an (<code>?sticky=0</code> aus) · Shopify: Section-Setting Checkbox <code>sticky_atc</code></td></tr>
-        <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — mit Historie <code>.nr-widget.--personal</code> · nach ATC des Angebots Widget ausblenden (kein Standard-Folge-Widget) · ohne Historie Standard (Progress-Bar + Hint) · Live → <a href="pages/Produkt.html?id=13">Produkt.html</a> · Standard erzwingen: <code>?nr=default</code></td></tr>
+        <tr><th>Naturalrabatt</th><td><code>.nr-widget</code> nach den Actions — mit Historie <code>.nr-widget.--personal</code> · nach ATC des Angebots Widget ausblenden (kein Standard-Folge-Widget) · ohne Historie Standard (Progress-Bar + Hint) · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> · Standard erzwingen: <code>?nr=default</code></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>In der Info-Spalte unter Social Proof · ein Item pro Thema · Live einspaltig · Spec → <a href="#pdp-accordion">unten</a></td></tr>
         <tr><th>Benefit-Leiste</th><td><code>.pdp__benefits</code> direkt unter dem Kaufblock — <code>.tile-grid.--cols-4</code> mit 4× Variante&nbsp;A + Lottie-Icons · wie <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a> / Shop · Spec → <a href="#pdp-benefits">unten</a></td></tr>
-        <tr><th>Inhaltsstoffe im Detail</th><td><code>.ingredient-list</code> nach der Benefit-Leiste (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
+        <tr><th>Inhaltsstoffe (Auszug) im Detail</th><td><code>.ingredient-list</code> nach der Benefit-Leiste (volle Content-Breite) — 3–4 Schlüssel-Inhaltsstoffe · Desktop <code>--cols-3</code> (asymmetrisch) / <code>--cols-4</code> · SEO-Content, nicht die Deklarationsliste im Akkordeon · Spec → <a href="#pdp-ingredients">unten</a></td></tr>
         <tr><th>FAQ</th><td><code>.pdp__faq.--on-green</code> nach Inhaltsstoffe im Detail — H2 „Häufige Fragen“ + <code>.accordion.--cols-2</code> · sichtbar im DOM + <code>FAQPage</code> JSON-LD · Spec → <a href="#pdp-faq">unten</a></td></tr>
         <tr><th>Testimonials</th><td><code>.pdp__testimonials</code> nach FAQ, vor Empfehlungen — 4 Brand-Zitate von Tierärzt*innen · <code>.testimonial-grid.--cols-4</code> · Content-Regeln → <a href="#pdp-testimonials">unten</a></td></tr>
         <tr><th><code>.pdp__recommendations</code></th><td>Nach Testimonials · Border-top · Headline-Zeile (<code>.section-label-row.--headline</code>) + optional View-all · <code>.tile-grid.--cols-4</code> · Spec → <a href="#pdp-recommendations">unten</a></td></tr>
         <tr><th>Praxis-Vorteile</th><td><code>.pdp__praxis</code> als letzte Rubrik — <code>.tile-grid.--cols-3</code> mit großen Lotties (<code>.tile__animation</code>) · wie Shop „Nur bei euch“ · Spec → <a href="#pdp-praxis">unten</a></td></tr>
-        <tr><th>Footer</th><td>Page-Chrome nach <code>&lt;main&gt;</code> / Sticky-ATC · Variante <strong>ohne Newsletter</strong> (Shop · Rechtliches · Social · Über inuvet) + <code>.footer-bar</code> mit <code>.footer-bar__top</code> („Nach oben“) · Spec → <a href="#footer-social">D.2</a> · Live → <a href="pages/Produkt.html?id=13">Produkt.html</a></td></tr>
+        <tr><th>Footer</th><td>Page-Chrome nach <code>&lt;main&gt;</code> / Sticky-ATC · Variante <strong>ohne Newsletter</strong> (Shop · Rechtliches · Social · Über inuvet) + <code>.footer-bar</code> mit <code>.footer-bar__top</code> („Nach oben“) · Spec → <a href="#footer-social">D.2</a> · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a></td></tr>
       </table>
 
       <h3 class="sg-h3 --top" id="shopify-pdp">Shopify-Mapping</h3>
@@ -4921,7 +4950,7 @@
         <p>Video-Rollover auf Karten ist <strong>kein Shopify-Standard</strong> — dafür Theme-JS (<code>initProductMediaRollover()</code> in <code>inuvet.js</code>). PDP-Galerie mit Video dagegen nativ über <code>product.media</code>.</p>
       </div>
       <table class="spec-table">
-        <tr><th>PDP-Galerie</th><td><code>product.media</code> · Modus <code>gallery</code>: <code>thumbs</code> (Default) oder <code>mosaic</code> (nur Desktop ≥1100px; Mobile immer Thumbs) · Thumbs: 1. Eintrag → Packshot in <code>.pdp__main-image</code> + Thumb-Leiste · Video → <code>&lt;video&gt;</code> + Thumb · Wechsel via <code>pdpSwitch()</code> / <code>initPdpGallery()</code> · Mosaic: Hero + restliche Medien in <code>.pdp__mosaic-grid</code> (Desktop 2-spaltig) · Demo: <a href="pages/Produkt.html?id=13&amp;gallery=mosaic">Produkt.html?gallery=mosaic</a></td></tr>
+        <tr><th>PDP-Galerie</th><td><code>product.media</code> · Modus <code>gallery</code>: <code>thumbs</code> (Default) oder <code>mosaic</code> (nur Desktop ≥1100px; Mobile immer Thumbs) · Thumbs: 1. Eintrag → Packshot in <code>.pdp__main-image</code> + Thumb-Leiste · Video → <code>&lt;video&gt;</code> + Thumb · Wechsel via <code>pdpSwitch()</code> / <code>initPdpGallery()</code> · Mosaic: Hero + restliche Medien in <code>.pdp__mosaic-grid</code> (Desktop 2-spaltig) · Demo: <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?gallery=mosaic</a></td></tr>
         <tr><th>Galerie-Captions</th><td>Sichtbarer Overlay-Text in <code>.pdp__caption</code> (+ optional <code>.pdp__caption-author</code>) · <strong>einheitlich für Bild und Video</strong> über Product-Metafield <code>custom.pdp_gallery_captions</code> (Typ <code>json</code>, Storefront <code>PUBLIC_READ</code>) · Format: <code>[{ "id": "&lt;media.id&gt;", "caption": "…", "author": "…" }]</code> · <code>id</code> = Liquid <code>media.id</code> (Zahl, ohne GID-Prefix) · <code>author</code> optional · Theme: Snippet <code>pdp-media-caption</code> · <strong>nicht</strong> <code>media.alt</code> für Captions (Alt nur A11y/SEO) · Shopify-Media-Metafields nur für <code>MEDIA_IMAGE</code>, nicht für Video → deshalb Produkt-JSON · Mockup: <code>caption</code>/<code>author</code> in <code>inuvet.js</code> (Hepax) · Admin: Produkt → Metafelder → „PDP Galerie-Captions“</td></tr>
         <tr><th>Video-Attribute</th><td><code>muted loop playsinline</code> · <code>preload="none"</code> auf Karten · komprimierte Clips (&lt; 10&nbsp;MB) über Product Media / Shopify Files</td></tr>
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
@@ -4930,24 +4959,24 @@
         <tr><th>Galerie ↔ Form</th><td>Pro Darreichungsform optional <code>mediaIdx</code> → Index in <code>product.media</code> · Default: Packshot (Medium&nbsp;1), Form vorausgewählt (z.&nbsp;B. Pulver) · erst bei aktivem Form-Wechsel Galerie umschalten · Hepax: Pulver → Medium&nbsp;2, Tabletten → Medium&nbsp;3</td></tr>
         <tr><th>Grundpreis (PAngV)</th><td>Shopify-nativ: <code>variant.unit_price</code> + <code>variant.unit_price_measurement</code> (Maßeinheit je Variante im Admin auf <strong>g</strong> pflegen) → <code>.price-stack__unit</code> · Tile, Cart, Suche · <strong>nicht</strong> in der PDP-Preiszeile (dort Platz für <code>.pdp__daily-cost</code>)</td></tr>
         <tr><th>Steuerhinweis</th><td>Nicht in der PDP-Preiszeile · Text via Locale-Key an anderer Stelle · Versand-/Lieferzeit-Hinweis separat (nicht am Preis)</td></tr>
-        <tr><th>Tageskosten</th><td>Optional neben dem Preis: <code>.pdp__daily-cost</code> · Werte aus Metafield (z.&nbsp;B. Tagespreis + Referenz-Tier) · Icon je Darreichungsform (<code>pdpDailyCostIconHTML()</code>: Pulver / Tablette_ganz)</td></tr>
+        <tr><th>Tageskosten</th><td>Optional neben dem Preis: <code>.pdp__daily-cost</code> · nur Variant-Metafields <code>custom.daily_cost_amount</code> / <code>custom.daily_cost_note</code> (keine Produkt-Felder) · Pflege: Admin → Produkt → <strong>Varianten</strong> → Variante öffnen → Metafelder · Icon je Darreichungsform (Pulver / Tablette_ganz)</td></tr>
         <tr><th>Nutzen-Lead + USPs</th><td><code>.pdp__description</code>: optional Futtermittel-Kategorie (Choice-Metafield z.&nbsp;B. <code>custom.feed_category</code>) am Absatzanfang, danach Nutzen-Lead (2 Sätze) · <code>.check-list</code>-USPs aus Metafield (z.&nbsp;B. <code>custom.usps</code>, Liste)</td></tr>
-        <tr><th>Social Proof</th><td>Shop-Metafields / Theme settings (nicht am Produkt): Avatare, hervorgehobener Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
+        <tr><th>Social Proof</th><td>Metaobject <code>social_proof</code> (Singleton) · Avatare, Name, Anzahl · Spec → <a href="#pdp-social-proof">Social Proof</a></td></tr>
         <tr><th>Benefit-Leiste</th><td>Shop-weit · 4× Lottie + Headline/Body · Theme settings oder fester Section-Block · Spec → <a href="#pdp-benefits">Benefit-Leiste</a></td></tr>
         <tr><th>FAQ</th><td>Product Metafield <code>custom.faq</code> (Liste Frage/Antwort oder Metaobject-Refs) · Theme rendert <code>.pdp__faq</code> + <code>&lt;script type="application/ld+json"&gt;</code> <code>FAQPage</code> · Spec → <a href="#pdp-faq">FAQ</a></td></tr>
-        <tr><th>Empfehlungen</th><td>Section „Related products“ / App · Theme settings: <code>heading</code>, <code>heading_style</code>, <code>show_view_all</code>, <code>view_all_label</code>, <code>view_all_link</code> · Spec → <a href="#pdp-recommendations">Empfehlungen</a></td></tr>
+        <tr><th>Empfehlungen</th><td>Bestehende Section <code>featured-collection</code> · Collection im Editor · Abstand Section-Stack · Mobil optional <code>mobile_stack</code> → 1 Spalte · Spec → <a href="#pdp-recommendations">Empfehlungen</a></td></tr>
         <tr><th>Naturalrabatt (<code>.nr-widget</code>)</th><td>Mit Bestellhistorie (<code>past6Months</code>): <code>.--personal</code> (Hook + Angebot + CTA) · nach Warenkorb-Klick des Angebots Widget ausblenden · ohne Historie Standard (Progress-Bar + Hint) · <code>formatHint()</code>/<code>nextHintFor()</code> · Staffel via Cart Transform (→ <a href="#shopify-cart">E.4</a>) · Demo: Hepax · Standard: <code>?nr=default</code></td></tr>
         <tr><th>Produkt-Akkordeon</th><td>Ein Metafield / Item pro Thema · Analytik als <code>.rte.--data-table.--mobile-table</code> · Spec → <a href="#pdp-accordion">Produkt-Akkordeon</a></td></tr>
         <tr><th>Inhaltsstoff-Bibliothek</th><td><strong>Shopify-Modell:</strong> globale Metaobject-Definition <code>ingredient</code> · Produkt nur referenzieren via <code>custom.key_ingredients</code> (<code>list.metaobject_reference</code>, max.&nbsp;4) · kein Content am Produkt · Spec → <a href="#pdp-ingredients">Inhaltsstoffe im Detail</a></td></tr>
         <tr><th>Karten-Rollover</th><td>Collection / Grid: <code>product.featured_media</code> (1.) + <code>product.media[1]</code> wenn Video → 2. Kind in <code>.tile__image</code> · Hover: <code>play()</code> / <code>pause()</code> · Spec → <a href="#C1">C.1</a></td></tr>
         <tr><th>Mobile</th><td>Kein Hover auf Karten — Packshot bleibt sichtbar; Video nur auf PDP per Thumb-Klick</td></tr>
-        <tr><th>Sticky ATC</th><td>Section-Setting Checkbox <code>sticky_atc</code> (Default an) → Klasse <code>pdp--sticky-cta</code> am Section-Root · Markup <code>.pdp__sticky-cta</code> · JS <code>initPdpStickyCta()</code> · Demo <a href="pages/Produkt.html?id=13">Produkt.html</a> · aus: <code>?sticky=0</code></td></tr>
+        <tr><th>Sticky ATC</th><td>Section-Setting Checkbox <code>sticky_atc</code> (Default an) → Klasse <code>pdp--sticky-cta</code> am Section-Root · Markup <code>.pdp__sticky-cta</code> · JS <code>initPdpStickyCta()</code> · Demo <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> · aus: <code>?sticky=0</code></td></tr>
         <tr><th>Pfadnavigation</th><td>Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · nur rendern wenn an · Markup <code>.breadcrumb.pdp__breadcrumb</code> · Demo: aus · an: <code>?breadcrumb=1</code></td></tr>
       </table>
       <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
 
       <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
-      <p>Muster-Layout für ein Produkt ohne Typ-Selektor (hier Calmin-Assets). Sticky-Galerie wie Live; Social Proof in der Info-Spalte (Aside ≥1536 nur auf <a href="pages/Produkt.html">Produkt.html</a>, damit die Styleguide-Vorschau nicht gequetscht wird).</p>
+      <p>Muster-Layout für ein Produkt ohne Typ-Selektor (hier Calmin-Assets). Sticky-Galerie wie Live; Social Proof in der Info-Spalte (Aside ≥1536 nur auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a>, damit die Styleguide-Vorschau nicht gequetscht wird).</p>
       <div class="sg-demo --white">
         <div class="pdp pdp--sticky-gallery" data-pdp-cat="beruhigung">
           <div class="pdp__gallery">
@@ -5089,7 +5118,7 @@
         <div class="pdp__recommendations">
           <div class="section-label-row --headline">
             <h2>Das könnte dir auch gefallen</h2>
-            <a class="btn --ghost --sm" href="pages/Collection.html">Alle Produkte</a>
+            <a class="btn --ghost --sm" href="https://inuvet-dev.myshopify.com/collections/all">Alle Produkte</a>
           </div>
           <div class="tile-grid --cols-4">
             <div class="tile --product">
@@ -5139,7 +5168,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Sticky-Galerie · Trust unter Angebot (ohne Aside in der Demo) · Akkordeon in der Info-Spalte · Live inkl. Aside → <a href="pages/Produkt.html">Produkt.html</a> · Warenkorb → <a href="#E4">E.4</a>.</p>
+      <p class="sg-caption">Sticky-Galerie · Trust unter Angebot (ohne Aside in der Demo) · Akkordeon in der Info-Spalte · Live inkl. Aside → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> · Warenkorb → <a href="#E4">E.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-family">Produktfamilie — Typ-Selektor</h3>
       <p>Oberhalb der Größenauswahl: <code>.pdp__type-selector</code> mit Radio-Zeilen — <strong>ohne</strong> Spaltenköpfe. Tierart rechts als Icons (<code>assets/graphics/inuvet-icons/Icon_Tier_*.svg</code>). Form-Hinweis → <code>.pdp__type-hint</code>. Galerie: Kategorie-Badge + „Produktfamilie" (Pflicht). Layout: <code>.pdp--sticky-gallery</code>; Social Proof in der Demo ohne Aside (Aside ≥1536 nur Live).</p>
@@ -5318,7 +5347,7 @@
 </div>
         </div>
       </div>
-      <p class="sg-caption">Sticky-Galerie · Hepax-USPs · Pulver-Größen · persönliches NR · Trust unter Angebot (ohne Aside in der Demo) · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+      <p class="sg-caption">Sticky-Galerie · Hepax-USPs · Pulver-Größen · persönliches NR · Trust unter Angebot (ohne Aside in der Demo) · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a>.</p>
 
 <h3 class="sg-h3 --top" id="pdp-accordion">Produkt-Akkordeon</h3>
       <div class="col-grid" data-cols="2">
@@ -5331,7 +5360,7 @@
         <tr><th>Tabellen</th><td>Analytik/Zusatzstoffe als <code>.rte.--data-table.--mobile-table</code> + <code>table.--normal</code> — mobil zweispaltig (kein Stack)</td></tr>
         <tr><th>Shopify</th><td>Product-Metafields je Item · leere Items nicht rendern · bei Produktfamilie Hinweis im Inhaltsstoff-Auszug</td></tr>
       </table>
-      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Tabellen-Atom → <a href="#A4-data-table">A.4</a>.</p>
+      <p class="sg-caption">Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a> · Tabellen-Atom → <a href="#A4-data-table">A.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-testimonials">Testimonials</h3>
       <div class="col-grid" data-cols="2">
@@ -5351,20 +5380,20 @@
       <table class="spec-table">
         <tr><th><code>.pdp__testimonials</code></th><td>Wrapper ohne Überschrift · <code>.testimonial-section</code> / <code>.testimonial-grid.--cols-4</code> · Mobile: 3 sichtbar + „Mehr anzeigen“ · Scroll-In wie Kacheln via <code>initScrollAnimations()</code></td></tr>
         <tr><th>Anzahl</th><td>Genau 4 Kacheln auf der PDP</td></tr>
-        <tr><th>Shopify</th><td>Globale Metaobjects oder Shop-Metafields (Zitat, Name, Rolle, Avatar) · Theme rendert feste Auswahl von 4 · nicht am Produkt pflegen</td></tr>
+        <tr><th>Shopify</th><td>Metaobject <strong>Testimonial</strong> (<code>quote</code>, <code>name</code>, <code>role</code>, <code>avatar</code>) · Section <code>testimonials</code> mit <code>metaobject_list</code> (max.&nbsp;4) · shop-weit, nicht am Produkt · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
-      <p class="sg-caption">Demo → <a href="#D5">D.5</a> · Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+      <p class="sg-caption">Demo → <a href="#D5">D.5</a> · Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-praxis">Praxis-Vorteile</h3>
       <div class="col-grid" data-cols="2">
-        <p>Letzte Rubrik auf der PDP — identisch mit dem Shop-Block <a href="pages/Inuvet-Shop.html#shopPraxisVorteile">„Nur bei euch“</a>: drei Kacheln mit großen Lottie-Animationen. Shop-weit, nicht produktgebunden.</p>
-        <p>Markup: <code>.tile-grid.--cols-3</code> + Variante&nbsp;A · Lottie in <code>.tile__icon.tile__animation.--ratio-1</code> (Vollbreit 1:1). Shopify Content-Kacheln: Section-Setting <code>animation_ratio</code> = <code>icon</code> | <code>square</code> (gilt für alle Kacheln).</p>
+        <p>Letzte Rubrik auf der PDP — identisch mit dem Shop-Block <a href="https://inuvet-dev.myshopify.com/">„Nur bei euch“</a>: drei Kacheln mit großen Lottie-Animationen. Shop-weit, nicht produktgebunden.</p>
+        <p>Markup: <code>.tile-grid.--cols-3</code> + Variante&nbsp;A · Lottie in <code>.tile__icon.tile__animation.--ratio-1</code> (Vollbreit 1:1). Shopify Content-Kacheln: <code>animation_ratio</code> = <code>icon</code> | <code>square</code> · Mobil 2-spaltig (auch bei 3 Desktop-Spalten), optional <code>mobile_stack</code> → <code>.--mobile-stack</code> (1 Spalte).</p>
       </div>
       <table class="spec-table">
-        <tr><th><code>.pdp__praxis</code></th><td>Wrapper nach Recommendations · <code>margin-top: var(--module-2xl)</code></td></tr>
+        <tr><th><code>.pdp__praxis</code></th><td>Wrapper nach Recommendations · vertikaler Abstand im Theme nur Section-Stack (A.7)</td></tr>
         <tr><th><code>.tile__animation</code></th><td>Volle Kachelbreite · <code>lottie-player</code> mit <code>aspect-ratio</code> (sonst Höhe 0)</td></tr>
         <tr><th>Assets</th><td><code>inuvet_tierarzt_nur_bei_euch.json</code> · <code>Inuvet_animation_Weltweit.json</code> · <code>inuvet_animation_inhaltsstoffe.json</code></td></tr>
-        <tr><th>Shopify</th><td>Gleicher Section-Block wie auf der Collection/Home · Theme settings oder fester Snippet</td></tr>
+        <tr><th>Shopify</th><td>Metaobject <strong>Praxis-Vorteil</strong> (Felder wie Shop-Benefit: <code>headline</code>, <code>body</code>, <code>lottie_asset</code>) · Section <code>praxis</code> · Startseite + PDP · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="pdp__praxis" style="margin-top:0">
@@ -5393,7 +5422,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Referenz → <a href="pages/Inuvet-Shop.html#shopPraxisVorteile">Inuvet-Shop</a>.</p>
+      <p class="sg-caption">Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a> · Referenz → <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-recommendations">Empfehlungen</h3>
       <div class="col-grid" data-cols="2">
@@ -5401,7 +5430,7 @@
         <p>Header als <strong>Headline</strong> (<code>.section-label-row.--headline</code>) — empfohlener Default (→ <a href="#A12">A.12</a>). <code>.section-label</code> bleibt Alternative, wenn die Zeile in ein Label-getriebenes Section-Raster passt. View-all optional rechts (<code>.btn.--ghost.--sm</code>).</p>
       </div>
       <table class="spec-table">
-        <tr><th><code>.pdp__recommendations</code></th><td>Wrapper · <code>margin-top: var(--module-2xl)</code> · <code>padding-top</code> + <code>border-top</code></td></tr>
+        <tr><th><code>.pdp__recommendations</code></th><td>Wrapper · <code>padding-top</code> + <code>border-top</code> (Komponenten-Chrome) · vertikaler Abstand im Theme nur Section-Stack (A.7)</td></tr>
         <tr><th>Header — empfohlener Default</th><td><code>.section-label-row.--headline</code> → <code>&lt;h2&gt;</code> + optional <code>&lt;a class="btn --ghost --sm"&gt;</code> · ohne untere Border-Linie (→ <a href="#A12">A.12</a>)</td></tr>
         <tr><th>Header — Alternative</th><td><code>.section-label-row</code> mit <code>&lt;h2 class="section-label"&gt;</code> (Uppercase, wie Bestseller auf Shop-Startseite) · gleiche View-all-Option</td></tr>
         <tr><th>Ohne View-all</th><td>Headline: nur <code>&lt;h2&gt;</code> oder <code>&lt;h2 class="section-label"&gt;</code> · kein Row-Wrapper nötig</td></tr>
@@ -5421,7 +5450,7 @@
         <div class="pdp__recommendations" style="margin-top:0;padding-top:0;border-top:none">
           <div class="section-label-row --headline" style="--section-label-mt: 0;">
             <h2>Das könnte dir auch gefallen</h2>
-            <a class="btn --ghost --sm" href="pages/Collection.html">Alle Produkte</a>
+            <a class="btn --ghost --sm" href="https://inuvet-dev.myshopify.com/collections/all">Alle Produkte</a>
           </div>
           <div class="tile-grid --cols-4">
             <div class="tile --product">
@@ -5445,7 +5474,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Section-Label-Pattern → <a href="#A12">A.12</a>.</p>
+      <p class="sg-caption">Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a> · Section-Label-Pattern → <a href="#A12">A.12</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-benefits">Benefit-Leiste</h3>
       <div class="col-grid" data-cols="2">
@@ -5456,7 +5485,7 @@
         <tr><th><code>.pdp__benefits</code></th><td>Wrapper vor <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
         <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Lottie</th><td><code>&lt;lottie-player&gt;</code> in <code>.tile__icon</code> · Größe via CSS <code>calc(var(--base) * 4)</code> · CDN <code>@lottiefiles/lottie-player</code> · Assets: <code>Icon_Tierarztpraxis</code>, <code>Icon_Langzeitgabe</code>, <code>Icon_Schutz</code>, <code>Icon_Auto</code></td></tr>
-        <tr><th>Shopify</th><td>Theme settings / Shop-Metafields (4 Einträge: Icon-File oder Asset-Handle + Headline + Body) · oder fester Section-Block im PDP-Template</td></tr>
+        <tr><th>Shopify</th><td>Metaobject <strong>Shop-Benefit</strong> (Felder: <code>headline</code>, <code>body</code>, <code>lottie_asset</code>) · Section <code>benefits</code> · Startseite + PDP · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="pdp__benefits" style="margin-top:0">
@@ -5492,7 +5521,7 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Referenz → <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a>.</p>
+      <p class="sg-caption">Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a> · Referenz → <a href="pages/Tierarzt-Empfehlung.html">Tierarzt-Empfehlung</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-faq">FAQ</h3>
       <div class="col-grid" data-cols="2">
@@ -5518,13 +5547,13 @@
                 <div class="accordion-content"><div class="accordion-content__inner"><p>Hepax forte ist für Hund und Katze vorgesehen. Dosierung nach Körpergewicht gemäß Fütterungsempfehlung bzw. Packung.</p></div></div>
               </div>
               <div class="accordion-item" style="order:2">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Wie bestelle ich als Tierarztpraxis?<span class="accordion-icon material-icons">expand_more</span></button>
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Wie bestelle ich Hepax forte als Tierarztpraxis?<span class="accordion-icon material-icons">expand_more</span></button>
                 <div class="accordion-content"><div class="accordion-content__inner"><p>Als Praxis bestellen Sie im Partner-Shop — Lieferung in der Regel innerhalb von 2–3 Werktagen, Versandkostenfrei ab 49&nbsp;€.</p></div></div>
               </div>
             </div>
             <div class="accordion__col">
               <div class="accordion-item" style="order:1">
-                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Worin unterscheiden sich Tabletten und Pulver?<span class="accordion-icon material-icons">expand_more</span></button>
+                <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Worin unterscheiden sich Hepax forte Tabletten und Pulver?<span class="accordion-icon material-icons">expand_more</span></button>
                 <div class="accordion-content"><div class="accordion-content__inner"><p>Beide Formen gehören zur Produktfamilie. Tabletten eignen sich für Hunde; das Pulver für Katze und Hund und lässt sich unter das Futter mischen.</p></div></div>
               </div>
               <div class="accordion-item" style="order:3">
@@ -5535,7 +5564,7 @@
           </div>
         </section>
       </div>
-      <p class="sg-caption">Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a> · Akkordeon-Atom → <a href="#C5">C.5</a>.</p>
+      <p class="sg-caption">Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a> · Akkordeon-Atom → <a href="#C5">C.5</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-social-proof">Social Proof</h3>
       <div class="col-grid" data-cols="2">
@@ -5547,7 +5576,7 @@
         <tr><th><code>.social-proof__avatars</code></th><td>2 kreisförmige Bilder · Überlappung via negativem Margin · Rahmen wie andere Media: <code>1px solid var(--border-light)</code></td></tr>
         <tr><th><code>.social-proof__text</code></th><td><code>--text-sm</code> · <code>--fg-muted</code> · Verified-Icon inline nach dem Namen</td></tr>
         <tr><th><code>.social-proof__verified</code></th><td>Material Icon <code>verified</code> · Farbe <code>#1d9bf0</code> · <code>aria-label="Verifiziert"</code></td></tr>
-        <tr><th>Shopify</th><td>Shop-Metafields oder Theme settings (nicht Product): z.&nbsp;B. <code>custom.social_proof_name</code>, <code>custom.social_proof_count</code>, Avatar-Files · gleiche Werte auf allen PDPs</td></tr>
+        <tr><th>Shopify</th><td>Metaobject <code>social_proof</code> (Singleton, Handle <code>default</code>): <code>name</code> · <code>count</code> · <code>avatar_1</code> · <code>avatar_2</code> · nicht am Produkt · gleiche Werte auf allen PDPs · Spec → Theme <code>snippets/social-proof.liquid</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="sg-w-md">
@@ -5560,9 +5589,9 @@
           </div>
         </div>
       </div>
-      <p class="sg-caption">Live in der PDP → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+      <p class="sg-caption">Live in der PDP → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a>.</p>
 
-      <h3 class="sg-h3 --top" id="pdp-ingredients">Inhaltsstoffe im Detail</h3>
+      <h3 class="sg-h3 --top" id="pdp-ingredients">Inhaltsstoffe (Auszug) im Detail</h3>
       <div class="col-grid" data-cols="2">
         <p>Phytotherapie braucht erklärenden Content — nicht nur eine komma-getrennte Liste im Akkordeon. Pro Produkt die wichtigsten <strong>3–4 Inhaltsstoffe</strong> mit Bild und zwei Sätzen Nutzen/Wirkung. Texte und Bilder existieren bereits für das Sortiment; bei neuen Produkten unbedingt fortführen.</p>
         <p>Die <strong>Deklarationsliste</strong> bleibt im Akkordeon „Inhaltsstoffe". Die Erklär-Blöcke sind SEO-/Vertrauens-Content und stehen <strong>sichtbar im DOM</strong> nach der Benefit-Leiste (nicht hinter Tab/Lazy-Load).</p>
@@ -5582,7 +5611,7 @@
       <table class="spec-table">
         <tr><th>Metaobject-Definition</th><td><code>ingredient</code> (Shop-weit, nicht produktgebunden) · Einträge = einzelne Inhaltsstoffe der Bibliothek</td></tr>
         <tr><th>Felder pro Eintrag</th><td><code>name</code> (Single line, DE) · <code>latin</code> (Single line, <strong>Pflicht</strong>) · <code>summary</code> (Multi-line, genau 2 Sätze Fließtext) · <code>image</code> (File, 5:4) · Handle für URL/SEO</td></tr>
-        <tr><th>Product-Metafield</th><td><code>custom.key_ingredients</code> · Typ <code>list.metaobject_reference</code> → Definition <code>ingredient</code> · Auswahl/Reihenfolge der 3–4 Schlüssel-Inhaltsstoffe für diese PDP</td></tr>
+        <tr><th>Product-Metafield</th><td><code>custom.key_ingredients</code> · Typ <code>list.metaobject_reference</code> → Definition <code>ingredient</code> · Auswahl/Reihenfolge der 3–4 Schlüssel-Inhaltsstoffe · <strong>erster Eintrag = große Kachel</strong> (3er-Raster <code>1.4fr</code>)</td></tr>
         <tr><th>Theme</th><td>Nur die referenzierten Einträge rendern (<code>limit: 4</code>) · Felder aus dem Metaobject lesen · Spalten-Modifier aus Listenlänge (<code>--cols-3</code> / <code>--cols-4</code>)</td></tr>
         <tr><th>Nicht tun</th><td>Kein Rich-Text-/Bild-Metafield am Produkt für diesen Block · kein Copy-Paste der Texte in Product-Description · keine produkt-spezifischen Override-Felder für Name/Latein/Summary/Image</td></tr>
         <tr><th>Liquid (Skizze)</th><td><code>{% assign items = product.metafields.custom.key_ingredients.value %}</code> · <code>{% assign n = items.size %}</code> · Klasse <code>--cols-4</code> wenn <code>n &gt;= 4</code>, sonst <code>--cols-3</code> · <code>{% for item in items limit: 4 %}</code> → <code>item.name</code>, <code>item.latin</code>, <code>item.summary</code>, <code>item.image</code></td></tr>
@@ -5604,7 +5633,7 @@
       </table>
       <div class="sg-demo --white">
         <div class="ingredient-list --cols-3" style="margin-top:0">
-          <h2>Inhaltsstoffe im Detail</h2>
+          <h2>Inhaltsstoffe (Auszug) im Detail</h2>
           <article class="ingredient">
             <div class="ingredient__media">
               <img class="ingredient__image" src="assets/images/Inhaltsstoff_Mariendistel.jpg" alt="Mariendistel">
@@ -5634,7 +5663,7 @@
           </article>
         </div>
       </div>
-      <p class="sg-caption">Demo <code>--cols-3</code> asymmetrisch (Hepax) — bei 4 Einträgen <code>--cols-4</code> gleichmäßig. Live → <a href="pages/Produkt.html?id=13">Produkt.html?id=13</a>.</p>
+      <p class="sg-caption">Demo <code>--cols-3</code> asymmetrisch (Hepax) — bei 4 Einträgen <code>--cols-4</code> gleichmäßig. Live → <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?id=13</a>.</p>
 
       <h3 class="sg-h3 --top" id="pdp-oos">Out-of-Stock</h3>
       <div class="rules">
@@ -5739,7 +5768,7 @@
                 <div class="tile__bottom flow">
                   <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
                   <p class="tile__body">Tierärztlich entwickelt — neue Formulierungen für die Praxis.</p>
-                  <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+                  <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Alle Neuheiten</a>
                 </div>
               </div>
               <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
@@ -5759,7 +5788,7 @@
           </main>
         </div>
       </div>
-      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Sonderkacheln: alle Layouts (ohne Media / Bild / Lottie / Cover) · Live → <a href="pages/Collection.html">Collection.html</a> · Spec → <a href="#tile-featured">D.4</a>.</p>
+      <p class="sg-caption">Sidebar sticky · Mobile: Filter-Drawer · Sonderkacheln: alle Layouts (ohne Media / Bild / Lottie / Cover) · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a> · Spec → <a href="#tile-featured">D.4</a>.</p>
 
       <h3 class="sg-h3 --top">Ohne Filter-Sidebar</h3>
       <div class="sg-demo --white">
@@ -5870,7 +5899,7 @@
       </div>
       <table class="spec-table">
         <tr><th>Grid</th><td><code>{% if section.settings.show_filters %}</code> → <code>.tile-grid.--cols-3</code> · sonst <code>.tile-grid.--cols-4</code> · <code>{% for product in collection.products %}</code> → <code>.tile.--product</code> (Snippet <code>card-product</code>) · Badges: Kategorie + optional „Produktfamilie"; Status in <code>.collection-main</code> ausgeblendet</td></tr>
-        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> → Media in <code>.tile__animation</code> (nie Bild+Lottie) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · <strong>Media-Labels (optional):</strong> Sub-Blocks Typ <code>label</code> je Block: <code>text</code> (Pflicht) · Select <code>style</code> = <code>category</code> (Default, rendert <code>data-cat</code>) | <code>dark</code> (<code>.--dark</code>) | <code>sale</code> (<code>.--sale</code>) | <code>plain</code> (nur <code>.badge</code>) · bei <code>style: category</code>: Select <code>category</code> (15 Indikationen) · alle Labels einer Kachel in eine <code>.floating-meta</code> (Reihenfolge = Block-Reihenfolge) · Spec → <a href="#tile-featured-labels">D.4 Media-Labels</a> · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="pages/Collection.html">Collection.html</a></td></tr>
+        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> → Media in <code>.tile__animation</code> (nie Bild+Lottie) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · <strong>Media-Labels (optional):</strong> Sub-Blocks Typ <code>label</code> je Block: <code>text</code> (Pflicht) · Select <code>style</code> = <code>category</code> (Default, rendert <code>data-cat</code>) | <code>dark</code> (<code>.--dark</code>) | <code>sale</code> (<code>.--sale</code>) | <code>plain</code> (nur <code>.badge</code>) · bei <code>style: category</code>: Select <code>category</code> (15 Indikationen) · alle Labels einer Kachel in eine <code>.floating-meta</code> (Reihenfolge = Block-Reihenfolge) · Spec → <a href="#tile-featured-labels">D.4 Media-Labels</a> · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a></td></tr>
         <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Pflicht-Facet <strong>Tierarten</strong>: Werte „Hund &amp; Katze“ / „Kleine Heimtiere“ (Shopify: Product/Variant Metafield oder Tag, z.&nbsp;B. aus <code>custom.geeignet_fuer</code> / PDP Tierart-Spalte) · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
         <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> in <code>.collection-main</code> (unter Toolbar) · <code>.filter-tag</code> · Remove = <code>value.url_to_remove</code> · Reset = <code>collection.url</code> · leer ausblenden</td></tr>
         <tr><th>Toolbar</th><td>Section-Setting <code>show_toolbar</code> (Checkbox, Label z.&nbsp;B. „Toolbar anzeigen“, default <code>true</code>) · bei an: Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code> · bei aus: <code>.collection-toolbar</code> nicht rendern / <code>hidden</code> · <strong>unabhängig</strong> von <code>show_filters</code></td></tr>
@@ -5880,7 +5909,7 @@
         <tr><th>Titel / Beschreibung</th><td>Checkboxen <code>show_title</code> / <code>show_description</code> (Default beide aus) · bei an: <code>.collection-intro.flow</code> mit <code>h1</code> (= <code>collection.title</code>) und/oder <code>.rte</code> (= <code>collection.description</code>) · unabhängig schaltbar · kein Breadcrumb</td></tr>
         <tr><th>Empty State</th><td>0 Treffer → Grid durch <code>.empty-state</code> ersetzen (→ <a href="#C8">C.8</a>), Pagination aus · Icon <code>search_off</code> · Titel „Keine Produkte gefunden“ · Sub „Passe die Filter an oder setze sie zurück.“ · bei aktiven Filtern: <code>.btn.--primary</code> „Alle Filter löschen“ → <code>collection.url</code> / Filter reset · leere Collection ohne Filter: gleicher Block ohne Reset-CTA, Sub „In dieser Übersicht sind aktuell keine Produkte hinterlegt.“</td></tr>
       </table>
-      <p class="sg-caption">Filter-/Sortier-Logik über Storefront-Parameter · Sonderkacheln: mehrere <code>featured_tile</code>-Blocks in <code>main-collection</code>, Position frei wählbar — Markup 1:1 aus <a href="#D4">D.4</a> · Demo → <a href="pages/Collection.html">Collection.html</a>.</p>
+      <p class="sg-caption">Filter-/Sortier-Logik über Storefront-Parameter · Sonderkacheln: mehrere <code>featured_tile</code>-Blocks in <code>main-collection</code>, Position frei wählbar — Markup 1:1 aus <a href="#D4">D.4</a> · Demo → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E4">
@@ -6069,8 +6098,9 @@
       <h2 class="section-label">E.6 — Account-Seiten</h2>
 
       <div class="rules">
-        <div class="rule"><h4>Formulare</h4><p><code>.form-field</code> (Floating Label), <code>.form-grid</code> (2-Spalten), <code>.btn.--primary.--full</code>. Login, Registrierung und Passwort vergessen in einem <code>.tab-nav</code>.</p></div>
-        <div class="rule"><h4>Bestellhistorie</h4><p><code>.order-item</code> mit Bestellnummer, Datum, Status-Badge, Betrag und Link.</p></div>
+        <div class="rule"><h4>New Customer Accounts (Ist)</h4><p>Der Shop nutzt <strong>New Customer Accounts</strong> (passwortlos). Login/Konto laufen über Shopifys Account-UI bzw. das Web-Component <code>&lt;shopify-account&gt;</code> im Header — <strong>nicht</strong> über Legacy-<code>templates/customers/*</code>.</p></div>
+        <div class="rule"><h4>Theme</h4><p>Header: <code>&lt;shopify-account class="nav-account"&gt;</code> (Desktop + Mobile) · signed-out Avatar = Material-Icon <code>person</code> · Optik via CSS-Variablen (<code>--shopify-account-radius-*: 0</code>, Accent <code>--green</code>, Font <code>--font</code>) · Menü <code>customer-account-main-menu</code>.</p></div>
+        <div class="rule"><h4>Legacy-Demo unten</h4><p>Tabs + <code>.order-item</code> bleiben als <em>Referenz für das alte Liquid-Modell</em> / ggf. andere Stores — im Inuvet-Theme nicht verdrahtet.</p></div>
       </div>
 
       <table class="spec-table">
@@ -6141,16 +6171,16 @@
 
       <h3 class="sg-h3 --top" id="shopify-account">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
-        <p>Customer Accounts über die Templates unter <code>/account</code> · Formulare via Liquid-Tags <code>{% form 'customer_login' %}</code>, <code>'create_customer'</code>, <code>'recover_customer_password'</code>.</p>
-        <p>Neue Kunden nutzen häufig <strong>New Customer Accounts</strong> (passwortloser Login) — dann entfällt das Passwortfeld; Layout bleibt sonst identisch.</p>
+        <p><strong>Inuvet (New Customer Accounts):</strong> Header-Component <code>&lt;shopify-account&gt;</code> · Docs → <a href="https://shopify.dev/docs/storefronts/themes/customer-engagement/account-component" target="_blank" rel="noopener">Account component</a>. Bestellungen/Profil in Shopify Account-UI.</p>
+        <p><strong>Legacy (deprecated):</strong> Liquid unter <code>/account</code> mit <code>{% form 'customer_login' %}</code> usw. — Demo unten; nicht mehr Theme-Store-Pflicht, Inuvet-Theme baut das nicht.</p>
       </div>
       <table class="spec-table">
-        <tr><th>Login / Registrierung</th><td><code>{% form 'customer_login' %}</code> / <code>'create_customer'</code> → <code>.form-field</code> · Tabs <code>.tab-nav</code> (<code>switchAccTab</code>) rein clientseitig</td></tr>
-        <tr><th>Passwort vergessen</th><td><code>{% form 'recover_customer_password' %}</code> → <code>#acc-forgot</code>-Panel</td></tr>
-        <tr><th>Bestellhistorie</th><td><code>{% for order in customer.orders %}</code> → <code>.order-item</code> · Status <code>order.fulfillment_status</code> → <code>.badge</code> · Betrag <code>order.total_price | money</code></td></tr>
-        <tr><th>Formfehler</th><td><code>form.errors</code> → <code>.form-field.--error</code> + Meldung (→ <a href="#B4">B.4</a>)</td></tr>
+        <tr><th>Header</th><td><code>&lt;shopify-account class="nav-account" menu="…"&gt;</code> · Slot <code>signed-out-avatar</code> · Setting <code>customer_account_menu</code></td></tr>
+        <tr><th>Menü</th><td>Admin → Content → Menüs → <code>customer-account-main-menu</code> (Orders, Profile)</td></tr>
+        <tr><th>Styling</th><td>CSS-Variablen <code>--shopify-account-*</code> + <code>::part(signed-out-avatar)</code> · Radius 0 · Accent <code>--green</code></td></tr>
+        <tr><th>Legacy-Demo</th><td>Tabs + <code>.order-item</code> unten nur Referenz · Status via <code>.badge</code> (→ <a href="#B2">B.2</a>)</td></tr>
       </table>
-      <p class="sg-caption">Alle Account-Formulare über Shopify-<code>{% form %}</code>-Tags · Tab-Umschaltung rein clientseitig.</p>
+      <p class="sg-caption">Theme: <code>sections/header.liquid</code> · keine <code>templates/customers/*</code>.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="E7">
@@ -6238,7 +6268,7 @@
 
       <h3 class="sg-h3 --top" id="shopify-search">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
-        <p>Vorschläge über die <strong>Predictive Search API</strong> (<code>/search/suggest.json?resources[type]=product,query,collection</code>) — Theme-JS ersetzt die statischen <code>SEARCH_DATA</code>-Demos durch Live-Ergebnisse.</p>
+        <p>Vorschläge über die <strong>Predictive Search API</strong> (<code>/search/suggest.json?resources[type]=product,query,collection</code>) — Theme-JS ersetzt die statischen <code>SEARCH_DATA</code>-Demos durch Live-Ergebnisse. Dieselbe API läuft auf <code>/search</code> beim Tippen (ohne Absenden); Enter oder der Pfeil lädt die vollständige Trefferliste.</p>
         <p>Volle Ergebnisseite über <code>/search</code> (Section <code>main-search.liquid</code>) mit <code>search.results</code> · Overlay ist nur die schnelle Vorschau.</p>
       </div>
       <table class="spec-table">
@@ -6261,7 +6291,7 @@
         </div>
         <div class="rule">
           <h4>Artikel-Detailseite</h4>
-          <p>Max-Width 48rem, zentriert. Hero-Bild, Fließtext via <code>.rte</code>. Abschluss: Autor-Card + Tags via <code>.filter-tag</code> (<a href="#E3">E.3</a>).</p>
+          <p>3-Spalten-Raster wie <code>.tile-grid.--cols-3</code> im gemeinsamen <code>.container</code>: Sidebar = Spalte 1, Fließtext = Spalten 2–3. Optional <code>.--sidebar-end</code> (Theme-Setting „Sidebar rechts“): Text 1–2, Sidebar 3. Hero-Bild, Body via <code>.rte</code>. Sidebar: Autor + Tags via <code>.filter-tag</code> (<a href="#E3">E.3</a>), darunter Inhaltsverzeichnis automatisch bei h2 im Text.</p>
         </div>
       </div>
 
@@ -6269,15 +6299,17 @@
         <tr><th><code>.blog-grid</code></th><td>CSS Grid, 3 Spalten, <code>gap: var(--module)</code>. Mobile: 1-spaltig.</td></tr>
         <tr><th><code>.blog-card</code></th><td>Flex column. Bild oben, Content unten mit <code>flex: 1</code>.</td></tr>
         <tr><th><code>.blog-card__image</code></th><td>Aspect-Ratio 16:9, nutzt <code>.placeholder-bg</code></td></tr>
-        <tr><th><code>.blog-card__meta</code></th><td>Datum + Kategorie, nutzt <code>.label-caps</code></td></tr>
-        <tr><th><code>.blog-card__title</code></th><td><code>var(--text-m)</code>, <code>font-weight: 700</code>, h3-Element</td></tr>
-        <tr><th><code>.blog-card__excerpt</code></th><td><code>var(--fg-muted)</code>, line-clamp 3 Zeilen</td></tr>
-        <tr><th><code>.blog-card__cta</code></th><td>„Weiterlesen"-Link · <code>var(--green)</code> · underline · <code>margin-top: auto</code></td></tr>
+        <tr><th><code>.blog-card__content</code></th><td>Flex column · <code>padding-top: var(--half-module)</code> (Bild→Text, strukturell) · innen: <code>.flow</code> (Text↔Text) + CTA mit <code>margin-top: auto</code></td></tr>
+        <tr><th><code>.blog-card__meta</code></th><td>Datum + Kategorie, nutzt <code>.label-caps</code> · im <code>.flow</code></td></tr>
+        <tr><th><code>.blog-card__title</code></th><td><code>var(--text-m)</code>, <code>font-weight: 700</code>, h3-Element · Abstand zum Excerpt via <code>.flow</code> (<a href="#A7">A.7</a>)</td></tr>
+        <tr><th><code>.blog-card__excerpt</code></th><td><code>var(--fg-muted)</code>, line-clamp 3 Zeilen · im <code>.flow</code></td></tr>
+        <tr><th><code>.blog-card__cta</code></th><td>„Weiterlesen"-Link · <code>var(--green)</code> · außerhalb <code>.flow</code> · <code>margin-top: auto</code> (strukturell, Karten unten bündig)</td></tr>
+        <tr><th><code>.article-layout</code></th><td>3 Spalten · Sidebar Spalte 1, Text 2–3 · <code>.--sidebar-end</code>: Text 1–2, Sidebar 3 · nur Desktop</td></tr>
         <tr><th><code>.article__header</code></th><td>Meta (<code>.label-caps</code>) + h1-Titel</td></tr>
         <tr><th><code>.article__hero</code></th><td>16:9, <code>.placeholder-bg</code></td></tr>
         <tr><th><code>.article__body</code></th><td>Bestehende <code>.rte</code>-Klasse (<a href="#A4">A.4</a>)</td></tr>
-        <tr><th><code>.article__author</code></th><td>Flex, rundes Avatar-Bild, Name + Rolle</td></tr>
-        <tr><th><code>.article-toc</code></th><td>Inhaltsverzeichnis in der <code>.article-sidebar</code> — <strong>ersetzt</strong> Autor + Tags (entweder/oder, nie beides) · ohne Überschrift · Anker-Links auf h2-IDs · aktiver Abschnitt via <code>initArticleToc()</code> (<code>inuvet.js</code>, Scrollspy, <code>aria-current</code>) · nur Desktop — Mobile: Sidebar entfällt komplett · Referenz: <a href="pages/Tierarzt-Empfehlung-Info.html">Tierarzt-Empfehlung-Doku</a></td></tr>
+        <tr><th><code>.article__author</code></th><td>Flex, rundes Avatar · Bild aus Metafeld <code>custom.author_avatar</code> · ohne Bild: <code>person</code>-Icon im Kreis · Name <code>article.author</code> · Rolle <code>custom.author_role</code></td></tr>
+        <tr><th><code>.article-toc</code></th><td>Inhaltsverzeichnis in der <code>.article-sidebar</code> — unter Autor + Tags, automatisch bei h2 im Text · ohne Überschrift · Anker-Links auf h2-IDs · Schrift <code>--text-base</code> · Zeilen-Padding <code>calc(var(--base) * 0.4)</code> (wie RTE-Tabellen) · nach <code>.article__tags</code> extra <code>--half-module</code> (zusammen mit Sidebar-Gap = <code>--module</code>) · Linien oben, dazwischen und unten (<code>--border-light</code>) · aktiver Abschnitt via <code>initArticleToc()</code> (<code>inuvet.js</code>, Scrollspy, <code>aria-current</code>) · nur Desktop (TOC <code>display: none</code>) — Sidebar nur aus TOC entfällt auf Mobile komplett · Referenz: <a href="pages/Tierarzt-Empfehlung-Info.html">Tierarzt-Empfehlung-Doku</a></td></tr>
         <tr><th><code>.article__tags</code></th><td>Flex-wrap · <code>.filter-tag</code> Atom</td></tr>
       </table>
 
@@ -6287,40 +6319,46 @@
           <article class="blog-card">
             <div class="blog-card__image placeholder-bg"></div>
             <div class="blog-card__content">
-              <span class="blog-card__meta label-caps">12. April 2026 · Ernährung</span>
-              <h3 class="blog-card__title">5 Wege wie Omega-3 die Gelenkgesundheit deines Hundes verbessert</h3>
-              <p class="blog-card__excerpt">Omega-3-Fettsäuren spielen eine entscheidende Rolle bei der Unterstützung gesunder Gelenke. Erfahre, warum regelmäßige Supplementierung besonders bei älteren Hunden sinnvoll ist und welche Quellen wirklich helfen.</p>
+              <div class="flow">
+                <span class="blog-card__meta label-caps">12.04.26 · Ernährung</span>
+                <h3 class="blog-card__title">5 Wege wie Omega-3 die Gelenkgesundheit deines Hundes verbessert</h3>
+                <p class="blog-card__excerpt">Omega-3-Fettsäuren spielen eine entscheidende Rolle bei der Unterstützung gesunder Gelenke. Erfahre, warum regelmäßige Supplementierung besonders bei älteren Hunden sinnvoll ist und welche Quellen wirklich helfen.</p>
+              </div>
               <a href="#" class="blog-card__cta">Weiterlesen</a>
             </div>
           </article>
           <article class="blog-card">
             <div class="blog-card__image placeholder-bg"></div>
             <div class="blog-card__content">
-              <span class="blog-card__meta label-caps">8. April 2026 · Verdauung</span>
-              <h3 class="blog-card__title">Probiotika für Hunde: Was steckt dahinter und wann helfen sie wirklich?</h3>
-              <p class="blog-card__excerpt">Immer mehr Tierbesitzer greifen zu Probiotika. Doch wie funktionieren sie, wann sind sie sinnvoll – und was solltest du beim Kauf beachten? Wir klären auf.</p>
+              <div class="flow">
+                <span class="blog-card__meta label-caps">08.04.26 · Verdauung</span>
+                <h3 class="blog-card__title">Probiotika für Hunde: Was steckt dahinter und wann helfen sie wirklich?</h3>
+                <p class="blog-card__excerpt">Immer mehr Tierbesitzer greifen zu Probiotika. Doch wie funktionieren sie, wann sind sie sinnvoll – und was solltest du beim Kauf beachten? Wir klären auf.</p>
+              </div>
               <a href="#" class="blog-card__cta">Weiterlesen</a>
             </div>
           </article>
           <article class="blog-card">
             <div class="blog-card__image placeholder-bg"></div>
             <div class="blog-card__content">
-              <span class="blog-card__meta label-caps">3. April 2026 · Haut &amp; Fell</span>
-              <h3 class="blog-card__title">Glänzendes Fell – was Ernährung und Pflegesupplemente leisten können</h3>
-              <p class="blog-card__excerpt">Ein strahlendes Fell ist nicht nur Schönheit – es ist ein Zeichen innerer Gesundheit. Welche Nährstoffe wirklich helfen und wie du Mangelerscheinungen erkennst.</p>
+              <div class="flow">
+                <span class="blog-card__meta label-caps">03.04.26 · Haut &amp; Fell</span>
+                <h3 class="blog-card__title">Glänzendes Fell – was Ernährung und Pflegesupplemente leisten können</h3>
+                <p class="blog-card__excerpt">Ein strahlendes Fell ist nicht nur Schönheit – es ist ein Zeichen innerer Gesundheit. Welche Nährstoffe wirklich helfen und wie du Mangelerscheinungen erkennst.</p>
+              </div>
               <a href="#" class="blog-card__cta">Weiterlesen</a>
             </div>
           </article>
         </div>
       </div>
-      <p class="sg-caption">3-Spalter · Mobile 1-spaltig · CTA klebt unten via <code>margin-top: auto</code>.</p>
+      <p class="sg-caption">3-Spalter · Mobile 1-spaltig · Text↔Text via <code>.flow</code> (A.7) · CTA klebt unten via <code>margin-top: auto</code> (strukturell).</p>
 
       <h3 class="sg-h3 --top">Artikel-Detailseite</h3>
       <div class="sg-demo --white">
         <div class="article-layout">
           <aside class="article-sidebar">
             <div class="article__author">
-              <div class="article__author-avatar placeholder-bg"></div>
+              <div class="article__author-avatar"><span class="material-icons" aria-hidden="true">person</span></div>
               <div>
                 <p class="article__author-name">Dr. Mara Hofer</p>
                 <p class="article__author-role">Tierärztin &amp; Ernährungsberaterin</p>
@@ -6335,7 +6373,7 @@
           </aside>
           <article class="article">
             <header class="article__header">
-              <span class="label-caps">Ernährung · 12. April 2026</span>
+              <span class="label-caps">12.04.26 · Ernährung</span>
               <h1>5 Wege wie Omega-3 die Gelenkgesundheit deines Hundes verbessert</h1>
             </header>
             <div class="article__hero placeholder-bg"></div>
@@ -6352,7 +6390,7 @@
           </article>
         </div>
       </div>
-      <p class="sg-caption">Sidebar sticky (Desktop) · Autor + Tags links · Fließtext via <code>.rte</code>.</p>
+      <p class="sg-caption">3-Spalten-Raster · Sidebar sticky (Desktop, Spalte 1) · Fließtext Spalten 2–3 via <code>.rte</code> · <code>.--sidebar-end</code> tauscht die Seiten.</p>
 
       <h3 class="sg-h3 --top" id="shopify-blog">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
@@ -6362,8 +6400,8 @@
       <table class="spec-table">
         <tr><th>Grid</th><td><code>{% for article in blog.articles %}</code> → <code>.blog-card</code> · Bild <code>article.image | image_url</code> · Excerpt <code>article.excerpt_or_content | strip_html | truncate</code></td></tr>
         <tr><th>Meta</th><td><code>article.published_at | date</code> + erster Tag → <code>.blog-card__meta.label-caps</code></td></tr>
-        <tr><th>Artikel</th><td><code>article.title</code> → <code>.article__header</code> · <code>article.content</code> → <code>.article__body.rte</code> · Hero <code>article.image</code></td></tr>
-        <tr><th>Autor / Tags</th><td><code>article.author</code> → <code>.article__author</code> · <code>article.tags</code> → <code>.article__tags</code> mit <code>.filter-tag</code></td></tr>
+        <tr><th>Artikel</th><td><code>article.title</code> → <code>.article__header</code> · <code>article.content</code> → <code>.article__body.rte</code> · Hero <code>article.image</code> · Layout <code>.article-layout</code>: Sidebar Spalte 1, Text Spalten 2–3 · Setting <code>sidebar_end</code> → <code>.--sidebar-end</code></td></tr>
+        <tr><th>Autor / Tags</th><td><code>article.author</code> → <code>.article__author</code> · <code>article.tags</code> → <code>.article__tags</code> mit <code>.filter-tag</code> · bei h2 zusätzlich TOC darunter</td></tr>
         <tr><th>Pagination</th><td><code>{% paginate blog.articles by 9 %}</code> → <code>.pagination</code> (→ <a href="#C6">C.6</a>)</td></tr>
       </table>
       <p class="sg-caption">Blog- und Artikel-Sections über native <code>blog</code>/<code>article</code>-Objekte · Fließtext immer via <code>.rte</code> auf <code>article.content</code>.</p>
@@ -6404,13 +6442,13 @@
         <tr><th>Template</th><td><code>sections/collections.liquid</code> · <code>{% for collection in collections %}</code> · URL typisch <code>/collections</code></td></tr>
         <tr><th>Layout</th><td><code>&lt;main class="container"&gt;</code> · <strong>kein</strong> Filter-Sidebar · kein Breadcrumb · optional Intro wie Collection: <code>.collection-intro.flow</code> mit <code>h1</code> / <code>.rte</code> · Shopify <code>show_title</code> / <code>show_description</code></td></tr>
         <tr><th>Grid</th><td><code>.tile-grid.--cols-3</code> (3→2→1) — volle Containerbreite</td></tr>
-        <tr><th>Collection-Kachel</th><td><code>.tile</code> (kein <code>.--product</code>) · Bild in <code>.tile__image.--square</code> · Titel <code>.tile__headline</code> · Produktanzahl <code>.text-muted</code> („N Produkte“) · optional Kategorie-Badge <code>.badge[data-cat]</code> in <code>.floating-meta</code> wenn Collection = Indikation · gesamtes Tile verlinkt auf <code>collection.url</code> · kein Preis, kein Cart</td></tr>
-        <tr><th>Sonderkacheln</th><td>Wie Produkt-Collection: beliebig viele Blocks <code>featured_tile</code> (→ <a href="#D4">D.4</a>) mischbar — <code>stack</code> / <code>cover</code> inkl. Bild, Lottie, ohne Media · Position frei · Demo → <a href="pages/List-Collections.html">List-Collections.html</a></td></tr>
+        <tr><th>Collection-Kachel</th><td>Indikation: <code>.tile.--featured</code> · BG <code>var(--cat-*-light)</code> via <code>data-cat</code> · Text in <code>.tile__bottom.flow</code> (Titel + „N Produkte“) · mit Collection-Bild zusätzlich <code>.--cover</code> + <code>.tile__cover</code> · Snippet <code>card-collection</code> · Demo → <a href="https://inuvet-dev.myshopify.com/collections">List-Collections.html</a></td></tr>
+        <tr><th>Sonderkacheln</th><td>Zusätzlich Blocks <code>featured_tile</code> (→ <a href="#D4">D.4</a>) mischbar — Promo/Cover neben Indikationen · Position frei</td></tr>
         <tr><th>Empty State</th><td>Keine Collections → <code>.empty-state</code> (→ <a href="#C8">C.8</a>) · Icon <code>folder_off</code> · „Keine Kategorien“ · Sub kurz · optional CTA zum Shop</td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="tile-grid --cols-3">
-          <a class="tile" href="pages/Collection.html">
+          <a class="tile" href="https://inuvet-dev.myshopify.com/collections/all">
             <div class="tile__image-wrap">
               <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
               <div class="tile__image --square"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Leber"></div>
@@ -6423,10 +6461,10 @@
             <div class="tile__bottom flow">
               <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
               <p class="tile__body">Neue Formulierungen für die Praxis.</p>
-              <a href="pages/Collection.html" class="btn --primary">Alle Neuheiten</a>
+              <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Alle Neuheiten</a>
             </div>
           </div>
-          <a class="tile" href="pages/Collection.html">
+          <a class="tile" href="https://inuvet-dev.myshopify.com/collections/all">
             <div class="tile__image-wrap">
               <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
               <div class="tile__image --square"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Beruhigung"></div>
@@ -6436,7 +6474,7 @@
           </a>
         </div>
       </div>
-      <p class="sg-caption">Collection-Kacheln + Cover-Sonderkachel im Mix · Live → <a href="pages/List-Collections.html">List-Collections.html</a> · Kartentypen → <a href="#tile-featured">D.4</a>.</p>
+      <p class="sg-caption">Collection-Kacheln + Cover-Sonderkachel im Mix · Live → <a href="https://inuvet-dev.myshopify.com/collections">List-Collections.html</a> · Kartentypen → <a href="#tile-featured">D.4</a>.</p>
 
       <h3 class="sg-h3 --top" id="shopify-cart-page">Cart-Seite (Fallback zum Drawer)</h3>
       <div class="col-grid" data-cols="2">
@@ -6685,7 +6723,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=26"></script>
+<script src="inuvet.js?v=27"></script>
 <script src="sg.js?v=5"></script>
 </body>
 </html>

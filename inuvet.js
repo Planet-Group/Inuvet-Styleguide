@@ -106,6 +106,12 @@ function initAnnouncementBar() {
       return total > bar.clientWidth + 1 || track.scrollWidth > bar.clientWidth + 1;
     }
 
+    function syncScrollAway() {
+      const section = bar.closest('.shopify-section--sticky-header');
+      if (!section || !bar.classList.contains('--scroll-away')) return;
+      section.style.setProperty('--ann-scroll-away', `${bar.offsetHeight}px`);
+    }
+
     function apply() {
       stop();
       items.forEach(it => it.classList.remove('--visible'));
@@ -115,6 +121,7 @@ function initAnnouncementBar() {
         bar.classList.add('--rotate');
         startRotation();
       }
+      requestAnimationFrame(syncScrollAway);
     }
 
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(apply);
@@ -124,9 +131,12 @@ function initAnnouncementBar() {
     if ('ResizeObserver' in window) {
       ro = new ResizeObserver(entries => {
         const w = Math.round(entries[0].contentRect.width);
-        if (w === lastW) return;
-        lastW = w;
-        requestAnimationFrame(apply);
+        if (w !== lastW) {
+          lastW = w;
+          requestAnimationFrame(apply);
+        } else {
+          syncScrollAway();
+        }
       });
       ro.observe(bar);
     } else {
@@ -153,16 +163,17 @@ function initScrollAnimations() {
   }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
 
   /* Pro Gruppe staffeln — sonst bekommen spätere Sections alle denselben Max-Delay */
+  /* Auch Elemente mit bereits gesetztem data-animate beobachten (sonst bleiben sie auf opacity:0). */
   [
     ['.tile-grid', '.tile'],
     ['.ingredient-list', '.ingredient'],
     ['.testimonial-grid', '.testimonial'],
   ].forEach(([groupSel, itemSel]) => {
     document.querySelectorAll(groupSel).forEach(group => {
-      group.querySelectorAll(`${itemSel}:not([data-animate])`).forEach((el, i) => {
-        el.setAttribute('data-animate', '');
+      group.querySelectorAll(itemSel).forEach((el, i) => {
+        if (!el.hasAttribute('data-animate')) el.setAttribute('data-animate', '');
         el.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
-        observer.observe(el);
+        if (!el.classList.contains('--in-view')) observer.observe(el);
       });
     });
   });
@@ -395,7 +406,7 @@ function showMoreSlider(btn) {
 
 /* ═══════════════════════════════════════════════════════
    SHOP CORE — Katalog, Naturalrabatt, Warenkorb, Cart-UI
-   Bundle.html & Produkt.html (global, wie inuvet.css)
+   Bundle.html und Live-PDP (global, wie inuvet.css)
    [MOCKUP — nicht portieren] Katalog/Preise/localStorage-Cart sind
    Demo-Daten. Im Theme: cart.items + /cart/add.js + /cart/change.js;
    Naturalrabatt via Cart Transform / Shopify Function (→ E.4/E.9).
@@ -455,14 +466,22 @@ const allProducts = [
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 0 },
 
-  { id: 2, isFamily: true, title: 'EnteroGast', past6Months: 6, past18Months: 16, pricingModel: 'A',
-    image: '../assets/images/Hepax_Packshot_01.jpeg',
-    desc: 'Für eine stabile Verdauung und eine ausgeglichene Darmflora bei Magen-Darm-Beschwerden.',
+  { id: 2, isFamily: true, title: 'EnteroGast akut', cat: 'magendarm', catLabel: 'Magen & Darm',
+    past6Months: 6, past18Months: 16, pricingModel: 'A',
+    image: '../assets/images/EnteroGast_Packshot_01.jpg',
+    feedCategory: 'Diät-Ergänzungsfuttermittel / Ergänzungsfuttermittel',
+    shortDesc: '3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend.',
+    desc: 'EnteroGast akut fördert die Verfestigung des Kots und unterstützt die Darmfunktion in drei Phasen.',
+    usps: [
+      '3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend.',
+      'Langanhaltende Wirkung durch hohe Dosierung.',
+      'Fördert die Verfestigung des Kots und unterstützt die Darmflora.',
+    ],
     variants: [
-      { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '6 Stück',    price:  24.90 }, { label: '21 Stück',   price:  69.90 }] },
-      { type: 'Pulver',    animals: 'Katze, Hund', sizes: [{ label: '50 g',        price:  22.90 }, { label: '150 g',      price:  59.90 }] },
-      { type: 'Pulver',    animals: 'Kleintiere',  sizes: [{ label: '50 g',        price:  19.90 }] },
-      { type: 'Sachets',   animals: 'Katze, Hund', sizes: [{ label: '20 Sachets',  price:  26.90 }] },
+      { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '6 Stück', price: 7.60 }, { label: '21 Stück', price: 16.75 }] },
+      { type: 'Pulver', animals: 'Katze, Hund', sizes: [{ label: '60 g', price: 23.30 }] },
+      { type: 'Pulver+1', animals: 'Katze, Hund', sizes: [{ label: '25 g', price: 13.10 }] },
+      { type: 'Sachets', animals: 'Katze, Hund', sizes: [{ label: '80 Sachets', price: 92.50 }] },
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 1 },
 
@@ -578,7 +597,7 @@ const allProducts = [
         a: 'Hepax forte ist für Hund und Katze vorgesehen. Die passende Darreichungsform und Dosierung richten sich nach Tierart und Körpergewicht — Angaben finden Sie in der Fütterungsempfehlung bzw. auf der Packung.',
       },
       {
-        q: 'Worin unterscheiden sich Tabletten und Pulver?',
+        q: 'Worin unterscheiden sich Hepax forte Tabletten und Pulver?',
         a: 'Beide Formen gehören zur Produktfamilie Hepax forte. Tabletten eignen sich für Hunde; das Pulver (auch für Allergiker geeignet) für Katze und Hund und lässt sich einfach unter das Futter mischen. Inhaltsstoffe können je nach Produkttyp abweichen — bitte die jeweilige Packungsbeilage beachten.',
       },
       {
@@ -586,7 +605,7 @@ const allProducts = [
         a: 'Orientierung: Hund 1 Tablette je 10&nbsp;kg Körpergewicht täglich; Katze ½–1 Tablette täglich bzw. Pulver gemäß Packungsangabe unter das Futter mischen. Bei Unsicherheit die behandelnde Tierarztpraxis ansprechen.',
       },
       {
-        q: 'Wie bestelle ich als Tierarztpraxis?',
+        q: 'Wie bestelle ich Hepax forte als Tierarztpraxis?',
         a: 'Inuvet-Produkte sind ausschließlich über die Tierarztpraxis erhältlich. Als Praxis bestellen Sie im Partner-Shop — Lieferung in der Regel innerhalb von 2–3 Werktagen, Versandkostenfrei ab 49&nbsp;€.',
       },
       {
@@ -594,7 +613,7 @@ const allProducts = [
         a: 'Nein. Hepax forte ist frei von Getreide und Soja. Die genaue Deklaration entnehmen Sie bitte den Angaben zu Zusammensetzung und Zusatzstoffen auf der Produktseite bzw. Packung.',
       },
       {
-        q: 'Wie lagere ich das Produkt nach dem Öffnen?',
+        q: 'Wie lagere ich Hepax forte nach dem Öffnen?',
         a: 'Mindesthaltbarkeit siehe Aufdruck auf der Packung. Nach Anbruch trocken, verschlossen und vor direkter Sonneneinstrahlung geschützt lagern. Außerhalb der Reichweite von Kindern aufbewahren.',
       },
     ],
@@ -641,6 +660,60 @@ const allProducts = [
           { label: '30 Stück', price: 34.90, unitPrice: '(1,16 € / Stück)' },
           { label: '60 Stück', price: 64.90, unitPrice: '(1,08 € / Stück)' },
         ] },
+    ],
+    selectedVariantIdx: 0, selectedSizeIdx: 0 },
+
+  // Cortisan / Dermin / Diabex — Packshots + Preise aus inuvet.com (Dev-Seed August 2026).
+  { id: 14, isFamily: false, title: 'Cortisan Öl-Komplex', cat: 'gelenke', catLabel: 'Gelenke',
+    form: 'Flüssig',
+    animals: 'Hund, Pferd',
+    rating: '4,7', past6Months: 0, past18Months: 0, pricingModel: 'A', selectedSizeIdx: 0,
+    image: '../assets/images/Cortisan_Packshot_01.jpg',
+    feedCategory: 'Ergänzungsfuttermittel für Hunde und Pferde',
+    shortDesc: 'Wenn Cortison, dann Cortisan — hohe Bioverfügbarkeit durch Solubilisierung.',
+    desc: 'Weihrauch und Kurkuma in solubilisierter Form zur Unterstützung des Entzündungsstoffwechsels. Mit Algenöl als Omega-3-Quelle.',
+    usps: [
+      'Wenn Cortison, dann Cortisan.',
+      'Hohe Bioverfügbarkeit durch Solubilisierung.',
+      'Für die Langzeitgabe geeignet.',
+    ],
+    sizes: [
+      { label: '30 ml Öl-Komplex', price: 17.80 },
+      { label: '100 ml Öl-Komplex', price: 41.35 },
+      { label: '300 ml Öl-Komplex', price: 63.45 },
+    ] },
+
+  { id: 15, isFamily: false, title: 'Dermin Pflege-Emulsion', cat: 'haut', catLabel: 'Haut & Fell',
+    form: 'Flüssig',
+    animals: 'Katze, Hund',
+    rating: '4,5', past6Months: 0, past18Months: 0, pricingModel: 'A', selectedSizeIdx: 0,
+    image: '../assets/images/Dermin_Packshot_01.jpg',
+    feedCategory: 'Pflege-Emulsion für Tiere',
+    shortDesc: 'Beruhigt juckende und gereizte Haut — mit CBD, Aloe Vera, Ceramiden und PEA.',
+    desc: 'Mikroemulsion zur Pflege trockener und beanspruchter Haut. Unterstützt Hautbarriere und Lipidschicht, zieht schnell ein.',
+    usps: [
+      'Beruhigt juckende und gereizte Haut.',
+      'Mit 2,5% CBD, Aloe Vera, Ceramiden und PEA.',
+      'Zieht schnell ein.',
+    ],
+    sizes: [
+      { label: '10 ml', price: 14.15 },
+    ] },
+
+  { id: 16, isFamily: true, title: 'Diabex', cat: 'bauchspeichel', catLabel: 'Bauchspeicheldrüse',
+    past6Months: 0, past18Months: 0, pricingModel: 'A',
+    image: '../assets/images/Diabex_Packshot_01.jpg',
+    feedCategory: 'Ergänzungsfuttermittel für Katzen und Hunde',
+    shortDesc: 'Unterstützung bei der Regulierung des Blutzuckerspiegels.',
+    desc: 'Ergänzungsfuttermittel zur Unterstützung der Blutzuckerregulation und der normalen Funktion der Bauchspeicheldrüse.',
+    usps: [
+      'Unterstützung bei der Regulierung des Blutzuckerspiegels.',
+      'Kann für einen langsameren Anstieg des Blutzuckerspiegels nach der Nahrungsaufnahme sorgen.',
+      'Unterstützung der normalen Funktion der Bauchspeicheldrüse.',
+    ],
+    variants: [
+      { type: 'Tabletten', animals: 'Katze, Hund', sizes: [{ label: '60 Stück', price: 23.05 }, { label: '220 Stück', price: 50.55 }] },
+      { type: 'Pulver', animals: 'Katze, Hund', sizes: [{ label: '60 g', price: 20.95 }, { label: '210 g', price: 42.30 }] },
     ],
     selectedVariantIdx: 0, selectedSizeIdx: 0 },
 
@@ -1177,16 +1250,21 @@ document.addEventListener('DOMContentLoaded', updateCartBadge);
    [PORTABEL → Theme]
    ═══════════════════════════════════════════════════════ */
 
+/** Icon-URL: Theme = flache Assets via body[data-asset-base]; Styleguide = graphics/inuvet-icons/. */
+function themeIconUrl(file) {
+  var base = (typeof document !== 'undefined' && document.body && document.body.dataset.assetBase)
+    ? document.body.dataset.assetBase
+    : '';
+  if (base) return base + file;
+  var root = (/\/pages(\/|$)/.test(location.pathname) ? '../assets/' : 'assets/');
+  return root + 'graphics/inuvet-icons/' + file;
+}
+
 function animalsIconsHTML(animals, opts) {
   if (!animals) return '';
   opts = opts || {};
   var wrapClass = opts.wrapClass || 'pdp__type-animals';
   var iconClass = opts.iconClass || 'pdp__type-animal-icon';
-
-  var base = (typeof document !== 'undefined' && document.body && document.body.dataset.assetBase)
-    ? document.body.dataset.assetBase
-    : (/\/pages(\/|$)/.test(location.pathname) ? '../assets/' : 'assets/');
-  var iconDir = base + 'graphics/inuvet-icons/';
 
   var MAP = {
     katze: { file: 'Icon_Tier_Katze.svg', label: 'Katze' },
@@ -1259,7 +1337,7 @@ function animalsIconsHTML(animals, opts) {
   }
 
   var imgs = icons.map(function (icon) {
-    var url = iconDir + icon.file;
+    var url = themeIconUrl(icon.file);
     return '<span class="' + iconClass + '" role="img" aria-label="' + icon.label + '"'
       + ' style="-webkit-mask-image:url(\'' + url + '\');mask-image:url(\'' + url + '\')"></span>';
   }).join('');
@@ -1277,7 +1355,7 @@ function pdpAnimalsHTML(animals) {
 function animalsLabelForProduct(p, opts) {
   if (!p) return '';
   opts = opts || {};
-  var fallback = opts.defaultLabel !== undefined ? opts.defaultLabel : 'Katze, Hund';
+  var fallback = opts.defaultLabel !== undefined ? opts.defaultLabel : '';
 
   function unionFromVariantAnimals(variants, animalsKey) {
     animalsKey = animalsKey || 'animals';
@@ -1364,7 +1442,7 @@ function initProductTileAnimals(root) {
         if (p) label = animalsLabelForProduct(p);
       }
     }
-    if (!label) label = 'Katze, Hund';
+    if (!label) return;
 
     var html = productTileAnimalsHTML(label);
     if (html) priceRow.insertAdjacentHTML('beforeend', html);
@@ -1378,15 +1456,8 @@ function pdpFormIconFile(form) {
   return 'Icon_Form_Pulver.svg';
 }
 
-function pdpAssetBase() {
-  if (typeof document !== 'undefined' && document.body && document.body.dataset.assetBase) {
-    return document.body.dataset.assetBase;
-  }
-  return (/\/pages(\/|$)/.test(location.pathname) ? '../assets/' : 'assets/');
-}
-
 function pdpDailyCostIconHTML(form) {
-  var url = pdpAssetBase() + 'graphics/inuvet-icons/' + pdpFormIconFile(form);
+  var url = themeIconUrl(pdpFormIconFile(form));
   return '<span class="pdp__daily-cost__icon" aria-hidden="true"'
     + ' style="-webkit-mask-image:url(\'' + url + '\');mask-image:url(\'' + url + '\')"></span>';
 }
@@ -1580,7 +1651,7 @@ function setPdpGalleryMode(mode) {
   if (typeof window.renderPdp === 'function') window.renderPdp({ gallery: true });
 }
 
-/** [MOCKUP — nicht portieren] Mockup-Bar Galerie-Toggle auf Produkt.html */
+/** [MOCKUP — nicht portieren] Mockup-Bar Galerie-Toggle (ehemals Produkt.html, jetzt Live-PDP) */
 function initPdpGalleryToggle() {
   if (!document.querySelector('[data-pdp-gallery-btn]')) return;
   applyPdpGalleryMode(readPdpGalleryMode());

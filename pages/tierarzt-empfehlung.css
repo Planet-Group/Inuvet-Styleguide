@@ -114,15 +114,14 @@ body.--page-home .section-type.--v3 .section-type__content {
 }
 
 /* ─── Login-Panel: Abweichungen für Freigabe-Mockup ─── */
-/* Sub-Text agiert als Headline (kein .login-panel__title) */
-.login-form-panel .login-panel__header        { margin-bottom: var(--half-module); }
+/* Sub-Text agiert als Headline (kein .login-panel__title) · Abstand via .flow */
 .login-form-panel .login-panel__sub           { font-size: var(--text-m); font-weight: 700; color: var(--fg); line-height: var(--lh-h3); }
 /* Passwort-Feld direkt über »Passwort vergessen?« — kein unterer Abstand */
 .login-forgot-wrap > .form-field              { margin-bottom: 0; }
 
 /* ─── Tierarzt-Suche ─── */
-.vet-search { position: relative; margin-bottom: var(--half-module); }
-.vet-search__intro { color: var(--fg-muted); font-size: var(--text-base); margin-bottom: var(--half-module); }
+.vet-search { position: relative; }
+.vet-search__intro { color: var(--fg-muted); font-size: var(--text-base); }
 
 /* ─── Praxis-Finder: vollflächiges Overlay mit Karten-Platzhalter ─── */
 .vet-map-overlay {

@@ -15,7 +15,6 @@
   max-width: 36rem;
 }
 .approval-recipient__lead {
-  margin: 0;
   font-size: var(--text-base);
   font-weight: 700;
   line-height: var(--lh-h3);
@@ -24,10 +23,8 @@
   align-items: flex-start;
   font-size: var(--text-xs);
   line-height: var(--lh-h3);
-  margin: var(--half-module) 0 0;
 }
 .approval-recipient__consent input { margin-top: 0.1em; }
-.approval-recipient__form > .btn { margin-top: var(--half-module); }
 
 /* Empfänger-Hinweis in Schritt 2 */
 .approval-recipient-summary {
@@ -54,7 +51,9 @@
   font-size: var(--text-sm);
   font-weight: 700;
   color: var(--green);
-  margin-top: calc(var(--base) * 0.25);
+}
+.approval-product-card .flow > .cart-item__name + .approval-product-card__commission {
+  --flow-space: calc(var(--base) * 0.25);
 }
 .approval-product-card__commission.--muted { color: var(--fg-muted); font-weight: 400; }
 

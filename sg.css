@@ -422,7 +422,8 @@
   color: var(--fg);
   margin-bottom: calc(var(--base) * 0.35);
 }
-.sg-nav-group a {
+.sg-nav-group a,
+.sg-nav-group a:visited {
   display: block;
   font-size: var(--text-sm);
   color: var(--fg-muted);

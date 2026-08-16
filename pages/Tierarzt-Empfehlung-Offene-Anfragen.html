@@ -6,7 +6,7 @@
   <title>Inuvet – Tierarzt-Empfehlung – Offene Anfragen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css?v=165">
+  <link rel="stylesheet" href="../inuvet.css?v=178">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
 </head>
@@ -34,10 +34,10 @@
       <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
     </button>
     <div class="nav-item">
-      <a href="Inuvet-Shop.html" class="nav-item__trigger">Home</a>
+      <span class="nav-item__trigger">Home</span>
     </div>
     <div class="nav-item">
-      <a href="Collection.html" class="nav-item__trigger">Produkte</a>
+      <span class="nav-item__trigger">Produkte</span>
     </div>
     <div class="nav-item">
       <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
@@ -53,7 +53,7 @@
     </div>
   </div>
   <div class="nav-center">
-    <a href="Inuvet-Shop.html" aria-label="Zur Startseite">
+    <a href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
       <img src="../assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo">
     </a>
   </div>
@@ -70,8 +70,8 @@
 <!-- Mobile Menu · Menu A -->
 <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
   <div class="nav-col">
-    <a href="Inuvet-Shop.html" onclick="closeMobile(); return false;">Home</a>
-    <a href="Collection.html" onclick="closeMobile(); return false;">Produkte</a>
+    <span class="nav-item__trigger">Home</span>
+    <span class="nav-item__trigger">Produkte</span>
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>

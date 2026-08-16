@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../inuvet.css?v=177">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
-  <link rel="stylesheet" href="tierarzt-empfehlung.css">
+  <link rel="stylesheet" href="tierarzt-empfehlung.css?v=2">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="--mockup-bar-visible" id="top">
@@ -191,7 +191,10 @@
     <div class="vet-map-placeholder placeholder-bg">
       <div class="empty-state">
         <span class="material-icons">map</span>
-        <p><strong>Kartenmodul</strong><br>Hier wird die bestehende Praxis-Karte von inuvet.com eingebunden — sie zeigt alle teilnehmenden Praxen in der Nähe.</p>
+        <div class="flow">
+          <p class="empty-state__title">Kartenmodul</p>
+          <p class="empty-state__sub">Hier wird die bestehende Praxis-Karte von inuvet.com eingebunden — sie zeigt alle teilnehmenden Praxen in der Nähe.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -233,7 +236,7 @@
     <!-- Linke Markenseite -->
     <div class="login-brand">
       <img src="../assets/graphics/Tierarzt-Empfehlung_Logotype_RGB.svg" alt="Tierarzt-Empfehlung" class="login-brand__logo">
-      <div class="login-brand__content">
+      <div class="login-brand__content flow">
         <h2 class="login-brand__headline">Gesundheit für dein Tier — empfohlen von deinem Tierarzt.</h2>
         <ul class="login-brand__features">
           <li>Tierärztlich entwickelt</li>
@@ -256,9 +259,9 @@
 
       <!-- Login -->
       <div class="login-panel" id="loginPanel">
-        <div class="login-panel__header">
+        <div class="login-panel__header flow">
           <p class="login-panel__sub">Melde dich an, um Produkte einzulösen oder freigeben zu lassen.</p>
-          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
+          <p class="login-panel__sub" style="font-size:var(--text-xs)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="form-field">
@@ -284,9 +287,9 @@
 
       <!-- Registrieren -->
       <div class="login-panel --hidden" id="registerPanel">
-        <div class="login-panel__header">
+        <div class="login-panel__header flow">
           <p class="login-panel__sub">Registriere dich kostenlos, um Produkte einzulösen oder freigeben zu lassen.</p>
-          <p style="font-size:var(--text-xs);color:var(--fg-muted);margin-top:calc(var(--base)*0.25)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
+          <p class="login-panel__sub" style="font-size:var(--text-xs)">Deine Anmeldung ist wichtig, um dich über den Status der Freigaben zu informieren.</p>
         </div>
         <form class="login-form" onsubmit="simulateLogin();return false;">
           <div class="login-form__row">
@@ -331,8 +334,10 @@
     <div class="shop-modal__icon">
       <span class="material-icons">check_circle</span>
     </div>
-    <div class="shop-modal__title" id="releaseWelcomeTitle"></div>
-    <div class="shop-modal__body"  id="releaseWelcomeBody"></div>
+    <div class="flow">
+      <div class="shop-modal__title" id="releaseWelcomeTitle"></div>
+      <div class="shop-modal__body flow" id="releaseWelcomeBody"></div>
+    </div>
     <div class="shop-modal__actions">
       <button class="btn --primary --full" onclick="closeReleaseWelcome(true)">Zum Warenkorb</button>
       <button class="btn --ghost --full"   onclick="closeReleaseWelcome(false)">Weitere Produkte anfragen</button>
@@ -348,14 +353,16 @@
     <div class="shop-modal__icon">
       <span class="material-icons success-state__icon">check_circle</span>
     </div>
-    <div class="shop-modal__title"   id="modalTitle"></div>
-    <div class="shop-modal__body"    id="modalBody"></div>
+    <div class="flow">
+      <div class="shop-modal__title"   id="modalTitle"></div>
+      <div class="shop-modal__body"    id="modalBody"></div>
+    </div>
     <div class="shop-modal__actions" id="modalActions"></div>
   </div>
 </div>
 
 <script src="../inuvet.js?v=26"></script>
-<script src="tierarzt-empfehlung.js?v=32"></script>
+<script src="tierarzt-empfehlung.js?v=33"></script>
 <div class="toast-container" id="toastContainer"></div>
 </body>
 </html>
