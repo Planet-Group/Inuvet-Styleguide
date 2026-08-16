@@ -2180,7 +2180,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Bild, Name, Bewertung, Preis, optionale Badges und Warenkorb-Button. Entspricht Variante D in <a href="#D4">D.4 Kachel-Raster</a> — Spaltenzahl am Container (<code>.tile-grid.--cols-N</code>) → <a href="#A8">A.8</a>.</p>
-        <p>Kanonischer Aufbau: <code>.tile.--product</code> → <code>.tile__image-wrap</code> (<code>.floating-meta</code>, <code>.tile__image</code>, <code>.tile__cart-icon</code>, <code>.tile__cart</code>) → <code>.tile__headline-row</code> → <code>.tile__description</code> → <code>.tile__price</code> (<code>.price-stack</code> links · <code>.tile__animals</code> rechts).</p>
+        <p>Kanonischer Aufbau: <code>.tile.--product</code> → <code>.tile__image-wrap</code> (<code>.floating-meta</code>, <code>.tile__image</code>, <code>.tile__cart-icon</code>, <code>.tile__cart</code>) → <code>.flow</code> (<code>.tile__headline-row</code> + <code>.tile__description</code>) → <code>.tile__price</code> (<code>.price-stack</code> links · <code>.tile__animals</code> rechts).</p>
       </div>
 
       <div class="rules">
@@ -2198,7 +2198,7 @@
         <tr><th><code>.tile__image</code></th><td>1. <code>img</code>: beschreibendes <code>alt</code> · 2. <code>video</code> (Standard): Rollover, <code>aria-hidden="true"</code> · <code>muted loop playsinline</code> · Shopify → <a href="#shopify-pdp">E.2</a></td></tr>
         <tr><th>Badges</th><td><code>.floating-meta</code> · Reihenfolge: Kategorie (<code>.badge[data-cat]</code>), Status (<code>.--dark</code> / <code>.--sale</code>), bei Produktfamilien „Produktfamilie" (Pflicht)</td></tr>
         <tr><th>Warenkorb</th><td><code>.tile__cart</code>: Text-Button gleitet bei Hover ins Bild (Desktop) · Frosted Glass · Mobile: Icon-Button <code>.btn.--icon.--sm.tile__cart-icon</code> (permanent, unten rechts, Glass) · Text-Button auf Mobile ausgeblendet · beide <code>aria-label="In den Warenkorb"</code></td></tr>
-        <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl)</td></tr>
+        <tr><th><code>.tile__headline-row</code></th><td>Flex · <code>.tile__headline</code> + optional <code>.rating</code> (Stern + Zahl) · mit Description in <code>.flow</code> (A.7)</td></tr>
         <tr><th><code>.tile__description</code></th><td>Optional · <code>--fg-muted</code></td></tr>
         <tr><th><code>.tile__price</code></th><td><code>.price-stack</code> links · <code>font-weight: 400</code> · immer mit „ab" · Grundpreis der günstigsten Variante als <code>.price-stack__unit</code> (PAngV-Pflicht, nur PDP/Detail — nicht auf Collection-Kacheln) · rechts <code>.tile__animals</code> (Tier-Icons via <code>productTileAnimalsHTML()</code> / <code>animalsIconsHTML()</code>)</td></tr>
         <tr><th><code>.tile__animals</code></th><td>Icon-Reihe in der Preiszeile · gleiche Icons wie PDP <code>.pdp__type-animals</code> · kleiner · SR: „für" + <code>aria-label</code> pro Tier · statische Kacheln: <code>initProductTileAnimals()</code> oder <code>data-animals</code></td></tr>
@@ -2220,8 +2220,8 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
-            <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+            <div class="tile__description">Kurze Produktbeschreibung mit den wichtigsten Details.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span><span class="price-stack__unit">(0,30 € / g)</span></div></div>
           </div>
         </div>
@@ -2242,8 +2242,8 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
-            <div class="tile__description">Kurze Produktbeschreibung.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+            <div class="tile__description">Kurze Produktbeschreibung.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
           </div>
           <div class="tile --product">
@@ -2257,8 +2257,8 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.1</div></div>
-            <div class="tile__description">Mehrzeilige Beschreibung ist erlaubt — Text bricht natürlich um.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.1</div></div>
+            <div class="tile__description">Mehrzeilige Beschreibung ist erlaubt — Text bricht natürlich um.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span><span class="--old">49,90 €</span></div></div>
           </div>
           <div class="tile --product">
@@ -2270,8 +2270,8 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
-            <div class="tile__description">Placeholder-Bild ohne Packshot.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Inzym Pulver</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.4</div></div>
+            <div class="tile__description">Placeholder-Bild ohne Packshot.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 24,90 €</span></div></div>
           </div>
         </div>
@@ -2291,13 +2291,12 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
-            <div class="tile__description">Kurze Beschreibung.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.3</div></div>
+            <div class="tile__description">Kurze Beschreibung.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 49,90 €</span></div></div>
           </div>
           <div class="tile --featured">
-            <h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
-            <div class="tile__bottom">
+            <div class="tile__bottom flow"><h3 class="tile__headline">Entdecke unsere Neuheiten</h3>
               <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
               <div class="btn --primary">Alle Produkte</div>
             </div>
@@ -2313,8 +2312,8 @@
               <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
               <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
-            <div class="tile__description">Kurze Beschreibung.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div>
+            <div class="tile__description">Kurze Beschreibung.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 14,90 €</span><span class="--old">29,90 €</span></div></div>
           </div>
         </div>
@@ -2884,8 +2883,8 @@
       <div class="sg-demo --center">
         <div class="empty-state">
           <span class="material-icons">shopping_cart</span>
-          <p class="empty-state__title">Dein Warenkorb ist leer</p>
-          <p class="empty-state__sub">Entdecke unsere Produkte und füge sie hinzu.</p>
+          <div class="flow"><p class="empty-state__title">Dein Warenkorb ist leer</p>
+          <p class="empty-state__sub">Entdecke unsere Produkte und füge sie hinzu.</p></div>
           <a class="btn --primary" href="#">Zum Shop</a>
         </div>
       </div>
@@ -2894,8 +2893,8 @@
       <div class="sg-demo --center">
         <div class="empty-state">
           <span class="material-icons">search_off</span>
-          <p class="empty-state__title">Keine Ergebnisse</p>
-          <p class="empty-state__sub">Versuche einen anderen Suchbegriff oder stöbere in unseren Kategorien.</p>
+          <div class="flow"><p class="empty-state__title">Keine Ergebnisse</p>
+          <p class="empty-state__sub">Versuche einen anderen Suchbegriff oder stöbere in unseren Kategorien.</p></div>
         </div>
       </div>
       <p class="sg-caption">Suche ohne Treffer.</p>
@@ -2911,8 +2910,8 @@
       <div class="sg-demo --center">
         <div class="success-state">
           <span class="material-icons success-state__icon">check_circle</span>
-          <h3 class="success-state__title">Anfrage versendet</h3>
-          <p class="success-state__body">Du erhältst eine E-Mail, sobald die Empfehlung freigegeben wurde.</p>
+          <div class="flow"><h3 class="success-state__title">Anfrage versendet</h3>
+          <p class="success-state__body">Du erhältst eine E-Mail, sobald die Empfehlung freigegeben wurde.</p></div>
           <div class="success-state__actions">
             <a class="btn --primary" href="#">Zum Bestellverlauf</a>
             <a class="btn --ghost" href="#">Weiter einkaufen</a>
@@ -3956,29 +3955,28 @@
         <div class="tile-grid --cols-4">
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
           <div class="tile --featured">
-            <h3 class="tile__headline">Headline</h3>
-            <div class="tile__bottom flow">
+            <div class="tile__bottom flow"><h3 class="tile__headline">Headline</h3>
               <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore magna aliqua.</p>
               <div class="btn --primary">Call to Action</div>
             </div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
         </div>
       </div>
-      <p class="sg-caption"><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline oben, Body + CTA in <code>.tile__bottom.flow</code> · Shopify <code>layout: stack</code> + <code>media_type: none</code>.</p>
+      <p class="sg-caption"><code>.tile.--featured</code> · BG <code>--green-light</code> · Headline + Body + CTA in <code>.tile__bottom.flow</code> · Shopify <code>layout: stack</code> + <code>media_type: none</code>.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-image">Sonderkachel mit Bild (Variante C · stack)</h3>
       <div class="sg-demo --white">
@@ -3988,8 +3986,8 @@
               <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
               <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
-            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
           </div>
           <div class="tile --featured">
@@ -4011,8 +4009,8 @@
               <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
-            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
           </div>
         </div>
@@ -4071,8 +4069,8 @@
               <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
               <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
-            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
           </div>
           <div class="tile --featured">
@@ -4090,8 +4088,8 @@
               <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
-            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
           </div>
         </div>
@@ -4106,8 +4104,8 @@
               <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
               <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
-            <div class="tile__description">Für Entspannung und innere Balance.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
           </div>
           <div class="tile --featured --cover" style="--tile-fg: #fff">
@@ -4127,8 +4125,8 @@
               <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div>
               <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
             </div>
-            <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
-            <div class="tile__description">Unterstützt die Leberfunktion.</div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div></div>
             <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
           </div>
         </div>
@@ -4140,13 +4138,13 @@
         <div class="tile-grid --cols-2">
           <div class="tile">
             <div class="tile__image placeholder-bg --landscape"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p></div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --landscape"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcorper suscipit lobortis nisl.</p></div>
           </div>
         </div>
       </div>
@@ -4156,12 +4154,11 @@
         <div class="tile-grid --cols-2">
           <div class="tile">
             <div class="tile__image placeholder-bg --landscape"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
           <div class="tile --featured">
-            <h3 class="tile__headline">Headline</h3>
-            <div class="tile__bottom">
+            <div class="tile__bottom flow"><h3 class="tile__headline">Headline</h3>
               <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore magna aliqua.</p>
               <div class="btn --primary">Call to Action</div>
             </div>
@@ -4175,18 +4172,18 @@
         <div class="tile-grid --cols-3">
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p></div>
           </div>
         </div>
       </div>
@@ -4196,20 +4193,19 @@
         <div class="tile-grid --cols-3">
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
           </div>
           <div class="tile --featured">
-            <h3 class="tile__headline">Headline</h3>
-            <div class="tile__bottom">
+            <div class="tile__bottom flow"><h3 class="tile__headline">Headline</h3>
               <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut labore et dolore.</p>
               <div class="btn --primary">Call to Action</div>
             </div>
           </div>
           <div class="tile">
             <div class="tile__image placeholder-bg --square"></div>
-            <h3 class="tile__headline">Headline</h3>
-            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+            <div class="flow"><h3 class="tile__headline">Headline</h3>
+            <p class="tile__body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
           </div>
         </div>
       </div>
@@ -5128,8 +5124,8 @@
                 <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div>
             </div>
             <div class="tile --product">
@@ -5139,8 +5135,8 @@
                 <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div>
             </div>
             <div class="tile --product">
@@ -5150,8 +5146,8 @@
                 <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 3.9</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>19,90 €</span><span class="--old">39,90 €</span></div></div>
             </div>
             <div class="tile --product">
@@ -5161,8 +5157,8 @@
                 <button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button>
                 <div class="tile__cart"><span class="btn --secondary">In den Warenkorb</span></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div>
             </div>
           </div>
@@ -5402,22 +5398,22 @@
               <div class="tile__icon tile__animation --ratio-1">
                 <lottie-player src="assets/lotties/inuvet_tierarzt_nur_bei_euch.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Nur bei euch</p>
-              <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p>
+              <div class="flow"><p class="tile__headline">Nur bei euch</p>
+              <p class="tile__body">Inuvet-Produkte sind nicht im Internet erhältlich, nur in eurer Praxis. Eure Beratung wird entlohnt!</p></div>
             </div>
             <div class="tile">
               <div class="tile__icon tile__animation --ratio-1">
                 <lottie-player src="assets/lotties/Inuvet_animation_Weltweit.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
-              <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p>
+              <div class="flow"><p class="tile__headline">Verträglich, beliebt und hoch konzentriert</p>
+              <p class="tile__body">Studienbasierte Phytotherapie. Bei über 20.000 Tierärzt*innen im Einsatz.</p></div>
             </div>
             <div class="tile">
               <div class="tile__icon tile__animation --ratio-1">
                 <lottie-player src="assets/lotties/inuvet_animation_inhaltsstoffe.json?v=2" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Grüne Pfoten</p>
-              <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p>
+              <div class="flow"><p class="tile__headline">Grüne Pfoten</p>
+              <p class="tile__body">Verpackungen mit 85&nbsp;% Recyclingpapier, kurze Lieferketten und natürliche Inhaltsstoffe.</p></div>
             </div>
           </div>
         </div>
@@ -5458,8 +5454,8 @@
                 <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
                 <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
             </div>
             <div class="tile --product">
@@ -5467,8 +5463,8 @@
                 <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
                 <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
               </div>
-              <div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
-              <div class="tile__description">Kurze Produktbeschreibung.</div>
+              <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+              <div class="tile__description">Kurze Produktbeschreibung.</div></div>
               <div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div>
             </div>
           </div>
@@ -5483,7 +5479,7 @@
       </div>
       <table class="spec-table">
         <tr><th><code>.pdp__benefits</code></th><td>Wrapper vor <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
-        <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
+        <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.flow</code> mit <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Lottie</th><td><code>&lt;lottie-player&gt;</code> in <code>.tile__icon</code> · Größe via CSS <code>calc(var(--base) * 4)</code> · CDN <code>@lottiefiles/lottie-player</code> · Assets: <code>Icon_Tierarztpraxis</code>, <code>Icon_Langzeitgabe</code>, <code>Icon_Schutz</code>, <code>Icon_Auto</code></td></tr>
         <tr><th>Shopify</th><td>Metaobject <strong>Shop-Benefit</strong> (Felder: <code>headline</code>, <code>body</code>, <code>lottie_asset</code>) · Section <code>benefits</code> · Startseite + PDP · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
@@ -5494,29 +5490,29 @@
               <div class="tile__icon">
                 <lottie-player src="assets/lotties/Icon_Tierarztpraxis.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Beste Expertise</p>
-              <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p>
+              <div class="flow"><p class="tile__headline">Beste Expertise</p>
+              <p class="tile__body">Inuvet Produkte gibt es exklusiv in deiner Tierarztpraxis</p></div>
             </div>
             <div class="tile">
               <div class="tile__icon">
                 <lottie-player src="assets/lotties/Icon_Langzeitgabe.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Für die Langzeitgabe</p>
-              <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p>
+              <div class="flow"><p class="tile__headline">Für die Langzeitgabe</p>
+              <p class="tile__body">Mit natürlichen Inhaltsstoffen, die deinem Tier gut tun</p></div>
             </div>
             <div class="tile">
               <div class="tile__icon">
                 <lottie-player src="assets/lotties/Icon_Schutz.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Immer gut unterstützt</p>
-              <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p>
+              <div class="flow"><p class="tile__headline">Immer gut unterstützt</p>
+              <p class="tile__body">Mit Produkten, die auf den Geschmack der Patienten optimiert sind.</p></div>
             </div>
             <div class="tile">
               <div class="tile__icon">
                 <lottie-player src="assets/lotties/Icon_Auto.json" background="transparent" speed="1" loop autoplay></lottie-player>
               </div>
-              <p class="tile__headline">Schnell bei dir</p>
-              <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p>
+              <div class="flow"><p class="tile__headline">Schnell bei dir</p>
+              <p class="tile__body">Mit maximalen Lieferzeiten von 2–3 Tagen</p></div>
             </div>
           </div>
         </div>
@@ -5761,8 +5757,8 @@
               <button class="filter-reset" type="button">Alle löschen</button>
             </div>
             <div class="tile-grid --cols-3">
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div></div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div></div><div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div></div>
               <div class="tile --featured --cover" style="--tile-fg: #fff">
                 <img class="tile__cover" src="assets/images/Hero_Mood_02.jpg" alt="">
                 <div class="tile__bottom flow">
@@ -5771,10 +5767,10 @@
                   <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Alle Neuheiten</a>
                 </div>
               </div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div></div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div></div><div class="tile__price"><div class="price-stack"><span>29,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --dark">Neu</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax plus</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.9</div></div><div class="tile__description">Erweiterte Rezeptur für die Leber.</div></div><div class="tile__price"><div class="price-stack"><span>52,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div><div class="badge --sale">Sale</div><div class="badge">Produktfamilie</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.7</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div></div><div class="tile__price"><div class="price-stack"><span>24,90 €</span><span class="--old">39,90 €</span></div></div></div>
             </div>
             <nav class="pagination" aria-label="Pagination">
               <button type="button" class="pagination__btn" aria-label="Vorherige Seite"><span class="material-icons">chevron_left</span></button>
@@ -5807,10 +5803,10 @@
               </div>
             </div>
             <div class="tile-grid --cols-4">
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
-              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div><div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div></div><div class="tile__price"><div class="price-stack"><span>44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.8</div></div><div class="tile__description">Für Ruhe und Ausgeglichenheit.</div></div><div class="tile__price"><div class="price-stack"><span>39,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="leber">Leber</div><div class="badge --sale">Sale</div></div><div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Hepax_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.6</div></div><div class="tile__description">Unterstützt die Leberfunktion.</div></div><div class="tile__price"><div class="price-stack"><span>34,90 €</span><span class="--old">44,90 €</span></div></div></div>
+              <div class="tile --product"><div class="tile__image-wrap"><div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div><div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="inuvet Produkt"><img src="assets/images/Calmin_Packshot_02.png" alt="" aria-hidden="true"></div><button class="btn --icon --sm --secondary tile__cart-icon" type="button" aria-label="In den Warenkorb"><span class="material-icons">shopping_cart</span></button><div class="tile__cart"><button class="btn --secondary" type="button" onclick="openCart('cartFull')">In den Warenkorb</button></div></div><div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4.5</div></div><div class="tile__description">Sanfte Unterstützung bei Stress.</div></div><div class="tile__price"><div class="price-stack"><span>ab 29,90 €</span></div></div></div>
             </div>
           </main>
         </div>
@@ -5883,8 +5879,8 @@
             </div>
             <div class="empty-state">
               <span class="material-icons">search_off</span>
-              <p class="empty-state__title">Keine Produkte gefunden</p>
-              <p class="empty-state__sub">Passe die Filter an oder setze sie zurück.</p>
+              <div class="flow"><p class="empty-state__title">Keine Produkte gefunden</p>
+              <p class="empty-state__sub">Passe die Filter an oder setze sie zurück.</p></div>
               <button class="btn --primary" type="button">Alle Filter löschen</button>
             </div>
           </main>
