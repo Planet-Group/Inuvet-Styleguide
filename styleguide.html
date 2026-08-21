@@ -838,12 +838,16 @@
           <p><code>--pt-0</code> schaltet oben aus · <code>--pb</code> schaltet unten ein (<code>var(--section-gap)</code>). Keine freien Pixel-Werte. Gilt für <code>.container</code> und <code>.section-type</code> (V1/V2).</p>
         </div>
         <div class="rule">
-          <h4>V3/V4 Vollbild: optional Margin</h4>
-          <p>Kein Stack-Padding (Bild bleibt edge-to-edge). Optional <code>--mt</code> / <code>--mb</code> = <code>margin-*: var(--section-gap)</code> — Spalt zeigt die Seitenfläche. Default beide aus.</p>
+          <h4>Neue Section: Abstand oben immer an</h4>
+          <p>Im Theme-Editor und per Prompt startet jede Inhalts-Section mit Abstand nach oben. V1/V2: <code>pad_top</code> Default <code>true</code> („Padding oben“). V3/V4: <code>margin_top</code> Default <code>true</code> („Margin oben“) — Bild bleibt edge-to-edge, der Spalt ist Außen-Margin. Unten bleibt aus. Bündig unter dem Header nur bewusst im Template (<code>false</code>), nie als Schema-Default.</p>
+        </div>
+        <div class="rule">
+          <h4>V3/V4 Vollbild: Margin statt Padding</h4>
+          <p>Kein Stack-Padding (Bild bleibt edge-to-edge). <code>--mt</code> / <code>--mb</code> = <code>margin-*: var(--section-gap)</code> — Spalt zeigt die Seitenfläche. Schema-Default oben an, unten aus.</p>
         </div>
         <div class="rule">
           <h4>Shopify</h4>
-          <p>V1/V2: Checkboxen „Padding oben“ (Default an) / „Padding unten“ (Default aus). V3/V4: „Margin oben/unten“ (Default aus) → <code>--mt</code>/<code>--mb</code>. Stories unter Nav: oben aus.</p>
+          <p>V1/V2: Checkboxen „Padding oben“ (Schema-Default immer an) / „Padding unten“ (Default aus). V3/V4: „Margin oben“ (Schema-Default immer an) / „Margin unten“ (Default aus) → <code>--mt</code>/<code>--mb</code>. Neue Sections im Editor und per Prompt starten mit Abstand oben. Stories unter Nav: oben aus nur im Template, nicht als Schema-Default.</p>
         </div>
       </div>
       <table class="spec-table">
@@ -851,9 +855,18 @@
         <tr><th>Default V1/V2</th><td><code>padding-top: var(--section-gap)</code> · <code>padding-bottom: 0</code></td></tr>
         <tr><th><code>--pt-0</code></th><td>Kein Padding oben · Alias <code>.container.--flush-top</code></td></tr>
         <tr><th><code>--pb</code></th><td><code>padding-bottom: var(--section-gap)</code></td></tr>
-        <tr><th>Default V3/V4</th><td>Kein Padding · kein Margin (bündig)</td></tr>
-        <tr><th><code>--mt</code> / <code>--mb</code></th><td>V3/V4 · <code>margin-top/bottom: var(--section-gap)</code> · optional, Default aus</td></tr>
+        <tr><th>Default V3/V4</th><td>Kein Padding · Margin oben an (<code>--mt</code>) · unten aus</td></tr>
+        <tr><th><code>--mt</code> / <code>--mb</code></th><td>V3/V4 · <code>margin-top/bottom: var(--section-gap)</code> · oben Default an</td></tr>
+        <tr><th>Neue Section</th><td>Abstand oben immer an · V1/V2 <code>pad_top: true</code> · V3/V4 <code>margin_top: true</code> · unten aus · Flush unter Header nur im Template-JSON</td></tr>
         <tr><th>Nicht für</th><td>Footer/Header-Chrome · Textblöcke (<code>.flow</code>)</td></tr>
+      </table>
+      <h3 class="sg-h3 --top" id="shopify-section-stack">Shopify-Mapping</h3>
+      <table class="spec-table">
+        <tr><th>Padding oben (V1/V2 + Stack-Sections)</th><td><code>pad_top</code> · Schema-Default <code>true</code> · aus → <code>--pt-0</code></td></tr>
+        <tr><th>Padding unten</th><td><code>pad_bottom</code> · Default <code>false</code> (Seiten-Mains: <code>true</code>) · an → <code>--pb</code></td></tr>
+        <tr><th>Margin oben (Hero V3/V4)</th><td><code>margin_top</code> · Schema-Default <code>true</code> · an → <code>--mt</code></td></tr>
+        <tr><th>Margin unten (Hero V3/V4)</th><td><code>margin_bottom</code> · Default <code>false</code> · an → <code>--mb</code></td></tr>
+        <tr><th>Neue Instanz</th><td>Theme-Editor „Section hinzufügen“ und JSON-Prompt nutzen die Schema-Defaults — Abstand oben ist an, ohne extra Haken</td></tr>
       </table>
     </section>
 
@@ -3497,7 +3510,7 @@
         </div>
         <div class="rule">
           <h4>Varianten</h4>
-          <p><code>--v1</code> transparent · Gap · Default-Tag H1 · <code>--v2</code> Content-Box mit BG · Default-Tag H2 · kein Gap · <code>--v3</code> Vollbild + Box-Overlay · <code>--v4</code> Text auf Bild. Größe und Abstand immer vom Tag (A.7).</p>
+          <p><code>--v1</code> transparent · Gap · Default-Tag H1 · <code>--v2</code> Content-Box mit BG · Default-Tag H2 · kein Gap · Bild oder Lottie · <code>--v3</code> Vollbild + Box-Overlay (Bild oder Lottie) · <code>--v4</code> Text auf Medium (Bild oder Lottie, Cover). Größe und Abstand immer vom Tag (A.7).</p>
         </div>
         <div class="rule">
           <h4>Inhalts-Abstände</h4>
@@ -3507,8 +3520,9 @@
 
       <table class="spec-table">
         <tr><th><code>.section-type</code></th><td>Grid · 2 Spalten · Mobile: 1 Spalte · Basis-<code>min-height</code> nur Fallback (siehe V1)</td></tr>
-        <tr><th><code>.section-type.--viewport</code></th><td><code>calc(100dvh − Header)</code>, max <code>--section-max-height</code> · V4 zusätzlich <code>--content-top|--content-center|--content-bottom</code></td></tr>
+        <tr><th><code>.section-type.--viewport</code></th><td><code>calc(100dvh − Header)</code>, max <code>--section-max-height</code> (V2/V3) · <strong>V4:</strong> gleiche Höhe, aber ohne 51rem-Deckel · V4 Text: <code>--content-top|--content-center|--content-bottom</code></td></tr>
         <tr><th><code>.section-type.--reverse</code></th><td>Medien und Content tauschen die Seite</td></tr>
+        <tr><th>Abstand oben</th><td>Neue Section immer an · V1/V2 <code>pad_top</code> · V3/V4 <code>margin_top</code> · Spec → <a href="#section-stack">A.7 Section-Stack</a></td></tr>
         <tr><th><code>.section-type__content.flow</code></th><td>Content-Box · Headline → <code>.section-type__bottom.flow</code></td></tr>
         <tr><th><code>.section-type__bottom.flow</code></th><td>Body + CTA · Body → Button via <code>* + .btn</code> / <code>* + .btn-row</code> (<a href="#A7">A.7</a>) · Shop: immer <code>.btn-row</code> (auch bei einem Button)</td></tr>
       </table>
@@ -3673,17 +3687,17 @@
       <p class="sg-caption">Mit <code>--reverse</code> · Text links, Animation rechts.</p>
 
       <h3 class="sg-h3 --top" id="hero-v2">Variante 2 — Bild + Content-Box</h3>
-      <p>Content-Box mit Hintergrund · H2 · kein Gap · Padding <code>var(--module)</code> in der Box. <strong>Nur Bild</strong> (kein Lottie — das bleibt bei V1).</p>
+      <p>Content-Box mit Hintergrund · H2 · kein Gap · Padding <code>var(--module)</code> in der Box. Medien-Typ wie V1 (Lottie | Bild) · Lottie mit nativer JSON-Proportion, Badges auf beiden Medien.</p>
       <table class="spec-table">
         <tr><th>Headline</th><td>H2-Stufe · <code>--text-l</code> · Shopify: Tag H1|H2 einstellbar</td></tr>
         <tr><th>Content-BG</th><td><code>--green-light</code> (CSS Default)</td></tr>
-        <tr><th>Gap</th><td><code>0</code> — Bild und Box nahtlos</td></tr>
+        <tr><th>Gap</th><td><code>0</code> — Medium und Box nahtlos</td></tr>
         <tr><th>Padding</th><td>Content-Box: <code>var(--module)</code> allseitig</td></tr>
-        <tr><th>Bild</th><td><code>&lt;img&gt;</code> · ohne Viewport: Höhe aus Dateiproportion steuert die Zeile · grüne Box zieht mit</td></tr>
-        <tr><th>Mobile-Bild</th><td>Optional · <code>&lt;picture&gt;</code> · Breakpoint 767px</td></tr>
-        <tr><th>Media-Labels</th><td>Wie V1 → <a href="#hero-v1-labels">Media-Labels</a> (nur auf Bild)</td></tr>
-        <tr><th><code>--viewport</code></th><td>Section = Viewport-Höhe · Bild <code>object-fit: cover</code> füllt die Medien-Spalte · Mobil: Höhe wieder auto</td></tr>
-        <tr><th>Shopify</th><td>Section <code>Hero V2</code> · kein Lottie-Setting · Snippet <code>section-type-media</code> (nur <code>image</code>)</td></tr>
+        <tr><th>Medien</th><td>Bild: <code>&lt;img&gt;</code> · ohne Viewport: Höhe aus Dateiproportion steuert die Zeile · grüne Box zieht mit · Lottie: <code>.section-type__animation</code> · native JSON-Ratio · Shopify: Toggle Medien-Typ (Default Bild)</td></tr>
+        <tr><th>Mobile-Bild</th><td>Optional · <code>&lt;picture&gt;</code> · Breakpoint 767px · nur bei Medien-Typ Bild</td></tr>
+        <tr><th>Media-Labels</th><td>Wie V1 → <a href="#hero-v1-labels">Media-Labels</a> (Bild oder Lottie)</td></tr>
+        <tr><th><code>--viewport</code></th><td>Section = Viewport-Höhe · Bild <code>object-fit: cover</code> füllt die Medien-Spalte · Lottie füllt die Spalte · Mobil: Höhe wieder auto</td></tr>
+        <tr><th>Shopify</th><td>Section <code>Hero V2</code> · Snippet <code>section-type-media</code> · Default Medien-Typ Bild</td></tr>
       </table>
 
       <div class="sg-demo --flush">
@@ -3743,19 +3757,40 @@
       </div>
       <p class="sg-caption">Mit <code>--reverse</code> · Text links, Bild rechts.</p>
 
+      <div class="sg-demo --flush">
+        <div class="section-type --v2">
+          <div class="section-type__animation">
+            <div class="floating-meta">
+              <div class="badge" data-cat="immun">Immunsystem</div>
+            </div>
+            <lottie-player src="assets/lotties/Hero_Animation_01.json" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+          <div class="section-type__content flow">
+            <h2 class="section-type__headline">Headline 2</h2>
+            <div class="section-type__bottom flow">
+              <p class="section-type__body">Dieselbe V2-Box, Medium ist die Lottie — native JSON-Proportion wie bei V1.</p>
+              <div class="btn-row">
+                <a class="btn --primary">Call to Action</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Medien-Typ Lottie · Asset <code>Hero_Animation_01.json</code> · Badges auf der Animation.</p>
+
       <h3 class="sg-h3 --top" id="hero-v3">Variante 3 — Vollbild + Content-Box</h3>
-      <p>Bild edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2. <strong>Nur Bild</strong> (kein Lottie) · kein Stack-Padding · optional Außen-Margin <code>--mt</code>/<code>--mb</code>.</p>
+      <p>Bild oder Lottie edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2. Medien-Typ wie V1 (Lottie | Bild) · kein Stack-Padding · optional Außen-Margin <code>--mt</code>/<code>--mb</code>.</p>
       <table class="spec-table">
-        <tr><th>Bild</th><td><code>position: absolute; inset: 0</code> · <code>&lt;img&gt;</code> mit <code>object-fit: cover</code> · volle Section-Breite</td></tr>
+        <tr><th>Medien</th><td>Bild: <code>position: absolute; inset: 0</code> · <code>object-fit: cover</code> · Lottie: gleicher Slot <code>.section-type__image</code> · <code>preserveAspectRatio="xMidYMid slice"</code> (Cover) · Shopify: Toggle Medien-Typ</td></tr>
         <tr><th>Box</th><td><code>.section-type__inner</code> + <code>.section-type__content</code> · rechts (links mit <code>--reverse</code>) · vertikal zentriert · BG <code>--green-light</code> · optional <code>--box-soft</code> / <code>--box-glass</code> (Transparenz)</td></tr>
         <tr><th>Layout</th><td>Headline + <code>.section-type__bottom.flow</code> (Body + <code>.btn-row</code>)</td></tr>
         <tr><th>Ghost-Button</th><td>In Content-Box: <code>.btn.--ghost { border: none }</code> automatisch</td></tr>
-        <tr><th>Mobile-Bild</th><td>Optional · <code>&lt;picture&gt;</code> · Breakpoint 767px</td></tr>
+        <tr><th>Mobile-Bild</th><td>Optional · <code>&lt;picture&gt;</code> · Breakpoint 767px · nur bei Medien-Typ Bild</td></tr>
         <tr><th>Media-Labels</th><td>Nicht — Badges nur bei Hero V1/V2</td></tr>
-        <tr><th><code>--viewport</code></th><td>Section = Viewport-Höhe · Bild cover füllt weiter</td></tr>
-        <tr><th>Responsive</th><td>Mobile: kein Overlay — Bild oben, Box darunter</td></tr>
-        <tr><th>Außenabstand</th><td>Kein Stack-Padding · optional <code>--mt</code> / <code>--mb</code> (= <code>--section-gap</code>) · Default aus · Shopify: „Margin oben/unten“ (ganz oben im Editor)</td></tr>
-        <tr><th>Shopify</th><td>Section <code>Hero V3</code> · <code>shopify-section--own-measure</code> · Snippet <code>section-type-media</code> · <code>sizes: 100vw</code></td></tr>
+        <tr><th><code>--viewport</code></th><td>Section = Viewport-Höhe · Medium cover füllt weiter</td></tr>
+        <tr><th>Responsive</th><td>Mobile: kein Overlay — Medium oben, Box darunter · Lottie-Höhe aus JSON-Ratio</td></tr>
+        <tr><th>Außenabstand</th><td>Kein Stack-Padding · optional <code>--mt</code> / <code>--mb</code> (= <code>--section-gap</code>) · Margin oben Default an, unten aus · Shopify: „Margin oben/unten“ (ganz oben im Editor)</td></tr>
+        <tr><th>Shopify</th><td>Section <code>Hero V3</code> · <code>shopify-section--own-measure</code> · Snippet <code>section-type-media</code> (<code>cover: true</code>) · Bild: <code>sizes: 100vw</code></td></tr>
       </table>
 
       <div class="sg-demo --flush">
@@ -3819,20 +3854,40 @@
       </div>
       <p class="sg-caption">Mit <code>--reverse</code> · Content-Box links.</p>
 
+      <div class="sg-demo --flush">
+        <div class="section-type --v3">
+          <div class="section-type__image">
+            <lottie-player src="assets/lotties/inuvet_animation_labo_2zu1.json" background="transparent" speed="1" loop autoplay preserveAspectRatio="xMidYMid slice"></lottie-player>
+          </div>
+          <div class="section-type__inner">
+            <div class="section-type__content flow">
+              <h2 class="section-type__headline">Headline 2</h2>
+              <div class="section-type__bottom flow">
+                <p class="section-type__body">Dieselbe V3-Box, Medium ist die Lottie — Cover wie beim Foto (2∶1, Labo).</p>
+                <div class="btn-row">
+                  <a class="btn --primary">Call to Action</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Medien-Typ Lottie · Asset <code>inuvet_animation_labo_2zu1.json</code> · Cover <code>xMidYMid slice</code>.</p>
+
       <h3 class="sg-h3 --top" id="hero-v4">Variante 4 — Text auf Bild</h3>
-      <p>Vollflächiges Bild · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>. <strong>Nur Bild</strong> · keine Badges · kein Stack-Padding · optional <code>--mt</code>/<code>--mb</code>.</p>
+      <p>Vollflächiges Medium · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>. Bild oder Lottie (Cover) · keine Badges · kein Stack-Padding · optional <code>--mt</code>/<code>--mb</code>.</p>
       <table class="spec-table">
         <tr><th>Headline</th><td>H1-Stufe · weiß · <code>text-shadow</code> · Shopify: Tag H1|H2 einstellbar</td></tr>
         <tr><th>Overlay</th><td><code>rgba(0,0,0,0.22)</code> via <code>::before</code></td></tr>
         <tr><th>Content</th><td>Horizontal zentriert · <code>max-width: 44rem</code> · <code>.section-type__content.flow</code></td></tr>
         <tr><th>Text-Position</th><td><code>--content-top</code> / <code>--content-center</code> (Default) / <code>--content-bottom</code> · Desktop und Mobil gleich · Shopify: Setting <code>content_position</code></td></tr>
-        <tr><th>Höhe</th><td>Default <code>min-height: 60vh</code> · <code>--viewport</code>: wie V2/V3 (<code>100dvh − Header</code>, max <code>--section-max-height</code>) · Mobil immer mind. Viewport-Höhe</td></tr>
+        <tr><th>Höhe</th><td>Default: Band <code>min-height: 60vh</code> · <code>--viewport</code>: <code>height: calc(100dvh − Header)</code>, <strong>kein</strong> <code>--section-max-height</code>-Deckel · Desktop und Mobil gleich</td></tr>
         <tr><th>Ghost-Button</th><td><code>.btn.--ghost</code> in Content: weiß, ohne Border</td></tr>
         <tr><th>Spacing</th><td><code>.section-type__content.flow</code> · Headline→Body <code>--half-module</code> · Body→CTA <code>calc(var(--half-module) * 1.5)</code> via <code>* + .section-type--v4__cta</code> (A.7)</td></tr>
-        <tr><th>Bild</th><td><code>&lt;img&gt;</code> cover · optional Mobile-Bild · <code>sizes: 100vw</code></td></tr>
+        <tr><th>Medien</th><td>Bild: <code>&lt;img&gt;</code> cover · optional Mobile-Bild · Lottie: gleicher Slot <code>.section-type__image</code> · <code>preserveAspectRatio="xMidYMid slice"</code> (Cover) · Shopify: Toggle Medien-Typ (Default Bild)</td></tr>
         <tr><th>Media-Labels</th><td>Nicht — Badges nur bei Hero V1/V2</td></tr>
-        <tr><th>Außenabstand</th><td>Kein Stack-Padding · optional <code>--mt</code> / <code>--mb</code> (= <code>--section-gap</code>) · Default aus · Shopify: „Margin oben/unten“ (ganz oben im Editor)</td></tr>
-        <tr><th>Shopify</th><td>Section <code>Hero V4</code> · <code>shopify-section--own-measure</code> · Snippet <code>section-type-media</code></td></tr>
+        <tr><th>Außenabstand</th><td>Kein Stack-Padding · optional <code>--mt</code> / <code>--mb</code> (= <code>--section-gap</code>) · Margin oben Default an, unten aus · Shopify: „Margin oben/unten“ (ganz oben im Editor)</td></tr>
+        <tr><th>Shopify</th><td>Section <code>Hero V4</code> · <code>shopify-section--own-measure</code> · Snippet <code>section-type-media</code> (<code>cover: true</code>) · Bild: <code>sizes: 100vw</code></td></tr>
       </table>
 
       <div class="sg-demo --flush">
@@ -3885,6 +3940,23 @@
         </div>
       </div>
       <p class="sg-caption"><code>--viewport</code> + <code>--content-bottom</code>.</p>
+
+      <div class="sg-demo --flush">
+        <div class="section-type --v4 --content-center">
+          <div class="section-type__image">
+            <lottie-player src="assets/lotties/inuvet_animation_labo_2zu1.json" background="transparent" speed="1" loop autoplay preserveAspectRatio="xMidYMid slice"></lottie-player>
+          </div>
+          <div class="section-type__content flow">
+            <h1 class="section-type__headline">Headline auf Medium</h1>
+            <p class="section-type__body">Dieselbe V4-Typo, Medium ist die Lottie — Cover wie beim Foto (2∶1, Labo).</p>
+            <div class="section-type--v4__cta">
+              <a class="btn --primary">Primäre Aktion</a>
+              <a class="btn --ghost">Sekundäre Aktion</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Medien-Typ Lottie · Asset <code>inuvet_animation_labo_2zu1.json</code> · Cover <code>xMidYMid slice</code> · Overlay bleibt.</p>
     </section>
 
     <section class="sg-section-v2 flow" id="D4">

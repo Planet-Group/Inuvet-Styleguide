@@ -1344,8 +1344,8 @@
   }
 
   /* Variante 2: Content-Box mit Hintergrund, H2, kein Gap, Padding module.
-     Nur Bild (kein Lottie). Ohne --viewport: Bildhöhe steuert die Zeile,
-     grüne Box zieht mit. Mit --viewport: Section-Höhe = Viewport, Bild cover. */
+     Bild oder Lottie. Ohne --viewport: Medienhöhe steuert die Zeile,
+     grüne Box zieht mit. Mit --viewport: Section-Höhe = Viewport, Medium cover. */
   .section-type.--v2 {
     gap: 0;
     max-width: var(--container-max);
@@ -1371,6 +1371,14 @@
     height: auto;
     display: block;
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .section-type.--v2 .section-type__animation {
+    align-self: start;
+    width: 100%;
+  }
+  .section-type.--v2 .section-type__animation lottie-player {
+    width: 100%;
+    height: auto;
   }
   .section-type.--v2 .section-type__content {
     background: var(--green-light);
@@ -1404,6 +1412,14 @@
     height: 100%;
     object-fit: cover;
   }
+  .section-type.--v2.--viewport .section-type__animation {
+    align-self: stretch;
+    min-height: 100%;
+    overflow: hidden;
+  }
+  .section-type.--v2.--viewport .section-type__animation lottie-player {
+    height: 100%;
+  }
   .section-type.--v2.--viewport .section-type__content {
     height: auto;
     min-height: 0;
@@ -1432,7 +1448,7 @@
   }
 
   /* Variante 3: Vollbild-Hintergrund + Content-Box am Satzspiegel.
-     Kein Stack-Padding — Bild edge-to-edge via absolute + cover. */
+     Kein Stack-Padding — Medium edge-to-edge via absolute + cover (Bild oder Lottie). */
   .section-type.--v3 {
     position: relative;
     width: 100%;
@@ -1454,7 +1470,8 @@
   }
   /* Cover gegen critical.css img/picture { max-width:100%; height:auto } */
   .section-type.--v3 .section-type__image picture,
-  .section-type.--v3 .section-type__image img {
+  .section-type.--v3 .section-type__image img,
+  .section-type.--v3 .section-type__image lottie-player {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1519,13 +1536,14 @@
     .section-type.--v2 .section-type__content > *,
     .section-type.--v3 .section-type__image,
     .section-type.--v3 .section-type__image img,
+    .section-type.--v3 .section-type__image lottie-player,
     .section-type.--v3 .section-type__content > * {
       animation: none;
     }
   }
 
-  /* ─── Variante 4: Vollbild-Hintergrund, Text direkt auf Bild ───
-     Kein Stack-Padding · kein Badge. Bild via <img> cover (wie V3).
+  /* ─── Variante 4: Vollbild-Hintergrund, Text direkt auf Medium ───
+     Kein Stack-Padding · kein Badge. Bild oder Lottie via cover (wie V3).
      Textblock vertikal: --content-top | --content-center (Default) | --content-bottom. */
   .section-type.--v4 {
     position: relative;
@@ -1535,6 +1553,12 @@
     align-items: center;
     justify-content: center;
     min-height: 60vh;
+  }
+  /* Viewport-Höhe: volle Restfläche unter dem Header — ohne 51rem-Deckel (sonst ≈ 60vh). */
+  .section-type.--v4.--viewport {
+    height: calc(100dvh - var(--header-height));
+    min-height: calc(100dvh - var(--header-height));
+    max-height: none;
   }
   .section-type.--v4.--content-top { align-items: flex-start; }
   .section-type.--v4.--content-center { align-items: center; }
@@ -1560,7 +1584,8 @@
   }
   /* Cover gegen critical.css img/picture { max-width:100%; height:auto } */
   .section-type.--v4 .section-type__image picture,
-  .section-type.--v4 .section-type__image img {
+  .section-type.--v4 .section-type__image img,
+  .section-type.--v4 .section-type__image lottie-player {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1618,10 +1643,15 @@
   .section-type.--v4 .section-type__content > *:nth-child(2) { animation-delay: 0.25s; }
   .section-type.--v4 .section-type__content > *:nth-child(3) { animation-delay: 0.40s; }
   .section-type.--v4 .section-type__content > *:nth-child(4) { animation-delay: 0.55s; }
-  /* Mobile: volle Höhe abzgl. Header · Text-Position wie Desktop (--content-*) */
+  /* Mobile: Default bleibt 60vh-Band. Viewport-Höhe füllt den Screen (Toggle muss wirken). */
   @media (max-width: 767px) {
     .section-type.--v4 {
+      min-height: 60vh;
+    }
+    .section-type.--v4.--viewport {
+      height: calc(100dvh - var(--header-height));
       min-height: calc(100dvh - var(--header-height));
+      max-height: none;
     }
     .section-type.--v4.--content-top { align-items: flex-start; }
     .section-type.--v4.--content-center { align-items: center; }
@@ -1630,6 +1660,7 @@
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v4 .section-type__image,
     .section-type.--v4 .section-type__image img,
+    .section-type.--v4 .section-type__image lottie-player,
     .section-type.--v4 .section-type__content > * { animation: none; }
   }
 
@@ -5074,6 +5105,11 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       width: 100%;
       height: auto;
     }
+    .section-type.--v2.--viewport .section-type__animation,
+    .section-type.--v2.--viewport .section-type__animation lottie-player {
+      height: auto;
+      min-height: 0;
+    }
     .section-type:has(.section-type__animation) .section-type__content {
       max-width: none;
       margin: 0;
@@ -5090,6 +5126,12 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       width: 100%;
       height: auto;
       min-height: 15rem;
+    }
+    .section-type.--v3 .section-type__image lottie-player {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
     }
     .section-type.--v3 .section-type__inner {
       display: block;

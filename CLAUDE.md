@@ -220,11 +220,11 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 Vertikaler Abstand zwischen Shop-Sections (nicht Text-`.flow`):
 
-1. **Default V1/V2:** `padding-top: var(--section-gap)` · `padding-bottom: 0` · kein vertikales `margin` am Stack-Root.
+1. **Default V1/V2:** `padding-top: var(--section-gap)` · `padding-bottom: 0` · kein vertikales `margin` am Stack-Root. Shopify-Schema: `pad_top` Default **immer `true`** (auch neue Instanzen per Editor/Prompt). Flush unter Header nur im Template-JSON.
 2. **Ein/Aus V1/V2:** `--pt-0` (oben aus) · `--pb` (unten an, Wert = `--section-gap`). Keine freien Pixel.
 3. **Gilt für** `.container` und `.section-type` (V1/V2).
-4. **V3/V4 Vollbild:** kein Stack-Padding (Bild edge-to-edge). Optional `--mt` / `--mb` = `margin-*: var(--section-gap)` — Spalt zeigt Seitenfläche. Default beide aus.
-5. **Shopify:** V1/V2 „Padding oben/unten“ · V3/V4 „Margin oben/unten“ → `--mt`/`--mb`. Stories unter Nav: oben aus.
+4. **V3/V4 Vollbild:** kein Stack-Padding (Bild edge-to-edge). Optional `--mt` / `--mb` = `margin-*: var(--section-gap)` — Spalt zeigt Seitenfläche. Schema-Default **oben an**, unten aus. Bündig unter Header nur im Template-JSON.
+5. **Shopify:** Neue Section (Editor + Prompt) startet immer mit Abstand oben. V1/V2 „Padding oben“ (`pad_top` Default `true`) · V3/V4 „Margin oben“ (`margin_top` Default `true`). Unten aus. Stories unter Nav: oben aus nur im Template, nicht als Schema-Default.
 6. **Alias:** `.container.--flush-top` = `--pt-0`.
 
 Doku → Styleguide A.7 „Section-Stack" (`styleguide.html#section-stack`).
@@ -399,7 +399,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|---|
 | D.1 | Navigation | `.site-nav .announcement-bar .nav-logo` | Frosted Glass · `body.--nav-scrolled` · Logo-Setting `body[data-nav-logo="campus"]` · Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` · Utility: `.nav-item.--end` Land + Account-Icon in `.nav-right` |
 | D.2 | Footer | `.site-footer` | `.footer-bar__top` („Nach oben“) · `.footer-payment` |
-| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` · **V1:** Bild/Lottie · **V2:** Bild + Content-Box · **V3:** Vollbild + Box · **V4:** Text auf Bild · `--content-top|--content-center|--content-bottom` · V3/V4 optional `--mt`/`--mb` · Badges nur V1/V2 · Shopify: `Hero V1`–`V4`, Snippet `section-type-media` |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` · **V1:** Bild/Lottie · **V2:** Bild oder Lottie + Content-Box · **V3:** Vollbild + Box (Bild oder Lottie, Cover) · **V4:** Text auf Medium (Bild oder Lottie, Cover) · `--content-top|--content-center|--content-bottom` · V3/V4 `--mt`/`--mb` (`margin_top` Default an) · Badges nur V1/V2 · Shopify: `Hero V1`–`V4`, Snippet `section-type-media` |
 | D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Lottie), `--product` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
