@@ -8,6 +8,7 @@
 2. Globale System-Dateien: `planet-brands.css` / `planet-brands.js` — in alle Pages einbinden. Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
 2b. **Drei Schichten:** System (`planet-brands.*`) · Haut (`brand-{handle}.css`) · Kühlschrank (Store-Inhalte). Inuvet bleibt `:root` in `planet-brands.css`. Neue Marke = eine Token-Datei `brand-{handle}.css` + eigener Store — niemals Tokens in `planet-brands.css`. `brand-inuvet.css` nur, wenn Inuvet wie andere umgeschaltet werden muss. Shopify `assets/` ist flach, gleicher Basename wie hier.
 2c. **Marken-Haut (Muster):** `brand-planimol.css` existiert bereits. Planimol = `html[data-brand="planimol"]` + diese Datei. Schalter nur in `styleguide.html` (Sidebar). Teilen via `?brand=planimol`. Theme später: gleiche Datei als `assets/brand-planimol.css` — Theme lädt die Haut noch nicht. Nicht das Repo `Planimol-Styleguide` weiterbauen. **Inhalte** (Benefits, Praxis, Lottie-JSONs) sind nicht die Haut — sie liegen pro Shopify-Store in markenneutralen Metaobjects `shop_benefit` / `shop_praxis`. Spec → Theme `CLAUDE.md` „Marke: ein Theme, zwei Kühlschränke“.
+2d. **Guide-Ordner** (echte Ordner nur hier; Theme `assets/` bleibt flach): `assets/brands/{handle}/logo.svg` · `assets/graphics/icons/` (shared, Dateiname = Theme-Asset) · `assets/lotties/` flach (Kühlschrank, gleicher Dateiname im Theme). Neue Marke = neuer Ordner `brands/{handle}/`. `brand-*.css` bleibt im Root.
 3. **Nach Rate-Limit-Abbruch:** Vorherigen Chat wiederherstellen mit `mcp__ccd_session_mgmt__list_sessions` → neuesten Session-Titel „New session" oder ähnlich suchen → `mcp__ccd_session_mgmt__search_session_transcripts` mit Stichworten aus dem letzten Task. Alternativ: `git log --oneline -5` zeigt was zuletzt committet wurde.
 
 ---
@@ -96,7 +97,7 @@ Aktuelle Mockup-Produkte (Katalog `planet-brands.js`): **Calmin balance Tablette
 |---|---|---|
 | **System** | `planet-brands.css` / `planet-brands.js` | Tokens (`:root` = Inuvet) + Komponenten + globale JS. Gleicher Basename im Theme. |
 | **Haut** | `brand-{handle}.css` | Nur Tokens. Muster: `brand-planimol.css` (liegt bereits im Repo). |
-| **Kühlschrank** | Store-Content | Logos, Lotties, Benefits — nicht umbenennen, nicht ins System mischen. |
+| **Kühlschrank** | Store-Content | Logos, Lotties, Benefits — Dateinamen nicht umbenennen, nicht ins System mischen. Guide: `assets/brands/{handle}/logo.svg`, Lotties flach. |
 
 ### CSS-Schichten
 
