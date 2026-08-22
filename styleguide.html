@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link id="font-planimol" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" disabled>
-  <link rel="stylesheet" href="inuvet.css?v=203">
+  <link rel="stylesheet" href="planet-brands.css?v=203">
   <link rel="stylesheet" href="brand-planimol.css?v=2">
   <link rel="stylesheet" href="sg.css?v=51">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -354,7 +354,7 @@
 
       <h3 class="sg-h3 --top" id="A4-data-table"><code>.rte.--data-table</code> — Daten-Listen</h3>
       <div class="col-grid" data-cols="2">
-        <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>inuvet.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
+        <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>planet-brands.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
         <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Zeilen-Aktionen: Icon-Buttons <code>.btn.--icon.--sm.--success/--danger</code> oder Links <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select.</p>
       </div>
 
@@ -1023,7 +1023,7 @@
         <tr><th>Pattern</th><td><code>&lt;div class="form-page"&gt;&lt;div class="form-page__card"&gt;…&lt;/div&gt;&lt;/div&gt;</code></td></tr>
         <tr><th>Breite</th><td>Card <code>max-width: var(--form-page-max)</code> (640px) — breiter als <code>.container.--sm</code> (480px)</td></tr>
         <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA</td></tr>
-        <tr><th>CSS</th><td><code>inuvet.css</code> — Shell + Felder · Spec <a href="#B5">B.5</a></td></tr>
+        <tr><th>CSS</th><td><code>planet-brands.css</code> — Shell + Felder · Spec <a href="#B5">B.5</a></td></tr>
       </table>
       <div class="form-page-demo">
         <div class="form-page-demo-label"><code>.form-page</code> → <code>.form-page__card</code> (<code>--form-page-max</code>)</div>
@@ -1039,9 +1039,9 @@
     <section class="sg-section-v2 flow" id="A9">
       <h2 class="section-label">A.9 — Spaltenraster</h2>
       <div class="col-grid" data-cols="2">
-        <p><code>.col-grid</code> ist das flexible Spalten-System in <code>inuvet.css</code>. Spaltenanzahl über <code>data-cols="1–4"</code>. Gutter und Seitenrand leiten sich aus <code>var(--module)</code> ab (1.5–3rem, fluid) — Details in <a href="#A3">A.3 Design Tokens</a>.</p>
+        <p><code>.col-grid</code> ist das flexible Spalten-System in <code>planet-brands.css</code>. Spaltenanzahl über <code>data-cols="1–4"</code>. Gutter und Seitenrand leiten sich aus <code>var(--module)</code> ab (1.5–3rem, fluid) — Details in <a href="#A3">A.3 Design Tokens</a>.</p>
         <p>Standard-Gap: <code>gap: var(--base) var(--gutter)</code> — Zeilen eng (Text stapelt wie <code>.flow</code>), Spalten weit. Für Kacheln und Demos mit vollem Zeilenabstand: <code>.col-grid.--spaced</code> → <code>gap: var(--gutter)</code>.</p>
-        <p>Spaltenzahl per <code>data-cols</code> wählen — die Responsive-Kette ist in <code>inuvet.css</code> fix verdrahtet (<a href="#A10">A.10</a>). Innerhalb von <code>.container</code> → <a href="#A8">A.8</a>.</p>
+        <p>Spaltenzahl per <code>data-cols</code> wählen — die Responsive-Kette ist in <code>planet-brands.css</code> fix verdrahtet (<a href="#A10">A.10</a>). Innerhalb von <code>.container</code> → <a href="#A8">A.8</a>.</p>
       </div>
 
       <table class="spec-table">
@@ -1070,7 +1070,7 @@
       </div>
 
       <h3 class="sg-h3 --top"><code>.col-grid</code> — Breakpoints</h3>
-      <p>Diese Schwellen steuern <code>.col-grid</code>, <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code> in <code>inuvet.css</code>:</p>
+      <p>Diese Schwellen steuern <code>.col-grid</code>, <code>.tile-grid</code>, <code>.testimonial-grid</code> und <code>.testimonial-slider</code> in <code>planet-brands.css</code>:</p>
       <table class="spec-table">
         <tr><th><code>1100px</code></th><td><code>min-width: 1100px</code>: <code>data-cols="2"</code> wird 50/50 · <code>max-width: 1100px</code>: 3→2, 4→3 (<code>.tile-grid</code> analog)</td></tr>
         <tr><th><code>900px</code></th><td><code>max-width: 899px</code> — <code>data-cols="4"</code> / <code>--cols-4</code>: 4→2</td></tr>
@@ -1104,7 +1104,7 @@
       <p>Wechsel = eine Klasse im HTML/JS, keine Media Queries.</p>
 
       <h3 class="sg-h3 --top"><code>@media</code> — komponentenspezifisch</h3>
-      <p>Nicht alle UI-Elemente folgen dem Raster — Beispiele aus <code>inuvet.css</code>:</p>
+      <p>Nicht alle UI-Elemente folgen dem Raster — Beispiele aus <code>planet-brands.css</code>:</p>
       <table class="spec-table">
         <tr><th><code>480px</code></th><td>Sehr schmale Geräte (z. B. kompakter Cookie-Banner)</td></tr>
         <tr><th><code>1024px</code></th><td>Article-Sidebar unter Hauptinhalt</td></tr>
@@ -1121,12 +1121,12 @@
 
     <section class="sg-section-v2 flow" id="A11">
       <h2 class="section-label">A.11 — Styleguide UI-Klassen</h2>
-      <p>Klassen in <code>sg.css</code> / <code>sg.js</code> — nur für den Styleguide und abgeleitete Docs. <strong>Nie</strong> in Shopify-Produktion. Zuerst immer <code>inuvet.css</code> wiederverwenden; <code>sg.css</code> nur für Doku-Chrome, das produktiv nicht existiert.</p>
+      <p>Klassen in <code>sg.css</code> / <code>sg.js</code> — nur für den Styleguide und abgeleitete Docs. <strong>Nie</strong> in Shopify-Produktion. Zuerst immer <code>planet-brands.css</code> wiederverwenden; <code>sg.css</code> nur für Doku-Chrome, das produktiv nicht existiert.</p>
 
       <div class="rules">
         <div class="rule">
           <h4>Scope</h4>
-          <p>Mockups laden <code>inuvet.css</code> (+ page-CSS) — kein <code>sg.css</code>. Weitere Doc-Seiten übernehmen diese Klassen 1:1.</p>
+          <p>Mockups laden <code>planet-brands.css</code> (+ page-CSS) — kein <code>sg.css</code>. Weitere Doc-Seiten übernehmen diese Klassen 1:1.</p>
         </div>
         <div class="rule">
           <h4>Details</h4>
@@ -2197,7 +2197,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Eigenständige Formularseiten außerhalb der Shop-Navigation — Reklamation, Nebenwirkungen, Registrierung. Kein Site-Nav, kein Footer-Menü: Logo, Formular, Impressum.</p>
-        <p>Alle Formular-Komponenten in <code>inuvet.css</code> — Felder und Rhythmus aus <a href="#B4">B.4</a> · Shell <code>.form-page*</code> hier · Form-Inhalt in <code>&lt;form class="flow"&gt;</code>.</p>
+        <p>Alle Formular-Komponenten in <code>planet-brands.css</code> — Felder und Rhythmus aus <a href="#B4">B.4</a> · Shell <code>.form-page*</code> hier · Form-Inhalt in <code>&lt;form class="flow"&gt;</code>.</p>
       </div>
 
       <div class="rules">
@@ -2219,7 +2219,7 @@
         <tr><th><code>.form-page__title</code></th><td>H1 · <code>var(--text-l)</code> · <code>var(--fg)</code> · linksbündig</td></tr>
         <tr><th><code>.form-page__footer</code></th><td>Legal-Links außerhalb der Card · zentriert · <code>Impressum · Datenschutz</code></td></tr>
         <tr><th>Beispiele</th><td><code>Formular-Reklamation.html</code>, Nebenwirkungen TB/TA, Signature Generator</td></tr>
-        <tr><th>CSS</th><td><code>inuvet.css</code> — Shell <code>.form-page*</code> + alle Formular-Atome aus <a href="#B4">B.4</a></td></tr>
+        <tr><th>CSS</th><td><code>planet-brands.css</code> — Shell <code>.form-page*</code> + alle Formular-Atome aus <a href="#B4">B.4</a></td></tr>
       </table>
 
       <h3 class="sg-h3 --top"><code>.form-page</code></h3>
@@ -3045,7 +3045,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Kurzes Feedback nach Aktionen — fixiert unten rechts, über Modals.</p>
-        <p>Varianten <code>.--success</code>, <code>.--error</code>, <code>.--info</code>. Aufruf via <code>showToast(message, type)</code> in <code>sg.js</code> / <code>inuvet.js</code>.</p>
+        <p>Varianten <code>.--success</code>, <code>.--error</code>, <code>.--info</code>. Aufruf via <code>showToast(message, type)</code> in <code>sg.js</code> / <code>planet-brands.js</code>.</p>
       </div>
 
       <table class="spec-table">
@@ -3150,7 +3150,7 @@
         <tr><th><code>aria-current="page"</code></th><td>Aktiver Bereich: direkter Link, Trigger oder Dropdown-Link · <code>--fg</code>, bold · Dropdown-Treffer heben den Eltern-Trigger via <code>:has()</code> hervor</td></tr>
         <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
         <tr><th><code>.nav-hamburger.icon-badged</code></th><td>Hamburger mit <code>.badge.--count</code> oben rechts — Mobile-Ersatz für den Zähler in der Desktop-Nav</td></tr>
-        <tr><th><code>.nav-item.--end</code> (Land)</th><td>Länder-/Locale-Umschalter in <code>.nav-right</code> · Trigger zeigt ISO-Code (<code>DE</code>) · Dropdown mit Markt-Namen · Mockup: DACH (<code>de</code> · <code>at</code> · <code>ch</code>) · JS: <code>initNavCountry()</code> in <code>inuvet.js</code></td></tr>
+        <tr><th><code>.nav-item.--end</code> (Land)</th><td>Länder-/Locale-Umschalter in <code>.nav-right</code> · Trigger zeigt ISO-Code (<code>DE</code>) · Dropdown mit Markt-Namen · Mockup: DACH (<code>de</code> · <code>at</code> · <code>ch</code>) · JS: <code>initNavCountry()</code> in <code>planet-brands.js</code></td></tr>
         <tr><th>Account</th><td><code>&lt;shopify-account class="nav-account"&gt;</code> · signed-out: Icon <code>person</code> · New Customer Accounts Sheet · Spec → <a href="#E6">E.6</a></td></tr>
         <tr><th>Mobile <code>.nav-right</code></th><td>Trefferfelder Konto/Suche/Warenkorb 36px (<code>2.25rem</code>), Icon-Größe unverändert · <code>gap: 0</code> (Abstand nur aus Feld-Padding) · Cart-Badge am Icon, nicht an der Feld-Ecke</td></tr>
       </table>
@@ -3301,7 +3301,7 @@
         </div>
         <div class="rule">
           <h4>JS</h4>
-          <p>Hamburger: <code>toggleMobile()</code> · Schließen: <code>closeMobile()</code> · Position: <code>positionMobileMenu()</code> in <code>inuvet.js</code> (dynamisch unter Nav-Unterkante).</p>
+          <p>Hamburger: <code>toggleMobile()</code> · Schließen: <code>closeMobile()</code> · Position: <code>positionMobileMenu()</code> in <code>planet-brands.js</code> (dynamisch unter Nav-Unterkante).</p>
         </div>
       </div>
 
@@ -3742,7 +3742,7 @@
       <p class="sg-caption">Drei Badge-Typen + KI-Hinweis · Live → <a href="https://inuvet-dev.myshopify.com/">Inuvet-Shop</a> (Closing Hero).</p>
 
       <h3 class="sg-h3 --top" id="hero-v1-lottie">Variante 1 — Animation + Text</h3>
-      <p>Gleiches Layout wie V1 · Lottie-JSON statt Bild · Höhe aus nativen JSON-Proportionen (<code>w</code>/<code>h</code> → <code>aspect-ratio</code> via <code>initLottieAspect</code> in <code>inuvet.js</code>).</p>
+      <p>Gleiches Layout wie V1 · Lottie-JSON statt Bild · Höhe aus nativen JSON-Proportionen (<code>w</code>/<code>h</code> → <code>aspect-ratio</code> via <code>initLottieAspect</code> in <code>planet-brands.js</code>).</p>
       <table class="spec-table">
         <tr><th>Animation</th><td><code>&lt;lottie-player&gt;</code> in <code>.section-type__animation</code> · CDN <code>@lottiefiles/lottie-player</code></td></tr>
         <tr><th>Höhe</th><td>Aus JSON <code>w×h</code> · <code>width: 100%</code>, <code>height: auto</code> am Player</td></tr>
@@ -4070,7 +4070,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Einheitlicher Container <code>.tile-grid</code> mit Spalten-Modifier — Kachel-Typen A–C mischbar · Produktkarte (D) → <a href="#C1">C.1</a>.</p>
-        <p>Responsive Kaskade fix verdrahtet in <code>inuvet.css</code> — Spaltenzahl nur am Container setzen. Details → <a href="#A8">A.8</a>.</p>
+        <p>Responsive Kaskade fix verdrahtet in <code>planet-brands.css</code> — Spaltenzahl nur am Container setzen. Details → <a href="#A8">A.8</a>.</p>
       </div>
 
       <div class="rules">
@@ -4196,7 +4196,7 @@
       <p class="sg-caption"><code>.tile.--featured</code> · Bild in <code>.tile__animation</code> (<code>object-fit: cover</code>, grünes Panel darunter) · optional Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Mobil: Bildband <code>4/3</code> vollbreit · Shopify <code>layout: stack</code> + <code>media_type: image</code> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-labels">Media-Labels auf Sonderkachel-Bildern</h3>
-      <p>Optionale Badges <strong>im Bild</strong> — gleiche Optik wie automatisierte Produkt-Badges (<code>.floating-meta</code> + <code>.badge</code> in <a href="#C1">C.1</a> / <a href="#B2">B.2</a>). Mehrere Labels in einer Zeile, Position oben links. Kein eigenes Badge-CSS — Positionierung via <code>position: relative</code> am Media-Container (<code>inuvet.css</code>).</p>
+      <p>Optionale Badges <strong>im Bild</strong> — gleiche Optik wie automatisierte Produkt-Badges (<code>.floating-meta</code> + <code>.badge</code> in <a href="#C1">C.1</a> / <a href="#B2">B.2</a>). Mehrere Labels in einer Zeile, Position oben links. Kein eigenes Badge-CSS — Positionierung via <code>position: relative</code> am Media-Container (<code>planet-brands.css</code>).</p>
       <table class="spec-table">
         <tr><th>Referenz (auto)</th><td>Produktkachel: Kategorie + Status aus Katalog/Metafields → <code>tileHTML()</code> im Theme-Snippet / Theme-Snippet <code>card-product</code></td></tr>
         <tr><th>Manuell (stack + Bild/Lottie)</th><td><code>.tile__animation</code> → <code>.floating-meta</code> vor <code>&lt;img&gt;</code> / <code>&lt;lottie-player&gt;</code></td></tr>
@@ -4395,7 +4395,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Grid (<code>.testimonial-grid</code>) oder Slider (<code>.testimonial-slider</code>) · Breakpoints wie <a href="#A8">A.8</a>.</p>
-        <p>Mobile: progressive Anzeige via „Mehr anzeigen" (<code>showMore</code> / <code>showMoreSlider</code> in <code>inuvet.js</code>) · Slider-Init via <code>initSliders()</code> (<code>sg.js</code>).</p>
+        <p>Mobile: progressive Anzeige via „Mehr anzeigen" (<code>showMore</code> / <code>showMoreSlider</code> in <code>planet-brands.js</code>) · Slider-Init via <code>initSliders()</code> (<code>sg.js</code>).</p>
       </div>
     <div class="rules">
       <div class="rule">
@@ -4778,7 +4778,7 @@
 
       <div class="col-grid" data-cols="2">
         <p>Endlos-Laufband für Vertrauenssignale · Items im HTML verdoppeln für nahtlose Schleife.</p>
-        <p>Init via <code>initMarquees()</code> in <code>inuvet.js</code> · Pausiert bei Hover.</p>
+        <p>Init via <code>initMarquees()</code> in <code>planet-brands.js</code> · Pausiert bei Hover.</p>
       </div>
 
       <div class="rules">
@@ -5008,14 +5008,14 @@
         </div>
         <div class="rule">
           <h4>Stylesheet-Reihenfolge</h4>
-          <p>Verbindlich: Typekit → Material Icons → <code>inuvet.css</code> → optional <code>pages/[name].css</code>. <code>mockup-ui.css</code> nur in Mockup-Pages — niemals in Produktion.</p>
+          <p>Verbindlich: Typekit → Material Icons → <code>planet-brands.css</code> → optional <code>pages/[name].css</code>. <code>mockup-ui.css</code> nur in Mockup-Pages — niemals in Produktion.</p>
         </div>
       </div>
 
       <table class="spec-table">
         <tr><th>1.</th><td><code>https://use.typekit.net/vhh5bbc.css</code> — Schrift (schnebel-sans-me)</td></tr>
         <tr><th>2.</th><td><code>https://fonts.googleapis.com/icon?family=Material+Icons</code> — Icons</td></tr>
-        <tr><th>3.</th><td><code>inuvet.css</code> — Design-System (Tokens + Komponenten)</td></tr>
+        <tr><th>3.</th><td><code>planet-brands.css</code> — Design-System (Tokens + Komponenten)</td></tr>
         <tr><th>4. <em>(optional)</em></th><td><code>pages/[name].css</code> — Page-spezifische Klassen / Overrides</td></tr>
         <tr><th>nur Mockup</th><td><code>mockup-ui.css</code> — Dev-UI-Chrome (Mockup-Bar, FAB, Mockup-Modal). Niemals in Produktion.</td></tr>
         <tr><th>Produktion: Fonts (DSGVO)</th><td>Typekit- und Google-Fonts-CDNs sind nur Mockup-Komfort. <strong>Im Theme selbst hosten:</strong> schnebel-sans-me als WOFF2 in <code>assets/</code> (Adobe-Lizenz klären) · Material Icons durch selbst gehostetes Subset oder Inline-SVGs ersetzen (Google-Fonts-CDN ist in DE abmahnfähig, vgl. LG München 3 O 17493/20)</td></tr>
@@ -5032,7 +5032,7 @@
       <table class="spec-table">
         <tr><th>Aufbau</th><td>Skip-Link → Announcement Bar (<a href="#D1">D.1</a>) → Nav (<a href="#D1">D.1</a>) → Mobile-Menu → <code>&lt;main id="MainContent"&gt;</code> → Footer (<a href="#D2">D.2</a>)</td></tr>
         <tr><th>Skip-Link (A11y)</th><td><code>&lt;a class="skip-link" href="#MainContent"&gt;Zum Inhalt springen&lt;/a&gt;</code> als erstes Body-Element · sichtbar nur bei Tastatur-Fokus · Screenreader-Labels via <code>.visually-hidden</code></td></tr>
-        <tr><th>JS</th><td><code>inuvet.js</code>: nur Basis-Helper (<code>toggleMobile</code>/<code>closeMobile</code> + <code>initMarquees</code>). <code>openSearch</code>/<code>openCart</code> aus <a href="#E7">E.7</a>/<a href="#E4">E.4</a> bzw. Page-JS ergänzen.</td></tr>
+        <tr><th>JS</th><td><code>planet-brands.js</code>: nur Basis-Helper (<code>toggleMobile</code>/<code>closeMobile</code> + <code>initMarquees</code>). <code>openSearch</code>/<code>openCart</code> aus <a href="#E7">E.7</a>/<a href="#E4">E.4</a> bzw. Page-JS ergänzen.</td></tr>
       </table>
 
       <h3 class="sg-h3 --top">Container-Varianten für <code>&lt;main&gt;</code></h3>
@@ -5093,7 +5093,7 @@
         <tr><th>Pfadnavigation</th><td>Opt-in: Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · Markup <code>.breadcrumb.pdp__breadcrumb</code> über dem Kaufblock · Start · Kategorie · Produkt · Abstand unten <code>--half-module</code> · Demo: aus (<code>?breadcrumb=1</code> an) · Atom → <a href="#C6">C.6</a></td></tr>
         <tr><th><code>.pdp</code></th><td>2-Spalten-Grid · <code>margin-bottom: var(--module-2xl)</code> · Mobile: 1 Spalte</td></tr>
         <tr><th><code>.pdp__gallery</code></th><td><strong>Thumbs (Default, alle Viewports):</strong> Hauptbild + Thumbnails · 1. Medium: Packshot · 2. Medium: Produktvideo · Badge via <code>.floating-meta</code> auf Hauptbild · <strong>Mosaic (nur Desktop ≥1100px):</strong> <code>.pdp__mosaic</code> — Hero <code>.pdp__mosaic-hero</code> + Grid <code>.pdp__mosaic-grid</code> (2 Spalten, Gap <code>var(--base)</code>) · Zellen <code>.pdp__mosaic-cell</code></td></tr>
-        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · JS: <code>getEffectivePdpGalleryMode()</code>, <code>applyPdpGalleryMode()</code> in <code>inuvet.js</code> · Mockup-Toggle: <code>initPdpGalleryToggle()</code></td></tr>
+        <tr><th>Galerie-Modus</th><td>Section-Setting <code>gallery: thumbs | mosaic</code> (Shopify) · <strong>Mosaic nur Desktop ≥1100px</strong> — Mobile immer Thumbs · Mockup: Mockup-Bar „Galerie: Thumbs | Mosaic" auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> (Desktop) · URL <code>?gallery=mosaic</code> · Persistenz <code>sessionStorage</code> · Default: <code>thumbs</code> · JS: <code>getEffectivePdpGalleryMode()</code>, <code>applyPdpGalleryMode()</code> in <code>planet-brands.js</code> · Mockup-Toggle: <code>initPdpGalleryToggle()</code></td></tr>
         <tr><th>Badges (Galerie)</th><td>Kategorie (<code>.badge[data-cat]</code>) · bei Produktfamilien zusätzlich immer <code>.badge</code> „Produktfamilie" (wie Kachel → <a href="#C1">C.1</a>)</td></tr>
         <tr><th><code>.pdp__thumb.--active</code></th><td>Border <code>var(--border-active)</code></td></tr>
         <tr><th><code>.pdp__caption</code></th><td>Text-Overlay unten auf Hauptbild/Video/Foto · Toggle <code>.--hidden</code> · Autor in <code>.pdp__caption-author</code> · Glass-Tint: <code>data-pdp-cat</code> am <code>.pdp</code> setzt <code>--pdp-caption-glass</code> auf <code>--cat-*-light</code> (85&nbsp;% + Blur, Fallback <code>--bg</code>) · nicht <code>data-cat</code> (volle Badge-Fläche)</td></tr>
@@ -5120,12 +5120,12 @@
 
       <h3 class="sg-h3 --top" id="shopify-pdp">Shopify-Mapping</h3>
       <div class="col-grid" data-cols="2">
-        <p>Markup und CSS aus diesem Abschnitt gehen 1:1 ins Theme (<code>inuvet.css</code> + Section-Snippet). Daten kommen aus <strong>Product Media</strong>, Varianten und Metafields — kein Hardcoding im Liquid.</p>
-        <p>Video-Rollover auf Karten ist <strong>kein Shopify-Standard</strong> — dafür Theme-JS (<code>initProductMediaRollover()</code> in <code>inuvet.js</code>). PDP-Galerie mit Video dagegen nativ über <code>product.media</code>.</p>
+        <p>Markup und CSS aus diesem Abschnitt gehen 1:1 ins Theme (<code>planet-brands.css</code> + Section-Snippet). Daten kommen aus <strong>Product Media</strong>, Varianten und Metafields — kein Hardcoding im Liquid.</p>
+        <p>Video-Rollover auf Karten ist <strong>kein Shopify-Standard</strong> — dafür Theme-JS (<code>initProductMediaRollover()</code> in <code>planet-brands.js</code>). PDP-Galerie mit Video dagegen nativ über <code>product.media</code>.</p>
       </div>
       <table class="spec-table">
         <tr><th>PDP-Galerie</th><td><code>product.media</code> · Modus <code>gallery</code>: <code>thumbs</code> (Default) oder <code>mosaic</code> (nur Desktop ≥1100px; Mobile immer Thumbs) · Thumbs: 1. Eintrag → Packshot in <code>.pdp__main-image</code> + Thumb-Leiste · Video → <code>&lt;video&gt;</code> + Thumb · Wechsel via <code>pdpSwitch()</code> / <code>initPdpGallery()</code> · Mosaic: Hero + restliche Medien in <code>.pdp__mosaic-grid</code> (Desktop 2-spaltig) · Demo: <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html?gallery=mosaic</a></td></tr>
-        <tr><th>Galerie-Captions</th><td>Sichtbarer Overlay-Text in <code>.pdp__caption</code> (+ optional <code>.pdp__caption-author</code>) · <strong>einheitlich für Bild und Video</strong> über Product-Metafield <code>custom.pdp_gallery_captions</code> (Typ <code>json</code>, Storefront <code>PUBLIC_READ</code>) · Format: <code>[{ "id": "&lt;media.id&gt;", "caption": "…", "author": "…" }]</code> · <code>id</code> = Liquid <code>media.id</code> (Zahl, ohne GID-Prefix) · <code>author</code> optional · Theme: Snippet <code>pdp-media-caption</code> · <strong>nicht</strong> <code>media.alt</code> für Captions (Alt nur A11y/SEO) · Shopify-Media-Metafields nur für <code>MEDIA_IMAGE</code>, nicht für Video → deshalb Produkt-JSON · Mockup: <code>caption</code>/<code>author</code> in <code>inuvet.js</code> (Hepax) · Admin: Produkt → Metafelder → „PDP Galerie-Captions“</td></tr>
+        <tr><th>Galerie-Captions</th><td>Sichtbarer Overlay-Text in <code>.pdp__caption</code> (+ optional <code>.pdp__caption-author</code>) · <strong>einheitlich für Bild und Video</strong> über Product-Metafield <code>custom.pdp_gallery_captions</code> (Typ <code>json</code>, Storefront <code>PUBLIC_READ</code>) · Format: <code>[{ "id": "&lt;media.id&gt;", "caption": "…", "author": "…" }]</code> · <code>id</code> = Liquid <code>media.id</code> (Zahl, ohne GID-Prefix) · <code>author</code> optional · Theme: Snippet <code>pdp-media-caption</code> · <strong>nicht</strong> <code>media.alt</code> für Captions (Alt nur A11y/SEO) · Shopify-Media-Metafields nur für <code>MEDIA_IMAGE</code>, nicht für Video → deshalb Produkt-JSON · Mockup: <code>caption</code>/<code>author</code> in <code>planet-brands.js</code> (Hepax) · Admin: Produkt → Metafelder → „PDP Galerie-Captions“</td></tr>
         <tr><th>Video-Attribute</th><td><code>muted loop playsinline</code> · <code>preload="none"</code> auf Karten · komprimierte Clips (&lt; 10&nbsp;MB) über Product Media / Shopify Files</td></tr>
         <tr><th>Badges (Galerie)</th><td>Product Metafields → Kategorie (<code>data-cat</code>) · <code>is_family</code> (boolean) → Badge „Produktfamilie" · Status-Badges optional (<code>.--dark</code>, <code>.--sale</code>)</td></tr>
         <tr><th>Produktfamilie</th><td>Shopify <strong>Product</strong> (Parent) = Familie · Darreichungsform = Variant Option → <code>.pdp__type-selector</code> · Größe = zweite Option → <code>.choice-box</code> · Modell → <a href="pages/Produkt-Modell.html">Produkt-Modell</a></td></tr>
@@ -5147,7 +5147,7 @@
         <tr><th>Sticky ATC</th><td>Section-Setting Checkbox <code>sticky_atc</code> (Default an) → Klasse <code>pdp--sticky-cta</code> am Section-Root · Markup <code>.pdp__sticky-cta</code> · JS <code>initPdpStickyCta()</code> · Demo <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a> · aus: <code>?sticky=0</code></td></tr>
         <tr><th>Pfadnavigation</th><td>Section-Setting Checkbox <code>show_breadcrumb</code> (Default aus) · nur rendern wenn an · Markup <code>.breadcrumb.pdp__breadcrumb</code> · Demo: aus · an: <code>?breadcrumb=1</code></td></tr>
       </table>
-      <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>inuvet.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
+      <p class="sg-caption">Liquid-Schleife über <code>product.media</code> statt fester Pfade · JS-Funktionen aus <code>planet-brands.js</code> ins Theme-Bundle übernehmen, <code>sg.js</code> nicht produktiv laden.</p>
 
       <h3 class="sg-h3 --top" id="pdp-single">Einzelprodukt</h3>
       <p>Muster-Layout für ein Produkt ohne Typ-Selektor (hier Calmin-Assets). Sticky-Galerie wie Live; Social Proof in der Info-Spalte (Aside ≥1536 nur auf <a href="https://inuvet-dev.myshopify.com/products/hepax-forte">Produkt.html</a>, damit die Styleguide-Vorschau nicht gequetscht wird).</p>
@@ -5567,7 +5567,7 @@
         <tr><th><code>.pdp__praxis</code></th><td>Wrapper nach Recommendations · vertikaler Abstand im Theme nur Section-Stack (A.7)</td></tr>
         <tr><th><code>.tile__animation</code></th><td>Volle Kachelbreite · <code>lottie-player</code> mit <code>aspect-ratio</code> (sonst Höhe 0)</td></tr>
         <tr><th>Assets</th><td><code>inuvet_tierarzt_nur_bei_euch.json</code> · <code>Inuvet_animation_Weltweit.json</code> · <code>inuvet_animation_inhaltsstoffe.json</code></td></tr>
-        <tr><th>Shopify</th><td>Metaobject <strong>Praxis-Vorteil</strong> (Felder wie Shop-Benefit: <code>headline</code>, <code>body</code>, <code>lottie_asset</code>) · Section <code>praxis</code> · Startseite + PDP · Spec → Theme <code>CLAUDE.md</code></td></tr>
+        <tr><th>Shopify</th><td>Metaobject <strong>Praxis-Vorteil</strong> · Typ <code>shop_praxis</code> (markenneutral) · Felder wie Shop-Benefit: <code>headline</code>, <code>body</code>, <code>lottie_asset</code> · Section <code>praxis</code> · Startseite + PDP · Planimol: eigener Store, gleiche Typen, andere Einträge/JSONs · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="pdp__praxis" style="margin-top:0">
@@ -5659,7 +5659,7 @@
         <tr><th><code>.pdp__benefits</code></th><td>Wrapper vor <code>.ingredient-list</code> · Abstand <code>margin-top: var(--module)</code> · innen <code>.tile-grid.--cols-4</code></td></tr>
         <tr><th>Kachel</th><td>Variante&nbsp;A (<a href="#D4">D.4</a>): <code>.tile__icon</code> + <code>.flow</code> mit <code>.tile__headline</code> + <code>.tile__body</code></td></tr>
         <tr><th>Lottie</th><td><code>&lt;lottie-player&gt;</code> in <code>.tile__icon</code> · Größe via CSS <code>calc(var(--base) * 4)</code> · CDN <code>@lottiefiles/lottie-player</code> · Assets: <code>Icon_Tierarztpraxis</code>, <code>Icon_Langzeitgabe</code>, <code>Icon_Schutz</code>, <code>Icon_Auto</code></td></tr>
-        <tr><th>Shopify</th><td>Metaobject <strong>Shop-Benefit</strong> (Felder: <code>headline</code>, <code>body</code>, <code>lottie_asset</code>) · Section <code>benefits</code> · Startseite + PDP · Spec → Theme <code>CLAUDE.md</code></td></tr>
+        <tr><th>Shopify</th><td>Metaobject <strong>Shop-Benefit</strong> · Typ <code>shop_benefit</code> (markenneutral) · Felder: <code>headline</code>, <code>body</code>, <code>lottie_asset</code> · Section <code>benefits</code> · Startseite + PDP · Planimol: eigener Store, gleiche Typen, andere Einträge/JSONs · Spec → Theme <code>CLAUDE.md</code></td></tr>
       </table>
       <div class="sg-demo --white">
         <div class="pdp__benefits" style="margin-top:0">
@@ -5708,7 +5708,7 @@
         <tr><th>Akkordeon</th><td>Desktop <code>.accordion.--cols-2</code> mit <code>.accordion__col</code> (gerade/ungerade + <code>order</code>) · Mobile 1 Spalte · Atom → <a href="#C5">C.5</a></td></tr>
         <tr><th>Anzahl</th><td>4–8 Einträge · produktbezogen; shop-weite Fragen (Versand generell) nur wenn sie zur PDP passen</td></tr>
         <tr><th>JSON-LD</th><td><code>@type: FAQPage</code> · <code>mainEntity</code> = Questions mit <code>acceptedAnswer</code> · Klartext ohne HTML · Theme: Script im Section-Liquid · Mockup: <code>injectFaqJsonLd()</code> in <code>&lt;head&gt;</code></td></tr>
-        <tr><th>Shopify</th><td>Metafield <code>custom.faq</code>: Liste aus Metaobjects (<code>question</code> / <code>answer</code>) oder JSON-Liste · Theme: sichtbares Akkordeon + JSON-LD aus denselben Feldern · Mockup: <code>faq[]</code> in <code>inuvet.js</code> (Hepax)</td></tr>
+        <tr><th>Shopify</th><td>Metafield <code>custom.faq</code>: Liste aus Metaobjects (<code>question</code> / <code>answer</code>) oder JSON-Liste · Theme: sichtbares Akkordeon + JSON-LD aus denselben Feldern · Mockup: <code>faq[]</code> in <code>planet-brands.js</code> (Hepax)</td></tr>
         <tr><th>Nicht tun</th><td>Kein FAQ-only hinter Tab/Lazy-Load · keine therapeutischen Heilversprechen · nicht mit Deklarations-Akkordeon vermischen</td></tr>
       </table>
       <div class="sg-demo --green">
@@ -5790,7 +5790,7 @@
         <tr><th>Nicht tun</th><td>Kein Rich-Text-/Bild-Metafield am Produkt für diesen Block · kein Copy-Paste der Texte in Product-Description · keine produkt-spezifischen Override-Felder für Name/Latein/Summary/Image</td></tr>
         <tr><th>Liquid (Skizze)</th><td><code>{% assign items = product.metafields.custom.key_ingredients.value %}</code> · <code>{% assign n = items.size %}</code> · Klasse <code>--cols-4</code> wenn <code>n &gt;= 4</code>, sonst <code>--cols-3</code> · <code>{% for item in items limit: 4 %}</code> → <code>item.name</code>, <code>item.latin</code>, <code>item.summary</code>, <code>item.image</code></td></tr>
       </table>
-      <p class="sg-caption">Mockup (<code>inuvet.js</code> <code>keyIngredients</code>) spiegelt nur die gerenderte Struktur — produktiv ausschließlich Metaobject + Produkt-Referenzen.</p>
+      <p class="sg-caption">Mockup (<code>planet-brands.js</code> <code>keyIngredients</code>) spiegelt nur die gerenderte Struktur — produktiv ausschließlich Metaobject + Produkt-Referenzen.</p>
 
       <div class="rules">
         <div class="rule">
@@ -6483,7 +6483,7 @@
         <tr><th><code>.article__hero</code></th><td>16:9, <code>.placeholder-bg</code></td></tr>
         <tr><th><code>.article__body</code></th><td>Bestehende <code>.rte</code>-Klasse (<a href="#A4">A.4</a>)</td></tr>
         <tr><th><code>.article__author</code></th><td>Flex, rundes Avatar · Bild aus Metafeld <code>custom.author_avatar</code> · ohne Bild: <code>person</code>-Icon im Kreis · Name <code>article.author</code> · Rolle <code>custom.author_role</code></td></tr>
-        <tr><th><code>.article-toc</code></th><td>Inhaltsverzeichnis in der <code>.article-sidebar</code> — unter Autor + Tags, automatisch bei h2 im Text · ohne Überschrift · Anker-Links auf h2-IDs · Schrift <code>--text-base</code> · Zeilen-Padding <code>calc(var(--base) * 0.4)</code> (wie RTE-Tabellen) · nach <code>.article__tags</code> extra <code>--half-module</code> (zusammen mit Sidebar-Gap = <code>--module</code>) · Linien oben, dazwischen und unten (<code>--border-light</code>) · aktiver Abschnitt via <code>initArticleToc()</code> (<code>inuvet.js</code>, Scrollspy, <code>aria-current</code>) · nur Desktop (TOC <code>display: none</code>) — Sidebar nur aus TOC entfällt auf Mobile komplett · Referenz: <a href="pages/Tierarzt-Empfehlung-Info.html">Tierarzt-Empfehlung-Doku</a></td></tr>
+        <tr><th><code>.article-toc</code></th><td>Inhaltsverzeichnis in der <code>.article-sidebar</code> — unter Autor + Tags, automatisch bei h2 im Text · ohne Überschrift · Anker-Links auf h2-IDs · Schrift <code>--text-base</code> · Zeilen-Padding <code>calc(var(--base) * 0.4)</code> (wie RTE-Tabellen) · nach <code>.article__tags</code> extra <code>--half-module</code> (zusammen mit Sidebar-Gap = <code>--module</code>) · Linien oben, dazwischen und unten (<code>--border-light</code>) · aktiver Abschnitt via <code>initArticleToc()</code> (<code>planet-brands.js</code>, Scrollspy, <code>aria-current</code>) · nur Desktop (TOC <code>display: none</code>) — Sidebar nur aus TOC entfällt auf Mobile komplett · Referenz: <a href="pages/Tierarzt-Empfehlung-Info.html">Tierarzt-Empfehlung-Doku</a></td></tr>
         <tr><th><code>.article__tags</code></th><td>Flex-wrap · <code>.filter-tag</code> Atom</td></tr>
       </table>
 
@@ -6897,7 +6897,7 @@
   </div>
 </div>
 
-<script src="inuvet.js?v=27"></script>
+<script src="planet-brands.js?v=27"></script>
 <script src="sg.js?v=6"></script>
 </body>
 </html>

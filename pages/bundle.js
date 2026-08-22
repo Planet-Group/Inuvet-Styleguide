@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    Bundle Builder — Seiten-spezifische Logik
-   Naturalrabatt, Warenkorb, Cart-/Such-/Toast-UI: inuvet.js (global).
+   Naturalrabatt, Warenkorb, Cart-/Such-/Toast-UI: planet-brands.js (global).
    ═══════════════════════════════════════════ */
 
 const BUNDLE_MAX_PRODUCTS = 4;

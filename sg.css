@@ -128,7 +128,7 @@
     margin-top: calc(-1 * var(--half-module));
   }
 
-  /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in inuvet.css ─── */
+  /* ─── form-page-Demo (A.8) — kompakt, Styles produktiv in planet-brands.css ─── */
   .form-page-demo { margin-bottom: var(--half-module); }
   .form-page-demo-label { font-size: var(--text-xs); color: var(--fg-muted); margin-bottom: 0.5rem; }
   .form-page-demo__shell {

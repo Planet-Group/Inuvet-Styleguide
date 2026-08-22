@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════
-   inuvet Design System
+   planet-brands.css — Design System
    Tokens · Komponenten · Layout
+   Inuvet bleibt :root-Default
    Verwendung: alle Seiten (Theme + Dokumentation)
    ═══════════════════════════════════════════ */
   :root {
@@ -766,29 +767,20 @@
     align-items: center;
     justify-content: center;
   }
-  .nav-center img { width: clamp(3.5rem, 2rem + 5vw, 6rem); height: auto; display: block; }
-
-  /* Nav-Logo — Theme-Setting logo_variant: inuvet | campus
-     Markup: .nav-logo mit .nav-logo__img.--inuvet / .--campus · body[data-nav-logo="campus"] */
   .nav-logo {
-    display: grid;
-    width: clamp(3.5rem, 2rem + 5vw, 6rem);
+    display: block;
+    width: var(--logo-w, 5rem);
   }
   .nav-logo__img {
-    grid-area: 1 / 1;
     width: 100%;
     height: auto;
     display: block;
   }
-  .nav-logo__img.--campus { visibility: hidden; }
-  body[data-nav-logo="campus"] .nav-logo__img.--inuvet { visibility: hidden; }
-  body[data-nav-logo="campus"] .nav-logo__img.--campus { visibility: visible; }
-  body[data-nav-logo="campus"] {
-    --nav-height: calc(var(--module) * 3);
-  }
-  body[data-nav-logo="campus"] .nav-logo,
-  body[data-nav-logo="campus"] .nav-center img {
-    width: clamp(4.25rem, 2.5rem + 5.5vw, 7.25rem);
+  .nav-logo__img.--mobile { display: none; }
+  @media (max-width: 767px) {
+    .nav-logo { width: var(--logo-w-m, var(--logo-w, 3.5rem)); }
+    .nav-logo:has(.nav-logo__img.--mobile) .nav-logo__img.--desktop { display: none; }
+    .nav-logo:has(.nav-logo__img.--mobile) .nav-logo__img.--mobile { display: block; }
   }
 
   .nav-right {
@@ -935,26 +927,6 @@
   .nav-item__dropdown a:hover { color: var(--fg); background: var(--accent-bg); }
   .nav-item__dropdown a[aria-current="page"],
   .nav-item__dropdown a[aria-current="page"]:visited { color: var(--fg); }
-
-  /* Offene-Anfragen-Zähler in Portal-Navigation */
-  [data-nav-open-count] { flex-shrink: 0; }
-  [data-nav-open-count][hidden] { display: none; }
-  .nav-item__trigger:has([data-nav-open-count]) {
-    display: inline-flex;
-    align-items: center;
-    gap: calc(var(--base) * 0.35);
-  }
-  .nav-item__dropdown a:has([data-nav-open-count]) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--half-module);
-  }
-  .mobile-menu a:has([data-nav-open-count]) {
-    display: inline-flex;
-    align-items: center;
-    gap: calc(var(--base) * 0.35);
-  }
 
   /* Mobile: dropdown komplett ausblenden — mobile-menu übernimmt */
   @media (max-width: 767px) {
@@ -5622,7 +5594,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .article__tags .filter-tag { text-decoration: none; color: inherit; }
 
   /* ─── Artikel-Inhaltsverzeichnis — unter Autor/Tags, automatisch bei h2 ───
-     Anker-Links auf h2-IDs · aktiver Abschnitt via initArticleToc() (inuvet.js, Scrollspy).
+     Anker-Links auf h2-IDs · aktiver Abschnitt via initArticleToc() (planet-brands.js, Scrollspy).
      Nur Desktop — auf Mobile wird die Sidebar zur Kopfzeile, das TOC entfällt. */
   .article-toc { display: flex; flex-direction: column; }
   .article__tags + .article-toc { margin-top: var(--half-module); }

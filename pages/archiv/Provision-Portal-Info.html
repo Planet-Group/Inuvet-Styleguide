@@ -6,7 +6,7 @@
   <title>Provision-Portal · Dokumentation – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../../inuvet.css">
+  <link rel="stylesheet" href="../../planet-brands.css">
   <link rel="stylesheet" href="../../mockup-ui.css?v=2">
   <script src="../../mockup-ui.js?v=2" defer></script>
   <link rel="stylesheet" href="provision-portal.css">
@@ -242,7 +242,7 @@ canAfford(p)         = provisionAvailable() >= p.price</code></pre>
                 <tr>
                   <td><code>initScrollAnimations()</code></td>
                   <td><code>[data-animate]</code></td>
-                  <td>Globaler Observer aus <code>inuvet.js</code> — fügt <code>.--in-view</code> hinzu, wodurch opacity + translateY animiert werden</td>
+                  <td>Globaler Observer aus <code>planet-brands.js</code> — fügt <code>.--in-view</code> hinzu, wodurch opacity + translateY animiert werden</td>
                 </tr>
               </tbody>
             </table>
@@ -254,10 +254,10 @@ canAfford(p)         = provisionAvailable() >= p.price</code></pre>
               <li><strong>Provision simulieren</strong> — setzt <code>provisionTotal</code> auf einen beliebigen Wert und rendert neu</li>
               <li><strong>Gutschein-Karte anpassen</strong> — ändert <code>voucher.brand</code> und <code>voucher.value</code> der Amazon-Prämie live (nützlich für Demo-Zwecke mit anderen Marken)</li>
             </ul>
-            <p>Der FAB-Panel nutzt ausschließlich <code>mockup-ui.css</code>-Klassen (<code>.mockup-fab-panel</code>, <code>.mockup-btn</code>, <code>.mockup-fab-panel__field</code>) — keine <code>inuvet.css</code>-Klassen, gemäß Goldener Regel 12.</p>
+            <p>Der FAB-Panel nutzt ausschließlich <code>mockup-ui.css</code>-Klassen (<code>.mockup-fab-panel</code>, <code>.mockup-btn</code>, <code>.mockup-fab-panel__field</code>) — keine <code>planet-brands.css</code>-Klassen, gemäß Goldener Regel 12.</p>
 
             <h2>CSS-Struktur</h2>
-            <p>Alle seitenspezifischen Styles liegen in <code>provision-portal.css</code>. Globale Design-System-Klassen kommen ausnahmslos aus <code>inuvet.css</code> — keine Überschreibungen. Wichtige seitenspezifische Klassen:</p>
+            <p>Alle seitenspezifischen Styles liegen in <code>provision-portal.css</code>. Globale Design-System-Klassen kommen ausnahmslos aus <code>planet-brands.css</code> — keine Überschreibungen. Wichtige seitenspezifische Klassen:</p>
             <table>
               <thead>
                 <tr><th>Klasse</th><th>Zweck</th></tr>
@@ -306,7 +306,7 @@ canAfford(p)         = provisionAvailable() >= p.price</code></pre>
     </div>
   </main>
 
-  <script src="../../inuvet.js"></script>
+  <script src="../../planet-brands.js"></script>
 
 </body>
 </html>

@@ -5,8 +5,9 @@
 ## Erstkontakt-Checkliste
 
 1. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
-2. Globale JS-Datei: `inuvet.js` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
-2b. **Marken-Haut:** Default ist Inuvet (`:root` in `inuvet.css`). Planimol = `html[data-brand="planimol"]` + `brand-planimol.css`. Schalter nur in `styleguide.html` (Sidebar). Teilen via `?brand=planimol`. Theme später: gleiche Datei als `assets/brand-planimol.css`. Nicht das Repo `Planimol-Styleguide` weiterbauen.
+2. Globale System-Dateien: `planet-brands.css` / `planet-brands.js` — in alle Pages einbinden. Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
+2b. **Drei Schichten:** System (`planet-brands.*`) · Haut (`brand-{handle}.css`) · Kühlschrank (Store-Inhalte). Inuvet bleibt `:root` in `planet-brands.css`. Neue Marke = eine Token-Datei `brand-{handle}.css` + eigener Store — niemals Tokens in `planet-brands.css`. `brand-inuvet.css` nur, wenn Inuvet wie andere umgeschaltet werden muss. Shopify `assets/` ist flach, gleicher Basename wie hier.
+2c. **Marken-Haut (Muster):** `brand-planimol.css` existiert bereits. Planimol = `html[data-brand="planimol"]` + diese Datei. Schalter nur in `styleguide.html` (Sidebar). Teilen via `?brand=planimol`. Theme später: gleiche Datei als `assets/brand-planimol.css` — Theme lädt die Haut noch nicht. Nicht das Repo `Planimol-Styleguide` weiterbauen. **Inhalte** (Benefits, Praxis, Lottie-JSONs) sind nicht die Haut — sie liegen pro Shopify-Store in markenneutralen Metaobjects `shop_benefit` / `shop_praxis`. Spec → Theme `CLAUDE.md` „Marke: ein Theme, zwei Kühlschränke“.
 3. **Nach Rate-Limit-Abbruch:** Vorherigen Chat wiederherstellen mit `mcp__ccd_session_mgmt__list_sessions` → neuesten Session-Titel „New session" oder ähnlich suchen → `mcp__ccd_session_mgmt__search_session_transcripts` mit Stichworten aus dem letzten Task. Alternativ: `git log --oneline -5` zeigt was zuletzt committet wurde.
 
 ---
@@ -17,7 +18,7 @@
 |---|---|---|
 | HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Tierarzt-Empfehlung.html`, `Provision-Portal.html` |
 | Page-CSS / Page-JS | **kebab-case** (bewusst entkoppelt vom HTML) | `tierarzt-empfehlung.css`, `tierarzt-empfehlung.js` |
-| Root-Tools | kebab ok | `styleguide.html`, `inuvet.css` |
+| Root-Tools | kebab ok | `styleguide.html`, `planet-brands.css` |
 | Seitentitel Default | `{Name} – inuvet` (en dash, Brand klein am Ende) | `Shopify – inuvet` |
 | Mockup + Doku-Paar | `{Bereich} · Mockup/Dokumentation/Start – inuvet` | `Shop · Mockup – inuvet` |
 | TE-Cluster | `Inuvet – Tierarzt-Empfehlung – {Seite}` | bleibt |
@@ -29,8 +30,8 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 
 ## Goldene Regeln (nie brechen)
 
-1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `inuvet.css`. Existiert die Funktion schon? → Wiederverwenden.
-2. **Neue Styles immer zuerst in temp.css** — Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `inuvet.css` (global) oder → Page-CSS (seitenspezifisch). Nie direkt in `inuvet.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`. **Ausnahme:** Reine Styleguide-UI (`.sg-*`) wird direkt in `sg.css` geschrieben — kein Umweg über `temp.css`, da nicht produktionsrelevant. **Gilt auch im Guide:** Der Styleguide repräsentiert die `inuvet.css`-Styles — also zuerst bestehende `inuvet.css`-Klassen wiederverwenden; neues `sg.css` nur im Notfall für echtes Doku-Chrome, das es im Produkt-CSS nicht gibt.
+1. **Bestehende Klassen zuerst** — vor jeder neuen Klasse: `grep` in `planet-brands.css`. Existiert die Funktion schon? → Wiederverwenden.
+2. **Neue Styles immer zuerst in temp.css** — Erst wenn ein Element abgeschlossen ist, entscheiden wir gemeinsam: → `planet-brands.css` (global) oder → Page-CSS (seitenspezifisch). Nie direkt in `planet-brands.css` oder eine Page-CSS schreiben ohne vorherigen Test in `temp.css`. **Ausnahme:** Reine Styleguide-UI (`.sg-*`) wird direkt in `sg.css` geschrieben — kein Umweg über `temp.css`, da nicht produktionsrelevant. **Gilt auch im Guide:** Der Styleguide repräsentiert die `planet-brands.css`-Styles — also zuerst bestehende `planet-brands.css`-Klassen wiederverwenden; neues `sg.css` nur im Notfall für echtes Doku-Chrome, das es im Produkt-CSS nicht gibt.
 3. **Keine Magic Numbers** — alles via `var(--…)`.
 4. **`border-radius: 0`** — Ausnahmen nur: `.badge.--pill` und Avatar (`50%`).
 5. **Kein `!important`**. Niemals.
@@ -40,10 +41,10 @@ Unterordner `reports/` und `vetalita/`: kebab-case Dateien ok · Vetalita-Brand 
 9. **Neue Komponente = Styleguide + Index** — Jede neue globale Komponente: (1) Demo-Abschnitt in `styleguide.html`, (2) Zeile in der Klassen-Schnellreferenz unten. Beides zusammen, nie nur eines.
 10. **Neues CSS? Erst fragen** — Bevor neues CSS angelegt wird: kurz mitteilen, was fehlt und warum keine bestehende Klasse passt — und Bestätigung abwarten.
 11. **Einzelprodukt vs. Produktfamilie — Namensregeln nie brechen** — Einzelprodukt-Titel **immer** inkl. Darreichungsform (`Calmin balance Tabletten`, `Inzym Pulver`). Familien-Titel **ohne** Form (`Hepax forte`). Unklar? → erst fragen (Regel gilt für Shopify-Theme 1:1).
-12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `inuvet.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`. JS: `mockup-ui.js` (Alt+M / ⌥M blendet Mockup-Chrome global ein/aus).
-13. **JS analog zu CSS schichten** — Globale Funktionen in `inuvet.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
+12. **Mockup-UI strikt isoliert** — Alle Styles für Mockup-Steuerelemente kommen ausschließlich aus `mockup-ui.css`. Keine `planet-brands.css`-Klassen innerhalb von `.mockup-fab-panel`, `.mockup-bar` oder `.mockup-modal`. JS: `mockup-ui.js` (Alt+M / ⌥M blendet Mockup-Chrome global ein/aus).
+13. **JS analog zu CSS schichten** — Globale Funktionen in `planet-brands.js`, seitenspezifische Logik in `pages/xyz.js`. Kein Inline-Script.
 14. **Live = `main`** — GitHub Pages deployed ausschließlich von `main` → https://planet-group.github.io/Inuvet-Styleguide/. Bei Push/Deploy/Live-Schalten: **immer `main` pushen**, nie nur `feat/*` oder `session/*`. Workflow: committen (auf beliebigem Branch) → `git checkout main` → merge/fast-forward → `git push origin main`.
-15. **Text-Rhythmus gehört immer `.flow`** — Abstände zwischen Überschriften und Absätzen (Text↔Text) kommen **ausschließlich** aus dem `.flow`-System (`inuvet.css`, Doku A.7) — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt `.flow`. Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke** (Medien / Textblock / Actions), nie Headline→Paragraph. Kein Heading→Paragraph-Abstand über Flex-/Grid-`gap` oder Ad-hoc-Margins. Sonderfall: `--flow-space` am Element überschreiben, nicht neue Margins. Siehe `.cursor/rules/flow-spacing.mdc`.
+15. **Text-Rhythmus gehört immer `.flow`** — Abstände zwischen Überschriften und Absätzen (Text↔Text) kommen **ausschließlich** aus dem `.flow`-System (`planet-brands.css`, Doku A.7) — kontextunabhängig, egal ob Info-Page, Modal, Card oder Hero. Jeder Fließtext-Block bekommt `.flow`. Das `gap`/Margin einer Komponente trennt **nur strukturelle Blöcke** (Medien / Textblock / Actions), nie Headline→Paragraph. Kein Heading→Paragraph-Abstand über Flex-/Grid-`gap` oder Ad-hoc-Margins. Sonderfall: `--flow-space` am Element überschreiben, nicht neue Margins. Siehe `.cursor/rules/flow-spacing.mdc`.
 16. **Print ist ein eigener Dialekt — nicht mit Web mischen** — Druckfähige PDFs laufen ausschließlich über `print.css` + `tools/print/`. Doku: `print-styleguide.html`. Drei Regeln daraus nie brechen: (1) **Haarlinien als SVG-Vektor**, nie als CSS-Rahmen — CSS-Rahmen unter ~0,25 mm verwirft Chromium beim PDF-Export teilweise, ohne Warnung. (2) **CMYK steht nie im CSS** — im HTML bleibt RGB, die Umwandlung macht die Zuordnungstabelle `tools/print/inks.py`. (3) **Jedes PDF wird nachgemessen** (`measure.py`) *und* als PNG angesehen — beides, keines ersetzt das andere. Neue Farbe im Print? → erst Eintrag in `inks.py`, sonst bricht die Pipeline ab.
 17. **`index.html` immer aktuell halten** — Die Mockup-Übersicht (`index.html` + `index.js`, Live: https://planet-group.github.io/Inuvet-Styleguide/) ist der Bookmark für IT und Team. Michael und Agent: bei **neuen zentralen Mockup-Seiten**, **Umbenennungen** oder **Link-Änderungen** die Index-Seite mitziehen (DE|EN-Texte in `index.js` inklusive). Nie nur die Page anlegen/verschieben und den Index vergessen.
 
@@ -81,7 +82,7 @@ Vier Ebenen — Details und UI-Auswirkungen: `pages/Produkt-Modell.html`.
 
 In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted), Format: `60 Stück · 39,90 €`. Button statt `qty-selector` → `.btn.--sm` in `.cart-item__bottom`. **Naturalrabatt Gratis-Badge:** Warenkorb auf dem Thumb (`product-thumb-wrap` + `floating-meta`), Bundle Builder im Counter (`cart-item__counter`) — nie beides. **`.cart-item__tier-hint`** pro berechtigter Zeile (Text via `formatHint()`), nur auf weißem Hintergrund (`--bg`).
 
-Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
+Aktuelle Mockup-Produkte (Katalog `planet-brands.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
 
 **Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **cover** (`.--cover`, `--tile-fg`). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Live → Collection `https://inuvet-dev.myshopify.com/collections/all`, List-Collections `https://inuvet-dev.myshopify.com/collections`.
 
@@ -89,14 +90,22 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 
 ## Architektur
 
+### Marken-Konvention (drei Schichten)
+
+| Schicht | Datei | Rolle |
+|---|---|---|
+| **System** | `planet-brands.css` / `planet-brands.js` | Tokens (`:root` = Inuvet) + Komponenten + globale JS. Gleicher Basename im Theme. |
+| **Haut** | `brand-{handle}.css` | Nur Tokens. Muster: `brand-planimol.css` (liegt bereits im Repo). |
+| **Kühlschrank** | Store-Content | Logos, Lotties, Benefits — nicht umbenennen, nicht ins System mischen. |
+
 ### CSS-Schichten
 
 | Datei | Zweck | Darf nicht enthalten |
 |---|---|---|
-| `inuvet.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
+| `planet-brands.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
 | `brand-planimol.css` | Marken-Haut: `html[data-brand="planimol"]` überschreibt Schrift, Grün, FG, Borders, Produktfarben. Kein Rhythmus, keine Komponenten. | Alles außer Tokens |
 | `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
-| `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
+| `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `planet-brands.css`-Klassen wie `.btn` oder `.form-field` |
 | `mockup-ui.js` | Mockup-Chrome-JS (Alt+M / ⌥M Toggle) | Produktions-/Theme-Code |
 | `pages/[name].css` | Page-spezifische Overrides | Globale Design-System-Änderungen |
 | `print.css` | Print-Dialekt: Token-Layer für druckfähige PDFs (mm-Geometrie, pt-Typo, Formate, Seitenmodell) | Web-Styles, CMYK-Werte (Farbe bleibt RGB), Guide-Chrome |
@@ -104,29 +113,29 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | `temp.css` | Neue Styles im Test (Staging) | Produktions-Code — nie deployen |
 | `temp.js` | Neue JS-Funktionen im Test (Staging) | Produktions-Code — nie deployen |
 
-`print.css` wird **nie zusammen mit `inuvet.css`** geladen — es restyled `body` für die Seitenvorschau. Print-Dokumente binden `print.css` allein ein.
+`print.css` wird **nie zusammen mit `planet-brands.css`** geladen — es restyled `body` für die Seitenvorschau. Print-Dokumente binden `print.css` allein ein.
 
 `temp.css`-Inhalt: leer (Stand 2026-08-04).
 `temp.js`-Inhalt: leer (Stand 2026-08-04).
 
 ### CSS-Workflow: Neue Styles
 
-1. **Bestehende Klasse wiederverwenden** — `grep -n "…" inuvet.css` vor jedem neuen Style
+1. **Bestehende Klasse wiederverwenden** — `grep -n "…" planet-brands.css` vor jedem neuen Style
 2. **Komposition** — Lassen sich zwei bestehende Atome kombinieren? → Kein neuer Style nötig
 3. **temp.css** — Erst wenn wirklich etwas Neues gebraucht wird: in `temp.css` testen
-4. **Entscheidung nach Abschluss** — gemeinsam: `inuvet.css` (global) oder `pages/[name].css` (seitenspezifisch)
+4. **Entscheidung nach Abschluss** — gemeinsam: `planet-brands.css` (global) oder `pages/[name].css` (seitenspezifisch)
 
-**Sonderfall Styleguide-UI:** Auch im Guide gilt: **zuerst bestehende `inuvet.css`-Klassen wiederverwenden** — der Styleguide soll die echten Produkt-Styles zeigen, keine parallelen Doku-Varianten. Nur wenn es im Produkt-CSS wirklich keine passende Klasse gibt (echtes Doku-Chrome wie `.sg-*`, `.sg-demo`-Modifier, `.sg-logo-demo`), wird neuer Style angelegt — dann direkt in `sg.css`, ohne `temp.css`-Zwischenschritt. Faustregel: neues `sg.css` nur im Notfall.
+**Sonderfall Styleguide-UI:** Auch im Guide gilt: **zuerst bestehende `planet-brands.css`-Klassen wiederverwenden** — der Styleguide soll die echten Produkt-Styles zeigen, keine parallelen Doku-Varianten. Nur wenn es im Produkt-CSS wirklich keine passende Klasse gibt (echtes Doku-Chrome wie `.sg-*`, `.sg-demo`-Modifier, `.sg-logo-demo`), wird neuer Style angelegt — dann direkt in `sg.css`, ohne `temp.css`-Zwischenschritt. Faustregel: neues `sg.css` nur im Notfall.
 
 ### JS-Schichtung (analog zu CSS)
 
-Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js` · Kein Inline-Script.
+Globale Funktionen → `planet-brands.js` · Seitenspezifische Logik → `pages/xyz.js` · Kein Inline-Script.
 
-**Theme-Portabilität:** Die Block-Banner in `inuvet.js` sind mit `[PORTABEL → Theme]` bzw. `[MOCKUP — nicht portieren]` markiert. Portabel = reine UI-Helfer (Nav, Marquee, Accordion, Slider, Toast, Rollover). Mockup = Produktkatalog, Naturalrabatt-Tabellen und localStorage-Warenkorb — im Shopify-Theme werden Cart-Funktionen gegen die Cart AJAX API (`/cart/add.js`, `/cart/change.js`) neu implementiert, Naturalrabatt via Cart Transform / Shopify Function (→ Styleguide E.4/E.9 Shopify-Mapping).
+**Theme-Portabilität:** Die Block-Banner in `planet-brands.js` sind mit `[PORTABEL → Theme]` bzw. `[MOCKUP — nicht portieren]` markiert. Portabel = reine UI-Helfer (Nav, Marquee, Accordion, Slider, Toast, Rollover). Mockup = Produktkatalog, Naturalrabatt-Tabellen und localStorage-Warenkorb — im Shopify-Theme werden Cart-Funktionen gegen die Cart AJAX API (`/cart/add.js`, `/cart/change.js`) neu implementiert, Naturalrabatt via Cart Transform / Shopify Function (→ Styleguide E.4/E.9 Shopify-Mapping).
 
 **Ladereihenfolge (zwingend):**
 ```html
-<script src="../inuvet.js?v=2"></script>   <!-- zuerst: global -->
+<script src="../planet-brands.js?v=2"></script>   <!-- zuerst: global -->
 <script src="../temp.js"></script>          <!-- nur während Staging -->
 <script src="xyz.js"></script>              <!-- dann: seitenspezifisch -->
 ```
@@ -134,10 +143,10 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 **JS-Workflow: Neue Funktionen**
 
 1. **Neue Funktion** → erst in `temp.js` als benannte Funktion implementieren
-2. **Aufruf** → aus `inuvet.js` oder `pages/xyz.js` per Funktionsname referenzieren
-3. **Entscheidung nach Abschluss** → gemeinsam: `inuvet.js` (global) oder `pages/xyz.js` (seitenspezifisch), danach aus `temp.js` löschen
+2. **Aufruf** → aus `planet-brands.js` oder `pages/xyz.js` per Funktionsname referenzieren
+3. **Entscheidung nach Abschluss** → gemeinsam: `planet-brands.js` (global) oder `pages/xyz.js` (seitenspezifisch), danach aus `temp.js` löschen
 
-**`inuvet.js` — globale Funktionen:**
+**`planet-brands.js` — globale Funktionen:**
 
 | Funktion | Zweck |
 |---|---|
@@ -184,7 +193,7 @@ Globale Funktionen → `inuvet.js` · Seitenspezifische Logik → `pages/xyz.js`
 
 ---
 
-## Token-System (`inuvet.css` `:root`)
+## Token-System (`planet-brands.css` `:root`)
 
 ### Spacing
 ```css
@@ -434,7 +443,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `.breadcrumb` | — | Pfad-Navigation (`__item`), Doku in C.6 |
 | `.skip-link` / `.visually-hidden` | — | A11y: erster Fokus-Stopp zu `#MainContent` / Screenreader-only-Text |
 | `.placeholder-bg` | — | Platzhalter für Produktbilder ohne Foto |
-| `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `inuvet.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
+| `.col-grid` | `[data-cols="1/2/3/4"]` `--spaced` `--early-2` `--wide-narrow` | Spaltenraster (in `planet-brands.css`). Standard-Gap: `var(--base) var(--gutter)`. Breakpoints: 1100 / 900 / 768 px — analog `.tile-grid`. |
 | `.rte.--data-table` | `--mobile-grid` · `table.--normal / --spacious` | Daten-Listen für Portal-/Übersichtstabellen (A.4). Zellen brauchen `data-label` für Mobile · Portal-Stack: Name+Datum zweispaltig · Notiz: `.data-table-note` · Aktions-Spalte: `.data-table-actions` mit `.btn.--icon.--sm` oder `.order-item__link` |
 | `.flow` | — | Kontextsensitives Typografie-Spacing. Wird auf `.section-type__content` gesetzt. Regeln: `* + *` → `--base`, `h1/h2 + *` → `--half-module`, `* + .btn / * + .btn-row / * + .section-type--v4__cta` → `calc(--half-module * 1.5)`. Headline→Body in section-type via separatem Override (`--half-module`, Spez. 0,4,0). |
 
@@ -444,7 +453,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 | Page | CSS | JS | Zweck |
 |---|---|---|---|
-| `index.html` | `index.css` | `inuvet.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 17) |
+| `index.html` | `index.css` | `planet-brands.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 17) |
 | `print-styleguide.html` | `sg.css`, `print-sg.css` | — | **Print- & PDF-Guide**: Formate, Seitenraster, Logo-Position, pt-Typo, CMYK, Pipeline. Sektionen P (Grundlagen) · Q (Dokumentarten) · R (Produktion) |
 | `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
 | `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
@@ -479,7 +488,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 
 Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 - `find . -name "*.html"` — ALLE HTML-Dateien, nicht nur `pages/`
-- CSS-Schichten alle prüfen: `inuvet.css`, `sg.css`, `mockup-ui.css`, `pages/*.css`
+- CSS-Schichten alle prüfen: `planet-brands.css`, `sg.css`, `mockup-ui.css`, `pages/*.css`
 
 ---
 
@@ -497,7 +506,7 @@ Wenn der User **„analysiere das Projekt auf Inkonsistenzen"** sagt:
 
 **Bildpfade:** Packshots u. a. `Calmin_`, `Hepax_`, `Cortisan_`, `Dermin_`, `Diabex_`, `EnteroGast_` unter `assets/images/` — fehlende Produkte: `placeholder-bg` bzw. Fallback-Packshot.
 
-**CSS Cache-Busting:** `inuvet.css?v=N` — N hochzählen nach Änderungen.
+**CSS Cache-Busting:** `planet-brands.css?v=N` — N hochzählen nach Änderungen.
 
 ---
 

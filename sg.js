@@ -75,10 +75,10 @@ function handleFiles(files) {
   }
 }
 
-// ─── Testimonial Grid: initTestimonials + showMore → inuvet.js ───
+// ─── Testimonial Grid: initTestimonials + showMore → planet-brands.js ───
 
 // ─── Testimonial Slider ───
-// initSliders + showMoreSlider → inuvet.js
+// initSliders + showMoreSlider → planet-brands.js
 initSliders();
 
 // ─── PDP ───

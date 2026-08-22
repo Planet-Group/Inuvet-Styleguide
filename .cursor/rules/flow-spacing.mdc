@@ -6,7 +6,7 @@ alwaysApply: true
 # Text-Rhythmus gehört immer `.flow`
 
 Vertikale Abstände zwischen **Überschriften und Absätzen** (und Text↔Text)
-werden **ausschließlich** vom `.flow`-System bestimmt (Definition: `inuvet.css`,
+werden **ausschließlich** vom `.flow`-System bestimmt (Definition: `planet-brands.css`,
 Doku: `styleguide.html#A7`). Die Flow-Regeln sind kontextunabhängig gültig —
 egal ob Info-Page, Modal, Card, Hero, Formular oder CMS-Fließtext (`.rte`).
 
@@ -48,7 +48,7 @@ egal ob Info-Page, Modal, Card, Hero, Formular oder CMS-Fließtext (`.rte`).
 
 Abstand und Schriftgröße kommen vom **Tag** (`h1`–`h6`, `p`). Keine
 Section-Klasse darf eine h2 wie eine h1 setzen oder den Heading→Text-Abstand
-lokal überschreiben. Fehlt eine Kombination: zentrale Matrix in `inuvet.css`
+lokal überschreiben. Fehlt eine Kombination: zentrale Matrix in `planet-brands.css`
 ergänzen.
 
 ## Sonderfälle (nicht Heading↔Text)

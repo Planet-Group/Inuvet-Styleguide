@@ -166,7 +166,7 @@ body.--page-home .section-type.--v3 .section-type__content {
   color: var(--fg-muted);
 }
 
-/* ─── Freigabe-Badges (drei Kontexte — Visuals global aus inuvet.css) ─
+/* ─── Freigabe-Badges (drei Kontexte — Visuals global aus planet-brands.css) ─
    1. Pill-Badge auf Produktbild (top-right): .badge.--pill / .--pill.--honey (B.2)
    2. .circle-badge.--check auf choice-box (absolut positioniert)
    3. .circle-badge.--check inline in PDP-Darreichungsform-Zeile

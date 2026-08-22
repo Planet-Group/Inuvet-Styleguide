@@ -6,7 +6,7 @@
   <title>Persönliches Angebot · Dokumentation – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../inuvet.css">
+  <link rel="stylesheet" href="../planet-brands.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=2" defer></script>
   <link rel="stylesheet" href="bundle.css">
@@ -115,7 +115,7 @@
               <li><strong>Produktdetailseite (PDP)</strong> — Gratis-Badge und Upsell-Hint</li>
               <li><strong>Warenkorb / Checkout</strong> — Gratis-Stück pro Zeile, Neuberechnung bei Mengenänderung</li>
             </ul>
-            <p>Referenzimplementierung (Mockup): <code>inuvet.js</code> (<code>freeCountFor</code>, <code>nextHintFor</code>, <code>calcFree</code>, <code>getHint</code>, <code>formatHint</code>). Die Pseudocode-Beispiele in diesem Dokument nutzen äquivalente Namen (<code>freeItemsA</code>, <code>freeItemsB</code>).</p>
+            <p>Referenzimplementierung (Mockup): <code>planet-brands.js</code> (<code>freeCountFor</code>, <code>nextHintFor</code>, <code>calcFree</code>, <code>getHint</code>, <code>formatHint</code>). Die Pseudocode-Beispiele in diesem Dokument nutzen äquivalente Namen (<code>freeItemsA</code>, <code>freeItemsB</code>).</p>
 
             <h2>Produkt-Modell: Einzelprodukt vs. Produktfamilie</h2>
             <p>Für die Naturalrabatt-Berechnung ist der Begriff <strong>Einzelprodukt</strong> zentral — er ist <em>nicht</em> dasselbe wie „Produktfamilie".</p>
@@ -275,7 +275,7 @@ const model = product.metafields.inuvet.pricing_model || 'A';
             </ul>
 
             <h2>Mockup vs. Produktion</h2>
-            <p>Das HTML-Mockup (<code>Bundle.html</code>, <code>bundle.js</code>, <code>inuvet.js</code>) vereinfacht an mehreren Stellen. Für die Produktion gilt die Spezifikation in diesem Dokument — nicht das Mockup-Verhalten:</p>
+            <p>Das HTML-Mockup (<code>Bundle.html</code>, <code>bundle.js</code>, <code>planet-brands.js</code>) vereinfacht an mehreren Stellen. Für die Produktion gilt die Spezifikation in diesem Dokument — nicht das Mockup-Verhalten:</p>
             <table>
               <thead>
                 <tr><th>Aspekt</th><th>Mockup</th><th>Produktion (Soll)</th></tr>
@@ -286,13 +286,13 @@ const model = product.metafields.inuvet.pricing_model || 'A';
                 <tr><td>Vorschlagsmenge</td><td><code>Math.ceil(past18Months / 8) × 8</code></td><td>Identische Formel, aber mit variant-spezifischer Kauffrequenz</td></tr>
                 <tr><td>Variantenwahl im Bundle</td><td>Default-Variante aus Katalog, kein Umschalter</td><td>Variante aus Historie (häufigst gekaufte <code>variant_id</code>); ggf. Umschalter innerhalb der Familie</td></tr>
                 <tr><td>Kunden-Status</td><td>Toggle im Parameter-Modal</td><td>Customer Tag <code>group-customer</code></td></tr>
-                <tr><td>Berechnung</td><td>Clientseitig in <code>inuvet.js</code></td><td>Serverseitig; Frontend nur Rendering</td></tr>
+                <tr><td>Berechnung</td><td>Clientseitig in <code>planet-brands.js</code></td><td>Serverseitig; Frontend nur Rendering</td></tr>
                 <tr><td>Order-Properties</td><td>Nicht implementiert (<code>addToCart</code> ohne <code>free_items</code>)</td><td><code>free_items</code> als Line-Item-Property + Checkout-Validierung</td></tr>
               </tbody>
             </table>
 
             <h2>Bundle-UI (Mockup / Frontend)</h2>
-            <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>inuvet.js</code>.</p>
+            <p>Seitenspezifische Logik liegt in <code>pages/bundle.js</code> (nicht inline). Globale Naturalrabatt-Funktionen in <code>planet-brands.js</code>.</p>
             <ul>
               <li><strong>Initiales Angebot</strong>: maximal <strong>4 Einzelprodukte</strong> aus dem aktiven Historien-Pool (sortiert nach Kauffrequenz).</li>
               <li><strong>Einzelverschiebung</strong>: Pro Zeile ein Warenkorb-Icon (<code>shopping_cart</code>) neben dem Entfernen-Button — legt die Position mit aktueller Menge in den Warenkorb und entfernt sie aus dem Angebot. Kein Sammel-Lock; der Rest bleibt bearbeitbar. Der Sammel-CTA übernimmt nur noch die verbleibenden Positionen.
@@ -461,7 +461,7 @@ discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)
               <li><strong>Bestellhistorie:</strong> Aggregation pro <code>variant_id</code> über 549 Tage (Orders API / ERP).</li>
               <li><strong>Product Metafield</strong> <code>inuvet.pricing_model</code> am Product (Parent) anlegen, Default <code>A</code>.</li>
               <li><strong>Customer Tag</strong> <code>group-customer</code> in der CRM-Pflege etablieren.</li>
-              <li><strong>Berechnungsfunktion</strong> serverseitig implementieren — analog zu <code>inuvet.js</code> (<code>lookupCreditA</code>, <code>lookupFreeB</code>, <code>freeCountFor</code>, <code>nextHintFor</code>).</li>
+              <li><strong>Berechnungsfunktion</strong> serverseitig implementieren — analog zu <code>planet-brands.js</code> (<code>lookupCreditA</code>, <code>lookupFreeB</code>, <code>freeCountFor</code>, <code>nextHintFor</code>).</li>
               <li><strong>Bundle-API:</strong> <code>resolveBundle()</code> + Response-Schema (siehe oben) für Frontend bereitstellen.</li>
               <li><strong>Order-Erstellung:</strong> <code>free_items</code> als Line-Item-Property setzen; Checkout-Validierung vor Finalisierung.</li>
               <li><strong>Fulfillment / ERP:</strong> Pickliste aus <code>quantity + free_items</code>; Buchungsposten <code>natural_rabatt</code>.</li>
@@ -477,7 +477,7 @@ discount   = freeItems × unitPrice   // Naturalrabatt-Betrag (für Buchhaltung)
     </div>
   </main>
 
-  <script src="../inuvet.js"></script>
+  <script src="../planet-brands.js"></script>
 
 </body>
 </html>

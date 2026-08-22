@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
-   inuvet.js — Globale UI-Hilfsfunktionen & Shop-Core
-   Auf allen Seiten einbinden (analog zu inuvet.css).
+   planet-brands.js — Globale UI-Hilfsfunktionen & Shop-Core
+   Auf allen Seiten einbinden (analog zu planet-brands.css).
 
    Theme-Portabilität (Shopify): Jeder Block ist markiert.
    [PORTABEL → Theme]        unverändert ins Theme-Bundle übernehmen
@@ -409,7 +409,7 @@ function showMoreSlider(btn) {
 
 /* ═══════════════════════════════════════════════════════
    SHOP CORE — Katalog, Naturalrabatt, Warenkorb, Cart-UI
-   Bundle.html und Live-PDP (global, wie inuvet.css)
+   Bundle.html und Live-PDP (global, wie planet-brands.css)
    [MOCKUP — nicht portieren] Katalog/Preise/localStorage-Cart sind
    Demo-Daten. Im Theme: cart.items + /cart/add.js + /cart/change.js;
    Naturalrabatt via Cart Transform / Shopify Function (→ E.4/E.9).
