@@ -1,0 +1,66 @@
+/* ═══════════════════════════════════════════
+   Planimol — Marken-Haut
+   Nur Tokens. Rhythmus und Komponenten bleiben inuvet.css.
+   Aktiv: html[data-brand="planimol"]
+   Primärfarbe = Gastro (#38b449)
+   ═══════════════════════════════════════════ */
+
+html[data-brand="planimol"] {
+  --font: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --fg: #44303f;
+  --fg-hover: #5a4454;
+  --fg-muted: #7a6b73;
+  --bg: #fff;
+  --accent-bg: #f7f5f6;
+  --border-light: #e4dee1;
+  --border: var(--border-light);
+
+  /* Produktfarben (Handle = Token-Name) */
+  --cat-arthro: #ed0f66;
+  --cat-arthro-light: #fde2ed;
+  --cat-biotic: #00b08d;
+  --cat-biotic-light: #e0f6f1;
+  --cat-cardio: #f68a1e;
+  --cat-cardio-light: #fef1e4;
+  --cat-digestic: #a23292;
+  --cat-digestic-light: #f4e6f2;
+  --cat-endo: #ef5aa0;
+  --cat-endo-light: #fdebf4;
+  --cat-gastro: #38b449;
+  --cat-gastro-light: #e7f6e9;
+  --cat-intestic: #85c440;
+  --cat-intestic-light: #f0f8e8;
+  --cat-liver: #0071bb;
+  --cat-liver-light: #e0eef7;
+  --cat-ocean: #00afea;
+  --cat-ocean-light: #e0f5fc;
+  --cat-relax: #7b70b3;
+  --cat-relax-light: #efeef6;
+
+  --green: var(--cat-gastro);
+  --green-hover: #2c8c39;
+  --green-light: var(--cat-gastro-light);
+}
+
+html[data-brand="planimol"] [data-cat="arthro"]   { background: var(--cat-arthro-light); }
+html[data-brand="planimol"] [data-cat="biotic"]   { background: var(--cat-biotic-light); }
+html[data-brand="planimol"] [data-cat="cardio"]   { background: var(--cat-cardio-light); }
+html[data-brand="planimol"] [data-cat="digestic"] { background: var(--cat-digestic-light); }
+html[data-brand="planimol"] [data-cat="endo"]     { background: var(--cat-endo-light); }
+html[data-brand="planimol"] [data-cat="gastro"]   { background: var(--cat-gastro-light); }
+html[data-brand="planimol"] [data-cat="intestic"] { background: var(--cat-intestic-light); }
+html[data-brand="planimol"] [data-cat="liver"]    { background: var(--cat-liver-light); }
+html[data-brand="planimol"] [data-cat="ocean"]    { background: var(--cat-ocean-light); }
+html[data-brand="planimol"] [data-cat="relax"]    { background: var(--cat-relax-light); }
+
+html[data-brand="planimol"] .story-iconslider__media[data-cat="arthro"]   { background: var(--cat-arthro); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="biotic"]   { background: var(--cat-biotic); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="cardio"]   { background: var(--cat-cardio); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="digestic"] { background: var(--cat-digestic); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="endo"]     { background: var(--cat-endo); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="gastro"]   { background: var(--cat-gastro); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="intestic"] { background: var(--cat-intestic); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="liver"]    { background: var(--cat-liver); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="ocean"]    { background: var(--cat-ocean); }
+html[data-brand="planimol"] .story-iconslider__media[data-cat="relax"]    { background: var(--cat-relax); }

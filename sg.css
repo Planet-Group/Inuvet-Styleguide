@@ -412,6 +412,38 @@
 }
 .sg-sidebar::-webkit-scrollbar { display: none; }
 
+.sg-brand {
+  display: flex;
+  margin-bottom: var(--module);
+  border: 1px solid var(--border-light);
+}
+.sg-brand__btn {
+  flex: 1;
+  font-family: var(--font);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--bg);
+  color: var(--fg-muted);
+  border: none;
+  padding: calc(var(--base) * 0.4) calc(var(--base) * 0.5);
+  cursor: pointer;
+}
+.sg-brand__btn + .sg-brand__btn { border-left: 1px solid var(--border-light); }
+.sg-brand__btn[aria-pressed="true"] {
+  color: var(--fg);
+  background: var(--green-light);
+}
+
+.sg-brand.--main { display: none; }
+
+[data-sg-brand="planimol"] { display: none; }
+html[data-brand="planimol"] [data-sg-brand="inuvet"] { display: none; }
+html[data-brand="planimol"] p[data-sg-brand="planimol"],
+html[data-brand="planimol"] figure[data-sg-brand="planimol"] { display: block; }
+html[data-brand="planimol"] .color-grid[data-sg-brand="planimol"] { display: grid; }
+
 .sg-nav-group { margin-bottom: var(--module); }
 .sg-nav-group__title {
   display: block;
@@ -533,4 +565,5 @@
   .sg-layout { grid-template-columns: 1fr; }
   .sg-sidebar { display: none; }
   .sg-main { padding: 0; }
+  .sg-brand.--main { display: flex; margin-bottom: var(--module); }
 }

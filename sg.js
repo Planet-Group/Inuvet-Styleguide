@@ -473,3 +473,52 @@ function toggleAnnScrollDemo(btn) {
 
   update();
 })();
+
+/* ─── Marken-Haut (Inuvet | Planimol) ─── */
+var SG_LOGOS = {
+  inuvet: 'assets/graphics/Inuvet_Logo_RGB.svg',
+  planimol: 'assets/brands/planimol/logo.svg'
+};
+
+function currentSgBrand() {
+  return document.documentElement.getAttribute('data-brand') === 'planimol' ? 'planimol' : 'inuvet';
+}
+
+function applySgBrand(brand, persist) {
+  brand = brand === 'planimol' ? 'planimol' : 'inuvet';
+  if (brand === 'planimol') {
+    document.documentElement.setAttribute('data-brand', 'planimol');
+    var font = document.getElementById('font-planimol');
+    if (font) font.disabled = false;
+  } else {
+    document.documentElement.removeAttribute('data-brand');
+  }
+  document.querySelectorAll('[data-brand-set]').forEach(function (btn) {
+    btn.setAttribute('aria-pressed', btn.getAttribute('data-brand-set') === brand ? 'true' : 'false');
+  });
+  document.querySelectorAll('[data-sg-logo]').forEach(function (img) {
+    img.src = SG_LOGOS[brand];
+    img.alt = brand === 'planimol' ? 'Planimol Logo' : 'inuvet Logo';
+  });
+  document.title = brand === 'planimol' ? 'Design System – Planimol' : 'Design System – inuvet';
+  document.querySelectorAll('[data-token]').forEach(function (el) {
+    var val = getComputedStyle(document.documentElement).getPropertyValue(el.getAttribute('data-token')).trim();
+    if (val) el.textContent = val;
+  });
+  if (persist) {
+    try { localStorage.setItem('sg-brand', brand); } catch (e) { /* private mode */ }
+    var url = new URL(location.href);
+    if (brand === 'planimol') url.searchParams.set('brand', 'planimol');
+    else url.searchParams.delete('brand');
+    history.replaceState(null, '', url);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  applySgBrand(currentSgBrand(), false);
+  document.querySelectorAll('[data-brand-set]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applySgBrand(btn.getAttribute('data-brand-set'), true);
+    });
+  });
+});

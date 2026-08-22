@@ -6,12 +6,24 @@
   <title>Design System – inuvet</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="inuvet.css?v=202">
-  <link rel="stylesheet" href="sg.css?v=50">
+  <link id="font-planimol" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" disabled>
+  <link rel="stylesheet" href="inuvet.css?v=203">
+  <link rel="stylesheet" href="brand-planimol.css?v=2">
+  <link rel="stylesheet" href="sg.css?v=51">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
     html { scroll-padding-top: var(--module); }
   </style>
+  <script>
+    (function () {
+      var brand = new URLSearchParams(location.search).get('brand') || localStorage.getItem('sg-brand');
+      if (brand === 'planimol') {
+        document.documentElement.setAttribute('data-brand', 'planimol');
+        var link = document.getElementById('font-planimol');
+        if (link) link.disabled = false;
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -19,6 +31,10 @@
 
   <aside class="sg-sidebar">
     <nav>
+      <div class="sg-brand" role="group" aria-label="Marke">
+        <button type="button" class="sg-brand__btn" data-brand-set="inuvet" aria-pressed="true">Inuvet</button>
+        <button type="button" class="sg-brand__btn" data-brand-set="planimol" aria-pressed="false">Planimol</button>
+      </div>
 
       <div class="sg-nav-group">
         <span class="sg-nav-group__title">A — Foundations</span>
@@ -89,6 +105,11 @@
 
   <main class="sg-main">
 
+    <div class="sg-brand --main" role="group" aria-label="Marke">
+      <button type="button" class="sg-brand__btn" data-brand-set="inuvet" aria-pressed="true">Inuvet</button>
+      <button type="button" class="sg-brand__btn" data-brand-set="planimol" aria-pressed="false">Planimol</button>
+    </div>
+
     <!-- ══════════════════════════════════════
          A — FOUNDATIONS
          ══════════════════════════════════════ -->
@@ -108,24 +129,24 @@
       <div class="col-grid --spaced" data-cols="2">
         <figure>
           <div class="sg-demo --white --center">
-            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo auf weißem Hintergrund" class="sg-logo-demo">
+            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo auf weißem Hintergrund" class="sg-logo-demo" data-sg-logo>
           </div>
           <figcaption class="sg-caption">Logo auf hellem Hintergrund</figcaption>
         </figure>
         <figure>
           <div class="sg-demo --green-solid --center">
-            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo in Weiß auf grünem Hintergrund" class="sg-logo-demo --invert">
+            <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo in Weiß auf grünem Hintergrund" class="sg-logo-demo --invert" data-sg-logo>
           </div>
           <figcaption class="sg-caption">Logo in Weiß auf Markengrün</figcaption>
         </figure>
-        <figure>
+        <figure data-sg-brand="inuvet">
           <div class="sg-demo --white --stack">
             <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo mit Slogan auf weißem Hintergrund" class="sg-logo-demo">
             <span class="sg-logo-slogan">natürlich gesunde Tiere</span>
           </div>
           <figcaption class="sg-caption">Mit Slogan auf hellem Hintergrund</figcaption>
         </figure>
-        <figure>
+        <figure data-sg-brand="inuvet">
           <div class="sg-demo --green-solid --stack">
             <img src="assets/graphics/Inuvet_Logo_RGB.svg" alt="inuvet Logo mit Slogan in Weiß auf grünem Hintergrund" class="sg-logo-demo --invert">
             <span class="sg-logo-slogan">natürlich gesunde Tiere</span>
@@ -167,7 +188,7 @@
     <section class="sg-section-v2 flow" id="A3">
       <h2 class="section-label">A.3 — Design Tokens</h2>
       <div class="col-grid" data-cols="2">
-        <p>Alle Werte sind CSS Custom Properties in <code>:root</code>. Kein Hardcoding von Farben, Größen oder Abständen außerhalb dieser Tokens — immer <code>var(--…)</code>.</p>
+        <p>Alle Werte sind CSS Custom Properties in <code>:root</code> (Inuvet-Default). Planimol überschreibt die Haut in <code>brand-planimol.css</code> via <code>html[data-brand="planimol"]</code> — Schalter in der Sidebar. Kein Hardcoding von Farben, Größen oder Abständen außerhalb dieser Tokens — immer <code>var(--…)</code>.</p>
         <p>Neue Werte müssen hier definiert und dokumentiert werden, bevor sie im System verwendet werden dürfen.</p>
       </div>
       <p>Diese Sektion ist die technische Referenz — die vollständige Liste aller Custom Properties. Die <em>visuelle</em> Darstellung der Tokens findet sich dort, wo sie eingesetzt werden: <a href="#A4">A.4 Typografie</a>, <a href="#A5">A.5 Farben</a>, <a href="#A7">A.7 Spacing</a>.</p>
@@ -435,74 +456,74 @@
 
       <div class="color-grid">
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#2E2E2E"></div>
+          <div class="color-card__swatch" style="background: var(--fg)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--fg</span>
-            <span class="color-card__hex">#2E2E2E</span>
+            <span class="color-card__hex" data-token="--fg">#2E2E2E</span>
             <span class="color-card__role">Text, Linien, aktive Zustände</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#333"></div>
+          <div class="color-card__swatch" style="background: var(--fg-hover)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--fg-hover</span>
-            <span class="color-card__hex">#333</span>
+            <span class="color-card__hex" data-token="--fg-hover">#333</span>
             <span class="color-card__role">Hover-Zustand Text</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#666"></div>
+          <div class="color-card__swatch" style="background: var(--fg-muted)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--fg-muted</span>
-            <span class="color-card__hex">#666</span>
+            <span class="color-card__hex" data-token="--fg-muted">#666</span>
             <span class="color-card__role">Sekundärer Text, Meta</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#fff; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__swatch" style="background: var(--bg); border-bottom: 1px solid var(--border-light);"></div>
           <div class="color-card__info">
             <span class="color-card__token">--bg</span>
-            <span class="color-card__hex">#fff</span>
+            <span class="color-card__hex" data-token="--bg">#fff</span>
             <span class="color-card__role">Seitenhintergrund</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#f2f2f2; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__swatch" style="background: var(--accent-bg); border-bottom: 1px solid var(--border-light);"></div>
           <div class="color-card__info">
             <span class="color-card__token">--accent-bg</span>
-            <span class="color-card__hex">#f2f2f2</span>
+            <span class="color-card__hex" data-token="--accent-bg">#f2f2f2</span>
             <span class="color-card__role">Flächen, Placeholder</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#d0d0d0"></div>
+          <div class="color-card__swatch" style="background: var(--border-light)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--border-light / --border</span>
-            <span class="color-card__hex">#d0d0d0</span>
+            <span class="color-card__hex" data-token="--border-light">#d0d0d0</span>
             <span class="color-card__role">Neutrale Linien (inaktiv)</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#78b41b"></div>
+          <div class="color-card__swatch" style="background: var(--green)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--green</span>
-            <span class="color-card__hex">#78b41b</span>
+            <span class="color-card__hex" data-token="--green">#78b41b</span>
             <span class="color-card__role">Primärfarbe, CTAs, Icons</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#58990F"></div>
+          <div class="color-card__swatch" style="background: var(--green-hover)"></div>
           <div class="color-card__info">
             <span class="color-card__token">--green-hover</span>
-            <span class="color-card__hex">#58990F</span>
+            <span class="color-card__hex" data-token="--green-hover">#58990F</span>
             <span class="color-card__role">Hover-Zustand grün</span>
           </div>
         </div>
         <div class="color-card">
-          <div class="color-card__swatch" style="background:#f0fae6; border-bottom: 1px solid var(--border-light);"></div>
+          <div class="color-card__swatch" style="background: var(--green-light); border-bottom: 1px solid var(--border-light);"></div>
           <div class="color-card__info">
             <span class="color-card__token">--green-light</span>
-            <span class="color-card__hex">#f0fae6</span>
+            <span class="color-card__hex" data-token="--green-light">#f0fae6</span>
             <span class="color-card__role">Hintergründe, Announcement Bar</span>
           </div>
         </div>
@@ -551,9 +572,10 @@
       <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Klassenlose Links (<code>a:not([class])</code>): <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich — Ausnahme: Links mit <code>.material-icons</code> oder <code>.badge</code> darin (kein Unterstrich). Kein globales <code>:visited</code> — das wäre spezifischer als Nav/TOC und färbt Chrome grün. Komponenten setzen ihre Linkfarbe selbst; <code>a:not([class])</code> gilt bereits inkl. besuchter Links.</p>
 
       <h3 class="sg-h3 --top"><code>--cat-*</code></h3>
-      <p>Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
+      <p data-sg-brand="inuvet">Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
+      <p data-sg-brand="planimol">Planimol: Produktfarben statt Indikationen. Token-Name = Collection-Handle. Gastro ist gleichzeitig die Primärfarbe (<code>--green</code> = <code>var(--cat-gastro)</code>).</p>
 
-      <div class="color-grid">
+      <div class="color-grid" data-sg-brand="inuvet">
         <div class="color-card">
           <div class="color-card__swatch" style="background: linear-gradient(to bottom, #C5B4E3 60%, #f2eff9 40%);"></div>
           <div class="color-card__info">
@@ -672,6 +694,89 @@
             <span class="color-card__token">--cat-ohren</span>
             <span class="color-card__hex">#62519d · #eceaf4</span>
             <span class="color-card__role">Ohren</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-grid" data-sg-brand="planimol">
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-arthro) 60%, var(--cat-arthro-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-arthro</span>
+            <span class="color-card__hex">#ed0f66</span>
+            <span class="color-card__role">Arthro</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-biotic) 60%, var(--cat-biotic-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-biotic</span>
+            <span class="color-card__hex">#00b08d</span>
+            <span class="color-card__role">Biotic</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-cardio) 60%, var(--cat-cardio-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-cardio</span>
+            <span class="color-card__hex">#f68a1e</span>
+            <span class="color-card__role">Cardio</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-digestic) 60%, var(--cat-digestic-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-digestic</span>
+            <span class="color-card__hex">#a23292</span>
+            <span class="color-card__role">Digestic</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-endo) 60%, var(--cat-endo-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-endo</span>
+            <span class="color-card__hex">#ef5aa0</span>
+            <span class="color-card__role">Endo</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-gastro) 60%, var(--cat-gastro-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-gastro</span>
+            <span class="color-card__hex">#38b449</span>
+            <span class="color-card__role">Gastro · Primärfarbe</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-intestic) 60%, var(--cat-intestic-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-intestic</span>
+            <span class="color-card__hex">#85c440</span>
+            <span class="color-card__role">Intestic</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-liver) 60%, var(--cat-liver-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-liver</span>
+            <span class="color-card__hex">#0071bb</span>
+            <span class="color-card__role">Liver</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-ocean) 60%, var(--cat-ocean-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-ocean</span>
+            <span class="color-card__hex">#00afea</span>
+            <span class="color-card__role">Ocean</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-card__swatch" style="background: linear-gradient(to bottom, var(--cat-relax) 60%, var(--cat-relax-light) 40%);"></div>
+          <div class="color-card__info">
+            <span class="color-card__token">--cat-relax</span>
+            <span class="color-card__hex">#7b70b3</span>
+            <span class="color-card__role">Relax</span>
           </div>
         </div>
       </div>
@@ -1033,6 +1138,7 @@
       <table class="spec-table">
         <tr><th><code>.sg-layout</code></th><td>Sidebar + Main — auf dieser Seite mit <code>.container</code></td></tr>
         <tr><th><code>.sg-sidebar</code></th><td>Sticky Nav · Scrollspy (<code>sg.js</code>) markiert <code>a.--active</code></td></tr>
+        <tr><th><code>.sg-brand</code></th><td>Inuvet / Planimol · setzt <code>data-brand</code> · Persistenz <code>localStorage</code> + <code>?brand=planimol</code></td></tr>
         <tr><th><code>.sg-section-v2</code></th><td>Sektions-Wrapper · oft mit <code>.flow</code></td></tr>
         <tr><th><code>.section-label</code></th><td>Kapitel-<code>h2</code> (produktiv + Guide) — menschenlesbarer Titel · Spec → <a href="#A12">A.12</a></td></tr>
         <tr><th><code>.sg-h3</code></th><td>Untergruppe: primärer Selektor in <code>&lt;code&gt;</code> (Klasse, Token, Attribut). Varianten-Demo: <code>.btn.--full</code> oder <code>.btn</code> — Kurzinfo</td></tr>
@@ -6792,6 +6898,6 @@
 </div>
 
 <script src="inuvet.js?v=27"></script>
-<script src="sg.js?v=5"></script>
+<script src="sg.js?v=6"></script>
 </body>
 </html>

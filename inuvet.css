@@ -1896,8 +1896,11 @@
     }
   }
 
-  /* ─── List-Collections (E.9): Indikations-Kacheln ───
-     Scope: Theme-Section + Styleguide body.list-collections (Mockup). */
+  /* ─── List-Collections (E.9): Kategorie-Kacheln ───
+     Handle = Token. --cat / --cat-light kommen aus Liquid (cat-vars).
+     Bekannte Inuvet-Handles bleiben als Fallback für Styleguide-Demos ohne Inline-Vars. */
+  .shopify-section--collections .tile.--featured.--cover[data-cat],
+  body.list-collections .tile.--featured.--cover[data-cat] { --tile-cat: var(--cat); }
   .shopify-section--collections .tile.--featured.--cover[data-cat="atemwege"],
   body.list-collections .tile.--featured.--cover[data-cat="atemwege"] { --tile-cat: var(--cat-atemwege); }
   .shopify-section--collections .tile.--featured.--cover[data-cat="bauchspeichel"],
@@ -3824,6 +3827,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     display: block;
     border-radius: 50%;
   }
+  .story-iconslider__media[data-cat] { background: var(--cat, var(--accent-bg)); }
   .story-iconslider__media[data-cat="beruhigung"]    { background: var(--cat-beruhigung); }
   .story-iconslider__media[data-cat="leber"]         { background: var(--cat-leber); }
   .story-iconslider__media[data-cat="gelenke"]       { background: var(--cat-gelenke); }
@@ -4187,7 +4191,8 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
 
   /* ─── PDP Caption (Text-Layer über Hauptbild) ───
-     Glass-Tint: --cat-*-light via data-pdp-cat am .pdp (Fallback: --bg). */
+     Glass-Tint: --cat-light via data-pdp-cat (Liquid cat-vars). Inuvet-Handles als Fallback. */
+  .pdp[data-pdp-cat] { --pdp-caption-glass: var(--cat-light, var(--bg)); }
   .pdp[data-pdp-cat="cbd"]           { --pdp-caption-glass: var(--cat-cbd-light); }
   .pdp[data-pdp-cat="bauchspeichel"] { --pdp-caption-glass: var(--cat-bauchspeichel-light); }
   .pdp[data-pdp-cat="blase"]         { --pdp-caption-glass: var(--cat-blase-light); }
@@ -4229,7 +4234,9 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   }
   .pdp__info { display: flex; flex-direction: column; }
 
-  /* ─── Kategorie-Farben via data-cat ─── */
+  /* ─── Kategorie-Farben via data-cat ───
+     Generic: --cat-light aus Liquid. Inuvet-Handles danach für Demos ohne Vars. */
+  [data-cat] { background: var(--cat-light, var(--accent-bg)); }
   [data-cat="cbd"]          { background: var(--cat-cbd-light); }
   [data-cat="bauchspeichel"]{ background: var(--cat-bauchspeichel-light); }
   [data-cat="blase"]        { background: var(--cat-blase-light); }

@@ -6,6 +6,7 @@
 
 1. Sprache: **Deutsch** (Doku, Commits, Kommentare, Antworten)
 2. Globale JS-Datei: `inuvet.js` — wird in alle Pages eingebunden (analog zu `inuvet.css`). Seitenspezifische Logik → `pages/xyz.js`. Kein Inline-Script. → Details unter „JS-Schichtung".
+2b. **Marken-Haut:** Default ist Inuvet (`:root` in `inuvet.css`). Planimol = `html[data-brand="planimol"]` + `brand-planimol.css`. Schalter nur in `styleguide.html` (Sidebar). Teilen via `?brand=planimol`. Theme später: gleiche Datei als `assets/brand-planimol.css`. Nicht das Repo `Planimol-Styleguide` weiterbauen.
 3. **Nach Rate-Limit-Abbruch:** Vorherigen Chat wiederherstellen mit `mcp__ccd_session_mgmt__list_sessions` → neuesten Session-Titel „New session" oder ähnlich suchen → `mcp__ccd_session_mgmt__search_session_transcripts` mit Stichworten aus dem letzten Task. Alternativ: `git log --oneline -5` zeigt was zuletzt committet wurde.
 
 ---
@@ -93,6 +94,7 @@ Aktuelle Mockup-Produkte (Katalog `inuvet.js`): **Calmin balance Tabletten** (Ei
 | Datei | Zweck | Darf nicht enthalten |
 |---|---|---|
 | `inuvet.css` | Design System — Tokens, Atome, Moleküle, Organismen | Styleguide-UI, Mockup-Chrome, Page-Spezifika |
+| `brand-planimol.css` | Marken-Haut: `html[data-brand="planimol"]` überschreibt Schrift, Grün, FG, Borders, Produktfarben. Kein Rhythmus, keine Komponenten. | Alles außer Tokens |
 | `sg.css` | Styleguide-eigene UI (`.sg-*` Präfix) | Echte Produkt-Komponenten |
 | `mockup-ui.css` | Dev-UI Chrome (Mockup-Bar, FAB, Mockup-Modal) | Page-Content, `inuvet.css`-Klassen wie `.btn` oder `.form-field` |
 | `mockup-ui.js` | Mockup-Chrome-JS (Alt+M / ⌥M Toggle) | Produktions-/Theme-Code |
