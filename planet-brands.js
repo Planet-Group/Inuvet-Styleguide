@@ -209,6 +209,62 @@ function initLottieAspect(root) {
 
 document.addEventListener('DOMContentLoaded', initLottieAspect);
 
+/** Hero/Kachel-Video: Ambient (stumm, Loop, Viewport) oder Klick (Ton + Controls).
+   [PORTABEL → Theme] */
+function initMediaVideo(root) {
+  const scope = root && root.querySelectorAll ? root : document;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  scope.querySelectorAll('[data-media-video]').forEach((wrap) => {
+    if (wrap.dataset.mediaVideoBound === '1') return;
+    wrap.dataset.mediaVideoBound = '1';
+
+    const video = wrap.querySelector('video');
+    if (!video) return;
+    const mode = wrap.getAttribute('data-media-video') || 'ambient';
+
+    if (mode === 'click') {
+      const playBtn = wrap.querySelector('.media-video__play');
+      const start = function() {
+        video.muted = false;
+        video.controls = true;
+        video.loop = false;
+        wrap.classList.add('--playing');
+        video.play().catch(function() {});
+      };
+      if (playBtn) playBtn.addEventListener('click', start);
+      video.addEventListener('ended', function() {
+        wrap.classList.remove('--playing');
+        video.controls = false;
+        video.currentTime = 0;
+      });
+      return;
+    }
+
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.controls = false;
+
+    if (reduce) {
+      video.removeAttribute('autoplay');
+      video.pause();
+      return;
+    }
+
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) video.play().catch(function() {});
+        else video.pause();
+      });
+    }, { threshold: 0.25 });
+    io.observe(wrap);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initMediaVideo);
+
 /* ═══════════════════════════════════════════════════════
    PDP STICKY ATC (Mobile + Desktop)
    [PORTABEL → Theme]
@@ -1689,6 +1745,7 @@ function reinitSection() {
   initMarquees();
   initScrollAnimations();
   initLottieAspect();
+  initMediaVideo();
   initArticleToc();
   initTestimonials();
   initProductMediaRollover();

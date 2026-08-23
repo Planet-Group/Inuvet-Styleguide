@@ -1227,6 +1227,46 @@
   }
   .section-type__animation lottie-player { width: 100%; display: block; }
 
+  /* ─── Section / Kachel Video (D.3 / D.4) ─── */
+  .media-video {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .media-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+  .media-video__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--base) * 3.5);
+    height: calc(var(--base) * 3.5);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--fg);
+    --play-glass: var(--bg);
+    background: color-mix(in srgb, var(--play-glass) 58%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .media-video__play:hover {
+    background: color-mix(in srgb, var(--play-glass) 78%, transparent);
+  }
+  .media-video__play .material-icons { font-size: calc(var(--base) * 1.75); }
+  .media-video.--playing .media-video__play { display: none; }
+
   /* Wenn Animation statt Bild: Content vertikal zentriert, Zeilenlänge begrenzt.
      Abstände nur via .flow (vgl. A.7) — kein flex-gap, sonst doppelt zu Headline→Body. */
   .section-type:has(.section-type__animation) .section-type__content {
@@ -1260,7 +1300,7 @@
     min-height: 0;
   }
   /* Placeholder / reines Background-Image (Styleguide): weiterhin Min-Höhe */
-  .section-type.--v1 .section-type__image:not(:has(img)) {
+  .section-type.--v1 .section-type__image:not(:has(img, video)) {
     min-height: var(--section-min-height);
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
@@ -1270,7 +1310,8 @@
     height: 100%;
     min-height: 100%;
   }
-  .section-type.--v1 .section-type__image img {
+  .section-type.--v1 .section-type__image img,
+  .section-type.--v1 .section-type__image video {
     width: 100%;
     height: auto;
     min-height: 100%;
@@ -1334,11 +1375,12 @@
     min-height: 0;
     width: 100%;
   }
-  .section-type.--v2 .section-type__image:not(:has(img)) {
+  .section-type.--v2 .section-type__image:not(:has(img, video)) {
     min-height: var(--section-min-height);
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
-  .section-type.--v2 .section-type__image img {
+  .section-type.--v2 .section-type__image img,
+  .section-type.--v2 .section-type__image video {
     width: 100%;
     height: auto;
     display: block;
@@ -1371,7 +1413,7 @@
     height: auto;
     min-height: 100%;
   }
-  .section-type.--v2.--viewport .section-type__image:not(:has(img)) {
+  .section-type.--v2.--viewport .section-type__image:not(:has(img, video)) {
     min-height: 100%;
   }
   .section-type.--v2.--viewport .section-type__image picture {
@@ -1379,7 +1421,8 @@
     width: 100%;
     height: 100%;
   }
-  .section-type.--v2.--viewport .section-type__image img {
+  .section-type.--v2.--viewport .section-type__image img,
+  .section-type.--v2.--viewport .section-type__image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1437,13 +1480,15 @@
     z-index: var(--z-default);
     overflow: hidden;
   }
-  .section-type.--v3 .section-type__image:not(:has(img)) {
+  .section-type.--v3 .section-type__image:not(:has(img, video)) {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   /* Cover gegen critical.css img/picture { max-width:100%; height:auto } */
   .section-type.--v3 .section-type__image picture,
   .section-type.--v3 .section-type__image img,
-  .section-type.--v3 .section-type__image lottie-player {
+  .section-type.--v3 .section-type__image lottie-player,
+  .section-type.--v3 .section-type__image .media-video,
+  .section-type.--v3 .section-type__image video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1454,7 +1499,8 @@
     object-fit: cover;
     object-position: center;
   }
-  .section-type.--v3 .section-type__image img {
+  .section-type.--v3 .section-type__image img,
+  .section-type.--v3 .section-type__image video {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   .section-type.--v3 .section-type__inner {
@@ -1502,12 +1548,15 @@
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v1 .section-type__image,
     .section-type.--v1 .section-type__image img,
+    .section-type.--v1 .section-type__image video,
     .section-type.--v1 .section-type__content > *,
     .section-type.--v2 .section-type__image,
     .section-type.--v2 .section-type__image img,
+    .section-type.--v2 .section-type__image video,
     .section-type.--v2 .section-type__content > *,
     .section-type.--v3 .section-type__image,
     .section-type.--v3 .section-type__image img,
+    .section-type.--v3 .section-type__image video,
     .section-type.--v3 .section-type__image lottie-player,
     .section-type.--v3 .section-type__content > * {
       animation: none;
@@ -1551,13 +1600,15 @@
     z-index: 0;
     overflow: hidden;
   }
-  .section-type.--v4 .section-type__image:not(:has(img)) {
+  .section-type.--v4 .section-type__image:not(:has(img, video)) {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   /* Cover gegen critical.css img/picture { max-width:100%; height:auto } */
   .section-type.--v4 .section-type__image picture,
   .section-type.--v4 .section-type__image img,
-  .section-type.--v4 .section-type__image lottie-player {
+  .section-type.--v4 .section-type__image lottie-player,
+  .section-type.--v4 .section-type__image .media-video,
+  .section-type.--v4 .section-type__image video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1568,7 +1619,8 @@
     object-fit: cover;
     object-position: center;
   }
-  .section-type.--v4 .section-type__image img {
+  .section-type.--v4 .section-type__image img,
+  .section-type.--v4 .section-type__image video {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
   .section-type.--v4 .section-type__content {
@@ -1632,6 +1684,7 @@
   @media (prefers-reduced-motion: reduce) {
     .section-type.--v4 .section-type__image,
     .section-type.--v4 .section-type__image img,
+    .section-type.--v4 .section-type__image video,
     .section-type.--v4 .section-type__image lottie-player,
     .section-type.--v4 .section-type__content > * { animation: none; }
   }
@@ -1785,11 +1838,18 @@
     justify-content: center;
     overflow: hidden;
   }
-  .tile.--featured > .tile__animation img {
+  .tile.--featured > .tile__animation img,
+  .tile.--featured > .tile__animation video,
+  .tile.--featured > .tile__animation .media-video {
     width: 100%;
     height: 100%;
     max-width: 100%;
     object-fit: cover; /* füllt die Media-Fläche (Desktop-Stretch + Mobil-Band) */
+  }
+  .tile.--featured > .tile__animation .media-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .tile.--featured > .tile__animation lottie-player {
     width: 100%;
@@ -5048,16 +5108,17 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     .section-type { grid-template-columns: 1fr; }
     .section-type.--viewport { height: auto; max-height: none; }
     .section-type__image { min-height: 15rem; }
-    .section-type.--v1 .section-type__image:not(:has(img)),
-    .section-type.--v2 .section-type__image:not(:has(img)) { min-height: 15rem; }
-    .section-type.--v1 .section-type__image:has(img),
-    .section-type.--v2 .section-type__image:has(img) { min-height: 0; }
+    .section-type.--v1 .section-type__image:not(:has(img, video)),
+    .section-type.--v2 .section-type__image:not(:has(img, video)) { min-height: 15rem; }
+    .section-type.--v1 .section-type__image:has(img, video),
+    .section-type.--v2 .section-type__image:has(img, video) { min-height: 0; }
     /* Mobil gestapelt: V1-Bild wieder natürliche Höhe (kein Desktop-Cover-Stretch) */
     .section-type.--v1 .section-type__image picture {
       height: auto;
       min-height: 0;
     }
-    .section-type.--v1 .section-type__image img {
+    .section-type.--v1 .section-type__image img,
+    .section-type.--v1 .section-type__image video {
       width: 100%;
       height: auto;
       min-height: 0;
@@ -5075,12 +5136,14 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       min-height: 0;
     }
     .section-type.--v2.--viewport .section-type__image,
-    .section-type.--v2.--viewport .section-type__image img {
+    .section-type.--v2.--viewport .section-type__image img,
+    .section-type.--v2.--viewport .section-type__image video {
       height: auto;
       min-height: 0;
       object-fit: unset;
     }
-    .section-type.--v2.--viewport .section-type__image img {
+    .section-type.--v2.--viewport .section-type__image img,
+    .section-type.--v2.--viewport .section-type__image video {
       width: 100%;
       height: auto;
     }

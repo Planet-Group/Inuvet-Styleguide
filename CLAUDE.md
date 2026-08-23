@@ -85,7 +85,7 @@ In Cart/Checkout: Varianten-Zeile — **immer `.cart-item__variant`** (xs, muted
 
 Aktuelle Mockup-Produkte (Katalog `planet-brands.js`): **Calmin balance Tabletten** (Einzelprodukt), **Hepax forte** (Familie: Pulver + Tabletten), **Inzym Pulver** (Einzelprodukt).
 
-**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **cover** (`.--cover`, `--tile-fg`). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Live → Collection `https://inuvet-dev.myshopify.com/collections/all`, List-Collections `https://inuvet-dev.myshopify.com/collections`.
+**Collection-Sonderkacheln:** Beliebig viele `.tile.--featured`. Layouts: **ohne Media** · **stack + Bild** · **stack + Lottie** · **stack + Video** (Ambient/Klick) · **cover** (`.--cover`, `--tile-fg`, nur Bild). Auch auf List-Collections mischbar. Shopify: `layout` + `media_type` / `text_color`. Spec → E.3 + E.9 + D.4 · Live → Collection `https://inuvet-dev.myshopify.com/collections/all`, List-Collections `https://inuvet-dev.myshopify.com/collections`.
 
 ---
 
@@ -411,8 +411,8 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|---|
 | D.1 | Navigation | `.site-nav .announcement-bar .nav-logo` | Frosted Glass · `body.--nav-scrolled` · Logo-Setting `body[data-nav-logo="campus"]` · Aktiv-Zustand via `aria-current="page"` · Zähler-Badge `[data-nav-open-count]` · Utility: `.nav-item.--end` Land + Account-Icon in `.nav-right` |
 | D.2 | Footer | `.site-footer` | `.footer-bar__top` („Nach oben“) · `.footer-payment` |
-| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` · **V1:** Bild/Lottie · **V2:** Bild oder Lottie + Content-Box · **V3:** Vollbild + Box (Bild oder Lottie, Cover) · **V4:** Text auf Medium (Bild oder Lottie, Cover) · `--content-top|--content-center|--content-bottom` · V3/V4 `--mt`/`--mb` (`margin_top` Default an) · Badges nur V1/V2 · Shopify: `Hero V1`–`V4`, Snippet `section-type-media` |
-| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Lottie), `--product` |
+| D.3 | Hero-Sections | `.section-type` | `--v1 --v2 --v3 --v4 --reverse --viewport` · **V1–V4:** Bild / Lottie / Video · Video: Ambient (stumm, Loop) oder Klick (Poster + Ton) · `.media-video` · V3/V4 Cover · `--content-top|--content-center|--content-bottom` · V3/V4 `--mt`/`--mb` (`margin_top` Default an) · Badges nur V1/V2 · Shopify: `Hero V1`–`V4`, Snippets `section-type-media` + `media-video` |
+| D.4 | Kachel-Raster | `.tile-grid` | `--cols-2/3/4` · Kacheln: `--featured` (grün, optional Bild/Lottie/Video), `--product` |
 | D.5 | Testimonials | `.testimonial-grid .testimonial-slider` | — |
 | D.6 | Marquee | `.marquee` | — |
 | D.7 | Newsletter | `.newsletter` | — |

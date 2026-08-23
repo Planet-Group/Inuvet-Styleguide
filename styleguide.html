@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link id="font-planimol" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" disabled>
-  <link rel="stylesheet" href="planet-brands.css?v=203">
+  <link rel="stylesheet" href="planet-brands.css?v=204">
   <link rel="stylesheet" href="brand-planimol.css?v=2">
   <link rel="stylesheet" href="sg.css?v=51">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -3616,7 +3616,7 @@
         </div>
         <div class="rule">
           <h4>Varianten</h4>
-          <p><code>--v1</code> transparent · Gap · Default-Tag H1 · <code>--v2</code> Content-Box mit BG · Default-Tag H2 · kein Gap · Bild oder Lottie · <code>--v3</code> Vollbild + Box-Overlay (Bild oder Lottie) · <code>--v4</code> Text auf Medium (Bild oder Lottie, Cover). Größe und Abstand immer vom Tag (A.7).</p>
+          <p><code>--v1</code> transparent · Gap · Default-Tag H1 · <code>--v2</code> Content-Box mit BG · Default-Tag H2 · kein Gap · Bild, Lottie oder Video · <code>--v3</code> Vollbild + Box-Overlay · <code>--v4</code> Text auf Medium (Cover). Größe und Abstand immer vom Tag (A.7).</p>
         </div>
         <div class="rule">
           <h4>Inhalts-Abstände</h4>
@@ -3631,6 +3631,9 @@
         <tr><th>Abstand oben</th><td>Neue Section immer an · V1/V2 <code>pad_top</code> · V3/V4 <code>margin_top</code> · Spec → <a href="#section-stack">A.7 Section-Stack</a></td></tr>
         <tr><th><code>.section-type__content.flow</code></th><td>Content-Box · Headline → <code>.section-type__bottom.flow</code></td></tr>
         <tr><th><code>.section-type__bottom.flow</code></th><td>Body + CTA · Body → Button via <code>* + .btn</code> / <code>* + .btn-row</code> (<a href="#A7">A.7</a>) · Shop: immer <code>.btn-row</code> (auch bei einem Button)</td></tr>
+        <tr><th>Medien-Typ</th><td><code>lottie</code> · <code>image</code> · <code>video</code> · Shopify: Toggle + Snippet <code>section-type-media</code> / <code>media-video</code></td></tr>
+        <tr><th>Video Ambient</th><td><code>data-media-video="ambient"</code> · stumm · Loop · Autoplay · Pause außerhalb Viewport · bei <code>prefers-reduced-motion</code> nur Poster</td></tr>
+        <tr><th>Video Klick</th><td><code>data-media-video="click"</code> · Poster + <code>.media-video__play</code> · nach Klick Ton + Controls · Datei aus Shopify Files, kein YouTube</td></tr>
       </table>
 
       <h3 class="sg-h3 --top" id="hero-v1">Variante 1 — Bild + Text</h3>
@@ -3709,13 +3712,13 @@
       <p class="sg-caption">Placeholder / Editor-Leerzustand — nicht das Produktiv-Pattern.</p>
 
       <h3 class="sg-h3 --top" id="hero-v1-labels">Media-Labels auf Hero-Medien (V1)</h3>
-      <p>Optionale Badges <strong>auf Bild oder Lottie</strong> — gleiche Optik wie Produkt- und Sonderkachel-Labels (<code>.floating-meta</code> + <code>.badge</code> in <a href="#B2">B.2</a> / <a href="#C1">C.1</a>). Mehrere Labels in einer Zeile, Position oben links. Positionierung via <code>position: relative</code> an <code>.section-type__image</code> bzw. <code>.section-type__animation</code>.</p>
+      <p>Optionale Badges <strong>auf Bild, Lottie oder Video</strong> — gleiche Optik wie Produkt- und Sonderkachel-Labels (<code>.floating-meta</code> + <code>.badge</code> in <a href="#B2">B.2</a> / <a href="#C1">C.1</a>). Mehrere Labels in einer Zeile, Position oben links. Positionierung via <code>position: relative</code> an <code>.section-type__image</code> bzw. <code>.section-type__animation</code>.</p>
       <table class="spec-table">
         <tr><th>Markup Bild</th><td><code>.section-type__image</code> → <code>.floating-meta</code> vor <code>&lt;img&gt;</code> / <code>.media-credit</code>-Label · Badge-Typen → <a href="#tile-featured-labels">D.4 Media-Labels</a></td></tr>
         <tr><th>Markup Lottie</th><td><code>.section-type__animation</code> → <code>.floating-meta</code> vor <code>&lt;lottie-player&gt;</code></td></tr>
         <tr><th>Mehrere Labels</th><td>Alle in <strong>einer</strong> <code>.floating-meta</code> · Reihenfolge = Anzeigereihenfolge (links→rechts)</td></tr>
         <tr><th>Shopify</th><td>Blocks <code>badge</code> an Section Hero V1 (max. 4) · Select <code>style</code> = <code>category</code> | <code>dark</code> | <code>sale</code> | <code>plain</code> · bei <code>category</code>: Select <code>category</code></td></tr>
-        <tr><th><code>.media-credit</code></th><td>KI-/Quellen-Hinweis, rechts vertikal — nur auf Bild · kombinierbar mit Badges</td></tr>
+        <tr><th><code>.media-credit</code></th><td>KI-/Quellen-Hinweis, rechts vertikal — auf Bild oder Video · kombinierbar mit Badges</td></tr>
       </table>
       <div class="sg-demo --flush">
         <div class="section-type --v1">
@@ -3792,16 +3795,51 @@
       </div>
       <p class="sg-caption">Mit <code>--reverse</code> · Text links, Animation rechts.</p>
 
+      <h3 class="sg-h3 --top" id="hero-v1-video">Variante 1 — Video + Text</h3>
+      <p>Gleicher Bild-Slot (<code>.section-type__image</code>) · Video wie Foto (Cover, Dateiproportion) · zwei Modi. Shopify: <code>media_type: video</code> + Picker (Files) + <code>video_mode</code>.</p>
+      <table class="spec-table">
+        <tr><th>Markup</th><td><code>.media-video</code> in <code>.section-type__image</code> · <code>data-media-video="ambient|click"</code> · JS <code>initMediaVideo</code></td></tr>
+        <tr><th>Ambient</th><td><code>muted loop autoplay playsinline</code> · Pause außerhalb Viewport · Reduced-Motion: Poster</td></tr>
+        <tr><th>Klick</th><td>Poster + <code>.media-video__play</code> (Glass-Kreis, <code>play_arrow</code>) · Klick → Ton + Controls · Ende → Poster + Play</td></tr>
+        <tr><th>Poster</th><td>Optionales Bild-Setting, sonst Shopify-Vorschaubild</td></tr>
+        <tr><th>Media-Labels</th><td>Wie Bild — <code>.floating-meta</code> vor dem Video</td></tr>
+        <tr><th>Nicht</th><td>YouTube/Vimeo · Benefit/Praxis-Leiste · Cover-Kachel</td></tr>
+      </table>
+      <div class="sg-demo --flush">
+        <div class="section-type --v1">
+          <div class="section-type__image">
+            <div class="media-video" data-media-video="click">
+              <video poster="assets/images/Hero_Mood_01.jpg" playsinline preload="metadata" aria-label="Hund in entspannter Pose">
+                <source src="assets/images/Calmin_Packshot_02.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="media-video__play" aria-label="Video abspielen">
+                <span class="material-icons" aria-hidden="true">play_arrow</span>
+              </button>
+            </div>
+          </div>
+          <div class="section-type__content flow">
+            <h1 class="section-type__headline">Video, per Klick</h1>
+            <div class="section-type__bottom flow">
+              <p class="section-type__body">Poster bleibt, bis jemand play tippt — dann Ton und Controls. Ambient (stumm, Loop) nutzt denselben Slot ohne Button.</p>
+              <div class="btn-row">
+                <a class="btn --primary">Call to Action</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Klick-Modus · <code>.media-video__play</code> · Datei aus Shop-Files, nicht aus Theme-Assets.</p>
+
       <h3 class="sg-h3 --top" id="hero-v2">Variante 2 — Bild + Content-Box</h3>
-      <p>Content-Box mit Hintergrund · H2 · kein Gap · Padding <code>var(--module)</code> in der Box. Medien-Typ wie V1 (Lottie | Bild) · Lottie mit nativer JSON-Proportion, Badges auf beiden Medien.</p>
+      <p>Content-Box mit Hintergrund · H2 · kein Gap · Padding <code>var(--module)</code> in der Box. Medien-Typ wie V1 (Lottie | Bild | Video) · Lottie mit nativer JSON-Proportion, Badges auf allen Medien.</p>
       <table class="spec-table">
         <tr><th>Headline</th><td>H2-Stufe · <code>--text-l</code> · Shopify: Tag H1|H2 einstellbar</td></tr>
         <tr><th>Content-BG</th><td><code>--green-light</code> (CSS Default)</td></tr>
         <tr><th>Gap</th><td><code>0</code> — Medium und Box nahtlos</td></tr>
         <tr><th>Padding</th><td>Content-Box: <code>var(--module)</code> allseitig</td></tr>
-        <tr><th>Medien</th><td>Bild: <code>&lt;img&gt;</code> · ohne Viewport: Höhe aus Dateiproportion steuert die Zeile · grüne Box zieht mit · Lottie: <code>.section-type__animation</code> · native JSON-Ratio · Shopify: Toggle Medien-Typ (Default Bild)</td></tr>
+        <tr><th>Medien</th><td>Bild: <code>&lt;img&gt;</code> · Video: <code>.media-video</code> im Bild-Slot · ohne Viewport: Höhe aus Dateiproportion steuert die Zeile · grüne Box zieht mit · Lottie: <code>.section-type__animation</code> · native JSON-Ratio · Shopify: Toggle Medien-Typ (Default Bild)</td></tr>
         <tr><th>Mobile-Bild</th><td>Optional · <code>&lt;picture&gt;</code> · Breakpoint 767px · nur bei Medien-Typ Bild</td></tr>
-        <tr><th>Media-Labels</th><td>Wie V1 → <a href="#hero-v1-labels">Media-Labels</a> (Bild oder Lottie)</td></tr>
+        <tr><th>Media-Labels</th><td>Wie V1 → <a href="#hero-v1-labels">Media-Labels</a> (Bild, Lottie oder Video)</td></tr>
         <tr><th><code>--viewport</code></th><td>Section = Viewport-Höhe · Bild <code>object-fit: cover</code> füllt die Medien-Spalte · Lottie füllt die Spalte · Mobil: Höhe wieder auto</td></tr>
         <tr><th>Shopify</th><td>Section <code>Hero V2</code> · Snippet <code>section-type-media</code> · Default Medien-Typ Bild</td></tr>
       </table>
@@ -3885,7 +3923,7 @@
       <p class="sg-caption">Medien-Typ Lottie · Asset <code>Hero_Animation_01.json</code> · Badges auf der Animation.</p>
 
       <h3 class="sg-h3 --top" id="hero-v3">Variante 3 — Vollbild + Content-Box</h3>
-      <p>Bild oder Lottie edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2. Medien-Typ wie V1 (Lottie | Bild) · kein Stack-Padding · optional Außen-Margin <code>--mt</code>/<code>--mb</code>.</p>
+      <p>Bild, Lottie oder Video edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2. Medien-Typ wie V1 · kein Stack-Padding · optional Außen-Margin <code>--mt</code>/<code>--mb</code>.</p>
       <table class="spec-table">
         <tr><th>Medien</th><td>Bild: <code>position: absolute; inset: 0</code> · <code>object-fit: cover</code> · Lottie: gleicher Slot <code>.section-type__image</code> · <code>preserveAspectRatio="xMidYMid slice"</code> (Cover) · Shopify: Toggle Medien-Typ</td></tr>
         <tr><th>Box</th><td><code>.section-type__inner</code> + <code>.section-type__content</code> · rechts (links mit <code>--reverse</code>) · vertikal zentriert · BG <code>--green-light</code> · optional <code>--box-soft</code> / <code>--box-glass</code> (Transparenz)</td></tr>
@@ -3981,7 +4019,7 @@
       <p class="sg-caption">Medien-Typ Lottie · Asset <code>inuvet_animation_labo_2zu1.json</code> · Cover <code>xMidYMid slice</code>.</p>
 
       <h3 class="sg-h3 --top" id="hero-v4">Variante 4 — Text auf Bild</h3>
-      <p>Vollflächiges Medium · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>. Bild oder Lottie (Cover) · keine Badges · kein Stack-Padding · optional <code>--mt</code>/<code>--mb</code>.</p>
+      <p>Vollflächiges Medium · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>. Bild, Lottie oder Video (Cover) · keine Badges · kein Stack-Padding · optional <code>--mt</code>/<code>--mb</code>.</p>
       <table class="spec-table">
         <tr><th>Headline</th><td>H1-Stufe · weiß · <code>text-shadow</code> · Shopify: Tag H1|H2 einstellbar</td></tr>
         <tr><th>Overlay</th><td><code>rgba(0,0,0,0.22)</code> via <code>::before</code></td></tr>
@@ -4089,7 +4127,7 @@
         <tr><th>Spalten</th><td><code>--cols-2</code> · <code>--cols-3</code> · <code>--cols-4</code></td></tr>
         <tr><th>Kachel A</th><td><code>.tile__icon</code> + <code>.flow</code> mit <code>.tile__headline</code> + <code>.tile__body</code> (A.7)</td></tr>
         <tr><th>Kachel B</th><td><code>.tile__image</code> · <code>.--square</code> (1:1) oder <code>.--landscape</code> (4:3) + Text</td></tr>
-        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · vier Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>cover</strong> (<code>.--cover</code>) · Desktop: <code>min-height: 100%</code> (Row-Stretch), Bild <code>object-fit: cover</code> · Mobil: Stack-Bildband <code>4/3</code> vollbreit · Cover <code>3/4</code> Hochformat · optionale Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Details und Demos unten</td></tr>
+        <tr><th>Kachel C</th><td><code>.tile.--featured</code> · Layouts: <strong>ohne Media</strong> · <strong>stack + Bild</strong> · <strong>stack + Lottie</strong> · <strong>stack + Video</strong> · <strong>cover</strong> (<code>.--cover</code>, nur Bild) · Desktop: <code>min-height: 100%</code> (Row-Stretch), Bild <code>object-fit: cover</code> · Mobil: Stack-Bildband <code>4/3</code> vollbreit · Cover <code>3/4</code> Hochformat · optionale Media-Labels → <a href="#tile-featured-labels">Media-Labels</a> · Details und Demos unten</td></tr>
         <tr><th>Responsive</th><td>4 → 3 → 2 → 1/2 · 3 → 2 → 1 · 2 → 1 — siehe <a href="#A8">A.8</a> · Content-Kacheln Mobil 2-spaltig, optional <code>.--mobile-stack</code></td></tr>
       </table>
 
@@ -4273,6 +4311,49 @@
         </div>
       </div>
       <p class="sg-caption"><code>.tile.--featured</code> · Lottie in <code>.tile__animation</code> · Text in <code>.tile__bottom.flow</code> (A.7) · Shopify <code>media_type: lottie</code> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a>.</p>
+
+      <h3 class="sg-h3 --top" id="tile-featured-video">Sonderkachel mit Video (Variante C · stack)</h3>
+      <p>Gleicher Media-Slot wie Bild/Lottie · Ambient oder Klick · nur Layout <code>stack</code>. Cover bleibt Bild.</p>
+      <div class="sg-demo --white">
+        <div class="tile-grid --cols-3">
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="leber">Leber</div></div>
+              <div class="tile__image"><img src="assets/images/Hepax_Packshot_01.jpeg" alt="Hepax forte"></div>
+            </div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Hepax forte</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,6</div></div>
+            <div class="tile__description">Unterstützt die Leberfunktion.</div></div>
+            <div class="tile__price"><div class="price-stack"><span>ab 34,90 €</span></div></div>
+          </div>
+          <div class="tile --featured">
+            <div class="tile__animation">
+              <div class="media-video" data-media-video="click">
+                <video poster="assets/images/Hero_Mood_01.jpg" playsinline preload="metadata">
+                  <source src="assets/images/Calmin_Packshot_02.mp4" type="video/mp4">
+                </video>
+                <button type="button" class="media-video__play" aria-label="Video abspielen">
+                  <span class="material-icons" aria-hidden="true">play_arrow</span>
+                </button>
+              </div>
+            </div>
+            <div class="tile__bottom flow">
+              <h3 class="tile__headline">So wirkt die Formel</h3>
+              <p class="tile__body">Kurzer Clip in der Sonderkachel — Ambient als Loop oder per Klick mit Ton.</p>
+              <a href="https://inuvet-dev.myshopify.com/collections/all" class="btn --primary">Mehr erfahren</a>
+            </div>
+          </div>
+          <div class="tile --product">
+            <div class="tile__image-wrap">
+              <div class="floating-meta"><div class="badge" data-cat="beruhigung">Beruhigung</div></div>
+              <div class="tile__image"><img src="assets/images/Calmin_Packshot_01.jpeg" alt="Calmin balance Tabletten"></div>
+            </div>
+            <div class="flow"><div class="tile__headline-row"><h3 class="tile__headline">Calmin balance Tabletten</h3><div class="rating"><span class="material-icons" aria-hidden="true">star</span> 4,8</div></div>
+            <div class="tile__description">Für Entspannung und innere Balance.</div></div>
+            <div class="tile__price"><div class="price-stack"><span>ab 39,90 €</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption"><code>.tile.--featured</code> · Video in <code>.tile__animation</code> · Shopify <code>media_type: video</code> · Cover bleibt Bild.</p>
 
       <h3 class="sg-h3 --top" id="tile-featured-cover">Sonderkachel Cover (Variante C · <code>.--cover</code>)</h3>
       <div class="sg-demo --white">
@@ -6073,7 +6154,7 @@
       </div>
       <table class="spec-table">
         <tr><th>Grid</th><td><code>{% if section.settings.show_filters %}</code> → <code>.tile-grid.--cols-3</code> · sonst <code>.tile-grid.--cols-4</code> · <code>{% for product in collection.products %}</code> → <code>.tile.--product</code> (Snippet <code>card-product</code>) · Badges: Kategorie + optional „Produktfamilie"; Status in <code>.collection-main</code> ausgeblendet</td></tr>
-        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> → Media in <code>.tile__animation</code> (nie Bild+Lottie) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · <strong>Media-Labels (optional):</strong> Sub-Blocks Typ <code>label</code> je Block: <code>text</code> (Pflicht) · Select <code>style</code> = <code>category</code> (Default, rendert <code>data-cat</code>) | <code>dark</code> (<code>.--dark</code>) | <code>sale</code> (<code>.--sale</code>) | <code>plain</code> (nur <code>.badge</code>) · bei <code>style: category</code>: Select <code>category</code> (15 Indikationen) · alle Labels einer Kachel in eine <code>.floating-meta</code> (Reihenfolge = Block-Reihenfolge) · Spec → <a href="#tile-featured-labels">D.4 Media-Labels</a> · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a></td></tr>
+        <tr><th>Sonderkacheln</th><td><strong>Beliebig viele</strong> Section-Blocks Typ <code>featured_tile</code> (→ <a href="#D4">D.4</a> / <code>.tile.--featured</code>) · Settings: <code>heading</code>, <code>body</code>, <code>cta_label</code>, <code>cta_link</code>, <code>position</code> · Select <code>layout</code> = <code>stack</code> (Default) | <code>cover</code> · <strong>stack:</strong> Select <code>media_type</code> = <code>none</code> | <code>image</code> | <code>lottie</code> | <code>video</code> → Media in <code>.tile__animation</code> (ein Typ) · <strong>cover:</strong> Klasse <code>.--cover</code>, Image-Picker <code>image</code> Pflicht → <code>.tile__cover</code>, Color <code>text_color</code> (Default weiß) → Inline-Style <code>--tile-fg</code>, kein Lottie · <strong>Media-Labels (optional):</strong> Sub-Blocks Typ <code>label</code> je Block: <code>text</code> (Pflicht) · Select <code>style</code> = <code>category</code> (Default, rendert <code>data-cat</code>) | <code>dark</code> (<code>.--dark</code>) | <code>sale</code> (<code>.--sale</code>) | <code>plain</code> (nur <code>.badge</code>) · bei <code>style: category</code>: Select <code>category</code> (15 Indikationen) · alle Labels einer Kachel in eine <code>.floating-meta</code> (Reihenfolge = Block-Reihenfolge) · Spec → <a href="#tile-featured-labels">D.4 Media-Labels</a> · Demos: <a href="#tile-featured">ohne Media</a> · <a href="#tile-featured-image">Bild</a> · <a href="#tile-featured-lottie">Lottie</a> · <a href="#tile-featured-cover">Cover</a> · Live → <a href="https://inuvet-dev.myshopify.com/collections/all">Collection.html</a></td></tr>
         <tr><th>Filter (Sidebar)</th><td><code>collection.filters</code> → <code>.filter-group</code> je <code>filter</code> · Pflicht-Facet <strong>Tierarten</strong>: Werte „Hund &amp; Katze“ / „Kleine Heimtiere“ (Shopify: Product/Variant Metafield oder Tag, z.&nbsp;B. aus <code>custom.geeignet_fuer</code> / PDP Tierart-Spalte) · Checkboxen aus <code>filter.values</code> · Anzahl via <code>value.count</code> → <code>.filter-count</code></td></tr>
         <tr><th>Aktive Filter</th><td><code>filter.active_values</code> → <code>.filter-active-bar</code> in <code>.collection-main</code> (unter Toolbar) · <code>.filter-tag</code> · Remove = <code>value.url_to_remove</code> · Reset = <code>collection.url</code> · leer ausblenden</td></tr>
         <tr><th>Toolbar</th><td>Section-Setting <code>show_toolbar</code> (Checkbox, Label z.&nbsp;B. „Toolbar anzeigen“, default <code>true</code>) · bei an: Anzahl aus <code>collection.products_count</code> · Sortierung: <code>&lt;select&gt;</code> über <code>collection.sort_options</code>, Submit auf <code>?sort_by=</code> · bei aus: <code>.collection-toolbar</code> nicht rendern / <code>hidden</code> · <strong>unabhängig</strong> von <code>show_filters</code></td></tr>
@@ -6897,7 +6978,7 @@
   </div>
 </div>
 
-<script src="planet-brands.js?v=27"></script>
+<script src="planet-brands.js?v=28"></script>
 <script src="sg.js?v=6"></script>
 </body>
 </html>
