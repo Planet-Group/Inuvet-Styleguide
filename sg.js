@@ -476,8 +476,8 @@ function toggleAnnScrollDemo(btn) {
 
 /* ─── Marken-Haut (Inuvet | Planimol) ─── */
 var SG_LOGOS = {
-  inuvet: 'assets/brands/inuvet/logo.svg',
-  planimol: 'assets/brands/planimol/logo.svg'
+  inuvet: 'assets/brands/inuvet/inuvet-logo.svg',
+  planimol: 'assets/brands/planimol/planimol-logo.svg'
 };
 
 function currentSgBrand() {

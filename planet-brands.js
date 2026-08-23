@@ -187,6 +187,15 @@ function initLottieAspect(root) {
   scope.querySelectorAll('lottie-player').forEach((player) => {
     if (player.dataset.aspectBound === '1') return;
     player.dataset.aspectBound = '1';
+    const fallback = player.getAttribute('data-fallback');
+    if (fallback) {
+      player.addEventListener('error', () => {
+        if (player.dataset.fallbackUsed === '1') return;
+        player.dataset.fallbackUsed = '1';
+        if (typeof player.load === 'function') player.load(fallback);
+        else player.setAttribute('src', fallback);
+      });
+    }
     const apply = () => {
       try {
         const anim = typeof player.getLottie === 'function' ? player.getLottie() : null;
