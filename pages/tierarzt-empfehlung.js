@@ -1216,7 +1216,7 @@ function submitVetRequest() {
   showToast('Bitte wähle eine teilnehmende Praxis aus.', 'error');
 }
 
-/* ── E-Mail-Overlay ──────────────────────────────────────────────── */
+/* ── Nachrichten-Overlay (E-Mail + Salesforce-Task) ──────────────── */
 let emailOverlayData = {};
 
 function openEmailsOverlay(keys) {
@@ -1224,16 +1224,17 @@ function openEmailsOverlay(keys) {
   const count = keys.length;
   document.getElementById('emailPanelCounter').textContent = `${count} Aktionen ausgelöst`;
 
-  // Body: alle E-Mails untereinander
+  // Body: alle Nachrichten untereinander
   document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
     const d = emailOverlayData[key];
     if (!d) return '';
+    const h = window.mockupNotifHeader(d);
     return `
       <div class="mockup-email-inline${d.internal ? ' --internal' : ''}">
         <div class="mockup-email-inline__header">
           <span class="mockup-email__tag${d.internal ? ' --internal' : ''}">${d.tag}</span>
-          <span class="mockup-email-inline__to">${d.internal ? '' : 'an: '}${d.recipient}</span>
-          <span class="mockup-email-inline__subject">${d.internal ? '' : 'Betreff: '}${d.subject}</span>
+          <span class="mockup-email-inline__to">${h.to}</span>
+          <span class="mockup-email-inline__subject">${h.subject}</span>
         </div>
         <div class="mockup-email-inline__body">${d.body}</div>
       </div>`;
@@ -1347,17 +1348,17 @@ function renderSuccessStep() {
       <p class="mockup-email-panel__note">@Birka (Marketing): Texte zu Prozess & persönlichem Kontakt final abstimmen (Tonalität, Name/Telefon/Mail der Ansprechpartner*in, ggf. Hinweis auf Provision/Patientenbindung).</p>`
   };
 
-  // Interner Queue-Eintrag — keine E-Mail, sondern Sichtbarkeit für den Innendienst
+  // Salesforce-Task für den Kundeninhaber — kein interner E-Mail-Versand
   emailOverlayData.internal = {
-    tag: 'Intern', recipient: 'Anfragen-Übersicht · Innendienst',
+    tag: 'Task', assignee: 'Kundeninhaber',
     subject: 'Neue offene Anfrage', internal: true,
     body: `
-      <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · gerade eingegangen.</p>
+      <p>Neue Freigabe-Anfrage — Salesforce-Task für den Kundeninhaber. Status: <strong>offen</strong> · gerade eingegangen.</p>
       <p><strong>Tierbesitzer*in:</strong> ${requesterName || 'Max Mustermann'} · kunde@email.com</p>
       <p><strong>Praxis:</strong> ${vetName}</p>
       <p><strong>Angefragte Produkte:</strong></p>
       ${requestedDetailed}
-      <p class="mockup-email-panel__note">Kein Mail-Versand — erscheint als Eintrag in der Innendienst-Liste. Mit diesen Angaben kann der Innendienst die Anfrage konkret zuordnen und bei der Praxis nachhaken, falls sie zu lange offen bleibt.</p>`
+      <p class="mockup-email-panel__note">Kein Mail-Versand intern — Task wird dem Kundeninhaber des Praxis-Accounts in Salesforce zugewiesen. Mit der Bearbeitung durch die Praxis (B) wird der Task auf erledigt gesetzt.</p>`
   };
 
   const drawer = document.getElementById('cartDrawer');

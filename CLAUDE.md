@@ -461,6 +461,7 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 | `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
 | `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
 | `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
+| `pages/Tierarzt-Empfehlung-Nicht-Freigegeben.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-nicht-freigegeben.js` | Vet-Portal, Historie abgelehnter Empfehlungen (Jetzt freigeben) |
 | `pages/Tierarzt-Empfehlung-Programm.html` | — | `tierarzt-empfehlung-anfrage-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |

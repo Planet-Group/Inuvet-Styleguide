@@ -4,13 +4,17 @@
    freigeben. Anfragen laufen über Offene Anfragen — nicht über diese Seite.
    ════════════════════════════════════════════ */
 
-const CALMIN_1 = '../assets/images/Calmin_Packshot_01.jpeg';
-const CALMIN_2 = '../assets/images/Calmin_Packshot_02.png';
-const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
-const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
+const CALMIN_1     = '../assets/images/Calmin_Packshot_01.jpeg';
+const CALMIN_2     = '../assets/images/Calmin_Packshot_02.png';
+const HEPAX_1      = '../assets/images/Hepax_Packshot_01.jpeg';
+const HEPAX_2      = '../assets/images/Hepax_Packshot_02.png';
+const ENTEROGAST_1 = '../assets/images/EnteroGast_Packshot_01.jpg';
+const CORTISAN_1   = '../assets/images/Cortisan_Packshot_01.jpg';
+const DERMIN_1     = '../assets/images/Dermin_Packshot_01.jpg';
+const DIABEX_1     = '../assets/images/Diabex_Packshot_01.jpg';
 
-/* Katalog — alle Darreichungsformen (gespiegelt aus tierarzt-empfehlung.js PRODUCTS).
-   Nur Calmin- und Hepax-forte-Packshots existieren (Dateipräfix Hepax_); Inzym → Platzhalter (img:null).
+/* Katalog — Darreichungsformen mit Packshot.
+   Hover-Zweitbild nur bei Calmin/Hepax.
    commission = Provision pro tatsächlicher Bestellung. */
 const CATALOG = [
   { id: 1, cartName: 'Calmin balance Tabletten', img: CALMIN_1, imgHover: CALMIN_2,
@@ -33,10 +37,42 @@ const CATALOG = [
       { label: '75 g',  price: '39,90 €', commission: 4.80 },
       { label: '175 g', price: '84,90 €', commission: 9.90 },
     ] },
-  { id: 5, cartName: 'Inzym Pulver', img: null, imgHover: null,
+  { id: 6, cartName: 'EnteroGast akut Tabletten', img: ENTEROGAST_1, imgHover: null,
     variants: [
-      { label: '50 g',  price: '24,90 €', commission: 2.80 },
-      { label: '100 g', price: '44,90 €', commission: 4.90 },
+      { label: '6 Stück',  price: '7,60 €',  commission: 0.90 },
+      { label: '21 Stück', price: '16,75 €', commission: 1.90 },
+    ] },
+  { id: 7, cartName: 'EnteroGast akut Pulver', img: ENTEROGAST_1, imgHover: null,
+    variants: [
+      { label: '60 g', price: '23,30 €', commission: 2.60 },
+    ] },
+  { id: 8, cartName: 'EnteroGast akut Pulver+1', img: ENTEROGAST_1, imgHover: null,
+    variants: [
+      { label: '25 g', price: '13,10 €', commission: 1.50 },
+    ] },
+  { id: 9, cartName: 'EnteroGast akut Sachets', img: ENTEROGAST_1, imgHover: null,
+    variants: [
+      { label: '80 Sachets', price: '92,50 €', commission: 10.50 },
+    ] },
+  { id: 10, cartName: 'Cortisan Öl-Komplex', img: CORTISAN_1, imgHover: null,
+    variants: [
+      { label: '30 ml Öl-Komplex',  price: '17,80 €', commission: 2.00 },
+      { label: '100 ml Öl-Komplex', price: '41,35 €', commission: 4.70 },
+      { label: '300 ml Öl-Komplex', price: '63,45 €', commission: 7.20 },
+    ] },
+  { id: 11, cartName: 'Dermin Pflege-Emulsion', img: DERMIN_1, imgHover: null,
+    variants: [
+      { label: '10 ml', price: '14,15 €', commission: 1.60 },
+    ] },
+  { id: 12, cartName: 'Diabex Tabletten', img: DIABEX_1, imgHover: null,
+    variants: [
+      { label: '60 Stück',  price: '23,05 €', commission: 2.60 },
+      { label: '220 Stück', price: '50,55 €', commission: 5.70 },
+    ] },
+  { id: 13, cartName: 'Diabex Pulver', img: DIABEX_1, imgHover: null,
+    variants: [
+      { label: '60 g',  price: '20,95 €', commission: 2.40 },
+      { label: '210 g', price: '42,30 €', commission: 4.80 },
     ] },
 ];
 
@@ -440,7 +476,7 @@ function updateCounter() {
   updateBarButtons();
 }
 
-/* ── E-Mail-Overlay ── */
+/* ── Nachrichten-Overlay (E-Mail + Salesforce-Task) ── */
 let emailOverlayData = {};
 
 function openEmailsOverlay(keys) {
@@ -449,12 +485,13 @@ function openEmailsOverlay(keys) {
   document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
     const d = emailOverlayData[key];
     if (!d) return '';
+    const h = window.mockupNotifHeader(d);
     return `
       <div class="mockup-email-inline${d.internal ? ' --internal' : ''}">
         <div class="mockup-email-inline__header">
           <span class="mockup-email__tag${d.internal ? ' --internal' : ''}">${d.tag}</span>
-          <span class="mockup-email-inline__to">an: ${d.recipient}</span>
-          <span class="mockup-email-inline__subject">Betreff: ${d.subject}</span>
+          <span class="mockup-email-inline__to">${h.to}</span>
+          <span class="mockup-email-inline__subject">${h.subject}</span>
         </div>
         <div class="mockup-email-inline__body">${d.body}</div>
       </div>`;
@@ -522,8 +559,8 @@ function submitApproval() {
         <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>`,
     },
     internal: {
-      tag: 'Intern',
-      recipient: 'team@inuvet.com',
+      tag: 'Task',
+      assignee: 'Kundeninhaber',
       subject: `Direkt-Empfehlung bearbeitet: ${custEmail}`,
       internal: true,
       body: `
@@ -531,6 +568,7 @@ function submitApproval() {
         <ul>${internalLines}</ul>
         ${noteBlockInternal}
         <p>${approvedProducts.length} Produkt${approvedProducts.length !== 1 ? 'e' : ''} freigegeben.</p>
+        <p class="mockup-email-panel__note">Salesforce-Task für den Kundeninhaber dieses Praxis-Accounts. Kein E-Mail-Versand intern.</p>
         <p class="mockup-email-panel__note">Direkt-Empfehlung: E-Mail-Weitergabe + werblicher Charakter wurden vom Tierarzt bestätigt.</p>
         <p class="mockup-email-panel__note">${custName || 'Der Tierbesitzer'} wurde automatisch per E-Mail benachrichtigt.</p>`,
     },

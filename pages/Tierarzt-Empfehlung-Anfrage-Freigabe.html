@@ -6,9 +6,10 @@
   <title>Inuvet – Tierarzt-Empfehlung – Freigabe ausstellen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../planet-brands.css?v=178">
+  <link rel="stylesheet" href="../planet-brands.css?v=183">
+  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=5">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
-  <script src="../mockup-ui.js?v=2" defer></script>
+  <script src="../mockup-ui.js?v=3" defer></script>
   <link rel="stylesheet" href="tierarzt-empfehlung-anfrage-freigabe.css?v=3">
 </head>
 <body>
@@ -50,14 +51,15 @@
         <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" aria-current="page">Freigabe ausstellen</a>
         <a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
         <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
+        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
         <a href="#">Meine Provisionen</a>
         <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
       </div>
     </div>
   </div>
   <div class="nav-center">
-    <a href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
-      <img src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
+    <a class="nav-logo" href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
+      <img class="nav-logo__img" src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
     </a>
   </div>
   <div class="nav-right">
@@ -78,6 +80,7 @@
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
     <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
     <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
   </div>
@@ -171,7 +174,7 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     E-Mail-Overlay (Mockup)
+     Nachrichten-Overlay (Mockup — C1 E-Mail + C2 Salesforce-Task)
      ════════════════════════════════════════ -->
 <div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
 <div class="mockup-email-panel" id="emailPanel">
@@ -185,7 +188,7 @@
 </div>
 
 <script src="../planet-brands.js"></script>
-<script src="tierarzt-empfehlung-anfrage-mock.js"></script>
-<script src="tierarzt-empfehlung-anfrage-freigabe.js?v=10"></script>
+<script src="tierarzt-empfehlung-anfrage-mock.js?v=8"></script>
+<script src="tierarzt-empfehlung-anfrage-freigabe.js?v=13"></script>
 </body>
 </html>

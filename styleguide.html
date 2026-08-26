@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link id="font-planimol" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" disabled>
-  <link rel="stylesheet" href="planet-brands.css?v=204">
+  <link rel="stylesheet" href="planet-brands.css?v=206">
   <link rel="stylesheet" href="brand-planimol.css?v=2">
   <link rel="stylesheet" href="sg.css?v=51">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -355,7 +355,7 @@
       <h3 class="sg-h3 --top" id="A4-data-table"><code>.rte.--data-table</code> — Daten-Listen</h3>
       <div class="col-grid" data-cols="2">
         <p>Erweiterung für Portal- und Übersichtstabellen (nicht CMS-Fließtext). Wrapper <code>.rte.--data-table</code> + native <code>&lt;table&gt;</code>. Jede <code>&lt;td&gt;</code> trägt <code>data-label</code> (= Spaltenname) für die Mobile-Ausgabe. Styles in <code>planet-brands.css</code> (A.4, direkt nach <code>.rte table</code>).</p>
-        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · Zeilen-Aktionen: Icon-Buttons <code>.btn.--icon.--sm.--success/--danger</code> oder Links <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select.</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · <a href="pages/Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a> · Zeilen-Aktionen: Icon-Buttons <code>.btn.--icon.--sm.--success/--danger</code> oder Links <code>.order-item__link</code> in <code>.data-table-actions</code> · Bulk: <code>.data-table-bulk</code> mit <code>.form-field.--sm</code>-Select · Follow-up (<code>.data-table-bulk__followup</code>) mit Notiz + Bestätigen erst nach Aktionswahl.</p>
       </div>
 
       <table class="spec-table">
@@ -385,7 +385,7 @@
         &lt;th scope="col" data-sort="customerName"&gt;…&lt;/th&gt;
         &lt;th scope="col" data-sort="date"&gt;…&lt;/th&gt;
         &lt;th scope="col" data-sort="productLabel"&gt;…&lt;/th&gt;
-        &lt;th scope="col" class="data-table-note"&gt;Notiz&lt;/th&gt;
+        &lt;th scope="col" class="data-table-note"&gt;Notiz vom Tierhalter&lt;/th&gt;
         &lt;th scope="col" class="data-table-action"&gt;Freigeben&lt;/th&gt;
       &lt;/tr&gt;
     &lt;/thead&gt;
@@ -401,7 +401,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Datum</th>
                 <th scope="col">Produkt</th>
-                <th scope="col" class="data-table-note">Notiz</th>
+                <th scope="col" class="data-table-note">Notiz vom Tierhalter</th>
                 <th scope="col" class="data-table-action">Freigeben</th>
               </tr>
             </thead>
@@ -415,7 +415,7 @@
                     <span class="data-table-stack__meta">60 Stück</span>
                   </div>
                 </td>
-                <td class="data-table-note" data-label="Notiz"><span class="data-table-stack__meta">Bitte möglichst schnell freigeben.</span></td>
+                <td class="data-table-note" data-label="Notiz vom Tierhalter"><span class="data-table-stack__meta">Bitte möglichst schnell freigeben.</span></td>
                 <td class="data-table-action" data-label="Freigeben">
                   <div class="data-table-actions">
                     <button type="button" class="btn --icon --sm --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
@@ -432,7 +432,7 @@
                     <span class="data-table-stack__meta">30 Stück</span>
                   </div>
                 </td>
-                <td class="data-table-note --empty" data-label="Notiz"><span class="data-table-stack__meta">Keine Notiz</span></td>
+                <td class="data-table-note --empty" data-label="Notiz vom Tierhalter"><span class="data-table-stack__meta">Keine Notiz</span></td>
                 <td class="data-table-action" data-label="Freigeben">
                   <div class="data-table-actions">
                     <button type="button" class="btn --icon --sm --success" aria-label="Freigeben"><span class="material-icons" aria-hidden="true">check</span></button>
@@ -569,7 +569,7 @@
         </div>
       </div>
 
-      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Klassenlose Links (<code>a:not([class])</code>): <code>--green</code>, Hover <code>--green-hover</code> + Unterstrich — Ausnahme: Links mit <code>.material-icons</code> oder <code>.badge</code> darin (kein Unterstrich). Kein globales <code>:visited</code> — das wäre spezifischer als Nav/TOC und färbt Chrome grün. Komponenten setzen ihre Linkfarbe selbst; <code>a:not([class])</code> gilt bereits inkl. besuchter Links.</p>
+      <p>Semantische Aliases zeigen auf <code>--green</code>: <code>--color-action</code> (CTAs), <code>--color-success</code> (Erfolg), <code>--color-link</code> (Fließtext-Links). Klassenlose Links (<code>a:not([class])</code>): <code>--green</code>, Hover <code>--green-hover</code> — ohne Unterstrich. Kein globales <code>:visited</code> — das wäre spezifischer als Nav/TOC und färbt Chrome grün. Komponenten setzen ihre Linkfarbe selbst; <code>a:not([class])</code> gilt bereits inkl. besuchter Links.</p>
 
       <h3 class="sg-h3 --top"><code>--cat-*</code></h3>
       <p data-sg-brand="inuvet">Jede Produktkategorie hat eine Hauptfarbe (<code>--cat-X</code>) und eine helle Abstufung (<code>--cat-X-light</code>). Oben die Hauptfarbe, unten die helle Variante.</p>
@@ -1479,13 +1479,14 @@
       <table class="spec-table">
         <tr><th><code>.circle-badge</code></th><td>22 × 22 px · grün · <code>border-radius: 50%</code></td></tr>
         <tr><th><code>.circle-badge.--num</code></th><td>Schrittzahl · <code>var(--text-xs)</code> · fett</td></tr>
-        <tr><th><code>.circle-badge.--check</code></th><td>Icon <code>check</code> — Freigabe-Indikator</td></tr>
+        <tr><th><code>.circle-badge.--danger</code></th><td>Roter Zähler · BG <code>--color-error</code> · z.&nbsp;B. Nicht freigegeben in der Portal-Nav</td></tr>
       </table>
       <div class="sg-demo">
         <div class="sg-row">
           <span class="circle-badge --num">1</span>
           <span class="circle-badge --num">2</span>
           <span class="circle-badge --num">3</span>
+          <span class="circle-badge --num --danger">2</span>
           <span class="circle-badge --check"><span class="material-icons">check</span></span>
         </div>
       </div>
@@ -3148,7 +3149,8 @@
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> · nur bei Sticky-Bar (<code>body.--ann-sticky</code>) für <code>scroll-padding-top</code></td></tr>
         <tr><th><code>body.--ann-sticky</code></th><td>Opt-in: Bar + Nav sticky · <code>scroll-padding-top: var(--header-height)</code> · Shopify: <code>.announcement-bar.--scroll-away</code> am Section-Wrapper</td></tr>
         <tr><th><code>aria-current="page"</code></th><td>Aktiver Bereich: direkter Link, Trigger oder Dropdown-Link · <code>--fg</code>, bold · Dropdown-Treffer heben den Eltern-Trigger via <code>:has()</code> hervor</td></tr>
-        <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
+        <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link, Subnav und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
+        <tr><th><code>[data-nav-declined-count]</code></th><td>Rotes Zähler-Badge (<code>.circle-badge.--num.--danger</code>) am Eintrag „Nicht freigegeben“ · gleiche Sync-Logik · <code>hidden</code> bei 0</td></tr>
         <tr><th><code>.nav-hamburger.icon-badged</code></th><td>Hamburger mit <code>.badge.--count</code> oben rechts — Mobile-Ersatz für den Zähler in der Desktop-Nav</td></tr>
         <tr><th><code>.nav-item.--end</code> (Land)</th><td>Länder-/Locale-Umschalter in <code>.nav-right</code> · Trigger zeigt ISO-Code (<code>DE</code>) · Dropdown mit Markt-Namen · Mockup: DACH (<code>de</code> · <code>at</code> · <code>ch</code>) · JS: <code>initNavCountry()</code> in <code>planet-brands.js</code></td></tr>
         <tr><th>Account</th><td><code>&lt;shopify-account class="nav-account"&gt;</code> · signed-out: Icon <code>person</code> · New Customer Accounts Sheet · Spec → <a href="#E6">E.6</a></td></tr>
@@ -3334,6 +3336,7 @@
     &lt;a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;"&gt;Empfehlung ausstellen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;"&gt;Offene Anfragen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;"&gt;Freigegeben&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;"&gt;Nicht freigegeben&lt;/a&gt;
     &lt;a href="#" class="--indent" onclick="closeMobile(); return false;"&gt;Meine Provisionen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;"&gt;So funktioniert's&lt;/a&gt;
     &lt;a href="#" onclick="closeMobile(); return false;"&gt;Über uns&lt;/a&gt;
@@ -3354,6 +3357,7 @@
     &lt;a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" aria-current="page"&gt;Empfehlung ausstellen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Offene-Anfragen.html"&gt;Offene Anfragen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html"&gt;Freigegeben&lt;/a&gt;
+    &lt;a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html"&gt;Nicht freigegeben&lt;/a&gt;
     &lt;a href="#"&gt;Meine Provisionen&lt;/a&gt;
     &lt;a href="Tierarzt-Empfehlung-Programm.html"&gt;So funktioniert's&lt;/a&gt;
   &lt;/div&gt;
@@ -3458,7 +3462,7 @@
       </div>
 
       <table class="spec-table">
-        <tr><th><code>.site-footer</code></th><td><code>background: var(--green-light)</code> · <code>margin-top: var(--module-2xl)</code></td></tr>
+        <tr><th><code>.site-footer</code></th><td><code>background: var(--green-light)</code> · <code>margin-top: var(--section-gap)</code></td></tr>
         <tr><th><code>.footer-main</code></th><td>Flex-Spalte · Newsletter + <code>.footer-cols</code> + optionale <code>.footer-row</code> · Zonen: <code>1px dashed var(--border-light)</code> · <code>max-width: var(--container-max)</code> · Padding oben <code>--module-2xl</code>, unten <code>--module</code></td></tr>
         <tr><th><code>.footer-cols</code></th><td>Immer 4 Spalten · Tablet 2 · Mobile 1</td></tr>
         <tr><th><code>.footer-row</code></th><td>Volle Breite unter den Spalten · <code>h4</code> + Text · Theme-Block „Text“</td></tr>
@@ -3926,6 +3930,7 @@
       <p>Bild, Lottie oder Video edge-to-edge · Content-Box überlagert · Box am Satzspiegel (<code>.section-type__inner</code>) · H2. Medien-Typ wie V1 · kein Stack-Padding · optional Außen-Margin <code>--mt</code>/<code>--mb</code>.</p>
       <table class="spec-table">
         <tr><th>Medien</th><td>Bild: <code>position: absolute; inset: 0</code> · <code>object-fit: cover</code> · Lottie: gleicher Slot <code>.section-type__image</code> · <code>preserveAspectRatio="xMidYMid slice"</code> (Cover) · Shopify: Toggle Medien-Typ</td></tr>
+        <tr><th>Zuschnitt</th><td>Default Cover. Optional <code>--media-ratio</code>: Motiv vollständig, Section-Höhe = Breite × Höhe. Mit <code>--viewport</code>: contain in der Viewport-Fläche. Shopify: „Medium-Zuschnitt“</td></tr>
         <tr><th>Box</th><td><code>.section-type__inner</code> + <code>.section-type__content</code> · rechts (links mit <code>--reverse</code>) · vertikal zentriert · BG <code>--green-light</code> · optional <code>--box-soft</code> / <code>--box-glass</code> (Transparenz)</td></tr>
         <tr><th>Layout</th><td>Headline + <code>.section-type__bottom.flow</code> (Body + <code>.btn-row</code>)</td></tr>
         <tr><th>Ghost-Button</th><td>In Content-Box: <code>.btn.--ghost { border: none }</code> automatisch</td></tr>
@@ -4017,6 +4022,26 @@
         </div>
       </div>
       <p class="sg-caption">Medien-Typ Lottie · Asset <code>inuvet_animation_labo_2zu1.json</code> · Cover <code>xMidYMid slice</code>.</p>
+
+      <div class="sg-demo --flush">
+        <div class="section-type --v3 --media-ratio">
+          <div class="section-type__image">
+            <img src="assets/images/Hero_Mood_01.jpg" alt="" width="3354" height="2516" loading="lazy">
+          </div>
+          <div class="section-type__inner">
+            <div class="section-type__content flow">
+              <h2 class="section-type__headline">Headline 2</h2>
+              <div class="section-type__bottom flow">
+                <p class="section-type__body">Dasselbe Motiv, aber unbeschnitten — die Section-Höhe folgt dem Originalverhältnis.</p>
+                <div class="btn-row">
+                  <a class="btn --primary">Call to Action</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sg-caption">Mit <code>--media-ratio</code> · Originalverhältnis · kein Cover-Zuschnitt.</p>
 
       <h3 class="sg-h3 --top" id="hero-v4">Variante 4 — Text auf Bild</h3>
       <p>Vollflächiges Medium · dunkles Overlay · weiße Headline mit Schatten · CTAs in <code>.section-type--v4__cta</code>. Bild, Lottie oder Video (Cover) · keine Badges · kein Stack-Padding · optional <code>--mt</code>/<code>--mb</code>.</p>
@@ -5128,7 +5153,7 @@
       <h3 class="sg-h3 --top"><code>.page-header</code> — Seitenkopf</h3>
       <div class="col-grid" data-cols="2">
         <p>Seitenkopf für Portal- und Listen-Seiten: <code>&lt;header class="page-header"&gt;</code> mit H1, optional ein Zähler als <code>.circle-badge.--num</code> inline daneben. Abstand zum Seiteninhalt: <code>--module</code>.</p>
-        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>. Im Shopify-Theme für Account-, Bestell- und Portal-Übersichten.</p>
+        <p>Referenz: <a href="pages/Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a> · <a href="pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a> · <a href="pages/Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a>. Im Shopify-Theme für Account-, Bestell- und Portal-Übersichten.</p>
       </div>
       <div class="sg-demo --white">
         <header class="page-header" style="margin-bottom: 0;">

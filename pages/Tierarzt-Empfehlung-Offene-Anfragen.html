@@ -6,9 +6,10 @@
   <title>Inuvet – Tierarzt-Empfehlung – Offene Anfragen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../planet-brands.css?v=178">
+  <link rel="stylesheet" href="../planet-brands.css?v=183">
+  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=5">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
-  <script src="../mockup-ui.js?v=2" defer></script>
+  <script src="../mockup-ui.js?v=3" defer></script>
 </head>
 <body>
 
@@ -47,14 +48,15 @@
         <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
         <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" aria-current="page">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
         <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
+        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
         <a href="#">Meine Provisionen</a>
         <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
       </div>
     </div>
   </div>
   <div class="nav-center">
-    <a href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
-      <img src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
+    <a class="nav-logo" href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
+      <img class="nav-logo__img" src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
     </a>
   </div>
   <div class="nav-right">
@@ -76,6 +78,7 @@
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
     <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
     <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
   </div>
@@ -90,25 +93,38 @@
   </header>
 
   <div class="data-table-bulk" id="openRequestsBulk" hidden>
-    <div class="data-table-bulk__controls">
-      <div class="form-field --sm">
-        <label for="openBulkSelect">Auswahl</label>
-        <select id="openBulkSelect">
-          <option value="" selected disabled>Auswahl…</option>
-          <option value="all">Alle auswählen</option>
-          <option value="none">Nichts auswählen</option>
-        </select>
+    <div class="data-table-bulk__toolbar">
+      <div class="data-table-bulk__controls">
+        <div class="form-field --sm">
+          <label for="openBulkSelect">Auswahl</label>
+          <select id="openBulkSelect">
+            <option value="" selected disabled>Auswahl…</option>
+            <option value="all">Alle auswählen</option>
+            <option value="none">Nichts auswählen</option>
+          </select>
+        </div>
+        <div class="form-field --sm">
+          <label for="openBulkAction">Aktion</label>
+          <select id="openBulkAction" disabled>
+            <option value="" selected disabled>Aktion…</option>
+            <option value="approve">Freigeben</option>
+            <option value="decline">Nicht freigeben</option>
+          </select>
+        </div>
       </div>
-      <div class="form-field --sm">
-        <label for="openBulkAction">Aktion</label>
-        <select id="openBulkAction" disabled>
-          <option value="" selected disabled>Aktion…</option>
-          <option value="approve">Freigeben</option>
-          <option value="decline">Nicht freigeben</option>
-        </select>
+      <p class="data-table-bulk__count" id="openRequestsBulkCount" aria-live="polite">0 ausgewählt</p>
+    </div>
+    <div class="data-table-bulk__followup" id="openBulkFollowup" hidden>
+      <div class="form-field">
+        <textarea id="openBulkNote" rows="2" placeholder=" "></textarea>
+        <label for="openBulkNote">Notiz an Tierbesitzer (optional)</label>
+      </div>
+      <p class="data-table-bulk__followup-hint" id="openBulkNoteHint" hidden>Die Notiz geht an alle ausgewählten Tierhalter.</p>
+      <div class="data-table-bulk__followup-actions">
+        <button class="btn --secondary" type="button" onclick="cancelBulkFollowup()">Abbrechen</button>
+        <button class="btn --primary" type="button" id="openBulkConfirm" onclick="confirmBulkAction()">Freigeben</button>
       </div>
     </div>
-    <p class="data-table-bulk__count" id="openRequestsBulkCount" aria-live="polite">0 ausgewählt</p>
   </div>
 
   <div class="rte --data-table --sortable --with-select" id="openRequestsTableWrap">
@@ -119,8 +135,8 @@
         <option value="customerName:desc">Name Z–A</option>
         <option value="date:asc">Datum aufsteigend</option>
         <option value="date:desc">Datum absteigend</option>
-        <option value="productLabel:asc" selected>Produkt A–Z</option>
-        <option value="productLabel:desc">Produkt Z–A</option>
+        <option value="productLabel:asc" selected>Angefragte Produkte A–Z</option>
+        <option value="productLabel:desc">Angefragte Produkte Z–A</option>
       </select>
     </div>
     <table class="--spacious">
@@ -138,9 +154,9 @@
             <button type="button">Datum <span class="material-icons" aria-hidden="true">unfold_more</span></button>
           </th>
           <th scope="col" data-sort="productLabel" aria-sort="ascending">
-            <button type="button">Produkt <span class="material-icons" aria-hidden="true">arrow_upward</span></button>
+            <button type="button">Angefragte Produkte <span class="material-icons" aria-hidden="true">arrow_upward</span></button>
           </th>
-          <th scope="col" class="data-table-note">Notiz</th>
+          <th scope="col" class="data-table-note">Notiz vom Tierhalter</th>
           <th scope="col" class="data-table-action">Freigeben</th>
         </tr>
       </thead>
@@ -165,11 +181,15 @@
     <div class="modal__body flow">
       <p id="rowActionModalLead"></p>
       <p id="rowActionCustomerNote" class="data-table-stack__meta"></p>
+      <div class="form-field" id="rowActionQtyWrap">
+        <select id="rowActionQty" onchange="syncRowActionQtyUi()" aria-label="Freigabe-Menge" required></select>
+        <label for="rowActionQty">Freigabe-Menge</label>
+      </div>
       <div class="form-field">
         <textarea id="rowActionNote" rows="3" placeholder=" "></textarea>
         <label for="rowActionNote">Notiz an Tierbesitzer (optional)</label>
       </div>
-      <p class="form-required-note" id="rowActionMailHint">Nach dem Bestätigen werden E-Mails an den Tierbesitzer (B1) und intern an das inuvet-Team (B2) ausgelöst.</p>
+      <p class="form-required-note" id="rowActionMailHint">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1); für den Kundeninhaber entsteht ein Salesforce-Task (B2).</p>
     </div>
     <div class="modal__footer">
       <button class="btn --secondary" type="button" onclick="closeRowActionModal()">Abbrechen</button>
@@ -178,7 +198,7 @@
   </div>
 </div>
 
-<!-- E-Mail-Overlay (Mockup) — B1 + B2 nach Zeilen-Entscheidung -->
+<!-- Nachrichten-Overlay (Mockup) — B1 E-Mail + B2 Salesforce-Task nach Zeilen-Entscheidung -->
 <div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
 <div class="mockup-email-panel" id="emailPanel">
   <div class="mockup-email-panel__header">
@@ -191,7 +211,7 @@
 </div>
 
 <script src="../planet-brands.js"></script>
-<script src="tierarzt-empfehlung-anfrage-mock.js"></script>
-<script src="tierarzt-empfehlung-offene-anfragen.js"></script>
+<script src="tierarzt-empfehlung-anfrage-mock.js?v=8"></script>
+<script src="tierarzt-empfehlung-offene-anfragen.js?v=6"></script>
 </body>
 </html>

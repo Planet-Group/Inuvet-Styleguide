@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../planet-brands.css">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
-  <script src="../mockup-ui.js?v=2" defer></script>
+  <script src="../mockup-ui.js?v=3" defer></script>
   <link rel="stylesheet" href="tierarzt-empfehlung.css">
 </head>
 <body id="top">
@@ -73,8 +73,8 @@
             <a href="#grundidee">Grundidee</a>
             <a href="#teil-1">Teil 1 — Sicht Tierhalter</a>
             <a href="#teil-2">Teil 2 — Sicht Tierarztpraxis</a>
-            <a href="#teil-3">Teil 3 — System-E-Mails</a>
-            <a href="#email-checkliste">↳ IT-Checkliste E-Mails</a>
+            <a href="#teil-3">Teil 3 — System-Nachrichten</a>
+            <a href="#email-checkliste">↳ IT-Checkliste</a>
             <a href="#technik">Technische Umsetzung</a>
           </nav>
         </aside>
@@ -83,7 +83,7 @@
         <article class="article">
 
           <header class="article__header">
-            <span class="label-caps">Dokumentation · Stand 17. Juli 2026 (aktualisiert)</span>
+            <span class="label-caps">Dokumentation · Stand 25. August 2026 (aktualisiert)</span>
             <h1>Tierarzt-Empfehlung — Dokumentation</h1>
           </header>
 
@@ -93,7 +93,7 @@
             <ul>
               <li><strong>Teil 1 — Sicht Tierhalter:</strong> Produkte entdecken und Freigabe-Anfragen stellen</li>
               <li><strong>Teil 2 — Sicht Tierarztpraxis:</strong> Anfragen freigeben oder Freigaben direkt ausstellen (Vet-Portal)</li>
-              <li><strong>Teil 3 — System-E-Mails:</strong> vollständige Übersicht aller Nachrichten inkl. IT-Checkliste (nichts darf fehlen)</li>
+              <li><strong>Teil 3 — System-Nachrichten:</strong> E-Mails an Tierhalter/Praxis und Salesforce-Tasks an den Kundeninhaber, inkl. IT-Checkliste (nichts darf fehlen)</li>
               <li><strong>Technische Umsetzung:</strong> States, Warenkorb, Datensätze, Implementierungs-Schritte</li>
             </ul>
 
@@ -153,11 +153,11 @@
               <li><strong>Primary:</strong> Karten-Finder — „Praxis in der Nähe finden" (bestehendes Kartenmodul von inuvet.com)</li>
               <li><strong>Alternativ:</strong> Praxis aus der Dropdown-Liste wählen — Feld beschriftet als <strong>„Praxis auswählen"</strong> (keine freie Texteingabe)</li>
             </ul>
-            <p><strong>Name des Tierhalters (Pflichtfeld):</strong> Unter der Praxis-Auswahl steht das Pflichtfeld <em>„Dein Name – damit dich deine Praxis zuordnen kann"</em>. Ohne Namen kann die Anfrage nicht abgesendet werden (Validierung: Feld rot markiert, Fehlermeldung <em>„Bitte gib deinen Namen an."</em> + Toast). Der Name wird mit der Anfrage gespeichert und erscheint in der E-Mail an die Praxis, im internen Queue-Eintrag sowie im Vet-Portal in der Spalte „Name" der offenen Anfragen — er ist neben der E-Mail-Adresse das zweite Zuordnungsmerkmal.</p>
+            <p><strong>Name des Tierhalters (Pflichtfeld):</strong> Unter der Praxis-Auswahl steht das Pflichtfeld <em>„Dein Name – damit dich deine Praxis zuordnen kann"</em>. Ohne Namen kann die Anfrage nicht abgesendet werden (Validierung: Feld rot markiert, Fehlermeldung <em>„Bitte gib deinen Namen an."</em> + Toast). Der Name wird mit der Anfrage gespeichert und erscheint in der E-Mail an die Praxis, im Salesforce-Task für den Kundeninhaber sowie im Vet-Portal in der Spalte „Name" der offenen Anfragen — er ist neben der E-Mail-Adresse das zweite Zuordnungsmerkmal.</p>
             <p><strong>Validierung Praxis:</strong> Es kann nur eine Praxis aus der Liste teilnehmender Praxen gewählt werden. Gibt der Nutzer einen Namen ein, der nicht in der Liste enthalten ist, erscheint: <em>„Praxis ist noch nicht im Empfehlungsprogramm."</em> (Feld rot markiert + Toast). Ist das Feld leer: <em>„Bitte wähle eine teilnehmende Praxis aus."</em></p>
             <p><strong>Praxis nicht gefunden?</strong> Unter dem optionalen Notizfeld erscheint der Hinweis: <em>„Du findest deine Praxis nicht? Dann sende ihr hier eine E-Mail."</em> Der Link öffnet ein <code>mailto:</code> mit vorausgefülltem Einladungstext (E-Mail D1 in Teil 3).</p>
             <p><strong>UI-Details:</strong> Notizfeld kompakt (2 Zeilen). „Weiter" als Ghost-Button mit Pfeil in einer sticky Submit-Leiste am unteren Drawer-Rand. <strong>Vorauswahl:</strong> Hat der Nutzer bereits aktive Freigaben, wird die zuletzt freigebende Praxis vorausgewählt; sonst startet das Feld leer.</p>
-            <p>Nach dem Absenden werden <strong>sofort</strong> drei Backend-Nachrichten ausgelöst (die E-Mail-Adresse ist durch den Login bekannt): Bestätigung an den Tierhalter (A1), Anfrage-Mail an die Praxis (A2) und ein interner Queue-Eintrag für den Innendienst (A3) — Texte in Teil 3. Da nur teilnehmende Praxen wählbar sind, gibt es immer einen klaren Empfänger.</p>
+            <p>Nach dem Absenden werden <strong>sofort</strong> drei Backend-Nachrichten ausgelöst (die E-Mail-Adresse ist durch den Login bekannt): Bestätigung an den Tierhalter (A1), Anfrage-Mail an die Praxis (A2) und ein Salesforce-Task für den Kundeninhaber der Praxis (A3) — Texte in Teil 3. Da nur teilnehmende Praxen wählbar sind, gibt es immer einen klaren Empfänger.</p>
 
             <h4>4 — Warten auf Freigabe</h4>
             <p>Der Tierhalter erhält die Bestätigungs-E-Mail (A1). Sobald die Praxis die Anfrage im Vet-Portal bearbeitet, wird er per E-Mail über das Ergebnis informiert (B1). Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
@@ -217,8 +217,13 @@
                 </tr>
                 <tr>
                   <td><strong>Freigegeben</strong></td>
-                  <td>Historie erteilter Freigaben inkl. Provision je Position (Spalten: Name, E-Mail, Datum, Produkt, Provision)</td>
+                  <td>Historie erteilter Freigaben inkl. Provision je Position (Spalten: Name, Datum, Produkt, Notiz vom Tierhalter, Provision)</td>
                   <td><a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Nicht freigegeben</strong></td>
+                  <td>Historie abgelehnter Positionen: wann, warum (Notiz an Tierbesitzer) und Notiz vom Tierhalter. <em>Jetzt freigeben</em> kehrt die Ablehnung um, falls die Praxis sich umentscheidet.</td>
+                  <td><a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a></td>
                 </tr>
                 <tr>
                   <td><strong>Meine Provisionen</strong></td>
@@ -235,12 +240,13 @@
             <p>Portal-Seiten nutzen denselben <strong>Footer wie Collection</strong> (Shop · Rechtliches · Social · Über inuvet · Zahlungsarten — ohne Newsletter).</p>
 
             <h3>Weg ① — Anfrage eines Tierhalters freigeben</h3>
-            <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, E-Mail, Datum und Produkt mit Größe (E-Mail/Datum/Produkt in kompakter Schrift) — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
+            <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, Datum, <strong>Angefragte Produkte</strong> mit Größe <em>und Menge</em> (z. B. „30 g · 1×“) und <strong>Notiz vom Tierhalter</strong> — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
             <ul>
-              <li><strong>Freigeben</strong> — öffnet ein Modal mit optionaler <em>Notiz an Tierbesitzer</em>; bestätigt die Position in der angefragten Menge</li>
-              <li><strong>Nicht freigeben</strong> — gleiches Modal in der Danger-Variante (<code>.modal.--danger</code>); lehnt die Position ab</li>
+              <li><strong>Freigeben</strong> — öffnet ein Modal. Default ist die angefragte Menge (Button z. B. <em>„1× freigeben“</em>). Die Praxis kann die Obergrenze auf dieselben Stufen wie bei Weg ② ändern: max. 1× / 2× / 5× oder unbegrenzt. Optional eine <em>Notiz an Tierbesitzer</em>.</li>
+              <li><strong>Nicht freigeben</strong> — gleiches Modal in der Danger-Variante (<code>.modal.--danger</code>); lehnt die Position ab (ohne Mengenwahl)</li>
+              <li><strong>Bulk</strong> — Dropdown wählt nur die Aktion. Notizfeld und Bestätigen-Button erscheinen erst danach. Freigeben übernimmt die angefragte Menge (ohne Override). Eine optionale Notiz gilt für alle ausgewählten Tierhalter. Ohne Bestätigen passiert nichts.</li>
             </ul>
-            <p><strong>E-Mail-Auslösung:</strong> Nach jeder Entscheidung müssen <strong>B1</strong> (Tierhalter) und <strong>B2</strong> (intern) ausgelöst werden — sowohl bei Zeilen-Aktion als auch bei Bulk. Die optionale Notiz erscheint in B1/B2. Im Mockup zeigt das E-Mail-Overlay B1/B2 nach der Zeilen-Aktion; Bulk muss produktiv dieselben Mails auslösen (ggf. aggregiert pro Tierhalter). Es gibt keine separate Detailansicht mehr — die A2-Mail verlinkt direkt auf Offene Anfragen.</p>
+            <p><strong>Nachrichten-Auslösung:</strong> Nach jeder Entscheidung müssen <strong>B1</strong> (E-Mail an den Tierhalter) und <strong>B2</strong> (Salesforce-Task für den Kundeninhaber) ausgelöst werden — sowohl bei Zeilen-Aktion als auch bei Bulk (nach Bestätigen). Die optionale Notiz und die tatsächlich freigegebene Menge (ggf. abweichend von der Anfrage) erscheinen in B1/B2. Im Mockup zeigt das Overlay B1/B2 nach Zeilen-Aktion und nach Bulk-Bestätigung; Bulk aggregiert produktseitig idealerweise <strong>eine B1 pro Tierhalter</strong>. Es gibt keine separate Detailansicht mehr — die A2-Mail verlinkt direkt auf Offene Anfragen.</p>
 
             <h3>Weg ② — Freigabe direkt ausstellen (ohne Anfrage)</h3>
             <p>Über <strong>„Freigabe ausstellen"</strong> kann die Praxis eine Freigabe auch ohne vorherige Anfrage erteilen — typisch direkt nach einem Praxisbesuch. Der Tierarzt wählt Produkte und Mengen:</p>
@@ -254,23 +260,29 @@
                 <tr><td><strong>– </strong></td><td>Größe nicht freigeben (Default)</td></tr>
               </tbody>
             </table>
-            <p>Der Ablauf ist zweistufig (Tab-Navigation wie <code>.tabs</code>: <em>Tierbesitzer-Daten</em> · <em>Produkte auswählen</em>): Zuerst fragt die Seite <em>„An wen soll die Freigabe ausgestellt werden?"</em>, der Tierarzt trägt die <strong>E-Mail-Adresse</strong> ein und bestätigt darunter die <strong>Consent-Checkbox</strong> — erst dann geht es mit <strong>„Weiter"</strong> (oder dem zweiten Tab) zur Produktauswahl. Dort wählt er Mengen, optional eine <strong>Notiz an den Tierhalter</strong>, und bestätigt über die sticky Submit-Leiste (<em>„Volles Vertrauen…"</em>, Counter, <strong>„Produkte freigeben"</strong>). Nach dem Absenden: E-Mail an den Tierhalter (C1) + interne Kopie (C2).</p>
+            <p>Der Ablauf ist zweistufig (Tab-Navigation wie <code>.tabs</code>: <em>Tierbesitzer-Daten</em> · <em>Produkte auswählen</em>): Zuerst fragt die Seite <em>„An wen soll die Freigabe ausgestellt werden?"</em>, der Tierarzt trägt die <strong>E-Mail-Adresse</strong> ein und bestätigt darunter die <strong>Consent-Checkbox</strong> — erst dann geht es mit <strong>„Weiter"</strong> (oder dem zweiten Tab) zur Produktauswahl. Dort wählt er Mengen, optional eine <strong>Notiz an den Tierhalter</strong>, und bestätigt über die sticky Submit-Leiste (<em>„Volles Vertrauen…"</em>, Counter, <strong>„Produkte freigeben"</strong>). Nach dem Absenden: E-Mail an den Tierhalter (C1) + Salesforce-Task für den Kundeninhaber (C2).</p>
 
             <h3>Ablehnung durch den Tierarzt</h3>
-            <p>Der Tierarzt kann einzelne oder alle Positionen ablehnen (Zeile oder Bulk). Der Tierhalter erhält das Ergebnis per E-Mail (<strong>B1</strong>) — inklusive der Notiz, sofern hinterlassen; parallel geht <strong>B2</strong> an das inuvet-Team. Abgelehnte Produkte können erneut angefragt werden; es gibt keine technische Sperrfrist.</p>
+            <p>Der Tierarzt kann einzelne oder alle Positionen ablehnen (Zeile oder Bulk). Der Tierhalter erhält das Ergebnis per E-Mail (<strong>B1</strong>) — inklusive der Notiz, sofern hinterlassen; parallel entsteht <strong>B2</strong> als Salesforce-Task für den Kundeninhaber. Die Position verschwindet aus Offene Anfragen und erscheint unter <strong>Nicht freigegeben</strong> (Ablehnungsdatum, Notiz vom Tierhalter, Notiz an Tierbesitzer). So kann die Praxis nachvollziehen, wann und warum abgelehnt wurde, wenn der Tierhalter in der Praxis nachfragt. Abgelehnte Produkte können vom Tierhalter erneut angefragt werden; es gibt keine technische Sperrfrist. Alternativ kehrt <strong>Jetzt freigeben</strong> auf dieser Seite die Ablehnung um (Mengenwahl wie in Offene Anfragen, optionale neue Notiz, erneut B1 + B2).</p>
 
             <h3>Historie „Freigegeben" und Provision</h3>
             <p>Jede erteilte Freigabe erzeugt einen Eintrag in der Historie: Name, E-Mail, Datum, Produkt mit Größe und Menge sowie die <strong>Provision</strong> der Praxis (E-Mail/Datum/Produkt/Provision in kompakter Schrift). Die Provision wird pro Einzelprodukt-Position berechnet (siehe Produkt-Modell) und in Summe im Provision-Portal abgerechnet.</p>
 
-            <!-- ══════════════ TEIL 3 ══════════════ -->
-            <h2 id="teil-3">Teil 3 — System-E-Mails im Überblick (für die IT)</h2>
+            <h3>Historie „Nicht freigegeben"</h3>
+            <p>Abgelehnte Positionen bleiben nachvollziehbar: Name, <strong>Abgelehnt am</strong>, angefragte Produkte, Notiz vom Tierhalter, Notiz an Tierbesitzer. Wenn der Tierhalter in der Praxis nachfragt, sieht das Personal Datum und Begründung. <em>Jetzt freigeben</em> kehrt die Ablehnung um (Mengenwahl, optionale neue Notiz) — die Position wandert nach Freigegeben; erneut B1 + B2.</p>
 
-            <p>Pflichtkatalog für die Umsetzung: <strong>6 System-E-Mails</strong> (A1, A2, B1, B2, C1, C2) + <strong>1 interner Queue-Eintrag</strong> (A3, keine E-Mail) + <strong>1 manuelle <code>mailto:</code>-Vorlage</strong> (D1). Alle acht müssen im Go-Live abgedeckt sein. Texte entsprechen dem Stand der Mockups — Absender-Daten und finale Formulierungen sind mit Marketing abzustimmen. Variablen stehen in <code>[eckigen Klammern]</code>.</p>
+            <!-- ══════════════ TEIL 3 ══════════════ -->
+            <h2 id="teil-3">Teil 3 — System-Nachrichten im Überblick (für die IT)</h2>
+
+            <p>Pflichtkatalog für die Umsetzung: <strong>4 System-E-Mails</strong> (A1, A2, B1, C1) + <strong>3 Salesforce-Tasks</strong> für den jeweiligen Kundeninhaber (A3, B2, C2) + <strong>1 manuelle <code>mailto:</code>-Vorlage</strong> (D1). Interne Nachrichten werden <strong>nicht</strong> per E-Mail versendet (kein Postfach wie <code>team@inuvet.com</code>), sondern in Salesforce als Task dem Account Owner der zugehörigen Praxis zugewiesen. Alle acht müssen im Go-Live abgedeckt sein. Texte entsprechen dem Stand der Mockups — Absender-Daten und finale Formulierungen sind mit Marketing abzustimmen. Variablen stehen in <code>[eckigen Klammern]</code>.</p>
+            <div class="notice">
+              <p><strong>Kanal intern:</strong> A3, B2 und C2 sind Salesforce-Tasks, zugewiesen an den <strong>Kundeninhaber</strong> (Account Owner) des Praxis-Accounts. Im Mockup-Overlay: oranges Tag „Task“, Kopfzeile <em>Task · Kundeninhaber</em>, Betreff als <em>Aufgabe: …</em>. Die visuelle Sprache (dunkles Panel, orange Leiste) bleibt — es ist nur kein Empfänger-Postfach.</p>
+            </div>
 
             <h3 id="email-checkliste">IT-Checkliste — nichts vergessen</h3>
             <table>
               <thead>
-                <tr><th>Nr.</th><th>Kanal</th><th>Auslöser (wann bauen?)</th><th>Empfänger</th><th>Betreff (exakt)</th><th>Mockup-Referenz</th></tr>
+                <tr><th>Nr.</th><th>Kanal</th><th>Auslöser (wann bauen?)</th><th>Empfänger</th><th>Betreff / Aufgabe (exakt)</th><th>Mockup-Referenz</th></tr>
               </thead>
               <tbody>
                 <tr>
@@ -291,11 +303,11 @@
                 </tr>
                 <tr>
                   <td><strong>A3</strong></td>
-                  <td>Queue / Liste (keine E-Mail)</td>
+                  <td>Salesforce-Task</td>
                   <td>Zeitgleich mit A1/A2</td>
-                  <td>Innendienst-Übersicht</td>
+                  <td>Kundeninhaber (Account Owner der Praxis)</td>
                   <td>Neue offene Anfrage</td>
-                  <td>wie A1 · Tag „Intern“</td>
+                  <td>wie A1 · Tag „Task“</td>
                 </tr>
                 <tr>
                   <td><strong>B1</strong></td>
@@ -307,11 +319,11 @@
                 </tr>
                 <tr>
                   <td><strong>B2</strong></td>
-                  <td>E-Mail</td>
+                  <td>Salesforce-Task</td>
                   <td>Zeitgleich mit B1</td>
-                  <td><code>team@inuvet.com</code></td>
+                  <td>Kundeninhaber (Account Owner der Praxis)</td>
                   <td>Empfehlungsanfrage bearbeitet: [Name]</td>
-                  <td>wie B1</td>
+                  <td>wie B1 · Tag „Task“</td>
                 </tr>
                 <tr>
                   <td><strong>C1</strong></td>
@@ -323,11 +335,11 @@
                 </tr>
                 <tr>
                   <td><strong>C2</strong></td>
-                  <td>E-Mail</td>
+                  <td>Salesforce-Task</td>
                   <td>Zeitgleich mit C1</td>
-                  <td><code>team@inuvet.com</code></td>
+                  <td>Kundeninhaber (Account Owner der Praxis)</td>
                   <td>Direkt-Empfehlung bearbeitet: [E-Mail]</td>
-                  <td>wie C1 · inkl. Consent-Hinweis</td>
+                  <td>wie C1 · Tag „Task“ · inkl. Consent-Hinweis</td>
                 </tr>
                 <tr>
                   <td><strong>D1</strong></td>
@@ -340,15 +352,15 @@
               </tbody>
             </table>
             <div class="notice">
-              <p><strong>Abnahme-Kriterium:</strong> Jede Zeile der Checkliste ist implementiert und manuell getestet. A3 ist bewusst <em>keine</em> E-Mail — trotzdem Pflicht (Innendienst-Sichtbarkeit + Schließen bei B). Bulk in Offene Anfragen muss B1/B2 auslösen, auch wenn das Mockup das Overlay nur bei Zeilen-Aktionen zeigt.</p>
+              <p><strong>Abnahme-Kriterium:</strong> Jede Zeile der Checkliste ist implementiert und manuell getestet. A3, B2 und C2 sind bewusst <em>keine</em> E-Mails, sondern Salesforce-Tasks für den Kundeninhaber — trotzdem Pflicht. Bulk in Offene Anfragen muss nach Bestätigen B1/B2 auslösen (im Mockup inkl. Overlay).</p>
             </div>
 
             <h4>Empfohlenes Abnahme-Skript</h4>
             <ol>
-              <li>Als Tierhalter Anfrage absenden → prüfen: <strong>A1</strong> (Tierhalter), <strong>A2</strong> (Praxis, Link zu Offene Anfragen), <strong>A3</strong> (Innendienst-Liste <code>offen</code>).</li>
+              <li>Als Tierhalter Anfrage absenden → prüfen: <strong>A1</strong> (E-Mail Tierhalter), <strong>A2</strong> (E-Mail Praxis, Link zu Offene Anfragen), <strong>A3</strong> (Salesforce-Task für Kundeninhaber, Status <code>offen</code>).</li>
               <li>Optional: „Praxis nicht gefunden?“ → <code>mailto:</code> öffnet mit Betreff/Body von <strong>D1</strong>.</li>
-              <li>Als Praxis in Offene Anfragen eine Position freigeben (mit Notiz) → <strong>B1</strong> + <strong>B2</strong>; A3 → <code>erledigt</code>; Eintrag in Freigegeben.</li>
-              <li>Als Praxis eine Position ablehnen → erneut <strong>B1</strong> + <strong>B2</strong> (nur Nicht-freigegeben-Block).</li>
+              <li>Als Praxis in Offene Anfragen eine Position freigeben (mit Notiz) → <strong>B1</strong> (E-Mail) + <strong>B2</strong> (Task); A3 → <code>erledigt</code>; Eintrag in Freigegeben.</li>
+              <li>Als Praxis eine Position ablehnen → erneut <strong>B1</strong> + <strong>B2</strong> (nur Nicht-freigegeben-Block); Eintrag in Nicht freigegeben. Optional später <em>Jetzt freigeben</em> → erneut B1 + B2, Eintrag wandert nach Freigegeben.</li>
               <li>Bulk Freigeben / Nicht freigeben → ebenfalls <strong>B1</strong> + <strong>B2</strong> (aggregiert).</li>
               <li>Freigabe ausstellen: Consent + E-Mail → Produkte → absenden → <strong>C1</strong> + <strong>C2</strong> (C2 enthält Consent-Hinweis).</li>
             </ol>
@@ -360,7 +372,8 @@
               </thead>
               <tbody>
                 <tr><td>Tierhalter sendet Anfrage ab</td><td><strong>A1 + A2 + A3</strong> (immer zusammen)</td></tr>
-                <tr><td>Praxis entscheidet in Offene Anfragen</td><td><strong>B1 + B2</strong> (immer zusammen) · A3 → <code>erledigt</code></td></tr>
+                <tr><td>Praxis entscheidet in Offene Anfragen</td><td><strong>B1 + B2</strong> (immer zusammen) · A3 → <code>erledigt</code> · Eintrag in Freigegeben bzw. Nicht freigegeben</td></tr>
+                <tr><td>Praxis gibt abgelehnte Position nachträglich frei</td><td><strong>B1 + B2</strong> (Jetzt freigeben) · Eintrag wandert nach Freigegeben</td></tr>
                 <tr><td>Praxis stellt Direkt-Freigabe aus</td><td><strong>C1 + C2</strong> (immer zusammen · Consent Pflicht)</td></tr>
                 <tr><td>Tierhalter lädt Praxis ein</td><td><strong>D1</strong> nur als <code>mailto:</code>-Vorlage</td></tr>
               </tbody>
@@ -396,17 +409,17 @@
             </div>
             <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage, an die hinterlegte Adresse der gewählten Praxis. Die beiden Erklär-Abschnitte sind bewusst Teil jeder Anfrage-Mail — viele Praxen vergessen im Alltag, dass sie teilnehmen. <strong>Variablen:</strong> Name des Tierhalters, Produktliste, Direktlink zur Übersicht <code>…/Tierarzt-Empfehlung-Offene-Anfragen.html</code>, Ansprechpartner*in des Außendienstes (aus CRM).</p>
 
-            <h4>A3 · Interner Queue-Eintrag (keine E-Mail)</h4>
+            <h4>A3 · Salesforce-Task an den Kundeninhaber — neue Anfrage</h4>
             <div class="notice">
               <div class="flow">
-<p class="notice__title">Eintrag: Neue offene Anfrage — Anfragen-Übersicht · Innendienst</p>
-              <p>Neue Freigabe-Anfrage in der internen Übersicht — Status: <strong>offen</strong> · [Wartezeit].</p>
+<p class="notice__title">Aufgabe: Neue offene Anfrage — Task · Kundeninhaber</p>
+              <p>Neue Freigabe-Anfrage — Salesforce-Task für den Kundeninhaber. Status: <strong>offen</strong> · [Wartezeit].</p>
               <p><strong>Tierbesitzer*in:</strong> [Name] · [E-Mail]</p>
               <p><strong>Praxis:</strong> [Praxisname]</p>
               <p><strong>Angefragte Produkte:</strong> [je Position: Produkt · Variante · Menge]</p>
               </div>
             </div>
-            <p><strong>Auslösung:</strong> Zeitgleich mit A1/A2 — aber bewusst <strong>kein Mail-Versand</strong>, sondern ein Eintrag in der internen Anfragen-Liste (Status <code>offen</code>, Timestamp speist die Wartezeit-Anzeige). Der Innendienst erkennt daran, welche Anfragen zu lange offen bleiben, und kann bei der Praxis nachhaken. Mit der Bearbeitung durch die Praxis (B) wechselt der Eintrag auf <code>erledigt</code> und verschwindet aus der Liste.</p>
+            <p><strong>Auslösung:</strong> Zeitgleich mit A1/A2 — aber bewusst <strong>kein Mail-Versand</strong>, sondern ein Salesforce-Task, zugewiesen an den Kundeninhaber (Account Owner) des Praxis-Accounts (Status <code>offen</code>, Timestamp speist die Wartezeit). Der Kundeninhaber erkennt daran, welche Anfragen zu lange offen bleiben, und kann bei der Praxis nachhaken. Mit der Bearbeitung durch die Praxis (B) wechselt der Task auf <code>erledigt</code>.</p>
 
             <h3>B — Nach Bearbeitung einer Anfrage im Vet-Portal</h3>
 
@@ -415,18 +428,19 @@
               <div class="flow">
 <p class="notice__title">Betreff: Ihre Empfehlungsanfrage wurde bearbeitet</p>
               <p>[Tierarzt] ([Praxisname]) hat Ihre Empfehlungsanfrage bearbeitet:</p>
-              <p><strong>Freigegeben:</strong> [je Produkt: Name — Größe: Menge, z. B. „Calmin balance Pulver — 30 g: max. 2×"]</p>
+              <p><strong>Freigegeben:</strong> [je Produkt: Name — Größe: Menge, z. B. „Calmin balance Pulver — 30 g: max. 2×"; weicht die Praxis von der Anfrage ab: „… max. 2× (angefragt: max. 1×)" bzw. „unbegrenzt"]</p>
               <p><strong>Nicht freigegeben:</strong> [je Position: Name — Größe (angefragt: max. n×)]</p>
               <p><strong>Notiz an Sie:</strong> <em>[Notiz des Tierarztes — nur wenn hinterlassen]</em></p>
+              <p>Sprechen Sie gerne noch einmal mit Ihrer Praxis. Vielleicht passt ein anderes Inuvet-Produkt besser.</p>
               <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>
               </div>
             </div>
-            <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz). Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen und erscheint bei Freigabe in <strong>Freigegeben</strong>.</p>
+            <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Praxis-Hinweis („Sprechen Sie gerne noch einmal…“) nur, wenn mindestens eine Position nicht freigegeben wurde; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz) + Praxis-Hinweis. Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen; bei Freigabe erscheint sie in <strong>Freigegeben</strong>, bei Ablehnung in <strong>Nicht freigegeben</strong>.</p>
 
-            <h4>B2 · Intern an das inuvet-Team — Kopie der Entscheidung</h4>
+            <h4>B2 · Salesforce-Task an den Kundeninhaber — Kopie der Entscheidung</h4>
             <div class="notice">
               <div class="flow">
-<p class="notice__title">Betreff: Empfehlungsanfrage bearbeitet: [Name des Tierhalters]</p>
+<p class="notice__title">Aufgabe: Empfehlungsanfrage bearbeitet: [Name des Tierhalters] — Task · Kundeninhaber</p>
               <p>[Tierarzt] ([Praxisname]) hat die Empfehlungsanfrage für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
               <p><strong>Freigegeben:</strong> [Liste] · <strong>Nicht freigegeben:</strong> [Liste]</p>
               <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
@@ -434,7 +448,7 @@
               <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
               </div>
             </div>
-            <p><strong>Versand:</strong> Zeitgleich mit B1 an <code>team@inuvet.com</code> — gleicher Auslöser wie B1 (Offene Anfragen). Dient der Nachvollziehbarkeit (wer hat wann was für wen entschieden) und schließt den Queue-Eintrag A3.</p>
+            <p><strong>Auslösung:</strong> Zeitgleich mit B1 als Salesforce-Task für den Kundeninhaber der Praxis — gleicher Auslöser wie B1 (Offene Anfragen). Dient der Nachvollziehbarkeit (wer hat wann was für wen entschieden) und schließt den Task A3.</p>
 
             <h3>C — Nach Direkt-Freigabe (ohne vorherige Anfrage)</h3>
 
@@ -450,10 +464,10 @@
             </div>
             <p><strong>Versand:</strong> Sofort nach „Produkte freigeben" auf der Seite „Freigabe ausstellen". Die E-Mail-Adresse stammt aus Schritt 1 (Consent + Eingabe des Tierarztes). Existiert zu der Adresse noch kein Konto, dient die Mail zugleich als Einstieg: Beim ersten Login mit dieser Adresse sind die Produkte freigeschaltet.</p>
 
-            <h4>C2 · Intern an das inuvet-Team — Kopie der Direkt-Freigabe</h4>
+            <h4>C2 · Salesforce-Task an den Kundeninhaber — Kopie der Direkt-Freigabe</h4>
             <div class="notice">
               <div class="flow">
-<p class="notice__title">Betreff: Direkt-Empfehlung bearbeitet: [E-Mail des Tierhalters]</p>
+<p class="notice__title">Aufgabe: Direkt-Empfehlung bearbeitet: [E-Mail des Tierhalters] — Task · Kundeninhaber</p>
               <p>[Tierarzt] ([Praxisname]) hat eine Direkt-Empfehlung (in der Praxis ausgestellt) für <strong>[Name]</strong> ([E-Mail]) bearbeitet:</p>
               <p>[je Produkt: <strong>Name</strong>: Größe: Menge]</p>
               <p><strong>Notiz an Tierbesitzer:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
@@ -462,7 +476,7 @@
               <p><em>Hinweis: [Name] wurde automatisch per E-Mail benachrichtigt.</em></p>
               </div>
             </div>
-            <p><strong>Versand:</strong> Zeitgleich mit C1 an <code>team@inuvet.com</code>. Der Consent-Hinweis dokumentiert die Bestätigung der Checkbox durch den Tierarzt — relevant für Datenschutz-Nachweise.</p>
+            <p><strong>Auslösung:</strong> Zeitgleich mit C1 als Salesforce-Task für den Kundeninhaber der Praxis. Der Consent-Hinweis dokumentiert die Bestätigung der Checkbox durch den Tierarzt — relevant für Datenschutz-Nachweise.</p>
 
             <h3>D — Manuell ausgelöste E-Mail</h3>
 
@@ -515,7 +529,7 @@ approvedVariantByProduct  // Map&lt;id, { formIndex, variantIndex, maxQty }&gt;
   customerName,      // Pflichtfeld aus dem Anfrage-Schritt
   customerEmail,     // Schlüssel (eingeloggt)
   vetPracticeId,     // gewählte teilnehmende Praxis
-  receivedAt,        // Timestamp (speist Wartezeit im Innendienst)
+  receivedAt,        // Timestamp (speist Wartezeit am Salesforce-Task A3)
   positions: [{ productId, variantLabel, qty }],
   status             // offen | erledigt
 }</code></pre>
@@ -524,11 +538,11 @@ approvedVariantByProduct  // Map&lt;id, { formIndex, variantIndex, maxQty }&gt;
             <ol>
               <li><strong>Freigabe-Datensatz:</strong> Pro Nutzer-E-Mail eine Liste freigegebener Produkt-IDs mit Variante und <code>maxQty</code> speichern. Timestamp der Freigabe und verknüpfte Tierarztpraxis mitführen.</li>
               <li><strong>Login-Response:</strong> Auth-Antwort enthält <code>approvedProductIds[]</code>. Das Frontend setzt damit <code>approvedProductIds</code> und führt die Warenkorb-Redistribution durch.</li>
-              <li><strong>Anfrage-Flow:</strong> Login ist Pflicht vor der Praxis-Auswahl. Anfrage-Submission speichert den Anfrage-Datensatz (siehe oben, inkl. Pflichtfeld Name) und löst sofort <strong>A1 + A2 + A3</strong> aus. Validierung: nur teilnehmende Praxen; Name nicht leer. A2-Link zeigt auf Offene Anfragen.</li>
-              <li><strong>Bearbeitungs-Event (Offene Anfragen):</strong> Freigeben / Nicht freigeben (Zeile oder Bulk) → Status-Update → <strong>B1 + B2</strong> → Queue-Eintrag A3 auf <code>erledigt</code> → bei Freigabe Eintrag in Historie „Freigegeben“ (inkl. Provision und E-Mail).</li>
-              <li><strong>Direkt-Freigabe-Event:</strong> Schritt 1 Consent + E-Mail Pflicht → Schritt 2 Produkte → „Produkte freigeben“ → Freigabe-Datensatz anlegen (E-Mail ggf. ohne bestehendes Konto) → <strong>C1 + C2</strong> → Historie-Eintrag.</li>
-              <li><strong>E-Mail-Abnahme:</strong> IT-Checkliste in <a href="#email-checkliste">Teil 3</a> Zeile für Zeile abhaken (A1–A3, B1–B2, C1–C2, D1).</li>
-              <li><strong>Zähler-Badge:</strong> Anzahl offener Anfragen der Praxis wird in der Portal-Nav als Badge synchronisiert (<code>[data-nav-open-count]</code> an Trigger, Dropdown-Link und Mobile-Menü; bei 0 ausgeblendet).</li>
+              <li><strong>Anfrage-Flow:</strong> Login ist Pflicht vor der Praxis-Auswahl. Anfrage-Submission speichert den Anfrage-Datensatz (siehe oben, inkl. Pflichtfeld Name) und löst sofort <strong>A1 + A2 + A3</strong> aus (A1/A2 E-Mail, A3 Salesforce-Task für den Kundeninhaber). Validierung: nur teilnehmende Praxen; Name nicht leer. A2-Link zeigt auf Offene Anfragen.</li>
+              <li><strong>Bearbeitungs-Event (Offene Anfragen):</strong> Freigeben / Nicht freigeben (Zeile oder Bulk) → Status-Update → <strong>B1</strong> (E-Mail) + <strong>B2</strong> (Salesforce-Task) → Task A3 auf <code>erledigt</code> → bei Freigabe Eintrag in Historie „Freigegeben“ (inkl. Provision und E-Mail); bei Ablehnung Eintrag in Historie „Nicht freigegeben“ (Datum + Notizen).</li>
+              <li><strong>Direkt-Freigabe-Event:</strong> Schritt 1 Consent + E-Mail Pflicht → Schritt 2 Produkte → „Produkte freigeben“ → Freigabe-Datensatz anlegen (E-Mail ggf. ohne bestehendes Konto) → <strong>C1</strong> (E-Mail) + <strong>C2</strong> (Salesforce-Task) → Historie-Eintrag.</li>
+              <li><strong>Nachrichten-Abnahme:</strong> IT-Checkliste in <a href="#email-checkliste">Teil 3</a> Zeile für Zeile abhaken (A1–A3, B1–B2, C1–C2, D1).</li>
+              <li><strong>Zähler-Badge:</strong> Offene Anfragen: Anzahl in der Portal-Nav als grünes Badge (<code>[data-nav-open-count]</code> an Trigger, Dropdown, Subnav und Mobile-Menü; bei 0 ausgeblendet). Nicht freigegeben: rotes Badge (<code>.circle-badge.--danger</code>, <code>[data-nav-declined-count]</code>) am Nav-Eintrag und in der Subnav.</li>
               <li><strong>Announcement Bar:</strong> Gast-Item über Conditional Rendering — niemals für eingeloggte Nutzer sichtbar.</li>
               <li><strong>D1 mailto:</strong> Link im Anfrage-Drawer öffnet Mail-Client mit vorbefülltem Betreff/Body — kein Server-Versand.</li>
             </ol>

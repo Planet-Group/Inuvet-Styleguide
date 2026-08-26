@@ -42,3 +42,18 @@
     document.addEventListener('DOMContentLoaded', restore);
   }
 })();
+
+/** Overlay-Kopfzeile: E-Mails (an/Betreff) vs. interne Salesforce-Tasks (Task · Kundeninhaber). */
+window.mockupNotifHeader = function (d) {
+  if (!d) return { to: '', subject: '' };
+  if (d.internal) {
+    return {
+      to: 'Task · ' + (d.assignee || 'Kundeninhaber'),
+      subject: 'Aufgabe: ' + (d.subject || ''),
+    };
+  }
+  return {
+    to: 'an: ' + (d.recipient || ''),
+    subject: 'Betreff: ' + (d.subject || ''),
+  };
+};

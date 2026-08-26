@@ -1,0 +1,45 @@
+/* ═══════════════════════════════════════════════════════
+   Portal-Subnav — nur Vet-Portal-Mockups, nur Desktop.
+   Zusätzlich zum Freigabe-Dropdown (Muster alter Shop).
+   Hover/Aktiv wie .site-nav (nur Farbe, kein Underline).
+   Nicht ins Theme übernehmen, bis die Nav-IA feststeht.
+   ═══════════════════════════════════════════════════════ */
+
+.portal-subnav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .portal-subnav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: var(--half-module) var(--margin);
+    background: var(--bg);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .portal-subnav a,
+  .portal-subnav a:visited {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+    font-size: var(--text-base);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--fg-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--anim-fast);
+  }
+
+  .portal-subnav a:hover,
+  .portal-subnav a[aria-current="page"],
+  .portal-subnav a[aria-current="page"]:visited {
+    color: var(--fg);
+    text-decoration: none;
+  }
+}

@@ -204,8 +204,9 @@ function initLottieAspect(root) {
         const h = data && data.h;
         if (w && h) {
           player.style.aspectRatio = w + ' / ' + h;
-          /* V3/V4 Vollbild: Desktop füllt per CSS height 100% (cover). V3 mobil: height auto + Ratio. */
-          if (!player.closest('.section-type.--v3') && !player.closest('.section-type.--v4')) {
+          /* V3/V4 Cover: height 100%. V3 --media-ratio und V1/V2: Höhe aus JSON-Ratio. */
+          if (player.closest('.section-type.--v3.--media-ratio') ||
+              (!player.closest('.section-type.--v3') && !player.closest('.section-type.--v4'))) {
             player.style.height = 'auto';
           }
         }

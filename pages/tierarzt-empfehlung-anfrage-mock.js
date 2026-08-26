@@ -15,6 +15,19 @@ const EMPFEHLUNG_VARIANT_PRICES = {
   'Hepax forte Pulver|175 g': 84.90,
   'Inzym Pulver|50 g': 24.90,
   'Inzym Pulver|100 g': 44.90,
+  'EnteroGast akut Tabletten|6 Stück': 7.60,
+  'EnteroGast akut Tabletten|21 Stück': 16.75,
+  'EnteroGast akut Pulver|60 g': 23.30,
+  'EnteroGast akut Pulver+1|25 g': 13.10,
+  'EnteroGast akut Sachets|80 Sachets': 92.50,
+  'Cortisan Öl-Komplex|30 ml Öl-Komplex': 17.80,
+  'Cortisan Öl-Komplex|100 ml Öl-Komplex': 41.35,
+  'Cortisan Öl-Komplex|300 ml Öl-Komplex': 63.45,
+  'Dermin Pflege-Emulsion|10 ml': 14.15,
+  'Diabex Tabletten|60 Stück': 23.05,
+  'Diabex Tabletten|220 Stück': 50.55,
+  'Diabex Pulver|60 g': 20.95,
+  'Diabex Pulver|210 g': 42.30,
 };
 
 const EMPFEHLUNG_MOCK_REQUESTS = [
@@ -55,6 +68,8 @@ const EMPFEHLUNG_MOCK_REQUESTS = [
 
 const EMPFEHLUNG_REMOVED_KEY = 'empfehlung-removed-positions';
 const EMPFEHLUNG_DECLINED_KEY = 'empfehlung-declined-variants';
+const EMPFEHLUNG_DECLINED_ROWS_KEY = 'empfehlung-declined-rows';
+const EMPFEHLUNG_DECLINED_REMOVED_KEY = 'empfehlung-declined-removed';
 const EMPFEHLUNG_APPROVED_KEY = 'empfehlung-approved-variants';
 const EMPFEHLUNG_REDEEMED_KEY = 'empfehlung-redeemed-rows';
 
@@ -65,6 +80,8 @@ function empfehlungResetMockStateOnReload() {
     if (nav?.type === 'reload') {
       sessionStorage.removeItem(EMPFEHLUNG_REMOVED_KEY);
       sessionStorage.removeItem(EMPFEHLUNG_DECLINED_KEY);
+      sessionStorage.removeItem(EMPFEHLUNG_DECLINED_ROWS_KEY);
+      sessionStorage.removeItem(EMPFEHLUNG_DECLINED_REMOVED_KEY);
       sessionStorage.removeItem(EMPFEHLUNG_APPROVED_KEY);
       sessionStorage.removeItem(EMPFEHLUNG_REDEEMED_KEY);
     }
@@ -118,13 +135,26 @@ function empfehlungClearDeclinedForRequest(requestId) {
   sessionStorage.setItem(EMPFEHLUNG_DECLINED_KEY, JSON.stringify(declined));
 }
 
-function empfehlungMarkPositionDeclined(positionId) {
+function empfehlungMarkPositionDeclined(positionId, vetNote) {
   const found = empfehlungFindPosition(positionId);
   if (!found) return;
   const { request, position } = found;
   empfehlungMarkVariantDeclined(request.id, position.cartName, position.variantLabel);
   empfehlungClearVariantApproved(request.id, position.cartName, position.variantLabel);
   empfehlungMarkPositionRemoved(positionId);
+  empfehlungAddDeclinedEntry({
+    id: `dec-${positionId}`,
+    sourceId: positionId,
+    requestId: request.id,
+    customerName: request.customerName,
+    customerEmail: request.customerEmail,
+    customerNote: request.customerNote || '',
+    vetNote: vetNote || '',
+    declinedAt: empfehlungTodayISO(),
+    cartName: position.cartName,
+    variantLabel: position.variantLabel,
+    qty: position.qty,
+  });
 }
 
 function empfehlungGetApprovedVariants() {
@@ -167,12 +197,14 @@ function empfehlungClearApprovedForRequest(requestId) {
   sessionStorage.setItem(EMPFEHLUNG_APPROVED_KEY, JSON.stringify(approved));
 }
 
-function empfehlungMarkPositionApproved(positionId) {
+function empfehlungMarkPositionApproved(positionId, approval) {
   const found = empfehlungFindPosition(positionId);
   if (!found) return;
   const { request, position } = found;
+  const unlimited = !!approval?.unlimited;
+  const qty = approval?.qty != null ? approval.qty : position.qty;
   empfehlungClearVariantDeclined(request.id, position.cartName, position.variantLabel);
-  empfehlungMarkVariantApproved(request.id, position.cartName, position.variantLabel, position.qty);
+  empfehlungMarkVariantApproved(request.id, position.cartName, position.variantLabel, qty);
   empfehlungMarkPositionRemoved(positionId);
   empfehlungAddRedeemedEntry({
     customerName: request.customerName,
@@ -180,8 +212,8 @@ function empfehlungMarkPositionApproved(positionId) {
     customerNote: request.customerNote || '',
     cartName: position.cartName,
     variantLabel: position.variantLabel,
-    qty: position.qty,
-    unlimited: false,
+    qty,
+    unlimited,
     sourceId: positionId,
   });
 }
@@ -289,7 +321,7 @@ function empfehlungCustomerNameCellHtml(name) {
 
 /**
  * Meta-Zeile unter dem Produktnamen (Größe [, Menge]).
- * Open: nur Größe · Freigegeben: Größe · qty× / unbegrenzt.
+ * Offene Anfragen / Freigegeben: Größe · qty× / unbegrenzt.
  */
 function empfehlungProductMeta(variantLabel, qty, unlimited) {
   const size = variantLabel || '';
@@ -302,10 +334,11 @@ function empfehlungProductMeta(variantLabel, qty, unlimited) {
 }
 
 /** Zellen-Markup Produkt + Größe (gestapelt). */
-function empfehlungProductCellHtml(cartName, variantLabel, qty, unlimited) {
+function empfehlungProductCellHtml(cartName, variantLabel, qty, unlimited, dataLabel) {
   const safeName = empfehlungEscapeHtml(cartName || '');
   const safeMeta = empfehlungEscapeHtml(empfehlungProductMeta(variantLabel, qty, unlimited));
-  return `<td data-label="Produkt"><div class="data-table-stack"><span class="data-table-stack__primary">${safeName}</span><span class="data-table-stack__meta">${safeMeta}</span></div></td>`;
+  const safeLabel = empfehlungEscapeHtml(dataLabel || 'Produkt');
+  return `<td data-label="${safeLabel}"><div class="data-table-stack"><span class="data-table-stack__primary">${safeName}</span><span class="data-table-stack__meta">${safeMeta}</span></div></td>`;
 }
 
 /** Zellen-Markup für Kundennotiz (immer voll, kein Truncate/Expand). */
@@ -313,7 +346,14 @@ function empfehlungCustomerNoteCellHtml(note) {
   const empty = empfehlungCustomerNoteIsEmpty(note);
   const text = empfehlungEscapeHtml(empfehlungCustomerNoteText(note));
   const emptyClass = empty ? ' --empty' : '';
-  return `<td class="data-table-note${emptyClass}" data-label="Notiz"><span class="data-table-stack__meta">${text}</span></td>`;
+  return `<td class="data-table-note${emptyClass}" data-label="Notiz vom Tierhalter"><span class="data-table-stack__meta">${text}</span></td>`;
+}
+
+function empfehlungVetNoteCellHtml(note) {
+  const empty = empfehlungCustomerNoteIsEmpty(note);
+  const text = empfehlungEscapeHtml((note == null ? '' : String(note)).trim() || 'Keine Notiz hinterlassen');
+  const emptyClass = empty ? ' --empty' : '';
+  return `<td class="data-table-note${emptyClass}" data-label="Notiz an Tierbesitzer"><span class="data-table-stack__meta">${text}</span></td>`;
 }
 
 /* ── Tabellen-Sortierung (Offene Anfragen / Freigegeben) ── */
@@ -375,12 +415,8 @@ function empfehlungInitTableSort({ table, select, sortState, onSort }) {
   empfehlungSyncSortUi(table, select, sortState);
 }
 
-/** Nav-Badges + Seiten-Zähler (H1) für offene Anfragen synchronisieren. */
-function empfehlungSyncOpenRequestNavBadges() {
-  const count = empfehlungFlattenOpenRows().length;
-  const label = `${count} offene Produktanfragen`;
-
-  document.querySelectorAll('[data-nav-open-count]').forEach(el => {
+function empfehlungSyncNavCountBadges(selector, count) {
+  document.querySelectorAll(selector).forEach(el => {
     el.textContent = String(count);
     if (count === 0) {
       el.setAttribute('hidden', '');
@@ -390,6 +426,18 @@ function empfehlungSyncOpenRequestNavBadges() {
       el.removeAttribute('aria-hidden');
     }
   });
+}
+
+/** Nav-Badges + Seiten-Zähler (H1) für offene Anfragen synchronisieren. */
+function empfehlungSyncOpenRequestNavBadges() {
+  empfehlungEnsurePortalSubnav();
+
+  const count = empfehlungFlattenOpenRows().length;
+  const declinedCount = empfehlungFlattenDeclinedRows().length;
+  const label = `${count} offene Produktanfragen`;
+
+  empfehlungSyncNavCountBadges('[data-nav-open-count]', count);
+  empfehlungSyncNavCountBadges('[data-nav-declined-count]', declinedCount);
 
   const pageCount = document.getElementById('openRequestsCount');
   if (pageCount) {
@@ -408,6 +456,37 @@ function empfehlungSyncOpenRequestNavBadges() {
   empfehlungEnsurePortalFooter();
 }
 
+/* Desktop-Subnav unter dem Header — Mockup, zusätzlich zum Dropdown (alter Shop). */
+function empfehlungEnsurePortalSubnav() {
+  if (document.getElementById('portalSubnav')) return;
+  const nav = document.querySelector('.site-nav');
+  if (!nav) return;
+
+  const page = decodeURIComponent((location.pathname.split('/').pop() || '')).split('?')[0];
+  const items = [
+    { href: 'Tierarzt-Empfehlung-Anfrage-Freigabe.html', label: 'Freigabe ausstellen' },
+    { href: 'Tierarzt-Empfehlung-Offene-Anfragen.html', label: 'Offene Anfragen', badge: true },
+    { href: 'Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html', label: 'Freigegeben' },
+    { href: 'Tierarzt-Empfehlung-Nicht-Freigegeben.html', label: 'Nicht freigegeben', declinedBadge: true },
+    { href: '#', label: 'Meine Provisionen' },
+    { href: 'Tierarzt-Empfehlung-Programm.html', label: 'So funktioniert\'s' },
+  ];
+
+  const links = items.map(item => {
+    const current = item.href !== '#' && item.href === page;
+    const badge = item.badge
+      ? ' <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span>'
+      : item.declinedBadge
+        ? ' <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span>'
+        : '';
+    const currentAttr = current ? ' aria-current="page"' : '';
+    return `<a href="${item.href}"${currentAttr}>${item.label}${badge}</a>`;
+  }).join('');
+
+  nav.insertAdjacentHTML('afterend', `
+<nav class="portal-subnav" id="portalSubnav" aria-label="Freigabe">${links}</nav>`);
+}
+
 /* Portal-Footer = Collection-Footer (Menu A, ohne Newsletter) */
 function empfehlungEnsurePortalFooter() {
   if (document.getElementById('shopFooter') || document.getElementById('portalFooter')) return;
@@ -422,6 +501,7 @@ function empfehlungEnsurePortalFooter() {
           <li><a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a></li>
           <li><a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a></li>
           <li><a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a></li>
+          <li><a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a></li>
           <li><a href="#">Meine Provisionen</a></li>
           <li><a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a></li>
         </ul>
@@ -471,6 +551,19 @@ const EMPFEHLUNG_VARIANT_COMMISSIONS = {
   'Hepax forte Pulver|175 g': 9.90,
   'Inzym Pulver|50 g': 2.80,
   'Inzym Pulver|100 g': 4.90,
+  'EnteroGast akut Tabletten|6 Stück': 0.90,
+  'EnteroGast akut Tabletten|21 Stück': 1.90,
+  'EnteroGast akut Pulver|60 g': 2.60,
+  'EnteroGast akut Pulver+1|25 g': 1.50,
+  'EnteroGast akut Sachets|80 Sachets': 10.50,
+  'Cortisan Öl-Komplex|30 ml Öl-Komplex': 2.00,
+  'Cortisan Öl-Komplex|100 ml Öl-Komplex': 4.70,
+  'Cortisan Öl-Komplex|300 ml Öl-Komplex': 7.20,
+  'Dermin Pflege-Emulsion|10 ml': 1.60,
+  'Diabex Tabletten|60 Stück': 2.60,
+  'Diabex Tabletten|220 Stück': 5.70,
+  'Diabex Pulver|60 g': 2.40,
+  'Diabex Pulver|210 g': 4.80,
 };
 
 function empfehlungTodayISO() {
@@ -568,4 +661,118 @@ function empfehlungFlattenRedeemedRows() {
     const byDate = b.date.localeCompare(a.date);
     return byDate !== 0 ? byDate : a.productLabel.localeCompare(b.productLabel, 'de');
   });
+}
+
+/* Nicht freigegeben — Historie abgelehnter Positionen (Seed + sessionStorage). */
+const EMPFEHLUNG_MOCK_DECLINED = [
+  {
+    id: 'dec-seed-hartmann',
+    sourceId: null,
+    requestId: null,
+    customerName: 'Lisa Hartmann',
+    customerEmail: 'lisa.hartmann@beispiel.de',
+    customerNote: '',
+    vetNote: 'Derzeit nicht das richtige Produkt. Kommen sie gerne noch mal für eine Beratung in die Praxis.',
+    declinedAt: '2026-07-18',
+    cartName: 'Calmin balance Pulver',
+    variantLabel: '30 g',
+    qty: 1,
+  },
+  {
+    id: 'dec-seed-weiss',
+    sourceId: null,
+    requestId: null,
+    customerName: 'Mara Weiß',
+    customerEmail: 'mara.weiss@beispiel.de',
+    customerNote: 'Bitte möglichst die kleine Packung, wir möchten erst testen.',
+    vetNote: '',
+    declinedAt: '2026-07-15',
+    cartName: 'Hepax forte Tabletten',
+    variantLabel: '30 Stück',
+    qty: 1,
+  },
+];
+
+function empfehlungGetSessionDeclinedEntries() {
+  try {
+    const raw = sessionStorage.getItem(EMPFEHLUNG_DECLINED_ROWS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function empfehlungPersistSessionDeclinedEntries(entries) {
+  sessionStorage.setItem(EMPFEHLUNG_DECLINED_ROWS_KEY, JSON.stringify(entries));
+}
+
+function empfehlungGetDeclinedRemovedIds() {
+  try {
+    const raw = sessionStorage.getItem(EMPFEHLUNG_DECLINED_REMOVED_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function empfehlungAddDeclinedEntry(entry) {
+  const entries = empfehlungGetSessionDeclinedEntries();
+  if (entry.sourceId && entries.some(item => item.sourceId === entry.sourceId)) return;
+  if (entries.some(item => item.id === entry.id)) return;
+  entries.push(entry);
+  empfehlungPersistSessionDeclinedEntries(entries);
+}
+
+function empfehlungRemoveDeclinedRow(id) {
+  const removed = new Set(empfehlungGetDeclinedRemovedIds());
+  removed.add(id);
+  sessionStorage.setItem(EMPFEHLUNG_DECLINED_REMOVED_KEY, JSON.stringify([...removed]));
+  empfehlungPersistSessionDeclinedEntries(
+    empfehlungGetSessionDeclinedEntries().filter(item => item.id !== id)
+  );
+}
+
+function empfehlungFlattenDeclinedRows() {
+  const removed = new Set(empfehlungGetDeclinedRemovedIds());
+  const session = empfehlungGetSessionDeclinedEntries();
+  const sessionIds = new Set(session.map(item => item.id));
+  const seed = EMPFEHLUNG_MOCK_DECLINED.filter(item => !removed.has(item.id) && !sessionIds.has(item.id));
+  return [...session, ...seed]
+    .filter(item => !removed.has(item.id))
+    .map(row => ({
+      ...row,
+      date: row.declinedAt,
+      productLabel: empfehlungProductLabel(row.cartName, row.variantLabel),
+    }))
+    .sort((a, b) => {
+      const byDate = b.date.localeCompare(a.date);
+      return byDate !== 0 ? byDate : a.productLabel.localeCompare(b.productLabel, 'de');
+    });
+}
+
+function empfehlungApproveDeclinedRow(id, approval) {
+  const row = empfehlungFlattenDeclinedRows().find(item => item.id === id);
+  if (!row) return null;
+  empfehlungRemoveDeclinedRow(id);
+  if (row.sourceId && empfehlungFindPosition(row.sourceId)) {
+    empfehlungMarkPositionApproved(row.sourceId, approval);
+  } else {
+    const unlimited = !!approval?.unlimited;
+    const qty = approval?.qty != null ? approval.qty : row.qty;
+    empfehlungAddRedeemedEntry({
+      customerName: row.customerName,
+      customerEmail: row.customerEmail,
+      customerNote: row.customerNote || '',
+      cartName: row.cartName,
+      variantLabel: row.variantLabel,
+      qty,
+      unlimited,
+      sourceId: row.sourceId || id,
+    });
+    if (row.requestId) {
+      empfehlungClearVariantDeclined(row.requestId, row.cartName, row.variantLabel);
+      empfehlungMarkVariantApproved(row.requestId, row.cartName, row.variantLabel, qty);
+    }
+  }
+  return row;
 }

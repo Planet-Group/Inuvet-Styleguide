@@ -166,11 +166,9 @@
   }
   a:not([class]):hover {
     color: var(--green-hover);
-    text-decoration: underline;
   }
-  /* Icon/Badge im Link → kein Hover-Unterstrich (wirkt sonst zerschnitten) */
-  a:has(.material-icons):hover,
-  a:has(.badge):hover {
+  /* Browser setzt sonst Unterstrich auf :hover — überall Farbe, nie Linie. */
+  a:hover {
     text-decoration: none;
   }
 
@@ -312,13 +310,19 @@
   /* Bulk-Leiste über Portal-Tabellen */
   .data-table-bulk {
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--half-module);
+    margin-bottom: var(--half-module);
+  }
+  .data-table-bulk[hidden] { display: none !important; }
+  .data-table-bulk__toolbar {
+    display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
     gap: calc(var(--base) * 0.5) var(--half-module);
-    margin-bottom: var(--half-module);
   }
-  .data-table-bulk[hidden] { display: none !important; }
   .data-table-bulk__controls {
     display: flex;
     flex-wrap: wrap;
@@ -327,11 +331,42 @@
   }
   .data-table-bulk__controls .form-field.--sm {
     min-width: 11rem;
+    margin-bottom: 0;
   }
   .data-table-bulk__count {
     margin: 0;
     font-size: var(--text-xs);
     color: var(--fg-muted);
+  }
+  .data-table-bulk__followup {
+    display: grid;
+    gap: var(--half-module);
+    padding-top: var(--half-module);
+    border-top: 1px solid var(--border-light);
+  }
+  .data-table-bulk__followup[hidden] { display: none !important; }
+  .data-table-bulk__followup .form-field { margin-bottom: 0; }
+  .data-table-bulk__followup textarea { min-height: calc(var(--base) * 4.5); }
+  .data-table-bulk__followup-hint {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: var(--fg-muted);
+  }
+  .data-table-bulk__followup-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--half-module);
+  }
+  .data-table-bulk__followup.--danger .btn.--primary {
+    background: var(--color-error);
+    border-color: var(--color-error);
+    color: var(--bg);
+  }
+  .data-table-bulk__followup.--danger .btn.--primary:hover {
+    background: var(--color-error);
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 2px var(--color-error);
   }
   .rte.--data-table td .form-field.--sm {
     min-width: 9.5rem;
@@ -766,6 +801,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: var(--logo-w, 5rem);
+    z-index: 1;
+  }
+  /* Mockups ohne .nav-logo: Logo bleibt im Header sichtbar und in der Nav-Höhe. */
+  .nav-center > a:not(.nav-logo) img,
+  .nav-center > img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: calc(var(--nav-height) * 0.7);
   }
   .nav-logo {
     display: block;
@@ -845,7 +890,7 @@
     border-radius: 50%; /* Ausnahme: circle-badge */
     background: var(--green);
     color: #fff;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
@@ -855,6 +900,9 @@
     font-size: var(--text-xs);
     font-weight: 700;
     line-height: 1;
+  }
+  .circle-badge.--danger {
+    background: var(--color-error);
   }
   .circle-badge.--check .material-icons {
     font-size: calc(var(--base) * 0.8125); /* 13px */
@@ -916,7 +964,9 @@
   }
   .nav-item__dropdown a,
   .nav-item__dropdown a:visited {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
     padding: 0.375rem var(--half-module);
     font-size: var(--text-base);
     color: var(--fg-muted);
@@ -1006,7 +1056,9 @@
     .mobile-menu a,
     .mobile-menu a:visited,
     .mobile-menu .nav-item__trigger {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.35em;
       width: 100%;
       box-sizing: border-box;
       font-size: var(--text-base);
@@ -1503,6 +1555,61 @@
   .section-type.--v3 .section-type__image video {
     animation: heroPanIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
+  /* Originalverhältnis: Section-Höhe = Motiv (Breite × Höhe), kein Zuschnitt.
+     Content-Box bleibt Overlay. Mit --viewport: contain in der Viewport-Fläche. */
+  .section-type.--v3.--media-ratio {
+    min-height: 0;
+    height: auto;
+    display: block;
+  }
+  .section-type.--v3.--media-ratio .section-type__image {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+  }
+  .section-type.--v3.--media-ratio .section-type__image picture,
+  .section-type.--v3.--media-ratio .section-type__image img,
+  .section-type.--v3.--media-ratio .section-type__image lottie-player,
+  .section-type.--v3.--media-ratio .section-type__image .media-video,
+  .section-type.--v3.--media-ratio .section-type__image video {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .section-type.--v3.--media-ratio .section-type__image img,
+  .section-type.--v3.--media-ratio .section-type__image video {
+    animation: none;
+  }
+  .section-type.--v3.--media-ratio .section-type__inner {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+  .section-type.--v3.--media-ratio.--viewport {
+    height: calc(100dvh - var(--header-height));
+    max-height: var(--section-max-height);
+  }
+  .section-type.--v3.--media-ratio.--viewport .section-type__image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+  .section-type.--v3.--media-ratio.--viewport .section-type__image picture,
+  .section-type.--v3.--media-ratio.--viewport .section-type__image img,
+  .section-type.--v3.--media-ratio.--viewport .section-type__image lottie-player,
+  .section-type.--v3.--media-ratio.--viewport .section-type__image .media-video,
+  .section-type.--v3.--media-ratio.--viewport .section-type__image video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   .section-type.--v3 .section-type__inner {
     position: relative;
     z-index: var(--z-default);
@@ -1735,7 +1842,6 @@
   }
   .tile__headline-link:hover {
     color: inherit;
-    text-decoration: underline;
   }
   .tile__body {
     font-size: var(--text-base);
@@ -2522,7 +2628,7 @@
   .breadcrumb__item { display: flex; align-items: center; gap: 0.25rem; }
   /* Links wie Fließtext-a: grün (nicht muted) */
   .breadcrumb__item a { color: var(--green); text-decoration: none; transition: color var(--anim-fast); }
-  .breadcrumb__item a:hover { color: var(--green-hover); text-decoration: underline; }
+  .breadcrumb__item a:hover { color: var(--green-hover); }
   .breadcrumb__sep { color: var(--border); }
   .breadcrumb__item[aria-current="page"],
   .breadcrumb__item .--current { color: var(--fg); font-weight: 700; }
@@ -3534,7 +3640,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
 
   .site-footer {
     background: var(--green-light);
-    margin-top: var(--module-2xl);
+    margin-top: var(--section-gap);
   }
   .site-footer a,
   .site-footer a:visited {
@@ -4841,7 +4947,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     color: inherit;
     text-decoration: none;
   }
-  .cart-item__name a:hover { text-decoration: underline; }
+  .cart-item__name a:hover { color: inherit; }
   .cart-item__remove { color: var(--fg-muted); flex-shrink: 0; }
   .cart-item__remove:hover { color: var(--fg); }
   .cart-item__variant { font-size: var(--text-xs); color: var(--fg-muted); }
@@ -5173,6 +5279,24 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
       position: relative;
       inset: auto;
       width: 100%;
+      height: auto;
+    }
+    .section-type.--v3.--media-ratio .section-type__image {
+      min-height: 0;
+    }
+    .section-type.--v3.--media-ratio .section-type__image picture,
+    .section-type.--v3.--media-ratio .section-type__image img,
+    .section-type.--v3.--media-ratio .section-type__image .media-video,
+    .section-type.--v3.--media-ratio .section-type__image video {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    .section-type.--v3.--media-ratio .section-type__inner {
+      position: relative;
+      inset: auto;
       height: auto;
     }
     .section-type.--v3 .section-type__inner {
@@ -5543,7 +5667,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .order-item__date { font-size: var(--text-xs); color: var(--fg-muted); }
   .order-item__amount { font-size: var(--text-base); font-weight: 700; white-space: nowrap; }
   .order-item__link { font-size: var(--text-xs); font-weight: 700; color: var(--green); text-decoration: none; white-space: nowrap; transition: color var(--anim-fast); }
-  .order-item__link:hover { color: var(--green-hover); text-decoration: underline; }
+  .order-item__link:hover { color: var(--green-hover); }
 
   /* ═══════════════════════════════════════════
      COOKIE BANNER
@@ -5585,7 +5709,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
   .blog-card__title { font-size: var(--text-m); font-weight: 700; line-height: var(--lh-h3); }
   .blog-card__title a,
   .blog-card__title a:visited { color: inherit; text-decoration: none; }
-  .blog-card__title a:hover { text-decoration: underline; }
+  .blog-card__title a:hover { color: inherit; }
   .article__hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .article__author-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .blog-card__excerpt { font-size: var(--text-base); color: var(--fg-muted); line-height: var(--lh-base); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -5598,7 +5722,7 @@ details.notice[open] > summary .notice__chevron { transform: rotate(180deg); }
     padding-top: calc(var(--half-module) * 1.5);
     transition: color var(--anim-fast);
   }
-  .blog-card__cta:hover { color: var(--green-hover); text-decoration: underline; }
+  .blog-card__cta:hover { color: var(--green-hover); }
 
   /* ─── Artikel-Detailseite / Standardseite: 3-Spalten-Raster (wie .tile-grid.--cols-3)
      Sidebar = Spalte 1 · Text = Spalten 2–3 · .--sidebar-end kehrt das um.
