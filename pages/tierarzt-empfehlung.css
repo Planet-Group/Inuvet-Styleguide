@@ -4,8 +4,14 @@
    Nie in Produktion einbinden.
    ═══════════════════════════════════════════════════════ */
 
-/* ─── Logo-Override (nur diese Seite) ─── */
-.nav-center img { transform: scale(1.5); }
+/* ─── Logo-Lockup (Signet + »Tierarzt Empfehlung«) ─── */
+.nav-logo {
+  width: auto;
+}
+.nav-logo__img {
+  width: auto;
+  height: calc(var(--nav-height) * 0.5);
+}
 
 /* ─── Hero-Content-Box: leicht transparent ─── */
 body.--page-home .section-type.--v3 .section-type__content {

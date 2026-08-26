@@ -8,9 +8,13 @@ const CALMIN_2 = '../assets/images/Calmin_Packshot_02.png';
 const CALMIN_3 = '../assets/images/Calmin_Packshot_04.png';
 const HEPAX_1  = '../assets/images/Hepax_Packshot_01.jpeg';
 const HEPAX_2  = '../assets/images/Hepax_Packshot_02.png';
+const ENTEROGAST_1 = '../assets/images/EnteroGast_Packshot_01.jpg';
+const CORTISAN_1   = '../assets/images/Cortisan_Packshot_01.jpg';
+const DERMIN_1     = '../assets/images/Dermin_Packshot_01.jpg';
+const DIABEX_1     = '../assets/images/Diabex_Packshot_01.jpg';
 
 /* ════════════════════════════════════════════
-   PRODUKTDATEN — 3 kanonische Produkte
+   PRODUKTDATEN — Katalog analog Vet-Portal (ohne Inzym)
    familie:true  → Produktfamilie mit darreichungsformen[]
    familie:false → Einzelprodukt mit variants[]
    ════════════════════════════════════════════ */
@@ -44,13 +48,58 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 3, name: 'Inzym Pulver', familie: false, cat: 'bauchspeichel', catLabel: 'Bauchspeicheldrüse',
-    img: null, imgHover: null, rating: '4,4', approved: false,
-    shortDesc: 'Unterstützt die Bauchspeicheldrüse.',
-    desc: 'Hochwertige Enzymformel zur Unterstützung der Verdauung bei Erkrankungen der Bauchspeicheldrüse. Für Hunde und Katzen.',
-    ingredients: 'Pankreasenzym-Konzentrat (Lipase, Amylase, Protease), Bromelain. Ohne künstliche Konservierungsstoffe.',
-    usps: ['Enzymformel für die Verdauung', 'Für Hund und Katze', 'Ohne künstliche Konservierungsstoffe'],
-    variants: [{ label: '50 g', price: '24,90 €' }, { label: '100 g', price: '44,90 €' }],
+    id: 4, name: 'EnteroGast akut', familie: true, cat: 'magendarm', catLabel: 'Magen & Darm',
+    img: ENTEROGAST_1, imgHover: null, rating: '4,7', approved: false,
+    shortDesc: '3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend.',
+    desc: 'EnteroGast akut fördert die Verfestigung des Kots und unterstützt die Darmfunktion in drei Phasen.',
+    ingredients: 'Pektin, Bentonit, Probiotika. Ohne künstliche Zusatzstoffe.',
+    usps: ['3-Phasen-Wirkung: adstringierend, absorbierend, aufbauend.', 'Langanhaltende Wirkung durch hohe Dosierung.', 'Fördert die Verfestigung des Kots und unterstützt die Darmflora.'],
+    darreichungsformen: [
+      { label: 'Tabletten', cartName: 'EnteroGast akut Tabletten', animals: 'Katze, Hund',
+        variants: [{ label: '6 Stück', price: '7,60 €' }, { label: '21 Stück', price: '16,75 €' }] },
+      { label: 'Pulver', cartName: 'EnteroGast akut Pulver', animals: 'Katze, Hund',
+        variants: [{ label: '60 g', price: '23,30 €' }] },
+      { label: 'Sachets', cartName: 'EnteroGast akut Sachets', animals: 'Katze, Hund',
+        variants: [{ label: '80 Sachets', price: '92,50 €' }] },
+    ],
+  },
+  {
+    id: 5, name: 'Cortisan Öl-Komplex', familie: false, cat: 'gelenke', catLabel: 'Gelenke',
+    animals: 'Hund, Pferd',
+    img: CORTISAN_1, imgHover: null, rating: '4,7', approved: false,
+    shortDesc: 'Wenn Cortison, dann Cortisan — hohe Bioverfügbarkeit durch Solubilisierung.',
+    desc: 'Weihrauch und Kurkuma in solubilisierter Form zur Unterstützung des Entzündungsstoffwechsels. Mit Algenöl als Omega-3-Quelle.',
+    ingredients: 'Weihrauch, Kurkuma, Algenöl. Solubilisierte Form.',
+    usps: ['Wenn Cortison, dann Cortisan.', 'Hohe Bioverfügbarkeit durch Solubilisierung.', 'Für die Langzeitgabe geeignet.'],
+    variants: [
+      { label: '30 ml Öl-Komplex', price: '17,80 €' },
+      { label: '100 ml Öl-Komplex', price: '41,35 €' },
+      { label: '300 ml Öl-Komplex', price: '63,45 €' },
+    ],
+  },
+  {
+    id: 6, name: 'Dermin Pflege-Emulsion', familie: false, cat: 'haut', catLabel: 'Haut & Fell',
+    animals: 'Katze, Hund',
+    img: DERMIN_1, imgHover: null, rating: '4,5', approved: false,
+    shortDesc: 'Beruhigt juckende und gereizte Haut — mit CBD, Aloe Vera, Ceramiden und PEA.',
+    desc: 'Mikroemulsion zur Pflege trockener und beanspruchter Haut. Unterstützt Hautbarriere und Lipidschicht, zieht schnell ein.',
+    ingredients: 'CBD, Aloe Vera, Ceramide, PEA.',
+    usps: ['Beruhigt juckende und gereizte Haut.', 'Mit 2,5% CBD, Aloe Vera, Ceramiden und PEA.', 'Zieht schnell ein.'],
+    variants: [{ label: '10 ml', price: '14,15 €' }],
+  },
+  {
+    id: 7, name: 'Diabex', familie: true, cat: 'bauchspeichel', catLabel: 'Bauchspeicheldrüse',
+    img: DIABEX_1, imgHover: null, rating: '4,6', approved: false,
+    shortDesc: 'Unterstützung bei der Regulierung des Blutzuckerspiegels.',
+    desc: 'Ergänzungsfuttermittel zur Unterstützung der Blutzuckerregulation und der normalen Funktion der Bauchspeicheldrüse.',
+    ingredients: 'Pflanzliche Wirkstoffe zur Blutzuckerregulation.',
+    usps: ['Unterstützung bei der Regulierung des Blutzuckerspiegels.', 'Kann für einen langsameren Anstieg des Blutzuckerspiegels nach der Nahrungsaufnahme sorgen.', 'Unterstützung der normalen Funktion der Bauchspeicheldrüse.'],
+    darreichungsformen: [
+      { label: 'Tabletten', cartName: 'Diabex Tabletten', animals: 'Katze, Hund',
+        variants: [{ label: '60 Stück', price: '23,05 €' }, { label: '220 Stück', price: '50,55 €' }] },
+      { label: 'Pulver', cartName: 'Diabex Pulver', animals: 'Katze, Hund',
+        variants: [{ label: '60 g', price: '20,95 €' }, { label: '210 g', price: '42,30 €' }] },
+    ],
   },
 ];
 
@@ -1808,7 +1857,10 @@ const FINDER_ANIMALS = [
 const FINDER_INDICATIONS = [
   { value: 'beruhigung',    label: 'Nervosität & Stress',   desc: 'Mein Tier ist ängstlich, unruhig oder gestresst.' },
   { value: 'leber',         label: 'Leber & Stoffwechsel',  desc: 'Unterstützung bei Leberproblemen oder Verdauungsschwäche.' },
-  { value: 'bauchspeichel', label: 'Verdauung',             desc: 'Verdauungsprobleme, Unterstützung der Bauchspeicheldrüse.' },
+  { value: 'magendarm',     label: 'Magen & Darm',          desc: 'Durchfall, empfindlicher Magen oder Aufbau der Darmflora.' },
+  { value: 'gelenke',       label: 'Gelenke',               desc: 'Beweglichkeit, Entzündungsstoffwechsel, Langzeitgabe.' },
+  { value: 'haut',          label: 'Haut & Fell',           desc: 'Juckreiz, gereizte oder trockene Haut.' },
+  { value: 'bauchspeichel', label: 'Verdauung',             desc: 'Blutzucker, Bauchspeicheldrüse, Verdauungsprobleme.' },
 ];
 
 let finderAnimal = null;
@@ -1838,9 +1890,11 @@ function finderPickAnimal(v) {
 function finderPickIndication(indication) {
   const matches = PRODUCTS.filter(p => {
     if (p.cat !== indication) return false;
-    const animals = (p.darreichungsformen || [])
+    const fromForms = (p.darreichungsformen || [])
       .flatMap(d => (d.animals || '').toLowerCase().split(',').map(a => a.trim()))
       .filter(Boolean);
+    const fromProduct = (p.animals || '').toLowerCase().split(',').map(a => a.trim()).filter(Boolean);
+    const animals = fromForms.length ? fromForms : fromProduct;
     return animals.length === 0 || animals.some(a => a.includes(finderAnimal));
   });
   renderFinderResult(matches);
@@ -2355,6 +2409,9 @@ const SEARCH_DATA = {
   queries: [
     { text: 'Beruhigung & Entspannung' },
     { text: 'Leber & Stoffwechsel' },
+    { text: 'Magen & Darm' },
+    { text: 'Gelenke' },
+    { text: 'Haut & Fell' },
     { text: 'Bauchspeicheldrüse & Verdauung' },
     { text: 'Tierärztlich empfohlene Produkte' },
   ],
