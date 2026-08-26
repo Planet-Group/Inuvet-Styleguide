@@ -1479,7 +1479,7 @@
       <table class="spec-table">
         <tr><th><code>.circle-badge</code></th><td>22 × 22 px · grün · <code>border-radius: 50%</code></td></tr>
         <tr><th><code>.circle-badge.--num</code></th><td>Schrittzahl · <code>var(--text-xs)</code> · fett</td></tr>
-        <tr><th><code>.circle-badge.--danger</code></th><td>Roter Zähler · BG <code>--color-error</code> · z.&nbsp;B. Nicht freigegeben in der Portal-Nav</td></tr>
+        <tr><th><code>.circle-badge.--danger</code></th><td>Roter Zähler · BG <code>--color-error</code></td></tr>
       </table>
       <div class="sg-demo">
         <div class="sg-row">
@@ -3149,8 +3149,7 @@
         <tr><th><code>--header-height</code></th><td><code>calc(var(--announcement-height) + var(--nav-height))</code> · nur bei Sticky-Bar (<code>body.--ann-sticky</code>) für <code>scroll-padding-top</code></td></tr>
         <tr><th><code>body.--ann-sticky</code></th><td>Opt-in: Bar + Nav sticky · <code>scroll-padding-top: var(--header-height)</code> · Shopify: <code>.announcement-bar.--scroll-away</code> am Section-Wrapper</td></tr>
         <tr><th><code>aria-current="page"</code></th><td>Aktiver Bereich: direkter Link, Trigger oder Dropdown-Link · <code>--fg</code>, bold · Dropdown-Treffer heben den Eltern-Trigger via <code>:has()</code> hervor</td></tr>
-        <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link, Subnav und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>)</td></tr>
-        <tr><th><code>[data-nav-declined-count]</code></th><td>Rotes Zähler-Badge (<code>.circle-badge.--num.--danger</code>) am Eintrag „Nicht freigegeben“ · gleiche Sync-Logik · <code>hidden</code> bei 0</td></tr>
+        <tr><th><code>[data-nav-open-count]</code></th><td>Zähler-Badge in Trigger, Dropdown-Link, Subnav und Mobile-Menu (<code>.circle-badge.--num</code>) · <code>hidden</code> bei 0 · Sync per Page-JS (z.&nbsp;B. <code>empfehlungSyncOpenRequestNavBadges</code>) · nur Offene Anfragen, nicht „Nicht freigegeben“</td></tr>
         <tr><th><code>.nav-hamburger.icon-badged</code></th><td>Hamburger mit <code>.badge.--count</code> oben rechts — Mobile-Ersatz für den Zähler in der Desktop-Nav</td></tr>
         <tr><th><code>.nav-item.--end</code> (Land)</th><td>Länder-/Locale-Umschalter in <code>.nav-right</code> · Trigger zeigt ISO-Code (<code>DE</code>) · Dropdown mit Markt-Namen · Mockup: DACH (<code>de</code> · <code>at</code> · <code>ch</code>) · JS: <code>initNavCountry()</code> in <code>planet-brands.js</code></td></tr>
         <tr><th>Account</th><td><code>&lt;shopify-account class="nav-account"&gt;</code> · signed-out: Icon <code>person</code> · New Customer Accounts Sheet · Spec → <a href="#E6">E.6</a></td></tr>

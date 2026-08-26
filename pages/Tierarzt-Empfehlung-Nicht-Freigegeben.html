@@ -6,8 +6,8 @@
   <title>Inuvet – Tierarzt-Empfehlung – Nicht freigegeben</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../planet-brands.css?v=183">
-  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=5">
+  <link rel="stylesheet" href="../planet-brands.css?v=184">
+  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=6">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=3" defer></script>
 </head>
@@ -46,7 +46,7 @@
         <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
         <a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
         <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
-        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" aria-current="page">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
+        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" aria-current="page">Nicht freigegeben</a>
         <a href="#">Meine Provisionen</a>
         <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
       </div>
@@ -75,7 +75,7 @@
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
-    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Nicht freigegeben</a>
     <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
     <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
   </div>
@@ -83,13 +83,10 @@
 
 <main class="container">
   <header class="page-header">
-    <h1>
-      Nicht freigegeben
-      <span class="circle-badge --num --danger" id="declinedCount" aria-label="Anzahl nicht freigegebener Positionen">0</span>
-    </h1>
+    <h1>Nicht freigegeben</h1>
   </header>
 
-  <div class="rte --data-table --sortable" id="declinedTableWrap">
+  <div class="rte --data-table --sortable" id="declinedTableWrap" hidden>
     <div class="data-table-sort">
       <label class="visually-hidden" for="declinedSort">Tabelle sortieren</label>
       <select id="declinedSort" class="data-table-sort__select">
@@ -122,7 +119,7 @@
     </table>
   </div>
 
-  <div class="empty-state" id="declinedEmpty" hidden>
+  <div class="empty-state" id="declinedEmpty">
     <span class="material-icons">block</span>
     <p class="empty-state__title">Keine abgelehnten Anfragen</p>
   </div>
@@ -147,7 +144,7 @@
         <textarea id="approveDeclinedNote" rows="3" placeholder=" "></textarea>
         <label for="approveDeclinedNote">Notiz an Tierbesitzer (optional)</label>
       </div>
-      <p class="form-required-note">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1); für den Kundeninhaber entsteht ein Salesforce-Task (B2).</p>
+      <p class="form-required-note">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1). Es entsteht kein Salesforce-Task.</p>
     </div>
     <div class="modal__footer">
       <button class="btn --secondary" type="button" onclick="closeApproveDeclinedModal()">Abbrechen</button>
@@ -168,7 +165,7 @@
 </div>
 
 <script src="../planet-brands.js"></script>
-<script src="tierarzt-empfehlung-anfrage-mock.js?v=8"></script>
-<script src="tierarzt-empfehlung-nicht-freigegeben.js?v=2"></script>
+<script src="tierarzt-empfehlung-anfrage-mock.js?v=11"></script>
+<script src="tierarzt-empfehlung-nicht-freigegeben.js?v=4"></script>
 </body>
 </html>

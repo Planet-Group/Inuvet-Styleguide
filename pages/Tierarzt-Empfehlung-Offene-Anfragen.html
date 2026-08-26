@@ -6,8 +6,8 @@
   <title>Inuvet – Tierarzt-Empfehlung – Offene Anfragen</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="../planet-brands.css?v=183">
-  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=5">
+  <link rel="stylesheet" href="../planet-brands.css?v=184">
+  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=6">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=3" defer></script>
 </head>
@@ -48,7 +48,7 @@
         <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
         <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" aria-current="page">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
         <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
-        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
+        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a>
         <a href="#">Meine Provisionen</a>
         <a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a>
       </div>
@@ -78,7 +78,7 @@
     <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
     <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
     <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
-    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span></a>
+    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
     <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
     <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
   </div>
@@ -189,7 +189,7 @@
         <textarea id="rowActionNote" rows="3" placeholder=" "></textarea>
         <label for="rowActionNote">Notiz an Tierbesitzer (optional)</label>
       </div>
-      <p class="form-required-note" id="rowActionMailHint">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1); für den Kundeninhaber entsteht ein Salesforce-Task (B2).</p>
+      <p class="form-required-note" id="rowActionMailHint">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1). Es entsteht kein Salesforce-Task — die Praxis hat die Anfrage selbst erledigt.</p>
     </div>
     <div class="modal__footer">
       <button class="btn --secondary" type="button" onclick="closeRowActionModal()">Abbrechen</button>
@@ -198,7 +198,7 @@
   </div>
 </div>
 
-<!-- Nachrichten-Overlay (Mockup) — B1 E-Mail + B2 Salesforce-Task nach Zeilen-Entscheidung -->
+<!-- Nachrichten-Overlay (Mockup) — B1 E-Mail nach Zeilen-Entscheidung -->
 <div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
 <div class="mockup-email-panel" id="emailPanel">
   <div class="mockup-email-panel__header">
@@ -210,8 +210,8 @@
   <div class="mockup-email-panel__body" id="emailPanelBody"></div>
 </div>
 
-<script src="../planet-brands.js"></script>
-<script src="tierarzt-empfehlung-anfrage-mock.js?v=8"></script>
-<script src="tierarzt-empfehlung-offene-anfragen.js?v=6"></script>
+<script src="../planet-brands.js?v=3"></script>
+<script src="tierarzt-empfehlung-anfrage-mock.js?v=11"></script>
+<script src="tierarzt-empfehlung-offene-anfragen.js?v=8"></script>
 </body>
 </html>

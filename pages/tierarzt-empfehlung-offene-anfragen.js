@@ -165,7 +165,7 @@ function confirmBulkAction() {
   const toastMsg = rows.length === 1
     ? `„${rows[0].productLabel}“ ${verb}. Der Tierbesitzer wird per E-Mail informiert.`
     : `${rows.length} Positionen ${verb}. Die Tierhalter werden per E-Mail informiert.`;
-  showToast(toastMsg, 'success');
+  showToast(toastMsg, type === 'approve' ? 'success' : 'error');
   setTimeout(() => openEmailsOverlay(keys), 400);
 }
 
@@ -330,7 +330,11 @@ function openEmailsOverlay(keys) {
   const count = keys.length;
   const counter = document.getElementById('emailPanelCounter');
   const body = document.getElementById('emailPanelBody');
-  if (counter) counter.textContent = `${count} Nachrichten ausgelöst`;
+  if (counter) {
+    counter.textContent = count === 1
+      ? '1 Nachricht ausgelöst'
+      : `${count} Nachrichten ausgelöst`;
+  }
   if (body) {
     body.innerHTML = keys.map(key => {
       const d = emailOverlayData[key];
@@ -375,7 +379,6 @@ function buildRowActionEmails(row, type, note, parsed) {
   const approved = type === 'approve';
   const sizeLine = approved ? approvalSizeLine(row, parsed) : `${row.variantLabel} (angefragt: max. ${row.qty}×)`;
   const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
-  const noteBlockInternal = note ? `<p><strong>Notiz an Tierbesitzer:</strong> <em>${note}</em></p>` : '';
   const approvedBlock = approved
     ? `<p><strong>Freigegeben:</strong></p><ul><li><strong>${row.cartName}</strong> — ${sizeLine}</li></ul>`
     : '';
@@ -395,20 +398,6 @@ function buildRowActionEmails(row, type, note, parsed) {
         ${noteBlock}
         ${b1DeclinedHintHtml(!approved)}
         ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>' : ''}`,
-    },
-    internal: {
-      tag: 'Task',
-      assignee: 'Kundeninhaber',
-      subject: `Empfehlungsanfrage bearbeitet: ${row.customerName}`,
-      internal: true,
-      body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat die Empfehlungsanfrage für <strong>${row.customerName}</strong> (${row.customerEmail}) bearbeitet:</p>
-        ${approvedBlock}
-        ${declinedBlock}
-        ${noteBlockInternal}
-        <p>${approved ? '1 Produkt freigegeben, 0 Positionen abgelehnt' : '0 Produkte freigegeben, 1 Position abgelehnt'} (Schnellaktion in Offene Anfragen).</p>
-        <p class="mockup-email-panel__note">Salesforce-Task für den Kundeninhaber dieses Praxis-Accounts. Kein E-Mail-Versand intern.</p>
-        <p class="mockup-email-panel__note">${row.customerName} wurde automatisch per E-Mail benachrichtigt.</p>`,
     },
   };
 }
@@ -431,7 +420,6 @@ function buildBulkEmails(rows, type, note) {
   const approved = type === 'approve';
   const groups = groupRowsByCustomer(rows);
   const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
-  const noteBlockInternal = note ? `<p><strong>Notiz an Tierbesitzer:</strong> <em>${note}</em></p>` : '';
   const keys = [];
   emailOverlayData = {};
 
@@ -460,31 +448,6 @@ function buildBulkEmails(rows, type, note) {
     };
   });
 
-  const internalItems = rows.map(row => {
-    const parsed = empfehlungParseApprovalQty(`max${row.qty}`, row.qty);
-    const line = approved
-      ? approvalSizeLine(row, parsed)
-      : `${row.variantLabel} (angefragt: max. ${row.qty}×)`;
-    return `<li><strong>${row.customerName}</strong> · ${row.cartName} — ${line}</li>`;
-  }).join('');
-  const names = [...new Set(rows.map(row => row.customerName))];
-  emailOverlayData.internal = {
-    tag: 'Task',
-    assignee: 'Kundeninhaber',
-    subject: rows.length === 1
-      ? `Empfehlungsanfrage bearbeitet: ${rows[0].customerName}`
-      : `Empfehlungsanfragen bearbeitet: ${rows.length} Positionen`,
-    internal: true,
-    body: `
-      <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat ${rows.length === 1 ? 'eine Empfehlungsanfrage' : `${rows.length} Empfehlungsanfragen`} per Sammelaktion bearbeitet:</p>
-      <p><strong>${approved ? 'Freigegeben' : 'Nicht freigegeben'}:</strong></p>
-      <ul>${internalItems}</ul>
-      ${noteBlockInternal}
-      <p>${approved ? `${rows.length} Position${rows.length !== 1 ? 'en' : ''} freigegeben, 0 abgelehnt` : `0 Produkte freigegeben, ${rows.length} Position${rows.length !== 1 ? 'en' : ''} abgelehnt`} (Sammelaktion in Offene Anfragen).</p>
-      <p class="mockup-email-panel__note">Salesforce-Task für den Kundeninhaber dieses Praxis-Accounts. Kein E-Mail-Versand intern.</p>
-      <p class="mockup-email-panel__note">${names.join(', ')} wurde${names.length === 1 ? '' : 'n'} automatisch per E-Mail benachrichtigt.</p>`,
-  };
-  keys.push('internal');
   return keys;
 }
 
@@ -515,8 +478,8 @@ function confirmRowAction() {
       ? `„${row.productLabel}“ unbegrenzt freigegeben. Der Tierbesitzer wird per E-Mail informiert.`
       : `„${row.productLabel}“ freigegeben (${parsed.qty}×). Der Tierbesitzer wird per E-Mail informiert.`)
     : `„${row.productLabel}“ nicht freigegeben. Der Tierbesitzer wird per E-Mail informiert.`;
-  showToast(toastMsg, 'success');
-  setTimeout(() => openEmailsOverlay(['customer', 'internal']), 400);
+  showToast(toastMsg, type === 'approve' ? 'success' : 'error');
+  setTimeout(() => openEmailsOverlay(['customer']), 400);
 }
 
 function quickApprove(id) {

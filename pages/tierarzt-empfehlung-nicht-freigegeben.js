@@ -68,14 +68,9 @@ function renderDeclinedRequests() {
   const tbody = document.getElementById('declinedBody');
   const tableWrap = document.getElementById('declinedTableWrap');
   const emptyEl = document.getElementById('declinedEmpty');
-  const countEl = document.getElementById('declinedCount');
   if (!tbody) return;
 
   const count = rows.length;
-  if (countEl) {
-    countEl.textContent = String(count);
-    countEl.setAttribute('aria-label', `${count} nicht freigegebene Positionen`);
-  }
   if (tableWrap) tableWrap.hidden = count === 0;
   if (emptyEl) emptyEl.hidden = count !== 0;
 
@@ -144,7 +139,11 @@ function openEmailsOverlay(keys) {
   const count = keys.length;
   const counter = document.getElementById('emailPanelCounter');
   const body = document.getElementById('emailPanelBody');
-  if (counter) counter.textContent = `${count} Nachrichten ausgelöst`;
+  if (counter) {
+    counter.textContent = count === 1
+      ? '1 Nachricht ausgelöst'
+      : `${count} Nachrichten ausgelöst`;
+  }
   if (body) {
     body.innerHTML = keys.map(key => {
       const d = emailOverlayData[key];
@@ -177,7 +176,6 @@ function buildApproveDeclinedEmails(row, parsed, note) {
       ? `${row.variantLabel}: max. ${parsed.qty}×`
       : `${row.variantLabel}: max. ${parsed.qty}× (angefragt: max. ${row.qty}×)`;
   const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
-  const noteBlockInternal = note ? `<p><strong>Notiz an Tierbesitzer:</strong> <em>${note}</em></p>` : '';
   emailOverlayData = {
     customer: {
       tag: 'E-Mail',
@@ -189,19 +187,6 @@ function buildApproveDeclinedEmails(row, parsed, note) {
         <ul><li><strong>${row.cartName}</strong> — ${sizeLine}</li></ul>
         ${noteBlock}
         <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>`,
-    },
-    internal: {
-      tag: 'Task',
-      assignee: 'Kundeninhaber',
-      subject: `Empfehlungsanfrage nachträglich freigegeben: ${row.customerName}`,
-      internal: true,
-      body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat eine zuvor abgelehnte Empfehlungsanfrage für <strong>${row.customerName}</strong> (${row.customerEmail}) nachträglich freigegeben:</p>
-        <ul><li><strong>${row.cartName}</strong> — ${sizeLine}</li></ul>
-        ${noteBlockInternal}
-        <p>1 Produkt freigegeben (Jetzt freigeben in Nicht freigegeben).</p>
-        <p class="mockup-email-panel__note">Salesforce-Task für den Kundeninhaber dieses Praxis-Accounts. Kein E-Mail-Versand intern.</p>
-        <p class="mockup-email-panel__note">${row.customerName} wurde automatisch per E-Mail benachrichtigt.</p>`,
     },
   };
 }
@@ -224,7 +209,7 @@ function confirmApproveDeclined() {
     ? `„${row.productLabel}“ nachträglich unbegrenzt freigegeben. Der Tierbesitzer wird per E-Mail informiert.`
     : `„${row.productLabel}“ nachträglich freigegeben (${parsed.qty}×). Der Tierbesitzer wird per E-Mail informiert.`;
   showToast(toastMsg, 'success');
-  setTimeout(() => openEmailsOverlay(['customer', 'internal']), 400);
+  setTimeout(() => openEmailsOverlay(['customer']), 400);
 }
 
 function initDeclinedPage() {

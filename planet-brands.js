@@ -1244,9 +1244,10 @@ function showToast(message, variant = 'success') {
     container.className = 'toast-container';
     document.body.appendChild(container);
   }
+  const icons = { success: 'check_circle', error: 'error', info: 'info' };
   const toast = document.createElement('div');
   toast.className = `toast --${variant}`;
-  toast.innerHTML = `<span class="material-icons">check_circle</span><span>${message}</span>`;
+  toast.innerHTML = `<span class="material-icons">${icons[variant] || 'check_circle'}</span><span>${message}</span>`;
   container.appendChild(toast);
   setTimeout(() => {
     toast.classList.add('--out');

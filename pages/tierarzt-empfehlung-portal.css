@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
     padding: var(--half-module) var(--margin);
     background: var(--bg);
     border-top: 1px solid var(--border-light);

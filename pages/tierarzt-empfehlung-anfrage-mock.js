@@ -18,7 +18,6 @@ const EMPFEHLUNG_VARIANT_PRICES = {
   'EnteroGast akut Tabletten|6 Stück': 7.60,
   'EnteroGast akut Tabletten|21 Stück': 16.75,
   'EnteroGast akut Pulver|60 g': 23.30,
-  'EnteroGast akut Pulver+1|25 g': 13.10,
   'EnteroGast akut Sachets|80 Sachets': 92.50,
   'Cortisan Öl-Komplex|30 ml Öl-Komplex': 17.80,
   'Cortisan Öl-Komplex|100 ml Öl-Komplex': 41.35,
@@ -433,11 +432,9 @@ function empfehlungSyncOpenRequestNavBadges() {
   empfehlungEnsurePortalSubnav();
 
   const count = empfehlungFlattenOpenRows().length;
-  const declinedCount = empfehlungFlattenDeclinedRows().length;
   const label = `${count} offene Produktanfragen`;
 
   empfehlungSyncNavCountBadges('[data-nav-open-count]', count);
-  empfehlungSyncNavCountBadges('[data-nav-declined-count]', declinedCount);
 
   const pageCount = document.getElementById('openRequestsCount');
   if (pageCount) {
@@ -467,7 +464,7 @@ function empfehlungEnsurePortalSubnav() {
     { href: 'Tierarzt-Empfehlung-Anfrage-Freigabe.html', label: 'Freigabe ausstellen' },
     { href: 'Tierarzt-Empfehlung-Offene-Anfragen.html', label: 'Offene Anfragen', badge: true },
     { href: 'Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html', label: 'Freigegeben' },
-    { href: 'Tierarzt-Empfehlung-Nicht-Freigegeben.html', label: 'Nicht freigegeben', declinedBadge: true },
+    { href: 'Tierarzt-Empfehlung-Nicht-Freigegeben.html', label: 'Nicht freigegeben' },
     { href: '#', label: 'Meine Provisionen' },
     { href: 'Tierarzt-Empfehlung-Programm.html', label: 'So funktioniert\'s' },
   ];
@@ -476,9 +473,7 @@ function empfehlungEnsurePortalSubnav() {
     const current = item.href !== '#' && item.href === page;
     const badge = item.badge
       ? ' <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span>'
-      : item.declinedBadge
-        ? ' <span class="circle-badge --num --danger" data-nav-declined-count hidden aria-hidden="true">0</span>'
-        : '';
+      : '';
     const currentAttr = current ? ' aria-current="page"' : '';
     return `<a href="${item.href}"${currentAttr}>${item.label}${badge}</a>`;
   }).join('');
@@ -554,7 +549,6 @@ const EMPFEHLUNG_VARIANT_COMMISSIONS = {
   'EnteroGast akut Tabletten|6 Stück': 0.90,
   'EnteroGast akut Tabletten|21 Stück': 1.90,
   'EnteroGast akut Pulver|60 g': 2.60,
-  'EnteroGast akut Pulver+1|25 g': 1.50,
   'EnteroGast akut Sachets|80 Sachets': 10.50,
   'Cortisan Öl-Komplex|30 ml Öl-Komplex': 2.00,
   'Cortisan Öl-Komplex|100 ml Öl-Komplex': 4.70,
@@ -663,35 +657,7 @@ function empfehlungFlattenRedeemedRows() {
   });
 }
 
-/* Nicht freigegeben — Historie abgelehnter Positionen (Seed + sessionStorage). */
-const EMPFEHLUNG_MOCK_DECLINED = [
-  {
-    id: 'dec-seed-hartmann',
-    sourceId: null,
-    requestId: null,
-    customerName: 'Lisa Hartmann',
-    customerEmail: 'lisa.hartmann@beispiel.de',
-    customerNote: '',
-    vetNote: 'Derzeit nicht das richtige Produkt. Kommen sie gerne noch mal für eine Beratung in die Praxis.',
-    declinedAt: '2026-07-18',
-    cartName: 'Calmin balance Pulver',
-    variantLabel: '30 g',
-    qty: 1,
-  },
-  {
-    id: 'dec-seed-weiss',
-    sourceId: null,
-    requestId: null,
-    customerName: 'Mara Weiß',
-    customerEmail: 'mara.weiss@beispiel.de',
-    customerNote: 'Bitte möglichst die kleine Packung, wir möchten erst testen.',
-    vetNote: '',
-    declinedAt: '2026-07-15',
-    cartName: 'Hepax forte Tabletten',
-    variantLabel: '30 Stück',
-    qty: 1,
-  },
-];
+/* Nicht freigegeben — Historie abgelehnter Positionen (sessionStorage, Start leer). */
 
 function empfehlungGetSessionDeclinedEntries() {
   try {
@@ -734,10 +700,7 @@ function empfehlungRemoveDeclinedRow(id) {
 
 function empfehlungFlattenDeclinedRows() {
   const removed = new Set(empfehlungGetDeclinedRemovedIds());
-  const session = empfehlungGetSessionDeclinedEntries();
-  const sessionIds = new Set(session.map(item => item.id));
-  const seed = EMPFEHLUNG_MOCK_DECLINED.filter(item => !removed.has(item.id) && !sessionIds.has(item.id));
-  return [...session, ...seed]
+  return empfehlungGetSessionDeclinedEntries()
     .filter(item => !removed.has(item.id))
     .map(row => ({
       ...row,

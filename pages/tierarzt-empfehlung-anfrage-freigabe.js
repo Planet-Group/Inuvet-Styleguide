@@ -46,10 +46,6 @@ const CATALOG = [
     variants: [
       { label: '60 g', price: '23,30 €', commission: 2.60 },
     ] },
-  { id: 8, cartName: 'EnteroGast akut Pulver+1', img: ENTEROGAST_1, imgHover: null,
-    variants: [
-      { label: '25 g', price: '13,10 €', commission: 1.50 },
-    ] },
   { id: 9, cartName: 'EnteroGast akut Sachets', img: ENTEROGAST_1, imgHover: null,
     variants: [
       { label: '80 Sachets', price: '92,50 €', commission: 10.50 },
@@ -481,7 +477,9 @@ let emailOverlayData = {};
 
 function openEmailsOverlay(keys) {
   const count = keys.length;
-  document.getElementById('emailPanelCounter').textContent = `${count} Nachrichten ausgelöst`;
+  document.getElementById('emailPanelCounter').textContent = count === 1
+    ? '1 Nachricht ausgelöst'
+    : `${count} Nachrichten ausgelöst`;
   document.getElementById('emailPanelBody').innerHTML = keys.map(key => {
     const d = emailOverlayData[key];
     if (!d) return '';
@@ -541,11 +539,7 @@ function submitApproval() {
   const customerLines = approvedProducts.map(g =>
     `<li><strong>${g.name}</strong> — ${g.sizes.join(', ')}</li>`
   ).join('');
-  const internalLines = approvedProducts.map(g =>
-    `<li><strong>${g.name}</strong>: ${g.sizes.join(', ')}</li>`
-  ).join('');
   const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
-  const noteBlockInternal = note ? `<p><strong>Notiz an Tierbesitzer:</strong> <em>${note}</em></p>` : '';
 
   emailOverlayData = {
     customer: {
@@ -558,26 +552,12 @@ function submitApproval() {
         ${noteBlock}
         <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>`,
     },
-    internal: {
-      tag: 'Task',
-      assignee: 'Kundeninhaber',
-      subject: `Direkt-Empfehlung bearbeitet: ${custEmail}`,
-      internal: true,
-      body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat eine Direkt-Empfehlung (in der Praxis ausgestellt) für <strong>${custName || 'Tierbesitzer*in'}</strong> (${custEmail}) bearbeitet:</p>
-        <ul>${internalLines}</ul>
-        ${noteBlockInternal}
-        <p>${approvedProducts.length} Produkt${approvedProducts.length !== 1 ? 'e' : ''} freigegeben.</p>
-        <p class="mockup-email-panel__note">Salesforce-Task für den Kundeninhaber dieses Praxis-Accounts. Kein E-Mail-Versand intern.</p>
-        <p class="mockup-email-panel__note">Direkt-Empfehlung: E-Mail-Weitergabe + werblicher Charakter wurden vom Tierarzt bestätigt.</p>
-        <p class="mockup-email-panel__note">${custName || 'Der Tierbesitzer'} wurde automatisch per E-Mail benachrichtigt.</p>`,
-    },
   };
 
   empfehlungRecordRedeemedFromSubmit(custName || custEmail, null, redeemedVariants, custEmail);
 
   openSuccessModal('Die Freigabe wurde erteilt. Der Tierbesitzer wird per E-Mail informiert.');
-  setTimeout(() => openEmailsOverlay(['customer', 'internal']), 500);
+  setTimeout(() => openEmailsOverlay(['customer']), 500);
 }
 
 /* ── Initial render ── */
