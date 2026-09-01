@@ -186,7 +186,7 @@ function buildApproveDeclinedEmails(row, parsed, note) {
         <p><strong>Freigegeben:</strong></p>
         <ul><li><strong>${row.cartName}</strong> — ${sizeLine}</li></ul>
         ${noteBlock}
-        <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>`,
+        <p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>`,
     },
   };
 }

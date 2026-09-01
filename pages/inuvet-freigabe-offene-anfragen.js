@@ -8,7 +8,7 @@
 let openRequests = [];
 const selectedIds = new Set();
 let pendingRowAction = null; // { id, type: 'approve' | 'decline' }
-const openSortState = { key: 'productLabel', dir: 'asc' };
+const openSortState = { key: 'customerName', dir: 'asc' };
 const OPEN_SORT_GETTERS = {
   customerName: row => row.customerName,
   date: row => row.date,
@@ -397,7 +397,7 @@ function buildRowActionEmails(row, type, note, parsed) {
         ${declinedBlock}
         ${noteBlock}
         ${b1DeclinedHintHtml(!approved)}
-        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>' : ''}`,
+        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
     },
   };
 }
@@ -444,7 +444,7 @@ function buildBulkEmails(rows, type, note) {
         <ul>${items}</ul>
         ${noteBlock}
         ${b1DeclinedHintHtml(!approved)}
-        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>' : ''}`,
+        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
     };
   });
 

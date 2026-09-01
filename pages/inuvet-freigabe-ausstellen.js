@@ -550,7 +550,7 @@ function submitApproval() {
         <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat eine Empfehlung für Sie ausgestellt und folgende Produkte freigegeben:</p>
         <ul>${customerLines}</ul>
         ${noteBlock}
-        <p>Sie können die freigegebenen Produkte jetzt auf inuvet.com einlösen.</p>`,
+        <p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>`,
     },
   };
 
