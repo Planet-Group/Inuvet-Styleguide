@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   Tierarzt-Empfehlung-Anfrage-Freigabe — Freigabe ausstellen (Direkt)
+   Inuvet-Freigabe-Ausstellen — Freigabe ausstellen (Direkt) · inuvet.com
    Der Tierarzt sieht alle Produkte und kann pro Größe eine Menge
    freigeben. Anfragen laufen über Offene Anfragen — nicht über diese Seite.
    ════════════════════════════════════════════ */

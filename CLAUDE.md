@@ -17,7 +17,7 @@
 
 | Was | Regel | Beispiel |
 |---|---|---|
-| HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Tierarzt-Empfehlung.html`, `Provision-Portal.html` |
+| HTML in `pages/` | **Pascal-Case** mit Bindestrich | `Tierarzt-Empfehlung.html` (Halter-Shop), `Inuvet-Freigabe-Ausstellen.html` (Vet-Portal) |
 | Page-CSS / Page-JS | **kebab-case** (bewusst entkoppelt vom HTML) | `tierarzt-empfehlung.css`, `tierarzt-empfehlung.js` |
 | Root-Tools | kebab ok | `styleguide.html`, `planet-brands.css` |
 | Seitentitel Default | `{Name} – inuvet` (en dash, Brand klein am Ende) | `Shopify – inuvet` |
@@ -179,10 +179,12 @@ Globale Funktionen → `planet-brands.js` · Seitenspezifische Logik → `pages/
 
 | Datei | Page |
 |---|---|
-| `pages/tierarzt-empfehlung.js` | Tierarzt-Empfehlung Mockup |
-| `pages/tierarzt-empfehlung-anfrage-freigabe.js` | Freigabe-Portal |
-| `pages/tierarzt-empfehlung-anfrage-mock.js` | Gemeinsame Demo-Daten Offene Anfragen ↔ Freigabe |
-| `pages/tierarzt-empfehlung-offene-anfragen.js` | Posteingang offener Produktanfragen |
+| `pages/tierarzt-empfehlung.js` | Halter-Shop (tierarzt-empfehlung.com) |
+| `pages/inuvet-freigabe-ausstellen.js` | Vet-Portal (inuvet.com), Freigabe ausstellen |
+| `pages/inuvet-freigabe-mock.js` | Gemeinsame Demo-Daten des Vet-Portals |
+| `pages/inuvet-freigabe-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
+| `pages/inuvet-freigabe-freigegeben.js` | Vet-Portal, Historie Freigegeben |
+| `pages/inuvet-freigabe-nicht-freigegeben.js` | Vet-Portal, Historie Nicht freigegeben |
 | `pages/provision-portal.js` | Provision-Portal |
 | `pages/provision-portal-start.js` | Provision-Portal Startseite |
 | `pages/provision-portal-vetalita.js` | Provision-Portal Vetalita |
@@ -456,13 +458,13 @@ A Foundations · B Atome · C Moleküle · D Organismen · E Seiten-Vorlagen —
 |---|---|---|---|
 | `index.html` | `index.css` | `planet-brands.js`, `index.js` | Mockup-Übersicht (GitHub-Pages-Einstieg, DE\|EN) — **Pflicht aktualisieren** bei neuen/umbenannten zentralen Mockups (Goldene Regel 17) |
 | `print-styleguide.html` | `sg.css`, `print-sg.css` | — | **Print- & PDF-Guide**: Formate, Seitenraster, Logo-Position, pt-Typo, CMYK, Pipeline. Sektionen P (Grundlagen) · Q (Dokumentarten) · R (Produktion) |
-| `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Hauptmockup, Freigabe-Flow |
-| `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku Rezeptanfrage-System |
-| `pages/Tierarzt-Empfehlung-Anfrage-Freigabe.html` | `tierarzt-empfehlung-anfrage-freigabe.css` | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-anfrage-freigabe.js` | Vet-Portal, Empfehlungsfreigabe |
-| `pages/Tierarzt-Empfehlung-Offene-Anfragen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-offene-anfragen.js` | Vet-Portal, Posteingang offener Produktanfragen |
-| `pages/Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-eingeloeste-empfehlungen.js` | Vet-Portal, Historie freigegebener Empfehlungen |
-| `pages/Tierarzt-Empfehlung-Nicht-Freigegeben.html` | — | `tierarzt-empfehlung-anfrage-mock.js`, `tierarzt-empfehlung-nicht-freigegeben.js` | Vet-Portal, Historie abgelehnter Empfehlungen (Jetzt freigeben) |
-| `pages/Tierarzt-Empfehlung-Programm.html` | — | `tierarzt-empfehlung-anfrage-mock.js` | Vet-Portal, Artikel „So funktioniert's" |
+| `pages/Tierarzt-Empfehlung.html` | `tierarzt-empfehlung.css` | `tierarzt-empfehlung.js` | Halter-Shop (tierarzt-empfehlung.com), Empfehlungs-Flow |
+| `pages/Tierarzt-Empfehlung-Info.html` | — | — | Technische Doku (beide Sichten) |
+| `pages/Inuvet-Freigabe-Ausstellen.html` | `inuvet-freigabe-ausstellen.css` | `inuvet-freigabe-mock.js`, `inuvet-freigabe-ausstellen.js` | Vet-Portal (inuvet.com), Direkt-Freigabe |
+| `pages/Inuvet-Freigabe-Offene-Anfragen.html` | — | `inuvet-freigabe-mock.js`, `inuvet-freigabe-offene-anfragen.js` | Vet-Portal (inuvet.com), Posteingang offener Produktanfragen |
+| `pages/Inuvet-Freigabe-Freigegeben.html` | — | `inuvet-freigabe-mock.js`, `inuvet-freigabe-freigegeben.js` | Vet-Portal (inuvet.com), Historie erteilter Freigaben |
+| `pages/Inuvet-Freigabe-Nicht-Freigegeben.html` | — | `inuvet-freigabe-mock.js`, `inuvet-freigabe-nicht-freigegeben.js` | Vet-Portal (inuvet.com), Historie abgelehnter Freigaben |
+| `pages/Inuvet-Freigabe-Programm.html` | — | `inuvet-freigabe-mock.js` | Vet-Portal (inuvet.com), Artikel „So funktioniert's" |
 | `pages/Bundle.html` | `bundle.css` | `bundle.js` | Bundle-Builder mit Naturalrabatt |
 | `pages/Bundle-Info.html` | — | — | Konzept-Artikel Bundle |
 | `pages/Signature-Generator.html` | `signature-generator.css` | `signature-generator.js` | E-Mail-Signatur-Generator |

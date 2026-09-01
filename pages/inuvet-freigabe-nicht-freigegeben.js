@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════
-   Tierarzt-Empfehlung-Nicht-Freigegeben — Historie abgelehnter Positionen
+   Inuvet-Freigabe-Nicht-Freigegeben — Historie abgelehnter Positionen · inuvet.com
    „Jetzt freigeben“ kehrt die Ablehnung um (Menge + optionale neue Notiz).
-   Daten: tierarzt-empfehlung-anfrage-mock.js
+   Daten: inuvet-freigabe-mock.js
    ════════════════════════════════════════════ */
 
 const DECLINED_QTY_PRESETS = [1, 2, 5];

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inuvet – Tierarzt-Empfehlung – So funktioniert's</title>
+  <title>Inuvet – Tierarzt-Empfehlung – Freigegeben</title>
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../planet-brands.css?v=184">
-  <link rel="stylesheet" href="tierarzt-empfehlung-portal.css?v=6">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
 </head>
-<body id="top">
+<body>
 
 <div class="announcement-bar --marquee" id="announcementBar">
   <div class="announcement-bar__track">
@@ -38,16 +38,16 @@
       <span class="nav-item__trigger">Produkte</span>
     </div>
     <div class="nav-item">
-      <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="nav-item__trigger">
+      <a href="Inuvet-Freigabe-Ausstellen.html" class="nav-item__trigger">
         Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
       </a>
       <div class="nav-item__dropdown">
-        <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a>
-        <a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
-        <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a>
-        <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a>
+        <a href="Inuvet-Freigabe-Ausstellen.html">Freigabe ausstellen</a>
+        <a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Inuvet-Freigabe-Freigegeben.html" aria-current="page">Freigegeben</a>
+        <a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a>
         <a href="#">Meine Provisionen</a>
-        <a href="Tierarzt-Empfehlung-Programm.html" aria-current="page">So funktioniert's</a>
+        <a href="Inuvet-Freigabe-Programm.html">So funktioniert's</a>
       </div>
     </div>
   </div>
@@ -71,55 +71,68 @@
   <div class="nav-col">
     <span class="nav-item__trigger">Home</span>
     <span class="nav-item__trigger">Produkte</span>
-    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
-    <a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
-    <a href="Tierarzt-Empfehlung-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
-    <a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
-    <a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
+    <a href="Inuvet-Freigabe-Ausstellen.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Ausstellen.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Inuvet-Freigabe-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Freigegeben.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Inuvet-Freigabe-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
     <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
-    <a href="Tierarzt-Empfehlung-Programm.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">So funktioniert's</a>
+    <a href="Inuvet-Freigabe-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
   </div>
 </div>
 
-<main>
-  <div class="container">
-    <div class="article-layout">
-      <aside class="article-sidebar">
-        <nav class="article-toc" aria-label="Inhalt">
-          <a href="#rolle">Ihre Rolle</a>
-          <a href="#inuvet">Was Inuvet übernimmt</a>
-          <a href="#provision">Provision</a>
-        </nav>
-      </aside>
+<main class="container">
+  <header class="page-header">
+    <h1>
+      Freigegeben
+      <span class="circle-badge --num" id="redeemedCount" aria-label="Anzahl erteilter Freigaben">0</span>
+    </h1>
+  </header>
 
-      <article class="article">
-        <header class="article__header">
-          <span class="label-caps">Empfehlungsprogramm</span>
-          <h1>So funktioniert's</h1>
-        </header>
-
-        <div class="article__body rte">
-          <p>Ihre Praxis nimmt am Inuvet-Empfehlungsprogramm teil. Tierbesitzer*innen können Produkte anfragen — Sie prüfen kurz die Eignung und geben passende Größen frei.</p>
-
-          <h2 id="rolle">Ihre Rolle</h2>
-          <p>Ihre Freigabe ist die fachliche Empfehlung: Erst danach kann der*die Tierbesitzer*in das Produkt bestellen. Sie entscheiden pro Produkt und Packungsgröße, ob und in welcher Menge freigegeben wird.</p>
-
-          <h2 id="inuvet">Was Inuvet übernimmt</h2>
-          <p>Inuvet kümmert sich um Beratung, Versand und Betreuung der Tierbesitzer*innen. Für Sie entsteht kein Aufwand mit Lagerung oder Logistik — Sie bleiben auf Ihre tierärztliche Empfehlung fokussiert.</p>
-
-          <h2 id="provision">Provision</h2>
-          <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
-        </div>
-      </article>
+  <div class="rte --data-table --sortable" id="redeemedTableWrap">
+    <div class="data-table-sort">
+      <label class="visually-hidden" for="redeemedSort">Tabelle sortieren</label>
+      <select id="redeemedSort" class="data-table-sort__select">
+        <option value="customerName:asc">Name A–Z</option>
+        <option value="customerName:desc">Name Z–A</option>
+        <option value="date:asc">Datum aufsteigend</option>
+        <option value="date:desc" selected>Datum absteigend</option>
+        <option value="productLabel:asc">Produkt A–Z</option>
+        <option value="productLabel:desc">Produkt Z–A</option>
+        <option value="commission:asc">Provision aufsteigend</option>
+        <option value="commission:desc">Provision absteigend</option>
+      </select>
     </div>
+    <table class="--spacious">
+      <thead>
+        <tr>
+          <th scope="col" data-sort="customerName" aria-sort="none">
+            <button type="button">Name <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" class="data-table-date" data-sort="date" aria-sort="descending">
+            <button type="button">Datum <span class="material-icons" aria-hidden="true">arrow_downward</span></button>
+          </th>
+          <th scope="col" data-sort="productLabel" aria-sort="none">
+            <button type="button">Produkt <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" class="data-table-note">Notiz vom Tierhalter</th>
+          <th scope="col" class="data-table-commission" data-sort="commission" aria-sort="none">
+            <button type="button">Provision <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="redeemedBody"></tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" id="redeemedEmpty" hidden>
+    <span class="material-icons">history</span>
+    <p class="empty-state__title">Noch keine erteilten Freigaben</p>
   </div>
 </main>
 
 <script src="../planet-brands.js"></script>
-<script src="tierarzt-empfehlung-anfrage-mock.js?v=12"></script>
-<script>
-document.addEventListener('DOMContentLoaded', empfehlungSyncOpenRequestNavBadges);
-window.addEventListener('pageshow', empfehlungSyncOpenRequestNavBadges);
-</script>
+<script src="inuvet-freigabe-mock.js?v=13"></script>
+<script src="inuvet-freigabe-freigegeben.js?v=1"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════
-   Tierarzt-Empfehlung-Eingeloeste-Empfehlungen — Historie
+   Inuvet-Freigabe-Freigegeben — Historie erteilter Freigaben · inuvet.com
    Eine Tabellenzeile = eine eingelöste Produktposition (Bestellung).
-   Daten: tierarzt-empfehlung-anfrage-mock.js
+   Daten: inuvet-freigabe-mock.js
    ════════════════════════════════════════════ */
 
 const redeemedSortState = { key: 'date', dir: 'desc' };

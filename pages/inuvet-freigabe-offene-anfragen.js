@@ -1,8 +1,8 @@
 /* ════════════════════════════════════════════
-   Tierarzt-Empfehlung-Offene-Anfragen — Posteingang
+   Inuvet-Freigabe-Offene-Anfragen — Posteingang · inuvet.com
    Eine Tabellenzeile = eine Produktanfrage (Position).
    Zeilen-Aktionen: Icon-Buttons (.btn.--icon.--success / .--danger) · Bulk: Dropdown wählt, Bestätigen führt aus.
-   Daten: tierarzt-empfehlung-anfrage-mock.js
+   Daten: inuvet-freigabe-mock.js
    ════════════════════════════════════════════ */
 
 let openRequests = [];

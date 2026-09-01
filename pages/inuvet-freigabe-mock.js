@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════
-   tierarzt-empfehlung-anfrage-mock.js — gemeinsame Demo-Daten
+   inuvet-freigabe-mock.js — gemeinsame Demo-Daten des Vet-Portals (inuvet.com)
    Verknüpft „Offene Anfragen“ (Liste) und „Empfehlungsanfrage“ (Detail).
    Eine Anfrage = ein Tierbesitzer*in mit 1–n Produktpositionen.
    ════════════════════════════════════════════ */
@@ -459,12 +459,12 @@ function empfehlungEnsurePortalSubnav() {
 
   const page = decodeURIComponent((location.pathname.split('/').pop() || '')).split('?')[0];
   const items = [
-    { href: 'Tierarzt-Empfehlung-Anfrage-Freigabe.html', label: 'Freigabe ausstellen' },
-    { href: 'Tierarzt-Empfehlung-Offene-Anfragen.html', label: 'Offene Anfragen', badge: true },
-    { href: 'Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html', label: 'Freigegeben' },
-    { href: 'Tierarzt-Empfehlung-Nicht-Freigegeben.html', label: 'Nicht freigegeben' },
+    { href: 'Inuvet-Freigabe-Ausstellen.html', label: 'Freigabe ausstellen' },
+    { href: 'Inuvet-Freigabe-Offene-Anfragen.html', label: 'Offene Anfragen', badge: true },
+    { href: 'Inuvet-Freigabe-Freigegeben.html', label: 'Freigegeben' },
+    { href: 'Inuvet-Freigabe-Nicht-Freigegeben.html', label: 'Nicht freigegeben' },
     { href: '#', label: 'Meine Provisionen' },
-    { href: 'Tierarzt-Empfehlung-Programm.html', label: 'So funktioniert\'s' },
+    { href: 'Inuvet-Freigabe-Programm.html', label: 'So funktioniert\'s' },
   ];
 
   const links = items.map(item => {
@@ -491,12 +491,12 @@ function empfehlungEnsurePortalFooter() {
         <ul>
           <li><span>Home</span></li>
           <li><span>Produkte</span></li>
-          <li><a href="Tierarzt-Empfehlung-Anfrage-Freigabe.html">Freigabe ausstellen</a></li>
-          <li><a href="Tierarzt-Empfehlung-Offene-Anfragen.html">Offene Anfragen</a></li>
-          <li><a href="Tierarzt-Empfehlung-Eingeloeste-Empfehlungen.html">Freigegeben</a></li>
-          <li><a href="Tierarzt-Empfehlung-Nicht-Freigegeben.html">Nicht freigegeben</a></li>
+          <li><a href="Inuvet-Freigabe-Ausstellen.html">Freigabe ausstellen</a></li>
+          <li><a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen</a></li>
+          <li><a href="Inuvet-Freigabe-Freigegeben.html">Freigegeben</a></li>
+          <li><a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a></li>
           <li><a href="#">Meine Provisionen</a></li>
-          <li><a href="Tierarzt-Empfehlung-Programm.html">So funktioniert's</a></li>
+          <li><a href="Inuvet-Freigabe-Programm.html">So funktioniert's</a></li>
         </ul>
       </div>
       <div class="footer-col flow">
