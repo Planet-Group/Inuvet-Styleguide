@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Tierarzt-Empfehlung – Freigabe ausstellen</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../planet-brands.css?v=184">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
+  <link rel="stylesheet" href="../mockup-ui.css?v=2">
+  <script src="../mockup-ui.js?v=3" defer></script>
+  <link rel="stylesheet" href="inuvet-freigabe-ausstellen.css?v=5">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     Announcement Bar + Standard-Navigation (planet-brands.css)
+     ════════════════════════════════════════ -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation · Menu A -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Home</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Produkte</span>
+    </div>
+    <div class="nav-item">
+      <a href="Inuvet-Freigabe-Ausstellen.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Inuvet-Freigabe-Ausstellen.html" aria-current="page">Freigabe ausstellen</a>
+        <a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Inuvet-Freigabe-Freigegeben.html">Freigegeben</a>
+        <a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Inuvet-Freigabe-Programm.html">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a class="nav-logo" href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
+      <img class="nav-logo__img" src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <span class="nav-item__trigger">Home</span>
+    <span class="nav-item__trigger">Produkte</span>
+    <a href="Inuvet-Freigabe-Ausstellen.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Ausstellen.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Inuvet-Freigabe-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Inuvet-Freigabe-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Inuvet-Freigabe-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     Hauptinhalt
+     ════════════════════════════════════════ -->
+<main class="container approval-page" id="approvalMain">
+
+  <!-- Intro — Titel durch JS (renderIntro) -->
+  <header class="col-grid --early-2 page-header" data-cols="2" id="approvalIntro"></header>
+
+  <!-- Schritt-Navigation (Tabs-Pattern) -->
+  <div class="tabs" id="approvalSteps">
+    <div class="tab-nav" role="tablist" aria-label="Ablauf Freigabe ausstellen">
+      <button class="tab-btn --active" type="button" role="tab" id="approvalTab1" data-step="1" aria-selected="true" aria-controls="approvalStepRecipient" onclick="goToApprovalStep(1)">Tierbesitzer-Daten</button>
+      <button class="tab-btn" type="button" role="tab" id="approvalTab2" data-step="2" aria-selected="false" aria-controls="approvalStepProducts" onclick="goToApprovalStep(2)">Produkte auswählen</button>
+    </div>
+  </div>
+
+  <!-- Schritt 1: E-Mail + Consent -->
+  <section class="approval-recipient" id="approvalStepRecipient" role="tabpanel" aria-labelledby="approvalTab1">
+    <div class="approval-recipient__form flow">
+      <p class="approval-recipient__lead">An wen soll die Freigabe ausgestellt werden?</p>
+      <div class="form-field" id="directEmailField">
+        <input type="email" id="directEmail" placeholder=" " autocomplete="off" oninput="onRecipientFieldChange()">
+        <label for="directEmail">E-Mail-Adresse des Tierbesitzers</label>
+      </div>
+      <label class="form-check approval-recipient__consent">
+        <input type="checkbox" id="directConsent" onchange="onRecipientFieldChange()">
+        <span>Ich bestätige, dass der*die Tierbesitzer*in mit der Weitergabe der E-Mail-Adresse an die Inuvet GmbH und verbundene Unternehmen einverstanden ist und dass er auf den werblichen Charakter der Tierarzt-Empfehlung (bezahlte Werbepartnerschaft) hingewiesen wurde.</span>
+      </label>
+      <button class="btn --secondary" type="button" id="continueToProductsBtn" onclick="continueToProducts()" disabled>Weiter</button>
+    </div>
+  </section>
+
+  <!-- Schritt 2: Produkte wählen -->
+  <section id="approvalStepProducts" role="tabpanel" aria-labelledby="approvalTab2" hidden>
+    <p class="approval-recipient-summary">
+      Freigabe für <strong id="recipientEmailDisplay"></strong>
+      <button type="button" class="order-item__link" onclick="backToRecipient()">ändern</button>
+    </p>
+
+    <div class="col-grid --spaced" data-cols="3" id="approvalGrid"></div>
+
+    <div class="approval-note-section">
+      <div class="form-field">
+        <textarea id="approvalNote" rows="3" placeholder=" "></textarea>
+        <label for="approvalNote">Notiz an Tierbesitzer (optional)</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fixierte Submit-Leiste (nur Schritt 2) -->
+  <div class="approval-submit-bar" id="approvalSubmitBar" hidden>
+    <div class="approval-submit-bar__inner">
+      <div class="approval-submit-bar__compact">
+        <div class="approval-submit-bar__action">
+          <p class="approval-counter" id="approvalCounter">Noch keine Entscheidung getroffen</p>
+          <button class="btn --primary" id="submitApprovalBtn" type="button" onclick="handlePrimaryAction()" disabled>Produkte freigeben</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     Erfolgs-Modal
+     ════════════════════════════════════════ -->
+<div class="modal-overlay" id="successModalOverlay" onclick="closeSuccessModal(true)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <h2 class="modal__title">Freigabe übermittelt</h2>
+      <button type="button" class="btn --icon" onclick="closeSuccessModal(true)" aria-label="Schließen">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body flow">
+      <p id="successModalBody">Der Tierbesitzer wird per E-Mail über Ihre Entscheidung informiert.</p>
+    </div>
+    <div class="modal__footer">
+      <button class="btn --primary" type="button" onclick="closeSuccessModal(true)">Verstanden</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     Nachrichten-Overlay (Mockup — C1 E-Mail, kein Salesforce-Task)
+     ════════════════════════════════════════ -->
+<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
+<div class="mockup-email-panel" id="emailPanel">
+  <div class="mockup-email-panel__header">
+    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
+    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
+</div>
+
+<script src="../planet-brands.js"></script>
+<script src="inuvet-freigabe-mock.js?v=14"></script>
+<script src="inuvet-freigabe-ausstellen.js?v=18"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* Index-Übersicht: Kacheln immer gestapelt — Dashed-Trenner unter jedem CTA. */
+.tile-grid {
+  grid-template-columns: 1fr;
+}
+
+.tile-grid > .flow::after {
+  content: "";
+  display: block;
+  margin-top: var(--half-module);
+  padding-bottom: var(--module);
+  border-bottom: 1px dashed var(--border-light);
+}

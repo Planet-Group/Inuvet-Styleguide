@@ -1,0 +1,29 @@
+---
+description: GitHub Pages deployt nur von main — nie feat/* pushen wenn live gemeint ist
+alwaysApply: true
+---
+
+# Deployment — immer main
+
+Live-URL: https://planet-group.github.io/Inuvet-Styleguide/
+
+GitHub Pages-Quelle: Branch **`main`**, Pfad `/`. Feature-Branches (`feat/*`, `session/*`) sind **nicht** live.
+
+## Bei Push, Deploy oder „live schalten"
+
+1. Änderungen committen (Branch egal).
+2. `git checkout main`
+3. Feature-Branch mergen (meist Fast-Forward).
+4. **`git push origin main`** — das ist der Live-Push.
+
+## Verboten
+
+- Nur `feat/*` oder `session/*` pushen, wenn der User Live-Sichtbarkeit erwartet.
+- „Branch ist up to date" als Erfolg werten, wenn `main` noch hinterherhinkt.
+
+## Prüfen
+
+```bash
+git log origin/main..HEAD --oneline   # Commits, die noch nicht live sind
+gh api repos/Planet-Group/Inuvet-Styleguide/pages --jq '.source.branch'   # muss "main" sein
+```

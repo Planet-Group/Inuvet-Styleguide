@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Tierarzt-Empfehlung – Freigegeben</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../planet-brands.css?v=184">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
+</head>
+<body>
+
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation · Menu A -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Home</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Produkte</span>
+    </div>
+    <div class="nav-item">
+      <a href="Inuvet-Freigabe-Ausstellen.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Inuvet-Freigabe-Ausstellen.html">Freigabe ausstellen</a>
+        <a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Inuvet-Freigabe-Freigegeben.html" aria-current="page">Freigegeben</a>
+        <a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Inuvet-Freigabe-Programm.html">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a class="nav-logo" href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
+      <img class="nav-logo__img" src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu · Menu A -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <span class="nav-item__trigger">Home</span>
+    <span class="nav-item__trigger">Produkte</span>
+    <a href="Inuvet-Freigabe-Ausstellen.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Ausstellen.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Inuvet-Freigabe-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Freigegeben.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Inuvet-Freigabe-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Inuvet-Freigabe-Programm.html" class="--indent" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<main class="container">
+  <header class="page-header">
+    <h1>
+      Freigegeben
+      <span class="circle-badge --num" id="redeemedCount" aria-label="Anzahl erteilter Freigaben">0</span>
+    </h1>
+  </header>
+
+  <div class="rte --data-table --sortable" id="redeemedTableWrap">
+    <div class="data-table-sort">
+      <label class="visually-hidden" for="redeemedSort">Tabelle sortieren</label>
+      <select id="redeemedSort" class="data-table-sort__select">
+        <option value="customerName:asc">Name A–Z</option>
+        <option value="customerName:desc">Name Z–A</option>
+        <option value="date:asc">Datum aufsteigend</option>
+        <option value="date:desc" selected>Datum absteigend</option>
+        <option value="productLabel:asc">Produkt A–Z</option>
+        <option value="productLabel:desc">Produkt Z–A</option>
+        <option value="commission:asc">Provision aufsteigend</option>
+        <option value="commission:desc">Provision absteigend</option>
+      </select>
+    </div>
+    <table class="--spacious">
+      <thead>
+        <tr>
+          <th scope="col" data-sort="customerName" aria-sort="none">
+            <button type="button">Name <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" class="data-table-date" data-sort="date" aria-sort="descending">
+            <button type="button">Datum <span class="material-icons" aria-hidden="true">arrow_downward</span></button>
+          </th>
+          <th scope="col" data-sort="productLabel" aria-sort="none">
+            <button type="button">Produkt <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+          <th scope="col" class="data-table-note">Notiz vom Tierhalter</th>
+          <th scope="col" class="data-table-commission" data-sort="commission" aria-sort="none">
+            <button type="button">Provision <span class="material-icons" aria-hidden="true">unfold_more</span></button>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="redeemedBody"></tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" id="redeemedEmpty" hidden>
+    <span class="material-icons">history</span>
+    <p class="empty-state__title">Noch keine erteilten Freigaben</p>
+  </div>
+</main>
+
+<script src="../planet-brands.js"></script>
+<script src="inuvet-freigabe-mock.js?v=14"></script>
+<script src="inuvet-freigabe-freigegeben.js?v=1"></script>
+</body>
+</html>

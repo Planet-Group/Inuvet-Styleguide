@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rechnung · Layout – inuvet</title>
+<link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+<style>
+:root {
+  --fg: #000000;        /* reines Schwarz — beste Lesbarkeit bei kleiner Schrift / schwachem Druck */
+  --fg-muted: #000000;  /* Hierarchie über Gewicht + Größe statt Grau */
+  --bg: #FFFFFF;
+  --green: #78b41b;
+  --green-hover: #58990F;
+  --green-light: #f0fae6;
+  --border: #d0d0d0;
+  --border-light: #d0d0d0;
+  --accent-bg: #f2f2f2;
+
+  --font: "schnebel-sans-me", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --wb: 400; --wd: 700;
+
+  /* 3-Stufen-Skala: normal · klein · sehr klein — plus EIN Display-Akzent */
+  --text-l: 24pt;        /* Display-Akzent: „Rechnung", Einzugsbetrag */
+  --text-base: 10.5pt;   /* normal — Fließtext, Beträge, Produktname */
+  --text-sm: 9pt;        /* klein — Labels, Tabelleninhalt, Zusatzinfos */
+  --text-xs: 7.8pt;      /* sehr klein — Meta, Footer, Tabellenkopf, Feindruck */
+  --lh-base: 1.5;
+
+  --base: 11pt; --half-module: 16pt; --module: 30pt;
+
+  --page-w: 210mm; --page-h: 297mm;
+  --margin-x: 18mm; --margin-top: 18mm; --margin-bot: 18mm;   /* identisch zum Report-Skill */
+  --footer-y: 10mm;
+  --footer-reserve: 34mm;   /* reservierte Zone für die mehrzeilige Fußzeile */
+  --logo-size: 20mm;        /* identisch zum Report-Skill */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { counter-reset: pagenr; }
+
+html, body {
+  background: var(--border-light);
+  color: var(--fg);
+  font-family: var(--font);
+  font-weight: var(--wb);
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+svg { display: block; }
+
+.page {
+  position: relative;
+  width: var(--page-w); height: var(--page-h);
+  background: var(--bg); overflow: hidden;
+  padding: var(--margin-top) var(--margin-x) 0;
+  counter-increment: pagenr;
+}
+/* Begrenzte, hart gekappte Content-Zone: endet immer oberhalb der Fußzeile,
+   damit langer Inhalt die Fußzeile strukturell nie überlagern kann. */
+.page-body { height: calc(var(--page-h) - var(--margin-top) - var(--footer-reserve)); overflow: hidden; }
+@media screen {
+  body { display: flex; flex-direction: column; align-items: center; gap: 12mm; padding: 16mm 0; }
+  .page { box-shadow: 0 4mm 16mm rgba(0,0,0,0.18); }
+}
+
+.brandmark { height: var(--logo-size); width: var(--logo-size); --logo-a: var(--green); --logo-b: var(--fg); }
+.page > .brandmark { position: absolute; top: var(--margin-top); left: var(--margin-x); }
+.ivl-sym { fill: var(--logo-a); }
+.ivl-word { fill: var(--logo-b); }
+
+h1,h2,h3,h4 { font-weight: var(--wd); line-height: 1.15; }
+strong { font-weight: var(--wd); }
+.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.muted { color: var(--fg-muted); }
+.caps { font-size: var(--text-xs); font-weight: var(--wd); text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); }
+
+/* ---------- Kopf ---------- */
+.inv-head { display: grid; grid-template-columns: 85mm 1fr; column-gap: var(--module); align-items: start; min-height: 67mm; }
+
+/* Linke Spalte: Anschriftfeld im Fensterkuvert-Raster (DIN 5008 Form B, ~45 mm ab Blattkante) */
+.inv-addr { grid-column: 1; margin-top: 27mm; padding-left: 2mm; }
+.inv-addr .inv-sender { font-size: var(--text-xs); color: var(--fg-muted); padding-bottom: 2pt; }
+.inv-addr .inv-recipient { font-size: var(--text-sm); line-height: 1.4; }
+.inv-addr .inv-recipient .r-name { font-weight: var(--wd); }
+/* Lieferadresse: volle Breite, unter dem Sichtfenster, Label fett + Adresse in EINER Zeile, kein Umbruch */
+.inv-deliver { font-size: var(--text-xs); white-space: nowrap; }
+.inv-deliver strong { font-weight: var(--wd); }
+
+/* Rechte Spalte: Promo, Titel, Belegdaten (kompakt, linksbündig) */
+.inv-head-right { grid-column: 2; }
+.inv-promo { font-size: var(--text-sm); line-height: 1.45; }
+.inv-promo h4 { font-size: var(--text-base); margin-bottom: 3pt; }
+.inv-promo a { color: var(--green); }
+.inv-title { font-size: var(--text-l); margin-top: var(--half-module); margin-bottom: var(--base); }
+.inv-meta { display: grid; grid-template-columns: auto auto; justify-content: start; row-gap: 2pt; column-gap: var(--half-module); font-size: var(--text-xs); }
+.inv-meta dt { color: var(--fg-muted); }
+.inv-meta dd { font-weight: var(--wd); font-variant-numeric: tabular-nums; }
+
+.inv-note { margin-top: 6mm; margin-bottom: var(--half-module); background: var(--green-light); padding: 6pt 12pt; display: flex; gap: var(--base); align-items: baseline; font-size: var(--text-sm); line-height: 1.4; }
+.inv-note .n-txt { font-weight: var(--wb); }
+.inv-page-of { font-size: var(--text-xs); color: var(--fg-muted); text-align: right; margin-bottom: 6pt; }
+
+/* Zahlungs-Panel (Sichtbarkeit) */
+.pay-panel { margin-top: var(--half-module); background: var(--green-light); padding: 12pt 14pt;
+  display: grid; grid-template-columns: 1fr auto; column-gap: var(--module); row-gap: 6pt; align-items: end; }
+.pay-panel .pp-head { grid-column: 1 / -1; }
+.pay-panel .pp-method { font-weight: var(--wd); font-size: var(--text-base); }
+.pay-panel .pp-sub { font-size: var(--text-sm); color: var(--fg-muted); margin-top: 2pt; }
+.pay-panel .pp-amount-lbl { font-size: var(--text-sm); color: var(--fg-muted); text-align: right; }
+.pay-panel .pp-amount { font-size: var(--text-l); font-weight: var(--wd); font-variant-numeric: tabular-nums; line-height: 1.05; text-align: right; }
+.pay-panel .pp-note { grid-column: 1 / -1; font-size: var(--text-sm); border-top: 1px dashed var(--fg); padding-top: 6pt; margin-top: 2pt; }
+
+/* Fortsetzungs-Kopf (Folgeseiten) */
+/* Folgeseiten: Beleginfo rechts neben dem Logo, rechtsbündig (spart vertikalen Platz) */
+.inv-cont { position: absolute; top: var(--logo-y); right: var(--margin-x); text-align: right; font-size: var(--text-xs); line-height: 1.5; color: var(--fg); }
+.inv-cont strong { font-weight: var(--wd); }
+
+/* ---------- Positionstabelle ---------- */
+.inv-cur { text-align: right; font-size: var(--text-xs); color: var(--fg-muted); margin: var(--half-module) 0 3pt; }
+.inv-cur strong { color: var(--fg); }
+.itable { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.itable thead th {
+  font-size: var(--text-xs); font-weight: var(--wd); text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--fg-muted); text-align: left; padding: 5pt 6pt 5pt 0; border-bottom: 1px solid var(--fg);
+}
+.itable thead th.r { text-align: left; }
+.itable td { padding: 4pt 6pt 4pt 0; vertical-align: top; }
+.itable td.r { text-align: left; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Nur die letzte Spalte (Nettosumme) rechtsbündig — und ohne rechtes Padding (bündig am Rand) */
+.itable thead th:last-child, .itable tbody td:last-child { text-align: right; padding-right: 0; }
+.itable tbody tr.pos > td { border-top: 1px dashed var(--fg); padding-top: 6pt; }
+.itable tbody tr:first-child.pos > td { border-top: none; }
+.itable .p-name { font-weight: var(--wd); }
+.itable .p-art { color: var(--fg-muted); font-size: var(--text-xs); }
+.itable tr.sub td { padding-top: 2pt; color: var(--fg-muted); font-size: var(--text-xs); }
+.itable tr.sub .charge { display: inline-block; min-width: 22mm; }
+.itable .pos-net { font-weight: var(--wd); }
+/* Bonus-Badge — analog .badge.--free im Styleguide (green-light Grund, grüner Text) */
+.inv-bonus { display: inline-flex; align-items: center; font-size: var(--text-xs); font-weight: var(--wd); text-transform: uppercase; letter-spacing: 0.05em; padding: calc(var(--base) * 0.18) calc(var(--base) * 0.45); background: var(--green-light); color: var(--green); border-radius: 0; }
+.itable .col-pos { width: 9mm; color: var(--fg-muted); }
+.itable .col-num { width: 20mm; }
+/* € vor die Beträge (Stückpreis = Spalte 5, Nettosumme = Spalte 8) */
+.itable tbody tr.pos td:nth-child(5)::before,
+.itable tbody tr.pos td:nth-child(8)::before { content: "€\00a0"; }
+
+.inv-carry { display: flex; justify-content: flex-end; gap: var(--module); margin-top: 8pt; padding-top: 8pt; border-top: 1px solid var(--fg); font-weight: var(--wd); }
+
+/* ---------- Summenblock ---------- */
+.inv-foot-grid { display: grid; grid-template-columns: 1fr 78mm; column-gap: var(--module); margin-top: var(--module); align-items: start; }
+.inv-pay .caps { display: block; margin-bottom: 6pt; }
+.inv-pay-line { margin-bottom: var(--base); }
+.inv-pay-tbl { width: 100%; font-size: var(--text-sm); border-collapse: collapse; }
+.inv-pay-tbl th { text-align: left; font-weight: var(--wd); text-decoration: underline; padding: 0 var(--base) 4pt 0; }
+.inv-pay-tbl td { padding: 2pt var(--base) 2pt 0; font-variant-numeric: tabular-nums; }
+.inv-pay-tbl td.r { text-align: right; }
+
+/* Summen-Zeile: Mehrwert-Box (links) neben den Summen (rechts) — spart vertikalen Platz */
+.summary-row { display: grid; grid-template-columns: 1fr 88mm; column-gap: var(--module); align-items: start; margin-top: var(--module); }
+.value-box { background: var(--green-light); padding: 10pt 12pt; align-self: start; }
+.value-box .caps { display: block; margin-bottom: 6pt; }
+.value-box .vb-row { display: flex; justify-content: space-between; gap: var(--base); font-size: var(--text-sm); padding: 2pt 0; }
+.value-box .vb-row > span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.value-box .vb-total { border-top: 1px dashed var(--fg); margin-top: 4pt; padding-top: 5pt; font-weight: var(--wd); color: var(--green); align-items: baseline; }
+.value-box .vb-total > span:last-child { font-size: var(--text-l); line-height: 1.05; }
+.inv-totals { font-size: var(--text-sm); }
+.inv-totals .row { display: grid; grid-template-columns: 1fr auto auto; column-gap: var(--base); padding: 4pt 0; align-items: baseline; }
+.inv-totals .row .v { font-variant-numeric: tabular-nums; text-align: right; min-width: 24mm; }
+.inv-totals .row .v::before { content: "€\00a0"; }
+.inv-totals .row .rate { font-variant-numeric: tabular-nums; text-align: right; color: var(--fg-muted); min-width: 22mm; }
+.inv-totals .row.tax .rate::before { content: "€\00a0"; }
+.inv-totals .row.subtotal { border-bottom: 1px dashed var(--fg); }
+.inv-totals .row.discount .v { font-variant-numeric: tabular-nums; }
+.inv-totals .row.net { border-bottom: 1px dashed var(--fg); font-weight: var(--wd); }
+.inv-totals .row.tax { color: var(--fg-muted); }
+.inv-totals .row.taxsum { border-top: 1px dashed var(--fg); }
+.inv-totals .row.grand {
+  border-top: 2px solid var(--fg);
+  font-size: var(--text-sm); font-weight: var(--wd);
+}
+.inv-totals .row.grand .lbl { font-weight: var(--wd); }
+/* Bonus-Ersparnis (Naturalrabatt) — grün hervorgehoben, informativ */
+.inv-totals .row.bonus { margin-top: 6pt; padding: 5pt 10pt; background: var(--green-light); color: var(--green); font-weight: var(--wd); }
+.inv-totals .row.bonus .sub { font-weight: var(--wb); font-size: var(--text-xs); }
+
+.inv-ship-row { display: grid; grid-template-columns: 34mm 1fr; gap: var(--base); font-size: var(--text-sm); margin-top: var(--base); }
+.inv-ship-row + .inv-ship-row { border-top: 1px dashed var(--fg); padding-top: var(--base); }
+.inv-ship-row .caps { color: var(--fg-muted); }
+
+.inv-reklam { display: flex; align-items: center; justify-content: flex-end; gap: var(--base); margin-top: var(--half-module); font-size: var(--text-sm); text-align: right; }
+.inv-reklam .qr { width: 16mm; height: 16mm; border: 1px solid var(--fg); flex: none;
+  background:
+    linear-gradient(90deg,var(--fg) 20%,transparent 0 40%,var(--fg) 0 55%,transparent 0 70%,var(--fg) 0 100%),
+    linear-gradient(var(--fg) 20%,transparent 0 40%,var(--fg) 0 55%,transparent 0 70%,var(--fg) 0 100%);
+  background-blend-mode: multiply; background-size: 100% 100%; opacity: .85; }
+
+/* ---------- Footer (Rechts-/Bankblock) ---------- */
+.inv-footer {
+  position: absolute; left: var(--margin-x); right: var(--margin-x); bottom: var(--footer-y);
+  display: grid; grid-template-columns: repeat(4, 1fr); column-gap: var(--base);
+  font-size: var(--text-xs); line-height: 1.4; color: var(--fg-muted);
+}
+.inv-footer .ft-h { font-weight: var(--wd); color: var(--fg); }
+.inv-footer a { color: var(--green); }
+/* Seitenzahl: exakt Report-Position — unten links, freistehend (unabhängig vom Rechts-/Bankblock) */
+.inv-pagenum { position: absolute; left: var(--margin-x); bottom: var(--footer-y); font-size: var(--text-xs); font-weight: var(--wb); color: var(--fg); font-variant-numeric: tabular-nums; }
+/* Aktuelle Seitenzahl aus CSS-Counter (wie Report) — immer sichtbar, auch ohne JS */
+.inv-pagenum::before { content: counter(pagenr); }
+
+@page { size: A4; margin: 0; }
+@media print { html, body { background: var(--bg); } .page { box-shadow: none; margin: 0; break-after: page; } .page:last-child { break-after: auto; } }
+@media screen {
+  /* Überlauf-Wächter — reines Bildschirm-Signal, druckt nicht mit. */
+  .page.overflow-warn { outline: 3px solid #e5484d; outline-offset: -3px; }
+  .page.overflow-warn::after {
+    content: "\26A0  Zu viele Positionen — auf die Folgeseite verschieben";
+    position: absolute; top: 0; right: 0; z-index: 60;
+    background: #e5484d; color: #fff; font-size: 9pt; font-weight: var(--wd); padding: 2mm 3mm;
+  }
+
+  /* ---------- Bemaßungs-Ebene (Nachbau / InDesign) ---------- */
+  .measure-toggle {
+    position: fixed; top: 12px; right: 12px; z-index: 200;
+    font: 700 12px/1.2 var(--font); letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 10px 14px; border: 1px solid #111; background: #fff; color: #111; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12);
+  }
+  .measure-toggle[aria-pressed="true"] { background: #111; color: #fff; }
+
+  .measure-panel {
+    display: none; position: fixed; top: 56px; right: 12px; z-index: 200;
+    width: min(320px, calc(100vw - 24px)); max-height: calc(100vh - 72px); overflow: auto;
+    background: #fff; border: 1px solid #111; padding: 14px 16px;
+    font: 400 11px/1.45 var(--font); color: #111;
+    box-shadow: 0 4px 18px rgba(0,0,0,.14);
+  }
+  body.measure-on .measure-panel { display: block; }
+  .measure-panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .measure-panel h3 { font-size: 11px; margin: 12px 0 4px; }
+  .measure-panel dl { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; }
+  .measure-panel dt { color: #444; }
+  .measure-panel dd { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+  .measure-panel .note { margin-top: 10px; color: #444; font-size: 10px; }
+
+  .measure-layer {
+    display: none; position: absolute; inset: 0; z-index: 80; pointer-events: none;
+    font: 700 8px/1 var(--font); color: #c2185b;
+  }
+  body.measure-on .measure-layer { display: block; }
+
+  .measure-guide {
+    position: absolute; border: 1px dashed rgba(194,24,91,.55);
+    background: rgba(194,24,91,.04);
+  }
+  .measure-guide.--safe { border-style: solid; border-color: rgba(194,24,91,.35); background: transparent; }
+  .measure-guide.--footer { background: rgba(194,24,91,.07); }
+
+  .measure-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
+  .measure-dim.--h { height: 0; border-top: 1px solid #c2185b; }
+  .measure-dim.--v { width: 0; border-left: 1px solid #c2185b; flex-direction: column; }
+  .measure-dim::before, .measure-dim::after {
+    content: ""; flex: none; background: #c2185b;
+  }
+  .measure-dim.--h::before, .measure-dim.--h::after { width: 1px; height: 6px; margin-top: -3px; }
+  .measure-dim.--v::before, .measure-dim.--v::after { width: 6px; height: 1px; margin-left: -3px; }
+  .measure-dim > span {
+    position: absolute; background: #fff; color: #c2185b; border: 1px solid #c2185b;
+    padding: 1px 3px; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .measure-dim.--h > span { top: -9px; }
+  .measure-dim.--v > span { left: 4px; writing-mode: horizontal-tb; }
+
+  .measure-tag {
+    position: absolute; background: #c2185b; color: #fff; padding: 2px 4px;
+    white-space: nowrap; font-variant-numeric: tabular-nums; max-width: 46mm;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+}
+@media print {
+  .measure-toggle, .measure-panel, .measure-layer { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="inuvet-mark" viewBox="0 0 113.4 113.4">
+    <path class="ivl-word" d="M19.4,74.3c0,1.4-1.1,2.6-2.6,2.6s-2.6-1.2-2.6-2.6,1.1-2.5,2.6-2.5,2.5,1.2,2.5,2.5ZM14.7,78.9h4.3v15.4h-4.3s0-15.4,0-15.4Z"/>
+    <path class="ivl-word" d="M23.1,78.9h3.8l.2,2.1c1.5-1.8,3.1-2.5,5.1-2.5s3.5.7,4.2,2.1c.5.9.7,2,.7,4.1v9.7h-4.3v-8.9c0-1.3,0-1.8-.3-2.3-.3-.6-.8-.9-1.6-.9-1.2,0-2.6,1.1-3.5,2.8v9.3h-4.3v-15.4h0Z"/>
+    <path class="ivl-word" d="M50.5,92.6c-1.4,1.5-2.8,2.1-4.7,2.1s-3.4-.8-4.2-2.2c-.5-.9-.7-2.1-.7-4.2v-9.5h4.3v8.7c0,2.6.5,3.4,1.9,3.4s2.3-.6,3.1-1.9v-10.2h4.3v15.4h-3.8l-.3-1.7h0Z"/>
+    <path class="ivl-word" d="M56.8,78.9h4.8l3.6,10.3,3.6-10.3h4.3l-6.3,15.4h-3.9l-6.1-15.4h0Z"/>
+    <path class="ivl-word" d="M78.1,87.9c.2,2.6,1.5,3.7,4.4,3.7s2.7-.3,4.4-1.2l1,2.8c-1.8,1.1-3.8,1.6-6.4,1.6-5.2,0-7.8-2.5-7.8-7.7s2.8-8.6,7.5-8.6,6.8,2.6,6.8,7.6,0,.9,0,1.8h-9.9,0ZM84.2,85.1c-.2-2.4-1.1-3.5-2.9-3.5s-2.9,1.1-3.2,3.5h6.1Z"/>
+    <path class="ivl-word" d="M89.7,82.4l.3-3.4h2.5l.2-3.7,4-1.4v5.1h3.8l-.3,3.4h-3.5v5.6c0,2.8.2,3.3,1.6,3.3s1.3-.2,2.1-.5l.8,2.7c-1.5.9-3,1.3-4.5,1.3s-3-.6-3.7-1.8c-.4-.8-.6-2-.6-4.2v-6.5h-2.7,0Z"/>
+    <path class="ivl-word" d="M81.4,32h-.3v1h.2c.5,0,.7-.3.7-.6s-.1-.5-.6-.5M82,35.1l-.8-1.5h0v1.5h-.8v-3.7h1.3c.9,0,1.2.4,1.2,1s-.3,1-.8,1c0,0,.2.3.3.5l.7,1.2h-1ZM78.9,33.3c0,1.4,1.1,2.6,2.6,2.6s2.6-1.2,2.6-2.6-1.1-2.6-2.6-2.6-2.6,1.2-2.6,2.6M85,33.3c0,1.9-1.6,3.5-3.5,3.5s-3.6-1.5-3.6-3.5,1.6-3.5,3.6-3.5,3.5,1.5,3.5,3.5"/>
+    <path class="ivl-sym" d="M28.7,54.5c1.3,5.2,5.6,9,11.1,10.7,4.1-4.1,6.1-9.5,4.8-14.7-1.3-5.2-5.6-9-11.1-10.7-4.1,4.1-6.1,9.5-4.8,14.7Z"/>
+    <path class="ivl-sym" d="M38.6,32.3c.7,5.3,4.4,9.7,9.7,12,4.6-3.6,7.2-8.6,6.6-14-.6-5.3-4.4-9.7-9.7-12-4.6,3.6-7.2,8.7-6.5,14Z"/>
+    <path class="ivl-sym" d="M84.6,54.5c-1.3,5.2-5.6,9-11.1,10.7-4.1-4.1-6.1-9.5-4.8-14.7,1.3-5.2,5.6-9,11.1-10.7,4.1,4.1,6.1,9.5,4.8,14.7h0Z"/>
+    <path class="ivl-sym" d="M74.8,32.3c-.7,5.3-4.4,9.7-9.7,12-4.6-3.6-7.2-8.6-6.6-14,.6-5.3,4.4-9.7,9.7-12,4.6,3.6,7.2,8.7,6.6,14h0Z"/>
+  </symbol>
+</svg>
+
+<button type="button" class="measure-toggle" id="measureToggle" aria-pressed="false" aria-controls="measurePanel">Bemaßung</button>
+<aside class="measure-panel" id="measurePanel" aria-hidden="true">
+  <h2>Maßblatt · A4</h2>
+  <dl id="measureSpec"></dl>
+  <p class="note">Magenta-Ebene = Live-Bemaßung relativ zur Blattkante. Werte in mm (1 Dezimalstelle). Nur Bildschirm — nicht im Druck.</p>
+</aside>
+
+<!-- ===================== SEITE 1 ===================== -->
+<section class="page">
+  <svg class="brandmark"><use href="#inuvet-mark"/></svg>
+  <div class="inv-pagenum"><span class="pn-total"></span></div>
+
+  <div class="page-body">
+  <div class="inv-head">
+    <div class="inv-addr">
+      <div class="inv-sender">Inuvet GmbH · Berner Weg 7-25 · 79539 Lörrach</div>
+      <div class="inv-recipient">
+        <div class="r-name">Musterpraxis Dr. Beispiel</div>
+        <div>Tierarztpraxis</div>
+        <div>Musterstraße 9b</div>
+        <div>D-00000 Musterstadt</div>
+      </div>
+    </div>
+
+    <div class="inv-head-right">
+      <div class="inv-promo">
+        <h4>Gewusst?</h4>
+        <p>Als Tierärzt*innen könnt ihr Inuvet-Produkte einfach online bestellen unter:<br><a href="#">www.inu.vet/bestellen</a></p>
+      </div>
+      <h1 class="inv-title">Rechnung</h1>
+      <dl class="inv-meta">
+        <dt>Belegnummer</dt><dd>390523</dd>
+        <dt>Belegdatum</dt><dd>27.05.2026</dd>
+        <dt>Kunden-Nr.</dt><dd>DE-0000000</dd>
+        <dt>Lieferschein-Nr.</dt><dd>415430</dd>
+        <dt>Kundenref-Nr.</dt><dd>—</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="inv-deliver"><strong>Lieferadresse</strong> &nbsp; Musterpraxis Dr. Beispiel · Musterstraße 9b · D-00000 Musterstadt</div>
+
+  <p class="inv-note"><span class="caps">Zahlung</span><span class="n-txt">Keine Überweisung nötig — der Rechnungsbetrag wird automatisch per SEPA-Lastschrift eingezogen. Details siehe letzte Seite.</span></p>
+
+  <table class="itable">
+    <thead>
+      <tr>
+        <th class="col-pos">Pos.</th>
+        <th>Artikelbeschreibung</th>
+        <th class="r col-num">Menge</th>
+        <th class="r">ME</th>
+        <th class="r col-num">Stückpreis</th>
+        <th class="r">Rabatt</th>
+        <th class="r">USt.%</th>
+        <th class="r col-num">Nettosumme</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="pos">
+        <td class="col-pos">1</td>
+        <td><span class="p-name">EnteroGast akut 21 Tabletten</span><br><span class="p-art">Artikel-Nr.: 10040000</span></td>
+        <td class="r">10</td><td class="r">Stück</td><td class="r">16,75</td><td class="r"></td><td class="r">7,00</td><td class="r pos-net">167,50</td>
+      </tr>
+      <tr class="sub"><td></td><td><span class="charge">Chargennr. BF2279</span> Haltbar bis: 31.03.2028</td><td class="r">10</td><td colspan="5"></td></tr>
+
+      <tr class="pos">
+        <td class="col-pos">2</td>
+        <td><span class="p-name">EnteroGast akut 21 Tabletten</span> <span class="inv-bonus">Bonus</span><br><span class="p-art">Artikel-Nr.: 10040000</span></td>
+        <td class="r">1</td><td class="r">Stück</td><td class="r">16,75</td><td class="r">100%</td><td class="r">7,00</td><td class="r pos-net">0,00</td>
+      </tr>
+      <tr class="sub"><td></td><td><span class="charge">Chargennr. BF2279</span> Haltbar bis: 31.03.2028</td><td class="r">1</td><td colspan="5"></td></tr>
+
+      <tr class="pos">
+        <td class="col-pos">3</td>
+        <td><span class="p-name">EnteroGast akut Blister 6 Tabletten</span><br><span class="p-art">Artikel-Nr.: 10040001</span></td>
+        <td class="r">8</td><td class="r">Stück</td><td class="r">7,60</td><td class="r"></td><td class="r">7,00</td><td class="r pos-net">60,80</td>
+      </tr>
+      <tr class="sub"><td></td><td><span class="charge">Chargennr. 102430</span> Haltbar bis: 30.09.2027</td><td class="r">8</td><td colspan="5"></td></tr>
+
+      <tr class="pos">
+        <td class="col-pos">4</td>
+        <td><span class="p-name">EnteroGast akut Blister 6 Tabletten</span> <span class="inv-bonus">Bonus</span><br><span class="p-art">Artikel-Nr.: 10040001</span></td>
+        <td class="r">3</td><td class="r">Stück</td><td class="r">7,60</td><td class="r">100%</td><td class="r">7,00</td><td class="r pos-net">0,00</td>
+      </tr>
+      <tr class="sub"><td></td><td><span class="charge">Chargennr. 102430</span> Haltbar bis: 30.09.2027</td><td class="r">3</td><td colspan="5"></td></tr>
+
+      <tr class="pos">
+        <td class="col-pos">5</td>
+        <td><span class="p-name">FloraComplex 50g Pulver</span><br><span class="p-art">Artikel-Nr.: 10030053</span></td>
+        <td class="r">2</td><td class="r">Stück</td><td class="r">21,60</td><td class="r"></td><td class="r">7,00</td><td class="r pos-net">43,20</td>
+      </tr>
+      <tr class="sub"><td></td><td><span class="charge">Chargennr. BF2215</span> Haltbar bis: 31.12.2027</td><td class="r">2</td><td colspan="5"></td></tr>
+
+      <tr class="pos">
+        <td class="col-pos">6</td>
+        <td><span class="p-name">Inzym 60g Pulver</span><br><span class="p-art">Artikel-Nr.: 12290000</span></td>
+        <td class="r">3</td><td class="r">Stück</td><td class="r">44,15</td><td class="r"></td><td class="r">7,00</td><td class="r pos-net">132,45</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="inv-carry"><span>Übertrag</span><span class="num">€ 403,95</span></div>
+  </div><!-- /.page-body -->
+
+  <footer class="inv-footer">
+    <div><span class="ft-h">Inuvet GmbH</span><br>Berner Weg 7-25<br>D-79539 Lörrach</div>
+    <div><span class="ft-h">Kontakt</span><br>T +49 7621 579 15 10<br>F +49 7621 579 15 12<br>M info@inuvet.com<br>W <a href="#">www.inuvet.com</a></div>
+    <div><span class="ft-h">Registrierung</span><br>Geschäftsführer C. Schütz, P. Müller<br>USt-ID DE279249700<br>HR-Nr. 708039<br>Amtsgericht Freiburg i. Br.</div>
+    <div><span class="ft-h">Bank</span><br>Commerzbank<br>KTO 283434900<br>IBAN DE65 6834 0058 0283 4349 00<br>BIC COBA DE FF 683</div>
+  </footer>
+</section>
+
+<!-- ===================== SEITE 2 (Schluss) ===================== -->
+<section class="page">
+  <svg class="brandmark"><use href="#inuvet-mark"/></svg>
+  <div class="inv-pagenum"><span class="pn-total"></span></div>
+
+  <div class="page-body">
+  <div class="inv-cont">
+    <div>Belegnummer: <strong>390523</strong></div>
+    <div>Belegdatum: <strong>27.05.2026</strong></div>
+  </div>
+
+  <table class="itable" style="margin-top: 24mm;">
+    <thead>
+      <tr>
+        <th class="col-pos">Pos.</th><th>Artikelbeschreibung</th>
+        <th class="r col-num">Menge</th><th class="r">ME</th><th class="r col-num">Stückpreis</th>
+        <th class="r">Rabatt</th><th class="r">USt.%</th><th class="r col-num">Nettosumme</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="pos">
+        <td class="col-pos">16</td>
+        <td><span class="p-name">Tragetasche Papier (groß)</span> <span class="inv-bonus">Bonus</span><br><span class="p-art">Artikel-Nr.: 00180001</span></td>
+        <td class="r">40</td><td class="r">Stück</td><td class="r">0,35</td><td class="r">100%</td><td class="r">19,00</td><td class="r pos-net">0,00</td>
+      </tr>
+      <tr class="pos">
+        <td class="col-pos">17</td>
+        <td><span class="p-name">Ordnerkarte Inzym</span><br><span class="p-art">Artikel-Nr.: 12290010</span></td>
+        <td class="r">1</td><td class="r">Stück</td><td class="r">0,00</td><td class="r"></td><td class="r">19,00</td><td class="r pos-net">0,00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="summary-row">
+    <div class="value-box">
+      <span class="caps">Ihr Mehrwert mit dieser Bestellung</span>
+      <div class="vb-row"><span>Naturalrabatt</span><span>€ 145,80</span></div>
+      <div class="vb-row"><span>Preisvorteile aus Aktionen</span><span>€ 89,00</span></div>
+      <div class="vb-row"><span>VUK-Rabatt gespart</span><span>€ 333,20</span></div>
+      <div class="vb-row vb-total"><span>Gesamtersparnis</span><span>€ 568,00</span></div>
+    </div>
+    <div class="inv-totals">
+      <div class="row subtotal"><span class="lbl">Summe Positionen</span><span class="rate"></span><span class="v">1.611,95</span></div>
+      <div class="row discount"><span class="lbl">./. VUK-Rabatt</span><span class="rate"></span><span class="v">−333,20</span></div>
+      <div class="row net"><span class="lbl">Nettogesamtbetrag</span><span class="rate"></span><span class="v">1.278,75</span></div>
+      <div class="row tax"><span class="lbl">USt. 7,00 %</span><span class="rate">1.278,75</span><span class="v">89,51</span></div>
+      <div class="row tax"><span class="lbl">USt. 19,00 %</span><span class="rate">0,00</span><span class="v">0,00</span></div>
+      <div class="row taxsum"><span class="lbl">Steuergesamtbetrag</span><span class="rate"></span><span class="v">89,51</span></div>
+      <div class="row grand"><span class="lbl">Bruttogesamtbetrag</span><span class="rate"></span><span class="v">1.368,26</span></div>
+    </div>
+  </div>
+
+  <!-- Zahlungs-Panel: Zahlungsart + Einzugsbetrag prominent, Skonto verständlich -->
+  <div class="pay-panel">
+    <div>
+      <div class="pp-method">Einzug per SEPA-Lastschrift</div>
+      <div class="pp-sub">Keine Überweisung nötig — der Betrag wird automatisch eingezogen.</div>
+    </div>
+    <div>
+      <div class="pp-amount-lbl">Einzugsbetrag</div>
+      <div class="pp-amount">€ 1.340,89</div>
+    </div>
+    <div class="pp-note"><strong>Einzug am 03.06.2026</strong> · inkl. <strong>2 % Skonto</strong> (spart € 27,37) · Bruttogesamtbetrag ohne Skonto € 1.368,26</div>
+  </div>
+
+  <div style="max-width:74mm; margin-top:var(--half-module);">
+    <div class="inv-ship-row"><span class="caps">Versandart</span><span>B2B DHL National</span></div>
+    <div class="inv-ship-row"><span class="caps">Lieferdatum</span><span>27.05.2026</span></div>
+  </div>
+
+  <div class="inv-reklam">
+    <div>Oh oh! Bei deiner Bestellung ist etwas falsch gelaufen?<br>Wir klären das für dich — hier geht's zum Reklamationsformular.</div>
+    <div class="qr" aria-label="QR-Code Reklamationsformular"></div>
+  </div>
+  </div><!-- /.page-body -->
+
+  <footer class="inv-footer">
+    <div><span class="ft-h">Inuvet GmbH</span><br>Berner Weg 7-25<br>D-79539 Lörrach</div>
+    <div><span class="ft-h">Kontakt</span><br>T +49 7621 579 15 10<br>F +49 7621 579 15 12<br>M info@inuvet.com<br>W <a href="#">www.inuvet.com</a></div>
+    <div><span class="ft-h">Registrierung</span><br>Geschäftsführer C. Schütz, P. Müller<br>USt-ID DE279249700<br>HR-Nr. 708039<br>Amtsgericht Freiburg i. Br.</div>
+    <div><span class="ft-h">Bank</span><br>Commerzbank<br>KTO 283434900<br>IBAN DE65 6834 0058 0283 4349 00<br>BIC COBA DE FF 683</div>
+  </footer>
+</section>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const total = pages.length;
+// Aktuelle Zahl kommt aus dem CSS-Counter; JS ergänzt nur „ / Gesamt" (wie Report)
+document.querySelectorAll('.inv-pagenum .pn-total').forEach(el => { el.textContent = ' / ' + total; });
+
+// Überlauf-Wächter: misst die gekappte Content-Zone (.page-body). Schlägt an, sobald
+// der Inhalt in die Fußzeilen-Reserve laufen würde — dann Positionen auf die Folgeseite.
+function checkOverflow() {
+  pages.forEach((p,i)=>{
+    const box = p.querySelector('.page-body'); if(!box) return;
+    const over = box.scrollHeight - box.clientHeight > 2;
+    p.classList.toggle('overflow-warn', over);
+    if (over) console.warn('Überlauf auf Seite ' + (i+1));
+  });
+}
+
+/* ---------- Bemaßung (mm) für InDesign-/Programm-Nachbau ---------- */
+const PAGE_W_MM = 210;
+const PAGE_H_MM = 297;
+const mm1 = (n) => (Math.round(n * 10) / 10).toFixed(1).replace('.', ',');
+
+function pageMetrics(page) {
+  const r = page.getBoundingClientRect();
+  return { left: r.left, top: r.top, w: r.width, h: r.height, pxPerMm: r.width / PAGE_W_MM };
+}
+
+function boxOnPage(el, page, m) {
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  return {
+    x: (r.left - m.left) / m.pxPerMm,
+    y: (r.top - m.top) / m.pxPerMm,
+    w: r.width / m.pxPerMm,
+    h: r.height / m.pxPerMm,
+  };
+}
+
+function addGuide(layer, b, extraClass) {
+  if (!b) return;
+  const g = document.createElement('div');
+  g.className = 'measure-guide' + (extraClass ? ' ' + extraClass : '');
+  g.style.left = b.x + 'mm'; g.style.top = b.y + 'mm';
+  g.style.width = b.w + 'mm'; g.style.height = b.h + 'mm';
+  layer.appendChild(g);
+}
+
+function addDimH(layer, x, y, w, label, spanY) {
+  if (w < 0.4) return;
+  const d = document.createElement('div');
+  d.className = 'measure-dim --h';
+  d.style.left = x + 'mm'; d.style.top = y + 'mm'; d.style.width = w + 'mm';
+  const s = document.createElement('span');
+  s.textContent = label;
+  if (spanY != null) s.style.top = spanY + 'px';
+  d.appendChild(s);
+  layer.appendChild(d);
+}
+
+function addDimV(layer, x, y, h, label) {
+  if (h < 0.4) return;
+  const d = document.createElement('div');
+  d.className = 'measure-dim --v';
+  d.style.left = x + 'mm'; d.style.top = y + 'mm'; d.style.height = h + 'mm';
+  const s = document.createElement('span');
+  s.textContent = label;
+  d.appendChild(s);
+  layer.appendChild(d);
+}
+
+function addTag(layer, x, y, text) {
+  const t = document.createElement('div');
+  t.className = 'measure-tag';
+  t.style.left = x + 'mm'; t.style.top = y + 'mm';
+  t.textContent = text;
+  layer.appendChild(t);
+}
+
+function buildMeasureLayer(page, index) {
+  let layer = page.querySelector('.measure-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.className = 'measure-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    page.appendChild(layer);
+  }
+  layer.replaceChildren();
+
+  const m = pageMetrics(page);
+  const mx = 18, my = 18, footerY = 10, footerReserve = 34, logo = 20;
+
+  // Ränder + Content-Safe + Footer-Reserve
+  addGuide(layer, { x: mx, y: my, w: PAGE_W_MM - 2 * mx, h: PAGE_H_MM - my - footerReserve }, '--safe');
+  addGuide(layer, { x: mx, y: PAGE_H_MM - footerReserve, w: PAGE_W_MM - 2 * mx, h: footerReserve - footerY }, '--footer');
+
+  // Außenmaße
+  addDimH(layer, 0, 4, PAGE_W_MM, PAGE_W_MM + ' mm');
+  addDimV(layer, 4, 0, PAGE_H_MM, PAGE_H_MM + ' mm');
+
+  // Ränder
+  addDimH(layer, 0, 12, mx, mx + ' mm');
+  addDimH(layer, PAGE_W_MM - mx, 12, mx, mx + ' mm');
+  addDimV(layer, 12, 0, my, my + ' mm');
+  addDimV(layer, PAGE_W_MM - 8, PAGE_H_MM - footerY, footerY, footerY + ' mm');
+  addDimV(layer, PAGE_W_MM - 14, PAGE_H_MM - footerReserve, footerReserve, footerReserve + ' mm Reserve');
+
+  // Logo
+  const brand = boxOnPage(page.querySelector(':scope > .brandmark'), page, m);
+  if (brand) {
+    addGuide(layer, brand);
+    addDimH(layer, brand.x, brand.y + brand.h + 1.5, brand.w, mm1(brand.w) + ' mm Logo');
+    addTag(layer, brand.x, Math.max(0.5, brand.y - 4), 'Logo ' + mm1(brand.w) + '×' + mm1(brand.h));
+  } else {
+    addGuide(layer, { x: mx, y: my, w: logo, h: logo });
+  }
+
+  // Kopf / Anschrift / rechte Spalte
+  const head = boxOnPage(page.querySelector('.inv-head'), page, m);
+  const addr = boxOnPage(page.querySelector('.inv-addr'), page, m);
+  const right = boxOnPage(page.querySelector('.inv-head-right'), page, m);
+  if (head) {
+    addGuide(layer, head);
+    addDimV(layer, head.x - 6, head.y, head.h, mm1(head.h) + ' mm Kopf');
+    addTag(layer, head.x, head.y + 1, 'Kopf · min. 67 mm Raster');
+  }
+  if (addr) {
+    addGuide(layer, addr);
+    addDimH(layer, addr.x, addr.y - 3, addr.w, mm1(addr.w) + ' mm Anschrift');
+    addDimV(layer, addr.x - 3, my, addr.y - my, mm1(addr.y - my) + ' → Fenster');
+    addTag(layer, addr.x, addr.y + addr.h + 1, 'DIN 5008 B · Empfänger ab ~' + mm1(addr.y) + ' mm');
+  }
+  if (right) {
+    addGuide(layer, right);
+    addDimH(layer, right.x, right.y - 3, right.w, mm1(right.w) + ' mm rechts');
+  }
+  if (addr && right) {
+    const gap = right.x - (addr.x + addr.w);
+    addDimH(layer, addr.x + addr.w, addr.y + 8, gap, mm1(gap) + ' mm');
+  }
+
+  // Zahlungshinweis, Tabelle, Übertrag / Summen
+  const note = boxOnPage(page.querySelector('.inv-note'), page, m);
+  if (note) {
+    addGuide(layer, note);
+    addDimV(layer, note.x + note.w + 2, note.y, note.h, mm1(note.h) + ' mm');
+    addTag(layer, note.x, note.y - 3.5, 'Zahlungshinweis');
+  }
+
+  const table = boxOnPage(page.querySelector('.itable'), page, m);
+  if (table) {
+    addGuide(layer, table);
+    addDimH(layer, table.x, table.y - 3, table.w, mm1(table.w) + ' mm Tabelle');
+    addTag(layer, table.x, table.y + 1, 'Positionstabelle');
+  }
+
+  const carry = boxOnPage(page.querySelector('.inv-carry'), page, m);
+  if (carry) {
+    addGuide(layer, carry);
+    addTag(layer, carry.x, carry.y - 3.5, 'Übertrag');
+  }
+
+  const summary = boxOnPage(page.querySelector('.summary-row'), page, m);
+  const valueBox = boxOnPage(page.querySelector('.value-box'), page, m);
+  const totals = boxOnPage(page.querySelector('.inv-totals'), page, m);
+  if (summary) {
+    addGuide(layer, summary);
+    addDimH(layer, summary.x, summary.y - 3, summary.w, mm1(summary.w) + ' mm Summenzeile');
+  }
+  if (valueBox) {
+    addGuide(layer, valueBox);
+    addDimH(layer, valueBox.x, valueBox.y + valueBox.h + 1.5, valueBox.w, mm1(valueBox.w) + ' mm Mehrwert');
+  }
+  if (totals) {
+    addGuide(layer, totals);
+    addDimH(layer, totals.x, totals.y + totals.h + 1.5, totals.w, mm1(totals.w) + ' mm Totals');
+  }
+  if (valueBox && totals) {
+    const gap = totals.x - (valueBox.x + valueBox.w);
+    addDimH(layer, valueBox.x + valueBox.w, valueBox.y + 6, gap, mm1(gap) + ' mm');
+  }
+
+  const pay = boxOnPage(page.querySelector('.pay-panel'), page, m);
+  if (pay) {
+    addGuide(layer, pay);
+    addDimV(layer, pay.x + pay.w + 2, pay.y, pay.h, mm1(pay.h) + ' mm');
+    addTag(layer, pay.x, pay.y - 3.5, 'SEPA-Panel');
+  }
+
+  const qr = boxOnPage(page.querySelector('.inv-reklam .qr'), page, m);
+  if (qr) {
+    addGuide(layer, qr);
+    addDimH(layer, qr.x, qr.y + qr.h + 1.5, qr.w, mm1(qr.w) + '×' + mm1(qr.h) + ' mm QR');
+  }
+
+  const footer = boxOnPage(page.querySelector('.inv-footer'), page, m);
+  if (footer) {
+    addGuide(layer, footer);
+    addDimH(layer, footer.x, footer.y - 3, footer.w, mm1(footer.w) + ' mm Footer 4-spaltig');
+    addTag(layer, footer.x, footer.y + 1, 'Footer · bottom ' + footerY + ' mm');
+  }
+
+  addTag(layer, PAGE_W_MM - 42, 2, 'Seite ' + (index + 1));
+}
+
+function fillSpecPanel() {
+  const panel = document.getElementById('measurePanel');
+  const dl = document.getElementById('measureSpec');
+  panel.querySelectorAll('h3.spec-h').forEach((el) => el.remove());
+
+  const rows = [
+    ['Format', 'A4 · 210 × 297 mm'],
+    ['Rand L/R/O', '18 mm'],
+    ['Footer bottom', '10 mm'],
+    ['Footer-Reserve', '34 mm (Content endet darüber)'],
+    ['Satzspiegel-Breite', '174 mm (210 − 2×18)'],
+    ['Logo', '20 × 20 mm · oben links im Rand'],
+    ['Kopf-Raster', '85 mm | gap Modul | 1fr · min-height 67 mm'],
+    ['Anschrift-Offset', '27 mm unter Kopf-Start → ~45 mm ab Blattkante (DIN 5008 B)'],
+    ['Anschrift-Pad links', '2 mm'],
+    ['Totals-Spalte', '88 mm'],
+    ['QR', '16 × 16 mm'],
+    ['Tabelle Pos.', '9 mm'],
+    ['Tabelle Zahl', '20 mm'],
+    ['Modul / Half', '30 pt / 16 pt'],
+    ['Typo Display', '24 pt (Rechnung, Einzug, Gesamtersparnis)'],
+    ['Typo Normal', '10,5 pt'],
+    ['Typo Klein', '9 pt (Empfänger, Tabelle, Summen)'],
+    ['Typo Sehr klein', '7,8 pt (Meta, Footer, Caps)'],
+    ['Schrift', 'Schnebel Sans Me'],
+  ];
+
+  const h3 = document.createElement('h3');
+  h3.className = 'spec-h';
+  h3.textContent = 'Design-Tokens';
+  dl.before(h3);
+
+  dl.replaceChildren();
+  rows.forEach(([k, v]) => {
+    const dt = document.createElement('dt'); dt.textContent = k;
+    const dd = document.createElement('dd'); dd.textContent = v;
+    dl.append(dt, dd);
+  });
+}
+
+function refreshMeasures() {
+  if (!document.body.classList.contains('measure-on')) return;
+  pages.forEach((p, i) => buildMeasureLayer(p, i));
+}
+
+const measureToggle = document.getElementById('measureToggle');
+const measurePanel = document.getElementById('measurePanel');
+measureToggle.addEventListener('click', () => {
+  const on = !document.body.classList.contains('measure-on');
+  document.body.classList.toggle('measure-on', on);
+  measureToggle.setAttribute('aria-pressed', String(on));
+  measurePanel.setAttribute('aria-hidden', String(!on));
+  if (on) {
+    fillSpecPanel();
+    refreshMeasures();
+  }
+});
+
+window.addEventListener('load', () => { checkOverflow(); });
+window.addEventListener('resize', () => { checkOverflow(); refreshMeasures(); });
+</script>
+</body>
+</html>
