@@ -112,7 +112,6 @@
           </th>
           <th scope="col" class="data-table-note">Notiz vom Tierhalter</th>
           <th scope="col" class="data-table-note">Notiz an Tierbesitzer</th>
-          <th scope="col" class="data-table-action">Freigeben</th>
         </tr>
       </thead>
       <tbody id="declinedBody"></tbody>
@@ -125,47 +124,8 @@
   </div>
 </main>
 
-<div class="modal-overlay" id="approveDeclinedOverlay" onclick="closeApproveDeclinedModal()">
-  <div class="modal" id="approveDeclinedModal" onclick="event.stopPropagation()">
-    <div class="modal__header">
-      <h2 class="modal__title">Jetzt freigeben</h2>
-      <button type="button" class="btn --icon" onclick="closeApproveDeclinedModal()" aria-label="Schließen">
-        <span class="material-icons">close</span>
-      </button>
-    </div>
-    <div class="modal__body flow">
-      <p id="approveDeclinedLead"></p>
-      <p id="approveDeclinedPrevNote" class="data-table-stack__meta"></p>
-      <div class="form-field">
-        <select id="approveDeclinedQty" onchange="syncApproveDeclinedQtyUi()" aria-label="Freigabe-Menge" required></select>
-        <label for="approveDeclinedQty">Freigabe-Menge</label>
-      </div>
-      <div class="form-field">
-        <textarea id="approveDeclinedNote" rows="3" placeholder=" "></textarea>
-        <label for="approveDeclinedNote">Notiz an Tierbesitzer (optional)</label>
-      </div>
-      <p class="form-required-note">Nach dem Bestätigen wird der Tierbesitzer per E-Mail informiert (B1). Es entsteht kein Salesforce-Task.</p>
-    </div>
-    <div class="modal__footer">
-      <button class="btn --secondary" type="button" onclick="closeApproveDeclinedModal()">Abbrechen</button>
-      <button class="btn --primary" type="button" id="approveDeclinedConfirm" onclick="confirmApproveDeclined()">Jetzt freigeben</button>
-    </div>
-  </div>
-</div>
-
-<div class="mockup-email-overlay" id="emailOverlay" onclick="closeEmailOverlay()"></div>
-<div class="mockup-email-panel" id="emailPanel">
-  <div class="mockup-email-panel__header">
-    <span id="emailPanelCounter" class="mockup-email-panel__counter"></span>
-    <button class="mockup-email-panel__close" onclick="closeEmailOverlay()" aria-label="Schließen">
-      <span class="material-icons">close</span>
-    </button>
-  </div>
-  <div class="mockup-email-panel__body" id="emailPanelBody"></div>
-</div>
-
 <script src="../planet-brands.js"></script>
-<script src="inuvet-freigabe-mock.js?v=13"></script>
-<script src="inuvet-freigabe-nicht-freigegeben.js?v=6"></script>
+<script src="inuvet-freigabe-mock.js?v=14"></script>
+<script src="inuvet-freigabe-nicht-freigegeben.js?v=7"></script>
 </body>
 </html>

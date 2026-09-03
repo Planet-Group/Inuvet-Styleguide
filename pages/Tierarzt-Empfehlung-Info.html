@@ -222,7 +222,7 @@
                 </tr>
                 <tr>
                   <td><strong>Nicht freigegeben</strong></td>
-                  <td>Historie abgelehnter Positionen: wann, warum (Notiz an Tierbesitzer) und Notiz vom Tierhalter. <em>Jetzt freigeben</em> kehrt die Ablehnung um, falls die Praxis sich umentscheidet.</td>
+                  <td>Historie abgelehnter Positionen: wann, warum (Notiz an Tierbesitzer) und Notiz vom Tierhalter. Keine nachträgliche Freigabe — der Tierhalter kann das Produkt erneut anfragen.</td>
                   <td><a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a></td>
                 </tr>
                 <tr>
@@ -260,16 +260,16 @@
                 <tr><td><strong>– </strong></td><td>Größe nicht freigeben (Default)</td></tr>
               </tbody>
             </table>
-            <p>Der Ablauf ist zweistufig (Tab-Navigation wie <code>.tabs</code>: <em>Tierbesitzer-Daten</em> · <em>Produkte auswählen</em>): Zuerst fragt die Seite <em>„An wen soll die Freigabe ausgestellt werden?"</em>, der Tierarzt trägt die <strong>E-Mail-Adresse</strong> ein und bestätigt darunter die <strong>Consent-Checkbox</strong> — erst dann geht es mit <strong>„Weiter"</strong> (oder dem zweiten Tab) zur Produktauswahl. Dort wählt er Mengen, optional eine <strong>Notiz an den Tierhalter</strong>, und bestätigt über die sticky Submit-Leiste (<em>„Volles Vertrauen…"</em>, Counter, <strong>„Produkte freigeben"</strong>). Nach dem Absenden: E-Mail an den Tierhalter (<strong>C1</strong>). <strong>Kein</strong> Salesforce-Task — die Praxis hat die Freigabe selbst erledigt, für den Kundeninhaber besteht kein Handlungsbedarf.</p>
+            <p>Der Ablauf ist zweistufig (Tab-Navigation wie <code>.tabs</code>: <em>Tierbesitzer-Daten</em> · <em>Produkte auswählen</em>): Zuerst fragt die Seite <em>„An wen soll die Freigabe ausgestellt werden?"</em>, der Tierarzt trägt die <strong>E-Mail-Adresse</strong> ein und bestätigt darunter die <strong>Consent-Checkbox</strong> — erst dann geht es mit <strong>„Weiter"</strong> (oder dem zweiten Tab) zur Produktauswahl. Dort wählt er Mengen, optional eine <strong>Notiz an den Tierhalter</strong>, und bestätigt über die sticky Submit-Leiste (Counter, <strong>„Produkte freigeben"</strong>). Nach dem Absenden: E-Mail an den Tierhalter (<strong>C1</strong>). <strong>Kein</strong> Salesforce-Task — die Praxis hat die Freigabe selbst erledigt, für den Kundeninhaber besteht kein Handlungsbedarf.</p>
 
             <h3>Ablehnung durch den Tierarzt</h3>
-            <p>Der Tierarzt kann einzelne oder alle Positionen ablehnen (Zeile oder Bulk). Der Tierhalter erhält das Ergebnis per E-Mail (<strong>B1</strong>) — inklusive der Notiz, sofern hinterlassen. Die Position verschwindet aus Offene Anfragen und erscheint unter <strong>Nicht freigegeben</strong> (Ablehnungsdatum, Notiz vom Tierhalter, Notiz an Tierbesitzer). So kann die Praxis nachvollziehen, wann und warum abgelehnt wurde, wenn der Tierhalter in der Praxis nachfragt. Abgelehnte Produkte können vom Tierhalter erneut angefragt werden; es gibt keine technische Sperrfrist. Alternativ kehrt <strong>Jetzt freigeben</strong> auf dieser Seite die Ablehnung um (Mengenwahl wie in Offene Anfragen, optionale neue Notiz, erneut nur B1).</p>
+            <p>Der Tierarzt kann einzelne oder alle Positionen ablehnen (Zeile oder Bulk). Der Tierhalter erhält das Ergebnis per E-Mail (<strong>B1</strong>) — inklusive der Notiz, sofern hinterlassen. Die Position verschwindet aus Offene Anfragen und erscheint unter <strong>Nicht freigegeben</strong> (Ablehnungsdatum, Notiz vom Tierhalter, Notiz an Tierbesitzer). So kann die Praxis nachvollziehen, wann und warum abgelehnt wurde, wenn der Tierhalter in der Praxis nachfragt. Abgelehnte Produkte können vom Tierhalter erneut angefragt werden; es gibt keine technische Sperrfrist. Eine nachträgliche Freigabe aus dieser Historie gibt es nicht.</p>
 
             <h3>Historie „Freigegeben" und Provision</h3>
             <p>Jede erteilte Freigabe erzeugt einen Eintrag in der Historie: Name, E-Mail, Datum, Produkt mit Größe und Menge sowie die <strong>Provision</strong> der Praxis (E-Mail/Datum/Produkt/Provision in kompakter Schrift). Die Provision wird pro Einzelprodukt-Position berechnet (siehe Produkt-Modell) und in Summe im Provision-Portal abgerechnet.</p>
 
             <h3>Historie „Nicht freigegeben"</h3>
-            <p>Abgelehnte Positionen bleiben nachvollziehbar: Name, <strong>Abgelehnt am</strong>, angefragte Produkte, Notiz vom Tierhalter, Notiz an Tierbesitzer. Wenn der Tierhalter in der Praxis nachfragt, sieht das Personal Datum und Begründung. <em>Jetzt freigeben</em> kehrt die Ablehnung um (Mengenwahl, optionale neue Notiz) — die Position wandert nach Freigegeben; erneut nur B1.</p>
+            <p>Abgelehnte Positionen bleiben nachvollziehbar: Name, <strong>Abgelehnt am</strong>, angefragte Produkte, Notiz vom Tierhalter, Notiz an Tierbesitzer. Wenn der Tierhalter in der Praxis nachfragt, sieht das Personal Datum und Begründung. Es gibt keine Aktion zum nachträglichen Freigeben — dafür muss der Tierhalter neu anfragen oder die Praxis eine Direkt-Freigabe ausstellen.</p>
 
             <!-- ══════════════ TEIL 3 ══════════════ -->
             <h2 id="teil-3">Teil 3 — System-Nachrichten im Überblick (für die IT)</h2>
@@ -344,7 +344,7 @@
               <li>Als Tierhalter Anfrage absenden → prüfen: <strong>A1</strong> (E-Mail Tierhalter), <strong>A2</strong> (E-Mail Praxis, Link zu Offene Anfragen), <strong>A3</strong> (Salesforce-Task für Kundeninhaber, Status <code>offen</code>).</li>
               <li>Optional: „Praxis nicht gefunden?“ → <code>mailto:</code> öffnet mit Betreff/Body von <strong>D1</strong>.</li>
               <li>Als Praxis in Offene Anfragen eine Position freigeben (mit Notiz) → <strong>B1</strong> (E-Mail); A3 → <code>erledigt</code>; Eintrag in Freigegeben. <strong>Kein</strong> Task.</li>
-              <li>Als Praxis eine Position ablehnen → erneut <strong>B1</strong> (nur Nicht-freigegeben-Block); Eintrag in Nicht freigegeben. Optional später <em>Jetzt freigeben</em> → erneut B1, Eintrag wandert nach Freigegeben.</li>
+              <li>Als Praxis eine Position ablehnen → erneut <strong>B1</strong> (nur Nicht-freigegeben-Block); Eintrag in Nicht freigegeben. Keine nachträgliche Freigabe auf dieser Seite.</li>
               <li>Bulk Freigeben / Nicht freigeben → ebenfalls <strong>B1</strong> (aggregiert).</li>
               <li>Freigabe ausstellen: Consent + E-Mail → Produkte → absenden → nur <strong>C1</strong> (kein Task).</li>
             </ol>
@@ -357,7 +357,6 @@
               <tbody>
                 <tr><td>Tierhalter sendet Anfrage ab</td><td><strong>A1 + A2 + A3</strong> (immer zusammen)</td></tr>
                 <tr><td>Praxis entscheidet in Offene Anfragen</td><td><strong>B1</strong> · A3 → <code>erledigt</code> · <strong>kein</strong> neuer Task · Eintrag in Freigegeben bzw. Nicht freigegeben</td></tr>
-                <tr><td>Praxis gibt abgelehnte Position nachträglich frei</td><td><strong>B1</strong> (Jetzt freigeben) · Eintrag wandert nach Freigegeben</td></tr>
                 <tr><td>Praxis stellt Direkt-Freigabe aus</td><td><strong>C1</strong> (E-Mail an den Tierhalter · Consent Pflicht · <strong>kein</strong> Salesforce-Task)</td></tr>
                 <tr><td>Tierhalter lädt Praxis ein</td><td><strong>D1</strong> nur als <code>mailto:</code>-Vorlage</td></tr>
               </tbody>

@@ -685,15 +685,6 @@ function empfehlungAddDeclinedEntry(entry) {
   empfehlungPersistSessionDeclinedEntries(entries);
 }
 
-function empfehlungRemoveDeclinedRow(id) {
-  const removed = new Set(empfehlungGetDeclinedRemovedIds());
-  removed.add(id);
-  sessionStorage.setItem(EMPFEHLUNG_DECLINED_REMOVED_KEY, JSON.stringify([...removed]));
-  empfehlungPersistSessionDeclinedEntries(
-    empfehlungGetSessionDeclinedEntries().filter(item => item.id !== id)
-  );
-}
-
 function empfehlungFlattenDeclinedRows() {
   const removed = new Set(empfehlungGetDeclinedRemovedIds());
   return empfehlungGetSessionDeclinedEntries()
@@ -707,31 +698,4 @@ function empfehlungFlattenDeclinedRows() {
       const byDate = b.date.localeCompare(a.date);
       return byDate !== 0 ? byDate : a.productLabel.localeCompare(b.productLabel, 'de');
     });
-}
-
-function empfehlungApproveDeclinedRow(id, approval) {
-  const row = empfehlungFlattenDeclinedRows().find(item => item.id === id);
-  if (!row) return null;
-  empfehlungRemoveDeclinedRow(id);
-  if (row.sourceId && empfehlungFindPosition(row.sourceId)) {
-    empfehlungMarkPositionApproved(row.sourceId, approval);
-  } else {
-    const unlimited = !!approval?.unlimited;
-    const qty = approval?.qty != null ? approval.qty : row.qty;
-    empfehlungAddRedeemedEntry({
-      customerName: row.customerName,
-      customerEmail: row.customerEmail,
-      customerNote: row.customerNote || '',
-      cartName: row.cartName,
-      variantLabel: row.variantLabel,
-      qty,
-      unlimited,
-      sourceId: row.sourceId || id,
-    });
-    if (row.requestId) {
-      empfehlungClearVariantDeclined(row.requestId, row.cartName, row.variantLabel);
-      empfehlungMarkVariantApproved(row.requestId, row.cartName, row.variantLabel, qty);
-    }
-  }
-  return row;
 }
