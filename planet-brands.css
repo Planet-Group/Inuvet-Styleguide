@@ -56,7 +56,7 @@
     --color-success: var(--green);       /* Erfolgs-Feedback, Häkchen, Checkouts */
     --color-link:    var(--green);       /* Fließtext-Links */
     --color-amber:      #E8A020;  /* Warmer Akzent: Sterne, Testimonials, Gutscheinkarten */
-    --color-honey:      #FFD700;  /* Honig-Gelb */
+    --color-honey:      #fcd01e;  /* Honig-Gelb */
     --color-notice-bg:  #FEFFDA;  /* Infobox-Hintergrund (Notice) */
 
     /* ─── Produkt-Kategoriefarben ─── */

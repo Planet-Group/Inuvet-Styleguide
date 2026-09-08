@@ -261,7 +261,7 @@ Doku → Styleguide A.7 „Section-Stack" (`styleguide.html#section-stack`).
 --border: #adadad  --border-light: #e0e0e0  --accent-bg: #f2f2f2
 ```
 
-Semantische Aliasse (für neuen Code bevorzugen): `--color-action` / `--color-action-hover` / `--color-success` / `--color-link` (= Grün-Tokens) · Akzente: `--color-amber: #E8A020`, `--color-honey: #FFD700`, `--color-notice-bg: #FEFFDA` · Border-Semantik: `--border-focus`, `--border-active`.
+Semantische Aliasse (für neuen Code bevorzugen): `--color-action` / `--color-action-hover` / `--color-success` / `--color-link` (= Grün-Tokens) · Akzente: `--color-amber: #E8A020`, `--color-honey: #fcd01e`, `--color-notice-bg: #FEFFDA` · Border-Semantik: `--border-focus`, `--border-active`.
 
 15 Kategorie-Farben als `--cat-X` + `--cat-X-light`: beruhigung, leber, gelenke, immun, herz, magendarm, haut, atemwege, niere, blase, bauchspeichel, fettsaeuren, hormone, ohren, cbd.
 
