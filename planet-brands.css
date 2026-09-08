@@ -2507,6 +2507,18 @@
     box-shadow: 0 0 0 2px var(--color-honey);
   }
 
+  /* Success — Freigabe bestätigen (Text-Button, analog Icon-Fläche .btn.--icon.--success) */
+  .btn.--success {
+    background: var(--green);
+    color: var(--bg);
+    border-color: var(--green);
+  }
+  .btn.--success:hover {
+    background: var(--green-hover);
+    border-color: var(--green-hover);
+    box-shadow: 0 0 0 2px var(--green-hover);
+  }
+
   /* Loading — laufende AJAX-Aktion (z. B. „In den Warenkorb"): Spinner vor dem Text, Klicks gesperrt */
   .btn.--loading { pointer-events: none; }
   .btn.--loading::before {

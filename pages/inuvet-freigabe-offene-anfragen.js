@@ -131,8 +131,9 @@ function syncBulkFollowup() {
   }
   if (hint) hint.hidden = customers.size < 2;
   if (confirmBtn) {
-    const verb = type === 'approve' ? 'freigeben' : 'nicht freigeben';
-    confirmBtn.textContent = rows.length === 1 ? `1 Position ${verb}` : `${rows.length} Positionen ${verb}`;
+    confirmBtn.textContent = type === 'approve' ? 'Freigeben' : 'Nicht freigeben';
+    confirmBtn.classList.toggle('--success', type === 'approve');
+    confirmBtn.classList.toggle('--primary', type !== 'approve');
   }
 }
 
@@ -250,17 +251,12 @@ function rowActionApproveLead(row, value) {
   const parsed = empfehlungParseApprovalQty(value, row.qty);
   const head = `„${row.productLabel}“ für ${row.customerName}.`;
   if (parsed.unlimited) {
-    return `${head} Sie geben unbegrenzt frei (angefragt: max. ${packungLabel(row.qty)}).`;
+    return `${head} Du gibst unbegrenzt frei (angefragt: max. ${packungLabel(row.qty)}).`;
   }
   if (parsed.qty === row.qty) {
-    return `${head} Sie geben die angefragte Menge frei: max. ${packungLabel(row.qty)}.`;
+    return `${head} Du gibst die angefragte Menge frei: max. ${packungLabel(row.qty)}.`;
   }
-  return `${head} Sie geben max. ${packungLabel(parsed.qty)} frei (angefragt: max. ${packungLabel(row.qty)}).`;
-}
-
-function rowActionConfirmLabel(value, requestedQty) {
-  const parsed = empfehlungParseApprovalQty(value, requestedQty);
-  return parsed.unlimited ? 'Unbegrenzt freigeben' : `${parsed.qty}× freigeben`;
+  return `${head} Du gibst max. ${packungLabel(parsed.qty)} frei (angefragt: max. ${packungLabel(row.qty)}).`;
 }
 
 function syncRowActionQtyUi() {
@@ -269,9 +265,7 @@ function syncRowActionQtyUi() {
   if (!row) return;
   const value = rowActionQtyValue(row);
   const leadEl = document.getElementById('rowActionModalLead');
-  const confirmBtn = document.getElementById('rowActionConfirmBtn');
   if (leadEl) leadEl.textContent = rowActionApproveLead(row, value);
-  if (confirmBtn) confirmBtn.textContent = rowActionConfirmLabel(value, row.qty);
 }
 
 function openRowActionModal(id, type) {
@@ -311,7 +305,11 @@ function openRowActionModal(id, type) {
     customerNoteEl.classList.toggle('--empty', empty);
   }
   if (noteEl) noteEl.value = '';
-  if (confirmBtn) confirmBtn.textContent = approve ? rowActionConfirmLabel(`max${row.qty}`, row.qty) : title;
+  if (confirmBtn) {
+    confirmBtn.textContent = approve ? 'Freigeben' : 'Nicht freigeben';
+    confirmBtn.classList.toggle('--success', approve);
+    confirmBtn.classList.toggle('--primary', !approve);
+  }
 
   setRowActionModalOpen(true);
   (approve ? qtySel : noteEl)?.focus();
@@ -371,14 +369,14 @@ function approvalSizeLine(row, parsed) {
 
 function b1DeclinedHintHtml(hasDeclined) {
   return hasDeclined
-    ? '<p>Sprechen Sie gerne noch einmal mit Ihrer Praxis. Vielleicht passt ein anderes Inuvet-Produkt besser.</p>'
+    ? '<p>Sprich gerne noch einmal mit deiner Praxis. Vielleicht passt ein anderes Inuvet-Produkt besser.</p>'
     : '';
 }
 
 function buildRowActionEmails(row, type, note, parsed) {
   const approved = type === 'approve';
   const sizeLine = approved ? approvalSizeLine(row, parsed) : `${row.variantLabel} (angefragt: max. ${row.qty}×)`;
-  const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
+  const noteBlock = note ? `<p><strong>Notiz an dich:</strong> <em>${note}</em></p>` : '';
   const approvedBlock = approved
     ? `<p><strong>Freigegeben:</strong></p><ul><li><strong>${row.cartName}</strong> — ${sizeLine}</li></ul>`
     : '';
@@ -390,14 +388,14 @@ function buildRowActionEmails(row, type, note, parsed) {
     customer: {
       tag: 'E-Mail',
       recipient: row.customerEmail,
-      subject: 'Ihre Empfehlungsanfrage wurde bearbeitet',
+      subject: 'Deine Empfehlungsanfrage wurde bearbeitet',
       body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat deine Empfehlungsanfrage bearbeitet:</p>
         ${approvedBlock}
         ${declinedBlock}
         ${noteBlock}
         ${b1DeclinedHintHtml(!approved)}
-        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
+        ${approved ? '<p>Du kannst die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
     },
   };
 }
@@ -419,7 +417,7 @@ function groupRowsByCustomer(rows) {
 function buildBulkEmails(rows, type, note) {
   const approved = type === 'approve';
   const groups = groupRowsByCustomer(rows);
-  const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
+  const noteBlock = note ? `<p><strong>Notiz an dich:</strong> <em>${note}</em></p>` : '';
   const keys = [];
   emailOverlayData = {};
 
@@ -437,14 +435,14 @@ function buildBulkEmails(rows, type, note) {
     emailOverlayData[key] = {
       tag: 'E-Mail',
       recipient: group.customerEmail,
-      subject: 'Ihre Empfehlungsanfrage wurde bearbeitet',
+      subject: 'Deine Empfehlungsanfrage wurde bearbeitet',
       body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat deine Empfehlungsanfrage bearbeitet:</p>
         <p><strong>${heading}:</strong></p>
         <ul>${items}</ul>
         ${noteBlock}
         ${b1DeclinedHintHtml(!approved)}
-        ${approved ? '<p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
+        ${approved ? '<p>Du kannst die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>' : ''}`,
     };
   });
 

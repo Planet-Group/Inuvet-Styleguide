@@ -163,7 +163,7 @@
             <p>Der Tierhalter erhält die Bestätigungs-E-Mail (A1). Sobald die Praxis die Anfrage im Vet-Portal bearbeitet, wird er per E-Mail über das Ergebnis informiert (B1). Beim nächsten Login ist der Zustand automatisch <strong>„mit Freigabe"</strong> — ein Willkommen-Popup zeigt die freigegebenen Produkte inklusive der vom Tierarzt bestimmten Menge.</p>
 
             <h4>5 — Einlösen und kaufen</h4>
-            <p>Mit aktiver Freigabe erscheint bei freigegebenen Produkten das Badge <em>„freigegeben"</em> (grün). Sie können direkt in den Warenkorb gelegt werden — ohne weiteren Anfrageschritt. Im Warenkorb ist die Menge auf das vom Tierarzt freigegebene Maximum begrenzt; ein Hinweis erscheint, wenn die Grenze erreicht wird. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
+            <p>Mit aktiver Freigabe erscheint bei freigegebenen Produkten das Badge <em>„freigegeben"</em> (grün). Die Produkte können direkt in den Warenkorb gelegt werden — ohne weiteren Anfrageschritt. Im Warenkorb ist die Menge auf das vom Tierarzt freigegebene Maximum begrenzt; ein Hinweis erscheint, wenn die Grenze erreicht wird. Der Checkout verläuft wie ein normaler Shop-Kauf.</p>
 
             <h3>Warenkorb-Redistribution beim Login</h3>
             <p>Ein Nutzer kann als Gast Produkte in den Warenkorb legen und sich erst beim Abschicken einloggen. In diesem Moment prüft das System jeden Warenkorb-Artikel einzeln:</p>
@@ -242,7 +242,7 @@
             <h3>Weg ① — Anfrage eines Tierhalters freigeben</h3>
             <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, Datum, <strong>Angefragte Produkte</strong> mit Größe <em>und Menge</em> (z. B. „30 g · 1×“) und <strong>Notiz vom Tierhalter</strong> — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
             <ul>
-              <li><strong>Freigeben</strong> — öffnet ein Modal. Default ist die angefragte Menge (Button z. B. <em>„1× freigeben“</em>). Die Praxis kann die Obergrenze auf dieselben Stufen wie bei Weg ② ändern: max. 1× / 2× / 5× oder unbegrenzt. Optional eine <em>Notiz an Tierbesitzer</em>.</li>
+              <li><strong>Freigeben</strong> — öffnet ein Modal. Default ist die angefragte Menge. Button immer <em>„Freigeben“</em> (grün). Die Praxis kann die Obergrenze auf dieselben Stufen wie bei Weg ② ändern: max. 1× / 2× / 5× oder unbegrenzt. Optional eine <em>Notiz an Tierbesitzer</em>.</li>
               <li><strong>Nicht freigeben</strong> — gleiches Modal in der Danger-Variante (<code>.modal.--danger</code>); lehnt die Position ab (ohne Mengenwahl)</li>
               <li><strong>Bulk</strong> — Dropdown wählt nur die Aktion. Notizfeld und Bestätigen-Button erscheinen erst danach. Freigeben übernimmt die angefragte Menge (ohne Override). Eine optionale Notiz gilt für alle ausgewählten Tierhalter. Ohne Bestätigen passiert nichts.</li>
             </ul>
@@ -314,7 +314,7 @@
                   <td>E-Mail</td>
                   <td>Praxis entscheidet in Offene Anfragen (Zeile <em>oder</em> Bulk · Freigeben <em>oder</em> Nicht freigeben)</td>
                   <td>Tierhalter</td>
-                  <td>Ihre Empfehlungsanfrage wurde bearbeitet</td>
+                  <td>Deine Empfehlungsanfrage wurde bearbeitet</td>
                   <td><a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen</a></td>
                 </tr>
                 <tr>
@@ -322,7 +322,7 @@
                   <td>E-Mail</td>
                   <td>Praxis klickt „Produkte freigeben“ (Direkt-Freigabe, Schritt 2)</td>
                   <td>Tierhalter (aus Schritt 1)</td>
-                  <td>Ihre Empfehlung ist da!</td>
+                  <td>Deine Empfehlung ist da!</td>
                   <td><a href="Inuvet-Freigabe-Ausstellen.html">Freigabe ausstellen</a></td>
                 </tr>
                 <tr>
@@ -369,7 +369,7 @@
               <div class="flow">
 <p class="notice__title">Betreff: Neue Anfrage</p>
               <p>Anfrage an <strong>[Praxisname]</strong> erfolgreich versendet.</p>
-              <p>Sie erhalten eine Nachricht per E-Mail ([E-Mail des Tierhalters]), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>
+              <p>Du erhältst eine Nachricht per E-Mail ([E-Mail des Tierhalters]), sobald die Anfrage von deinem Tierarzt freigegeben wurde.</p>
               </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach dem Absenden der Anfrage im Warenkorb-Drawer (Login liegt zu diesem Zeitpunkt bereits vor). <strong>Empfänger:</strong> E-Mail-Adresse des eingeloggten Tierhalters. <strong>Variablen:</strong> Praxisname, E-Mail-Adresse.</p>
@@ -380,13 +380,13 @@
 <p class="notice__title">Betreff: Neue Anfrage von [Name des Tierhalters]</p>
               <p>Tierbesitzer*in <strong>[Name des Tierhalters]</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
               <p>Angefragt: <strong>[Produktliste]</strong></p>
-              <p>Diese können Sie hier einsehen und freigeben:<br>→ Zur Anfrage auf inuvet.com [Direktlink zu Offene Anfragen im Vet-Portal]</p>
+              <p>Diese kannst du hier einsehen und freigeben:<br>→ Zur Anfrage auf inuvet.com [Direktlink zu Offene Anfragen im Vet-Portal]</p>
               <p><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
-              <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
-              <p>Ihre Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
-              <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+              <p>Du nimmst am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfe kurz, ob es für das Tier geeignet ist, und gib es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für dich entsteht kein Aufwand mit Lagerung oder Logistik.</p>
+              <p>Deine Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
+              <p>Für jede über deine Empfehlung getätigte Bestellung erhältst du eine Provision — eine faire Vergütung für deine fachliche Beratung.</p>
               <p><strong>Persönlicher Kontakt bei Fragen</strong></p>
-              <p>Sie haben Fragen zur Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
+              <p>Du hast Fragen zur Anfrage oder zum Programm? Deine persönliche Ansprechpartnerin hilft dir gern weiter:</p>
               <p><strong>[Name Ansprechpartner*in]</strong> · Tierärztlicher Außendienst<br>[Telefon] · [E-Mail]</p>
               </div>
             </div>
@@ -409,27 +409,27 @@
             <h4>B1 · An den Tierhalter — Ergebnis der Anfrage</h4>
             <div class="notice">
               <div class="flow">
-<p class="notice__title">Betreff: Ihre Empfehlungsanfrage wurde bearbeitet</p>
-              <p>[Tierarzt] ([Praxisname]) hat Ihre Empfehlungsanfrage bearbeitet:</p>
+<p class="notice__title">Betreff: Deine Empfehlungsanfrage wurde bearbeitet</p>
+              <p>[Tierarzt] ([Praxisname]) hat deine Empfehlungsanfrage bearbeitet:</p>
               <p><strong>Freigegeben:</strong> [je Produkt: Name — Größe: Menge, z. B. „Calmin balance Pulver — 30 g: max. 2×"; weicht die Praxis von der Anfrage ab: „… max. 2× (angefragt: max. 1×)" bzw. „unbegrenzt"]</p>
               <p><strong>Nicht freigegeben:</strong> [je Position: Name — Größe (angefragt: max. n×)]</p>
-              <p><strong>Notiz an Sie:</strong> <em>[Notiz des Tierarztes — nur wenn hinterlassen]</em></p>
-              <p>Sprechen Sie gerne noch einmal mit Ihrer Praxis. Vielleicht passt ein anderes Inuvet-Produkt besser.</p>
-              <p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>
+              <p><strong>Notiz an dich:</strong> <em>[Notiz des Tierarztes — nur wenn hinterlassen]</em></p>
+              <p>Sprich gerne noch einmal mit deiner Praxis. Vielleicht passt ein anderes Inuvet-Produkt besser.</p>
+              <p>Du kannst die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>
               </div>
             </div>
-            <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Praxis-Hinweis („Sprechen Sie gerne noch einmal…“) nur, wenn mindestens eine Position nicht freigegeben wurde; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz) + Praxis-Hinweis. Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen; bei Freigabe erscheint sie in <strong>Freigegeben</strong>, bei Ablehnung in <strong>Nicht freigegeben</strong>. Task A3 → <code>erledigt</code>. <strong>Kein neuer Salesforce-Task</strong> — die Praxis hat gehandelt, für den Kundeninhaber besteht kein Handlungsbedarf.</p>
+            <p><strong>Versand:</strong> Sofort nach Bestätigen von Freigeben / Nicht freigeben (inkl. optionaler Notiz) in <strong>Offene Anfragen</strong> — Zeilen-Modal oder Bulk-Aktion. Die Blöcke <em>Freigegeben</em> / <em>Nicht freigegeben</em> / <em>Notiz</em> erscheinen nur, wenn sie Inhalt haben; der Praxis-Hinweis („Sprich gerne noch einmal…“) nur, wenn mindestens eine Position nicht freigegeben wurde; der Einlöse-Hinweis nur bei mindestens einer Freigabe. Bei vollständiger Ablehnung besteht die Mail aus dem Nicht-freigegeben-Block (+ ggf. Notiz) + Praxis-Hinweis. Bei Bulk idealerweise <strong>eine B1 pro Tierhalter</strong> (Positionen aggregiert), nicht eine Mail pro Zeile. <strong>Folgeaktion im System:</strong> Freigabe-Status des Nutzers wird aktualisiert (Schlüssel: E-Mail) — beim nächsten Login gilt Zustand ③. Position verschwindet aus Offene Anfragen; bei Freigabe erscheint sie in <strong>Freigegeben</strong>, bei Ablehnung in <strong>Nicht freigegeben</strong>. Task A3 → <code>erledigt</code>. <strong>Kein neuer Salesforce-Task</strong> — die Praxis hat gehandelt, für den Kundeninhaber besteht kein Handlungsbedarf.</p>
 
             <h3>C — Nach Direkt-Freigabe (ohne vorherige Anfrage)</h3>
 
             <h4>C1 · An den Tierhalter — Freigabe erhalten</h4>
             <div class="notice">
               <div class="flow">
-<p class="notice__title">Betreff: Ihre Empfehlung ist da!</p>
-              <p>[Tierarzt] ([Praxisname]) hat eine Empfehlung für Sie ausgestellt und folgende Produkte freigegeben:</p>
+<p class="notice__title">Betreff: Deine Empfehlung ist da!</p>
+              <p>[Tierarzt] ([Praxisname]) hat eine Empfehlung für dich ausgestellt und folgende Produkte freigegeben:</p>
               <p>[je Produkt: <strong>Name</strong> — Größe: Menge]</p>
-              <p><strong>Notiz an Sie:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
-              <p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>
+              <p><strong>Notiz an dich:</strong> <em>[Notiz — nur wenn hinterlassen]</em></p>
+              <p>Du kannst die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>
               </div>
             </div>
             <p><strong>Versand:</strong> Sofort nach „Produkte freigeben" auf der Seite „Freigabe ausstellen". Die E-Mail-Adresse stammt aus Schritt 1 (Consent + Eingabe des Tierarztes). Existiert zu der Adresse noch kein Konto, dient die Mail zugleich als Einstieg: Beim ersten Login mit dieser Adresse sind die Produkte freigeschaltet.</p>

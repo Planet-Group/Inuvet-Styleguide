@@ -490,18 +490,18 @@ function submitApproval() {
   const customerLines = approvedProducts.map(g =>
     `<li><strong>${g.name}</strong> — ${g.sizes.join(', ')}</li>`
   ).join('');
-  const noteBlock = note ? `<p><strong>Notiz an Sie:</strong> <em>${note}</em></p>` : '';
+  const noteBlock = note ? `<p><strong>Notiz an dich:</strong> <em>${note}</em></p>` : '';
 
   emailOverlayData = {
     customer: {
       tag: 'E-Mail',
       recipient: custEmail,
-      subject: 'Ihre Empfehlung ist da!',
+      subject: 'Deine Empfehlung ist da!',
       body: `
-        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat eine Empfehlung für Sie ausgestellt und folgende Produkte freigegeben:</p>
+        <p>Dr. Martina Müller (Tierarztpraxis Grüntal) hat eine Empfehlung für dich ausgestellt und folgende Produkte freigegeben:</p>
         <ul>${customerLines}</ul>
         ${noteBlock}
-        <p>Sie können die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>`,
+        <p>Du kannst die freigegebenen Produkte jetzt auf tierarzt-empfehlung.com einlösen.</p>`,
     },
   };
 

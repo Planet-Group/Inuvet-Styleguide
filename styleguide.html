@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link id="font-planimol" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;1,400&amp;display=swap" disabled>
-  <link rel="stylesheet" href="planet-brands.css?v=207">
+  <link rel="stylesheet" href="planet-brands.css?v=208">
   <link rel="stylesheet" href="brand-planimol.css?v=2">
   <link rel="stylesheet" href="sg.css?v=51">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -1267,6 +1267,7 @@
         <tr><th><code>.btn.--icon.--sm</code></th><td>Icon-only klein · Quadrat <code>calc(var(--base) * 2)</code> (wie <code>.btn.--sm</code>-Höhe) · Glyph <code>var(--base)</code> · kombinierbar mit Flächen-Modifiern</td></tr>
         <tr><th><code>.btn.--danger</code></th><td>Text-Button destruktiv · Schrift <code>--color-error</code> (ohne Fläche) · mit <code>.--icon</code>: siehe Icon-Fläche oben</td></tr>
         <tr><th><code>.btn.--honey</code></th><td>Freigabe-/Anfrage-Kontext · BG + Rand <code>--color-honey</code> · Schrift <code>--fg</code> · Hover: Box-Shadow <code>0 0 0 2px --color-honey</code></td></tr>
+        <tr><th><code>.btn.--success</code></th><td>Freigabe bestätigen · BG + Rand <code>--green</code> · Schrift <code>--bg</code> · Hover: <code>--green-hover</code> · analog Icon-Fläche <code>.btn.--icon.--success</code></td></tr>
         <tr><th><code>.btn.--loading</code></th><td>Laufende AJAX-Aktion (z.&nbsp;B. <code>/cart/add.js</code>) · Spinner vor dem Text (<code>::before</code>, <code>currentColor</code>) · <code>pointer-events: none</code> · Klasse per JS setzen/entfernen</td></tr>
       </table>
 
@@ -1390,6 +1391,15 @@
         </div>
       </div>
       <p class="sg-caption">Honey-Variante für den Freigabe-/Anfrage-Kontext (<code>--color-honey</code>) — z.&nbsp;B. Cart-Drawer „Freigabe anfragen" (Tierarzt-Empfehlung).</p>
+
+      <h3 class="sg-h3 --top"><code>.btn.--success</code></h3>
+      <div class="sg-demo">
+        <div class="sg-btn-row">
+          <button class="btn --success">Freigeben</button>
+          <button class="btn --success --sm">Freigeben</button>
+        </div>
+      </div>
+      <p class="sg-caption">Grüne Bestätigen-Variante für Freigabe im Vet-Portal — z.&nbsp;B. Modal und Bulk in Offene Anfragen.</p>
 
       <h3 class="sg-h3 --top"><code>.btn.--loading</code></h3>
       <div class="sg-demo">

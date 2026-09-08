@@ -926,7 +926,7 @@ function pdpRecommendationsHTML() {
   }).join('');
   return `
     <div class="pdp__recommendations">
-      <h3>Das könnte Ihnen auch gefallen</h3>
+      <h3>Das könnte dir auch gefallen</h3>
       <div class="tile-grid --cols-4">${tiles}</div>
     </div>`;
 }
@@ -1370,7 +1370,7 @@ function renderSuccessStep() {
       subject: 'Neue Anfrage', internal: false,
       body: `
         <p>Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</p>
-        <p>Sie erhalten eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von Ihrem Tierarzt freigegeben wurde.</p>`
+        <p>Du erhältst eine Nachricht per E-Mail (kunde@email.com), sobald die Anfrage von deinem Tierarzt freigegeben wurde.</p>`
     }
   };
 
@@ -1381,16 +1381,16 @@ function renderSuccessStep() {
     body: `
       <p>Tierbesitzer*in <strong>${requesterName || 'Max Mustermann'}</strong> hat eine neue Freigabe-Anfrage gestellt.</p>
       <p>Angefragt: <strong>${requestedNames}</strong></p>
-      <p>Diese können Sie hier einsehen und freigeben:<br>
+      <p>Diese kannst du hier einsehen und freigeben:<br>
       <a href="Inuvet-Freigabe-Offene-Anfragen.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
 
       <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
-      <p>Sie nehmen am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfen Sie kurz, ob es für das Tier geeignet ist, und geben es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für Sie entsteht kein Aufwand mit Lagerung oder Logistik.</p>
-      <p>Ihre Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
-      <p>Für jede über Ihre Empfehlung getätigte Bestellung erhalten Sie eine Provision — eine faire Vergütung für Ihre fachliche Beratung.</p>
+      <p>Du nimmst am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfe kurz, ob es für das Tier geeignet ist, und gib es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für dich entsteht kein Aufwand mit Lagerung oder Logistik.</p>
+      <p>Deine Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
+      <p>Für jede über deine Empfehlung getätigte Bestellung erhältst du eine Provision — eine faire Vergütung für deine fachliche Beratung.</p>
 
       <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>Persönlicher Kontakt bei Fragen</strong></p>
-      <p>Sie haben Fragen zur Anfrage oder zum Programm? Ihre persönliche Ansprechpartnerin hilft Ihnen gern weiter:</p>
+      <p>Du hast Fragen zur Anfrage oder zum Programm? Deine persönliche Ansprechpartnerin hilft dir gern weiter:</p>
       <p><strong>Birka Beispiel</strong> · Tierärztlicher Außendienst<br>
       <a href="tel:+4915112345678" style="color:var(--green);">+49 151 123 456 78</a> · <a href="mailto:birka@inuvet.com" style="color:var(--green);">birka@inuvet.com</a></p>
 
@@ -1422,7 +1422,7 @@ function renderSuccessStep() {
         <div class="flow">
           <h3 class="success-state__title">Anfrage an <strong>${vetName}</strong> erfolgreich versendet.</h3>
           <p class="success-state__body">
-            Sie erhalten eine Nachricht per E-Mail, sobald die Anfrage von Ihrer Tierarztpraxis freigegeben wurde.
+            Du erhältst eine Nachricht per E-Mail, sobald die Anfrage von deiner Tierarztpraxis freigegeben wurde.
           </p>
         </div>
       </div>
