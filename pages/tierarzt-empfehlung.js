@@ -1384,10 +1384,12 @@ function renderSuccessStep() {
       <p>Diese kannst du hier einsehen und freigeben:<br>
       <a href="Inuvet-Freigabe-Offene-Anfragen.html" target="_blank" style="color:var(--green);">→ Zur Anfrage auf inuvet.com</a></p>
 
-      <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert die Inuvet-Empfehlung</strong></p>
-      <p>Du nimmst am Inuvet-Empfehlungsprogramm teil. Wenn ein*e Tierbesitzer*in ein Produkt anfragt, prüfe kurz, ob es für das Tier geeignet ist, und gib es mit einem Klick frei. Inuvet übernimmt anschließend Beratung, Versand und Betreuung — für dich entsteht kein Aufwand mit Lagerung oder Logistik.</p>
-      <p>Deine Freigabe ist die fachliche Empfehlung. Erst danach kann der*die Tierbesitzer*in das Produkt bestellen.</p>
-      <p>Für jede über deine Empfehlung getätigte Bestellung erhältst du eine Provision — eine faire Vergütung für deine fachliche Beratung.</p>
+      <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>So funktioniert's</strong></p>
+      <p>Wenn eure Praxis am Empfehlungsprogramm teilnimmt, könnt ihr Empfehlungen ausstellen und somit Produkte für Tierbesitzer*innen freigeben. Entweder ihr gebt sie direkt aus der Praxis frei, oder die Besitzer*innen fragen eine Empfehlung an. Ihr prüft die Eignung und könnt dann die passende Packungsgröße auswählen. Außerdem könnt ihr sagen, wie häufig das Produkt bestellt werden darf.</p>
+      <p><strong>Deine Rolle als Tierärzt*in</strong></p>
+      <p>inuvet-Produkte sind tierarztexklusiv — und das aus gutem Grund: du kennst dich mit Tiergesundheit einfach aus. Deswegen braucht es auch deine Zustimmung, damit ein inuvet-Produkt bestellt werden darf. Du entscheidest, welches Produkt, welche Darreichungsform und welche Packungsgröße bestellt werden darf.</p>
+      <p><strong>Das machen wir</strong></p>
+      <p>Bei der Tierarzt-Empfehlung kümmern wir uns um Beratung (bei technischen Fragen), Bezahlung und Versand. Für dich entsteht kein Aufwand — eine Provision bekommst du aber trotzdem pro Produkt.</p>
 
       <p style="margin-top:1.1rem;border-top:1px solid #333;padding-top:0.9rem;"><strong>Persönlicher Kontakt bei Fragen</strong></p>
       <p>Du hast Fragen zur Anfrage oder zum Programm? Deine persönliche Ansprechpartnerin hilft dir gern weiter:</p>
