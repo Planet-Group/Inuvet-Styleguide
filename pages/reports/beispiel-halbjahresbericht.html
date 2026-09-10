@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halbjahresbericht H1 2026 – inuvet</title>
+<link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+<style>
+:root {
+  --inuvet-fg:          #2E2E2E;
+  --inuvet-white:       #FFFFFF;
+  --inuvet-green:       #78b41b;
+  --inuvet-green-hover: #58990F;
+  --inuvet-green-light: #f0fae6;
+  --inuvet-muted:       #666666;
+  --inuvet-rule:        #adadad;
+  --inuvet-rule-light:  #e0e0e0;
+  --inuvet-fill:        #f2f2f2;
+
+  /* 15 Kategorie-Farben (optional für Themen-Trenner) */
+  --cat-beruhigung: #8e7cc3; --cat-leber: #b45f06; --cat-gelenke: #3d85c6;
+  --cat-immun: #6aa84f; --cat-herz: #cc0000; --cat-magendarm: #e69138;
+  --cat-haut: #e8a1b8; --cat-atemwege: #45818e; --cat-niere: #674ea7;
+  --cat-blase: #3c78d8; --cat-bauchspeichel: #a64d79; --cat-fettsaeuren: #f1c232;
+  --cat-hormone: #a2c4c9; --cat-ohren: #d5a6bd; --cat-cbd: #6aa84f;
+
+  --inuvet-font:    "schnebel-sans-me", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight-body:    400;
+  --weight-display: 700;
+
+  --doc-cover-title: 52pt;
+  --doc-cover-sub:   16pt;
+  --doc-h1:          30pt;
+  --doc-h2:          21pt;
+  --doc-h3:          14pt;
+  --doc-h4:          11pt;
+  --doc-lead:        13pt;
+  --doc-body:        10.5pt;
+  --doc-small:       9pt;
+  --doc-meta:        8pt;
+  --doc-stat:        40pt;
+  --doc-stat-xl:     110pt;
+  --doc-quote:       18pt;
+
+  --s1: 4pt; --s2: 8pt;  --s3: 12pt; --s4: 16pt;
+  --s5: 20pt; --s6: 24pt; --s8: 32pt; --s10: 40pt; --s12: 48pt;
+
+  --page-w: 210mm;
+  --page-h: 297mm;
+  --margin-x: 22mm;
+  --margin-top: 36mm;
+  --margin-bot: 22mm;
+  --header-y: 13mm;
+  --footer-y: 13mm;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--inuvet-rule-light);
+  color: var(--inuvet-fg);
+  font-family: var(--inuvet-font);
+  font-weight: var(--weight-body);
+  font-size: var(--doc-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+img { display: block; max-width: 100%; }
+svg { display: block; }
+
+.page {
+  position: relative;
+  width: var(--page-w);
+  height: var(--page-h);
+  background: var(--inuvet-white);
+  overflow: hidden;
+  padding: var(--margin-top) var(--margin-x) var(--margin-bot);
+}
+
+@media screen {
+  body { display: flex; flex-direction: column; align-items: center; gap: 12mm; padding: 16mm 0; }
+  .page { box-shadow: 0 4mm 16mm rgba(0,0,0,0.18); }
+}
+
+.page-header {
+  position: absolute; top: var(--header-y); left: var(--margin-x); right: var(--margin-x);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: var(--doc-meta); font-weight: var(--weight-body); color: var(--inuvet-fg);
+}
+
+/* Logo / Brandmark — einmal als <symbol> definiert, per <use> referenziert; Farbwechsel über Custom Properties */
+.brandmark { display: block; height: 16mm; width: 16mm; --logo-a: var(--inuvet-green); --logo-b: var(--inuvet-fg); }
+.brandmark--lg { height: 20mm; width: 20mm; }
+.ivl-sym  { fill: var(--logo-a, #78b41b); }
+.ivl-word { fill: var(--logo-b, #2E2E2E); }
+
+.page-footer {
+  position: absolute; bottom: var(--footer-y); left: var(--margin-x); right: var(--margin-x);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: var(--doc-meta); font-weight: var(--weight-body); color: var(--inuvet-fg);
+}
+.page-footer .page-num { font-weight: var(--weight-display); font-variant-numeric: tabular-nums; }
+
+.page-header::after, .page-footer::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 0.6pt; background: var(--inuvet-rule);
+}
+.page-header::after  { bottom: -3mm; }
+.page-footer::before { top: -3mm; }
+
+.page--cover {
+  background: var(--inuvet-green); color: var(--inuvet-white);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.page--cover .cover-main { margin-top: auto; }
+.page--cover .cover-kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-white); margin-bottom: var(--s4); }
+.page--cover h1 { font-weight: var(--weight-display); font-size: var(--doc-cover-title); line-height: 0.95; letter-spacing: -0.02em; color: var(--inuvet-white); max-width: 150mm; }
+.page--cover .cover-sub { font-size: var(--doc-cover-sub); font-weight: var(--weight-body); line-height: 1.35; color: var(--inuvet-white); max-width: 130mm; margin-top: var(--s5); }
+.cover-meta { display: flex; gap: var(--s10); margin-top: var(--s10); padding-top: var(--s4); border-top: 0.5pt solid rgba(255,255,255,0.4); }
+.cover-meta .cm-label { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-white); margin-bottom: var(--s1); }
+.cover-meta .cm-value { font-size: var(--doc-body); font-weight: var(--weight-body); color: var(--inuvet-white); }
+
+h1, h2, h3, h4 { font-family: var(--inuvet-font); font-weight: var(--weight-display); color: var(--inuvet-fg); }
+.page-body h1 { font-size: var(--doc-h1); line-height: 1.0; letter-spacing: -0.015em; }
+.page-body h2 { font-size: var(--doc-h2); line-height: 1.05; }
+.page-body h3 { font-size: var(--doc-h3); line-height: 1.2; }
+.page-body h4 { font-size: var(--doc-h4); line-height: 1.3; }
+
+.kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-muted); }
+
+p { font-size: var(--doc-body); line-height: 1.5; }
+.lead { font-size: var(--doc-lead); line-height: 1.4; font-weight: var(--weight-body); }
+.small { font-size: var(--doc-small); }
+ul, ol { font-size: var(--doc-body); line-height: 1.5; padding-left: var(--s4); }
+li { margin-bottom: var(--s1); }
+li::marker { color: var(--inuvet-green); }
+strong, b { font-weight: var(--weight-display); }
+a { color: var(--inuvet-green); text-decoration: none; }
+
+h1, h2, h3, h4 { break-after: avoid; }
+p, li { orphans: 2; widows: 2; }
+
+.flow > * + *  { margin-top: var(--s3); }
+.flow > h1 + * { margin-top: var(--s4); }
+.flow > h2 + * { margin-top: var(--s3); }
+.flow > h3 + * { margin-top: var(--s2); }
+.flow > h4 + * { margin-top: var(--s1); }
+.flow > * + h2 { margin-top: var(--s8); }
+.flow > * + h3 { margin-top: var(--s6); }
+.flow > * + h4 { margin-top: var(--s4); }
+
+.section-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding-bottom: var(--s2); border-bottom: 1pt solid var(--inuvet-fg); break-after: avoid;
+}
+.section-head .sh-num { font-size: var(--doc-h2); font-weight: var(--weight-display); color: var(--inuvet-green); }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); break-inside: avoid; }
+.stat { border-top: 1.5pt solid var(--inuvet-green); padding-top: var(--s2); }
+.stat .stat-num { font-size: var(--doc-stat); font-weight: var(--weight-display); line-height: 1; letter-spacing: -0.02em; color: var(--inuvet-green); }
+.stat .stat-label { font-size: var(--doc-small); line-height: 1.35; margin-top: var(--s1); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--doc-body); }
+.table caption { text-align: left; font-size: var(--doc-h4); font-weight: var(--weight-display); margin-bottom: var(--s2); }
+.table th { text-align: left; font-weight: var(--weight-display); line-height: 1.35; padding: var(--s2) var(--s3) var(--s2) 0; border-bottom: 1pt solid var(--inuvet-fg); }
+.table td { padding: var(--s2) var(--s3) var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); line-height: 1.35; vertical-align: top; }
+.table th:last-child, .table td:last-child { padding-right: 0; }
+.table tr:last-child td { border-bottom: none; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table thead { display: table-header-group; }
+.table tr { break-inside: avoid; }
+
+.dl { display: grid; grid-template-columns: 45mm 1fr; column-gap: var(--s4); }
+.dl dt { font-weight: var(--weight-display); padding: var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); }
+.dl dd { padding: var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); }
+
+.callout { padding: var(--s4); border-radius: 0; background: var(--inuvet-fill); break-inside: avoid; }
+.callout--primary { background: var(--inuvet-green); color: var(--inuvet-white); }
+.callout--primary h4, .callout--primary p { color: var(--inuvet-white); }
+.callout--soft { background: var(--inuvet-green-light); }
+.callout h4 { margin-bottom: var(--s1); }
+
+.quote { break-inside: avoid; }
+.quote .quote-text { font-size: var(--doc-quote); font-weight: var(--weight-display); line-height: 1.25; letter-spacing: -0.01em; }
+.quote .quote-attr { margin-top: var(--s3); font-size: var(--doc-small); font-weight: var(--weight-display); }
+.quote .quote-attr .role { font-weight: var(--weight-body); }
+
+.figure { break-inside: avoid; }
+/* Bild passt sich dem Rahmen an (nicht umgekehrt): fester Kasten via aspect-ratio, Bild füllt ihn per object-fit — kein Überlauf aus der Seite. */
+.figure img, .figure .fig-placeholder { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0; background: var(--inuvet-fill); }
+.figure .fig-placeholder { display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 var(--s5); font-size: var(--doc-small); }
+.fig-ph-screen { color: var(--inuvet-green); font-weight: var(--weight-display); }
+.fig-ph-print  { display: none; color: var(--inuvet-muted); }
+@media print { .fig-ph-screen { display: none; } .fig-ph-print { display: inline; } }
+.figure figcaption { font-size: var(--doc-meta); line-height: 1.4; margin-top: var(--s2); }
+
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: start; }
+
+.barchart { break-inside: avoid; }
+.barchart .bc-row { display: grid; grid-template-columns: 38mm 1fr 18mm; align-items: center; gap: var(--s3); padding: var(--s1) 0; }
+.barchart .bc-label { font-size: var(--doc-small); }
+.barchart .bc-track { height: 6mm; background: var(--inuvet-fill); border-radius: 0; overflow: hidden; }
+.barchart .bc-fill { display: block; height: 100%; background: var(--inuvet-green); }
+.barchart .bc-fill--soft { background: var(--inuvet-green-light); }
+.barchart .bc-value { font-size: var(--doc-small); font-weight: var(--weight-display); text-align: right; font-variant-numeric: tabular-nums; }
+
+.toc { width: 100%; }
+.toc-row { display: flex; align-items: baseline; gap: var(--s2); padding: var(--s2) 0; border-bottom: 0.6pt solid var(--inuvet-rule); }
+.toc-row .toc-num { font-weight: var(--weight-display); color: var(--inuvet-green); min-width: 10mm; }
+.toc-row .toc-title { font-weight: var(--weight-display); }
+.toc-row .toc-dots { flex: 1; border-bottom: 0.6pt dotted var(--inuvet-rule); transform: translateY(-2pt); }
+.toc-row .toc-page { font-variant-numeric: tabular-nums; }
+
+.break-before { break-before: page; }
+.avoid-break  { break-inside: avoid; }
+.page-body { height: 100%; }
+
+/* FARBREGEL — auf GRÜN immer weiße Schrift (nie Dunkel, nie Grün-auf-Grün) */
+.page--primary { background: var(--inuvet-green); }
+.page--primary .page-body,
+.page--primary p, .page--primary h1, .page--primary h2,
+.page--primary h3, .page--primary h4, .page--primary li,
+.page--primary .lead, .page--primary .small { color: var(--inuvet-white); }
+.page--primary li::marker { color: var(--inuvet-white); }
+/* Logo auf grünen Flächen komplett weiß */
+.page--cover .brandmark, .page--divider .brandmark, .page--back .brandmark,
+.page--image .brandmark, .page--primary .brandmark { --logo-a: var(--inuvet-white); --logo-b: var(--inuvet-white); }
+.page--primary .page-header .header-doc,
+.page--primary .page-footer .footer-meta { color: var(--inuvet-white); }
+.page--primary .page-footer .page-num { color: var(--inuvet-white); }
+.page--primary .page-header::after,
+.page--primary .page-footer::before { background: rgba(255,255,255,0.4); }
+.page--primary .section-head { border-bottom-color: var(--inuvet-white); }
+.page--primary .section-head .sh-num { color: var(--inuvet-white); }
+
+.page--divider {
+  background: var(--inuvet-green); color: var(--inuvet-white);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.page--divider .divider-main { margin-top: auto; }
+.page--divider .divider-kicker { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-white); margin-bottom: var(--s2); }
+.page--divider .divider-num { font-size: 96pt; font-weight: var(--weight-display); line-height: 0.9; letter-spacing: -0.03em; color: var(--inuvet-white); }
+.page--divider h2 { font-size: var(--doc-cover-title); line-height: 0.95; letter-spacing: -0.02em; color: var(--inuvet-white); max-width: 150mm; margin-top: var(--s3); }
+
+.stat-hero { margin-top: var(--s8); }
+.stat-hero .sh-figure { font-size: var(--doc-stat-xl); font-weight: var(--weight-display); line-height: 0.85; letter-spacing: -0.03em; color: var(--inuvet-green); }
+.stat-hero .sh-caption { font-size: var(--doc-lead); line-height: 1.4; margin-top: var(--s5); max-width: 120mm; }
+.page--primary .stat-hero .sh-figure { color: var(--inuvet-white); }
+
+.page--image { padding: 0; background: #1a1a1a; }
+.page--image .img-bleed { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+.page--image .img-bleed.fig-placeholder { display: flex; align-items: center; justify-content: center; color: var(--inuvet-white); font-size: var(--doc-small); background: #2a2a2a; aspect-ratio: auto; }
+.page--image::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 45%); }
+.page--image .img-logo { position: absolute; top: var(--header-y); left: var(--margin-x); z-index: 2; }
+.page--image .img-cap { position: absolute; left: var(--margin-x); right: var(--margin-x); bottom: var(--footer-y); z-index: 2; color: var(--inuvet-white); }
+.page--image .img-cap h2 { color: var(--inuvet-white); max-width: 150mm; }
+.page--image .img-cap p { color: var(--inuvet-white); margin-top: var(--s2); max-width: 140mm; }
+
+.page--back {
+  background: var(--inuvet-green); color: var(--inuvet-white);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.page--back .back-main { margin-top: auto; }
+.page--back h2 { font-size: var(--doc-h2); color: var(--inuvet-white); max-width: 140mm; }
+.page--back .back-contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); margin-top: var(--s8); }
+.page--back .bc-label2 { font-size: var(--doc-meta); font-weight: var(--weight-display); text-transform: uppercase; letter-spacing: 0.12em; color: var(--inuvet-white); margin-bottom: var(--s1); }
+.page--back .bc-val { font-size: var(--doc-body); color: var(--inuvet-white); line-height: 1.4; }
+.page--back .back-legal { font-size: var(--doc-small); line-height: 1.4; color: var(--inuvet-white); margin-top: var(--s6); padding-top: var(--s3); border-top: 0.5pt solid rgba(255,255,255,0.4); }
+
+.text-cols { column-count: 2; column-gap: var(--s6); }
+.text-cols > * { break-inside: avoid; }
+.text-cols > * + * { margin-top: var(--s3); }
+.text-cols h3 { break-after: avoid; }
+
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: var(--inuvet-white); }
+  .page { box-shadow: none; margin: 0; break-after: page; }
+  .page:last-child { break-after: auto; }
+  .ui-bar { display: none !important; }
+  [contenteditable] { outline: none !important; }
+}
+
+/* UI: Bearbeiten + Drucken (nur Bildschirm) + Edit-Modus */
+@media screen {
+  .ui-bar { position: fixed; bottom: 8mm; right: 8mm; z-index: 100; display: inline-flex; align-items: center; gap: 8px; }
+  .ui-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--inuvet-font); font-weight: var(--weight-display); font-size: 11pt;
+    height: 48px; padding: 0 20px; border-radius: 0; border: 0; cursor: pointer;
+  }
+  .ui-btn--print { background: var(--inuvet-green); color: var(--inuvet-white); }
+  .ui-btn--print:hover { background: var(--inuvet-green-hover); }
+  .ui-btn--edit { background: var(--inuvet-white); color: var(--inuvet-fg); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .ui-btn--edit:hover, .ui-btn--edit.active { background: var(--inuvet-green-light); }
+  .ui-btn .material-icons-outlined { font-size: 20px; }
+  body.edit-mode [contenteditable="true"] {
+    outline: 1.5px dashed rgba(120,180,27,0.5); outline-offset: 2px; cursor: text;
+  }
+  body.edit-mode [contenteditable="true"]:focus {
+    outline: 1.5px solid var(--inuvet-green); background: rgba(120,180,27,0.05);
+  }
+  /* Bild einsetzen: Figur im Edit-Modus anklickbar / Drop-Ziel */
+  body.edit-mode .figure { cursor: pointer; outline: 1.5px dashed rgba(120,180,27,0.5); outline-offset: 2px; }
+  body.edit-mode .figure.drop-hover { outline: 2px solid var(--inuvet-green); }
+}
+</style>
+</head>
+<body>
+
+<!-- Inuvet Brandmark: einmal definiert, überall per <use href="#inuvet-mark"> referenziert. NICHT verändern. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="inuvet-mark" viewBox="0 0 113.4 113.4">
+    <path class="ivl-word" d="M19.4,74.3c0,1.4-1.1,2.6-2.6,2.6s-2.6-1.2-2.6-2.6,1.1-2.5,2.6-2.5,2.5,1.2,2.5,2.5ZM14.7,78.9h4.3v15.4h-4.3s0-15.4,0-15.4Z"/>
+    <path class="ivl-word" d="M23.1,78.9h3.8l.2,2.1c1.5-1.8,3.1-2.5,5.1-2.5s3.5.7,4.2,2.1c.5.9.7,2,.7,4.1v9.7h-4.3v-8.9c0-1.3,0-1.8-.3-2.3-.3-.6-.8-.9-1.6-.9-1.2,0-2.6,1.1-3.5,2.8v9.3h-4.3v-15.4h0Z"/>
+    <path class="ivl-word" d="M50.5,92.6c-1.4,1.5-2.8,2.1-4.7,2.1s-3.4-.8-4.2-2.2c-.5-.9-.7-2.1-.7-4.2v-9.5h4.3v8.7c0,2.6.5,3.4,1.9,3.4s2.3-.6,3.1-1.9v-10.2h4.3v15.4h-3.8l-.3-1.7h0Z"/>
+    <path class="ivl-word" d="M56.8,78.9h4.8l3.6,10.3,3.6-10.3h4.3l-6.3,15.4h-3.9l-6.1-15.4h0Z"/>
+    <path class="ivl-word" d="M78.1,87.9c.2,2.6,1.5,3.7,4.4,3.7s2.7-.3,4.4-1.2l1,2.8c-1.8,1.1-3.8,1.6-6.4,1.6-5.2,0-7.8-2.5-7.8-7.7s2.8-8.6,7.5-8.6,6.8,2.6,6.8,7.6,0,.9,0,1.8h-9.9,0ZM84.2,85.1c-.2-2.4-1.1-3.5-2.9-3.5s-2.9,1.1-3.2,3.5h6.1Z"/>
+    <path class="ivl-word" d="M89.7,82.4l.3-3.4h2.5l.2-3.7,4-1.4v5.1h3.8l-.3,3.4h-3.5v5.6c0,2.8.2,3.3,1.6,3.3s1.3-.2,2.1-.5l.8,2.7c-1.5.9-3,1.3-4.5,1.3s-3-.6-3.7-1.8c-.4-.8-.6-2-.6-4.2v-6.5h-2.7,0Z"/>
+    <path class="ivl-word" d="M81.4,32h-.3v1h.2c.5,0,.7-.3.7-.6s-.1-.5-.6-.5M82,35.1l-.8-1.5h0v1.5h-.8v-3.7h1.3c.9,0,1.2.4,1.2,1s-.3,1-.8,1c0,0,.2.3.3.5l.7,1.2h-1ZM78.9,33.3c0,1.4,1.1,2.6,2.6,2.6s2.6-1.2,2.6-2.6-1.1-2.6-2.6-2.6-2.6,1.2-2.6,2.6M85,33.3c0,1.9-1.6,3.5-3.5,3.5s-3.6-1.5-3.6-3.5,1.6-3.5,3.6-3.5,3.5,1.5,3.5,3.5"/>
+    <path class="ivl-sym" d="M28.7,54.5c1.3,5.2,5.6,9,11.1,10.7,4.1-4.1,6.1-9.5,4.8-14.7-1.3-5.2-5.6-9-11.1-10.7-4.1,4.1-6.1,9.5-4.8,14.7Z"/>
+    <path class="ivl-sym" d="M38.6,32.3c.7,5.3,4.4,9.7,9.7,12,4.6-3.6,7.2-8.6,6.6-14-.6-5.3-4.4-9.7-9.7-12-4.6,3.6-7.2,8.7-6.5,14Z"/>
+    <path class="ivl-sym" d="M84.6,54.5c-1.3,5.2-5.6,9-11.1,10.7-4.1-4.1-6.1-9.5-4.8-14.7,1.3-5.2,5.6-9,11.1-10.7,4.1,4.1,6.1,9.5,4.8,14.7h0Z"/>
+    <path class="ivl-sym" d="M74.8,32.3c-.7,5.3-4.4,9.7-9.7,12-4.6-3.6-7.2-8.6-6.6-14,.6-5.3,4.4-9.7,9.7-12,4.6,3.6,7.2,8.7,6.6,14h0Z"/>
+  </symbol>
+</svg>
+
+<!-- 1 — COVER -->
+<section class="page page--cover">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="cover-main">
+    <div class="cover-kicker">Unternehmensbericht · H1 2026</div>
+    <h1>Halbjahresbericht Tierärztliche Empfehlung.</h1>
+    <p class="cover-sub">Produktperformance, Empfehlungsquote und Ausblick für das zweite Halbjahr — auf einen Blick.</p>
+    <div class="cover-meta">
+      <div><div class="cm-label">Erstellt</div><div class="cm-value">02.07.2026</div></div>
+      <div><div class="cm-label">Bereich</div><div class="cm-value">Vertrieb & Produkt</div></div>
+      <div><div class="cm-label">Vertraulichkeit</div><div class="cm-value">Intern</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 — INHALT + TOC + KENNZAHLEN -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Halbjahresbericht H1 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Überblick</h2><span class="sh-num">01</span></div>
+    <p class="lead">Das erste Halbjahr 2026 war geprägt von einer deutlich gestiegenen Empfehlungsquote in tierärztlichen Praxen und der Einführung zweier neuer Darreichungsformen.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="toc-num">01</span><span class="toc-title">Überblick & Kennzahlen</span><span class="toc-dots"></span><span class="toc-page">2</span></div>
+      <div class="toc-row"><span class="toc-num">02</span><span class="toc-title">Produktperformance</span><span class="toc-dots"></span><span class="toc-page">3</span></div>
+      <div class="toc-row"><span class="toc-num">03</span><span class="toc-title">Empfehlung & Stimmen</span><span class="toc-dots"></span><span class="toc-page">5</span></div>
+      <div class="toc-row"><span class="toc-num">04</span><span class="toc-title">Ausblick H2</span><span class="toc-dots"></span><span class="toc-page">7</span></div>
+    </div>
+
+    <h3>Kennzahlen im Überblick</h3>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">+38 %</div><div class="stat-label">Empfehlungsquote ggü. H2 2025</div></div>
+      <div class="stat"><div class="stat-num">1.240</div><div class="stat-label">Aktive Partnerpraxen</div></div>
+      <div class="stat"><div class="stat-num">92 %</div><div class="stat-label">Wiederbestellrate</div></div>
+    </div>
+
+    <div class="callout callout--soft">
+      <h4>Kernaussage</h4>
+      <p>Die tierärztliche Empfehlung ist der stärkste Wachstumstreiber: Produkte mit aktiver Praxis-Empfehlung zeigen eine um den Faktor 2,3 höhere Wiederbestellrate.</p>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 3 — TABELLE + BARCHART -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Halbjahresbericht H1 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Produktperformance</h2><span class="sh-num">02</span></div>
+    <p class="lead">Umsatzentwicklung der Kernprodukte gegenüber dem Vorhalbjahr.</p>
+
+    <table class="table">
+      <caption>Umsatz nach Produktfamilie (H1 2026, illustrativ)</caption>
+      <thead>
+        <tr><th>Produktfamilie</th><th class="num">Umsatz T€</th><th class="num">Anteil</th><th class="num">Δ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Calmin balance</td><td class="num">742</td><td class="num">34 %</td><td class="num">+27 %</td></tr>
+        <tr><td>Hepax forte</td><td class="num">521</td><td class="num">24 %</td><td class="num">+18 %</td></tr>
+        <tr><td>Inzym Pulver</td><td class="num">318</td><td class="num">15 %</td><td class="num">+41 %</td></tr>
+        <tr><td>Übrige Indikationen</td><td class="num">589</td><td class="num">27 %</td><td class="num">+9 %</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Empfehlungsanteil je Familie</h3>
+    <div class="barchart">
+      <div class="bc-row"><span class="bc-label">Calmin balance</span><span class="bc-track"><span class="bc-fill" style="width:71%"></span></span><span class="bc-value">71 %</span></div>
+      <div class="bc-row"><span class="bc-label">Hepax forte</span><span class="bc-track"><span class="bc-fill" style="width:64%"></span></span><span class="bc-value">64 %</span></div>
+      <div class="bc-row"><span class="bc-label">Inzym Pulver</span><span class="bc-track"><span class="bc-fill" style="width:52%"></span></span><span class="bc-value">52 %</span></div>
+      <div class="bc-row"><span class="bc-label">Übrige</span><span class="bc-track"><span class="bc-fill bc-fill--soft" style="width:38%"></span></span><span class="bc-value">38 %</span></div>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 4 — KAPITEL-TRENNER (grün) -->
+<section class="page page--divider">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="divider-main">
+    <div class="divider-kicker">Teil 03</div>
+    <div class="divider-num">03</div>
+    <h2>Empfehlung & Stimmen aus der Praxis.</h2>
+  </div>
+</section>
+
+<!-- 5 — ZITAT + CALLOUT + LISTE -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Halbjahresbericht H1 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Stimmen aus der Praxis</h2><span class="sh-num">03</span></div>
+
+    <div class="quote">
+      <p class="quote-text">„Seit wir Calmin balance aktiv empfehlen, sehen wir eine spürbar bessere Compliance bei den Tierhaltern.“</p>
+      <p class="quote-attr">Tierärztliche Praxis (anonymisiert) <span class="role">· Partnerpraxis seit 2024</span></p>
+    </div>
+
+    <h3>Was die Empfehlung stärkt</h3>
+    <ul>
+      <li>Klare Dosierhinweise auf jeder Variantenzeile</li>
+      <li>Nachvollziehbarer Naturalrabatt pro Einzelprodukt-Position</li>
+      <li>Schneller Freigabe-Flow im Empfehlungsportal</li>
+    </ul>
+
+    <div class="callout callout--primary">
+      <h4>Hinweis</h4>
+      <p>Alle Zitate sind anonymisiert wiedergegeben. Für eine externe Veröffentlichung ist die schriftliche Freigabe der jeweiligen Praxis erforderlich.</p>
+    </div>
+
+    <figure class="figure">
+      <div class="fig-placeholder">
+        <span class="fig-ph-screen">Im Bearbeitenmodus: hier klicken, um Abbildung oder Foto hochzuladen</span>
+        <span class="fig-ph-print">Abbildung / Foto</span>
+      </div>
+      <figcaption>Abb. 1 — Platzhalter (im Bearbeitenmodus Foto einsetzbar).</figcaption>
+    </figure>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 6 — STAT-HERO (grüne Seite) -->
+<section class="page page--primary">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Halbjahresbericht H1 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Die Zahl des Halbjahres</h2><span class="sh-num">03</span></div>
+    <div class="stat-hero">
+      <div class="sh-figure">+38 %</div>
+      <p class="sh-caption">Steigerung der Empfehlungsquote gegenüber dem zweiten Halbjahr 2025 — getragen von den drei Kernfamilien.</p>
+    </div>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 7 — VOLLBILD-BILDSEITE -->
+<section class="page page--image">
+  <div class="img-bleed fig-placeholder">Vollbild-Foto (im Bearbeitenmodus einsetzbar)</div>
+  <span class="img-logo"><svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg></span>
+  <div class="img-cap">
+    <h2>Nähe zur Praxis.</h2>
+    <p>Ein Vollbild-Motiv setzt den Kapitelübergang emotional — Text bleibt weiß über dem Verlauf lesbar.</p>
+  </div>
+</section>
+
+<!-- 8 — AUSBLICK (zweispaltig) + Disclaimer -->
+<section class="page">
+  <header class="page-header"><svg class="brandmark"><use href="#inuvet-mark"/></svg><span class="header-doc">Halbjahresbericht H1 2026</span></header>
+  <div class="page-body flow">
+    <div class="section-head"><h2>Ausblick H2 2026</h2><span class="sh-num">04</span></div>
+    <p class="lead">Der Fokus im zweiten Halbjahr liegt auf der Verbreiterung der Empfehlungsbasis und zwei Produkteinführungen.</p>
+    <div class="text-cols">
+      <h3>Vertrieb</h3>
+      <p>Ausbau des Partnerpraxen-Netzwerks mit Schwerpunkt auf Regionen mit bislang geringer Abdeckung. Ziel: 1.500 aktive Praxen bis Jahresende.</p>
+      <h3>Produkt</h3>
+      <p>Einführung zweier neuer Darreichungsformen bestehender Indikationen sowie Überarbeitung der Dosierhilfen im Portal.</p>
+      <h3>Portal</h3>
+      <p>Schnellerer Freigabe-Flow und klarere Darstellung des Naturalrabatts pro Position.</p>
+    </div>
+    <p class="small">Alle Kennzahlen in diesem Bericht sind illustrative Beispielwerte und nicht geprüft. Finanzielle, rechtliche, steuerliche und veterinärmedizinische Aussagen sind vor externer Verwendung durch die jeweilige Fachstelle zu prüfen.</p>
+  </div>
+  <footer class="page-footer"><span class="footer-meta">Inuvet · Intern</span><span class="page-num"></span></footer>
+</section>
+
+<!-- 9 — RÜCKSEITE / KONTAKT (grün) -->
+<section class="page page--back">
+  <svg class="brandmark brandmark--lg"><use href="#inuvet-mark"/></svg>
+  <div class="back-main">
+    <h2>Fragen zu diesem Bericht?</h2>
+    <div class="back-contact">
+      <div><div class="bc-label2">Kontakt</div><div class="bc-val">[Name]<br>[E-Mail]</div></div>
+      <div><div class="bc-label2">Adresse</div><div class="bc-val">Inuvet GmbH<br>[Straße]<br>[Ort]</div></div>
+      <div><div class="bc-label2">Web</div><div class="bc-val">[URL]</div></div>
+    </div>
+    <p class="back-legal">© 2026 Inuvet GmbH · Intern · Kennzahlen illustrativ und ungeprüft. Rechtliche, steuerliche und veterinärmedizinische Aussagen vom Fachexperten prüfen lassen.</p>
+  </div>
+</section>
+
+<div class="ui-bar">
+  <button class="ui-btn ui-btn--edit" id="editBtn" onclick="toggleEdit()">
+    <span class="material-icons-outlined">edit</span><span id="editLabel">Bearbeiten</span>
+  </button>
+  <button class="ui-btn ui-btn--print" onclick="window.print()">
+    <span class="material-icons-outlined">print</span> Als PDF drucken
+  </button>
+</div>
+
+<script>
+// Seitenzahlen automatisch (Cover hat kein .page-num, zählt also korrekt mit)
+document.querySelectorAll('.page').forEach((page, i) => {
+  const num = page.querySelector('.page-num');
+  if (num) num.textContent = i + 1;
+});
+
+// Edit-Modus: macht Standard-Textfelder editierbar (selektor-basiert, kein Markup nötig)
+const EDIT_SEL = [
+  '.page-body h1', '.page-body h2', '.page-body h3', '.page-body h4',
+  '.page-body p', '.page-body li', '.page-body td', '.page-body figcaption', '.page-body caption',
+  '.stat-num', '.stat-label', '.sh-figure', '.sh-caption',
+  '.quote-text', '.quote-attr', '.bc-label', '.bc-value',
+  '.cover-kicker', '.page--cover h1', '.cover-sub', '.cm-value',
+  '.divider-kicker', '.divider-num', '.page--divider h2',
+  '.img-cap h2', '.img-cap p', '.page--back h2', '.bc-val', '.back-legal',
+  '.header-doc', '.footer-meta'
+].join(',');
+function toggleEdit() {
+  const on = document.body.classList.toggle('edit-mode');
+  document.querySelectorAll(EDIT_SEL).forEach(el => { el.contentEditable = on; });
+  document.getElementById('editBtn').classList.toggle('active', on);
+  document.getElementById('editLabel').textContent = on ? 'Fertig' : 'Bearbeiten';
+}
+
+// Bilder einsetzen (nur im Edit-Modus): Klick / Drag&Drop / Einfügen → als Base64 eingebettet (self-contained)
+function setFigureImage(fig, dataUrl) {
+  let img = fig.querySelector('img');
+  if (!img) {
+    img = document.createElement('img');
+    const ph = fig.querySelector('.fig-placeholder');
+    if (ph) ph.replaceWith(img); else fig.insertBefore(img, fig.firstChild);
+  }
+  img.src = dataUrl;
+}
+function readImage(file, fig) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const r = new FileReader();
+  r.onload = e => setFigureImage(fig, e.target.result);
+  r.readAsDataURL(file);
+}
+let lastFigure = null;
+document.querySelectorAll('.figure').forEach(fig => {
+  fig.addEventListener('click', e => {
+    if (!document.body.classList.contains('edit-mode')) return;
+    if (e.target.closest('figcaption, [contenteditable="true"]')) return; // Caption bearbeiten, nicht Bild
+    lastFigure = fig;
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => readImage(inp.files[0], fig);
+    inp.click();
+  });
+  fig.addEventListener('dragover', e => { if (document.body.classList.contains('edit-mode')) { e.preventDefault(); fig.classList.add('drop-hover'); } });
+  fig.addEventListener('dragleave', () => fig.classList.remove('drop-hover'));
+  fig.addEventListener('drop', e => {
+    if (!document.body.classList.contains('edit-mode')) return;
+    e.preventDefault(); fig.classList.remove('drop-hover');
+    readImage(e.dataTransfer.files[0], fig);
+  });
+});
+document.addEventListener('paste', e => {
+  if (!document.body.classList.contains('edit-mode') || !lastFigure) return;
+  const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+  if (item) { e.preventDefault(); readImage(item.getAsFile(), lastFigure); }
+});
+</script>
+</body>
+</html>

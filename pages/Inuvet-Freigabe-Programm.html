@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inuvet – Tierarzt-Empfehlung – So funktioniert's</title>
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../planet-brands.css?v=207">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
+</head>
+<body id="top">
+
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Kostenloser Versand ab 49 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">30 Tage Rückgabe</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Tierärztlich entwickelt</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item"><span class="rating"><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span class="material-icons" aria-hidden="true">star</span><span>4,9 · Über 2.400 Bewertungen</span></span></span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation · Menu A -->
+<nav class="site-nav" aria-label="Seiten-Navigation">
+  <div class="nav-left">
+    <button class="nav-hamburger icon-badged" id="hamburger" onclick="toggleMobile()" aria-label="Navigation öffnen" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+      <span class="badge --count" data-nav-open-count hidden aria-hidden="true">0</span>
+    </button>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Home</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-item__trigger">Produkte</span>
+    </div>
+    <div class="nav-item">
+      <a href="Inuvet-Freigabe-Ausstellen.html" class="nav-item__trigger">
+        Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span> <span class="material-icons" aria-hidden="true">expand_more</span>
+      </a>
+      <div class="nav-item__dropdown">
+        <a href="Inuvet-Freigabe-Ausstellen.html">Freigabe ausstellen</a>
+        <a href="Inuvet-Freigabe-Offene-Anfragen.html">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+        <a href="Inuvet-Freigabe-Freigegeben.html">Freigegeben</a>
+        <a href="Inuvet-Freigabe-Nicht-Freigegeben.html">Nicht freigegeben</a>
+        <a href="#">Meine Provisionen</a>
+        <a href="Inuvet-Freigabe-Programm.html" aria-current="page">So funktioniert's</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a class="nav-logo" href="Tierarzt-Empfehlung.html" aria-label="Zur Startseite">
+      <img class="nav-logo__img" src="../assets/brands/inuvet/inuvet-logo.svg" alt="inuvet Logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" aria-label="Suche">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="btn --icon icon-badged" aria-label="Warenkorb">
+      <span class="material-icons">shopping_cart</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu · Menu A -->
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Hauptnavigation">
+  <div class="nav-col">
+    <span class="nav-item__trigger">Home</span>
+    <span class="nav-item__trigger">Produkte</span>
+    <a href="Inuvet-Freigabe-Ausstellen.html" onclick="closeMobile(); return false;">Freigabe <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Ausstellen.html" class="--indent" onclick="closeMobile(); return false;">Freigabe ausstellen</a>
+    <a href="Inuvet-Freigabe-Offene-Anfragen.html" class="--indent" onclick="closeMobile(); return false;">Offene Anfragen <span class="circle-badge --num" data-nav-open-count hidden aria-hidden="true">0</span></a>
+    <a href="Inuvet-Freigabe-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Freigegeben</a>
+    <a href="Inuvet-Freigabe-Nicht-Freigegeben.html" class="--indent" onclick="closeMobile(); return false;">Nicht freigegeben</a>
+    <a href="#" class="--indent" onclick="closeMobile(); return false;">Meine Provisionen</a>
+    <a href="Inuvet-Freigabe-Programm.html" class="--indent" aria-current="page" onclick="closeMobile(); return false;">So funktioniert's</a>
+  </div>
+</div>
+
+<main>
+  <div class="container">
+    <div class="article-layout">
+      <aside class="article-sidebar">
+        <nav class="article-toc" aria-label="Inhalt">
+          <a href="#rolle">Deine Rolle als Tierärzt*in</a>
+          <a href="#inuvet">Das machen wir</a>
+        </nav>
+      </aside>
+
+      <article class="article">
+        <header class="article__header">
+          <h1>So funktioniert's</h1>
+        </header>
+
+        <div class="article__body rte">
+          <p>Wenn eure Praxis am Empfehlungsprogramm teilnimmt, könnt ihr Empfehlungen ausstellen und somit Produkte für Tierbesitzer*innen freigeben. Entweder ihr gebt sie direkt aus der Praxis frei, oder die Besitzer*innen fragen eine Empfehlung an. Ihr prüft die Eignung und könnt dann die passende Packungsgröße auswählen. Außerdem könnt ihr sagen, wie häufig das Produkt bestellt werden darf.</p>
+
+          <h2 id="rolle">Deine Rolle als Tierärzt*in</h2>
+          <p>inuvet-Produkte sind tierarztexklusiv — und das aus gutem Grund: du kennst dich mit Tiergesundheit einfach aus. Deswegen braucht es auch deine Zustimmung, damit ein inuvet-Produkt bestellt werden darf. Du entscheidest, welches Produkt, welche Darreichungsform und welche Packungsgröße bestellt werden darf.</p>
+
+          <h2 id="inuvet">Das machen wir</h2>
+          <p>Bei der Tierarzt-Empfehlung kümmern wir uns um Beratung (bei technischen Fragen), Bezahlung und Versand. Für dich entsteht kein Aufwand — eine Provision bekommst du aber trotzdem pro Produkt.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<script src="../planet-brands.js"></script>
+<script src="inuvet-freigabe-mock.js?v=14"></script>
+<script>
+document.addEventListener('DOMContentLoaded', empfehlungSyncOpenRequestNavBadges);
+window.addEventListener('pageshow', empfehlungSyncOpenRequestNavBadges);
+</script>
+</body>
+</html>

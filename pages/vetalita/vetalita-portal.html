@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portale Provvigioni – vetalità</title>
+  <meta name="description" content="Portale provvigioni vetalità – riscatto delle provvigioni accumulate come premio o pagamento diretto.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="Portale Provvigioni – vetalità">
+  <meta property="og:description" content="Portale provvigioni vetalità.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="vetalita-portal.css">
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar --marquee" id="announcementBar">
+  <div class="announcement-bar__track">
+    <span class="announcement-bar__item">Spedizione gratuita da 55 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Oltre 14 anni di esperienza</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Consigliato dalle cliniche veterinarie</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Ingredienti naturali altamente concentrati</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Prodotti disponibili in oltre 35 Paesi</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Packaging ecologico in carta</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Spedizione gratuita da 55 €</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Oltre 14 anni di esperienza</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Consigliato dalle cliniche veterinarie</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Ingredienti naturali altamente concentrati</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Prodotti disponibili in oltre 35 Paesi</span><span class="announcement-bar__sep"></span>
+    <span class="announcement-bar__item">Packaging ecologico in carta</span><span class="announcement-bar__sep"></span>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="site-nav" aria-label="Navigazione del sito">
+  <div class="nav-left">
+    <button class="btn --ghost --sm" id="logoutBtn" onclick="logout()" style="display:none">Esci dal portale</button>
+    <button class="btn --ghost --sm" id="exitPreviewBtn" onclick="exitPreview()" style="display:none">Esci dall'anteprima</button>
+  </div>
+  <div class="nav-center">
+    <a href="#" onclick="navToPortal(); return false;" aria-label="Vai alla panoramica">
+      <img src="logo.png" alt="vetalità Logo" style="height: 92px; width: auto;">
+    </a>
+  </div>
+  <div class="nav-right">
+    <button class="btn --icon" id="cartBtn" aria-label="Carrello" onclick="openCart()">
+      <span class="material-icons">redeem</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Cart Overlay + Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer"></div>
+
+<!-- Modale Riscossione in Contanti -->
+<div class="modal-overlay" id="cashRequestModal" onclick="closeCashRequestModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Riscossione in contanti</span>
+      <button class="btn --icon" onclick="closeCashRequestModal()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body" id="cash-request-form-body">
+      <div class="notice" id="cash-payout-min-notice" style="display:none">
+        <p>La riscossione in contanti è disponibile a partire da <strong>20&nbsp;€</strong>. Il saldo attuale è <strong id="cash-payout-current-amount"></strong>.</p>
+      </div>
+      <p class="auszahlung-hint">Verificare l'IBAN e la partita IVA. Il pagamento verrà effettuato entro 3–5 giorni lavorativi.</p>
+      <div class="form-field">
+        <input type="text" id="cash-request-iban" placeholder=" ">
+        <label for="cash-request-iban">IBAN</label>
+      </div>
+      <div class="form-field">
+        <input type="text" id="cash-request-vat" placeholder=" ">
+        <label for="cash-request-vat">Partita IVA</label>
+      </div>
+      <p id="cash-request-error" class="modal-field-error"></p>
+      <button class="btn --primary --full" id="cash-request-submit" onclick="submitCashRequest()">Invia richiesta</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Successo Registrazione -->
+<div class="shop-modal-overlay" id="registrationModal" onclick="closeRegistrationModal()">
+  <div class="shop-modal" onclick="event.stopPropagation()">
+    <div class="shop-modal__icon"><span class="material-icons">mark_email_read</span></div>
+    <p class="shop-modal__title">Super, sei registrato!</p>
+    <p class="shop-modal__body">Configureremo un account nei prossimi giorni e ti informeremo via e-mail.</p>
+    <div class="shop-modal__actions">
+      <button class="btn --primary" onclick="closeRegistrationModal()">Capito</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Errore -->
+<div class="modal-overlay" id="errorModal" onclick="closeErrorModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal__header">
+      <span class="modal__title">Si è verificato un errore</span>
+      <button class="btn --icon" onclick="closeErrorModal()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="modal__body" style="text-align:center; padding: var(--module) var(--module) calc(var(--module) * 1.5);">
+      <span class="material-icons" style="font-size:2.5rem; color:var(--color-error, #c0392b); display:block; margin-bottom:.75rem;">error_outline</span>
+      <p id="error-modal-message" style="font-size:var(--text-base); margin-bottom:1.5rem;"></p>
+      <button class="btn --primary --full" onclick="closeErrorModal()">Chiudi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Registration Störer -->
+<button class="reg-badge" id="regStoerer" onclick="openRegistrationTab()" aria-label="Registra un nuovo account e ricevi 10 euro di bonus">
+  <span class="reg-badge__label">Registrati</span>
+  <span class="reg-badge__amount">10 €</span>
+  <span class="reg-badge__label">di bonus</span>
+</button>
+
+<!-- Preview Banner -->
+<div id="preview-banner-slot"></div>
+
+<!-- Promo Bar -->
+<div id="promo-bar-slot"></div>
+
+<!-- SPA-Container -->
+<main id="app"></main>
+
+
+<script>
+/* ═══════════════════════════════════════
+   DATI
+   ═══════════════════════════════════════ */
+
+const PREMIUMS = [
+  {
+    id: 3,
+    name: 'Viaggio di lusso a Rimini',
+    price: 1200.00,
+    desc: 'Quattro giorni di pausa sull\'Adriatico: hotel, colazione e lettino da spiaggia inclusi.',
+    longDesc: 'Un meritato riposo sull\'Adriatico dopo un lungo anno in clinica. Il pacchetto include 4 notti in hotel 4 stelle con vista mare, buffet colazione giornaliero e lettino da spiaggia riservato. Data di viaggio liberamente scelta (aprile–ottobre). Conferma prenotazione entro 48 ore.',
+    image: 'rimini.jpg'
+  },
+  {
+    id: 2,
+    name: 'Macchina da caffè deLonghi',
+    price: 150.00,
+    desc: 'Piacere del caffè professionale per casa — la deLonghi Dedica Style nel design classico.',
+    longDesc: 'La deLonghi Dedica Style EC 685 convince con dimensioni compatte e tecnica di estrazione professionale. 15 bar di pressione pompa, sistema di riscaldamento thermoblock e schiumalatte per un cappuccino perfetto — direttamente dalla cucina in clinica. Consegna a domicilio entro 3–5 giorni lavorativi.',
+    image: 'coffee.jpg'
+  },
+  {
+    id: 1,
+    name: 'Buono Amazon',
+    price: 50.00,
+    desc: 'Utilizzabile su tutto l\'assortimento Amazon — dal cibo per animali agli elettrodomestici.',
+    longDesc: 'Il buono Amazon è immediatamente disponibile nell\'account Amazon dopo il riscatto. Utilizzabile per qualsiasi acquisto — senza scadenza e senza restrizioni. Il codice buono verrà inviato via e-mail.',
+    voucher: { brand: 'amazon', value: '50 €' },
+    sizes: [50, 100, 200, 400]
+  }
+];
+
+
+/* ═══════════════════════════════════════
+   STATO
+   ═══════════════════════════════════════ */
+
+const API_BASE = 'https://sholesfap-a06968366f91.herokuapp.com';
+const SESSION_KEY = 'vetalita_session';
+const SESSION_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
+
+let provisionTotal = 0;
+let accountId = null;
+let discountCode = null;
+let loginError = null;
+let cart = {}; // { [id]: quantity }
+let currentPage = 'login';
+let activePremiumId = null;
+let lastOrder = null;
+let _countUpRunning = false;
+let _countUpPending = null;
+let previewMode = false;
+let voucherSizes = {}; // { [premiumId]: selectedPrice }
+
+function saveSession() {
+  localStorage.setItem(SESSION_KEY, JSON.stringify({
+    accountId,
+    provisionTotal,
+    discountCode,
+    loginAt: Date.now(),
+  }));
+}
+
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    if (!s.accountId || !s.loginAt) return;
+    if (Date.now() - s.loginAt > SESSION_TTL) { clearSession(); return; }
+    accountId      = s.accountId;
+    provisionTotal = s.provisionTotal ?? 0;
+    discountCode   = s.discountCode   ?? null;
+    currentPage    = 'portal';
+    renderPromoBar();
+    // refresh balance in background without blocking the render
+    refreshBalance();
+  } catch (e) {
+    clearSession();
+    accountId   = null;
+    currentPage = 'login';
+  }
+}
+
+async function refreshBalance() {
+  try {
+    const res  = await fetch(`${API_BASE}/webhooks/vetalita_balance`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ account_id: accountId }),
+    });
+    const data = await res.json();
+    if (res.status === 401) { clearSession(); accountId = null; currentPage = 'login'; render(); return; }
+    if (res.ok) {
+      const newTotal = Math.max(0, data.provision_total);
+      const newCode  = data.discount_code || null;
+      const codeChanged = newCode !== discountCode;
+      discountCode = newCode;
+      saveSession();
+      renderPromoBar();
+      if (currentPage === 'portal') {
+        if (codeChanged) {
+          render();
+        } else {
+          updateProvisionDisplay(newTotal);
+        }
+      }
+    }
+  } catch (_) {
+    // network error — keep cached values, stay in portal
+  }
+}
+
+restoreSession();
+render();
+
+/* ═══════════════════════════════════════
+   FUNZIONI DI UTILITÀ
+   ═══════════════════════════════════════ */
+
+function thumbHTML(p, cssClass = 'product-thumb') {
+  if (p.voucher) {
+    const small = cssClass.includes('cart-item__image');
+    return small
+      ? `<div class="${cssClass} voucher-thumb">${p.voucher.brand[0]}</div>`
+      : `<div class="${cssClass} voucher-frame"><div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`;
+  }
+  return `<div class="${cssClass}${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}</div>`;
+}
+
+function effectivePrice(p) {
+  return p.sizes ? (voucherSizes[p.id] || p.sizes[0]) : p.price;
+}
+
+// Cart keys: plain "id" for regular products, "id:price" for products with sizes.
+function cartKey(p) {
+  return p.sizes ? `${p.id}:${effectivePrice(p)}` : String(p.id);
+}
+function keyId(key)    { return +key.split(':')[0]; }
+function keyPrice(key) {
+  const parts = key.split(':');
+  if (parts[1]) return +parts[1];
+  const p = PREMIUMS.find(x => x.id === keyId(key));
+  return effectivePrice(p);
+}
+function premiumForKey(key) { return PREMIUMS.find(p => p.id === keyId(key)); }
+
+// cartQty(id): total units of a premium regardless of size
+function cartQty(id) {
+  return Object.entries(cart)
+    .filter(([k]) => keyId(k) === +id)
+    .reduce((s, [, q]) => s + q, 0);
+}
+function cartTotalItems() { return Object.values(cart).reduce((s, q) => s + q, 0); }
+
+function cartTotal() {
+  return Object.entries(cart).reduce((sum, [key, qty]) => sum + keyPrice(key) * qty, 0);
+}
+
+function provisionAvailable() {
+  return provisionTotal - cartTotal();
+}
+
+function fmt(n) {
+  return n.toFixed(2).replace('.', ',') + ' €';
+}
+
+function tilePct(p) {
+  if (cartQty(p.id) > 0) return 100;
+  return Math.min(100, Math.floor(provisionAvailable() / effectivePrice(p) * 100));
+}
+
+function canAfford(p) {
+  return provisionAvailable() >= effectivePrice(p);
+}
+
+/* ═══════════════════════════════════════
+   CARRELLO
+   ═══════════════════════════════════════ */
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('--open');
+  document.getElementById('cartDrawer').classList.add('--open');
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('--open');
+  document.getElementById('cartDrawer').classList.remove('--open');
+}
+
+function addToCart(id) {
+  const p = PREMIUMS.find(x => x.id === +id);
+  const key = cartKey(p);
+  cart[key] = (cart[key] || 0) + 1;
+  render();
+  openCart();
+}
+
+function removeFromCart(key) {
+  // Accept either a full key ("id:price") or a plain id
+  if (cart[key] === undefined) {
+    key = Object.keys(cart).find(k => keyId(k) === +key);
+    if (!key) return;
+  }
+  if (cart[key] <= 1) delete cart[key]; else cart[key]--;
+  render();
+}
+
+/* ═══════════════════════════════════════
+   NAVIGAZIONE
+   ═══════════════════════════════════════ */
+
+function openPDP(id) {
+  activePremiumId = id;
+  currentPage = 'pdp';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function enterPreview() {
+  previewMode    = true;
+  provisionTotal = 456.78;
+  discountCode   = 'DEMO2026';
+  currentPage    = 'portal';
+  renderPreviewBanner();
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function exitPreview() {
+  previewMode    = false;
+  provisionTotal = 0;
+  discountCode   = null;
+  currentPage    = 'login';
+  renderPreviewBanner();
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function selectVoucherSize(id, size) {
+  voucherSizes[id] = size;
+  currentPage = 'pdp';
+  render();
+}
+
+function navToPortal() {
+  if (previewMode) { exitPreview(); return; }
+  if (currentPage !== 'login') backToPortal();
+}
+
+function logout() {
+  clearSession();
+  accountId      = null;
+  provisionTotal = 0;
+  discountCode   = null;
+  cart           = {};
+  currentPage    = 'login';
+  renderPromoBar();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function backToPortal() {
+  currentPage = 'portal';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function goToCheckout() {
+  closeCart();
+  currentPage = 'checkout';
+  render();
+  window.scrollTo(0, 0);
+}
+
+function completeCheckout() {
+  const total = cartTotal();
+  const newProvision = provisionAvailable();
+  lastOrder = {
+    items: Object.entries(cart).map(([key, qty]) => {
+      const p = premiumForKey(key);
+      const price = keyPrice(key);
+      return { p, price, qty };
+    }),
+    total,
+    remaining: newProvision,
+  };
+  provisionTotal = newProvision;
+  cart = {};
+  currentPage = 'success';
+  render();
+  window.scrollTo(0, 0);
+}
+
+
+function renderPreviewBanner() {
+  const slot = document.getElementById('preview-banner-slot');
+  if (!slot) return;
+  slot.innerHTML = previewMode ? `
+    <div class="preview-banner">
+      <span class="material-icons">visibility</span>
+      Modalità anteprima — i dati sono di esempio.
+    </div>` : '';
+}
+
+function renderPromoBar() {
+  const slot = document.getElementById('promo-bar-slot');
+  if (!slot) return;
+  slot.innerHTML = discountCode ? `
+    <div class="promo-bar">
+      <span class="label-caps">Codice sconto per la clientela</span>
+      <strong class="promo-bar__code">${discountCode}</strong>
+      <button class="btn --icon" onclick="copyPromoCode(this)" aria-label="Copia codice">
+        <span class="material-icons">content_copy</span>
+      </button>
+    </div>` : '';
+}
+
+function copyPromoCode(btn) {
+  const code = btn.closest('.promo-bar').querySelector('.promo-bar__code').textContent.trim();
+  navigator.clipboard.writeText(code).then(() => {
+    const icon = btn.querySelector('.material-icons');
+    icon.textContent = 'check';
+    setTimeout(() => { icon.textContent = 'content_copy'; }, 1500);
+  });
+}
+
+function showErrorModal(msg) {
+  document.getElementById('error-modal-message').textContent = msg;
+  document.getElementById('errorModal').classList.add('--open');
+}
+
+function closeErrorModal() {
+  document.getElementById('errorModal').classList.remove('--open');
+}
+
+function setBtnState(btn, state) {
+  // state: 'idle' | 'loading' | 'success'
+  btn.disabled = state !== 'idle';
+  btn.classList.toggle('--loading', state === 'loading');
+  if (state === 'idle')    { btn.innerHTML = 'Invia richiesta'; }
+  if (state === 'loading') { btn.innerHTML = '<span class="btn-spinner"></span>Invio in corso…'; }
+  if (state === 'success') { btn.innerHTML = '<span class="material-icons btn-check">check</span>Inviata!'; }
+}
+
+let _cashRequestDone = false;
+
+function openCashRequestModal() {
+  _cashRequestDone = false;
+  document.getElementById('cash-request-iban').value = '';
+  document.getElementById('cash-request-vat').value = '';
+  document.getElementById('cash-request-error').style.display = 'none';
+  const available = provisionAvailable();
+  const notice = document.getElementById('cash-payout-min-notice');
+  notice.style.display = available < 20 ? '' : 'none';
+  if (available < 20) {
+    document.getElementById('cash-payout-current-amount').textContent = fmt(available);
+  }
+  const btn = document.getElementById('cash-request-submit');
+  setBtnState(btn, 'idle');
+  btn.disabled = previewMode || available < 20;
+  document.getElementById('cashRequestModal').classList.add('--open');
+}
+
+function closeCashRequestModal() {
+  document.getElementById('cashRequestModal').classList.remove('--open');
+  _cashRequestDone = false;
+}
+
+async function submitCashRequest() {
+  const iban  = document.getElementById('cash-request-iban').value.trim();
+  const vat   = document.getElementById('cash-request-vat').value.trim();
+  const errEl = document.getElementById('cash-request-error');
+  const btn   = document.getElementById('cash-request-submit');
+  errEl.style.display = 'none';
+
+  if (!iban) {
+    errEl.textContent = 'Inserire l\'IBAN.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const lines = [`IBAN: ${iban}`];
+  if (vat) lines.push(`Partita IVA: ${vat}`);
+  const request_text = lines.join('\n');
+
+  setBtnState(btn, 'loading');
+  try {
+    const res  = await fetch(`${API_BASE}/webhooks/vetalita_cash_request`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ account_id: accountId, request_text, available: provisionAvailable() }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
+    _cashRequestDone = true;
+    setBtnState(btn, 'success');
+    updateProvisionDisplay(0);
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+    setBtnState(btn, 'idle');
+  }
+}
+
+function openRegistrationTab() {
+  const tabBtn = document.querySelector('[onclick*="tab-register"]');
+  if (tabBtn) switchLoginTab(tabBtn, 'tab-register');
+  document.getElementById('tab-register')?.scrollIntoView({ behavior: 'smooth' });
+}
+
+function openRegistrationSuccessModal() {
+  document.getElementById('registrationModal').classList.add('--open');
+}
+
+function closeRegistrationModal() {
+  document.getElementById('registrationModal').classList.remove('--open');
+}
+
+function clearRegistrationForm() {
+  ['reg-vorname', 'reg-nachname', 'reg-clinic', 'reg-email', 'reg-zip', 'reg-tel', 'reg-address'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
+    input?.closest('.form-field')?.classList.remove('--error');
+  });
+  const errEl = document.getElementById('registration-error');
+  if (errEl) {
+    errEl.textContent = '';
+    errEl.style.display = 'none';
+  }
+}
+
+async function submitRegistration() {
+  const errEl = document.getElementById('registration-error');
+  const btn   = document.getElementById('registration-submit');
+  errEl.style.display = 'none';
+
+  const required = ['reg-vorname', 'reg-nachname', 'reg-email', 'reg-zip'];
+  const missing = required.filter(id => !document.getElementById(id)?.value.trim());
+  if (missing.length) {
+    missing.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.add('--error'));
+    errEl.textContent = 'Compilare i campi obbligatori.';
+    errEl.style.display = 'block';
+    return;
+  }
+  required.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.remove('--error'));
+
+  const payload = {
+    first_name: document.getElementById('reg-vorname').value.trim(),
+    last_name:  document.getElementById('reg-nachname').value.trim(),
+    clinic:     document.getElementById('reg-clinic').value.trim(),
+    email:      document.getElementById('reg-email').value.trim(),
+    zip_code:   document.getElementById('reg-zip').value.trim(),
+    phone:      document.getElementById('reg-tel').value.trim(),
+    address:    document.getElementById('reg-address').value.trim(),
+  };
+
+  setBtnState(btn, 'loading');
+  try {
+    const res  = await fetch(`${API_BASE}/webhooks/vetalita_registration`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Errore durante l\'invio.');
+    setBtnState(btn, 'idle');
+    clearRegistrationForm();
+    openRegistrationSuccessModal();
+  } catch (err) {
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+    setBtnState(btn, 'idle');
+  }
+}
+
+function updateCheckoutSummary() {
+  const el = document.getElementById('checkout-summary');
+  if (!el) return;
+  el.innerHTML = renderCheckoutSummary(cartTotal(), provisionAvailable());
+}
+
+function renderCheckoutSummary(total, remaining) {
+  return `
+    <div class="summary-line"><span>Valore provvigione</span><span>${fmt(total)}</span></div>
+    <div class="summary-total"><span>Provvigione rimanente</span><span>${fmt(remaining)}</span></div>`;
+}
+
+
+/* ═══════════════════════════════════════
+   RENDER: LOGIN
+   ═══════════════════════════════════════ */
+
+function renderLogin() {
+  return `
+    <div class="container --wide portal-section">
+      <p class="portal-start__greeting">Benvenuto nel portale premi.</p>
+      <div class="portal-start__options">
+
+        <div class="portal-start__option">
+          <h3>Dai un'occhiata</h3>
+          <p>Esplora il portale senza registrarti.</p>
+          <button class="btn --ghost" onclick="enterPreview()">Anteprima</button>
+        </div>
+
+        <div class="portal-start__divider" aria-hidden="true">
+          <span class="portal-start__divider-line"></span>
+          <span class="portal-start__divider-label">oppure</span>
+          <span class="portal-start__divider-line --grow"></span>
+        </div>
+
+        <div class="portal-start__option">
+          <h3>Registrati e ottieni 10&nbsp;€</h3>
+          <div class="tabs">
+            <div class="tab-nav" role="tablist">
+              <button class="tab-btn --active" type="button" onclick="switchLoginTab(this, 'tab-register')">Registrati</button>
+              <button class="tab-btn" type="button" onclick="switchLoginTab(this, 'tab-login')">Accedi</button>
+            </div>
+
+          <div class="tab-panel --active" id="tab-register">
+            <div class="form-field">
+              <input type="text" id="reg-vorname" placeholder=" ">
+              <label for="reg-vorname">Nome</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-nachname" placeholder=" ">
+              <label for="reg-nachname">Cognome</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-clinic" placeholder=" ">
+              <label for="reg-clinic">Studio / clinica</label>
+            </div>
+            <div class="form-field">
+              <input type="email" id="reg-email" placeholder=" ">
+              <label for="reg-email">Indirizzo e-mail</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-zip" placeholder=" " inputmode="numeric">
+              <label for="reg-zip">CAP</label>
+            </div>
+            <div class="form-field">
+              <input type="tel" id="reg-tel" placeholder=" ">
+              <label for="reg-tel">Telefono (opzionale)</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="reg-address" placeholder=" ">
+              <label for="reg-address">Indirizzo (opzionale)</label>
+            </div>
+            <p id="registration-error" class="modal-field-error"></p>
+            <button class="btn --primary --full" id="registration-submit" onclick="submitRegistration()">Registrati ora</button>
+          </div>
+
+          <div class="tab-panel" id="tab-login">
+            <div class="form-field">
+              <input type="text" id="login-customer-number" placeholder=" " maxlength="7" inputmode="numeric"
+                onkeydown="if(event.key==='Enter') submitLogin()">
+              <label for="login-customer-number">Numero cliente (7 cifre)</label>
+            </div>
+            <div class="form-field">
+              <input type="text" id="login-zip" placeholder=" " inputmode="numeric"
+                onkeydown="if(event.key==='Enter') submitLogin()">
+              <label for="login-zip">CAP</label>
+            </div>
+            ${loginError ? `<p style="color:var(--color-error, #c0392b); font-size:var(--text-sm); margin-bottom:var(--half-module);">${loginError}</p>` : ''}
+            <button class="btn --primary --full" onclick="submitLogin()">Accedi</button>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+}
+
+function switchLoginTab(btn, panelId) {
+  btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('--active'));
+  btn.classList.add('--active');
+  const option = btn.closest('.portal-start__option');
+  option.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('--active'));
+  option.querySelector('#' + panelId).classList.add('--active');
+}
+
+/* ═══════════════════════════════════════
+   RENDER: CARICAMENTO
+   ═══════════════════════════════════════ */
+
+const ANIMAL_FACTS = [
+  'I cani hanno recettori olfattivi per i campi magnetici della Terra — uno dei motivi per cui si orientano bene anche senza vista.',
+  'Nei gatti, il fegato non è in grado di metabolizzare il paracetamolo: anche dosi minime sono letali per carenza dell\'enzima glucuronil transferasi.',
+  'Il cuore di un cavallo adulto pesa circa 4–5 kg e batte solo 28–44 volte al minuto a riposo, grazie a un volume sistolico elevatissimo.',
+  'I conigli non vomitano: il loro cardias è troppo forte e lo stomaco posizionato in modo tale da rendere fisicamente impossibile il riflesso emetico.',
+  'Nei rettili, la temperatura di incubazione delle uova determina il sesso della prole in molte specie — un meccanismo assente nei mammiferi.',
+  'I delfini producono due distinti tipi di suoni simultaneamente grazie a due sacche nasali indipendenti, ciascuna sotto il controllo di muscoli separati.',
+  'Nei pappagalli, le piume colorate da psittacofluorine sono invisibili all\'occhio umano ma brillanti nel range UV, visibile invece dagli uccelli stessi.',
+  'Gli elefanti sono uno dei pochi mammiferi con cellule NK (natural killer) in quantità anomala rispetto alle dimensioni corporee, contribuendo alla loro bassa incidenza di tumori.',
+  'Il gatto domestico ha un intestino tenue proporzionalmente più corto rispetto ai carnivori selvatici della stessa taglia: conseguenza evolutiva di millenni di digestione di prede pre-trattate.',
+  'I polpi hanno neuroni distribuiti: circa due terzi del loro sistema nervoso si trova nei tentacoli, che agiscono in modo semi-autonomo rispetto al cervello centrale.',
+];
+
+function renderLoading() {
+  const fact = ANIMAL_FACTS[Math.floor(Math.random() * ANIMAL_FACTS.length)];
+  return `
+    <div class="container --narrow portal-section" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; gap:var(--module);">
+      <svg viewBox="0 0 200 200" aria-hidden="true" style="width:120px;height:120px;">
+        <circle cx="100" cy="100" r="82" fill="none" stroke="var(--border-light)" stroke-width="16"/>
+        <circle cx="100" cy="100" r="82" fill="none" stroke="var(--green)" stroke-width="16"
+          stroke-linecap="round" stroke-dasharray="515.2" stroke-dashoffset="343"
+          transform="rotate(-90 100 100)" style="animation:loading-spin 1.2s linear infinite;"/>
+      </svg>
+      <p style="font-size:var(--text-sm); color:var(--fg-muted); text-align:center; max-width:340px; line-height:1.6;">${fact}</p>
+    </div>
+    <style>
+      @keyframes loading-spin {
+        from { stroke-dashoffset: 515; }
+        to   { stroke-dashoffset: 0; }
+      }
+    </style>`;
+}
+
+/* ═══════════════════════════════════════
+   SUBMIT: LOGIN
+   ═══════════════════════════════════════ */
+
+async function submitLogin() {
+  const customerNumber = document.getElementById('login-customer-number')?.value.trim();
+  const zip            = document.getElementById('login-zip')?.value.trim();
+
+  if (!customerNumber || customerNumber.length !== 7 || !/^\d{7}$/.test(customerNumber)) {
+    loginError = 'Numero cliente non valido (7 cifre).';
+    render(); return;
+  }
+  if (!zip) {
+    loginError = 'CAP obbligatorio.';
+    render(); return;
+  }
+
+  loginError = null;
+  currentPage = 'loading';
+  render();
+
+  try {
+    const res = await fetch(`${API_BASE}/webhooks/vetalita_login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ customer_number: customerNumber, zip_code: zip }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Accesso negato.');
+    accountId      = data.account_id;
+    provisionTotal = Math.max(0, data.provision_total);
+    discountCode   = data.discount_code || null;
+    currentPage    = 'portal';
+    saveSession();
+    renderPromoBar();
+    render();
+  } catch (err) {
+    loginError  = err.message;
+    currentPage = 'login';
+    render();
+  }
+}
+
+/* ═══════════════════════════════════════
+   SUBMIT: RISCATTO
+   ═══════════════════════════════════════ */
+
+async function submitRedeem() {
+  const requiredFields = ['co-vorname', 'co-nachname', 'co-strasse', 'co-hausnr', 'co-plz', 'co-ort', 'co-email'];
+  const missing = requiredFields.filter(id => !document.getElementById(id)?.value.trim());
+  if (missing.length) {
+    missing.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.add('--error'));
+    showErrorModal('Compila tutti i campi obbligatori prima di procedere.');
+    return;
+  }
+  requiredFields.forEach(id => document.getElementById(id)?.closest('.form-field')?.classList.remove('--error'));
+
+  const items = Object.entries(cart).flatMap(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const label = p.sizes ? `${p.name} (${fmt(price)})` : p.name;
+    return Array(qty).fill({ name: label, price });
+  });
+  const total = cartTotal();
+
+  currentPage = 'loading';
+  render();
+
+  try {
+    const res = await fetch(`${API_BASE}/webhooks/vetalita_redeem`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        account_id: accountId,
+        items,
+        total,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Errore durante il riscatto.');
+
+    const newProvision = provisionAvailable(); // capture before clearing cart
+    lastOrder = {
+      items: Object.entries(cart).map(([key, qty]) => {
+        const p = premiumForKey(key);
+        const price = keyPrice(key);
+        return { p, price, qty };
+      }),
+      total,
+      remaining: newProvision,
+    };
+    provisionTotal = newProvision;
+    cart = {};
+    currentPage = 'success';
+    saveSession();
+    render();
+    setTimeout(() => { currentPage = 'portal'; render(); window.scrollTo(0, 0); }, 4000);
+  } catch (err) {
+    currentPage = 'checkout';
+    render();
+    showErrorModal(err.message);
+  }
+}
+
+/* ═══════════════════════════════════════
+   RENDER: PORTALE
+   ═══════════════════════════════════════ */
+
+function renderTile(p) {
+  const pct = tilePct(p);
+  const inCart = cartQty(p.id) > 0;
+  const affordable = canAfford(p);
+
+  let cartOverlay = '';
+  let floatingMeta = '';
+
+  const qty = cartQty(p.id);
+  if (!previewMode && qty > 0) {
+    if (p.sizes) {
+      // For multi-size products, just show a badge and let user manage via PDP
+      floatingMeta = `<div class="floating-meta"><div class="badge --sale">${qty} nel carrello</div></div>`;
+    } else {
+      cartOverlay = `<div class="tile__cart tile__cart--stepper">
+        <button class="stepper__btn" onclick="event.stopPropagation(); removeFromCart('${p.id}')">−</button>
+        <span class="stepper__qty">${qty}</span>
+        <button class="stepper__btn" onclick="event.stopPropagation(); addToCart(${p.id})" ${affordable ? '' : 'disabled'}>+</button>
+      </div>`;
+    }
+  } else if (affordable) {
+    floatingMeta = `<div class="floating-meta"><div class="badge --sale">Riscattabile</div></div>`;
+    if (!previewMode) cartOverlay = `<div class="tile__cart"><button class="btn --secondary --full" onclick="event.stopPropagation(); addToCart(${p.id})">Aggiungi</button></div>`;
+  } else {
+    const missing = effectivePrice(p) - provisionAvailable();
+    floatingMeta = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(missing)}</div></div>`;
+  }
+
+  const ep = effectivePrice(p);
+  const voucherVal = p.voucher ? fmt(ep) : p.voucher?.value;
+
+  return `
+    <div class="tile --product" onclick="openPDP(${p.id})">
+      <div class="tile__image-wrap">
+${p.voucher
+          ? `<div class="tile__image --square voucher-frame">${floatingMeta}<div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`
+          : `<div class="tile__image --square${p.image ? '' : ' placeholder-bg'}">${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${floatingMeta}</div>`
+        }
+        <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
+          <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="24" cy="24" r="18" fill="none" stroke="var(--border-light)" stroke-width="3"/>
+          <circle cx="24" cy="24" r="18" fill="none" stroke="var(--green)" stroke-width="3"
+            stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"
+            transform="rotate(-90 24 24)" class="tile__ring-fill" data-pct="${pct}"/>
+          <text x="24" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)" class="tile__ring-text">${pct}%</text>
+        </svg>
+        ${cartOverlay}
+      </div>
+      <div class="tile__headline-row">
+        <h3 class="tile__headline">${p.name}</h3>
+      </div>
+      <p class="tile__description">${p.desc}</p>
+      <div class="tile__price">
+        <div class="price-stack"><span>${p.sizes ? `da ${fmt(p.sizes[0])}` : fmt(ep)}</span></div>
+      </div>
+    </div>`;
+}
+
+
+function nextNonAffordable() {
+  const available = provisionAvailable();
+  return [...PREMIUMS].sort((a, b) => effectivePrice(a) - effectivePrice(b)).find(p => effectivePrice(p) > available) || null;
+}
+
+function renderPortal() {
+  const available = provisionAvailable();
+  const target = nextNonAffordable();
+  const circ = 515.2;
+  const targetPrice = target ? effectivePrice(target) : 0;
+  const pct = target ? Math.min(available / targetPrice, 1) : 1;
+  const offset = +(circ * (1 - pct)).toFixed(2);
+  const hintText = target
+    ? `Ancora <strong>${fmt(targetPrice - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
+    : `Tutti i premi riscattabili`;
+
+  const pctInt = Math.round(pct * 100);
+
+  return `
+    <section class="provision-hero">
+      <div class="provision-hero__grid">
+        <div class="provision-hero__col --label">
+          <p class="provision-hero__title">Provvigione disponibile</p>
+        </div>
+        <div class="provision-hero__col">
+          <p class="provision-hero__mobile-title">Provvigione disponibile</p>
+          <span class="provision-hero__amount" id="provisionAmount">${fmt(available)}</span>
+          <div class="provision-hero__actions">
+            <button class="btn --primary" onclick="openCashRequestModal()">Riscuoti in contanti</button>
+          </div>
+        </div>
+        <div class="provision-hero__col --ring">
+          <div class="provision-hero__ring-wrap">
+            <svg class="provision-hero__ring-svg" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="var(--border-light)" stroke-width="16"/>
+              <circle cx="100" cy="100" r="82" fill="none" stroke="var(--green)" stroke-width="16"
+                stroke-linecap="round"
+                stroke-dasharray="${circ}"
+                stroke-dashoffset="${circ}"
+                transform="rotate(-90 100 100)"
+                class="provision-hero__ring-fill"
+                data-offset="${offset}"/>
+            </svg>
+            <div class="provision-hero__ring-inner">
+              <span class="provision-hero__ring-pct">${pctInt}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="provision-hero__sub --label">sulla base di 5 raccomandazioni</div>
+        <div class="provision-hero__sub --oder">oppure</div>
+        <div class="provision-hero__sub --hint">${hintText}</div>
+      </div>
+    </section>
+
+    <div class="container --flush-top portal-section">
+      <h2 class="portal-section__title">Premi disponibili</h2>
+      <div class="tile-grid --cols-3">
+        ${PREMIUMS.map(renderTile).join('')}
+      </div>
+    </div>
+
+    `;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: PDP
+   ═══════════════════════════════════════ */
+
+function renderPDP() {
+  const p = PREMIUMS.find(x => x.id === activePremiumId);
+  const inCart = cartQty(p.id) > 0;
+  const affordable = canAfford(p);
+
+  const ep = effectivePrice(p);
+
+  // For products with sizes, track qty of the currently selected size only
+  const currentKey = p.sizes ? `${p.id}:${ep}` : String(p.id);
+  const pdpQty = cart[currentKey] || 0;
+  let actionBtn;
+  if (pdpQty > 0) {
+    actionBtn = `
+      <div class="pdp__stepper">
+        <button class="stepper__btn --lg" onclick="removeFromCart('${currentKey}')">−</button>
+        <span class="stepper__qty --lg">${pdpQty}</span>
+        <button class="stepper__btn --lg" onclick="cart['${currentKey}']=(cart['${currentKey}']||0)+1;render()" ${affordable ? '' : 'disabled'}>+</button>
+      </div>
+      <button class="btn --ghost" onclick="delete cart['${currentKey}']; render()">Rimuovi</button>`;
+  } else if (affordable) {
+    actionBtn = `<button class="btn --primary" onclick="addToCart(${p.id})">Aggiungi al carrello</button>`;
+  } else {
+    actionBtn = `<button class="btn --primary" disabled>Ancora ${fmt(ep - provisionAvailable())} mancanti</button>`;
+  }
+
+  const pct = tilePct(p);
+  let pdpBadge = '';
+  if (!inCart && affordable) pdpBadge = `<div class="floating-meta"><div class="badge --sale">Riscattabile</div></div>`;
+  else if (!inCart) pdpBadge = `<div class="floating-meta"><div class="badge --dark">Ancora ${fmt(ep - provisionAvailable())}</div></div>`;
+  const pdpRing = `
+    <svg class="tile__ring" viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
+      <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,0.7)"/>
+      <circle cx="24" cy="24" r="18" fill="none" stroke="var(--border-light)" stroke-width="3"/>
+      <circle cx="24" cy="24" r="18" fill="none" stroke="var(--green)" stroke-width="3"
+        stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1"
+        transform="rotate(-90 24 24)" class="tile__ring-fill" data-pct="${pct}"/>
+      <text x="24" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="var(--fg)" class="tile__ring-text">${pct}%</text>
+    </svg>`;
+
+  const sizePicker = p.sizes ? `
+    <div class="pdp__sizes">
+      <span class="label-caps">Importo</span>
+      <div class="pdp__size-options">
+        ${p.sizes.map(s => `
+          <button class="choice-box${s === ep ? ' --active' : ''}"
+            type="button"
+            onclick="selectVoucherSize(${p.id}, ${s})">
+            ${fmt(s)}
+          </button>`).join('')}
+      </div>
+    </div>` : '';
+
+  return `
+    <div class="container portal-section">
+      <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Tutti i premi</button>
+      <div class="pdp">
+        <div class="pdp__gallery">
+          ${p.voucher
+            ? `<div class="pdp__main-image voucher-frame">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${pdpRing}<div class="voucher-card"><span class="voucher-card__value">buono<br>amazon</span></div></div>`
+            : `<div class="pdp__main-image${p.image ? '' : ' placeholder-bg'}">${pdpBadge}<div class="pdp__caption --hidden" aria-live="polite"></div>${p.image ? `<img src="${p.image}" alt="${p.name}">` : ''}${pdpRing}</div>`
+          }
+        </div>
+        <div class="pdp__info">
+          <h1 class="pdp__title">${p.name}</h1>
+          <p class="pdp__description">${p.desc}</p>
+          ${sizePicker}
+          <div class="pdp__price">
+            <div class="price-stack"><span>${fmt(ep)}</span></div>
+            <span class="label-caps">Valore provvigione</span>
+          </div>
+          <div class="pdp__actions">
+            ${actionBtn}
+          </div>
+          <div class="accordion">
+            <div class="accordion-item --open">
+              <button class="accordion-trigger" type="button" aria-expanded="true" onclick="toggleAccordion(this)">Descrizione<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>${p.longDesc}</p></div></div>
+            </div>
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Come funziona?<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>Il valore del premio viene detratto dalla provvigione disponibile. Saldo attuale: <strong>${fmt(provisionAvailable())}</strong>.</p></div></div>
+            </div>
+            ${p.id === 2 ? `
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false" onclick="toggleAccordion(this)">Spedizione &amp; consegna<span class="accordion-icon material-icons">expand_more</span></button>
+              <div class="accordion-content"><div class="accordion-content__inner"><p>Il premio verrà inviato entro 5–7 giorni lavorativi dal riscatto all'indirizzo registrato.</p></div></div>
+            </div>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: CASSETTO CARRELLO
+   ═══════════════════════════════════════ */
+
+function renderCartDrawer() {
+  if (Object.keys(cart).length === 0) {
+    return `
+      <div class="cart-drawer__header">
+        <span class="cart-drawer__title">Carrello premi <span class="cart-drawer__count">(0)</span></span>
+        <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Chiudi">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="cart-drawer__empty">
+        <div class="empty-state">
+          <span class="material-icons">redeem</span>
+          <p class="empty-state__title">Nessun premio selezionato</p>
+          <p class="empty-state__sub">Seleziona un premio per procedere al riscatto.</p>
+        </div>
+      </div>`;
+  }
+
+  const items = Object.entries(cart).map(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const affordable = provisionAvailable() >= price;
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
+    return `
+      <div class="cart-item">
+        ${thumbHTML(p, 'cart-item__image product-thumb')}
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${label}</p>
+              <div class="cart-item__variant">Premio</div>
+            </div>
+            <button type="button" class="btn --icon cart-item__remove" onclick="delete cart['${key}']; render()" aria-label="Rimuovi tutto">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <div class="cart-item__bottom">
+            <div class="cart-item__stepper">
+              <button class="stepper__btn" onclick="removeFromCart('${key}')">−</button>
+              <span class="stepper__qty">${qty}</span>
+              <button class="stepper__btn" onclick="cart['${key}']=(cart['${key}']||0)+1;render()" ${affordable ? '' : 'disabled'}>+</button>
+            </div>
+            <span class="cart-item__price">${fmt(price * qty)}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const total = cartTotal();
+  const remaining = provisionAvailable();
+
+  return `
+    <div class="cart-drawer__header">
+      <span class="cart-drawer__title">Carrello premi <span class="cart-drawer__count">(${cartTotalItems()})</span></span>
+      <button type="button" class="btn --icon" onclick="closeCart()" aria-label="Chiudi">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="cart-drawer__items">${items}</div>
+    <div class="cart-drawer__footer">
+      <div class="summary-total">
+        <span>Totale</span>
+        <span>${fmt(total)}</span>
+      </div>
+      <div class="cart-drawer__tax">
+        Provvigione rimanente dopo il riscatto: ${fmt(remaining)}
+      </div>
+      <button class="btn --primary cart-drawer__checkout" onclick="goToCheckout()">Riscatta premio</button>
+      <div class="cart-drawer__continue-wrap">
+        <button class="btn --ghost cart-drawer__continue" onclick="closeCart()">Continua a sfogliare</button>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: CHECKOUT
+   ═══════════════════════════════════════ */
+
+function renderCheckout() {
+  const items = Object.entries(cart).map(([key, qty]) => {
+    const p = premiumForKey(key);
+    const price = keyPrice(key);
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
+    return `
+      <div class="cart-item">
+        ${thumbHTML(p, 'cart-item__image product-thumb')}
+        <div class="cart-item__info">
+          <div class="cart-item__top">
+            <div>
+              <p class="cart-item__name">${label}</p>
+              <div class="cart-item__variant">Premio</div>
+            </div>
+          </div>
+          <div class="cart-item__bottom">
+            <div class="cart-item__qty-text">${qty} pezzo${qty > 1 ? 'i' : ''}</div>
+            <div class="price-stack">${fmt(price * qty)}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const total = cartTotal();
+  const remaining = provisionAvailable();
+
+  return `
+    <div class="container portal-section">
+      <button class="btn --ghost --back --sm portal-back-btn" onclick="backToPortal()">Selezione premi</button>
+      <div class="checkout">
+
+        <!-- Colonna sinistra: indirizzo + spedizione -->
+        <div>
+          <div>
+            <h3 class="section-label --sub">Indirizzo di consegna</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <input type="text" id="co-vorname" placeholder=" " required>
+                <label for="co-vorname">Nome</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-nachname" placeholder=" " required>
+                <label for="co-nachname">Cognome</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-strasse" placeholder=" " required>
+                <label for="co-strasse">Via</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-hausnr" placeholder=" " required>
+                <label for="co-hausnr">N.</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-plz" placeholder=" " required>
+                <label for="co-plz">CAP</label>
+              </div>
+              <div class="form-field">
+                <input type="text" id="co-ort" placeholder=" " required>
+                <label for="co-ort">Città</label>
+              </div>
+              <div class="form-field --span-2">
+                <input type="email" id="co-email" placeholder=" " required>
+                <label for="co-email">Indirizzo e-mail</label>
+              </div>
+              <div class="form-field --span-2">
+                <input type="tel" id="co-tel" placeholder=" ">
+                <label for="co-tel">Telefono (opzionale)</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Colonna destra: riepilogo ordine -->
+        <aside class="checkout__sidebar">
+          <h3 class="section-label --sub">Riepilogo ordine</h3>
+          ${items}
+          <div id="checkout-summary">${renderCheckoutSummary(total, remaining)}</div>
+          <div class="checkout__cta">
+            <button class="btn --primary --full" type="button" onclick="submitRedeem()" ${previewMode ? 'disabled' : ''}>Riscatta premio</button>
+          </div>
+        </aside>
+
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER: SUCCESSO
+   ═══════════════════════════════════════ */
+
+function renderSuccess() {
+
+  const items = lastOrder.items.map(({ p, price, qty }) => {
+    const label = p.sizes ? `${p.name} – ${fmt(price)}` : p.name;
+    return `
+    <div class="cart-item">
+      ${thumbHTML(p, 'cart-item__image product-thumb')}
+      <div class="cart-item__info">
+        <div class="cart-item__top">
+          <div>
+            <p class="cart-item__name">${label}</p>
+            <div class="cart-item__variant">Premio</div>
+          </div>
+        </div>
+        <div class="cart-item__bottom">
+          <div class="cart-item__qty-text">${qty} pezzo${qty > 1 ? 'i' : ''}</div>
+          <div class="price-stack">${fmt(price * qty)}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="container --narrow portal-section">
+      <div class="success-state">
+        <span class="success-state__icon material-icons">check_circle</span>
+        <h1 class="success-state__title">Premio in arrivo!</h1>
+        <p class="success-state__body">Riscatto completato con successo: <strong>${fmt(lastOrder.total)}</strong> di provvigione. Una conferma verrà inviata all'indirizzo e-mail registrato.</p>
+      </div>
+      <div class="portal-success__items">
+        ${items}
+        <div class="summary-line"><span>Provvigione riscattata</span><span>${fmt(lastOrder.total)}</span></div>
+        <div class="summary-total"><span>Provvigione rimanente</span><span>${fmt(lastOrder.remaining)}</span></div>
+      </div>
+      <div class="success-state__actions">
+        <button class="btn --primary" onclick="backToPortal()">Torna alla panoramica</button>
+      </div>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RENDER PRINCIPALE
+   ═══════════════════════════════════════ */
+
+function initRings() {
+  const circ = 113.1;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const fill = entry.target.querySelector('.tile__ring-fill');
+      if (!fill || fill.dataset.animated) return;
+      fill.dataset.animated = '1';
+      const pct = parseFloat(fill.dataset.pct);
+      fill.style.strokeDashoffset = circ * (1 - pct / 100);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.tile.--product').forEach(t => observer.observe(t));
+}
+
+function countUp(target, duration = 1800, onDone) {
+  const el = document.getElementById('provisionAmount');
+  if (!el) return;
+  _countUpRunning = true;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(eased * target);
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      _countUpRunning = false;
+      if (_countUpPending !== null) {
+        const [next, cb] = _countUpPending;
+        _countUpPending = null;
+        countUpFrom(target, next, 900, cb);
+      } else if (onDone) {
+        onDone();
+      }
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function countUpFrom(from, target, duration = 900, onDone) {
+  const el = document.getElementById('provisionAmount');
+  if (!el) return;
+  _countUpRunning = true;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(from + eased * (target - from));
+    if (t < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      el.textContent = fmt(target);
+      _countUpRunning = false;
+      if (_countUpPending !== null) {
+        const [next, cb] = _countUpPending;
+        _countUpPending = null;
+        countUpFrom(target, next, 900, cb);
+      } else if (onDone) {
+        onDone();
+      }
+    }
+  }
+  requestAnimationFrame(tick);
+}
+
+function refreshTilesInPlace() {
+  const grid = document.querySelector('.tile-grid.--cols-3');
+  if (grid) {
+    grid.innerHTML = PREMIUMS.map(renderTile).join('');
+    requestAnimationFrame(() => { initRings(); initScrollAnimations(); });
+  }
+  const hint = document.querySelector('.provision-hero__sub.--hint');
+  if (hint) {
+    const target = nextNonAffordable();
+    const available = provisionAvailable();
+    hint.innerHTML = target
+      ? `Ancora <strong>${fmt(effectivePrice(target) - available)}</strong> per<br><a href="#" onclick="openPDP(${target.id});return false;"><em>${target.name}</em></a>`
+      : `Tutti i premi riscattabili`;
+  }
+}
+
+function updateProvisionDisplay(newTotal) {
+  if (newTotal === provisionTotal) return;
+  const oldAvailable = provisionAvailable();
+  provisionTotal = newTotal;
+  saveSession();
+  const newAvailable = provisionAvailable();
+  if (_countUpRunning) {
+    _countUpPending = [newAvailable, refreshTilesInPlace];
+  } else {
+    countUpFrom(oldAvailable, newAvailable, 900, refreshTilesInPlace);
+  }
+}
+
+function animateHeroRing() {
+  const fill = document.querySelector('.provision-hero__ring-fill');
+  if (!fill) return;
+  fill.style.strokeDashoffset = fill.dataset.offset;
+}
+
+function animatePDPRing() {
+  const fill = document.querySelector('.pdp__main-image .tile__ring-fill');
+  if (!fill || fill.dataset.animated) return;
+  fill.dataset.animated = '1';
+  fill.style.strokeDashoffset = 113.1 * (1 - parseFloat(fill.dataset.pct) / 100);
+}
+
+function render() {
+  const views = {
+    login:    renderLogin,
+    loading:  renderLoading,
+    portal:   renderPortal,
+    pdp:      renderPDP,
+    checkout: renderCheckout,
+    success:  renderSuccess,
+  };
+  document.getElementById('app').innerHTML = (views[currentPage] || renderLogin)();
+  document.getElementById('cartDrawer').innerHTML = renderCartDrawer();
+  renderPreviewBanner();
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) logoutBtn.style.display = (!previewMode && currentPage !== 'login') ? '' : 'none';
+  const exitPreviewBtn = document.getElementById('exitPreviewBtn');
+  if (exitPreviewBtn) exitPreviewBtn.style.display = previewMode ? '' : 'none';
+  const regStoerer = document.getElementById('regStoerer');
+  if (regStoerer) regStoerer.classList.toggle('--hidden', currentPage !== 'login' && !previewMode);
+
+  if (currentPage === 'portal') { countUp(provisionAvailable()); requestAnimationFrame(() => { animateHeroRing(); initRings(); initScrollAnimations(); }); }
+  if (currentPage === 'pdp') { requestAnimationFrame(animatePDPRing); }
+}
+
+function toggleAccordion(trigger) {
+  const item = trigger.parentElement;
+  const isOpen = item.classList.toggle('--open');
+  trigger.setAttribute('aria-expanded', isOpen);
+}
+
+function initMarquees() {
+  document.querySelectorAll('.announcement-bar.--marquee .announcement-bar__track').forEach(track => {
+    const bar = track.closest('.announcement-bar');
+    const minWidth = bar.offsetWidth * 2;
+    const originalChildren = [...track.children];
+    while (track.scrollWidth < minWidth) {
+      originalChildren.forEach(child => track.appendChild(child.cloneNode(true)));
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initMarquees);
+
+function initScrollAnimations() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('--in-view'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
+  document.querySelectorAll('.tile-grid .tile:not([data-animate])').forEach((tile, i) => {
+    tile.setAttribute('data-animate', '');
+    tile.style.setProperty('--anim-delay', Math.min(i, 5) * 70 + 'ms');
+    observer.observe(tile);
+  });
+}
+</script>
+</body>
+</html>
