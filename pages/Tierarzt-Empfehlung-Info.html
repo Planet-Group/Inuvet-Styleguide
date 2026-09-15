@@ -240,7 +240,7 @@
             <p>Portal-Seiten nutzen denselben <strong>Footer wie Collection</strong> (Shop · Rechtliches · Social · Über inuvet · Zahlungsarten — ohne Newsletter).</p>
 
             <h3>Weg ① — Anfrage eines Tierhalters freigeben</h3>
-            <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, Datum, <strong>Angefragte Produkte</strong> mit Größe <em>und Menge</em> (z. B. „30 g · 1×“) und <strong>Notiz vom Tierhalter</strong> — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
+            <p>Eingehende Anfragen erreichen die Praxis auf zwei Kanälen: per <strong>E-Mail</strong> (A2, mit Direktlink zu <strong>Offene Anfragen</strong>) und im Portal unter derselben Übersicht. Der Posteingang zeigt je Position: Name, Datum, <strong>Angefragte Produkte</strong> mit Größe, <em>Preis</em> und Menge (z. B. „30 g · 29,90 € · 1×“) und <strong>Notiz vom Tierhalter</strong> — plus Mehrfachauswahl (Checkboxen) und Zeilen-Aktionen:</p>
             <ul>
               <li><strong>Freigeben</strong> — öffnet ein Modal. Default ist die angefragte Menge. Button immer <em>„Freigeben“</em> (grün). Die Praxis kann die Obergrenze auf dieselben Stufen wie bei Weg ② ändern: max. 1× / 2× / 5× oder unbegrenzt. Optional eine <em>Notiz an Tierbesitzer</em>.</li>
               <li><strong>Nicht freigeben</strong> — gleiches Modal in der Danger-Variante (<code>.modal.--danger</code>); lehnt die Position ab (ohne Mengenwahl)</li>
@@ -249,7 +249,7 @@
             <p><strong>Nachrichten-Auslösung:</strong> Nach jeder Entscheidung wird <strong>B1</strong> (E-Mail an den Tierhalter) ausgelöst — Zeilen-Aktion und Bulk (nach Bestätigen). Die optionale Notiz und die tatsächlich freigegebene Menge (ggf. abweichend von der Anfrage) erscheinen in B1. <strong>Kein Salesforce-Task:</strong> die Praxis hat die Anfrage selbst erledigt, für den Kundeninhaber besteht kein Handlungsbedarf. Der bestehende Task A3 (neue Anfrage) wechselt auf <code>erledigt</code>. Im Mockup zeigt das Overlay B1 nach Zeilen-Aktion und nach Bulk-Bestätigung; Bulk aggregiert produktseitig idealerweise <strong>eine B1 pro Tierhalter</strong>. Es gibt keine separate Detailansicht mehr — die A2-Mail verlinkt direkt auf Offene Anfragen.</p>
 
             <h3>Weg ② — Freigabe direkt ausstellen (ohne Anfrage)</h3>
-            <p>Über <strong>„Freigabe ausstellen"</strong> kann die Praxis eine Freigabe auch ohne vorherige Anfrage erteilen — typisch direkt nach einem Praxisbesuch. Der Tierarzt wählt Produkte und Mengen:</p>
+            <p>Über <strong>„Freigabe ausstellen"</strong> kann die Praxis eine Freigabe auch ohne vorherige Anfrage erteilen — typisch direkt nach einem Praxisbesuch. Der Tierarzt wählt Produkte und Mengen; die Größenzeile zeigt Größe und Preis (z. B. „30 g · 29,90 €“):</p>
             <table>
               <thead>
                 <tr><th>Option</th><th>Bedeutung</th></tr>

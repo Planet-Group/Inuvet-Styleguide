@@ -228,6 +228,16 @@ function empfehlungUnitPrice(cartName, variantLabel) {
   return EMPFEHLUNG_VARIANT_PRICES[`${cartName}|${variantLabel}`] ?? 0;
 }
 
+/** Euro-Anzeige für Listen (z. B. „39,90 €“); leer wenn kein Preis. */
+function empfehlungFormatEuro(amount) {
+  if (amount == null || amount === '') return '';
+  const n = typeof amount === 'number'
+    ? amount
+    : parseFloat(String(amount).replace(/\s/g, '').replace('€', '').replace(',', '.'));
+  if (!Number.isFinite(n) || n <= 0) return '';
+  return `${n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+}
+
 function empfehlungGetRequest(requestId) {
   return EMPFEHLUNG_MOCK_REQUESTS.find(req => req.id === requestId) ?? null;
 }
@@ -317,23 +327,26 @@ function empfehlungCustomerNameCellHtml(name) {
 }
 
 /**
- * Meta-Zeile unter dem Produktnamen (Größe [, Menge]).
- * Offene Anfragen / Freigegeben: Größe · qty× / unbegrenzt.
+ * Meta-Zeile unter dem Produktnamen (Größe · Preis [, Menge]).
+ * Offene Anfragen / Freigegeben: z. B. „30 g · 29,90 € · 1×“ / „… · unbegrenzt“.
  */
-function empfehlungProductMeta(variantLabel, qty, unlimited) {
+function empfehlungProductMeta(variantLabel, qty, unlimited, unitPrice) {
   const size = variantLabel || '';
-  if (unlimited) return size ? `${size} · unbegrenzt` : 'unbegrenzt';
+  const price = empfehlungFormatEuro(unitPrice);
+  const sizeWithPrice = [size, price].filter(Boolean).join(' · ');
+  if (unlimited) return sizeWithPrice ? `${sizeWithPrice} · unbegrenzt` : 'unbegrenzt';
   if (qty != null && qty !== '') {
     const qtyLabel = `${qty}×`;
-    return size ? `${size} · ${qtyLabel}` : qtyLabel;
+    return sizeWithPrice ? `${sizeWithPrice} · ${qtyLabel}` : qtyLabel;
   }
-  return size;
+  return sizeWithPrice || size;
 }
 
-/** Zellen-Markup Produkt + Größe (gestapelt). */
+/** Zellen-Markup Produkt + Größe/Preis (gestapelt). */
 function empfehlungProductCellHtml(cartName, variantLabel, qty, unlimited, dataLabel) {
   const safeName = empfehlungEscapeHtml(cartName || '');
-  const safeMeta = empfehlungEscapeHtml(empfehlungProductMeta(variantLabel, qty, unlimited));
+  const unitPrice = empfehlungUnitPrice(cartName, variantLabel);
+  const safeMeta = empfehlungEscapeHtml(empfehlungProductMeta(variantLabel, qty, unlimited, unitPrice));
   const safeLabel = empfehlungEscapeHtml(dataLabel || 'Produkt');
   return `<td data-label="${safeLabel}"><div class="data-table-stack"><span class="data-table-stack__primary">${safeName}</span><span class="data-table-stack__meta">${safeMeta}</span></div></td>`;
 }
