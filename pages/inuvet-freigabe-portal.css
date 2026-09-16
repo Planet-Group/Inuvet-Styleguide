@@ -43,3 +43,9 @@
     text-decoration: none;
   }
 }
+
+/* Preis-Fußnote (* an den Euro-Beträgen) — Freigabe-Listen & Ausstellen */
+.freigabe-price-hint {
+  margin: 0 0 var(--module);
+  max-width: 36rem;
+}

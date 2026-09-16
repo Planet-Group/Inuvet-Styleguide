@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../planet-brands.css?v=207">
-  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=8">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=3" defer></script>
-  <link rel="stylesheet" href="inuvet-freigabe-ausstellen.css?v=5">
+  <link rel="stylesheet" href="inuvet-freigabe-ausstellen.css?v=8">
 </head>
 <body>
 
@@ -125,6 +125,11 @@
       <button type="button" class="order-item__link" onclick="backToRecipient()">ändern</button>
     </p>
 
+    <div class="notice --compact freigabe-price-hint" role="note">
+      <span class="material-icons notice__icon" aria-hidden="true">info</span>
+      <p>* Preise = Verkaufspreis; zahlt der Tierbesitzer beim Einlösen.</p>
+    </div>
+
     <div class="col-grid --spaced" data-cols="3" id="approvalGrid"></div>
 
     <div class="approval-note-section">
@@ -184,7 +189,7 @@
 </div>
 
 <script src="../planet-brands.js"></script>
-<script src="inuvet-freigabe-mock.js?v=15"></script>
-<script src="inuvet-freigabe-ausstellen.js?v=20"></script>
+<script src="inuvet-freigabe-mock.js?v=16"></script>
+<script src="inuvet-freigabe-ausstellen.js?v=21"></script>
 </body>
 </html>

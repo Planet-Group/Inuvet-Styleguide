@@ -235,7 +235,7 @@ function empfehlungFormatEuro(amount) {
     ? amount
     : parseFloat(String(amount).replace(/\s/g, '').replace('€', '').replace(',', '.'));
   if (!Number.isFinite(n) || n <= 0) return '';
-  return `${n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  return `${n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €*`;
 }
 
 function empfehlungGetRequest(requestId) {

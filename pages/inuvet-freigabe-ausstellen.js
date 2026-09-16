@@ -163,7 +163,7 @@ function optionsHTML(selected) {
 function variantRowHTML(p, v, vi) {
   const id = vid(p.id, vi);
   const value = approvalState[id];
-  const label = v.price ? `${v.label} · ${v.price}` : v.label;
+  const label = v.price ? `${v.label} · ${v.price}*` : v.label;
   return `
     <div class="approval-variant-row">
       <span class="approval-variant-row__label">${label}</span>

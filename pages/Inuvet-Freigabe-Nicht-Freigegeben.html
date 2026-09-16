@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://use.typekit.net/vhh5bbc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="../planet-brands.css?v=207">
-  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=7">
+  <link rel="stylesheet" href="inuvet-freigabe-portal.css?v=8">
   <link rel="stylesheet" href="../mockup-ui.css?v=2">
   <script src="../mockup-ui.js?v=3" defer></script>
 </head>
@@ -86,6 +86,11 @@
     <h1>Nicht freigegeben</h1>
   </header>
 
+  <div class="notice --compact freigabe-price-hint" role="note">
+    <span class="material-icons notice__icon" aria-hidden="true">info</span>
+    <p>* Preise = Verkaufspreis; zahlt der Tierbesitzer beim Einlösen.</p>
+  </div>
+
   <div class="rte --data-table --sortable" id="declinedTableWrap" hidden>
     <div class="data-table-sort">
       <label class="visually-hidden" for="declinedSort">Tabelle sortieren</label>
@@ -125,7 +130,7 @@
 </main>
 
 <script src="../planet-brands.js"></script>
-<script src="inuvet-freigabe-mock.js?v=15"></script>
+<script src="inuvet-freigabe-mock.js?v=16"></script>
 <script src="inuvet-freigabe-nicht-freigegeben.js?v=7"></script>
 </body>
 </html>
