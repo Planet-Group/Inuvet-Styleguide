@@ -133,9 +133,9 @@ function productCommissionText(p) {
     if (max === Infinity) unlimitedPerOrder += v.commission;
     else fixed += v.commission * max;
   });
-  if (fixed === 0 && unlimitedPerOrder === 0) return { text: 'Keine Provision', muted: true };
-  if (fixed > 0 && unlimitedPerOrder > 0) return { text: `Provision bis ${formatEur(fixed)} + ${formatEur(unlimitedPerOrder)} / Bestellung`, muted: false };
-  if (fixed > 0) return { text: `Provision bis ${formatEur(fixed)}`, muted: false };
+  if (fixed === 0 && unlimitedPerOrder === 0) return { text: '', muted: true };
+  if (fixed > 0 && unlimitedPerOrder > 0) return { text: `Provision bis zu ${formatEur(fixed)} + ${formatEur(unlimitedPerOrder)} / Bestellung`, muted: false };
+  if (fixed > 0) return { text: `Provision bis zu ${formatEur(fixed)}`, muted: false };
   return { text: `Provision ${formatEur(unlimitedPerOrder)} / Bestellung`, muted: false };
 }
 
@@ -145,6 +145,7 @@ function updateProductCommission(productId) {
   if (!el) return;
   const c = productCommissionText(p);
   el.textContent = c.text;
+  el.hidden = !c.text;
   el.classList.toggle('--muted', c.muted);
 }
 
@@ -189,7 +190,7 @@ function cardHTML(p) {
             <div>
               <div class="flow">
                 <p class="cart-item__name">${p.cartName}</p>
-                <p class="approval-product-card__commission${prodComm.muted ? ' --muted' : ''}" id="prodcomm-${p.id}">${prodComm.text}</p>
+                <p class="approval-product-card__commission${prodComm.muted ? ' --muted' : ''}" id="prodcomm-${p.id}"${prodComm.text ? '' : ' hidden'}>${prodComm.text}</p>
               </div>
             </div>
           </div>
