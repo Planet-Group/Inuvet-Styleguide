@@ -134,9 +134,7 @@ function productCommissionText(p) {
     else fixed += v.commission * max;
   });
   if (fixed === 0 && unlimitedPerOrder === 0) return { text: '', muted: true };
-  if (fixed > 0 && unlimitedPerOrder > 0) return { text: `Provision bis zu ${formatEur(fixed)} + ${formatEur(unlimitedPerOrder)} / Bestellung`, muted: false };
-  if (fixed > 0) return { text: `Provision bis zu ${formatEur(fixed)}`, muted: false };
-  return { text: `Provision ${formatEur(unlimitedPerOrder)} / Bestellung`, muted: false };
+  return { text: `Provision: ca. ${formatEur(fixed + unlimitedPerOrder)}`, muted: false };
 }
 
 function updateProductCommission(productId) {
