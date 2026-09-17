@@ -134,7 +134,7 @@ function productCommissionText(p) {
     else fixed += v.commission * max;
   });
   if (fixed === 0 && unlimitedPerOrder === 0) return { text: '', muted: true };
-  return { text: `Provision: ca. ${formatEur(fixed + unlimitedPerOrder)}`, muted: false };
+  return { text: `Provision: bis zu ${formatEur(fixed + unlimitedPerOrder)}`, muted: false };
 }
 
 function updateProductCommission(productId) {
@@ -413,7 +413,7 @@ function updateCounter() {
 
   if (approvedProducts > 0) {
     const countLine = `${approvedProducts} Produkt${approvedProducts !== 1 ? 'e' : ''} ausgewählt`;
-    const provLine  = `Provision: ca. ${formatEur(totalFixed + unlimitedPerOrder)}`;
+    const provLine  = `Provision: bis zu ${formatEur(totalFixed + unlimitedPerOrder)}`;
     setCounterText(countLine, provLine);
   } else {
     setCounterText('Noch keine Entscheidung getroffen');
